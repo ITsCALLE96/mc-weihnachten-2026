@@ -1,0 +1,5 @@
+{
+  "name": "Weihnachtsprojekt 2026 (optional)",
+  "version": "1.0.0",
+  "mods": ["fabric-api", "sodium", "lithium", "entityculling", "iris", "xaeros-minimap", "modmenu", "zoomify"]
+}
