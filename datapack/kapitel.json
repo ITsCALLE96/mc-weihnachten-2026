@@ -1,0 +1,91 @@
+{
+  "kapitel": [
+    {
+      "id": "kapitel1",
+      "phase": 1,
+      "titel": "Leitfaden: Ankommen",
+      "beschreibung": "Deine ersten Tage. Fahr mit der Maus über ein Ziel, um zu sehen, wie es geht.",
+      "icon": "minecraft:oak_sapling",
+      "ziele": [
+        { "id": "werkbank", "vanilla": "story/root", "parent": "start", "icon": "minecraft:crafting_table",
+          "titel": "Werkbank bauen",
+          "beschreibung": "Schlag einen Baumstamm mit der Hand ab, mach daraus Bretter und bau aus 4 Brettern eine Werkbank." },
+        { "id": "stein", "vanilla": "story/mine_stone", "parent": "werkbank", "icon": "minecraft:wooden_pickaxe",
+          "titel": "Steinzeit",
+          "beschreibung": "Bau an der Werkbank eine Holzspitzhacke und grab damit Stein ab. Er liegt meist direkt unter der Erde." },
+        { "id": "werkzeug", "vanilla": "story/upgrade_tools", "parent": "stein", "icon": "minecraft:stone_pickaxe",
+          "titel": "Bessere Werkzeuge",
+          "beschreibung": "Bau aus Bruchstein eine Steinspitzhacke. Sie hält länger und kann Eisen abbauen." },
+        { "id": "essen", "vanilla": "husbandry/root", "parent": "start", "icon": "minecraft:cooked_beef",
+          "titel": "Satt werden",
+          "beschreibung": "Iss etwas, zum Beispiel Fleisch von Kühen oder Schweinen. Im Ofen gebraten macht es viel satter." },
+        { "id": "feld", "vanilla": "husbandry/plant_seed", "parent": "essen", "icon": "minecraft:wheat_seeds",
+          "titel": "Eigenes Feld",
+          "beschreibung": "Zerstör hohes Gras für Samen, mach Erde neben Wasser mit einer Hacke zu Ackerboden und pflanze die Samen ein." },
+        { "id": "schlafen", "vanilla": "adventure/sleep_in_bed", "parent": "start", "icon": "minecraft:red_bed",
+          "titel": "Erste Nacht überstehen",
+          "beschreibung": "Bau ein Bett aus 3 Wolle und 3 Brettern (Wolle gibt es von Schafen). Schlafen überspringt die Nacht und merkt sich deinen Startpunkt." },
+        { "id": "eisen", "vanilla": "story/smelt_iron", "parent": "werkzeug", "icon": "minecraft:iron_ingot",
+          "titel": "Eisen schmelzen",
+          "beschreibung": "Eisenerz findest du in Höhlen und an Berghängen. Bau einen Ofen aus 8 Bruchstein und schmelze das rohe Eisen mit Kohle." },
+        { "id": "ruestung", "vanilla": "story/obtain_armor", "parent": "eisen", "icon": "minecraft:iron_chestplate",
+          "titel": "Gut geschützt",
+          "beschreibung": "Stell ein Rüstungsteil aus Eisen her. Fang mit dem Brustpanzer an, er schützt am meisten." },
+        { "id": "eisenspitzhacke", "vanilla": "story/iron_tools", "parent": "eisen", "icon": "minecraft:iron_pickaxe",
+          "titel": "Eisenspitzhacke",
+          "beschreibung": "Bau eine Spitzhacke aus 3 Eisenbarren und 2 Stöcken. Nur damit kannst du Diamanten abbauen." },
+        { "id": "diamanten", "vanilla": "story/mine_diamond", "parent": "eisenspitzhacke", "icon": "minecraft:diamond",
+          "titel": "Diamanten!",
+          "beschreibung": "Diamanten liegen ganz tief, am häufigsten um Höhe Y -59. Mit F3 siehst du deine Höhe." },
+        { "id": "lava", "vanilla": "story/lava_bucket", "parent": "eisen", "icon": "minecraft:lava_bucket",
+          "titel": "Heißes Zeug",
+          "beschreibung": "Bau einen Eimer aus 3 Eisenbarren und füll ihn mit Lava. Grab nie direkt unter dir nach unten!" }
+      ]
+    },
+    {
+      "id": "kapitel2",
+      "phase": 2,
+      "titel": "Leitfaden: Nether",
+      "beschreibung": "Der Nether ist offen! Dort ist es heiß und gefährlich – bereite dich gut vor.",
+      "icon": "minecraft:netherrack",
+      "ziele": [
+        { "id": "obsidian", "vanilla": "story/form_obsidian", "parent": "start", "icon": "minecraft:obsidian",
+          "titel": "Obsidian",
+          "beschreibung": "Gieß Wasser auf stehende Lava, dann wird sie zu Obsidian. Abbauen kannst du ihn nur mit einer Diamantspitzhacke." },
+        { "id": "portal", "vanilla": "story/enter_the_nether", "parent": "obsidian", "icon": "minecraft:flint_and_steel",
+          "titel": "Ab in den Nether",
+          "beschreibung": "Bau einen Rahmen aus Obsidian (4 breit, 5 hoch) und zünde ihn mit Feuerzeug an. Mit einem Teil Goldrüstung lassen Piglins dich in Ruhe." },
+        { "id": "festung", "vanilla": "nether/find_fortress", "parent": "portal", "icon": "minecraft:nether_bricks",
+          "titel": "Netherfestung",
+          "beschreibung": "Festungen sind große Bauten aus dunkelroten Ziegeln. Sie sind selten – nimm genug Essen und Blöcke mit." },
+        { "id": "lohe", "vanilla": "nether/obtain_blaze_rod", "parent": "festung", "icon": "minecraft:blaze_rod",
+          "titel": "Lohenruten",
+          "beschreibung": "Lohen schweben in Festungen und schießen Feuerbälle. Schneebälle machen ihnen erstaunlich viel Schaden!" },
+        { "id": "trank", "vanilla": "nether/brew_potion", "parent": "lohe", "icon": "minecraft:potion",
+          "titel": "Erster Trank",
+          "beschreibung": "Bau aus einer Lohenrute und Bruchstein einen Braustand. Wasserflasche plus Netherwarze ergibt den Grundtrank." },
+        { "id": "verzaubern", "vanilla": "story/enchant_item", "parent": "obsidian", "icon": "minecraft:enchanting_table",
+          "titel": "Verzaubert",
+          "beschreibung": "Bau einen Zaubertisch aus 1 Buch, 2 Diamanten und 4 Obsidian. Verzaubern kostet Erfahrung und Lapislazuli." }
+      ]
+    },
+    {
+      "id": "kapitel3",
+      "phase": 4,
+      "titel": "Leitfaden: Das End",
+      "beschreibung": "Das End ist offen! Den Drachen besiegen wir gemeinsam – Termin steht im Chat.",
+      "icon": "minecraft:end_stone",
+      "ziele": [
+        { "id": "enderauge", "vanilla": "story/follow_ender_eye", "parent": "start", "icon": "minecraft:ender_eye",
+          "titel": "Dem Auge folgen",
+          "beschreibung": "Enderauge = Enderperle (von Endermen) + Lohenstaub. Wirf es in die Luft, es fliegt zur Festung. Manche zerbrechen, nimm genug mit." },
+        { "id": "end", "vanilla": "story/enter_the_end", "parent": "enderauge", "icon": "minecraft:end_portal_frame",
+          "titel": "Ins End",
+          "beschreibung": "Unter der Festung liegt das Endportal. Setz in alle 12 Rahmen ein Enderauge. Nimm Blöcke, Bogen und Essen mit." },
+        { "id": "drache", "vanilla": "end/kill_dragon", "parent": "end", "icon": "minecraft:dragon_head",
+          "titel": "Der Drache fällt",
+          "beschreibung": "Zerstört zuerst die Kristalle auf den Säulen, sonst heilt sich der Drache. Ein geschnitzter Kürbis auf dem Kopf hält Endermen ruhig." }
+      ]
+    }
+  ]
+}

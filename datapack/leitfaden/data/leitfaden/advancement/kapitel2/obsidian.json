@@ -1,0 +1,30 @@
+{
+  "parent": "leitfaden:kapitel2/start",
+  "criteria": {
+    "obsidian": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:obsidian"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obsidian"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:obsidian"
+    },
+    "title": "Obsidian",
+    "description": "Gieß Wasser auf stehende Lava, dann wird sie zu Obsidian. Abbauen kannst du ihn nur mit einer Diamantspitzhacke.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

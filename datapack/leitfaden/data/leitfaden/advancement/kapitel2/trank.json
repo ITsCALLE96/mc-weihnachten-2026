@@ -1,0 +1,23 @@
+{
+  "parent": "leitfaden:kapitel2/lohe",
+  "criteria": {
+    "potion": {
+      "trigger": "minecraft:brewed_potion"
+    }
+  },
+  "requirements": [
+    [
+      "potion"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:potion"
+    },
+    "title": "Erster Trank",
+    "description": "Bau aus einer Lohenrute und Bruchstein einen Braustand. Wasserflasche plus Netherwarze ergibt den Grundtrank.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

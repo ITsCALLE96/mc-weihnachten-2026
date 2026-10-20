@@ -1,0 +1,23 @@
+{
+  "parent": "leitfaden:kapitel1/start",
+  "criteria": {
+    "consumed_item": {
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "requirements": [
+    [
+      "consumed_item"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:cooked_beef"
+    },
+    "title": "Satt werden",
+    "description": "Iss etwas, zum Beispiel Fleisch von Kühen oder Schweinen. Im Ofen gebraten macht es viel satter.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

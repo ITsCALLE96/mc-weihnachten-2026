@@ -1,0 +1,30 @@
+{
+  "parent": "leitfaden:kapitel1/stein",
+  "criteria": {
+    "stone_pickaxe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:stone_pickaxe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "stone_pickaxe"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:stone_pickaxe"
+    },
+    "title": "Bessere Werkzeuge",
+    "description": "Bau aus Bruchstein eine Steinspitzhacke. Sie hält länger und kann Eisen abbauen.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

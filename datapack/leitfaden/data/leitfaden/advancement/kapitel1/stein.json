@@ -1,0 +1,30 @@
+{
+  "parent": "leitfaden:kapitel1/werkbank",
+  "criteria": {
+    "get_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:stone_tool_materials"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "get_stone"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:wooden_pickaxe"
+    },
+    "title": "Steinzeit",
+    "description": "Bau an der Werkbank eine Holzspitzhacke und grab damit Stein ab. Er liegt meist direkt unter der Erde.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

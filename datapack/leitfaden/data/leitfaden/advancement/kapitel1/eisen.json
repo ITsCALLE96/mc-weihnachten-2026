@@ -1,0 +1,30 @@
+{
+  "parent": "leitfaden:kapitel1/werkzeug",
+  "criteria": {
+    "iron": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:iron_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "iron"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:iron_ingot"
+    },
+    "title": "Eisen schmelzen",
+    "description": "Eisenerz findest du in Höhlen und an Berghängen. Bau einen Ofen aus 8 Bruchstein und schmelze das rohe Eisen mit Kohle.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}
