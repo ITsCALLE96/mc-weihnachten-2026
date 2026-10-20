@@ -1,0 +1,24 @@
+{
+  "name": "mc-weihnachten-2026",
+  "version": "1.0.0",
+  "description": "Serverseitige Bausteine für ein Vanilla-Weihnachtsprojekt: Leitfaden-Datapack, Weihnachts-Resourcepack, optionales Modrinth-Pack.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ITsCALLE96/mc-weihnachten-2026.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ITsCALLE96/mc-weihnachten-2026/issues"
+  },
+  "homepage": "https://github.com/ITsCALLE96/mc-weihnachten-2026#readme",
+  "devDependencies": {
+    "pngjs": "^7.0.0"
+  }
+}

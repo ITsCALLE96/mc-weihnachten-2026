@@ -1,0 +1,1 @@
+give @s minecraft:paper[minecraft:item_model="weihnachten:weihnachtsmuetze",minecraft:item_name="Weihnachtsmütze",minecraft:max_stack_size=1,minecraft:equippable={slot:"head",asset_id:"weihnachten:weihnachtsmuetze",swappable:true}] 1
