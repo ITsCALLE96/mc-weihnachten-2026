@@ -13,3 +13,12 @@ Alle von mc-schematics.com, Download ohne Anmeldung. **Lizenz:** Die Seite nennt
 **Empfehlung:** **C als Grundfläche + B oder A als Blickfang** in einem Viertel. Die anderen Viertel bleiben frei für die Marktstände in Phase 3. Wenn die unklare Lizenz stört: **E**.
 
 Vorschaubilder: siehe Links.
+
+## Entscheidung (2026-10-22)
+
+**C + A:** Central Spawn Hub als Platz, Winter Train Station als Blickfang in einem Viertel; die übrigen Viertel bleiben für die Marktstände (Phase 3).
+
+- Die Dateien liegen nur lokal in `spawn/quellen/` (git-ignoriert) – wegen der unklaren Lizenz nicht im öffentlichen Repo.
+- A umgewandelt mit `node tools/schematic.mjs spawn/quellen/winter-train-station-build.litematic spawn/quellen/winter-train-station.schem` (Stichprobe: 13.599 Blöcke, 79 Block-Entities wie im Original).
+- C ist Sponge v2 aus 1.17 (DataVersion 2730) – WorldEdit aktualisiert die Blöcke beim Laden; „Verwintern“ (Kupfer/Quarz → Fichte/Schnee) erst auf dem Server per `//replace`.
+- Namensnennung am Spawn: IrishMonke (C), emgvacation bzw. JPCore laut Datei (A).
