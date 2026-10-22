@@ -18,9 +18,9 @@ Vorschaubilder: siehe Links.
 
 **Polarexpress-Spawn:** Großer Bahnhof (A, Winter Train Station), davor der Polarexpress, der aus einem großen Berg kommt (Tunnel endet blind im Berg). Daneben ein **leerer Marktplatz** – nur Bodentexturen und ein **riesiger Weihnachtsbaum** in der Mitte; Stände/Villager-Handel baut Pascal später selbst. C (Hub) entfällt, passt stilistisch nicht.
 
-- **Zug:**  – eigene Personenwagen (dunkelrot, goldene Zierleiste, Laternen, Sitzgruppen, Faltenbälge) hinter der [Steam Train](https://mc-schematics.com/s/steam-train-vehicle-ca0ba0b6b4), Lok schwarz umgefärbt. 4 Wagen = 146×24×11.
-- **Vorschau:**  (Texturen aus dem 26.3-Client-Jar).
+- **Zug:** `node tools/zug.mjs <lok.schem> <ausgabe.schem> [wagen=4]` – eigene Personenwagen (dunkelrot, goldene Zierleiste, Laternen, Sitzgruppen, Faltenbälge) hinter der [Steam Train](https://mc-schematics.com/s/steam-train-vehicle-ca0ba0b6b4), Lok schwarz umgefärbt. 4 Wagen = 146×24×11.
+- **Vorschau:** `node tools/vorschau.mjs <datei.schem> <ausgabe.png> <textures/block>` (Texturen aus dem 26.3-Client-Jar).
 - **Seed:** gesucht – großer Berg (jagged/frozen peaks) direkt neben verschneiter Ebene.
-- Fremde Schematics liegen nur lokal in  (git-ignoriert) – Lizenz unklar, Repo öffentlich.
-- A umgewandelt mit  (13.599 Blöcke, 79 Block-Entities wie im Original).
+- Fremde Schematics liegen nur lokal in `spawn/quellen/` (git-ignoriert) – Lizenz unklar, Repo öffentlich.
+- A umgewandelt mit `node tools/schematic.mjs <eingabe.litematic> <ausgabe.schem>` (13.599 Blöcke, 79 Block-Entities wie im Original).
 - Namensnennung am Spawn: emgvacation bzw. JPCore (Bahnhof), Erbauer der Lok laut mc-schematics.
