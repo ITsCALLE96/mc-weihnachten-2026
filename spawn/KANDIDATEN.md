@@ -14,13 +14,30 @@ Alle von mc-schematics.com, Download ohne Anmeldung. **Lizenz:** Die Seite nennt
 
 Vorschaubilder: siehe Links.
 
-## Entscheidung (2026-10-22, überarbeitet)
+## Stand (2026-10-22 abends)
 
-**Polarexpress-Spawn:** Großer Bahnhof (A, Winter Train Station), davor der Polarexpress, der aus einem großen Berg kommt (Tunnel endet blind im Berg). Daneben ein **leerer Marktplatz** – nur Bodentexturen und ein **riesiger Weihnachtsbaum** in der Mitte; Stände/Villager-Handel baut Pascal später selbst. C (Hub) entfällt, passt stilistisch nicht.
+**Kein Eigenbau-Spawn vor dem Start.** Gestaltung macht Pascal, Claude die Technik. Der selbst generierte Polarexpress (Wagen per Skript) sah nicht gut aus und ist verworfen; fertige Polarexpress-Baupläne gibt es nur für die Create-Mod (nicht Vanilla). Planet-Minecraft-Spawns sind zu alt. Polarexpress, Marktplatz (leer, nur Boden + riesiger Weihnachtsbaum) und Villager-Handel können später **ingame** gebaut werden.
 
-- **Zug:** `node tools/zug.mjs <lok.schem> <ausgabe.schem> [wagen=4]` – eigene Personenwagen (dunkelrot, goldene Zierleiste, Laternen, Sitzgruppen, Faltenbälge) hinter der [Steam Train](https://mc-schematics.com/s/steam-train-vehicle-ca0ba0b6b4), Lok schwarz umgefärbt. 4 Wagen = 146×24×11.
-- **Vorschau:** `node tools/vorschau.mjs <datei.schem> <ausgabe.png> <textures/block>` (Texturen aus dem 26.3-Client-Jar).
-- **Seed:** gesucht – großer Berg (jagged/frozen peaks) direkt neben verschneiter Ebene.
-- Fremde Schematics liegen nur lokal in `spawn/quellen/` (git-ignoriert) – Lizenz unklar, Repo öffentlich.
-- A umgewandelt mit `node tools/schematic.mjs <eingabe.litematic> <ausgabe.schem>` (13.599 Blöcke, 79 Block-Entities wie im Original).
-- Namensnennung am Spawn: emgvacation bzw. JPCore (Bahnhof), Erbauer der Lok laut mc-schematics.
+Spawn-Quelle, in dieser Reihenfolge:
+
+1. **CraftAttack-12-Welt** (Community-Download nach Staffelende) – Pascal lädt am 23.10. (nicht vorher, blockiert die Leitung). Claude: `level.dat` auslesen (Version, Seed, Spawn), Vorschau rendern, Spawn als `.schem` ausschneiden, Plugin-Abhängigkeiten prüfen. Idee: CA12-Seed + Spawn an Originalkoordinaten = passt ins Gelände.
+2. **Nitrado „Craft Attack Pack“** (Werbung bei SparkofPhoenix, Code `SPARKOFPHOENIX` −40 %): enthält laut Pascal den schwebenden CA-Spawn, die Trading-Insel und eine Map. Einen Monat mieten, per FTP Welt + Plugins holen, lokal auf Paper einrichten. Vorher Nitrado-Bedingungen zur Weiternutzung prüfen.
+3. **Rückfall:** Bahnhof A (fertig umgewandelt) als schlichter Start.
+
+### Seed-Kandidaten (eigene Suche, Vanilla 26.3)
+
+| Nr. | Seed | Lage |
+|---|---|---|
+| 17 (Pascal) | `2452457394367175690` | bei -978 -550 Cherry Grove, Snowy Slopes 156 / Frozen Peaks 172 Blöcke entfernt; Schneeebene erst 3 km → Bahnhofsbereich per `/fillbiome` verschneien |
+| 25 (Pascal) | `100000755979678208` | Weltspawn: Jagged Peaks 45, Grove 32, Snowy Plains 316, Ice Spikes 472; Cherry Grove 968 |
+| 20 (Pascal) | `-3361685360695458093` | Jagged Peaks + Cherry Grove ~600 vom Spawn, ~200 auseinander |
+| Suche | `5501184897758720731` | Jagged Peaks -528 -896, Ebene 160, Cherry Grove 183 |
+
+Bei einer CA-Welt entfällt die Seed-Wahl ggf. (CA-Seed).
+
+### Werkzeuge
+
+- `node tools/schematic.mjs <eingabe.litematic> <ausgabe.schem>` – Litematica → WorldEdit (Sponge v2); Bahnhof A geprüft: 13.599 Blöcke, 79 Block-Entities wie im Original
+- `node tools/vorschau.mjs <datei.schem> <ausgabe.png> <textures/block>` – Schrägansicht mit Vanilla-Texturen (aus dem 26.3-Client-Jar)
+- `tools/schem.mjs` – Schematics lesen/bearbeiten/schreiben (einfügen, Blöcke ersetzen)
+- Fremde Schematics liegen nur lokal in `spawn/quellen/` (git-ignoriert) – Lizenz unklar, Repo öffentlich. Namensnennung Bahnhof: emgvacation bzw. JPCore.
