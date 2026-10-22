@@ -20,8 +20,8 @@ Vorschaubilder: siehe Links.
 
 Spawn-Quelle, in dieser Reihenfolge:
 
-1. **CraftAttack-12-Welt** (Community-Download nach Staffelende) – Pascal lädt am 23.10. (nicht vorher, blockiert die Leitung). Claude: `level.dat` auslesen (Version, Seed, Spawn), Vorschau rendern, Spawn als `.schem` ausschneiden, Plugin-Abhängigkeiten prüfen. Idee: CA12-Seed + Spawn an Originalkoordinaten = passt ins Gelände.
-2. **Nitrado „Craft Attack Pack“** (Werbung bei SparkofPhoenix, Code `SPARKOFPHOENIX` −40 %): enthält laut Pascal den schwebenden CA-Spawn, die Trading-Insel und eine Map. Einen Monat mieten, per FTP Welt + Plugins holen, lokal auf Paper einrichten. Vorher Nitrado-Bedingungen zur Weiternutzung prüfen.
+1. **Favorit: Nitrado „Craft Attack Pack“** (Werbung bei SparkofPhoenix, Code `SPARKOFPHOENIX` −40 %): enthält laut Pascal den schwebenden CA-Spawn, die **One-Way-Elytra**, die Trading-Insel und eine Map. Einen Monat mieten, per FTP Welt + Plugins holen, lokal auf Paper einrichten. Die Insel schwebt → lässt sich auf jeden eigenen Seed setzen. Vorher Nitrado-Bedingungen zur Weiternutzung prüfen.
+2. **Vergleich: CraftAttack-12-Welt** (Community-Download nach Staffelende) – Pascal lädt am 23.10. (nicht vorher, blockiert die Leitung). Claude: `level.dat` auslesen (Version, Seed, Spawn), Vorschau rendern, Spawn als `.schem` ausschneiden, Plugin-Abhängigkeiten prüfen.
 3. **Rückfall:** Bahnhof A (fertig umgewandelt) als schlichter Start.
 
 ### Seed-Kandidaten (eigene Suche, Vanilla 26.3)
