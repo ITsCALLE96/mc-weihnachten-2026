@@ -14,11 +14,13 @@ Alle von mc-schematics.com, Download ohne Anmeldung. **Lizenz:** Die Seite nennt
 
 Vorschaubilder: siehe Links.
 
-## Entscheidung (2026-10-22)
+## Entscheidung (2026-10-22, überarbeitet)
 
-**C + A:** Central Spawn Hub als Platz, Winter Train Station als Blickfang in einem Viertel; die übrigen Viertel bleiben für die Marktstände (Phase 3).
+**Polarexpress-Spawn:** Großer Bahnhof (A, Winter Train Station), davor der Polarexpress, der aus einem großen Berg kommt (Tunnel endet blind im Berg). Daneben ein **leerer Marktplatz** – nur Bodentexturen und ein **riesiger Weihnachtsbaum** in der Mitte; Stände/Villager-Handel baut Pascal später selbst. C (Hub) entfällt, passt stilistisch nicht.
 
-- Die Dateien liegen nur lokal in `spawn/quellen/` (git-ignoriert) – wegen der unklaren Lizenz nicht im öffentlichen Repo.
-- A umgewandelt mit `node tools/schematic.mjs spawn/quellen/winter-train-station-build.litematic spawn/quellen/winter-train-station.schem` (Stichprobe: 13.599 Blöcke, 79 Block-Entities wie im Original).
-- C ist Sponge v2 aus 1.17 (DataVersion 2730) – WorldEdit aktualisiert die Blöcke beim Laden; „Verwintern“ (Kupfer/Quarz → Fichte/Schnee) erst auf dem Server per `//replace`.
-- Namensnennung am Spawn: IrishMonke (C), emgvacation bzw. JPCore laut Datei (A).
+- **Zug:**  – eigene Personenwagen (dunkelrot, goldene Zierleiste, Laternen, Sitzgruppen, Faltenbälge) hinter der [Steam Train](https://mc-schematics.com/s/steam-train-vehicle-ca0ba0b6b4), Lok schwarz umgefärbt. 4 Wagen = 146×24×11.
+- **Vorschau:**  (Texturen aus dem 26.3-Client-Jar).
+- **Seed:** gesucht – großer Berg (jagged/frozen peaks) direkt neben verschneiter Ebene.
+- Fremde Schematics liegen nur lokal in  (git-ignoriert) – Lizenz unklar, Repo öffentlich.
+- A umgewandelt mit  (13.599 Blöcke, 79 Block-Entities wie im Original).
+- Namensnennung am Spawn: emgvacation bzw. JPCore (Bahnhof), Erbauer der Lok laut mc-schematics.
