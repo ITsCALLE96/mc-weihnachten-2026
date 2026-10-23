@@ -1,5 +1,14 @@
 {
   "name": "Weihnachtsprojekt 2026 (optional)",
-  "version": "1.0.0",
-  "mods": ["fabric-api", "sodium", "lithium", "entityculling", "iris", "xaeros-minimap", "modmenu", "zoomify"]
+  "version": "2.0.0",
+  "mods": [
+    "fabric-api", "sodium", "lithium", "entityculling", "ferrite-core", "immediatelyfast", "better-block-entities",
+    "smoothtexturefix", "moreculling", "badoptimizations", "dynamic-fps",
+    "iris", "continuity", "entitytexturefeatures", "entity-model-features", "3dskinlayers", "zoomify",
+    "bobby", "distanthorizons", "gamma-utils",
+    "xaeros-minimap", "xaeros-world-map", "appleskin", "shulkerboxtooltip", "lightoverlay", "status-effect-bars",
+    "modmenu", "mouse-tweaks", "clientsort", "clickthrough-plus", "controlling", "borderless-fullscreen",
+    "litematica", "fancymenu"
+  ],
+  "shader": ["complementary-reimagined"]
 }

@@ -1,17 +1,50 @@
 # Stand des Modpacks
 
-Minecraft 26.3, Fabric Loader 0.19.5
+Minecraft 26.3, Fabric Loader 0.20.1
 
 | Datei | Download |
 |---|---|
-| mods/fabric-api-0.164.0+26.3.jar | https://cdn.modrinth.com/data/P7dR8mSH/versions/LEklt8GT/fabric-api-0.164.0%2B26.3.jar |
+| mods/fabric-api-0.165.0+26.3.jar | https://cdn.modrinth.com/data/P7dR8mSH/versions/EQKgpeKu/fabric-api-0.165.0%2B26.3.jar |
 | mods/sodium-fabric-0.9.2+mc26.3.jar | https://cdn.modrinth.com/data/AANobbMI/versions/bAZQdGpg/sodium-fabric-0.9.2%2Bmc26.3.jar |
 | mods/lithium-fabric-0.26.2+mc26.3.jar | https://cdn.modrinth.com/data/gvQqBUqZ/versions/xS0Q8LSi/lithium-fabric-0.26.2%2Bmc26.3.jar |
 | mods/entityculling-fabric-1.11.3-mc26.3.jar | https://cdn.modrinth.com/data/NNAgCjsB/versions/X1g3VhTx/entityculling-fabric-1.11.3-mc26.3.jar |
+| mods/ferritecore-9.0.0-fabric.jar | https://cdn.modrinth.com/data/uXXizFIs/versions/d5ddUdiB/ferritecore-9.0.0-fabric.jar |
+| mods/ImmediatelyFast-Fabric-1.17.1+26.3.jar | https://cdn.modrinth.com/data/5ZwdcRci/versions/3MP9UR23/ImmediatelyFast-Fabric-1.17.1%2B26.3.jar |
+| mods/bbe-fabric-1.4.0+mc26.3-mod.jar | https://cdn.modrinth.com/data/ONZm0H7Y/versions/FU2tstk7/bbe-fabric-1.4.0%2Bmc26.3-mod.jar |
+| mods/smoothtexturefix-1.0.0+26.3.jar | https://cdn.modrinth.com/data/ktA2SFDe/versions/Fc5xQ6BL/smoothtexturefix-1.0.0%2B26.3.jar |
+| mods/moreculling-fabric-26.3-1.9.0.jar | https://cdn.modrinth.com/data/51shyZVL/versions/t7vAlfgO/moreculling-fabric-26.3-1.9.0.jar |
+| mods/BadOptimizations-2.4.1-26.3-fabric.jar | https://cdn.modrinth.com/data/g96Z4WVZ/versions/Sp0ctspw/BadOptimizations-2.4.1-26.3-fabric.jar |
+| mods/dynamic-fps-3.11.10+minecraft-26.3.0-fabric.jar | https://cdn.modrinth.com/data/LQ3K71Q1/versions/Jwq069rR/dynamic-fps-3.11.10%2Bminecraft-26.3.0-fabric.jar |
 | mods/iris-fabric-1.11.7+mc26.3.jar | https://cdn.modrinth.com/data/YL57xq9U/versions/vTN4NRGW/iris-fabric-1.11.7%2Bmc26.3.jar |
-| mods/xaerominimap-fabric-26.3-26.6.1.jar | https://cdn.modrinth.com/data/1bokaNcj/versions/eUEhnw8G/xaerominimap-fabric-26.3-26.6.1.jar |
-| mods/modmenu-21.0.0.jar | https://cdn.modrinth.com/data/mOgUt4GM/versions/kyy7dbrZ/modmenu-21.0.0.jar |
+| mods/continuity-3.0.1+26.3.jar | https://cdn.modrinth.com/data/1IjD5062/versions/Jt2sCWTQ/continuity-3.0.1%2B26.3.jar |
+| mods/entity_texture_features-7.2.6-26.3-fabric.jar | https://cdn.modrinth.com/data/BVzZfTc1/versions/OOEycXyN/entity_texture_features-7.2.6-26.3-fabric.jar |
+| mods/entity_model_features-3.3.12-26.3-fabric.jar | https://cdn.modrinth.com/data/4I1XuqiY/versions/vF6qLXsA/entity_model_features-3.3.12-26.3-fabric.jar |
+| mods/skinlayers3d-fabric-1.11.4-mc26.3.jar | https://cdn.modrinth.com/data/zV5r3pPn/versions/gjM2TO0L/skinlayers3d-fabric-1.11.4-mc26.3.jar |
 | mods/zoomify-2.17.0+mc26.3-universal.jar | https://cdn.modrinth.com/data/w7ThoJFB/versions/RUBpNu00/zoomify-2.17.0%2Bmc26.3-universal.jar |
-| mods/placeholder-api-3.2.0+26.3.jar | https://cdn.modrinth.com/data/eXts2L7r/versions/lXytLqWj/placeholder-api-3.2.0%2B26.3.jar |
+| mods/bobby-5.2.16+mc26.3.jar | https://cdn.modrinth.com/data/M08ruV16/versions/J7YnfCss/bobby-5.2.16%2Bmc26.3.jar |
+| mods/DistantHorizons-3.3.4-26.3-fabric-neoforge.jar | https://cdn.modrinth.com/data/uCdwusMi/versions/TGgEbP9A/DistantHorizons-3.3.4-26.3-fabric-neoforge.jar |
+| mods/Gamma-Utils-Fabric-3.2.2+mc26.3.jar | https://cdn.modrinth.com/data/wdLuzzEP/versions/k6ywOirE/Gamma-Utils-Fabric-3.2.2%2Bmc26.3.jar |
+| mods/xaerominimap-fabric-26.3-26.6.1.jar | https://cdn.modrinth.com/data/1bokaNcj/versions/eUEhnw8G/xaerominimap-fabric-26.3-26.6.1.jar |
+| mods/xaeroworldmap-fabric-26.3-1.47.1.jar | https://cdn.modrinth.com/data/NcUtCpym/versions/IEtfiHVq/xaeroworldmap-fabric-26.3-1.47.1.jar |
+| mods/appleskin-fabric-mc26.3-3.0.10.jar | https://cdn.modrinth.com/data/EsAfCjCV/versions/PHjDtQay/appleskin-fabric-mc26.3-3.0.10.jar |
+| mods/shulkerboxtooltip-fabric-5.4.2+26.3.jar | https://cdn.modrinth.com/data/2M01OLQq/versions/Cj9VEeGt/shulkerboxtooltip-fabric-5.4.2%2B26.3.jar |
+| mods/light-overlay-2.13.0+26.3.jar | https://cdn.modrinth.com/data/8qVa1XCN/versions/AmDFFQBg/light-overlay-2.13.0%2B26.3.jar |
+| mods/status-effect-bars-1.0.12.jar | https://cdn.modrinth.com/data/x02cBj9Y/versions/aAXJqboy/status-effect-bars-1.0.12.jar |
+| mods/modmenu-21.0.0.jar | https://cdn.modrinth.com/data/mOgUt4GM/versions/kyy7dbrZ/modmenu-21.0.0.jar |
+| mods/MouseTweaks-fabric-mc26.3-2.31.jar | https://cdn.modrinth.com/data/aC3cM3Vq/versions/LeMuMhLv/MouseTweaks-fabric-mc26.3-2.31.jar |
+| mods/clientsort-fabric-3.104.1+26.3.jar | https://cdn.modrinth.com/data/K0AkAin6/versions/UWMryUad/clientsort-fabric-3.104.1%2B26.3.jar |
+| mods/clickthrough-plus-3.6.5+26.3-pre-3-fabric.jar | https://cdn.modrinth.com/data/fJi8nm80/versions/CikLy3hd/clickthrough-plus-3.6.5%2B26.3-pre-3-fabric.jar |
+| mods/Controlling-fabric-26.3-26.3.4.jar | https://cdn.modrinth.com/data/xv94TkTM/versions/V6AbRm67/Controlling-fabric-26.3-26.3.4.jar |
+| mods/BorderlessFullscreen-v2.5.1-mc26.3.jar | https://cdn.modrinth.com/data/UIexcMP1/versions/gYKfCwIR/BorderlessFullscreen-v2.5.1-mc26.3.jar |
+| mods/litematica-fabric-26.3-0.29.1.jar | https://cdn.modrinth.com/data/bEpr0Arc/versions/ZqV316KY/litematica-fabric-26.3-0.29.1.jar |
+| mods/fancymenu_fabric_3.9.14_MC_26.3.jar | https://cdn.modrinth.com/data/Wq5SjeWM/versions/CBLbyHzH/fancymenu_fabric_3.9.14_MC_26.3.jar |
+| mods/cloth-config-fabric-26.3.159.jar | https://cdn.modrinth.com/data/9s6osm5g/versions/fg2uyxOW/cloth-config-fabric-26.3.159.jar |
 | mods/fabric-language-kotlin-1.14.2+kotlin.2.4.21.jar | https://cdn.modrinth.com/data/Ha28R6CL/versions/SKW1BTL3/fabric-language-kotlin-1.14.2%2Bkotlin.2.4.21.jar |
 | mods/yet_another_config_lib_v3-3.9.7+26.3-fabric.jar | https://cdn.modrinth.com/data/1eAoo2KR/versions/s9SjoFu1/yet_another_config_lib_v3-3.9.7%2B26.3-fabric.jar |
+| mods/overlaylib-0.12.1+26.3.jar | https://cdn.modrinth.com/data/M1B8mLoH/versions/iSTcauwL/overlaylib-0.12.1%2B26.3.jar |
+| mods/placeholder-api-3.2.0+26.3.jar | https://cdn.modrinth.com/data/eXts2L7r/versions/lXytLqWj/placeholder-api-3.2.0%2B26.3.jar |
+| mods/Searchables-fabric-26.3-1.0.3.jar | https://cdn.modrinth.com/data/fuuu3xnx/versions/wV79bLRS/Searchables-fabric-26.3-1.0.3.jar |
+| mods/malilib-fabric-26.3-0.30.2.jar | https://cdn.modrinth.com/data/GcWjdA9I/versions/JX9bESec/malilib-fabric-26.3-0.30.2.jar |
+| mods/konkrete_fabric_1.11.1_MC_26.3.jar | https://cdn.modrinth.com/data/J81TRJWm/versions/pQLA2B54/konkrete_fabric_1.11.1_MC_26.3.jar |
+| mods/melody_fabric_1.0.17_MC_26.3.jar | https://cdn.modrinth.com/data/CVT4pFB2/versions/gjl2Yw81/melody_fabric_1.0.17_MC_26.3.jar |
+| shaderpacks/ComplementaryReimagined_r5.9.3.zip | https://cdn.modrinth.com/data/HVnmMxH1/versions/Bqen1mJX/ComplementaryReimagined_r5.9.3.zip |

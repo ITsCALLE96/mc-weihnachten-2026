@@ -25,6 +25,12 @@ test('Index enthält primäre Datei als Client-Mod mit Hashes', () => {
   }]);
 });
 
+test('Shader landen in shaderpacks/', () => {
+  const shader = { ...version, project_id: 'HVnmMxH1', files: [{ primary: true, filename: 'Complementary.zip', url: 'https://cdn.modrinth.com/c.zip', size: 7, hashes: { sha1: 's1', sha512: 's5' } }] };
+  const index = baueIndex({ name: 'P', version: '1', minecraft: '26.3', fabricLoader: '0', versionen: [version, shader], shader: ['HVnmMxH1'] });
+  assert.deepEqual(index.files.map((f) => f.path), ['mods/sodium.jar', 'shaderpacks/Complementary.zip']);
+});
+
 test('Version ohne Dateien bricht ab', () => {
   assert.throws(() => baueIndex({ name: 'P', version: '1', minecraft: '26.3', fabricLoader: '0', versionen: [{ ...version, files: [] }] }), /AANobbMI/);
 });

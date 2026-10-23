@@ -6,6 +6,14 @@ Grundlage für die Bewertung ist die Community-Zusammenstellung **„CastCrafter
 
 Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/modpack.mjs` geschrieben).
 
+## Inhalt von `modpack-v2` (23.10.2026)
+
+34 Mods und der Shader Complementary Reimagined, die Bibliotheken kommen automatisch dazu. Auswahl: alle 🔵 aus den Tabellen unten, dazu auf Pascals Wunsch **Fullbright (Gamma Utils)** und für weite Sicht **Bobby** (merkt sich gesehene Chunks) und **Distant Horizons** (Fernsicht, arbeitet mit Iris und Complementary zusammen; voxy wäre die Alternative, beide zusammen gehen nicht). Die Liste steht in `mods.json`.
+
+Leistung: Sodium, Lithium, Entity Culling, FerriteCore, ImmediatelyFast, Better Block Entities, SmoothTextureFix, More Culling, BadOptimizations, Dynamic FPS · Optik: Iris, Complementary Reimagined, Continuity, ETF, EMF, 3D Skin Layers, Zoomify · Sicht: Bobby, Distant Horizons, Gamma Utils · Karte/Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars · Bedienung: Mod Menu, Mouse Tweaks, Client Sort, ClickThrough Plus, Controlling, Borderless Fullscreen · Bauen: Litematica · Menü: FancyMenu (Weihnachts-Hauptmenü folgt)
+
+Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
+
 ## Stufen
 
 | Zeichen | Stufe | Bedeutung |
@@ -36,7 +44,7 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 | [Remove Reloading Screen](https://modrinth.com/mod/rrls) | Resourcepacks laden im Hintergrund | ⚪ | | angenehm beim Server-Beitritt mit unserem Pack |
 | [quick pack](https://modrinth.com/mod/quick-pack) | lädt Resourcepacks schneller | ⚪ | | |
 | [Nvidium](https://modrinth.com/mod/nvidium) | schnellere Darstellung nur für Nvidia-Karten | ⚪ | | bei AMD/Intel wirkungslos, verträgt sich nicht mit jedem Shader |
-| [Bobby](https://modrinth.com/mod/bobby) | merkt sich geladene Chunks, größere Sichtweite als der Server liefert | ⚪ | | kein Vorteil: zeigt nur, was man schon gesehen hat |
+| [Bobby](https://modrinth.com/mod/bobby) | merkt sich geladene Chunks, größere Sichtweite als der Server liefert | 🔵 | | **in v2**; kein Vorteil: zeigt nur, was man schon gesehen hat |
 | [voxy](https://modrinth.com/mod/voxy) | Fernsicht mit vereinfachten Chunks (LOD) | ⚪ | | braucht viel Speicher, nur für starke Rechner |
 | [Concurrent Chunk Management Engine](https://modrinth.com/mod/c2me-fabric) | schnellere Chunk-Erzeugung | ➖ | | wirkt nur im Einzelspieler/auf Fabric-Servern |
 
@@ -80,7 +88,7 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 | [Entity Selection Outlines](https://modrinth.com/mod/entity-outlines) | Umriss um anvisierte Rahmen, Bilder, Rüstungsständer | ⚪ | | |
 | [Here 'n' There](https://modrinth.com/mod/herenthere) | Koordinaten per Kürzel in den Chat | ⚪ | | |
 | [CalcMod](https://modrinth.com/mod/calcmod) | Taschenrechner im Chat | ⚪ | | |
-| [Gamma Utils (Fullbright)](https://modrinth.com/mod/gamma-utils) | Helligkeit über 100 %, Höhlen ohne Fackeln hell | 🔴 | | klarer Vorteil |
+| [Gamma Utils (Fullbright)](https://modrinth.com/mod/gamma-utils) | Helligkeit über 100 %, Höhlen ohne Fackeln hell | 🟢 | | **erlaubt (Pascal, 23.10.)**; Taste H = Nachtsicht, wirkt auch mit Shadern, G = Gamma nur ohne Shader |
 
 ## Inventar und Bedienung
 
@@ -212,13 +220,14 @@ Quelle: Modrinth-Suche nach Downloads, Abruf 23.10.2026. Von den Top 50 standen 
 | 92 | [More Chat History](https://modrinth.com/mod/morechathistory) | längerer Chatverlauf | ⚪ | |
 | 55 | [Language Reload](https://modrinth.com/mod/language-reload) | schnelleres Laden, Sprach-Rückfall | ⚪ | |
 | 69 | [Debugify](https://modrinth.com/mod/debugify) | behebt bekannte Minecraft-Fehler | ⚪ | |
-| 72 | [Distant Horizons](https://modrinth.com/mod/distanthorizons) | riesige Sichtweite mit vereinfachten Chunks | ⚪ | Alternative zu voxy, nicht beide zusammen |
+| 72 | [Distant Horizons](https://modrinth.com/mod/distanthorizons) | riesige Sichtweite mit vereinfachten Chunks | 🔵 | **in v2**; Alternative zu voxy, nicht beide zusammen; arbeitet mit Iris + Complementary |
 | 60 | [Inventory Profiles Next](https://modrinth.com/mod/inventory-profiles-next) | Inventar sortieren, Slots sperren | ➖ | doppelt zu Client Sort und Mouse Tweaks |
 
 Nicht einzeln aufgeführt: Inhalts- und Weltgenerierungs-Mods (Create, Cobblemon, Supplementaries, Biomes O' Plenty, TaCZ), weil sie eine Mod auf dem Server brauchen und auf Paper nicht laufen; reine Forge/NeoForge-Mods (Embeddium, Oculus); Mods ohne aktuelle Version (Indium, Memory Leak Fix, Model Gap Fix); reine Server-Mods (Krypton, Clumps, Packet Fixer) und weitere Bibliotheken.
 
 ## Server-Regeln, die daraus folgen
 
-- **Nicht erlaubt:** Freecam, Fullbright (Gamma Utils), Röntgen-/X-Ray-Packs, Litematica-Printer, Minimap-Höhlenansicht und -Entity-Radar (technisch gesperrt)
-- **Geduldet:** LambDynamicLights, Bobby, voxy, MiniHUD ohne Seed
+- **Nicht erlaubt:** Freecam, Röntgen-/X-Ray-Packs, Litematica-Printer, Minimap-Höhlenansicht und -Entity-Radar (technisch gesperrt)
+- **Erlaubt, obwohl ein kleiner Vorteil:** Fullbright (Gamma Utils) – bewusst freigegeben und im Pack, damit alle die gleiche Möglichkeit haben
+- **Geduldet:** LambDynamicLights, Bobby, voxy, Distant Horizons, MiniHUD ohne Seed
 - Alles andere aus den Tabellen ist erlaubt, auch wenn es nicht in unserem Pack steckt
