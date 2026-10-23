@@ -96,7 +96,6 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/puzzleslib-v26.3.15-mc26.3.x+fabric.jar | https://cdn.modrinth.com/data/QAGBst4M/versions/68hLXNWE/puzzleslib-v26.3.15-mc26.3.x%2Bfabric.jar |
 | mods/ForgeConfigAPIPort-v26.3.1-mc26.3.x-Fabric.jar | https://cdn.modrinth.com/data/ohNO6lps/versions/JpKvrr9J/ForgeConfigAPIPort-v26.3.1-mc26.3.x-Fabric.jar |
 | mods/bookshelfinspector-fabric-2.4+26.3.jar | https://cdn.modrinth.com/data/rOrXjyPb/versions/ShIoLf04/bookshelfinspector-fabric-2.4%2B26.3.jar |
-| mods/litematica-fabric-26.3-0.29.1.jar | https://cdn.modrinth.com/data/bEpr0Arc/versions/ZqV316KY/litematica-fabric-26.3-0.29.1.jar |
 | mods/ArmorPoser-fabric-26.3-16.0.1.jar | https://cdn.modrinth.com/data/PFwYNrHb/versions/qmCAgvPA/ArmorPoser-fabric-26.3-16.0.1.jar |
 | mods/fancymenu_fabric_3.9.14_MC_26.3.jar | https://cdn.modrinth.com/data/Wq5SjeWM/versions/CBLbyHzH/fancymenu_fabric_3.9.14_MC_26.3.jar |
 | mods/melody_fabric_1.0.17_MC_26.3.jar | https://cdn.modrinth.com/data/CVT4pFB2/versions/gjl2Yw81/melody_fabric_1.0.17_MC_26.3.jar |
@@ -104,6 +103,7 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/voicechat-fabric-2.6.25+26.3.jar | https://cdn.modrinth.com/data/9eGKb6K1/versions/yuPrCKIE/voicechat-fabric-2.6.25%2B26.3.jar |
 | mods/simplevoiceanimations-fabric-1.3.1+26.3.jar | https://cdn.modrinth.com/data/F1oVAMoc/versions/UOevvLgE/simplevoiceanimations-fabric-1.3.1%2B26.3.jar |
 | mods/voicechat-names-26.3-1.0.2.jar | https://cdn.modrinth.com/data/AcHVdC8l/versions/nCgCmgzo/voicechat-names-26.3-1.0.2.jar |
+| mods/litematica-fabric-26.3-0.29.1.jar.disabled | https://cdn.modrinth.com/data/bEpr0Arc/versions/ZqV316KY/litematica-fabric-26.3-0.29.1.jar |
 | mods/nvidium-0.4.4-beta7-26.3.jar.disabled | https://cdn.modrinth.com/data/SfMw2IZN/versions/8mVK1zbk/nvidium-0.4.4-beta7-26.3.jar |
 | mods/voxy-0.2.20-beta.jar.disabled | https://cdn.modrinth.com/data/fxxUqruK/versions/iIrM8ZKQ/voxy-0.2.20-beta.jar |
 | mods/ukus-armor-hud-fabric-0.14.0+mc26.3.jar.disabled | https://cdn.modrinth.com/data/wF189hn9/versions/URl1E7bP/ukus-armor-hud-fabric-0.14.0%2Bmc26.3.jar |

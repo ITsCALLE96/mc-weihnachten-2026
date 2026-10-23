@@ -19,14 +19,14 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 - Karte und Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars, Locator Heads, Peek, MiniHUD, Entity Selection Outlines, BetterF3, Better Statistics Screen, Pickup Notifications, Jade, Enchantment Descriptions, JEI
 - Chat: Here 'n' There, Chat Heads, No Chat Reports, More Chat History
 - Bedienung: Mod Menu, Mouse Tweaks, More Mouse Tweaks, Client Sort, ClickThrough Plus, Controlling, Multi Key Bindings, Bundles Beyond, Scribble, Armor Hider, Packed Packs, Borderless Fullscreen
-- Bauen: Litematica, Armor Poser (Server-Plugin nötig)
+- Bauen: Armor Poser (Server-Plugin nötig)
 - Sprache: Simple Voice Chat mit Animationen und Gruppennamen (Server-Plugin + UDP 24454, Plan Task 4 Schritt 9)
 - Menü: FancyMenu (Weihnachts-Hauptmenü folgt)
 - Nur im Einzelspieler wirksam (brauchen Mod auf dem Server, auf Paper ohne Wirkung): Easy Shulker Boxes, Bookshelf Inspector
 
 **Aktiv, sobald es eine Version für 26.3 gibt** (`aktivSobaldVerfuegbar`): Paginated Advancements, RP Renames
 
-**Deaktiviert dabei** (`optional`): Nvidium (nur Nvidia), voxy (nicht zusammen mit Distant Horizons), uku's Armor HUD, Flashback, Do a Barrel Roll
+**Deaktiviert dabei** (`optional`): Litematica (auf dem Server vorerst nicht erlaubt, Gruppe stimmt ab – bei Nein fliegt es ganz raus), Nvidium (nur Nvidia), voxy (nicht zusammen mit Distant Horizons), uku's Armor HUD, Flashback, Do a Barrel Roll
 
 **Raus (Pascal, 23.10.):** Time & Weather Changer, CalcMod, Big Sign Writer, Cut Through, Screenshot Viewer, VeinMiner, VeinMiner Hotkey, Reach Behind, Vehicle Upgrade, Crops Love Rain sowie alle ➖
 
@@ -130,7 +130,7 @@ Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 
 | Mod | Wofür | Stufe | v1 | Anmerkung |
 |---|---|---|---|---|
-| [Litematica](https://modrinth.com/mod/litematica) | Baupläne als Geisterbild in die Welt legen | 🔵 | | ohne „Printer“ kein Vorteil; für Bauprojekte sehr hilfreich |
+| [Litematica](https://modrinth.com/mod/litematica) | Baupläne als Geisterbild in die Welt legen | 🔵 | | **im Pack deaktiviert (Pascal, 23.10.)**: auf dem Server erst erlaubt, wenn die Gruppe zustimmt; bei Nein ganz raus aus dem Pack. Ohne „Printer“ kein Vorteil; für Bauprojekte und im Einzelspieler sehr hilfreich (auf CraftAttack verboten) |
 | [Flashback](https://modrinth.com/mod/flashback) | Spiel aufnehmen und als Kamerafahrt abspielen | ⚪ | | schön für einen Weihnachts-Rückblick |
 | [Freecam](https://modrinth.com/mod/freecam) | Kamera vom Körper lösen | 🟢 | | **erlaubt und in v2 (Pascal, 23.10.)**; Vorteil: Blick in fremde Basen und Höhlen – alle bekommen ihn gleich. Vom Server nicht einschränkbar (anders als Xaero); fair hält es Papers Anti-Xray: verdeckte Erze schickt der Server gar nicht erst |
 | [Axiom](https://modrinth.com/mod/axiom) | Welt-Editor | ➖ | | braucht Server-Plugin und Creative, nicht für Survival |
@@ -245,6 +245,7 @@ Nicht einzeln aufgeführt: Inhalts- und Weltgenerierungs-Mods (Create, Cobblemon
 
 ## Server-Regeln, die daraus folgen
 
+- **Offen:** Litematica – Pascal stimmt mit der Gruppe ab; bis dahin auf dem Server nicht erlaubt
 - **Nicht erlaubt:** Röntgen-/X-Ray-Packs, Litematica-Printer, Minimap-Höhlenansicht und -Entity-Radar (technisch gesperrt)
 - **Erlaubt, obwohl ein Vorteil:** Fullbright (Gamma Utils) und Freecam – bewusst freigegeben und im Pack, damit alle die gleiche Möglichkeit haben
 - **Server-Absicherung:** Xaero's Minimap und World Map ohne Höhlenansicht und Entity-Radar (Plugin „Fair Play for Xaero's Maps“); Papers Anti-Xray (`engine-mode: 2`) versteckt Erze, die man nicht direkt sieht, und nimmt Freecam und Fullbright damit den Erz-Vorteil

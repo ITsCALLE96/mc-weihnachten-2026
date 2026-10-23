@@ -1,6 +1,6 @@
 # Tastenbelegung im Modpack
 
-Stand 23.10.2026, Pack `modpack-v2`. Ausgelesen aus den Mod-Dateien selbst (Bytecode der Tasten-Registrierung bzw. malilib-Hotkeys). Wo eine Mod ihre Taste über eine Hilfsfunktion setzt, stammt der Wert aus der Mod-Beschreibung (markiert mit ¹). Minecraft 26.x zählt Tasten nach USB-Tastaturcodes (A=4, G=10, H=11 …), nicht mehr nach dem alten GLFW-Schema.
+Stand 23.10.2026, Pack `modpack-v2`. Vorschläge für **I** und **F9** von Pascal bestätigt; C, H, M gelten als Vorschlag, solange er nichts anderes sagt. Litematica ist im Pack standardmäßig aus – seine Konflikte (M, I) betreffen nur, wer es einschaltet. Ausgelesen aus den Mod-Dateien selbst (Bytecode der Tasten-Registrierung bzw. malilib-Hotkeys). Wo eine Mod ihre Taste über eine Hilfsfunktion setzt, stammt der Wert aus der Mod-Beschreibung (markiert mit ¹). Minecraft 26.x zählt Tasten nach USB-Tastaturcodes (A=4, G=10, H=11 …), nicht mehr nach dem alten GLFW-Schema.
 
 ## Konflikte und Vorschlag
 
