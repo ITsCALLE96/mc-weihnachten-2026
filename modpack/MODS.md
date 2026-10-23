@@ -130,8 +130,8 @@ Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 | [Simple Voice Chat](https://modrinth.com/plugin/simple-voice-chat) | Sprachchat mit Nähe-Effekt | 🟠 | | Server-Plugin + eigener UDP-Port (Standard 24454) nötig; mit Velocity eigene Einrichtung. Eher nicht nötig, wenn alle auf Discord sind |
 | [Simple Voice Animations](https://modrinth.com/mod/simple-voice-animations) | Kopfbewegungen beim Sprechen | 🟠 | | nur mit Voice Chat |
 | [Simple Voice Chat Group Player Names](https://modrinth.com/mod/voicechat-names) | Namen in Voice-Gruppen | 🟠 | | nur mit Voice Chat |
-| [Wind Boost Enchantment](https://modrinth.com/datapack/wind_boost_enchant) | Verzauberung fürs Geschirr, Happy Ghasts schneller | 🟠 | | Datapack auf dem Server; wirkt dann für alle, auch ohne Pack |
-| [Datapack Archive](https://modrinth.com/mod/v-datapack-archive) | Datapacks der Mische, u. a. herstellbare Lichtblöcke | 🟠 | | einzelne Datapacks nur nach Bedarf auf den Server |
+| [Wind Boost Enchantment](https://modrinth.com/datapack/wind_boost_enchant) | Verzauberung fürs Geschirr, Happy Ghasts schneller | 🟠 | | **ja (Pascal, 23.10.)**; Datapack `Wind Boost Enchantment.zip` v2.3 (26.3, MIT) auf den Server; wirkt für alle, auch ohne Pack. Nach dem Einspielen Neustart nötig, `/reload` reicht nicht |
+| [Datapack Archive](https://modrinth.com/mod/v-datapack-archive) | Datapacks der Mische, u. a. herstellbare Lichtblöcke | 🟠 | | **Lichtblöcke ja (Pascal, 23.10.)**: Datapack `Craftable Light Blocks v1.zip` (26.3) auf den Server – Lichtquelle mit Glasscheiben umgeben → Lichtblock, Stufe in der Steinsäge wählen. Alle Rechte vorbehalten: nur herunterladen, nicht ins öffentliche Repo legen |
 
 ## Unnötig für unseren Server
 
