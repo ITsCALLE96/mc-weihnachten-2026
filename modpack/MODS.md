@@ -8,9 +8,9 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 
 ## Inhalt von `modpack-v2` (23.10.2026)
 
-34 Mods und der Shader Complementary Reimagined, die Bibliotheken kommen automatisch dazu. Auswahl: alle 🔵 aus den Tabellen unten, dazu auf Pascals Wunsch **Fullbright (Gamma Utils)** und für weite Sicht **Bobby** (merkt sich gesehene Chunks) und **Distant Horizons** (Fernsicht, arbeitet mit Iris und Complementary zusammen; voxy wäre die Alternative, beide zusammen gehen nicht). Die Liste steht in `mods.json`.
+35 Mods und der Shader Complementary Reimagined, die Bibliotheken kommen automatisch dazu. Auswahl: alle 🔵 aus den Tabellen unten, dazu auf Pascals Wunsch **Fullbright (Gamma Utils)**, **Freecam** und für weite Sicht **Bobby** (merkt sich gesehene Chunks) und **Distant Horizons** (Fernsicht, arbeitet mit Iris und Complementary zusammen; voxy wäre die Alternative, beide zusammen gehen nicht). Die Liste steht in `mods.json`.
 
-Leistung: Sodium, Lithium, Entity Culling, FerriteCore, ImmediatelyFast, Better Block Entities, SmoothTextureFix, More Culling, BadOptimizations, Dynamic FPS · Optik: Iris, Complementary Reimagined, Continuity, ETF, EMF, 3D Skin Layers, Zoomify · Sicht: Bobby, Distant Horizons, Gamma Utils · Karte/Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars · Bedienung: Mod Menu, Mouse Tweaks, Client Sort, ClickThrough Plus, Controlling, Borderless Fullscreen · Bauen: Litematica · Menü: FancyMenu (Weihnachts-Hauptmenü folgt)
+Leistung: Sodium, Lithium, Entity Culling, FerriteCore, ImmediatelyFast, Better Block Entities, SmoothTextureFix, More Culling, BadOptimizations, Dynamic FPS · Optik: Iris, Complementary Reimagined, Continuity, ETF, EMF, 3D Skin Layers, Zoomify · Sicht: Bobby, Distant Horizons, Gamma Utils, Freecam · Karte/Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars · Bedienung: Mod Menu, Mouse Tweaks, Client Sort, ClickThrough Plus, Controlling, Borderless Fullscreen · Bauen: Litematica · Menü: FancyMenu (Weihnachts-Hauptmenü folgt)
 
 Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 
@@ -114,7 +114,7 @@ Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 |---|---|---|---|---|
 | [Litematica](https://modrinth.com/mod/litematica) | Baupläne als Geisterbild in die Welt legen | 🔵 | | ohne „Printer“ kein Vorteil; für Bauprojekte sehr hilfreich |
 | [Flashback](https://modrinth.com/mod/flashback) | Spiel aufnehmen und als Kamerafahrt abspielen | ⚪ | | schön für einen Weihnachts-Rückblick |
-| [Freecam](https://modrinth.com/mod/freecam) | Kamera vom Körper lösen | 🔴 | | Blick in fremde Basen und Höhlen |
+| [Freecam](https://modrinth.com/mod/freecam) | Kamera vom Körper lösen | 🟢 | | **erlaubt und in v2 (Pascal, 23.10.)**; Vorteil: Blick in fremde Basen und Höhlen – alle bekommen ihn gleich. Vom Server nicht einschränkbar (anders als Xaero); fair hält es Papers Anti-Xray: verdeckte Erze schickt der Server gar nicht erst |
 | [Axiom](https://modrinth.com/mod/axiom) | Welt-Editor | ➖ | | braucht Server-Plugin und Creative, nicht für Survival |
 | [Armor Poser](https://modrinth.com/mod/armor-poser) | Rüstungsständer per Menü posieren | ➖ | | braucht die Mod auch auf dem Server, auf Paper nicht möglich |
 
@@ -227,7 +227,8 @@ Nicht einzeln aufgeführt: Inhalts- und Weltgenerierungs-Mods (Create, Cobblemon
 
 ## Server-Regeln, die daraus folgen
 
-- **Nicht erlaubt:** Freecam, Röntgen-/X-Ray-Packs, Litematica-Printer, Minimap-Höhlenansicht und -Entity-Radar (technisch gesperrt)
-- **Erlaubt, obwohl ein kleiner Vorteil:** Fullbright (Gamma Utils) – bewusst freigegeben und im Pack, damit alle die gleiche Möglichkeit haben
+- **Nicht erlaubt:** Röntgen-/X-Ray-Packs, Litematica-Printer, Minimap-Höhlenansicht und -Entity-Radar (technisch gesperrt)
+- **Erlaubt, obwohl ein Vorteil:** Fullbright (Gamma Utils) und Freecam – bewusst freigegeben und im Pack, damit alle die gleiche Möglichkeit haben
+- **Server-Absicherung:** Xaero's Minimap und World Map ohne Höhlenansicht und Entity-Radar (Plugin „Fair Play for Xaero's Maps“); Papers Anti-Xray (`engine-mode: 2`) versteckt Erze, die man nicht direkt sieht, und nimmt Freecam und Fullbright damit den Erz-Vorteil
 - **Geduldet:** LambDynamicLights, Bobby, voxy, Distant Horizons, MiniHUD ohne Seed
 - Alles andere aus den Tabellen ist erlaubt, auch wenn es nicht in unserem Pack steckt

@@ -14,6 +14,7 @@ Du brauchst das nicht zum Mitspielen – es macht Minecraft flüssiger und schö
 |---|---|
 | Shader an/aus | **Optionen → Videoeinstellungen → Shader-Pakete** → „Complementary Reimagined“ |
 | Hell sehen (Fullbright) | **H** = Nachtsicht, funktioniert auch mit Shadern · **G** = Helligkeit hoch, nur ohne Shader |
+| Freecam (Kamera frei bewegen) | **F4** |
 | Zoom | **C** gedrückt halten |
 | Weltkarte | **M** |
 | Wegpunkt setzen | **B** |

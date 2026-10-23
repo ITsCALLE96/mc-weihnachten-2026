@@ -24,6 +24,7 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/bobby-5.2.16+mc26.3.jar | https://cdn.modrinth.com/data/M08ruV16/versions/J7YnfCss/bobby-5.2.16%2Bmc26.3.jar |
 | mods/DistantHorizons-3.3.4-26.3-fabric-neoforge.jar | https://cdn.modrinth.com/data/uCdwusMi/versions/TGgEbP9A/DistantHorizons-3.3.4-26.3-fabric-neoforge.jar |
 | mods/Gamma-Utils-Fabric-3.2.2+mc26.3.jar | https://cdn.modrinth.com/data/wdLuzzEP/versions/k6ywOirE/Gamma-Utils-Fabric-3.2.2%2Bmc26.3.jar |
+| mods/freecam-fabric-1.5.1+mc26.3.jar | https://cdn.modrinth.com/data/XeEZ3fK2/versions/lwrkvqym/freecam-fabric-1.5.1%2Bmc26.3.jar |
 | mods/xaerominimap-fabric-26.3-26.6.1.jar | https://cdn.modrinth.com/data/1bokaNcj/versions/eUEhnw8G/xaerominimap-fabric-26.3-26.6.1.jar |
 | mods/xaeroworldmap-fabric-26.3-1.47.1.jar | https://cdn.modrinth.com/data/NcUtCpym/versions/IEtfiHVq/xaeroworldmap-fabric-26.3-1.47.1.jar |
 | mods/appleskin-fabric-mc26.3-3.0.10.jar | https://cdn.modrinth.com/data/EsAfCjCV/versions/PHjDtQay/appleskin-fabric-mc26.3-3.0.10.jar |
