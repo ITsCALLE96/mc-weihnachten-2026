@@ -38,6 +38,7 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/Controlling-fabric-26.3-26.3.4.jar | https://cdn.modrinth.com/data/xv94TkTM/versions/V6AbRm67/Controlling-fabric-26.3-26.3.4.jar |
 | mods/BorderlessFullscreen-v2.5.1-mc26.3.jar | https://cdn.modrinth.com/data/UIexcMP1/versions/gYKfCwIR/BorderlessFullscreen-v2.5.1-mc26.3.jar |
 | mods/litematica-fabric-26.3-0.29.1.jar | https://cdn.modrinth.com/data/bEpr0Arc/versions/ZqV316KY/litematica-fabric-26.3-0.29.1.jar |
+| mods/ArmorPoser-fabric-26.3-16.0.1.jar | https://cdn.modrinth.com/data/PFwYNrHb/versions/qmCAgvPA/ArmorPoser-fabric-26.3-16.0.1.jar |
 | mods/fancymenu_fabric_3.9.14_MC_26.3.jar | https://cdn.modrinth.com/data/Wq5SjeWM/versions/CBLbyHzH/fancymenu_fabric_3.9.14_MC_26.3.jar |
 | mods/cloth-config-fabric-26.3.159.jar | https://cdn.modrinth.com/data/9s6osm5g/versions/fg2uyxOW/cloth-config-fabric-26.3.159.jar |
 | mods/fabric-language-kotlin-1.14.2+kotlin.2.4.21.jar | https://cdn.modrinth.com/data/Ha28R6CL/versions/SKW1BTL3/fabric-language-kotlin-1.14.2%2Bkotlin.2.4.21.jar |
@@ -46,6 +47,7 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/placeholder-api-3.2.0+26.3.jar | https://cdn.modrinth.com/data/eXts2L7r/versions/lXytLqWj/placeholder-api-3.2.0%2B26.3.jar |
 | mods/Searchables-fabric-26.3-1.0.3.jar | https://cdn.modrinth.com/data/fuuu3xnx/versions/wV79bLRS/Searchables-fabric-26.3-1.0.3.jar |
 | mods/malilib-fabric-26.3-0.30.2.jar | https://cdn.modrinth.com/data/GcWjdA9I/versions/JX9bESec/malilib-fabric-26.3-0.30.2.jar |
+| mods/ForgeConfigAPIPort-v26.3.1-mc26.3.x-Fabric.jar | https://cdn.modrinth.com/data/ohNO6lps/versions/JpKvrr9J/ForgeConfigAPIPort-v26.3.1-mc26.3.x-Fabric.jar |
 | mods/konkrete_fabric_1.11.1_MC_26.3.jar | https://cdn.modrinth.com/data/J81TRJWm/versions/pQLA2B54/konkrete_fabric_1.11.1_MC_26.3.jar |
 | mods/melody_fabric_1.0.17_MC_26.3.jar | https://cdn.modrinth.com/data/CVT4pFB2/versions/gjl2Yw81/melody_fabric_1.0.17_MC_26.3.jar |
 | shaderpacks/ComplementaryReimagined_r5.9.3.zip | https://cdn.modrinth.com/data/HVnmMxH1/versions/Bqen1mJX/ComplementaryReimagined_r5.9.3.zip |
