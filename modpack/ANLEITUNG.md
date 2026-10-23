@@ -10,9 +10,11 @@ Du brauchst das nicht zum Mitspielen – es macht Minecraft flüssiger und schö
 
 ## Zusätzliche Mods einschalten
 
-Im Pack liegen rund 50 weitere Mods, die **ausgeschaltet** sind – Optik, Geräusche, Rezeptbuch (JEI), Aufnahmen (Flashback) und vieles mehr. In der Modrinth App: Profil öffnen → **Inhalt** → beim gewünschten Mod den **Schalter** umlegen, dann Minecraft neu starten. Was welche Mod macht, steht in der Mod-Liste (`MODS.md`, Stufe ⚪).
+Fünf Mods liegen **ausgeschaltet** bei: Nvidium (nur Nvidia-Grafikkarten), voxy, uku's Armor HUD, Flashback (Aufnahmen) und Do a Barrel Roll (Elytra-Flugsteuerung). In der Modrinth App: Profil öffnen → **Inhalt** → beim gewünschten Mod den **Schalter** umlegen, dann Minecraft neu starten. Was welche Mod macht, steht in der Mod-Liste (`MODS.md`).
 
 Nicht zusammen einschalten: **voxy** und **Distant Horizons** (Distant Horizons ist schon an).
+
+**Einmal nach dem ersten Start:** Zoomify und Cinematic Zoom liegen beide auf **C**. Unter **Optionen → Steuerung** Cinematic Zoom auf eine andere Taste legen, zum Beispiel **Z**.
 
 ## Nützliche Tasten und Schalter
 
@@ -22,7 +24,8 @@ Nicht zusammen einschalten: **voxy** und **Distant Horizons** (Distant Horizons 
 | Hell sehen (Fullbright) | **H** = Nachtsicht, funktioniert auch mit Shadern · **G** = Helligkeit hoch, nur ohne Shader |
 | Freecam (Kamera frei bewegen) | **F4** |
 | Sprachchat (Einstellungen, Gruppen) | **V** · Sprechen: **Caps Lock** gedrückt halten |
-| Zoom | **C** gedrückt halten |
+| Zoom | **C** gedrückt halten (Cinematic Zoom mit Kinobalken: Taste selbst festlegen, siehe oben) |
+| Rezepte nachschlagen (JEI) | im Inventar rechts die Liste, Item anklicken |
 | Weltkarte | **M** |
 | Wegpunkt setzen | **B** |
 | Inventar sortieren | **Mausrad-Klick** im Inventar |

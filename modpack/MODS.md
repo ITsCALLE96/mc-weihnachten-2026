@@ -8,14 +8,27 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 
 ## Inhalt von `modpack-v2` (23.10.2026)
 
-**Aufbau (Pascal, 23.10.):** alles aus 🟢, 🔵 und 🟠 (soweit der Server-Teil eingeplant ist) plus Bibliotheken ist **aktiv**. Alle ⚪ liegen **deaktiviert** bei (`.jar.disabled`) und lassen sich im Launcher mit einem Klick einschalten. ➖ ist nicht drin. Stand des Baus: 112 Dateien – 57 Mods aktiv (39 gewählte + Bibliotheken), 52 deaktiviert, Shader Complementary Reimagined und Unbound, Resourcepack Redstone Tweaks. Die Liste steht in `mods.json` (`mods` = aktiv, `optional` = deaktiviert).
+**Maßgeblich ist diese Liste und `mods.json`.** Die Stufen in den Tabellen weiter unten sind die ursprüngliche Bewertung. Was tatsächlich im Pack ist, hat Pascal am 23.10. Mod für Mod festgelegt. Stand des Baus: 110 Dateien – 5 Mods deaktiviert (`.jar.disabled`, im Launcher per Schalter einschaltbar), alle übrigen aktiv, dazu Shader Complementary Reimagined und Unbound und Resourcepack Redstone Tweaks.
 
-- Fullbright (Gamma Utils), Freecam, **Bobby** (merkt sich gesehene Chunks) und **Distant Horizons** (Fernsicht, arbeitet mit Iris und Complementary zusammen) sind auf Pascals Wunsch aktiv
-- **voxy** liegt nur deaktiviert bei: nicht zusammen mit Distant Horizons einschalten
-- **Simple Voice Chat** ist aktiv; der Server braucht dafür das Plugin und den UDP-Port 24454 (Plan Task 4 Schritt 9)
-- **Nicht dabei:** VeinMiner (nein, Pascal 23.10.); Paginated Advancements, RP Renames, Screenshot Viewer (noch keine Version für 26.3, stehen schon in `optional` und kommen beim nächsten Bau automatisch mit, sobald es sie gibt)
+**Aktiv** (`mods` in `mods.json`):
+- Leistung: Sodium, Sodium Extra, Reese's Sodium Options, Lithium, Entity Culling, FerriteCore, ImmediatelyFast, Better Block Entities, SmoothTextureFix, More Culling, BadOptimizations, Dynamic FPS, Remove Reloading Screen, quick pack, Language Reload, Debugify
+- Optik: Iris, Iris & Oculus Search, Complementary Reimagined (+ Unbound), Euphoria Patches, Continuity, ETF, EMF, 3D Skin Layers, LambDynamicLights, Particle Rain, Make Bubbles Pop, Simple Fog Control, Boat Item View, Not Enough Animations, Falling Leaves, Visuality
+- Geräusche: Cool Rain, Sound Physics Remastered, AmbientSounds, Presence Footsteps, Extreme Sound Muffler
+- Kamera: Zoomify, Cinematic Zoom (beide standardmäßig auf C – Anleitung sagt, eine umlegen), Ji AFK Cinematic
+- Sicht: Bobby, Distant Horizons, Gamma Utils (Fullbright), Freecam
+- Karte und Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars, Locator Heads, Peek, MiniHUD, Entity Selection Outlines, BetterF3, Better Statistics Screen, Pickup Notifications, Jade, Enchantment Descriptions, JEI
+- Chat: Here 'n' There, Chat Heads, No Chat Reports, More Chat History
+- Bedienung: Mod Menu, Mouse Tweaks, More Mouse Tweaks, Client Sort, ClickThrough Plus, Controlling, Multi Key Bindings, Bundles Beyond, Scribble, Armor Hider, Packed Packs, Borderless Fullscreen
+- Bauen: Litematica, Armor Poser (Server-Plugin nötig)
+- Sprache: Simple Voice Chat mit Animationen und Gruppennamen (Server-Plugin + UDP 24454, Plan Task 4 Schritt 9)
+- Menü: FancyMenu (Weihnachts-Hauptmenü folgt)
+- Nur im Einzelspieler wirksam (brauchen Mod auf dem Server, auf Paper ohne Wirkung): Easy Shulker Boxes, Bookshelf Inspector
 
-Aktiv: Leistung: Sodium, Lithium, Entity Culling, FerriteCore, ImmediatelyFast, Better Block Entities, SmoothTextureFix, More Culling, BadOptimizations, Dynamic FPS · Optik: Iris, Complementary Reimagined, Continuity, ETF, EMF, 3D Skin Layers, Zoomify · Sicht: Bobby, Distant Horizons, Gamma Utils, Freecam · Karte/Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars · Bedienung: Mod Menu, Mouse Tweaks, Client Sort, ClickThrough Plus, Controlling, Borderless Fullscreen · Bauen: Litematica, Armor Poser (Server-Plugin nötig) · Sprache: Simple Voice Chat mit Animationen und Gruppennamen (Server-Plugin nötig) · Menü: FancyMenu (Weihnachts-Hauptmenü folgt)
+**Aktiv, sobald es eine Version für 26.3 gibt** (`aktivSobaldVerfuegbar`): Paginated Advancements, RP Renames
+
+**Deaktiviert dabei** (`optional`): Nvidium (nur Nvidia), voxy (nicht zusammen mit Distant Horizons), uku's Armor HUD, Flashback, Do a Barrel Roll
+
+**Raus (Pascal, 23.10.):** Time & Weather Changer, CalcMod, Big Sign Writer, Cut Through, Screenshot Viewer, VeinMiner, VeinMiner Hotkey, Reach Behind, Vehicle Upgrade, Crops Love Rain sowie alle ➖
 
 Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 

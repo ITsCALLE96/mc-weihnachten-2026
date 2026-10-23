@@ -53,7 +53,7 @@ async function neuesteVersion(projekt, minecraft, loader = 'fabric') {
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const repo = join(fileURLToPath(import.meta.url), '..', '..');
   const { minecraft } = JSON.parse(readFileSync(join(repo, 'versions.json'), 'utf8'));
-  const { name, version, mods, optional = [], shader = [], resourcepacks = [] } =
+  const { name, version, mods, aktivSobaldVerfuegbar = [], optional = [], shader = [], resourcepacks = [] } =
     JSON.parse(readFileSync(join(repo, 'modpack/mods.json'), 'utf8'));
 
   const loader = (await holeJson(`https://meta.fabricmc.net/v2/versions/loader/${minecraft}`))
@@ -84,6 +84,8 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   }
 
   for (const projekt of mods) await hole(projekt, true);
+  // Gewünscht, aber noch ohne Version für diese Minecraft-Version: kommen beim nächsten Bau von selbst dazu.
+  for (const projekt of aktivSobaldVerfuegbar) await hole(projekt, false);
   const aktivVorher = new Set(gefunden.keys());
   const deaktiviert = new Set();
   for (const projekt of optional) {
