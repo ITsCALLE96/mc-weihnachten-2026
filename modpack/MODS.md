@@ -148,7 +148,7 @@ Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 | Pack | Wofür | Stufe | Anmerkung |
 |---|---|---|---|
 | [Redstone Tweaks](https://modrinth.com/resourcepack/redstone-tweaks) | Redstone besser lesbar | ⚪ | |
-| [Resourcepack Archive](https://modrinth.com/resourcepack/vinc-resource-packs) | CastCrafters eigene Packs | ➖ | wir haben unser eigenes Weihnachts-Pack |
+| [Resourcepack Archive](https://modrinth.com/resourcepack/vinc-resource-packs) | zwei kleine Packs des Mischen-Autors: „No Player Helmets“ (Helme anderer Spieler ausblenden) und „Minimal Armor“ (schlankere Rüstung) | ➖ | nur für 1.21.10 gebaut, und Armor Hider (⚪ im Pack) kann beides einstellbar |
 
 ## Bibliotheken (📚, kommen automatisch mit)
 
@@ -171,14 +171,14 @@ Quelle: YouTube-Video von demonjoeTV (15.08.2026) und seine Modrinth-Sammlung `m
 | [RP Renames](https://modrinth.com/mod/rp-renames) | zeigt im Amboss, welche Namen ein Resourcepack umgestaltet | ⚪ | **26.2**; nützlich, falls unser Pack Deko-Items über Namen umgestaltet |
 | [Screenshot Viewer](https://modrinth.com/mod/screenshot-viewer) | Screenshots im Spiel ansehen | ⚪ | **26.2** |
 | [Cut Through](https://modrinth.com/mod/cut-through) | durch hohes Gras hindurch Mobs schlagen | ⚪ | kein nennenswerter Vorteil, nur weniger Frust |
-| [Reach Behind](https://modrinth.com/mod/reach-behind) | durch Deko hindurch Blöcke benutzen | ➖ | doppelt zu ClickThrough Plus (im Video „Reach Around“ genannt) |
+| [Reach Behind](https://modrinth.com/mod/reach-behind) | durch Deko hindurch Blöcke benutzen | ➖ | **nein (Pascal, 23.10.)**; doppelt zu ClickThrough Plus (im Video „Reach Around“ genannt) |
 | [Pickup Notifications](https://modrinth.com/mod/pickup-notifications) | Einblendung beim Aufsammeln von Items | ⚪ | laut Modrinth auch auf dem Server nötig – auf Paper vorher ausprobieren |
 | [Speed Happy Ghast](https://modrinth.com/mod/speed-happy-ghast) | Happy Ghasts schneller | 🟠 | **26.2**; Datapack für den Server, Alternative zu Wind Boost |
 | [RightClickHarvest](https://modrinth.com/mod/rightclickharvest) | Felder per Rechtsklick ernten und neu pflanzen | 🟠 | **ja (Pascal, 23.10.)**; reine Fabric-Server-Mod, auf Paper stattdessen ein Plugin: [HarvestMaster](https://modrinth.com/plugin/harvestmaster) (26.3, meistgeladen) oder [Right click harvester](https://modrinth.com/plugin/right-click-harvester) (26.3, quelloffen); wirkt für alle, auch ohne Pack |
-| [Easy Shulker Boxes](https://modrinth.com/mod/easy-shulker-boxes) | Shulkerkisten direkt im Inventar benutzen | ➖ | braucht die Mod auf dem Server, auf Paper nicht möglich; Shulker Box Tooltip deckt das Anschauen ab |
-| [Bookshelf Inspector](https://modrinth.com/mod/bookshelf-inspector) | Bücher im Bücherregal ansehen | ➖ | braucht die Mod auf dem Server |
-| [Vehicle Upgrade](https://modrinth.com/mod/vehicle-upgrade) | verbesserte Reittiere und Boote | ➖ | Server-Mod, ändert das Spiel |
-| [Crops Love Rain](https://modrinth.com/mod/crops-love-rain) | Pflanzen wachsen bei Regen schneller | ➖ | Server-Mod, ändert die Spielregeln |
+| [Easy Shulker Boxes](https://modrinth.com/mod/easy-shulker-boxes) | Shulkerkisten direkt im Inventar benutzen | ⚪ | **optional (Pascal, 23.10.)**; braucht die Mod auch auf dem Server – auf unserem Paper-Server ohne Wirkung, nur im Einzelspieler. Anschauen deckt Shulker Box Tooltip ab |
+| [Bookshelf Inspector](https://modrinth.com/mod/bookshelf-inspector) | Bücher im Bücherregal ansehen | ⚪ | **optional (Pascal, 23.10.)**; braucht die Mod auch auf dem Server – auf unserem Paper-Server ohne Wirkung, nur im Einzelspieler |
+| [Vehicle Upgrade](https://modrinth.com/mod/vehicle-upgrade) | verbesserte Reittiere und Boote | ➖ | **nein (Pascal, 23.10.)**; Server-Mod, ändert das Spiel |
+| [Crops Love Rain](https://modrinth.com/mod/crops-love-rain) | Pflanzen wachsen bei Regen schneller | ➖ | **nein (Pascal, 23.10.)**; Server-Mod, ändert die Spielregeln |
 | [Superflat World No Slimes](https://modrinth.com/mod/superflat-world-no-slimes) | keine Schleime in Flachwelten | ➖ | nur für Creative-Flachwelten |
 | [Cherished Worlds](https://modrinth.com/mod/cherished-worlds) | Lieblingswelten oben anheften | ➖ | nur Einzelspieler-Weltenliste |
 | [Delete Worlds To Trash](https://modrinth.com/mod/delete-worlds-to-trash) | gelöschte Welten landen im Papierkorb | ➖ | nur Einzelspieler |

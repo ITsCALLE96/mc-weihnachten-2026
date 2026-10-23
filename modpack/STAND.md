@@ -48,8 +48,8 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/ArmorPoser-fabric-26.3-16.0.1.jar | https://cdn.modrinth.com/data/PFwYNrHb/versions/qmCAgvPA/ArmorPoser-fabric-26.3-16.0.1.jar |
 | mods/ForgeConfigAPIPort-v26.3.1-mc26.3.x-Fabric.jar | https://cdn.modrinth.com/data/ohNO6lps/versions/JpKvrr9J/ForgeConfigAPIPort-v26.3.1-mc26.3.x-Fabric.jar |
 | mods/fancymenu_fabric_3.9.14_MC_26.3.jar | https://cdn.modrinth.com/data/Wq5SjeWM/versions/CBLbyHzH/fancymenu_fabric_3.9.14_MC_26.3.jar |
-| mods/konkrete_fabric_1.11.1_MC_26.3.jar | https://cdn.modrinth.com/data/J81TRJWm/versions/pQLA2B54/konkrete_fabric_1.11.1_MC_26.3.jar |
 | mods/melody_fabric_1.0.17_MC_26.3.jar | https://cdn.modrinth.com/data/CVT4pFB2/versions/gjl2Yw81/melody_fabric_1.0.17_MC_26.3.jar |
+| mods/konkrete_fabric_1.11.1_MC_26.3.jar | https://cdn.modrinth.com/data/J81TRJWm/versions/pQLA2B54/konkrete_fabric_1.11.1_MC_26.3.jar |
 | mods/voicechat-fabric-2.6.25+26.3.jar | https://cdn.modrinth.com/data/9eGKb6K1/versions/yuPrCKIE/voicechat-fabric-2.6.25%2B26.3.jar |
 | mods/simplevoiceanimations-fabric-1.3.1+26.3.jar | https://cdn.modrinth.com/data/F1oVAMoc/versions/UOevvLgE/simplevoiceanimations-fabric-1.3.1%2B26.3.jar |
 | mods/voicechat-names-26.3-1.0.2.jar | https://cdn.modrinth.com/data/AcHVdC8l/versions/nCgCmgzo/voicechat-names-26.3-1.0.2.jar |
@@ -113,6 +113,8 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/morechathistory-2.0.0.jar.disabled | https://cdn.modrinth.com/data/8qkXwOnk/versions/qpDhYv1Y/morechathistory-2.0.0.jar |
 | mods/language-reload-1.7.8+26.3.jar.disabled | https://cdn.modrinth.com/data/uLbm7CG6/versions/QVn4cccd/language-reload-1.7.8%2B26.3.jar |
 | mods/debugify-26.3.0.0.jar.disabled | https://cdn.modrinth.com/data/QwxR6Gcd/versions/FMaS2nZn/debugify-26.3.0.0.jar |
+| mods/easyshulkerboxes-v26.3.3-mc26.3.x+fabric.jar.disabled | https://cdn.modrinth.com/data/gA5euN8S/versions/DzZ9tjVr/easyshulkerboxes-v26.3.3-mc26.3.x%2Bfabric.jar |
+| mods/bookshelfinspector-fabric-2.4+26.3.jar.disabled | https://cdn.modrinth.com/data/rOrXjyPb/versions/ShIoLf04/bookshelfinspector-fabric-2.4%2B26.3.jar |
 | shaderpacks/ComplementaryReimagined_r5.9.3.zip | https://cdn.modrinth.com/data/HVnmMxH1/versions/Bqen1mJX/ComplementaryReimagined_r5.9.3.zip |
 | shaderpacks/ComplementaryUnbound_r5.9.3.zip | https://cdn.modrinth.com/data/R6NEzAwj/versions/B1kyfoUZ/ComplementaryUnbound_r5.9.3.zip |
 | resourcepacks/Redstone Tweaks 2.5.6.zip | https://cdn.modrinth.com/data/RvfAlf4Z/versions/A19pA3wb/Redstone%20Tweaks%202.5.6.zip |

@@ -22,6 +22,7 @@
     "chat-heads", "jei", "jade", "not-enough-animations", "sound-physics-remastered", "no-chat-reports",
     "ambientsounds", "fallingleaves", "visuality", "presence-footsteps", "enchantment-descriptions",
     "morechathistory", "language-reload", "debugify",
+    "easy-shulker-boxes", "bookshelf-inspector",
     "paginatedadvancements", "rp-renames", "screenshot-viewer"
   ],
   "shader": ["complementary-reimagined", "complementary-unbound"],
