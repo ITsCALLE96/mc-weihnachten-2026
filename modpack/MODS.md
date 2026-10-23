@@ -2,7 +2,7 @@
 
 Das Pack ist **freiwillig**. Wer es nicht nutzt, spielt mit normalem Minecraft genauso mit. Auf dem Server sind nur Mods ohne Spielvorteil erlaubt.
 
-Grundlage für die Bewertung ist die Community-Zusammenstellung **„CastCrafter CA14 Mische“ 1.1.0** (Modrinth `cc-ca14`, VincPlyz, Stand 19.10.2026, Minecraft 26.3, 94 Einträge). Sie enthält alle Mods, Shader und Resourcepacks, die CastCrafter in CraftAttack 14 nutzt. Jede Mod daraus ist hier einzeln bewertet, auch die, die wir nicht übernehmen. Dazu kommen die Mods aus demonjoeTVs Video „Top 30 Quality of Life Minecraft Mods“ (eigener Abschnitt unten).
+Grundlage für die Bewertung ist die Community-Zusammenstellung **„CastCrafter CA14 Mische“ 1.1.0** (Modrinth `cc-ca14`, VincPlyz, Stand 19.10.2026, Minecraft 26.3, 94 Einträge). Sie enthält alle Mods, Shader und Resourcepacks, die CastCrafter in CraftAttack 14 nutzt. Jede Mod daraus ist hier einzeln bewertet, auch die, die wir nicht übernehmen. Dazu kommen die Mods aus demonjoeTVs Video „Top 30 Quality of Life Minecraft Mods“ (eigener Abschnitt unten) und die meistgeladenen Mods auf Modrinth, die noch fehlten.
 
 Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/modpack.mjs` geschrieben).
 
@@ -169,6 +169,53 @@ Quelle: YouTube-Video von demonjoeTV (15.08.2026) und seine Modrinth-Sammlung `m
 | [Superflat World No Slimes](https://modrinth.com/mod/superflat-world-no-slimes) | keine Schleime in Flachwelten | ➖ | nur für Creative-Flachwelten |
 | [Cherished Worlds](https://modrinth.com/mod/cherished-worlds) | Lieblingswelten oben anheften | ➖ | nur Einzelspieler-Weltenliste |
 | [Delete Worlds To Trash](https://modrinth.com/mod/delete-worlds-to-trash) | gelöschte Welten landen im Papierkorb | ➖ | nur Einzelspieler |
+
+## Weitere Mods aus den meistgeladenen auf Modrinth
+
+Quelle: Modrinth-Suche nach Downloads, Abruf 23.10.2026. Von den Top 50 standen 28 schon oben. Hier die übrigen 22 und danach eine Auswahl aus Platz 51–100. Die Zahl vor dem Namen ist der Platz in der Rangliste.
+
+| Platz | Mod | Wofür | Stufe | Anmerkung |
+|---|---|---|---|---|
+| 31 | [More Culling](https://modrinth.com/mod/moreculling) | zeichnet noch mehr verdeckte Flächen nicht | 🔵 | mehr FPS, ergänzt Sodium |
+| 33 | [Dynamic FPS](https://modrinth.com/mod/dynamic-fps) | senkt die FPS, wenn Minecraft im Hintergrund läuft | 🔵 | weniger Last und Lüfter, wenn man nebenbei in Discord ist |
+| 36 | [FancyMenu](https://modrinth.com/mod/fancymenu) | Hauptmenü frei gestalten | 🔵 | **für uns spannend:** Weihnachts-Hauptmenü mit Knopf „Weihnachtsserver beitreten“, ganz ohne eigene Mod |
+| 47 | [Chat Heads](https://modrinth.com/mod/chat-heads) | Kopf des Spielers neben der Chatnachricht | ⚪ | |
+| 22 | [Just Enough Items (JEI)](https://modrinth.com/mod/jei) | alle Rezepte nachschlagen | ⚪ | hilfreich für Einsteiger, ersetzt das Wiki; Cheat-Modus nur mit OP |
+| 29 | [Jade](https://modrinth.com/mod/jade) | zeigt, worauf man schaut (Block, Mob, Leben) | ⚪ | ohne Server-Teil nur Infos, die der Client ohnehin kennt |
+| 20 | [Not Enough Animations](https://modrinth.com/mod/not-enough-animations) | schönere Animationen in der Third-Person-Ansicht | ⚪ | |
+| 43 | [Sound Physics Remastered](https://modrinth.com/mod/sound-physics-remastered) | Hall und Echo in Höhlen und Räumen | ⚪ | kostet Rechenleistung |
+| 42 | [No Chat Reports](https://modrinth.com/mod/no-chat-reports) | Chatnachrichten nicht signieren | ⚪ | auf unserem Server egal; serverseitig regelt das `enforce-secure-profile` |
+| 18 | [VeinMiner](https://modrinth.com/plugin/veinminer) | ganze Erzader auf einmal abbauen | 🟠 | gibt es auch als Paper-Plugin, ändert aber die Spielbalance – für ein Vanilla-Projekt nicht empfohlen |
+| 30 | [VeinMiner Hotkey](https://modrinth.com/mod/veinminer-client) | Taste und Vorschau für VeinMiner | 🟠 | nur mit VeinMiner |
+| 50 | [Essential](https://modrinth.com/mod/essential) | Freunde-System, Welten hosten, Kosmetik-Shop | ➖ | eigenes Konto- und Shop-System, verträgt sich schlecht mit anderen Mods |
+| 24 | [ModernFix](https://modrinth.com/mod/modernfix) | Leistung und Speicher, behebt Fehler | ➖ | noch keine Version für 26.3 |
+| 14 | [Architectury API](https://modrinth.com/mod/architectury-api) | Bibliothek | 📚 | |
+| 26 | [Geckolib](https://modrinth.com/mod/geckolib) | Bibliothek für Animationen in Inhalts-Mods | 📚 | |
+| 35 | [Collective](https://modrinth.com/mod/collective) | Bibliothek | 📚 | |
+| 37 | [Puzzles Lib](https://modrinth.com/mod/puzzles-lib) | Bibliothek | 📚 | |
+| 38 | [Konkrete](https://modrinth.com/mod/konkrete) | Bibliothek (für FancyMenu) | 📚 | |
+| 45 | [Kotlin for Forge](https://modrinth.com/mod/kotlin-for-forge) | Bibliothek, nur Forge/NeoForge | ➖ | wir nutzen Fabric |
+| 46 | [Melody](https://modrinth.com/mod/melody) | Bibliothek (für FancyMenu) | 📚 | |
+| 48 | [owo-lib](https://modrinth.com/mod/owo-lib) | Bibliothek | 📚 | |
+| 49 | [Bookshelf](https://modrinth.com/mod/bookshelf-lib) | Bibliothek | 📚 | |
+
+**Auswahl aus Platz 51–100** (nur Client-Mods mit 26.3-Version):
+
+| Platz | Mod | Wofür | Stufe | Anmerkung |
+|---|---|---|---|---|
+| 51 | [BadOptimizations](https://modrinth.com/mod/badoptimizations) | Leistung abseits der Grafik | 🔵 | |
+| 64 | [AmbientSounds](https://modrinth.com/mod/ambientsounds) | Umgebungsgeräusche je nach Biom | ⚪ | Wind und Stille in den Schneebergen, passt zum Winter |
+| 98 | [Falling Leaves](https://modrinth.com/mod/fallingleaves) | Blätter fallen von Bäumen | ⚪ | |
+| 89 | [Visuality](https://modrinth.com/mod/visuality) | zusätzliche kleine Partikel | ⚪ | |
+| 63 | [Presence Footsteps](https://modrinth.com/mod/presence-footsteps) | realistische Schrittgeräusche | ⚪ | |
+| 66 | [Enchantment Descriptions](https://modrinth.com/mod/enchantment-descriptions) | erklärt Verzauberungen im Tooltip | ⚪ | gut für Einsteiger |
+| 92 | [More Chat History](https://modrinth.com/mod/morechathistory) | längerer Chatverlauf | ⚪ | |
+| 55 | [Language Reload](https://modrinth.com/mod/language-reload) | schnelleres Laden, Sprach-Rückfall | ⚪ | |
+| 69 | [Debugify](https://modrinth.com/mod/debugify) | behebt bekannte Minecraft-Fehler | ⚪ | |
+| 72 | [Distant Horizons](https://modrinth.com/mod/distanthorizons) | riesige Sichtweite mit vereinfachten Chunks | ⚪ | Alternative zu voxy, nicht beide zusammen |
+| 60 | [Inventory Profiles Next](https://modrinth.com/mod/inventory-profiles-next) | Inventar sortieren, Slots sperren | ➖ | doppelt zu Client Sort und Mouse Tweaks |
+
+Nicht einzeln aufgeführt: Inhalts- und Weltgenerierungs-Mods (Create, Cobblemon, Supplementaries, Biomes O' Plenty, TaCZ), weil sie eine Mod auf dem Server brauchen und auf Paper nicht laufen; reine Forge/NeoForge-Mods (Embeddium, Oculus); Mods ohne aktuelle Version (Indium, Memory Leak Fix, Model Gap Fix); reine Server-Mods (Krypton, Clumps, Packet Fixer) und weitere Bibliotheken.
 
 ## Server-Regeln, die daraus folgen
 
