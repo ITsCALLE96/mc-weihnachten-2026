@@ -1,0 +1,7 @@
+# Auszug config/paper-global.yml auf MinecraftWeihnachten01 – Velocity Modern Forwarding
+proxies:
+  velocity:
+    enabled: true
+    online-mode: true
+    # Gleicher Wert wie in forwarding.secret auf dem Proxy. NIE ins Repo – Platzhalter steht hier nur zur Orientierung.
+    secret: "<<Inhalt von MinecraftProxy01/forwarding.secret>>"
