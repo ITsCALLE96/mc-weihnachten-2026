@@ -17,27 +17,44 @@ echo '[]' > "$P/usercache.json"
 echo alt > "$P/logs/2026-12-05-1.log.gz"; echo neu > "$P/logs/latest.log"
 echo v > "$V/logs/2026-12-05-1.log.gz"
 
+# ohne SEASON-Datei: Abbruch, nichts angelegt
+if SCHNAPPSCHUSS_DATUM=2026-12-06 bash "$HIER/schnappschuss.sh" "$P" "$A" 2> "$T/err0" > /dev/null; then rc=0; else rc=$?; fi
+pruefe "ohne Season Abbruch" "[ $rc -ne 0 ] && grep -q \"Season fehlt\" \"$T/err0\" && [ ! -e \"$A/schnappschuesse\" ]"
+mkdir -p "$A"; echo "Test Lauf" > "$A/SEASON"
+if SCHNAPPSCHUSS_DATUM=2026-12-06 bash "$HIER/schnappschuss.sh" "$P" "$A" 2> "$T/err0" > /dev/null; then rc=0; else rc=$?; fi
+pruefe "ungültige Season Abbruch" "[ $rc -ne 0 ] && grep -q Ungültige \"$T/err0\""
+if SCHNAPPSCHUSS_DATUM=6.12.2026 bash "$HIER/schnappschuss.sh" "$P" "$A" 2> /dev/null > /dev/null; then rc=0; else rc=$?; fi
+pruefe "ungültiges Datum Abbruch" "[ $rc -ne 0 ]"
+printf 'testlauf\r\n' > "$A/SEASON"   # Windows-Zeilenende muss toleriert werden
+
 SCHNAPPSCHUSS_DATUM=2026-12-06 bash "$HIER/schnappschuss.sh" "$P" "$A" "$V" > "$T/out1"
-pruefe "Schnappschuss angelegt" '[ -f "$A/schnappschuesse/2026-12-06.tar.gz" ]'
-inhalt=$(tar -tzf "$A/schnappschuesse/2026-12-06.tar.gz")
+pruefe "Schnappschuss angelegt" '[ -f "$A/testlauf/schnappschuesse/2026-12-06.tar.gz" ]'
+inhalt=$(tar -tzf "$A/testlauf/schnappschuesse/2026-12-06.tar.gz")
 pruefe "stats im neuen Pfad enthalten" 'grep -q "2026-12-06/players/stats/uuid1.json" <<<"$inhalt"'
 pruefe "advancements enthalten" 'grep -q "2026-12-06/advancements/uuid1.json" <<<"$inhalt"'
 pruefe "usercache enthalten" 'grep -q "2026-12-06/usercache.json" <<<"$inhalt"'
 pruefe "Datapack-Advancements nicht enthalten" '! grep -q datapacks <<<"$inhalt"'
-pruefe "Paper-Log verschoben" '[ -f "$A/logs/paper/2026-12-05-1.log.gz" ] && [ ! -e "$P/logs/2026-12-05-1.log.gz" ]'
+pruefe "Paper-Log verschoben" '[ -f "$A/testlauf/logs/paper/2026-12-05-1.log.gz" ] && [ ! -e "$P/logs/2026-12-05-1.log.gz" ]'
 pruefe "latest.log bleibt" '[ -f "$P/logs/latest.log" ]'
-pruefe "Velocity-Log verschoben" '[ -f "$A/logs/velocity/2026-12-05-1.log.gz" ]'
+pruefe "Velocity-Log verschoben" '[ -f "$A/testlauf/logs/velocity/2026-12-05-1.log.gz" ]'
 
 # zweiter Lauf am selben Tag: nichts überschreiben
 echo '{"stats":{"minecraft:custom":{"minecraft:play_time":999}}}' > "$P/welt/players/stats/uuid1.json"
 SCHNAPPSCHUSS_DATUM=2026-12-06 bash "$HIER/schnappschuss.sh" "$P" "$A" "$V" > "$T/out2"
 pruefe "zweiter Lauf überspringt" 'grep -q übersprungen "$T/out2"'
-pruefe "alter Inhalt bleibt" 'tar -xzOf "$A/schnappschuesse/2026-12-06.tar.gz" 2026-12-06/players/stats/uuid1.json | grep -q ":100"'
+pruefe "alter Inhalt bleibt" 'tar -xzOf "$A/testlauf/schnappschuesse/2026-12-06.tar.gz" 2026-12-06/players/stats/uuid1.json | grep -q ":100"'
 
 # Log-Konflikt: gleicher Name, anderer Inhalt → Quelle bleibt liegen
 echo anders > "$P/logs/2026-12-05-1.log.gz"
 SCHNAPPSCHUSS_DATUM=2026-12-07 bash "$HIER/schnappschuss.sh" "$P" "$A" 2> "$T/err3" > "$T/out3"
-pruefe "Konflikt gemeldet, nichts überschrieben" 'grep -q Konflikt "$T/err3" && grep -q alt "$A/logs/paper/2026-12-05-1.log.gz" && [ -f "$P/logs/2026-12-05-1.log.gz" ]'
-pruefe "neuer Tag neuer Schnappschuss" '[ -f "$A/schnappschuesse/2026-12-07.tar.gz" ]'
+pruefe "Konflikt gemeldet, nichts überschrieben" 'grep -q Konflikt "$T/err3" && grep -q alt "$A/testlauf/logs/paper/2026-12-05-1.log.gz" && [ -f "$P/logs/2026-12-05-1.log.gz" ]'
+pruefe "neuer Tag neuer Schnappschuss" '[ -f "$A/testlauf/schnappschuesse/2026-12-07.tar.gz" ]'
+
+# Season umgestellt: neuer Unterordner, alte Season bleibt unberührt
+echo weihnachten-2026 > "$A/SEASON"
+echo w > "$P/logs/2026-12-07-1.log.gz"
+SCHNAPPSCHUSS_DATUM=2026-12-07 bash "$HIER/schnappschuss.sh" "$P" "$A" 2>/dev/null > "$T/out4"
+pruefe "neue Season eigener Ordner" "[ -f \"$A/weihnachten-2026/schnappschuesse/2026-12-07.tar.gz\" ] && [ -f \"$A/weihnachten-2026/logs/paper/2026-12-07-1.log.gz\" ]"
+pruefe "alte Season unverändert" '[ "$(ls "$A/testlauf/schnappschuesse" | wc -l)" -eq 2 ]'
 
 exit $fehler

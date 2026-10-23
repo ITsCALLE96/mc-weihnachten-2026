@@ -2,9 +2,15 @@
 # Täglicher Statistik-Schnappschuss für die spätere Statistikseite (Plan Task 9 Schritt 7).
 #
 # - kopiert stats/*.json, advancements/*.json und usercache.json der Paper-Instanz
-#   als datiertes Archiv <archiv>/schnappschuesse/<JJJJ-MM-TT>.tar.gz
-# - verschiebt abgeschlossene Logs (logs/*.log.gz) von Paper und Velocity nach <archiv>/logs/<name>/
+#   als datiertes Archiv <archiv>/<season>/schnappschuesse/<JJJJ-MM-TT>.tar.gz
+# - verschiebt abgeschlossene Logs (logs/*.log.gz) von Paper und Velocity nach <archiv>/<season>/logs/<name>/
 #   (latest.log bleibt liegen, gelöscht wird nie etwas)
+# - Season: eine Zeile in <archiv>/SEASON (z. B. testlauf, weihnachten-2026), wird von Hand umgestellt.
+#   Fehlt die Datei oder ist die Kennung ungültig, bricht das Skript ab (nichts landet in der falschen Season).
+# - Datum = Berliner Datum (Europe/Berlin) zum Zeitpunkt des Laufs (04:00), unabhängig von der Systemzeitzone.
+#   Das Format JJJJ-MM-TT bleibt fest, die Statistikseite verlässt sich darauf.
+# - Vorher sendet AMP um 03:58 "save-all flush" an die Paper-Instanz (siehe README.md), sonst fehlen Werte von
+#   Spielern, die über Nacht online sind.
 #
 # Aufruf: schnappschuss.sh <paper-instanzordner> <archivordner> [velocity-instanzordner]
 #   Instanzordner = Ordner mit server.properties (Paper) bzw. velocity.toml (Velocity)
@@ -20,20 +26,35 @@ fi
 PAPER="$1"
 ARCHIV="$2"
 VELOCITY="${3:-}"
-DATUM="${SCHNAPPSCHUSS_DATUM:-$(date +%F)}"
 
 [ -f "$PAPER/server.properties" ] || { echo "Keine server.properties in $PAPER" >&2; exit 1; }
+
+# Datum immer in Berliner Zeit. Ohne Zeitzonendaten würde date still auf UTC fallen, deshalb vorher prüfen.
+if [ -n "${SCHNAPPSCHUSS_DATUM:-}" ]; then
+  DATUM="$SCHNAPPSCHUSS_DATUM"
+else
+  [ -e /usr/share/zoneinfo/Europe/Berlin ] || { echo "Zeitzonendaten Europe/Berlin fehlen (Paket tzdata)" >&2; exit 1; }
+  DATUM=$(TZ=Europe/Berlin date +%F)
+fi
+
+[[ "$DATUM" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || { echo "Ungültiges Datum \"$DATUM\"" >&2; exit 1; }
+
+# Season aus <archiv>/SEASON
+[ -f "$ARCHIV/SEASON" ] || { echo "Season fehlt: $ARCHIV/SEASON anlegen (z. B. echo testlauf > $ARCHIV/SEASON)" >&2; exit 1; }
+SEASON=$(head -n1 "$ARCHIV/SEASON" | tr -d "[:space:]")   # [:space:] entfernt auch das CR von Windows-Zeilenenden
+[[ "$SEASON" =~ ^[a-z0-9][a-z0-9-]*$ ]] || { echo "Ungültige Season-Kennung \"$SEASON\" (erlaubt: a-z, 0-9, -)" >&2; exit 1; }
+ZIELORDNER="$ARCHIV/$SEASON"
 
 # Weltordner aus level-name (Standard: world)
 LEVEL=$(sed -n 's/^level-name=//p' "$PAPER/server.properties" | tr -d '\r')
 WELT="$PAPER/${LEVEL:-world}"
 [ -d "$WELT" ] || { echo "Weltordner $WELT fehlt" >&2; exit 1; }
 
-mkdir -p "$ARCHIV/schnappschuesse" "$ARCHIV/logs"
-ZIEL="$ARCHIV/schnappschuesse/$DATUM.tar.gz"
+mkdir -p "$ZIELORDNER/schnappschuesse" "$ZIELORDNER/logs"
+ZIEL="$ZIELORDNER/schnappschuesse/$DATUM.tar.gz"
 
 if [ -e "$ZIEL" ]; then
-  echo "$DATUM: Schnappschuss existiert schon, übersprungen"
+  echo "$DATUM [$SEASON]: Schnappschuss existiert schon, übersprungen"
 else
   ARBEIT=$(mktemp -d)
   trap 'rm -rf "$ARBEIT"' EXIT
@@ -60,17 +81,17 @@ else
 
   tar -czf "$ZIEL.tmp" -C "$ARBEIT" "$DATUM"
   mv "$ZIEL.tmp" "$ZIEL"
-  echo "$DATUM: Schnappschuss $ZIEL ($ANZAHL Dateien)"
+  echo "$DATUM [$SEASON]: Schnappschuss $ZIEL ($ANZAHL Dateien)"
 fi
 
 # Abgeschlossene Logs ins Archiv verschieben, vorhandene Ziele nie überschreiben
 logs_sichern() {
   local quelle="$1" name="$2" n=0
   [ -d "$quelle/logs" ] || return 0
-  mkdir -p "$ARCHIV/logs/$name"
+  mkdir -p "$ZIELORDNER/logs/$name"
   for f in "$quelle"/logs/*.log.gz; do
     [ -e "$f" ] || continue
-    local ziel="$ARCHIV/logs/$name/$(basename "$f")"
+    local ziel="$ZIELORDNER/logs/$name/$(basename "$f")"
     if [ -e "$ziel" ]; then
       cmp -s "$f" "$ziel" || { echo "Konflikt: $ziel existiert mit anderem Inhalt, $f bleibt liegen" >&2; continue; }
       rm -f "$f"   # identische Kopie liegt schon im Archiv
@@ -79,7 +100,7 @@ logs_sichern() {
     fi
     n=$((n + 1))
   done
-  echo "$DATUM: $n Log-Dateien von $name archiviert"
+  echo "$DATUM [$SEASON]: $n Log-Dateien von $name archiviert"
 }
 
 logs_sichern "$PAPER" paper
