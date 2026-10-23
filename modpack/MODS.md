@@ -8,9 +8,14 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 
 ## Inhalt von `modpack-v2` (23.10.2026)
 
-36 Mods und der Shader Complementary Reimagined, die Bibliotheken kommen automatisch dazu. Auswahl: alle 🔵 aus den Tabellen unten, dazu auf Pascals Wunsch **Fullbright (Gamma Utils)**, **Freecam** und für weite Sicht **Bobby** (merkt sich gesehene Chunks) und **Distant Horizons** (Fernsicht, arbeitet mit Iris und Complementary zusammen; voxy wäre die Alternative, beide zusammen gehen nicht). Die Liste steht in `mods.json`.
+**Aufbau (Pascal, 23.10.):** alles aus 🟢, 🔵 und 🟠 (soweit der Server-Teil eingeplant ist) plus Bibliotheken ist **aktiv**. Alle ⚪ liegen **deaktiviert** bei (`.jar.disabled`) und lassen sich im Launcher mit einem Klick einschalten. ➖ ist nicht drin. Stand des Baus: 112 Dateien – 57 Mods aktiv (39 gewählte + Bibliotheken), 52 deaktiviert, Shader Complementary Reimagined und Unbound, Resourcepack Redstone Tweaks. Die Liste steht in `mods.json` (`mods` = aktiv, `optional` = deaktiviert).
 
-Leistung: Sodium, Lithium, Entity Culling, FerriteCore, ImmediatelyFast, Better Block Entities, SmoothTextureFix, More Culling, BadOptimizations, Dynamic FPS · Optik: Iris, Complementary Reimagined, Continuity, ETF, EMF, 3D Skin Layers, Zoomify · Sicht: Bobby, Distant Horizons, Gamma Utils, Freecam · Karte/Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars · Bedienung: Mod Menu, Mouse Tweaks, Client Sort, ClickThrough Plus, Controlling, Borderless Fullscreen · Bauen: Litematica, Armor Poser (Server-Plugin nötig) · Menü: FancyMenu (Weihnachts-Hauptmenü folgt)
+- Fullbright (Gamma Utils), Freecam, **Bobby** (merkt sich gesehene Chunks) und **Distant Horizons** (Fernsicht, arbeitet mit Iris und Complementary zusammen) sind auf Pascals Wunsch aktiv
+- **voxy** liegt nur deaktiviert bei: nicht zusammen mit Distant Horizons einschalten
+- **Simple Voice Chat** ist aktiv; der Server braucht dafür das Plugin und den UDP-Port 24454 (Plan Task 4 Schritt 9)
+- **Nicht dabei:** VeinMiner (ändert die Spielregeln für alle, Entscheidung offen); Paginated Advancements, RP Renames, Screenshot Viewer (noch keine Version für 26.3, stehen schon in `optional` und kommen beim nächsten Bau automatisch mit, sobald es sie gibt)
+
+Aktiv: Leistung: Sodium, Lithium, Entity Culling, FerriteCore, ImmediatelyFast, Better Block Entities, SmoothTextureFix, More Culling, BadOptimizations, Dynamic FPS · Optik: Iris, Complementary Reimagined, Continuity, ETF, EMF, 3D Skin Layers, Zoomify · Sicht: Bobby, Distant Horizons, Gamma Utils, Freecam · Karte/Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars · Bedienung: Mod Menu, Mouse Tweaks, Client Sort, ClickThrough Plus, Controlling, Borderless Fullscreen · Bauen: Litematica, Armor Poser (Server-Plugin nötig) · Sprache: Simple Voice Chat mit Animationen und Gruppennamen (Server-Plugin nötig) · Menü: FancyMenu (Weihnachts-Hauptmenü folgt)
 
 Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 

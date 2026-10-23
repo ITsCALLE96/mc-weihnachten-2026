@@ -7,8 +7,15 @@ import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
-// shader: Projekt-IDs, die als Shaderpack statt als Mod abgelegt werden.
-export function baueIndex({ name, version, minecraft, fabricLoader, versionen, shader = [] }) {
+// shader/resourcepacks: Projekt-IDs, die in shaderpacks/ bzw. resourcepacks/ statt mods/ landen.
+// deaktiviert: Projekt-IDs optionaler Mods; sie liegen als .jar.disabled bei und lassen sich im Launcher einschalten.
+function ziel(v, datei, { shader, resourcepacks, deaktiviert }) {
+  if (shader.includes(v.project_id)) return `shaderpacks/${datei.filename}`;
+  if (resourcepacks.includes(v.project_id)) return `resourcepacks/${datei.filename}`;
+  return `mods/${datei.filename}${deaktiviert.includes(v.project_id) ? '.disabled' : ''}`;
+}
+
+export function baueIndex({ name, version, minecraft, fabricLoader, versionen, shader = [], resourcepacks = [], deaktiviert = [] }) {
   return {
     formatVersion: 1,
     game: 'minecraft',
@@ -18,7 +25,7 @@ export function baueIndex({ name, version, minecraft, fabricLoader, versionen, s
       const datei = v.files.find((f) => f.primary) ?? v.files[0];
       if (!datei) throw new Error(`Version ${v.version_number} von ${v.project_id} hat keine Datei`);
       return {
-        path: `${shader.includes(v.project_id) ? 'shaderpacks' : 'mods'}/${datei.filename}`,
+        path: ziel(v, datei, { shader, resourcepacks, deaktiviert }),
         hashes: { sha1: datei.hashes.sha1, sha512: datei.hashes.sha512 },
         env: { client: 'required', server: 'unsupported' },
         downloads: [datei.url],
@@ -46,50 +53,70 @@ async function neuesteVersion(projekt, minecraft, loader = 'fabric') {
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const repo = join(fileURLToPath(import.meta.url), '..', '..');
   const { minecraft } = JSON.parse(readFileSync(join(repo, 'versions.json'), 'utf8'));
-  const { name, version, mods, shader = [] } = JSON.parse(readFileSync(join(repo, 'modpack/mods.json'), 'utf8'));
+  const { name, version, mods, optional = [], shader = [], resourcepacks = [] } =
+    JSON.parse(readFileSync(join(repo, 'modpack/mods.json'), 'utf8'));
 
   const loader = (await holeJson(`https://meta.fabricmc.net/v2/versions/loader/${minecraft}`))
     .find((l) => l.loader.stable)?.loader.version;
   if (!loader) throw new Error(`Kein stabiler Fabric-Loader für ${minecraft}`);
 
-  const gefunden = new Map();
-  const offen = [...mods];
-  while (offen.length) {
-    const projekt = offen.shift();
-    if ([...gefunden.values()].some((v) => v.project_id === projekt) || gefunden.has(projekt)) continue;
+  const gefunden = new Map(); // Projekt-ID → Version
+  const pflichtAb = (v) => (v.dependencies ?? []).filter((d) => d.dependency_type === 'required' && d.project_id).map((d) => d.project_id);
+
+  // Holt ein Projekt samt Pflicht-Abhängigkeiten; liefert die Projekt-ID oder null, wenn es keine passende Version gibt.
+  const slugZuId = new Map();
+  async function hole(projekt, muss, loaderName = 'fabric') {
+    if (gefunden.has(projekt)) return projekt;
+    if (slugZuId.has(projekt)) return slugZuId.get(projekt);
     let v;
     try {
-      v = await neuesteVersion(projekt, minecraft);
+      v = await neuesteVersion(projekt, minecraft, loaderName);
     } catch (e) {
-      // Manche Mods listen Forge-Abhängigkeiten fälschlich als Pflicht; direkt gewählte Mods müssen aber da sein.
-      if (mods.includes(projekt)) throw e;
-      console.warn(`Abhängigkeit übersprungen: ${e.message}`);
-      continue;
+      // Manche Mods listen Forge-Abhängigkeiten fälschlich als Pflicht; Kern-Mods müssen aber da sein.
+      if (muss) throw e;
+      console.warn(`Übersprungen: ${e.message}`);
+      return null;
     }
-    gefunden.set(projekt, v);
-    for (const d of v.dependencies ?? []) {
-      if (d.dependency_type === 'required' && d.project_id) offen.push(d.project_id);
-    }
+    slugZuId.set(projekt, v.project_id);
+    gefunden.set(v.project_id, v);
+    for (const d of pflichtAb(v)) await hole(d, false);
+    return v.project_id;
   }
-  // Shader haben keine Abhängigkeiten und laufen über den Iris-Loader.
-  const shaderIds = [];
-  for (const projekt of shader) {
-    const v = await neuesteVersion(projekt, minecraft, 'iris');
-    gefunden.set(projekt, v);
-    shaderIds.push(v.project_id);
-  }
-  const versionen = [...new Map([...gefunden.values()].map((v) => [v.project_id, v])).values()];
 
-  const index = baueIndex({ name, version, minecraft, fabricLoader: loader, versionen, shader: shaderIds });
+  for (const projekt of mods) await hole(projekt, true);
+  const aktivVorher = new Set(gefunden.keys());
+  const deaktiviert = new Set();
+  for (const projekt of optional) {
+    const id = await hole(projekt, false);
+    if (id && !aktivVorher.has(id)) deaktiviert.add(id);
+  }
+  // Was eine aktive Mod braucht, muss selbst aktiv bleiben.
+  for (let geaendert = true; geaendert;) {
+    geaendert = false;
+    for (const v of gefunden.values()) {
+      if (deaktiviert.has(v.project_id)) continue;
+      for (const d of pflichtAb(v)) if (deaktiviert.delete(d)) geaendert = true;
+    }
+  }
+  // Shader und Resourcepacks haben keine Abhängigkeiten und eigene Loader.
+  const shaderIds = [];
+  for (const projekt of shader) shaderIds.push(await hole(projekt, true, 'iris'));
+  const rpIds = [];
+  for (const projekt of resourcepacks) rpIds.push(await hole(projekt, true, 'minecraft'));
+  const versionen = [...gefunden.values()];
+
+  const index = baueIndex({ name, version, minecraft, fabricLoader: loader, versionen,
+    shader: shaderIds, resourcepacks: rpIds, deaktiviert: [...deaktiviert] });
   const tmp = join(repo, 'build/mrpack');
   rmSync(tmp, { recursive: true, force: true });
   mkdirSync(tmp, { recursive: true });
   writeFileSync(join(tmp, 'modrinth.index.json'), JSON.stringify(index, null, 2));
-  const ziel = join(repo, 'build/weihnachten-modpack.mrpack');
-  rmSync(ziel, { force: true });
-  execFileSync('C:/Windows/System32/tar.exe', ['--format', 'zip', '-cf', ziel, 'modrinth.index.json'], { cwd: tmp });
+  const packDatei = join(repo, 'build/weihnachten-modpack.mrpack');
+  rmSync(packDatei, { force: true });
+  execFileSync('C:/Windows/System32/tar.exe', ['--format', 'zip', '-cf', packDatei, 'modrinth.index.json'], { cwd: tmp });
   writeFileSync(join(repo, 'modpack/STAND.md'),
     `# Stand des Modpacks\n\nMinecraft ${minecraft}, Fabric Loader ${loader}\n\n| Datei | Download |\n|---|---|\n` +
     index.files.map((f) => `| ${f.path} | ${f.downloads[0]} |`).join('\n') + '\n');
-  console.log(`${index.files.length} Dateien (davon ${shaderIds.length} Shader), Loader ${loader} → ${ziel}`);
+  console.log(`${index.files.length} Dateien (${deaktiviert.size} deaktiviert, ${shaderIds.length} Shader, ` +
+    `${rpIds.length} Resourcepacks), Loader ${loader} → ${packDatei}`);
 }

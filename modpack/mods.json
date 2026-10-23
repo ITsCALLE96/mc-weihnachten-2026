@@ -8,7 +8,22 @@
     "bobby", "distanthorizons", "gamma-utils", "freecam",
     "xaeros-minimap", "xaeros-world-map", "appleskin", "shulkerboxtooltip", "lightoverlay", "status-effect-bars",
     "modmenu", "mouse-tweaks", "clientsort", "clickthrough-plus", "controlling", "borderless-fullscreen",
-    "litematica", "armor-poser", "fancymenu"
+    "litematica", "armor-poser", "fancymenu",
+    "simple-voice-chat", "simple-voice-animations", "voicechat-names"
   ],
-  "shader": ["complementary-reimagined"]
+  "optional": [
+    "sodium-extra", "reeses-sodium-options", "rrls", "quick-pack", "nvidium", "voxy",
+    "euphoria-patches", "irissearch", "lambdynamiclights", "particle-rain", "coolrain", "make_bubbles_pop",
+    "simplefog", "time-weather-changer", "boat-item-view", "ji-afk-cinematic", "cinematic-zoom-fabric",
+    "ukus-armor-hud", "locator-heads", "peek", "minihud", "entity-outlines", "herenthere", "calcmod",
+    "moremousetweaks", "multi-key-bindings", "bundles-beyond", "scribble", "bigsignwriter",
+    "zannaghs-armor-hider", "extreme_sound_muffler", "do-a-barrel-roll", "flashback",
+    "better-stats", "betterf3", "packed-packs", "cut-through", "pickup-notifications",
+    "chat-heads", "jei", "jade", "not-enough-animations", "sound-physics-remastered", "no-chat-reports",
+    "ambientsounds", "fallingleaves", "visuality", "presence-footsteps", "enchantment-descriptions",
+    "morechathistory", "language-reload", "debugify",
+    "paginatedadvancements", "rp-renames", "screenshot-viewer"
+  ],
+  "shader": ["complementary-reimagined", "complementary-unbound"],
+  "resourcepacks": ["redstone-tweaks"]
 }

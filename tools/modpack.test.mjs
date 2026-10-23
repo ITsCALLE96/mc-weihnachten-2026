@@ -31,6 +31,13 @@ test('Shader landen in shaderpacks/', () => {
   assert.deepEqual(index.files.map((f) => f.path), ['mods/sodium.jar', 'shaderpacks/Complementary.zip']);
 });
 
+test('Optionale Mods liegen deaktiviert bei, Resourcepacks in resourcepacks/', () => {
+  const rp = { ...version, project_id: 'RP1', files: [{ primary: true, filename: 'tweaks.zip', url: 'https://cdn.modrinth.com/t.zip', size: 3, hashes: { sha1: 'r1', sha512: 'r5' } }] };
+  const opt = { ...version, project_id: 'OPT1' };
+  const index = baueIndex({ name: 'P', version: '1', minecraft: '26.3', fabricLoader: '0', versionen: [opt, rp], deaktiviert: ['OPT1'], resourcepacks: ['RP1'] });
+  assert.deepEqual(index.files.map((f) => f.path), ['mods/sodium.jar.disabled', 'resourcepacks/tweaks.zip']);
+});
+
 test('Version ohne Dateien bricht ab', () => {
   assert.throws(() => baueIndex({ name: 'P', version: '1', minecraft: '26.3', fabricLoader: '0', versionen: [{ ...version, files: [] }] }), /AANobbMI/);
 });

@@ -8,6 +8,12 @@ Du brauchst das nicht zum Mitspielen – es macht Minecraft flüssiger und schö
 4. Mit deinem Microsoft-Konto anmelden und das Profil **„Weihnachtsprojekt 2026“** mit **Play** starten.
 5. **Mehrspieler → Server hinzufügen → Adresse `mc.grahl.cloud`**. Beim Beitreten das Weihnachts-Resourcepack annehmen.
 
+## Zusätzliche Mods einschalten
+
+Im Pack liegen rund 50 weitere Mods, die **ausgeschaltet** sind – Optik, Geräusche, Rezeptbuch (JEI), Aufnahmen (Flashback) und vieles mehr. In der Modrinth App: Profil öffnen → **Inhalt** → beim gewünschten Mod den **Schalter** umlegen, dann Minecraft neu starten. Was welche Mod macht, steht in der Mod-Liste (`MODS.md`, Stufe ⚪).
+
+Nicht zusammen einschalten: **voxy** und **Distant Horizons** (Distant Horizons ist schon an).
+
 ## Nützliche Tasten und Schalter
 
 | Was | Wie |
@@ -15,6 +21,7 @@ Du brauchst das nicht zum Mitspielen – es macht Minecraft flüssiger und schö
 | Shader an/aus | **Optionen → Videoeinstellungen → Shader-Pakete** → „Complementary Reimagined“ |
 | Hell sehen (Fullbright) | **H** = Nachtsicht, funktioniert auch mit Shadern · **G** = Helligkeit hoch, nur ohne Shader |
 | Freecam (Kamera frei bewegen) | **F4** |
+| Sprachchat (Einstellungen, Gruppen) | **V** · Sprechen: **Caps Lock** gedrückt halten |
 | Zoom | **C** gedrückt halten |
 | Weltkarte | **M** |
 | Wegpunkt setzen | **B** |
