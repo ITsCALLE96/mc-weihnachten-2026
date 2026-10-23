@@ -13,7 +13,7 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 - Fullbright (Gamma Utils), Freecam, **Bobby** (merkt sich gesehene Chunks) und **Distant Horizons** (Fernsicht, arbeitet mit Iris und Complementary zusammen) sind auf Pascals Wunsch aktiv
 - **voxy** liegt nur deaktiviert bei: nicht zusammen mit Distant Horizons einschalten
 - **Simple Voice Chat** ist aktiv; der Server braucht dafür das Plugin und den UDP-Port 24454 (Plan Task 4 Schritt 9)
-- **Nicht dabei:** VeinMiner (ändert die Spielregeln für alle, Entscheidung offen); Paginated Advancements, RP Renames, Screenshot Viewer (noch keine Version für 26.3, stehen schon in `optional` und kommen beim nächsten Bau automatisch mit, sobald es sie gibt)
+- **Nicht dabei:** VeinMiner (nein, Pascal 23.10.); Paginated Advancements, RP Renames, Screenshot Viewer (noch keine Version für 26.3, stehen schon in `optional` und kommen beim nächsten Bau automatisch mit, sobald es sie gibt)
 
 Aktiv: Leistung: Sodium, Lithium, Entity Culling, FerriteCore, ImmediatelyFast, Better Block Entities, SmoothTextureFix, More Culling, BadOptimizations, Dynamic FPS · Optik: Iris, Complementary Reimagined, Continuity, ETF, EMF, 3D Skin Layers, Zoomify · Sicht: Bobby, Distant Horizons, Gamma Utils, Freecam · Karte/Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars · Bedienung: Mod Menu, Mouse Tweaks, Client Sort, ClickThrough Plus, Controlling, Borderless Fullscreen · Bauen: Litematica, Armor Poser (Server-Plugin nötig) · Sprache: Simple Voice Chat mit Animationen und Gruppennamen (Server-Plugin nötig) · Menü: FancyMenu (Weihnachts-Hauptmenü folgt)
 
@@ -174,7 +174,7 @@ Quelle: YouTube-Video von demonjoeTV (15.08.2026) und seine Modrinth-Sammlung `m
 | [Reach Behind](https://modrinth.com/mod/reach-behind) | durch Deko hindurch Blöcke benutzen | ➖ | doppelt zu ClickThrough Plus (im Video „Reach Around“ genannt) |
 | [Pickup Notifications](https://modrinth.com/mod/pickup-notifications) | Einblendung beim Aufsammeln von Items | ⚪ | laut Modrinth auch auf dem Server nötig – auf Paper vorher ausprobieren |
 | [Speed Happy Ghast](https://modrinth.com/mod/speed-happy-ghast) | Happy Ghasts schneller | 🟠 | **26.2**; Datapack für den Server, Alternative zu Wind Boost |
-| [RightClickHarvest](https://modrinth.com/mod/rightclickharvest) | Felder per Rechtsklick ernten und neu pflanzen | 🟠 | reine Server-Mod für Fabric; auf Paper ginge es nur mit einem entsprechenden Plugin, wirkt dann für alle |
+| [RightClickHarvest](https://modrinth.com/mod/rightclickharvest) | Felder per Rechtsklick ernten und neu pflanzen | 🟠 | **ja (Pascal, 23.10.)**; reine Fabric-Server-Mod, auf Paper stattdessen ein Plugin: [HarvestMaster](https://modrinth.com/plugin/harvestmaster) (26.3, meistgeladen) oder [Right click harvester](https://modrinth.com/plugin/right-click-harvester) (26.3, quelloffen); wirkt für alle, auch ohne Pack |
 | [Easy Shulker Boxes](https://modrinth.com/mod/easy-shulker-boxes) | Shulkerkisten direkt im Inventar benutzen | ➖ | braucht die Mod auf dem Server, auf Paper nicht möglich; Shulker Box Tooltip deckt das Anschauen ab |
 | [Bookshelf Inspector](https://modrinth.com/mod/bookshelf-inspector) | Bücher im Bücherregal ansehen | ➖ | braucht die Mod auf dem Server |
 | [Vehicle Upgrade](https://modrinth.com/mod/vehicle-upgrade) | verbesserte Reittiere und Boote | ➖ | Server-Mod, ändert das Spiel |
@@ -198,8 +198,8 @@ Quelle: Modrinth-Suche nach Downloads, Abruf 23.10.2026. Von den Top 50 standen 
 | 20 | [Not Enough Animations](https://modrinth.com/mod/not-enough-animations) | schönere Animationen in der Third-Person-Ansicht | ⚪ | |
 | 43 | [Sound Physics Remastered](https://modrinth.com/mod/sound-physics-remastered) | Hall und Echo in Höhlen und Räumen | ⚪ | kostet Rechenleistung |
 | 42 | [No Chat Reports](https://modrinth.com/mod/no-chat-reports) | Chatnachrichten nicht signieren | ⚪ | auf unserem Server egal; serverseitig regelt das `enforce-secure-profile` |
-| 18 | [VeinMiner](https://modrinth.com/plugin/veinminer) | ganze Erzader auf einmal abbauen | 🟠 | gibt es auch als Paper-Plugin, ändert aber die Spielbalance – für ein Vanilla-Projekt nicht empfohlen |
-| 30 | [VeinMiner Hotkey](https://modrinth.com/mod/veinminer-client) | Taste und Vorschau für VeinMiner | 🟠 | nur mit VeinMiner |
+| 18 | [VeinMiner](https://modrinth.com/plugin/veinminer) | ganze Erzader auf einmal abbauen | 🔴 | **nein (Pascal, 23.10.)**; gäbe es als Paper-Plugin, ändert aber die Spielbalance |
+| 30 | [VeinMiner Hotkey](https://modrinth.com/mod/veinminer-client) | Taste und Vorschau für VeinMiner | 🔴 | **nein**, nur mit VeinMiner |
 | 50 | [Essential](https://modrinth.com/mod/essential) | Freunde-System, Welten hosten, Kosmetik-Shop | ➖ | eigenes Konto- und Shop-System, verträgt sich schlecht mit anderen Mods |
 | 24 | [ModernFix](https://modrinth.com/mod/modernfix) | Leistung und Speicher, behebt Fehler | ➖ | noch keine Version für 26.3 |
 | 14 | [Architectury API](https://modrinth.com/mod/architectury-api) | Bibliothek | 📚 | |
