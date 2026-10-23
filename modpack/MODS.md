@@ -2,7 +2,7 @@
 
 Das Pack ist **freiwillig**. Wer es nicht nutzt, spielt mit normalem Minecraft genauso mit. Auf dem Server sind nur Mods ohne Spielvorteil erlaubt.
 
-Grundlage für die Bewertung ist die Community-Zusammenstellung **„CastCrafter CA14 Mische“ 1.1.0** (Modrinth `cc-ca14`, VincPlyz, Stand 19.10.2026, Minecraft 26.3, 94 Einträge). Sie enthält alle Mods, Shader und Resourcepacks, die CastCrafter in CraftAttack 14 nutzt. Jede Mod daraus ist hier einzeln bewertet, auch die, die wir nicht übernehmen.
+Grundlage für die Bewertung ist die Community-Zusammenstellung **„CastCrafter CA14 Mische“ 1.1.0** (Modrinth `cc-ca14`, VincPlyz, Stand 19.10.2026, Minecraft 26.3, 94 Einträge). Sie enthält alle Mods, Shader und Resourcepacks, die CastCrafter in CraftAttack 14 nutzt. Jede Mod daraus ist hier einzeln bewertet, auch die, die wir nicht übernehmen. Dazu kommen die Mods aus demonjoeTVs Video „Top 30 Quality of Life Minecraft Mods“ (eigener Abschnitt unten).
 
 Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/modpack.mjs` geschrieben).
 
@@ -142,6 +142,33 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 [Fabric API](https://modrinth.com/mod/fabric-api) (✅ v1) · [Fabric Language Kotlin](https://modrinth.com/mod/fabric-language-kotlin) (✅ v1) · [YetAnotherConfigLib](https://modrinth.com/mod/yacl) (✅ v1) · [Text Placeholder API](https://modrinth.com/mod/placeholder-api) (✅ v1) · [Cloth Config API](https://modrinth.com/mod/cloth-config) · [MaLiLib](https://modrinth.com/mod/malilib) · [MidnightLib](https://modrinth.com/mod/midnightlib) · [Balm](https://modrinth.com/mod/balm) · [CreativeCore](https://modrinth.com/mod/creativecore) · [CICADA](https://modrinth.com/mod/cicada) · [Eunomia](https://modrinth.com/mod/eunomia) · [Forge Config API Port](https://modrinth.com/mod/forge-config-api-port) · [LibJF](https://modrinth.com/mod/libjf) · [MRU](https://modrinth.com/mod/mru) · [OverlayLib](https://modrinth.com/mod/overlaylib) · [Searchables](https://modrinth.com/mod/searchables) · [ukulib](https://modrinth.com/mod/ukulib)
 
 Welche davon wirklich gebraucht werden, ergibt sich aus den gewählten Mods; `tools/modpack.mjs` löst die Abhängigkeiten auf.
+
+## Weitere Mods aus „Top 30 Quality of Life Minecraft Mods“ (demonjoeTV)
+
+Quelle: YouTube-Video von demonjoeTV (15.08.2026) und seine Modrinth-Sammlung `mnqEfW3F`. 10 der 30 Mods stehen schon oben (Client Sort, Mouse Tweaks, Controlling, Boat Item View, Zoomify, Light Overlay, Axiom, Litematica, Freecam, LambDynamicLights). Hier die übrigen 20. „26.2“ heißt: noch keine Version für 26.3.
+
+| Mod | Wofür | Stufe | Anmerkung |
+|---|---|---|---|
+| [Paginated Advancements](https://modrinth.com/mod/paginatedadvancements) | übersichtlicherer Fortschritte-Bildschirm | ⚪ | **26.2** – passt gut zu unserem Leitfaden, der aus Fortschritten besteht; aufnehmen, sobald es 26.3 gibt |
+| [Status Effect Bars](https://modrinth.com/mod/status-effect-bars) | Restdauer von Tränken als Balken | ⚪ | |
+| [BetterF3](https://modrinth.com/mod/betterf3) | aufgeräumter, farbiger F3-Bildschirm | ⚪ | zeigt nichts, was F3 nicht ohnehin zeigt |
+| [Better Statistics Screen](https://modrinth.com/mod/better-stats) | bessere Statistik-Ansicht | ⚪ | |
+| [Borderless Fullscreen](https://modrinth.com/mod/borderless-fullscreen) | randloses Vollbild, schnelles Alt-Tab | ⚪ | praktisch, wenn nebenbei Discord läuft |
+| [Packed Packs](https://modrinth.com/mod/packed-packs) | Resourcepacks in Profilen verwalten | ⚪ | |
+| [RP Renames](https://modrinth.com/mod/rp-renames) | zeigt im Amboss, welche Namen ein Resourcepack umgestaltet | ⚪ | **26.2**; nützlich, falls unser Pack Deko-Items über Namen umgestaltet |
+| [Screenshot Viewer](https://modrinth.com/mod/screenshot-viewer) | Screenshots im Spiel ansehen | ⚪ | **26.2** |
+| [Cut Through](https://modrinth.com/mod/cut-through) | durch hohes Gras hindurch Mobs schlagen | ⚪ | kein nennenswerter Vorteil, nur weniger Frust |
+| [Reach Behind](https://modrinth.com/mod/reach-behind) | durch Deko hindurch Blöcke benutzen | ➖ | doppelt zu ClickThrough Plus (im Video „Reach Around“ genannt) |
+| [Pickup Notifications](https://modrinth.com/mod/pickup-notifications) | Einblendung beim Aufsammeln von Items | ⚪ | laut Modrinth auch auf dem Server nötig – auf Paper vorher ausprobieren |
+| [Speed Happy Ghast](https://modrinth.com/mod/speed-happy-ghast) | Happy Ghasts schneller | 🟠 | **26.2**; Datapack für den Server, Alternative zu Wind Boost |
+| [RightClickHarvest](https://modrinth.com/mod/rightclickharvest) | Felder per Rechtsklick ernten und neu pflanzen | 🟠 | reine Server-Mod für Fabric; auf Paper ginge es nur mit einem entsprechenden Plugin, wirkt dann für alle |
+| [Easy Shulker Boxes](https://modrinth.com/mod/easy-shulker-boxes) | Shulkerkisten direkt im Inventar benutzen | ➖ | braucht die Mod auf dem Server, auf Paper nicht möglich; Shulker Box Tooltip deckt das Anschauen ab |
+| [Bookshelf Inspector](https://modrinth.com/mod/bookshelf-inspector) | Bücher im Bücherregal ansehen | ➖ | braucht die Mod auf dem Server |
+| [Vehicle Upgrade](https://modrinth.com/mod/vehicle-upgrade) | verbesserte Reittiere und Boote | ➖ | Server-Mod, ändert das Spiel |
+| [Crops Love Rain](https://modrinth.com/mod/crops-love-rain) | Pflanzen wachsen bei Regen schneller | ➖ | Server-Mod, ändert die Spielregeln |
+| [Superflat World No Slimes](https://modrinth.com/mod/superflat-world-no-slimes) | keine Schleime in Flachwelten | ➖ | nur für Creative-Flachwelten |
+| [Cherished Worlds](https://modrinth.com/mod/cherished-worlds) | Lieblingswelten oben anheften | ➖ | nur Einzelspieler-Weltenliste |
+| [Delete Worlds To Trash](https://modrinth.com/mod/delete-worlds-to-trash) | gelöschte Welten landen im Papierkorb | ➖ | nur Einzelspieler |
 
 ## Server-Regeln, die daraus folgen
 
