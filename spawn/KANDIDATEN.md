@@ -41,3 +41,8 @@ Bei einer CA-Welt entfällt die Seed-Wahl ggf. (CA-Seed).
 - `node tools/vorschau.mjs <datei.schem> <ausgabe.png> <textures/block>` – Schrägansicht mit Vanilla-Texturen (aus dem 26.3-Client-Jar)
 - `tools/schem.mjs` – Schematics lesen/bearbeiten/schreiben (einfügen, Blöcke ersetzen)
 - Fremde Schematics liegen nur lokal in `spawn/quellen/` (git-ignoriert) – Lizenz unklar, Repo öffentlich. Namensnennung Bahnhof: emgvacation bzw. JPCore.
+- `tools/schem-welt.mjs` – fertige Welt (Nitrado-Pack, CA12) auswerten und ausschneiden, nur lesend:
+  - `info <welt>` – Version, Seed, Spawn, Datapacks aus `level.dat`
+  - `umriss <welt> <x> <z> <radius> <minY>` – Kasten aller Blöcke ab `minY` (findet schwebende Inseln)
+  - `ausschneiden <welt> <x1> <y1> <z1> <x2> <y2> <z2> <aus.schem>` – Blöcke + Block-Entities + Entities (Villager, Rüstungsständer, Rahmen) → `//paste -e`
+  - kann Welten ab 1.18 und das neue 26.x-Layout (`dimensions/minecraft/overworld/`); an einer echten 26.3-Testwelt geprüft

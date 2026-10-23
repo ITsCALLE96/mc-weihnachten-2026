@@ -61,6 +61,12 @@ export function speichere(m) {
         elem: 'compound',
         items: m.blockEntities.map((be) => ({ Pos: tag('intArray', be.pos), Id: tag('string', be.id), ...be.daten })),
       }),
+      ...(m.entities?.length && {
+        Entities: tag('list', {
+          elem: 'compound',
+          items: m.entities.map((e) => ({ Pos: tag('list', { elem: 'double', items: e.pos }), Id: tag('string', e.id), ...e.daten })),
+        }),
+      }),
     },
   });
 }
