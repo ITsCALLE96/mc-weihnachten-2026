@@ -69,7 +69,7 @@ Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 | [Time & Weather Changer](https://modrinth.com/mod/time-weather-changer) | eigene Tageszeit/Wetter, nur für sich selbst | ⚪ | | gut für Screenshots |
 | [Boat Item View](https://modrinth.com/mod/boat-item-view) | Item in der Hand im Boot sichtbar | ⚪ | | |
 | [Zoomify](https://modrinth.com/mod/zoomify) | Zoom-Taste | 🔵 | ✅ | entspricht einem Fernrohr |
-| [Cinematic Zoom](https://modrinth.com/mod/cinematic-zoom-fabric) | weicher Zoom mit Kinobalken | ➖ | | doppelt zu Zoomify |
+| [Cinematic Zoom](https://modrinth.com/mod/cinematic-zoom-fabric) | weicher Zoom mit Kinobalken | ⚪ | | Alternative bzw. Ergänzung zu Zoomify, gut für Aufnahmen; bei beiden Mods auf verschiedene Tasten legen |
 | [Ji AFK Cinematic](https://modrinth.com/mod/ji-afk-cinematic) | Kamerafahrt, wenn man AFK ist | ⚪ | | |
 
 ## Karte und Anzeigen
