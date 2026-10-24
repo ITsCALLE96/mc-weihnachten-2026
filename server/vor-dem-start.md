@@ -61,3 +61,34 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 - [ ] AMP-Log-Aufbewahrung so, dass das Statistik-Skript alle Logs abholt, bevor AMP sie löscht
 - [ ] Keine `getamp update`/Docker-Updates zu Spielzeiten (Globale Vorgaben)
 - [ ] Rückfall Nitrado bekannt (Plan Task 9 Schritt 8)
+
+## Eröffnung (Weltenbaum öffnet sich)
+
+Pascal, 24.10.: Vor dem Start warten alle im geschlossenen Weltenbaum, beim offiziellen Start öffnet er sich und die Weltgrenze springt von klein auf 10.000.
+Funktionsnamen und kleine Grenze kommen von der Spawn-&-Welt-Session. Bis zu ihrer Bestätigung stehen hier Platzhalter: `spawn:aufbau`, `spawn:eroeffnen`.
+
+**Vorher (Task 10 Schritt 4, bis 28.11.):** Season-Wechsel `testlauf` → `weihnachten-2026` mit Abschluss-Schnappschuss, neue Welt, Spawn-Aufbau, Chunky-Vorgenerierung
+**mit der 10.000er-Grenze**. Erst danach die kleine Grenze um den Baum setzen (`spawn:aufbau` bzw. von Hand). Whitelist an, alle ~25 Namen eingetragen.
+Nether/End geschlossen, `#phase` = 0.
+
+**Am Starttag:**
+
+| Wann | Was | Wer |
+|---|---|---|
+| vor 04:00 | normaler Tagesbetrieb: Schnappschuss 04:00, Neustart 05:00 | AMP |
+| ab ~1 h vor Start | Spieler dürfen beitreten und warten im Baum (Whitelist bleibt an, sonst nichts zu tun) | – |
+| Startzeit | `function spawn:eroeffnen` in der AMP-Konsole: Baum öffnet, `worldborder set 10000` | **Pascal** (bewusst von Hand, damit er auf Nachzügler warten kann) |
+| direkt danach | `function leitfaden:phase/setzen_1` (falls nicht schon in `eroeffnen`) | Pascal bzw. dieselbe AMP-Aufgabe |
+| direkt danach | Statistik-Nullpunkt: `save-all flush`, dann `SCHNAPPSCHUSS_ERSETZEN=1 /opt/mc-weihnachten/schnappschuss.sh …` (ersetzt den 04:00-Stand des Tages, der alte bleibt als `.vorher-…`). Spielzeit im Baum vor dem Start zählt dann nicht | Pascal (Befehl aus `statistik/README.md`) |
+| Start + 10 min | **Rückfall-Aufgabe in AMP**: sendet dieselben Befehle noch einmal. `eroeffnen` muss bei zweitem Aufruf nichts tun | AMP |
+
+Der Season-Wechsel hat mit der Eröffnung nichts zu tun: Er passiert schon beim Weltwechsel (bis 28.11.).
+
+**Testlauf 21.11.:** dieselbe Eröffnung als Generalprobe in der Testwelt, mit den 2–3 Testern (Baum in der Testwelt nötig, Spawn-&-Welt-Session).
+Prüfen: Grenze vorher klein (Spieler kommt nicht aus dem Baum), nach `eroeffnen` 10.000, zweiter Aufruf ändert nichts, Phase 1 aktiv, Chat-Ansage kommt.
+Auf dem Testlauf-Server ist der Statistik-Nullpunkt egal (Season `testlauf`).
+
+**Start 05.12.:** wie oben. Uhrzeit legt Pascal fest (Plan Task 9 Schritt 1).
+
+- [ ] Eröffnung im Testlauf geprobt, Funde behoben
+- [ ] Rückfall-Aufgabe für 05.12. Startzeit + 10 min in AMP angelegt
