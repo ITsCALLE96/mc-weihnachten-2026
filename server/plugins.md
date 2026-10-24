@@ -10,7 +10,7 @@ dann in `plugins/` kopieren.
 | Plugin | Version | Quelle | Lizenz | Datei, Prüfsumme (SHA1) | Zweck |
 |---|---|---|---|---|---|
 | WorldEdit | 7.4.6 (release, 15.10.) | Modrinth `worldedit` | GPL-3.0 | `worldedit-bukkit-7.4.6.jar`, `4de34cb32f338a7727f0c1cc4a0f7ebff3fcc3a3` | Spawn einfügen, für WorldGuard nötig |
-| WorldGuard | 7.0.20 (release, 17.10.) | Modrinth `worldguard` | LGPL-3.0 | `worldguard-bukkit-7.0.20.jar`, `dd5fa9be6f5faf8a053a597491d194f2de8963ec` | Bauverbot ~150 Blöcke um den Spawn |
+| WorldGuard | 7.0.20 (release, 17.10.) | Modrinth `worldguard` | LGPL-3.0 | `worldguard-bukkit-7.0.20.jar`, `dd5fa9be6f5faf8a053a597491d194f2de8963ec` | Regionen aus `spawn/worldguard/regions.yml` (`vorgenerierung.md` → Spawn): Bauverbot 150 Blöcke um den Spawn |
 | DimensionControl | 3.0m (release, 17.09.) | Modrinth `dimension-control` | MIT | `dimensioncontrol-3.0m.jar`, `e3ed86c53229f42360b3308961607d2f3db833ee` | Nether/End zu bis zur Phase |
 | Fair Play for Xaero's Maps | 0.1.7 (release, 22.09.) | Modrinth `fair-play-for-xaeros-maps` | ARR (Nutzung frei) | `xaero-fair-play-0.1.7.jar`, `9f9f32ec7ab6fe80f7d42ffc6c262d2fd2c80b72` | Höhlenansicht und Entity-Radar in Xaero aus |
 | Armor Poser Plugin | 3.0.0 (release, 17.09.) | Modrinth `armor-poser-plugin` | MIT | `ArmorPoser-Plugin-3.0.0.jar`, `cc1f347fdef37ad3320dbba07555299d8b657a81` | Server-Teil zur Mod Armor Poser im Pack |
@@ -53,8 +53,9 @@ Alle sind auf Modrinth als 26.3-kompatibel markiert (Filter `game_versions=26.3`
 - **Spawn Elytra → „Spawn Elytra – like in Craft Attack“** (Leitung 24.10., Ersatz für die CA-Spawn-Elytra). Quelle: github.com/Knabbiii/SpawnElytra.
   Verworfen: das gleichnamige *Spawn Elytra* (Modrinth `spawn-elytra`, MPL-2.0), weil die Leitung das Craft-Attack-Plugin festgelegt hat.
   - Doppelsprung startet den Gleitflug ohne echte Elytra, F gibt einen Schub, Landen ohne Fallschaden
-  - **Flugbereich = Spawn-Insel:** Standard ist ein Kreis mit Radius 50 um den Weltspawn, Welt `world`. Die Insel reicht vom Spawn 64/37 aus ±47 × ±34,
-    **das passt ohne Setup** (lokaler Testserver, 24.10.). Voraussetzung: `setworldspawn 64 179 37` ist gesetzt. Mit `/spawnelytra visualize` prüfen.
+  - **Flugbereich = Spawn-Insel:** Kreis um den Weltspawn, Welt `world`. Seit der Weltspawn 60/179/22 ist (Spawn-&-Welt-Session), braucht es
+    **`spawnRadius: 65`** statt Standard 50 in `config.yml`, damit die ganze Insel drin ist. Die Rückweg-Plattform unten (y 62) liegt bewusst außerhalb,
+    weil die Höhe mitzählt (`ignoreYInSpawnRadius: false` lassen). Mit `/spawnelytra visualize` prüfen.
     Nur falls nötig: `/spawnelytra setup` (Rechteck, gespeichert in `plugins/SpawnElytra/area.yml`)
   - **bStats aus:** `enableMetrics: false` in `plugins/SpawnElytra/config.yml` und zusätzlich `enabled: false` in `plugins/bStats/config.yml` (gilt für alle Plugins)
   - `messages.yml` ist englisch → auf Deutsch übersetzen. Optional Flugzeit begrenzen, falls jemand vom Spawn aus endlos fliegt

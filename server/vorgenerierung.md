@@ -86,15 +86,34 @@ erwartet, zeigt `chunky world` mit Tab-Vervollständigung. `chunky pause`/`chunk
 ## Spawn nach dem Einfügen der Insel
 
 Von der Spawn-&-Welt-Session (24.10.): Die Insel kommt an ihre Originalposition (Kasten x 24…118, y 115…238, z −9…59). Unter 26.3 liegt dort
-offenes Meer, der natürliche Weltspawn wäre −48 / 102 / 64. Deshalb:
+offenes Meer, der natürliche Weltspawn wäre −48 / 102 / 64.
+
+**Weltspawn 60 / 179 / 22** (Spawn-&-Welt-Session, Commit `b424386`). Unter 64/37 liegt die Amethyst-Kuppel, dort würde 26.3 Spieler auf den obersten Block der
+Spalte setzen (Drachenflügel, y 217). **Der Mittelpunkt für Weltgrenze und Chunky bleibt 64 / 37.**
+
+Einspielen nach dem Einfügen der Insel (Reihenfolge):
+1. Datapack `spawn/datapack/insel/` nach `world/datapacks/`, Neustart oder `/reload`, dann in der Konsole einmal:
 
 ```text
-setworldspawn 64 179 37
+function insel:aufbau
+```
+
+   Baut die Rückweg-Plattform (x 72–76, z 20–24, y 62, Teleport auf den Spawn, wirkt ohne OP) und 372 Lichtblöcke unter der Insel, setzt Weltspawn und
+   `respawn_radius 0`. Nur falls das Datapack nicht läuft, von Hand (in 26.3 braucht `setworldspawn` zwei Winkelwerte):
+
+```text
+setworldspawn 60 179 22 0 0
 gamerule respawn_radius 0
 ```
 
+2. WorldGuard-Regionen: `spawn/worldguard/regions.yml` nach `plugins/WorldGuard/worlds/world/regions.yml`, dann `/rg reload` bzw. Neustart.
+   `spawn` (x 14…128, z −19…69, volle Höhe: keine Mobs, Hunger aufgefüllt, kein PvP, keine Truhen, kein Feuer, keine Explosionen, Benutzen erlaubt) und
+   `spawn_bauverbot` (Radius 150 um 64/37). Auf dem Testserver erkennt WorldGuard 7.0.20 beide samt Flags. Prüfen mit `/rg info` auf der Insel
+3. Spawn Elytra: `spawnRadius: 65` in `plugins/SpawnElytra/config.yml` (`plugins.md`)
+
 **Spawn-Streuung auf 0:** Sonst landen Neulinge zufällig neben der schwebenden Insel im Meer. Die Regel heißt in 26.3 **`respawn_radius`** (lokaler Testserver,
 24.10.: `spawnRadius` und `spawn_radius` lehnt der Server ab). **Prüfen:** mit einem neuen Testspieler (oder nach Löschen seiner Spielerdaten) beitreten,
-er muss auf der Insel stehen. Spawn Elytra nimmt den Weltspawn als Mittelpunkt (Kreis, Radius 50) und deckt die Insel damit ohne Setup ab (`plugins.md`).
+er muss auf der Insel bei 60/179/22 stehen. Dazu: Plattform unten teleportiert ohne OP auf den Spawn, Bauen im Radius 150 als Spieler ohne OP abgelehnt.
+Details: `spawn/KANDIDATEN.md` → „Spawn-Technik für die echte Welt“.
 
 **Prüfen:** `chunky progress` 100 %, `/spark tps` danach wieder 20 TPS, `du -sh` der Weltordner notieren (→ `kapazitaet.md` „Gemessen“).
