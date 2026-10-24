@@ -3,6 +3,10 @@
 Neue Chunks zu erzeugen ist das Teuerste, was ein Minecraft-Server tut. Fliegen 25 Spieler mit Elytra in verschiedene Richtungen, bremst das den Server. Deshalb wird die Welt
 vorher innerhalb der Weltgrenze komplett erzeugt. Läuft ohne Spieler, über Nacht oder tagsüber, wenn niemand spielt.
 
+> **Kurswechsel 24.10. (Spawn-&-Welt-Session):** Die CA12-Insel mit Aufschüttung bleibt nur Platzhalter auf dem lokalen Testserver. Die echte Welt bekommt einen eigenen
+> Spawn (Pascal wählt zwischen Felsinsel und Weltenbaum, `spawn/entwuerfe/README.md`). **Seed, Spawnpunkt und Mittelpunkt der Weltgrenze sind damit neu offen.** Die Werte
+> unten (Seed `1560698989`, Spawn 64/179/29, Mittelpunkt 64/37, Aufschüttung + Insel v2) gelten bis dahin nur für den Testserver. Ablauf und Radien bleiben.
+
 Werkzeug: **Chunky 1.5.3** (Modrinth `chunky`, GPL-3.0, Prüfsumme in `plugins.md`).
 
 ## Wann

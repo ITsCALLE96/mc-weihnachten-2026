@@ -28,6 +28,8 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 
 ## Welt
 
+> **Offen seit 24.10.:** Seed, Spawn und Mittelpunkt kommen neu von der Spawn-&-Welt-Session (eigener Spawn statt CA12-Insel, `vorgenerierung.md`). Die Punkte unten mit CA12-Werten bis dahin nicht abhaken.
+
 - [ ] Seed `1560698989` (CA12), Weltgrenze 10.000 × 10.000, Mittelpunkt x 64 / z 37 (Nether 8 / 5)
 - [ ] Spawn-Aufbau nach `spawn/AUFBAU.md` **vor** der Vorgenerierung: `function aufschuettung:start` (Pilzland-Ebene), dann `function insel:aufbau` (Insel v2, Weltspawn 64/179/29,
   `respawn_radius 0`, Plattform, Lichter, Weltgrenze), dann `nether close` / `end close`. WorldGuard `regions.yml` aus `spawn/worldguard/` (`vorgenerierung.md` → Spawn-Aufbau)
