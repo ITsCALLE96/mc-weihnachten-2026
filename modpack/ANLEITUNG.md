@@ -1,12 +1,13 @@
-# Optionales Modpack installieren (5 Schritte)
+# Optionales Modpack installieren (6 Schritte)
 
 Du brauchst das nicht zum Mitspielen – es macht Minecraft flüssiger und schöner und bringt Karte, Shader und viele Komfort-Funktionen.
 
 1. **Modrinth App** herunterladen und installieren: https://modrinth.com/app
 2. Die Datei **`weihnachten-modpack.mrpack`** herunterladen: https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/tag/modpack-v2
 3. In der Modrinth App oben links auf **„+“ → „Aus Datei importieren“** und die `.mrpack`-Datei auswählen. Die App lädt alles selbst herunter.
-4. Mit deinem Microsoft-Konto anmelden und das Profil **„Weihnachtsprojekt 2026“** mit **Play** starten.
-5. **Mehrspieler → Server hinzufügen → Adresse `mc.grahl.cloud`**. Beim Beitreten das Weihnachts-Resourcepack annehmen.
+4. **Mods einzeln sichtbar machen:** Profil öffnen → **Zahnrad (Einstellungen) → Installation → „Unlink instance“**. Danach stehen alle Mods einzeln unter **Inhalt** und lassen sich ein- und ausschalten oder aktualisieren. Ein neues Pack von uns importierst du sowieso als neue Datei, du verlierst also nichts.
+5. Mit deinem Microsoft-Konto anmelden und das Profil **„Weihnachtsprojekt 2026“** mit **Play** starten.
+6. **Mehrspieler → Server hinzufügen → Adresse `mc.grahl.cloud`**. Beim Beitreten das Weihnachts-Resourcepack annehmen.
 
 ## Zusätzliche Mods einschalten
 

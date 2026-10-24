@@ -11,7 +11,7 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 **Maßgeblich ist diese Liste und `mods.json`.** Die Stufen in den Tabellen weiter unten sind die ursprüngliche Bewertung. Was tatsächlich im Pack ist, hat Pascal am 23.10. Mod für Mod festgelegt. Stand des Baus (24.10.): 110 Dateien plus die eigene Mod Block-Marker – 6 Mods deaktiviert (`.jar.disabled`, im Launcher per Schalter einschaltbar), alle übrigen aktiv, dazu Shader Complementary Reimagined und Unbound und Resourcepack Redstone Tweaks.
 
 **Aktiv** (`mods` in `mods.json`):
-- Leistung: Sodium, Sodium Extra, Reese's Sodium Options, Lithium, Entity Culling, FerriteCore, ImmediatelyFast, Better Block Entities, SmoothTextureFix, More Culling, BadOptimizations, Dynamic FPS, Remove Reloading Screen, quick pack, Language Reload, Debugify
+- Leistung: Sodium, Sodium Extra, Reese's Sodium Options, Lithium, Entity Culling, FerriteCore, ImmediatelyFast, Better Block Entities, SmoothTextureFix, More Culling, BadOptimizations, Dynamic FPS, quick pack, Language Reload, Debugify
 - Optik: Iris, Iris & Oculus Search, Complementary Reimagined (+ Unbound), Euphoria Patches, Continuity, ETF, EMF, 3D Skin Layers, LambDynamicLights, Particle Rain, Make Bubbles Pop, Simple Fog Control, Boat Item View, Not Enough Animations, Falling Leaves, Visuality
 - Geräusche: Cool Rain, Sound Physics Remastered, AmbientSounds, Presence Footsteps, Extreme Sound Muffler
 - Kamera: Zoomify, Cinematic Zoom (beide standardmäßig auf C – Anleitung sagt, eine umlegen), Ji AFK Cinematic
@@ -28,6 +28,8 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 **Aktiv, sobald es eine Version für 26.3 gibt** (`aktivSobaldVerfuegbar`): Paginated Advancements, RP Renames
 
 **Deaktiviert dabei** (`optional`): Litematica (auf dem Server vorerst nicht erlaubt, Gruppe stimmt ab – bei Nein fliegt es ganz raus), Nvidium (nur Nvidia), voxy (nicht zusammen mit Distant Horizons), uku's Armor HUD, Flashback, Do a Barrel Roll
+
+**Raus (24.10., Absturz mit FancyMenu):** Remove Reloading Screen
 
 **Raus (Pascal, 23.10.):** Time & Weather Changer, CalcMod, Big Sign Writer, Cut Through, Screenshot Viewer, VeinMiner, VeinMiner Hotkey, Reach Behind, Vehicle Upgrade, Crops Love Rain sowie alle ➖
 
@@ -60,7 +62,7 @@ Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 | [SmoothTextureFix](https://modrinth.com/mod/smoothtexturefix) | behebt unscharfe Texturen seit 1.21.11 | 🔵 | | |
 | [Sodium Extra](https://modrinth.com/mod/sodium-extra) | zusätzliche Grafik-Schalter (Partikel, Animationen, FPS-Anzeige) | ⚪ | | |
 | [Reese's Sodium Options](https://modrinth.com/mod/reeses-sodium-options) | übersichtlicheres Grafik-Menü | ⚪ | | |
-| [Remove Reloading Screen](https://modrinth.com/mod/rrls) | Resourcepacks laden im Hintergrund | ⚪ | | angenehm beim Server-Beitritt mit unserem Pack |
+| [Remove Reloading Screen](https://modrinth.com/mod/rrls) | Resourcepacks laden im Hintergrund | ⚪ | | angenehm beim Server-Beitritt mit unserem Pack; **raus (24.10.)**: Hauptmenü zeichnet dann vor dem Laden von FancyMenus Shadern → Absturz beim Start |
 | [quick pack](https://modrinth.com/mod/quick-pack) | lädt Resourcepacks schneller | ⚪ | | |
 | [Nvidium](https://modrinth.com/mod/nvidium) | schnellere Darstellung nur für Nvidia-Karten | ⚪ | | bei AMD/Intel wirkungslos, verträgt sich nicht mit jedem Shader |
 | [Bobby](https://modrinth.com/mod/bobby) | merkt sich geladene Chunks, größere Sichtweite als der Server liefert | 🔵 | | **in v2**; kein Vorteil: zeigt nur, was man schon gesehen hat |

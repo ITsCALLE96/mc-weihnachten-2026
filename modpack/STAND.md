@@ -18,7 +18,6 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/dynamic-fps-3.11.10+minecraft-26.3.0-fabric.jar | https://cdn.modrinth.com/data/LQ3K71Q1/versions/Jwq069rR/dynamic-fps-3.11.10%2Bminecraft-26.3.0-fabric.jar |
 | mods/sodium-extra-fabric-0.9.4+mc26.3.jar | https://cdn.modrinth.com/data/PtjYWJkn/versions/te2y9qZn/sodium-extra-fabric-0.9.4%2Bmc26.3.jar |
 | mods/reeses-sodium-options-fabric-2.2.5+mc26.3.jar | https://cdn.modrinth.com/data/Bh37bMuy/versions/EfchygKx/reeses-sodium-options-fabric-2.2.5%2Bmc26.3.jar |
-| mods/rrls-5.2.8+mc.26.3.jar | https://cdn.modrinth.com/data/ZP7xHXtw/versions/CAVJGGfj/rrls-5.2.8%2Bmc.26.3.jar |
 | mods/quick-pack-fabric-1.5.1+26.3.jar | https://cdn.modrinth.com/data/pSISfJ4O/versions/6LPWDWD1/quick-pack-fabric-1.5.1%2B26.3.jar |
 | mods/language-reload-1.7.8+26.3.jar | https://cdn.modrinth.com/data/uLbm7CG6/versions/QVn4cccd/language-reload-1.7.8%2B26.3.jar |
 | mods/debugify-26.3.0.0.jar | https://cdn.modrinth.com/data/QwxR6Gcd/versions/FMaS2nZn/debugify-26.3.0.0.jar |
