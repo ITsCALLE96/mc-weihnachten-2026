@@ -29,8 +29,13 @@ Nicht zusammen einschalten: **voxy** und **Distant Horizons** (Distant Horizons 
 | Weltkarte | **M** |
 | Wegpunkt setzen | **B** |
 | Inventar sortieren | **Mausrad-Klick** im Inventar |
+| Blöcke einfärben (Block-Marker) | **Komma** = nächstes Profil bzw. aus · **Punkt** = angeschauten Block markieren · Einstellungen und Profile: **Mods → Block-Marker** (Mod Menu) |
 
 Die Tasten lassen sich unter **Optionen → Steuerung** ändern (mit Suchfeld).
+
+## Block-Marker
+
+Unsere eigene Mod. Sie färbt Blöcke ein, die du auswählst, und lässt sie auf Wunsch leuchten, zum Beispiel alle Truhen oder die Erze in deiner Mine. Mehrere Auswahlen speicherst du als **Profile**. **Komma** schaltet zum nächsten Profil, nach dem letzten ist alles aus. **Punkt** fügt den Block hinzu, den du gerade anschaust. Das Menü mit Suche öffnest du über **Mods → Block-Marker** im Hauptmenü oder Pausenmenü. Auf dem Server erlaubt, weil es kein X-Ray ist: Blöcke hinter Wänden bleiben unsichtbar.
 
 ## Weite Sicht
 

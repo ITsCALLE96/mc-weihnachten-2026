@@ -26,6 +26,7 @@ Stand 23.10.2026, Pack `modpack-v2`. Vorschläge für **I** und **F9** von Pasca
 | Xaero's Minimap | neuer Wegpunkt ¹ · Wegpunktliste · Minimap groß · Einstellungen · Schnell-Wegpunkt | B · U · Z · Y · Num + |
 | Simple Voice Chat | Sprechen (halten) ¹ · Menü · Mikro stumm · Chat aus · Symbole aus | Feststelltaste · V · M · N · H |
 | Simple Voice Animations | Einstellungen | J |
+| Block-Marker (eigene Mod) | nächstes Profil bzw. aus · angeschauten Block markieren · Menü | Komma · Punkt · über Mod Menu |
 | Light Overlay | Lichtlevel an/aus | F9 |
 | ClickThrough Plus | an/aus | F9 |
 | Client Sort | sortieren (im Inventar) | mittlere Maustaste |

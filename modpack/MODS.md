@@ -8,7 +8,7 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 
 ## Inhalt von `modpack-v2` (23.10.2026)
 
-**Maßgeblich ist diese Liste und `mods.json`.** Die Stufen in den Tabellen weiter unten sind die ursprüngliche Bewertung. Was tatsächlich im Pack ist, hat Pascal am 23.10. Mod für Mod festgelegt. Stand des Baus: 110 Dateien – 5 Mods deaktiviert (`.jar.disabled`, im Launcher per Schalter einschaltbar), alle übrigen aktiv, dazu Shader Complementary Reimagined und Unbound und Resourcepack Redstone Tweaks.
+**Maßgeblich ist diese Liste und `mods.json`.** Die Stufen in den Tabellen weiter unten sind die ursprüngliche Bewertung. Was tatsächlich im Pack ist, hat Pascal am 23.10. Mod für Mod festgelegt. Stand des Baus (24.10.): 110 Dateien plus die eigene Mod Block-Marker – 6 Mods deaktiviert (`.jar.disabled`, im Launcher per Schalter einschaltbar), alle übrigen aktiv, dazu Shader Complementary Reimagined und Unbound und Resourcepack Redstone Tweaks.
 
 **Aktiv** (`mods` in `mods.json`):
 - Leistung: Sodium, Sodium Extra, Reese's Sodium Options, Lithium, Entity Culling, FerriteCore, ImmediatelyFast, Better Block Entities, SmoothTextureFix, More Culling, BadOptimizations, Dynamic FPS, Remove Reloading Screen, quick pack, Language Reload, Debugify
@@ -22,6 +22,7 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 - Bauen: Armor Poser (Server-Plugin nötig)
 - Sprache: Simple Voice Chat mit Animationen und Gruppennamen (Server-Plugin + UDP 24454, Plan Task 4 Schritt 9)
 - Menü: FancyMenu (Weihnachts-Hauptmenü folgt)
+- Eigene Mod: **Block-Marker** (`lokal` in `mods.json`, liegt nicht auf Modrinth; das Jar kommt beim Bau aus dem Nachbar-Repo `block-marker` als `overrides/mods/` ins Pack)
 - Nur im Einzelspieler wirksam (brauchen Mod auf dem Server, auf Paper ohne Wirkung): Easy Shulker Boxes, Bookshelf Inspector
 
 **Aktiv, sobald es eine Version für 26.3 gibt** (`aktivSobaldVerfuegbar`): Paginated Advancements, RP Renames
@@ -94,7 +95,7 @@ Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 
 | Mod | Wofür | Stufe | v1 | Anmerkung |
 |---|---|---|---|---|
-| [Xaero's Minimap](https://modrinth.com/mod/xaeros-minimap) | Minikarte, Wegpunkte | 🟢 | ✅ | Höhlenansicht und Entity-Radar sperrt der Server (Plugin „Fair Play for Xaero's Maps“) |
+| [Xaero's Minimap](https://modrinth.com/mod/xaeros-minimap) | Minikarte, Wegpunkte | 🟢 | ✅ | Entity-Radar und Höhlenansicht (außer im Nether) sperrt der Server (Plugin „Fair Play for Xaero's Maps“) |
 | [Xaero's World Map](https://modrinth.com/mod/xaeros-world-map) | Vollbild-Karte der erkundeten Welt | 🔵 | | gleiche Sperre greift |
 | [AppleSkin](https://modrinth.com/mod/appleskin) | zeigt Sättigung beim Essen | 🔵 | | |
 | [Shulker Box Tooltip](https://modrinth.com/mod/shulkerboxtooltip) | Inhalt von Shulkerkisten im Inventar sehen | 🔵 | | |
@@ -106,6 +107,7 @@ Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 | [Entity Selection Outlines](https://modrinth.com/mod/entity-outlines) | Umriss um anvisierte Rahmen, Bilder, Rüstungsständer | ⚪ | | |
 | [Here 'n' There](https://modrinth.com/mod/herenthere) | Koordinaten per Kürzel in den Chat | ⚪ | | |
 | [CalcMod](https://modrinth.com/mod/calcmod) | Taschenrechner im Chat | ⚪ | | |
+| [Block-Marker](https://github.com/ITsCALLE96/block-marker) | färbt gewählte Blöcke ein und lässt sie leuchten, mit Profilen | 🟢 | | **eigene Mod (24.10.), erlaubt**: kein X-Ray, nur sichtbare Blöcke ändern ihr Aussehen; Komma = nächstes Profil/aus, Punkt = angeschauten Block markieren |
 | [Gamma Utils (Fullbright)](https://modrinth.com/mod/gamma-utils) | Helligkeit über 100 %, Höhlen ohne Fackeln hell | 🟢 | | **erlaubt (Pascal, 23.10.)**; Taste H = Nachtsicht, wirkt auch mit Shadern, G = Gamma nur ohne Shader |
 
 ## Inventar und Bedienung
@@ -246,8 +248,9 @@ Nicht einzeln aufgeführt: Inhalts- und Weltgenerierungs-Mods (Create, Cobblemon
 ## Server-Regeln, die daraus folgen
 
 - **Offen:** Litematica – Pascal stimmt mit der Gruppe ab; bis dahin auf dem Server nicht erlaubt
-- **Nicht erlaubt:** Röntgen-/X-Ray-Packs, Litematica-Printer, Minimap-Höhlenansicht und -Entity-Radar (technisch gesperrt)
+- **Nicht erlaubt:** Röntgen-/X-Ray-Packs, Litematica-Printer, Minimap-Entity-Radar und Minimap-Höhlenansicht außerhalb des Nethers (technisch gesperrt)
+- **Erlaubt:** Minimap-Höhlenansicht im Nether (seit 23.10.); Block-Marker – kein X-Ray, verdeckte Blöcke bleiben unsichtbar
 - **Erlaubt, obwohl ein Vorteil:** Fullbright (Gamma Utils) und Freecam – bewusst freigegeben und im Pack, damit alle die gleiche Möglichkeit haben
-- **Server-Absicherung:** Xaero's Minimap und World Map ohne Höhlenansicht und Entity-Radar (Plugin „Fair Play for Xaero's Maps“); Papers Anti-Xray (`engine-mode: 2`) versteckt Erze, die man nicht direkt sieht, und nimmt Freecam und Fullbright damit den Erz-Vorteil
+- **Server-Absicherung:** Xaero's Minimap und World Map ohne Entity-Radar und ohne Höhlenansicht außer im Nether (Plugin „Fair Play for Xaero's Maps“); Papers Anti-Xray (`engine-mode: 2`) versteckt Erze, die man nicht direkt sieht, und nimmt Freecam und Fullbright damit den Erz-Vorteil
 - **Geduldet:** LambDynamicLights, Bobby, voxy, Distant Horizons, MiniHUD ohne Seed
 - Alles andere aus den Tabellen ist erlaubt, auch wenn es nicht in unserem Pack steckt

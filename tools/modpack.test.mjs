@@ -1,6 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { baueIndex } from './modpack.mjs';
+import { mkdtempSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
+import { baueIndex, lokaleMods } from './modpack.mjs';
 
 const version = {
   project_id: 'AANobbMI',
@@ -40,4 +43,15 @@ test('Optionale Mods liegen deaktiviert bei, Resourcepacks in resourcepacks/', (
 
 test('Version ohne Dateien bricht ab', () => {
   assert.throws(() => baueIndex({ name: 'P', version: '1', minecraft: '26.3', fabricLoader: '0', versionen: [{ ...version, files: [] }] }), /AANobbMI/);
+});
+
+test('Lokale Mods landen in overrides/mods/', () => {
+  const ordner = mkdtempSync(join(tmpdir(), 'modpack-'));
+  writeFileSync(join(ordner, 'block-marker-1.0.0.jar'), 'jar');
+  assert.deepEqual(lokaleMods(['../block-marker-1.0.0.jar'], join(ordner, 'repo')),
+    [{ quelle: join(ordner, 'block-marker-1.0.0.jar'), ziel: 'overrides/mods/block-marker-1.0.0.jar' }]);
+});
+
+test('Fehlende lokale Mod bricht mit Pfad ab', () => {
+  assert.throws(() => lokaleMods(['../fehlt/mod.jar'], join(tmpdir(), 'repo')), /Lokale Mod fehlt: .*mod\.jar/);
 });

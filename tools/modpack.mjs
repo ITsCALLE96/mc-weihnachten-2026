@@ -2,8 +2,8 @@
 // Holt je Mod die neueste Fabric-Version für die Minecraft-Version aus versions.json,
 // löst Pflicht-Abhängigkeiten auf und schreibt build/weihnachten-modpack.mrpack.
 // Aufruf: node tools/modpack.mjs
-import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
-import { join } from 'node:path';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, copyFileSync } from 'node:fs';
+import { join, resolve, basename } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
@@ -36,6 +36,16 @@ export function baueIndex({ name, version, minecraft, fabricLoader, versionen, s
   };
 }
 
+// Eigene Mods, die nicht auf Modrinth liegen: Pfade relativ zum Repo, landen als overrides/mods/<datei> im Pack.
+// Die Jars werden nicht committet, sondern beim Bau aus dem Nachbar-Repo gelesen.
+export function lokaleMods(pfade, repo) {
+  return pfade.map((pfad) => {
+    const quelle = resolve(repo, pfad);
+    if (!existsSync(quelle)) throw new Error(`Lokale Mod fehlt: ${quelle} – erst im Nachbar-Repo bauen`);
+    return { quelle, ziel: `overrides/mods/${basename(quelle)}` };
+  });
+}
+
 async function holeJson(url) {
   const antwort = await fetch(url, { headers: { 'User-Agent': 'ITsCALLE96/mc-weihnachten-2026' } });
   if (!antwort.ok) throw new Error(`${url}: HTTP ${antwort.status}`);
@@ -53,8 +63,9 @@ async function neuesteVersion(projekt, minecraft, loader = 'fabric') {
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const repo = join(fileURLToPath(import.meta.url), '..', '..');
   const { minecraft } = JSON.parse(readFileSync(join(repo, 'versions.json'), 'utf8'));
-  const { name, version, mods, aktivSobaldVerfuegbar = [], optional = [], shader = [], resourcepacks = [] } =
+  const { name, version, mods, aktivSobaldVerfuegbar = [], optional = [], shader = [], resourcepacks = [], lokal = [] } =
     JSON.parse(readFileSync(join(repo, 'modpack/mods.json'), 'utf8'));
+  const eigene = lokaleMods(lokal, repo); // vor allen Downloads, damit ein fehlendes Jar sofort auffällt
 
   const loader = (await holeJson(`https://meta.fabricmc.net/v2/versions/loader/${minecraft}`))
     .find((l) => l.loader.stable)?.loader.version;
@@ -115,10 +126,16 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   writeFileSync(join(tmp, 'modrinth.index.json'), JSON.stringify(index, null, 2));
   const packDatei = join(repo, 'build/weihnachten-modpack.mrpack');
   rmSync(packDatei, { force: true });
-  execFileSync('C:/Windows/System32/tar.exe', ['--format', 'zip', '-cf', packDatei, 'modrinth.index.json'], { cwd: tmp });
+  for (const { quelle, ziel: z } of eigene) {
+    mkdirSync(join(tmp, 'overrides/mods'), { recursive: true });
+    copyFileSync(quelle, join(tmp, z));
+  }
+  execFileSync('C:/Windows/System32/tar.exe',
+    ['--format', 'zip', '-cf', packDatei, 'modrinth.index.json', ...(eigene.length ? ['overrides'] : [])], { cwd: tmp });
   writeFileSync(join(repo, 'modpack/STAND.md'),
     `# Stand des Modpacks\n\nMinecraft ${minecraft}, Fabric Loader ${loader}\n\n| Datei | Download |\n|---|---|\n` +
-    index.files.map((f) => `| ${f.path} | ${f.downloads[0]} |`).join('\n') + '\n');
-  console.log(`${index.files.length} Dateien (${deaktiviert.size} deaktiviert, ${shaderIds.length} Shader, ` +
+    index.files.map((f) => `| ${f.path} | ${f.downloads[0]} |`).join('\n') + '\n' +
+    eigene.map((e) => `| ${e.ziel} | eigene Mod, liegt im Pack |`).join('\n') + (eigene.length ? '\n' : ''));
+  console.log(`${index.files.length} Dateien + ${eigene.length} eigene (${deaktiviert.size} deaktiviert, ${shaderIds.length} Shader, ` +
     `${rpIds.length} Resourcepacks), Loader ${loader} → ${packDatei}`);
 }

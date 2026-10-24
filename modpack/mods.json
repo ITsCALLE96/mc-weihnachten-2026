@@ -104,5 +104,8 @@
   ],
   "resourcepacks": [
     "redstone-tweaks"
+  ],
+  "lokal": [
+    "../block-marker/build/libs/block-marker-1.0.0.jar"
   ]
 }
