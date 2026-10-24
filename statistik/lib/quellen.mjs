@@ -8,13 +8,19 @@ import { leseStatistiken, leseUsercache, weltOrdner, statistikSignatur } from '.
 import { ereignisseAusRoh, werteAus, erzeugeHilfe } from './auswertung.mjs';
 import { berlinDatum } from './zeit.mjs';
 import { normUuid } from './sichtbarkeit.mjs';
+import { aktuelleSeason, seasonsImArchiv, seasonName, letzterSchnappschuss, seasonSignatur, summiereStatistiken } from './seasons.mjs';
 
 const SECHS_STUNDEN = 6 * 3600 * 1000;
 
 export class Instanz {
-  constructor({ instanz, archiv = null, sichtbarkeit, sprache, optionen = {}, jetzt = () => Date.now(), datenAlterMs = 5000 }) {
+  // archiv = Wurzel des Archivs (mit SEASON und je Season einem Ordner); season = feste Kennung statt <archiv>/SEASON
+  // allzeitOhne = Seasons, die nicht in „Allzeit“ zählen (Standard: testlauf)
+  constructor({ instanz, archiv = null, season = null, allzeitOhne = ['testlauf'], sichtbarkeit, sprache, optionen = {}, jetzt = () => Date.now(), datenAlterMs = 5000 }) {
     this.instanz = instanz;
     this.archiv = archiv;
+    this.festeSeason = season;
+    this.allzeitOhne = new Set(allzeitOhne);
+    this.vergangenCache = new Map();
     this.sichtbarkeit = sichtbarkeit;
     this.sprache = sprache;
     this.optionen = optionen;
@@ -24,22 +30,52 @@ export class Instanz {
     this.hilfe = erzeugeHilfe(sprache);
     this.welt = weltOrdner(instanz);
     this.gzCache = new Map();
-    this.cache = null;
+    this.cache = new Map();
   }
 
+  season() {
+    return this.festeSeason ?? (this.archiv && aktuelleSeason(this.archiv)) ?? 'weihnachten-2026';
+  }
+
+  // Logs der laufenden Season: Instanz + <archiv>/<season>/logs/paper
   logOrdner() {
     const o = [join(this.instanz, 'logs')];
-    if (this.archiv) o.push(join(this.archiv, 'logs', 'paper'), join(this.archiv, 'logs'));
+    if (this.archiv) o.push(join(this.archiv, this.season(), 'logs', 'paper'));
     return o.filter((p) => existsSync(p));
+  }
+
+  // Abgeschlossene Seasons, die in „Allzeit“ zählen
+  vergangeneSeasons() {
+    const aktuell = this.season();
+    return seasonsImArchiv(this.archiv).filter((id) => id !== aktuell && !this.allzeitOhne.has(id));
+  }
+
+  // Eine abgeschlossene Season: letzter Schnappschuss + Logs (gemerkt, solange sich nichts ändert)
+  vergangen(id) {
+    const ordner = join(this.archiv, id);
+    const sig = seasonSignatur(ordner);
+    const alt = this.vergangenCache.get(id);
+    if (alt && alt.sig === sig) return alt.wert;
+    const schnapp = letzterSchnappschuss(ordner);
+    const { roh } = this.leseRoh([join(ordner, 'logs', 'paper')], false);
+    const wert = { statistiken: schnapp?.statistiken ?? new Map(), namen: schnapp?.namen ?? new Map(), roh };
+    this.vergangenCache.set(id, { sig, wert });
+    return wert;
+  }
+
+  seasonListe() {
+    const aktuell = this.season();
+    const ids = [...new Set([...this.vergangeneSeasons(), aktuell])];
+    return ids.map((id) => ({ id, name: id === aktuell && this.optionen.seasonName ? this.optionen.seasonName : seasonName(id, this.archiv), aktuell: id === aktuell }));
   }
 
   latestPfad() { return join(this.instanz, 'logs', 'latest.log'); }
 
   // Rohereignisse aller Logs (gz-Dateien werden einmal geparst und gemerkt)
-  leseRoh() {
+  leseRoh(ordnerListe = this.logOrdner(), mitLatest = true) {
     const roh = [];
     const gesehen = new Set();
-    for (const ordner of this.logOrdner()) {
+    for (const ordner of ordnerListe.filter((p) => existsSync(p))) {
       for (const f of readdirSync(ordner).sort()) {
         const datum = logDatumAusDateiname(f);
         if (!datum || !f.endsWith('.gz')) continue;
@@ -61,7 +97,7 @@ export class Instanz {
     }
     let latestMtime = null;
     const lp = this.latestPfad();
-    if (existsSync(lp)) {
+    if (mitLatest && existsSync(lp)) {
       try {
         const st = statSync(lp);
         latestMtime = st.mtimeMs;
@@ -90,12 +126,28 @@ export class Instanz {
 
   statistikSignatur() { return statistikSignatur(this.welt); }
 
-  async daten() {
+  // ansicht: 'season' (laufende Season) oder 'allzeit' (laufende + abgeschlossene Seasons summiert)
+  async daten({ ansicht = 'season' } = {}) {
+    if (ansicht !== 'allzeit') ansicht = 'season';
     const jetzt0 = this.jetzt();
-    if (this.cache && jetzt0 - this.cache.zeit < this.datenAlterMs) return this.cache.wert;
+    const alt = this.cache.get(ansicht);
+    if (alt && jetzt0 - alt.zeit < this.datenAlterMs) return alt.wert;
     await this.sichtbarkeit.lade(jetzt0);
-    const { roh, latestMtime } = this.leseRoh();
-    const namen = this.namenKarte(roh);
+    const { roh: rohAktuell, latestMtime } = this.leseRoh();
+    let roh = rohAktuell;
+    let statistiken = leseStatistiken(this.welt);
+    let namen = this.namenKarte(rohAktuell);
+    const seasons = this.seasonListe();
+    if (ansicht === 'allzeit') {
+      const alte = this.vergangeneSeasons().map((id) => this.vergangen(id));
+      statistiken = summiereStatistiken([...alte.map((a) => a.statistiken), statistiken]);
+      const alleNamen = new Map();
+      for (const a of alte) for (const [u, n] of a.namen) alleNamen.set(u, n);
+      for (const a of alte) for (const e of a.roh) if (e.typ === 'uuid') { const u = normUuid(e.uuid); if (u) alleNamen.set(u, e.name); }
+      for (const [u, n] of namen) alleNamen.set(u, n);
+      namen = alleNamen;
+      roh = [...alte.flatMap((a) => a.roh), ...rohAktuell].sort((a, b) => a.zeit - b.zeit);
+    }
     const namenZuUuid = new Map([...namen].map(([u, n]) => [n.toLowerCase(), u]));
     const ereignisse = ereignisseAusRoh(roh, { namenZuUuid, uebersetzer: this.uebersetzer });
     const letztesEreignis = roh.length ? roh[roh.length - 1].zeit : 0;
@@ -103,18 +155,18 @@ export class Instanz {
     const ss = [...roh].reverse().find((e) => e.typ === 'start' || e.typ === 'stopp');
     const laeuft = ss?.typ !== 'stopp' && latestMtime !== null && jetzt - latestMtime < SECHS_STUNDEN;
     const wert = werteAus({
-      statistiken: leseStatistiken(this.welt),
+      statistiken,
       namen,
       ereignisse,
       sichtbar: (u) => this.sichtbarkeit.istSichtbar(u),
       sprache: this.sprache,
-      optionen: this.optionen,
+      optionen: { ...this.optionen, season: this.season(), seasons, ansicht },
       jetzt,
       laeuft,
     });
-    this.cache = { zeit: jetzt0, wert };
+    this.cache.set(ansicht, { zeit: jetzt0, wert });
     return wert;
   }
 
-  vergissCache() { this.cache = null; }
+  vergissCache() { this.cache.clear(); }
 }

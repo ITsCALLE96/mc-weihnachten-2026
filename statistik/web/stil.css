@@ -132,6 +132,18 @@ p { margin: 0; }
 .status-koepfe { display: flex; gap: 4px; }
 .status-koepfe img { width: 24px; height: 24px; image-rendering: pixelated; box-shadow: 0 0 0 2px var(--nacht); }
 
+.umschalter { display: flex; width: fit-content; margin-top: 18px; box-shadow: var(--kante-klein); }
+.titel-zeile + .umschalter { margin: -8px 0 22px; }
+.umschalter button {
+  font-family: var(--pixel); font-size: 0.8125rem; text-transform: uppercase; cursor: pointer;
+  padding: 10px 14px 11px; border: 2px solid var(--nacht-linie); background: var(--nacht-2); color: var(--schnee-gedimmt);
+}
+.umschalter button + button { border-left: 0; }
+.umschalter button:hover { color: var(--schnee); }
+.umschalter button[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: var(--tinte); }
+.umschalter.hell button { background: rgb(18 16 28 / 0.12); border-color: var(--tinte); color: var(--tinte); }
+.umschalter.hell button[aria-pressed="true"] { background: var(--tinte); color: var(--schnee); }
+
 .testhinweis {
   display: inline-block; margin-top: 18px; padding: 6px 10px;
   font-family: var(--pixel); font-size: 0.75rem; text-transform: uppercase;

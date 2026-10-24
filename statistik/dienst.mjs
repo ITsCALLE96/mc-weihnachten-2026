@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // HTTP-Dienst der Statistikseite (nur 127.0.0.1). Vertrag: DATENFORMAT.md
-// node statistik/dienst.mjs --instanz <ordner> --sichtbarkeit <datei> --sprache <datei> [--testmodus]
+// node statistik/dienst.mjs --instanz <ordner> --archiv <archivwurzel> --sichtbarkeit <datei> --sprache <datei> [--season <kennung>] [--testmodus]
 import http from 'node:http';
 import { readFileSync, mkdirSync, statSync, writeFileSync, existsSync } from 'node:fs';
 import { readFile, stat } from 'node:fs/promises';
@@ -43,8 +43,9 @@ export async function starteDienst(opt) {
   const sichtbarkeit = opt.sichtbarkeitObjekt ?? new Sichtbarkeit(opt.sichtbarkeit);
   const sprache = opt.spracheObjekt ?? (opt.sprache ? JSON.parse(readFileSync(opt.sprache, 'utf8')) : { de: {}, en: {} });
   const instanz = new Instanz({
-    instanz: opt.instanz, archiv: opt.archiv ?? null, sichtbarkeit, sprache,
-    optionen: { name: opt.name, saison: opt.saison, saisonName: opt.saisonName, testmodus: !!opt.testmodus },
+    instanz: opt.instanz, archiv: opt.archiv ?? null, season: opt.season ?? null, sichtbarkeit, sprache,
+    ...(opt.allzeitOhne !== undefined ? { allzeitOhne: String(opt.allzeitOhne).split(',').map((x) => x.trim()).filter(Boolean) } : {}),
+    optionen: { name: opt.name, seasonName: opt.seasonName, testmodus: !!opt.testmodus },
   });
   const web = resolve(opt.web ?? join(hier, 'web'));
   const cache = resolve(opt.cache ?? join(tmpdir(), 'mc-statistik-kopf'));
@@ -122,7 +123,10 @@ export async function starteDienst(opt) {
       if (req.method !== 'GET' && req.method !== 'HEAD') { res.writeHead(405); return res.end(); }
       const pfadname = new URL(req.url, 'http://x').pathname;
       if (pfadname === '/api/gesund') { res.writeHead(200, { 'Content-Type': 'text/plain' }); return res.end('ok'); }
-      if (pfadname === '/api/daten') return json(res, 200, await instanz.daten());
+      if (pfadname === '/api/daten') {
+        const ansicht = new URL(req.url, 'http://x').searchParams.get('ansicht') === 'allzeit' ? 'allzeit' : 'season';
+        return json(res, 200, await instanz.daten({ ansicht }));
+      }
       if (pfadname === '/api/live') {
         res.writeHead(200, { 'Content-Type': 'text/event-stream; charset=utf-8', 'Cache-Control': 'no-store', Connection: 'keep-alive', 'X-Accel-Buffering': 'no' });
         res.write(`retry: 3000\nevent: online\ndata: ${JSON.stringify({ online: [...hub.online] })}\n\n`);
@@ -134,7 +138,8 @@ export async function starteDienst(opt) {
       if (k) {
         const uuid = normUuid(k[1]);
         await sichtbarkeit.lade();
-        const bekannt = uuid && sichtbarkeit.istSichtbar(uuid) && (await instanz.daten()).spieler.some((s) => s.uuid === uuid);
+        const bekannt = uuid && sichtbarkeit.istSichtbar(uuid)
+          && ((await instanz.daten()).spieler.some((s) => s.uuid === uuid) || (await instanz.daten({ ansicht: 'allzeit' })).spieler.some((s) => s.uuid === uuid));
         if (!bekannt) return nichtGefunden(res);
         const { png, alter } = await kopf(uuid);
         res.writeHead(200, { 'Content-Type': 'image/png', 'Cache-Control': `public, max-age=${alter}`, 'X-Content-Type-Options': 'nosniff' });
@@ -165,7 +170,7 @@ export async function starteDienst(opt) {
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const opt = {};
   const a = process.argv.slice(2);
-  const hilfe = { '--saison-name': 'saisonName' };
+  const hilfe = { '--season-name': 'seasonName', '--allzeit-ohne': 'allzeitOhne' };
   for (let i = 0; i < a.length; i++) {
     if (!a[i].startsWith('--')) continue;
     const name = hilfe[a[i]] ?? a[i].slice(2);

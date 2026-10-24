@@ -199,8 +199,10 @@ export function werteAus({ statistiken, namen, ereignisse, sichtbar, sprache, op
   return {
     server: {
       name: optionen.name ?? 'Weihnachtsserver',
-      saison: optionen.saison ?? 'weihnachten-2026',
-      saisonName: optionen.saisonName ?? 'Weihnachten 2026',
+      season: optionen.season ?? 'weihnachten-2026',
+      seasonName: optionen.seasons?.find((s) => s.aktuell)?.name ?? optionen.seasonName ?? 'Weihnachten 2026',
+      seasons: optionen.seasons ?? [{ id: optionen.season ?? 'weihnachten-2026', name: optionen.seasonName ?? 'Weihnachten 2026', aktuell: true }],
+      ansicht: optionen.ansicht ?? 'season',
       stand: isoBerlin(jetzt),
       online,
       ...(optionen.testmodus ? { testmodus: true } : {}),

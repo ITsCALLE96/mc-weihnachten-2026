@@ -5,6 +5,9 @@ const FARBEN = ['diamant', 'gold', 'redstone', 'smaragd', 'amethyst', 'kupfer', 
 const ZEILEN_ANFANG = 60;
 
 let daten = null;
+// 'season' = laufende Season, 'allzeit' = alle Seasons zusammen (Wahl bleibt im Browser gemerkt)
+let ansicht = 'season';
+try { if (localStorage.getItem('mc-statistik-ansicht') === 'allzeit') ansicht = 'allzeit'; } catch { /* ohne Speicher */ }
 let online = new Set();
 let ereignisse = [];
 const profilZustand = { kategorie: 'alle', suche: '', alle: false };
@@ -120,6 +123,30 @@ function markiereNavi(bereich) {
 
 const spielerVon = (uuid) => daten.spieler.find((s) => s.uuid === uuid);
 
+// ---------- Season / Allzeit ----------
+
+function zeitraumText() {
+  const s = daten.server;
+  if (s.ansicht === 'allzeit') return `Allzeit · ${s.seasons.length} Seasons`;
+  return `Season ${s.seasonName}`;
+}
+
+function umschalter(stil = '') {
+  if ((daten.server.seasons ?? []).length < 2) return '';
+  const knopf = (wert, text) => `<button type="button" data-ansicht="${wert}" aria-pressed="${ansicht === wert}">${text}</button>`;
+  return `<div class="umschalter${stil ? ` ${stil}` : ''}" role="group" aria-label="Zeitraum">${knopf('season', 'Diese Season')}${knopf('allzeit', 'Allzeit')}</div>`;
+}
+
+async function wechsleAnsicht(neu) {
+  if (neu === ansicht) return;
+  ansicht = neu;
+  try { localStorage.setItem('mc-statistik-ansicht', neu); } catch { /* ohne Speicher */ }
+  const y = window.scrollY;
+  try { await laden(); } catch { return; }
+  zeichne();
+  window.scrollTo(0, y);
+}
+
 // ---------- Übersicht ----------
 
 function ansichtUebersicht() {
@@ -129,9 +156,10 @@ function ansichtUebersicht() {
     <section class="himmel">
       <canvas class="schnee" aria-hidden="true"></canvas>
       <div class="himmel-text">
-        <h1 class="riese">Stats<span class="unter">${esc(s.name)} · ${esc(s.saisonName ?? '')}</span></h1>
+        <h1 class="riese">Stats<span class="unter">${esc(s.name)} · ${esc(zeitraumText())}</span></h1>
         <p class="lead">Wer ist drauf, wer führt – und wer liegt schon wieder auf dem Friedhof.</p>
         <p class="status" data-status></p>
+        ${umschalter()}
         ${s.testmodus ? '<br><span class="testhinweis">Testdaten – Spieler und Werte sind erfunden</span>' : ''}
       </div>
     </section>
@@ -201,6 +229,9 @@ function bestenliste(liste, i) {
 }
 
 function tagesSaeulen(tage, uuid) {
+  // In „Allzeit“ liegen Wochen ohne Server zwischen den Seasons – leere Tage weglassen
+  if (ansicht === 'allzeit') tage = tage.filter((t) => Object.keys(t.min).length);
+  if (!tage.length) return '<p class="leer">Noch keine Spielzeit.</p>';
   const werte = tage.map((t) => (uuid ? t.min[uuid] ?? 0 : Object.values(t.min).reduce((a, b) => a + b, 0)));
   const max = Math.max(1, ...werte);
   const saeulen = tage.map((t, i) => {
@@ -272,7 +303,8 @@ function ansichtSpieler() {
   main.innerHTML = `
     <section class="band band-dunkel">
       <div class="band-innen">
-        <div class="titel-zeile"><h1 class="titel">Spieler</h1><p>${liste.length} Spieler, sortiert nach Spielzeit.</p></div>
+        <div class="titel-zeile"><h1 class="titel">Spieler</h1><p>${liste.length} Spieler, sortiert nach Spielzeit · ${esc(zeitraumText())}.</p></div>
+        ${umschalter()}
         <ul class="spielerraster">${liste.map((sp) => `
           <li><a href="${profilLink(sp.name)}">${kopf(sp.uuid, 56)}
             <span><b>${esc(sp.name)}</b>
@@ -317,6 +349,7 @@ function ansichtProfil(name) {
               <span><span class="punkt${istOnline ? ' an' : ''}"></span>${istOnline ? 'Gerade online' : `Zuletzt online ${esc(fmt.vor(sp.zuletzt))}`}</span>
               ${sp.erstesMal ? `<span>Dabei seit ${esc(datumLang.format(new Date(sp.erstesMal)))}</span>` : ''}
             </p>
+            ${umschalter('hell')}
           </div>
         </div>
       </div>
@@ -416,7 +449,9 @@ const MS_STUNDE = 3600000;
 const abendStart = (datum) => new Date(`${datum}T06:00:00`).getTime();
 
 function ansichtTagebuch(datum) {
-  const tage = daten.tage.filter((t) => Object.values(t.min).some((m) => m > 0)).map((t) => t.datum);
+  // nur Tage, zu denen Sitzungen geliefert werden (der Dienst schickt die letzten 30 Tage)
+  const mitSitzung = new Set(daten.sitzungen.map((s) => s.start.slice(0, 10)));
+  const tage = daten.tage.filter((t) => Object.values(t.min).some((m) => m > 0) && mitSitzung.has(t.datum)).map((t) => t.datum);
   if (!tage.length) {
     main.innerHTML = '<section class="band band-dunkel"><div class="band-innen"><h1 class="titel">Tagebuch</h1><p class="lead">Noch keine Sitzungen.</p></div></section>';
     return;
@@ -533,7 +568,7 @@ function zeichne({ fokus = false } = {}) {
 }
 
 async function laden() {
-  const antwort = await fetch('/api/daten', { cache: 'no-store' });
+  const antwort = await fetch(`/api/daten?ansicht=${ansicht}`, { cache: 'no-store' });
   if (!antwort.ok) throw new Error(`HTTP ${antwort.status}`);
   daten = await antwort.json();
   online = new Set(daten.server.online);
@@ -578,6 +613,8 @@ function liveVerbinden() {
 
 main.addEventListener('click', (ev) => {
   if (ev.target.closest('[data-naechster-fakt]')) zeigeFakt();
+  const umschalt = ev.target.closest('[data-ansicht]');
+  if (umschalt) wechsleAnsicht(umschalt.dataset.ansicht);
 });
 addEventListener('hashchange', () => zeichne({ fokus: true }));
 

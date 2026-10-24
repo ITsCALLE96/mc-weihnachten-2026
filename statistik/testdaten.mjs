@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 // Erzeugt eine glaubwürdige Test-Instanz (Paper-Logs, Statistiken, usercache, Sichtbarkeit) – deterministisch (fester Seed).
-// node statistik/testdaten.mjs [--ziel <ordner>] [--live]
+// node statistik/testdaten.mjs [--ziel <ordner>] [--live]   (legt zusätzlich <ziel>/archiv mit einer abgeschlossenen Season an)
 //   --live  hängt danach alle paar Sekunden neue Zeilen an latest.log an und erhöht Werte (Test der Live-Anzeige)
 import { mkdirSync, writeFileSync, appendFileSync, readFileSync, existsSync, rmSync, readdirSync, utimesSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ausBerlin, addiereTage, wochentag, isoBerlin } from './lib/zeit.mjs';
+import { schreibeTar } from './lib/seasons.mjs';
 
 const hier = dirname(fileURLToPath(import.meta.url));
 
@@ -145,7 +146,7 @@ function statistiken(p, stunden, tode, todeUrsachen, rnd) {
 }
 
 // --- Hauptfunktion -----------------------------------------------------------------------
-export function erzeugeTestwelt(ziel, { seed = 2026, start = '2026-12-05', tage = 18 } = {}) {
+export function erzeugeTestwelt(ziel, { seed = 2026, start = '2026-12-05', tage = 18, variante = 0, ausgeblendetMord = true } = {}) {
   ziel = resolve(ziel);
   if (existsSync(ziel) && readdirSync(ziel).length) {
     if (!existsSync(join(ziel, '.testwelt'))) throw new Error(`${ziel} ist nicht leer und keine Testwelt – abgebrochen`);
@@ -155,6 +156,7 @@ export function erzeugeTestwelt(ziel, { seed = 2026, start = '2026-12-05', tage 
   const zahl = (a, b) => a + rnd() * (b - a);
   const wahl = (a) => a[Math.floor(rnd() * a.length)];
   const spieler = SPIELER.map((p) => ({ ...p, uuid: uuidAus(rnd), tode: 0, ursachen: [], fortschritte: [], sek: 0 }));
+  for (let i = 0; i < variante * 7; i++) rnd(); // gleiche Spieler (UUIDs), anderer Verlauf
   const nach = (n) => spieler.find((p) => p.name === n);
   const wanda = nach('Wichtel_Wanda');
 
@@ -243,8 +245,10 @@ export function erzeugeTestwelt(ziel, { seed = 2026, start = '2026-12-05', tage 
     }
   }
   // Wanda erschlägt Rudi (Datenschutz: darf nirgends auftauchen)
-  add(ausBerlin('2026-12-16', 21, 15, 9), 'Rentier_Rudi was slain by Wichtel_Wanda');
-  nach('Rentier_Rudi').tode++;
+  if (ausgeblendetMord) {
+    add(ausBerlin(addiereTage(start, 11), 21, 15, 9), 'Rentier_Rudi was slain by Wichtel_Wanda');
+    nach('Rentier_Rudi').tode++;
+  }
   add(ende, `${nach('Gluehwein_Gero').name} has made the advancement [Enchanter]`);
   zeilen.sort((a, b) => a.zeit - b.zeit);
 
@@ -283,6 +287,33 @@ export function erzeugeTestwelt(ziel, { seed = 2026, start = '2026-12-05', tage 
   writeFileSync(join(ziel, 'server.properties'), '#Minecraft server properties\nlevel-name=world\nmotd=Weihnachtsserver (Testdaten)\nserver-port=25565\n');
   writeFileSync(join(ziel, 'sichtbarkeit.json'), JSON.stringify({ ausgeblendet: [wanda.uuid] }, null, 2));
   return { ziel, spieler, ausgeblendet: wanda, jetzt: ende, sichtbarkeit: join(ziel, 'sichtbarkeit.json') };
+}
+
+// --- Archiv mit einer abgeschlossenen Season -----------------------------------------------
+// <ziel>/archiv/SEASON = weihnachten-2026, <ziel>/archiv/herbst-2026/ (Schnappschuss + Logs wie schnappschuss.sh)
+export function erzeugeArchiv(ziel, { vorher = 'herbst-2026', aktuell = 'weihnachten-2026' } = {}) {
+  ziel = resolve(ziel);
+  const archiv = join(ziel, 'archiv');
+  const tmp = join(ziel, '.vorher');
+  const alt = erzeugeTestwelt(tmp, { start: '2026-10-03', tage: 14, variante: 1, ausgeblendetMord: false });
+  const ordner = join(archiv, vorher);
+  mkdirSync(join(ordner, 'logs', 'paper'), { recursive: true });
+  mkdirSync(join(ordner, 'schnappschuesse'), { recursive: true });
+  mkdirSync(join(archiv, aktuell, 'logs', 'paper'), { recursive: true });
+  for (const f of readdirSync(join(tmp, 'logs'))) {
+    const inhalt = readFileSync(join(tmp, 'logs', f));
+    if (f === 'latest.log') writeFileSync(join(ordner, 'logs', 'paper', `${isoBerlin(alt.jetzt).slice(0, 10)}-1.log.gz`), gzipSync(inhalt));
+    else writeFileSync(join(ordner, 'logs', 'paper', f), inhalt);
+  }
+  const datum = addiereTage(isoBerlin(alt.jetzt).slice(0, 10), 1);
+  const statOrdner = join(tmp, 'world', 'players', 'stats');
+  const eintraege = readdirSync(statOrdner).map((f) => ({ pfad: `${datum}/world/players/stats/${f}`, inhalt: readFileSync(join(statOrdner, f)) }));
+  eintraege.push({ pfad: `${datum}/usercache.json`, inhalt: readFileSync(join(tmp, 'usercache.json')) });
+  writeFileSync(join(ordner, 'schnappschuesse', `${datum}.tar.gz`), gzipSync(schreibeTar(eintraege)));
+  writeFileSync(join(archiv, 'SEASON'), `${aktuell}
+`);
+  rmSync(tmp, { recursive: true, force: true });
+  return archiv;
 }
 
 // --- Live-Modus ---------------------------------------------------------------------------
@@ -335,7 +366,8 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   const a = process.argv.slice(2);
   const ziel = a.includes('--ziel') ? a[a.indexOf('--ziel') + 1] : join(hier, 'testwelt');
   const welt = erzeugeTestwelt(ziel);
-  console.log(`Testwelt: ${welt.ziel} (${welt.spieler.length} Spieler, ausgeblendet: ${welt.ausgeblendet.name})`);
+  const archiv = erzeugeArchiv(ziel);
+  console.log(`Testwelt: ${welt.ziel} (${welt.spieler.length} Spieler, ausgeblendet: ${welt.ausgeblendet.name}), Archiv mit Season herbst-2026: ${archiv}`);
   if (a.includes('--live')) {
     console.log('Live-Modus: hängt alle paar Sekunden Zeilen an latest.log an (Strg+C beendet).');
     live(welt.ziel, welt);

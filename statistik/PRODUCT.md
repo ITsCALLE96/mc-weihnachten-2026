@@ -16,7 +16,7 @@ Pascals Freundesgruppe (8–12 Leute, Minecraft-Java-Spieler, teils Anfänger) a
 
 ## Product Purpose
 
-Spaß und Gesprächsstoff in der Gruppe: Bestenlisten mit witzigen Titeln, Spielerprofile mit allen Vanilla-Werten und Platzierung, Sprüche nach Schwellen, „Wusstest du?“-Fakten, Spielzeit pro Tag und Sitzungen, live „Gerade online“ und Ereignisse. Verlauf über Saisons.
+Spaß und Gesprächsstoff in der Gruppe: Bestenlisten mit witzigen Titeln, Spielerprofile mit allen Vanilla-Werten und Platzierung, Sprüche nach Schwellen, „Wusstest du?“-Fakten, Spielzeit pro Tag und Sitzungen, live „Gerade online“ und Ereignisse. Verlauf über Seasons („Diese Season“/„Allzeit“).
 
 ## Capabilities and Constraints
 
@@ -45,7 +45,7 @@ Keine echten Spielerdaten vor dem Testlauf 21.11.; bis dahin erfundene Testdaten
 
 ## Direction contract
 
-THESIS: Die Anzeigetafel einer Saison als Winternacht über dem Server – jede Bestenliste ist ein eigener Erzblock in seiner Farbe; verweigert wird das graue Admin-Dashboard mit Diagrammkacheln.
+THESIS: Die Anzeigetafel einer Season als Winternacht über dem Server – jede Bestenliste ist ein eigener Erzblock in seiner Farbe; verweigert wird das graue Admin-Dashboard mit Diagrammkacheln.
 OWN-WORLD: Grund Nachthimmel-Blau (#0f1330), Schnee-Weiß als helle Bänder, Erzfarben als volle Flächen (Redstone, Gold, Diamant, Smaragd, Amethyst, Kupfer, Lapis); Silkscreen für Zahlen und Titel, Systemschrift für Fließtext; kantige Blöcke ohne Rundungen, Pixelkanten statt Schatten-Glow.
 STORY: Besucher sieht sofort, ob jemand online ist und was gerade passiert, findet sich in den Bestenlisten, klickt auf einen Namen und liest, was die Seite über ihn sagt.
 FIRST VIEWPORT: Links groß „STATS“ in Pixelschrift über dem Servernamen, Live-Zeile mit grünem Punkt und Online-Köpfen; darunter vier Kennzahl-Blöcke in Erzfarben; leise fallender Pixelschnee im Himmel.
