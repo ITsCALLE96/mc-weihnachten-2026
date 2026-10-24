@@ -103,6 +103,7 @@
     "redstone-tweaks"
   ],
   "lokal": [
-    "../block-marker/build/libs/block-marker-1.0.0.jar"
+    "../block-marker/build/libs/block-marker-1.0.0.jar",
+    "../quest-details/build/libs/quest-details-1.0.0.jar"
   ]
 }
