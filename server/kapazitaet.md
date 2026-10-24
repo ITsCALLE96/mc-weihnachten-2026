@@ -8,20 +8,29 @@ Grundlage: Dell Precision 7740 (Testlab-Host), i7-9850H 6 Kerne/12 Threads, 32 G
 
 | Teil | Planwert |
 |---|---|
-| Paper `MinecraftWeihnachten01`: Heap (`-Xms` = `-Xmx`) | **10 GB** (AMP-Einstellung „Memory“ 10240 MB) |
-| Paper: Java-Overhead außerhalb des Heaps (Metaspace, Netzwerk-Puffer, Threads) | ~2 GB → die Instanz belegt real **~12 GB** |
+**Rahmen (Pascal, 24.10.):** Während des Projekts sind alle anderen AMP-Instanzen aus, **schon ab dem Lasttest und dem Testlauf**. Minecraft darf die VM ausreizen.
+
+| Teil | Planwert |
+|---|---|
+| Paper `MinecraftWeihnachten01`: Heap (`-Xms` = `-Xmx`) | **12 GB** (AMP-Einstellung „Memory“ 12288 MB), vorher 10 GB |
+| Paper: Java-Overhead außerhalb des Heaps (Metaspace, Netzwerk-Puffer, Threads) | ~2 GB → die Instanz belegt real **~14 GB** |
 | Velocity `MinecraftProxy01` | 1 GB (512 MB reichen meist, 1 GB lässt Luft für 25 gleichzeitige Logins) |
 | Debian, Docker, AMP-Controller, später Stats-Dienst | ~2–3 GB |
-| **Summe Minecraft-Betrieb** | **~15–16 GB von 28 GB** |
+| **Summe Minecraft-Betrieb** | **~17–18 GB von 28 GB** |
+| **Rest ~10 GB → Linux-Dateicache** | hält Region-Dateien der Welt im RAM, Chunks laden schneller von der Platte |
 
-- **Reicht das?** Ja, solange die anderen AMP-Instanzen gestoppt sind (laut Plan ab 04.12.). Rest: ~12 GB in der VM. Mehr als 28 GB kann VM200 nicht bekommen,
-  weil der Host selbst 3–4 GB braucht.
-- **Testphase 14.11.–04.12.:** Andere Instanzen dürfen nur parallel laufen, wenn sie zusammen unter ~10 GB bleiben. Palworld allein braucht oft schon so viel.
-  Zum Testlauf am 21.11. deshalb besser alles andere stoppen. Bei Task 2 Schritt 1 messe ich den RAM-Bedarf der anderen Instanzen mit (`docker stats --no-stream`).
-- **Warum nicht 12 GB Heap?** 25 Spieler mit Sichtweite 8 brauchen in Paper erfahrungsgemäß 6–9 GB. 10 GB lässt Luft für Farmen und
-  Spawn-Entities. Mehr Heap macht die Pausen der Speicherbereinigung länger, ohne zu helfen. Ab einem Heap über 12 GB gelten andere G1-Flags.
-- **JVM-Flags:** In AMP die „Aikar-Flags“ einschalten (G1GC, für bis zu 12 GB Heap gedacht).
-- **Prüfen im Testlauf:** `/spark health` → Heap nach der Speicherbereinigung dauerhaft unter ~70 %. Sonst Heap auf 12 GB, dann aber die G1-Flags für große Heaps.
+- **Warum nicht noch mehr Heap?** Meine erste Begründung („mehr Heap = längere Pausen“) war zu grob, das korrigiere ich hiermit. Bei G1 hängt die Pausenlänge vor allem davon ab,
+  wie viel lebende Daten aufzuräumen sind, kaum von der Heap-Größe. Ein größerer Heap räumt sogar seltener auf. Was tatsächlich gegen sehr große Heaps spricht:
+  - 25 Spieler mit Sichtweite 8 brauchen in Paper erfahrungsgemäß 6–9 GB lebende Daten. Was darüber liegt, bleibt ungenutzt.
+  - RAM, den der Heap belegt, fehlt dem Dateicache. Der Cache bringt bei Chunk-Laden und Speichern (Autosave, Backups) spürbar mehr als ein leerer Heap.
+  - Bei G1 wachsen mit dem Heap auch die Verwaltungsdaten (Remembered Sets) ein Stück mit.
+
+  12 GB sind deshalb der Mittelweg: genug Reserve für Farmen und Spitzen, und ~10 GB bleiben für den Cache.
+- **Mehr als 28 GB** kann VM200 nicht bekommen, der Host selbst braucht 3–4 GB.
+- **JVM-Flags:** In AMP die „Aikar-Flags“ einschalten, und zwar die Variante **für Heaps ab 12 GB** (`G1NewSizePercent=40`, `G1MaxNewSizePercent=50`, `G1HeapRegionSize=16M`,
+  `G1ReservePercent=15`, `InitiatingHeapOccupancyPercent=20`). Wie AMP die Variante auswählt, prüfe ich beim Anlegen, notfalls als eigene Java-Argumente.
+- **Prüfen im Lasttest** (`lasttest.md`) und im Testlauf: `/spark health` → Heap nach der Speicherbereinigung dauerhaft unter ~70 %, Pausen unter ~50 ms.
+  Liegt der Heap danach bei unter 40 %, kann er auf 10 GB zurück (mehr Cache). Liegt er über 70 %, auf 14 GB.
 
 ## 2. CPU
 
