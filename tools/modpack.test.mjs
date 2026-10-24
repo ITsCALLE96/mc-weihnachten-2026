@@ -1,9 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { baueIndex, lokaleMods } from './modpack.mjs';
+import { baueIndex, lokaleMods, overrideDateien } from './modpack.mjs';
 
 const version = {
   project_id: 'AANobbMI',
@@ -54,4 +54,14 @@ test('Lokale Mods landen in overrides/mods/', () => {
 
 test('Fehlende lokale Mod bricht mit Pfad ab', () => {
   assert.throws(() => lokaleMods(['../fehlt/mod.jar'], join(tmpdir(), 'repo')), /Lokale Mod fehlt: .*mod\.jar/);
+});
+
+test('Voreinstellungen aus modpack/overrides landen mit Unterordnern in overrides/', () => {
+  const ordner = mkdtempSync(join(tmpdir(), 'overrides-'));
+  mkdirSync(join(ordner, 'config/fancymenu'), { recursive: true });
+  writeFileSync(join(ordner, 'options.txt'), 'lang:de_de');
+  writeFileSync(join(ordner, 'config/fancymenu/options.txt'), 'x');
+  assert.deepEqual(overrideDateien(ordner).map((d) => d.ziel).sort(),
+    ['overrides/config/fancymenu/options.txt', 'overrides/options.txt']);
+  assert.deepEqual(overrideDateien(join(ordner, 'gibtsnicht')), []);
 });

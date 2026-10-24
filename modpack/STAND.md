@@ -60,8 +60,6 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/status-effect-bars-1.0.12.jar | https://cdn.modrinth.com/data/x02cBj9Y/versions/aAXJqboy/status-effect-bars-1.0.12.jar |
 | mods/locator-heads-2.5.0.jar | https://cdn.modrinth.com/data/L4pt5egz/versions/RetMeX2l/locator-heads-2.5.0.jar |
 | mods/peek-fabric-1.6.0+26.3.jar | https://cdn.modrinth.com/data/TnOXNf5e/versions/7nzkbVPa/peek-fabric-1.6.0%2B26.3.jar |
-| mods/minihud-fabric-26.3-0.41.2.jar | https://cdn.modrinth.com/data/UMxybHE8/versions/WfIgkxnf/minihud-fabric-26.3-0.41.2.jar |
-| mods/malilib-fabric-26.3-0.30.2.jar | https://cdn.modrinth.com/data/GcWjdA9I/versions/JX9bESec/malilib-fabric-26.3-0.30.2.jar |
 | mods/eg_entity_outlines-1.1.0+26.3-fabric.jar | https://cdn.modrinth.com/data/OiDD7Eua/versions/lYeOSlJ9/eg_entity_outlines-1.1.0%2B26.3-fabric.jar |
 | mods/BetterF3-20.0.0-Fabric-26.3.jar | https://cdn.modrinth.com/data/8shC1gFX/versions/XB7u4eSf/BetterF3-20.0.0-Fabric-26.3.jar |
 | mods/betterstats-5.7.0+fn-26.3.jar | https://cdn.modrinth.com/data/n6PXGAoM/versions/Mefnti0P/betterstats-5.7.0%2Bfn-26.3.jar |
@@ -97,12 +95,13 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/bookshelfinspector-fabric-2.4+26.3.jar | https://cdn.modrinth.com/data/rOrXjyPb/versions/ShIoLf04/bookshelfinspector-fabric-2.4%2B26.3.jar |
 | mods/ArmorPoser-fabric-26.3-16.0.1.jar | https://cdn.modrinth.com/data/PFwYNrHb/versions/qmCAgvPA/ArmorPoser-fabric-26.3-16.0.1.jar |
 | mods/fancymenu_fabric_3.9.14_MC_26.3.jar | https://cdn.modrinth.com/data/Wq5SjeWM/versions/CBLbyHzH/fancymenu_fabric_3.9.14_MC_26.3.jar |
-| mods/melody_fabric_1.0.17_MC_26.3.jar | https://cdn.modrinth.com/data/CVT4pFB2/versions/gjl2Yw81/melody_fabric_1.0.17_MC_26.3.jar |
 | mods/konkrete_fabric_1.11.1_MC_26.3.jar | https://cdn.modrinth.com/data/J81TRJWm/versions/pQLA2B54/konkrete_fabric_1.11.1_MC_26.3.jar |
+| mods/melody_fabric_1.0.17_MC_26.3.jar | https://cdn.modrinth.com/data/CVT4pFB2/versions/gjl2Yw81/melody_fabric_1.0.17_MC_26.3.jar |
 | mods/voicechat-fabric-2.6.25+26.3.jar | https://cdn.modrinth.com/data/9eGKb6K1/versions/yuPrCKIE/voicechat-fabric-2.6.25%2B26.3.jar |
 | mods/simplevoiceanimations-fabric-1.3.1+26.3.jar | https://cdn.modrinth.com/data/F1oVAMoc/versions/UOevvLgE/simplevoiceanimations-fabric-1.3.1%2B26.3.jar |
 | mods/voicechat-names-26.3-1.0.2.jar | https://cdn.modrinth.com/data/AcHVdC8l/versions/nCgCmgzo/voicechat-names-26.3-1.0.2.jar |
 | mods/litematica-fabric-26.3-0.29.1.jar.disabled | https://cdn.modrinth.com/data/bEpr0Arc/versions/ZqV316KY/litematica-fabric-26.3-0.29.1.jar |
+| mods/malilib-fabric-26.3-0.30.2.jar | https://cdn.modrinth.com/data/GcWjdA9I/versions/JX9bESec/malilib-fabric-26.3-0.30.2.jar |
 | mods/nvidium-0.4.4-beta7-26.3.jar.disabled | https://cdn.modrinth.com/data/SfMw2IZN/versions/8mVK1zbk/nvidium-0.4.4-beta7-26.3.jar |
 | mods/voxy-0.2.20-beta.jar.disabled | https://cdn.modrinth.com/data/fxxUqruK/versions/iIrM8ZKQ/voxy-0.2.20-beta.jar |
 | mods/ukus-armor-hud-fabric-0.14.0+mc26.3.jar.disabled | https://cdn.modrinth.com/data/wF189hn9/versions/URl1E7bP/ukus-armor-hud-fabric-0.14.0%2Bmc26.3.jar |

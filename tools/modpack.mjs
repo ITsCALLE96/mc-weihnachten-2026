@@ -2,8 +2,8 @@
 // Holt je Mod die neueste Fabric-Version für die Minecraft-Version aus versions.json,
 // löst Pflicht-Abhängigkeiten auf und schreibt build/weihnachten-modpack.mrpack.
 // Aufruf: node tools/modpack.mjs
-import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, copyFileSync } from 'node:fs';
-import { join, resolve, basename } from 'node:path';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, copyFileSync, readdirSync } from 'node:fs';
+import { join, resolve, basename, relative, dirname } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
@@ -44,6 +44,17 @@ export function lokaleMods(pfade, repo) {
     if (!existsSync(quelle)) throw new Error(`Lokale Mod fehlt: ${quelle} – erst im Nachbar-Repo bauen`);
     return { quelle, ziel: `overrides/mods/${basename(quelle)}` };
   });
+}
+
+// Voreinstellungen (Tasten, Sprache, Mod-Configs) aus modpack/overrides/: landen 1:1 unter overrides/ im Pack.
+export function overrideDateien(ordner) {
+  if (!existsSync(ordner)) return [];
+  return readdirSync(ordner, { recursive: true, withFileTypes: true })
+    .filter((e) => e.isFile())
+    .map((e) => {
+      const quelle = join(e.parentPath, e.name);
+      return { quelle, ziel: `overrides/${relative(ordner, quelle).replaceAll('\\', '/')}` };
+    });
 }
 
 async function holeJson(url) {
@@ -126,12 +137,13 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   writeFileSync(join(tmp, 'modrinth.index.json'), JSON.stringify(index, null, 2));
   const packDatei = join(repo, 'build/weihnachten-modpack.mrpack');
   rmSync(packDatei, { force: true });
-  for (const { quelle, ziel: z } of eigene) {
-    mkdirSync(join(tmp, 'overrides/mods'), { recursive: true });
+  const voreinstellungen = overrideDateien(join(repo, 'modpack/overrides'));
+  for (const { quelle, ziel: z } of [...eigene, ...voreinstellungen]) {
+    mkdirSync(dirname(join(tmp, z)), { recursive: true });
     copyFileSync(quelle, join(tmp, z));
   }
-  execFileSync('C:/Windows/System32/tar.exe',
-    ['--format', 'zip', '-cf', packDatei, 'modrinth.index.json', ...(eigene.length ? ['overrides'] : [])], { cwd: tmp });
+  execFileSync('C:/Windows/System32/tar.exe', ['--format', 'zip', '-cf', packDatei, 'modrinth.index.json',
+    ...(eigene.length || voreinstellungen.length ? ['overrides'] : [])], { cwd: tmp });
   writeFileSync(join(repo, 'modpack/STAND.md'),
     `# Stand des Modpacks\n\nMinecraft ${minecraft}, Fabric Loader ${loader}\n\n| Datei | Download |\n|---|---|\n` +
     index.files.map((f) => `| ${f.path} | ${f.downloads[0]} |`).join('\n') + '\n' +

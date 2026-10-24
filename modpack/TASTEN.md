@@ -1,15 +1,15 @@
 # Tastenbelegung im Modpack
 
-Stand 23.10.2026, Pack `modpack-v2`. Vorschläge für **I** und **F9** von Pascal bestätigt; C, H, M gelten als Vorschlag, solange er nichts anderes sagt. Litematica ist im Pack standardmäßig aus – seine Konflikte (M, I) betreffen nur, wer es einschaltet. Ausgelesen aus den Mod-Dateien selbst (Bytecode der Tasten-Registrierung bzw. malilib-Hotkeys). Wo eine Mod ihre Taste über eine Hilfsfunktion setzt, stammt der Wert aus der Mod-Beschreibung (markiert mit ¹). Minecraft 26.x zählt Tasten nach USB-Tastaturcodes (A=4, G=10, H=11 …), nicht mehr nach dem alten GLFW-Schema.
+Stand 24.10.2026, Pack `modpack-v2`. Alle Vorschläge unten sind umgesetzt und von Pascal im Spiel geprüft (24.10.) und liegen als Voreinstellung im Pack (`modpack/overrides/options.txt`). MiniHUD ist seit 24.10. nicht mehr im Pack. Litematica ist im Pack standardmäßig aus – seine Konflikte (M, I) betreffen nur, wer es einschaltet. Ausgelesen aus den Mod-Dateien selbst (Bytecode der Tasten-Registrierung bzw. malilib-Hotkeys). Wo eine Mod ihre Taste über eine Hilfsfunktion setzt, stammt der Wert aus der Mod-Beschreibung (markiert mit ¹). Minecraft 26.x zählt Tasten nach USB-Tastaturcodes (A=4, G=10, H=11 …), nicht mehr nach dem alten GLFW-Schema.
 
 ## Konflikte und Vorschlag
 
 | Taste | Wer will sie | Vorschlag |
 |---|---|---|
 | **C** | Zoomify (Zoom), Cinematic Zoom ¹, Vanilla „Hotbar laden“ | Zoomify bleibt **C**, Cinematic Zoom auf **X** (so hat es CastCrafter); die Vanilla-Hotbar-Tasten C/X **leeren** – gespeicherte Hotbars gibt es nur im Kreativmodus |
-| **H** | Gamma Utils (Nachtsicht), MiniHUD (Anzeige an/aus), Simple Voice Chat (Symbole ausblenden) | Nachtsicht bleibt **H**; MiniHUD auf **F8**; Voice-Chat-Symbole ausblenden **ohne Taste** |
+| **H** | Gamma Utils (Nachtsicht), MiniHUD (Anzeige an/aus), Simple Voice Chat (Symbole ausblenden) | Nachtsicht bleibt **H**; Voice-Chat-Symbole ausblenden **ohne Taste** (MiniHUD ist raus) |
 | **M** | Xaero's World Map (Karte), Litematica (Hauptmenü + alle M-Kombinationen), Simple Voice Chat (Mikro stumm) | Karte bleibt **M**; Litematica-Hauptmenü auf **Ö** (die M-Kombinationen bleiben, sie brauchen gehaltenes M + zweite Taste); Mikro stumm auf **Ä** (B ist schon der Xaero-Wegpunkt) |
-| **I** | Iris (Shader-Auswahl), Litematica (Info-Overlay), Do a Barrel Roll (an/aus, nur wenn eingeschaltet) | Iris bleibt **I**; Litematica-Info-Overlay **ohne Taste**; Do a Barrel Roll auf **O** |
+| **I** | Iris (Shader-Auswahl), Litematica (Info-Overlay), Do a Barrel Roll (an/aus, nur wenn eingeschaltet) | Iris bleibt **I**; Litematica-Info-Overlay **ohne Taste**; Do a Barrel Roll: nicht **O** (Vanilla „Freunde“), Taste offen |
 | **F9** | ClickThrough Plus (an/aus), Light Overlay (Lichtlevel an/aus) | Light Overlay bleibt **F9**; ClickThrough **ohne Taste** (ist sowieso immer an) |
 
 ## Alle Mod-Tasten (Standard)
@@ -43,4 +43,9 @@ Nicht ausgelesen (Taste wird über eine Hilfsfunktion gesetzt, meist ohne Standa
 
 ## Wie die Belegung ins Pack kommt
 
-Vanilla-Tasten stehen in `options.txt`, malilib-Mods (Litematica, MiniHUD) und Freecam haben eigene Dateien unter `config/`. Damit das Format sicher stimmt, wird nichts erraten: Pascal stellt im Test-Profil die Belegung oben ein (dazu Freecam „Ignore All Collision“ **aus**, wie auf CraftAttack), danach übernehme ich `options.txt` (nur Tasten- und Sprachzeilen) und die betroffenen `config/`-Dateien als Voreinstellung (`overrides/`) ins Pack.
+Die Voreinstellungen liegen in `modpack/overrides/` und landen beim Bau 1:1 unter `overrides/` in der `.mrpack`:
+
+- `options.txt`: nur `version`, `lang:de_de` und alle Tastenzeilen (`key_…`) aus Pascals Testinstanz, sonst nichts – Grafik, Lautstärke usw. bleiben beim Standard
+- `config/fancymenu/options.txt`: Bearbeitungsleiste aus, `modpack_mode` an (Spieler sehen keine FancyMenu-Leiste; einblenden mit Strg + Alt + C)
+
+Litematica und Do a Barrel Roll sind ausgeschaltet, ihre Tasten stehen deshalb noch nicht in der Datei. Neu übernehmen: Tasten in einer Testinstanz einstellen, dann die `key_`-Zeilen aus deren `options.txt` kopieren.

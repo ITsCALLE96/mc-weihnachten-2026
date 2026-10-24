@@ -16,7 +16,7 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 - Geräusche: Cool Rain, Sound Physics Remastered, AmbientSounds, Presence Footsteps, Extreme Sound Muffler
 - Kamera: Zoomify, Cinematic Zoom (beide standardmäßig auf C – Anleitung sagt, eine umlegen), Ji AFK Cinematic
 - Sicht: Bobby, Distant Horizons, Gamma Utils (Fullbright), Freecam
-- Karte und Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars, Locator Heads, Peek, MiniHUD, Entity Selection Outlines, BetterF3, Better Statistics Screen, Pickup Notifications, Jade, Enchantment Descriptions, JEI
+- Karte und Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars, Locator Heads, Peek, Entity Selection Outlines, BetterF3, Better Statistics Screen, Pickup Notifications, Jade, Enchantment Descriptions, JEI
 - Chat: Here 'n' There, Chat Heads, No Chat Reports, More Chat History
 - Bedienung: Mod Menu, Mouse Tweaks, More Mouse Tweaks, Client Sort, ClickThrough Plus, Controlling, Multi Key Bindings, Bundles Beyond, Scribble, Armor Hider, Packed Packs, Borderless Fullscreen
 - Bauen: Armor Poser (Server-Plugin nötig)
@@ -30,6 +30,8 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 **Deaktiviert dabei** (`optional`): Litematica (auf dem Server vorerst nicht erlaubt, Gruppe stimmt ab – bei Nein fliegt es ganz raus), Nvidium (nur Nvidia), voxy (nicht zusammen mit Distant Horizons), uku's Armor HUD, Flashback, Do a Barrel Roll
 
 **Raus (24.10., Absturz mit FancyMenu):** Remove Reloading Screen
+
+**Raus (Pascal, 24.10.):** MiniHUD – sieht nicht gut aus und doppelt sich mit Xaero's Minimap und BetterF3
 
 **Raus (Pascal, 23.10.):** Time & Weather Changer, CalcMod, Big Sign Writer, Cut Through, Screenshot Viewer, VeinMiner, VeinMiner Hotkey, Reach Behind, Vehicle Upgrade, Crops Love Rain sowie alle ➖
 

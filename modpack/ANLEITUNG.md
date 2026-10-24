@@ -15,8 +15,6 @@ Fünf Mods liegen **ausgeschaltet** bei: Nvidium (nur Nvidia-Grafikkarten), voxy
 
 Nicht zusammen einschalten: **voxy** und **Distant Horizons** (Distant Horizons ist schon an).
 
-**Einmal nach dem ersten Start:** Zoomify und Cinematic Zoom liegen beide auf **C**. Unter **Optionen → Steuerung** Cinematic Zoom auf eine andere Taste legen, zum Beispiel **Z**.
-
 ## Nützliche Tasten und Schalter
 
 | Was | Wie |
@@ -25,7 +23,9 @@ Nicht zusammen einschalten: **voxy** und **Distant Horizons** (Distant Horizons 
 | Hell sehen (Fullbright) | **H** = Nachtsicht, funktioniert auch mit Shadern · **G** = Helligkeit hoch, nur ohne Shader |
 | Freecam (Kamera frei bewegen) | **F4** |
 | Sprachchat (Einstellungen, Gruppen) | **V** · Sprechen: **Caps Lock** gedrückt halten |
-| Zoom | **C** gedrückt halten (Cinematic Zoom mit Kinobalken: Taste selbst festlegen, siehe oben) |
+| Zoom | **C** gedrückt halten · mit Kinobalken: **X** |
+| Lichtlevel (wo Monster spawnen) | **F9** |
+| Mikro stumm | **Ä** |
 | Rezepte nachschlagen (JEI) | im Inventar rechts die Liste, Item anklicken |
 | Weltkarte | **M** |
 | Wegpunkt setzen | **B** |
