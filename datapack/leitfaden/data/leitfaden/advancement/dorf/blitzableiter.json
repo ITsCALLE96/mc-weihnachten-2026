@@ -1,0 +1,76 @@
+{
+  "parent": "leitfaden:dorf/golem",
+  "criteria": {
+    "lightning_rod_with_villager_no_fire": {
+      "conditions": {
+        "bystander": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:villager"
+          }
+        },
+        "lightning": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:distance": {
+              "absolute": {
+                "max": 30
+              }
+            },
+            "minecraft:type_specific/lightning": {
+              "blocks_set_on_fire": 0
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:lightning_strike"
+    }
+  },
+  "requirements": [
+    [
+      "lightning_rod_with_villager_no_fire"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:lightning_rod"
+    },
+    "title": {
+      "translate": "advancements.adventure.lightning_rod_with_villager_no_fire.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.dorf.blitzableiter.tun",
+        "fallback": "Protect a villager with a lightning rod without starting a fire."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.dorf.blitzableiter.brauchst",
+        "fallback": "Lightning rod: 3 copper ingots. Plus a thunderstorm",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.dorf.blitzableiter.tipp",
+        "fallback": "Put it on stone, not on a wooden roof.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

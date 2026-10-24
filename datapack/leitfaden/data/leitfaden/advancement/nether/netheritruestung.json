@@ -1,0 +1,69 @@
+{
+  "parent": "leitfaden:nether/schrott",
+  "criteria": {
+    "netherite_armor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:netherite_helmet"
+          },
+          {
+            "items": "minecraft:netherite_chestplate"
+          },
+          {
+            "items": "minecraft:netherite_leggings"
+          },
+          {
+            "items": "minecraft:netherite_boots"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "netherite_armor"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:netherite_chestplate"
+    },
+    "title": {
+      "translate": "advancements.nether.netherite_armor.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.netheritruestung.tun",
+        "fallback": "Get a full set of netherite armor."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.nether.netheritruestung.brauchst",
+        "fallback": "4 netherite ingots, 4 upgrade templates, diamond armor",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.netheritruestung.tipp",
+        "fallback": "Netherite ingot = 4 netherite scrap + 4 gold ingots. Upgrade at a smithing table.",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

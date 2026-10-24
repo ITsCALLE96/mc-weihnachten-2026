@@ -1,0 +1,56 @@
+{
+  "parent": "leitfaden:nether/leuchtfeuer",
+  "criteria": {
+    "beacon": {
+      "conditions": {
+        "level": 4
+      },
+      "trigger": "minecraft:construct_beacon"
+    }
+  },
+  "requirements": [
+    [
+      "beacon"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:beacon"
+    },
+    "title": {
+      "translate": "advancements.nether.create_full_beacon.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.leuchtfeuer_voll.tun",
+        "fallback": "Bring a beacon to full power."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.nether.leuchtfeuer_voll.brauchst",
+        "fallback": "164 mineral blocks for 4 tiers",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.leuchtfeuer_voll.tipp",
+        "fallback": "Iron is the easiest to farm. Team up!",
+        "color": "gold"
+      }
+    ],
+    "frame": "goal",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

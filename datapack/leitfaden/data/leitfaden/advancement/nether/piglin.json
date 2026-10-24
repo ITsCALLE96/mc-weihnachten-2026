@@ -1,0 +1,200 @@
+{
+  "parent": "leitfaden:nether/goldig",
+  "criteria": {
+    "distract_piglin": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:piglin",
+            "minecraft:flags": {
+              "is_baby": false
+            }
+          }
+        },
+        "item": {
+          "items": "#minecraft:piglin_loved"
+        },
+        "player": {
+          "type": "minecraft:inverted",
+          "term": {
+            "type": "minecraft:any_of",
+            "terms": [
+              {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:equipment": {
+                    "head": {
+                      "items": "#minecraft:piglin_safe_armor"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:equipment": {
+                    "chest": {
+                      "items": "#minecraft:piglin_safe_armor"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:equipment": {
+                    "legs": {
+                      "items": "#minecraft:piglin_safe_armor"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:equipment": {
+                    "feet": {
+                      "items": "#minecraft:piglin_safe_armor"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "trigger": "minecraft:thrown_item_picked_up_by_entity"
+    },
+    "distract_piglin_directly": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:piglin",
+            "minecraft:flags": {
+              "is_baby": false
+            }
+          }
+        },
+        "item": {
+          "items": "minecraft:gold_ingot"
+        },
+        "player": {
+          "type": "minecraft:inverted",
+          "term": {
+            "type": "minecraft:any_of",
+            "terms": [
+              {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:equipment": {
+                    "head": {
+                      "items": "#minecraft:piglin_safe_armor"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:equipment": {
+                    "chest": {
+                      "items": "#minecraft:piglin_safe_armor"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:equipment": {
+                    "legs": {
+                      "items": "#minecraft:piglin_safe_armor"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:equipment": {
+                    "feet": {
+                      "items": "#minecraft:piglin_safe_armor"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    }
+  },
+  "requirements": [
+    [
+      "distract_piglin",
+      "distract_piglin_directly"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:gold_ingot"
+    },
+    "title": {
+      "translate": "advancements.nether.distract_piglin.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.piglin.tun",
+        "fallback": "Distract a piglin with gold."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.nether.piglin.brauchst",
+        "fallback": "Gold ingot",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.piglin.tipp",
+        "fallback": "Toss them a gold ingot and they'll give you something in return.",
+        "color": "gold"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.kern",
+        "fallback": "★ counts towards the souvenir",
+        "color": "aqua"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "rewards": {
+    "function": "leitfaden:andenken/nether"
+  }
+}

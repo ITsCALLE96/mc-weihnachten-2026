@@ -1,0 +1,62 @@
+{
+  "parent": "leitfaden:kampf/windkugel",
+  "criteria": {
+    "blowback": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:breeze"
+          }
+        },
+        "killing_blow": {
+          "direct_entity": {
+            "minecraft:entity_type": "minecraft:breeze_wind_charge"
+          },
+          "tags": [
+            {
+              "expected": true,
+              "id": "#minecraft:is_projectile"
+            }
+          ]
+        }
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "requirements": [
+    [
+      "blowback"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:wind_charge"
+    },
+    "title": {
+      "translate": "advancements.adventure.blowback.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.kampf.gegenwind.tun",
+        "fallback": "Kill a breeze with its own wind charge."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.kampf.gegenwind.tipp",
+        "fallback": "Hit the breeze's wind charge back right before it reaches you.",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

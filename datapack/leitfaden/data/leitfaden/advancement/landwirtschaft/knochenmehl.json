@@ -1,0 +1,61 @@
+{
+  "parent": "leitfaden:landwirtschaft/feld",
+  "criteria": {
+    "bone_meal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:bone_meal"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bone_meal"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:bone_meal"
+    },
+    "title": {
+      "translate": "questbuch.landwirtschaft.knochenmehl.titel",
+      "fallback": "Growth Spurt"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.landwirtschaft.knochenmehl.tun",
+        "fallback": "Get some bone meal."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.landwirtschaft.knochenmehl.brauchst",
+        "fallback": "Bones (from skeletons) or a composter",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.landwirtschaft.knochenmehl.tipp",
+        "fallback": "Right-click plants to make them grow instantly.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

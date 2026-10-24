@@ -1,0 +1,74 @@
+{
+  "parent": "leitfaden:bergbau/start",
+  "criteria": {
+    "make_a_sign_glow": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:all_of",
+          "terms": [
+            {
+              "type": "minecraft:location_check",
+              "predicate": {
+                "block": {
+                  "blocks": "#minecraft:all_signs"
+                }
+              }
+            },
+            {
+              "type": "minecraft:match_tool",
+              "predicate": {
+                "items": "minecraft:glow_ink_sac"
+              }
+            }
+          ]
+        }
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "requirements": [
+    [
+      "make_a_sign_glow"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:glow_ink_sac"
+    },
+    "title": {
+      "translate": "advancements.husbandry.make_a_sign_glow.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.bergbau.leuchtschild.tun",
+        "fallback": "Make the text on a sign glow."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.bergbau.leuchtschild.brauchst",
+        "fallback": "A sign, a glow ink sac",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.bergbau.leuchtschild.tipp",
+        "fallback": "Glow squids live in dark water, often in caves.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

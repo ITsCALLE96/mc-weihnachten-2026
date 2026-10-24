@@ -1,0 +1,69 @@
+{
+  "parent": "leitfaden:ankommen/werkbank",
+  "criteria": {
+    "get_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:stone_tool_materials"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "get_stone"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:wooden_pickaxe"
+    },
+    "title": {
+      "translate": "advancements.story.mine_stone.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.stein.tun",
+        "fallback": "Craft a wooden pickaxe and mine some stone."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.ankommen.stein.brauchst",
+        "fallback": "3 planks, 2 sticks",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.stein.tipp",
+        "fallback": "Stone is usually right below the dirt.",
+        "color": "gold"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.kern",
+        "fallback": "★ counts towards the souvenir",
+        "color": "aqua"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "rewards": {
+    "function": "leitfaden:andenken/ankommen"
+  }
+}

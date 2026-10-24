@@ -1,0 +1,68 @@
+{
+  "parent": "leitfaden:kampf/start",
+  "criteria": {
+    "shot_trident": {
+      "conditions": {
+        "damage": {
+          "type": {
+            "direct_entity": {
+              "minecraft:entity_type": "minecraft:trident"
+            },
+            "tags": [
+              {
+                "expected": true,
+                "id": "#minecraft:is_projectile"
+              }
+            ]
+          }
+        }
+      },
+      "trigger": "minecraft:player_hurt_entity"
+    }
+  },
+  "requirements": [
+    [
+      "shot_trident"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:trident"
+    },
+    "title": {
+      "translate": "advancements.adventure.throw_trident.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.kampf.dreizack.tun",
+        "fallback": "Throw a trident at something."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.kampf.dreizack.brauchst",
+        "fallback": "A trident from a drowned",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.kampf.dreizack.tipp",
+        "fallback": "Only some drowned carry one. Loyalty brings it back.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "criteria": {
+    "freigeschaltet": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:end_stone"
+    },
+    "title": {
+      "translate": "questbuch.end.titel",
+      "fallback": "The End"
+    },
+    "description": {
+      "translate": "questbuch.end.beschreibung",
+      "fallback": "The End is open! We'll take on the dragon together."
+    },
+    "background": "minecraft:block/end_stone",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

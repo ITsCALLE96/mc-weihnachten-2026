@@ -1,0 +1,58 @@
+{
+  "parent": "leitfaden:nether/wither",
+  "criteria": {
+    "beacon": {
+      "conditions": {
+        "level": {
+          "min": 1
+        }
+      },
+      "trigger": "minecraft:construct_beacon"
+    }
+  },
+  "requirements": [
+    [
+      "beacon"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:beacon"
+    },
+    "title": {
+      "translate": "advancements.nether.create_beacon.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.leuchtfeuer.tun",
+        "fallback": "Build and activate a beacon."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.nether.leuchtfeuer.brauchst",
+        "fallback": "Nether star, 5 glass, 3 obsidian. Plus 9 iron, gold, emerald or diamond blocks",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.leuchtfeuer.tipp",
+        "fallback": "The smallest pyramid is 3 × 3, the beacon sits on top.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

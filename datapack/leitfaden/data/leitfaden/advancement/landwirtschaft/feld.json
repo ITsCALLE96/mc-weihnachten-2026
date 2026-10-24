@@ -1,0 +1,119 @@
+{
+  "parent": "leitfaden:landwirtschaft/start",
+  "criteria": {
+    "beetroots": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "minecraft:beetroots"
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "melon_stem": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "minecraft:melon_stem"
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "nether_wart": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "minecraft:nether_wart"
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "pitcher_pod": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "minecraft:pitcher_crop"
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "pumpkin_stem": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "minecraft:pumpkin_stem"
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "torchflower": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "minecraft:torchflower_crop"
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "wheat": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "minecraft:wheat"
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "requirements": [
+    [
+      "wheat",
+      "pumpkin_stem",
+      "melon_stem",
+      "beetroots",
+      "nether_wart",
+      "torchflower",
+      "pitcher_pod"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:wheat"
+    },
+    "title": {
+      "translate": "advancements.husbandry.plant_seed.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.landwirtschaft.feld.tun",
+        "fallback": "Plant some seeds and watch them grow."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.landwirtschaft.feld.brauchst",
+        "fallback": "Hoe, seeds, dirt near water",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.landwirtschaft.feld.tipp",
+        "fallback": "Seeds drop from tall grass. One water block hydrates 4 blocks in every direction.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

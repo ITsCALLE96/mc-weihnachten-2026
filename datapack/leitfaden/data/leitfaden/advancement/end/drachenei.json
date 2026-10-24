@@ -1,0 +1,49 @@
+{
+  "parent": "leitfaden:end/drache",
+  "criteria": {
+    "dragon_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:dragon_egg"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "dragon_egg"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:dragon_egg"
+    },
+    "title": {
+      "translate": "advancements.end.dragon_egg.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.end.drachenei.tun",
+        "fallback": "Hold the dragon egg."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.end.drachenei.tipp",
+        "fallback": "Don't click it or it teleports! Push it with a piston and pick it up.",
+        "color": "gold"
+      }
+    ],
+    "frame": "goal",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

@@ -1,1 +1,1 @@
-give @s minecraft:paper[minecraft:item_model="weihnachten:lichterkette",minecraft:item_name="Lichterkette"] 1
+give @s minecraft:paper[minecraft:item_model="weihnachten:lichterkette",minecraft:item_name={translate:"item.weihnachten.lichterkette",fallback:"Fairy Lights"},minecraft:lore=[{translate:"item.weihnachten.andenken",fallback:"Souvenir · Christmas 2026",color:"gold",italic:false}],minecraft:max_stack_size=1,minecraft:rarity="epic",minecraft:enchantment_glint_override=true] 1

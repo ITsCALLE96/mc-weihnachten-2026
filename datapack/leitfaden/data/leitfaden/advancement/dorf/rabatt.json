@@ -1,0 +1,38 @@
+{
+  "parent": "leitfaden:dorf/handel",
+  "criteria": {
+    "info": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:gold_nugget"
+    },
+    "title": {
+      "translate": "questbuch.dorf.rabatt.titel",
+      "fallback": "Discount Trick"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.dorf.rabatt.tun",
+        "fallback": "Trading is discounted on this server. The discount shows once you close the trading window and open it again."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.dorf.rabatt.tipp",
+        "fallback": "Cured zombie villagers give big extra discounts.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

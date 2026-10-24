@@ -1,0 +1,56 @@
+{
+  "parent": "leitfaden:bergbau/start",
+  "criteria": {
+    "crafter_crafted_crafter": {
+      "conditions": {
+        "recipes": "minecraft:crafter"
+      },
+      "trigger": "minecraft:crafter_recipe_crafted"
+    }
+  },
+  "requirements": [
+    [
+      "crafter_crafted_crafter"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:crafter"
+    },
+    "title": {
+      "translate": "advancements.adventure.crafters_crafting_crafters.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.bergbau.werker.tun",
+        "fallback": "Be near a crafter while it crafts a crafter."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.bergbau.werker.brauchst",
+        "fallback": "Crafter: 5 iron ingots, 1 crafting table, 1 dropper, 2 redstone",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.bergbau.werker.tipp",
+        "fallback": "Put the ingredients in and give it a redstone pulse, e.g. with a button.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

@@ -1,0 +1,326 @@
+{
+  "parent": "leitfaden:entdecken/start",
+  "criteria": {
+    "place_creaking_heart_awake": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "minecraft:creaking_heart",
+          "state": {
+            "creaking_heart_state": "awake"
+          }
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "place_creaking_heart_dormant": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "minecraft:creaking_heart",
+          "state": {
+            "creaking_heart_state": "dormant"
+          }
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "place_pale_oak_log": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:any_of",
+          "terms": [
+            {
+              "type": "minecraft:all_of",
+              "terms": [
+                {
+                  "type": "minecraft:location_check",
+                  "predicate": {
+                    "block": {
+                      "blocks": "#minecraft:pale_oak_logs",
+                      "state": {
+                        "axis": "y"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:location_check",
+                  "offsetY": -1,
+                  "predicate": {
+                    "block": {
+                      "blocks": "minecraft:creaking_heart",
+                      "state": {
+                        "axis": "y"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:location_check",
+                  "offsetY": -2,
+                  "predicate": {
+                    "block": {
+                      "blocks": "#minecraft:pale_oak_logs",
+                      "state": {
+                        "axis": "y"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:all_of",
+              "terms": [
+                {
+                  "type": "minecraft:location_check",
+                  "predicate": {
+                    "block": {
+                      "blocks": "#minecraft:pale_oak_logs",
+                      "state": {
+                        "axis": "y"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:location_check",
+                  "offsetY": 1,
+                  "predicate": {
+                    "block": {
+                      "blocks": "minecraft:creaking_heart",
+                      "state": {
+                        "axis": "y"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:location_check",
+                  "offsetY": 2,
+                  "predicate": {
+                    "block": {
+                      "blocks": "#minecraft:pale_oak_logs",
+                      "state": {
+                        "axis": "y"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:all_of",
+              "terms": [
+                {
+                  "type": "minecraft:location_check",
+                  "predicate": {
+                    "block": {
+                      "blocks": "#minecraft:pale_oak_logs",
+                      "state": {
+                        "axis": "z"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:location_check",
+                  "offsetZ": -1,
+                  "predicate": {
+                    "block": {
+                      "blocks": "minecraft:creaking_heart",
+                      "state": {
+                        "axis": "z"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:location_check",
+                  "offsetZ": -2,
+                  "predicate": {
+                    "block": {
+                      "blocks": "#minecraft:pale_oak_logs",
+                      "state": {
+                        "axis": "z"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:all_of",
+              "terms": [
+                {
+                  "type": "minecraft:location_check",
+                  "predicate": {
+                    "block": {
+                      "blocks": "#minecraft:pale_oak_logs",
+                      "state": {
+                        "axis": "z"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:location_check",
+                  "offsetZ": 1,
+                  "predicate": {
+                    "block": {
+                      "blocks": "minecraft:creaking_heart",
+                      "state": {
+                        "axis": "z"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:location_check",
+                  "offsetZ": 2,
+                  "predicate": {
+                    "block": {
+                      "blocks": "#minecraft:pale_oak_logs",
+                      "state": {
+                        "axis": "z"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:all_of",
+              "terms": [
+                {
+                  "type": "minecraft:location_check",
+                  "predicate": {
+                    "block": {
+                      "blocks": "#minecraft:pale_oak_logs",
+                      "state": {
+                        "axis": "x"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:location_check",
+                  "offsetX": -1,
+                  "predicate": {
+                    "block": {
+                      "blocks": "minecraft:creaking_heart",
+                      "state": {
+                        "axis": "x"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:location_check",
+                  "offsetX": -2,
+                  "predicate": {
+                    "block": {
+                      "blocks": "#minecraft:pale_oak_logs",
+                      "state": {
+                        "axis": "x"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:all_of",
+              "terms": [
+                {
+                  "type": "minecraft:location_check",
+                  "predicate": {
+                    "block": {
+                      "blocks": "#minecraft:pale_oak_logs",
+                      "state": {
+                        "axis": "x"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:location_check",
+                  "offsetX": 1,
+                  "predicate": {
+                    "block": {
+                      "blocks": "minecraft:creaking_heart",
+                      "state": {
+                        "axis": "x"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:location_check",
+                  "offsetX": 2,
+                  "predicate": {
+                    "block": {
+                      "blocks": "#minecraft:pale_oak_logs",
+                      "state": {
+                        "axis": "x"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "requirements": [
+    [
+      "place_creaking_heart_dormant",
+      "place_creaking_heart_awake",
+      "place_pale_oak_log"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:creaking_heart"
+    },
+    "title": {
+      "translate": "advancements.adventure.heart_transplanter.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.entdecken.knarzherz.tun",
+        "fallback": "Place a creaking heart the right way round between two pale oak logs."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.entdecken.knarzherz.brauchst",
+        "fallback": "Creaking heart (needs Silk Touch), 2 pale oak logs",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.entdecken.knarzherz.tipp",
+        "fallback": "Creaking hearts are in the pale garden. The creaking wakes at night, so go by day.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

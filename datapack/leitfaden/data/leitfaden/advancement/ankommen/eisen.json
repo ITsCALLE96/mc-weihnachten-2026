@@ -1,0 +1,69 @@
+{
+  "parent": "leitfaden:ankommen/werkzeug",
+  "criteria": {
+    "iron": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:iron_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "iron"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:iron_ingot"
+    },
+    "title": {
+      "translate": "advancements.story.smelt_iron.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.eisen.tun",
+        "fallback": "Build a furnace and smelt raw iron into an iron ingot."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.ankommen.eisen.brauchst",
+        "fallback": "8 cobblestone, raw iron, fuel",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.eisen.tipp",
+        "fallback": "Iron ore hides in caves and on mountainsides.",
+        "color": "gold"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.kern",
+        "fallback": "★ counts towards the souvenir",
+        "color": "aqua"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "rewards": {
+    "function": "leitfaden:andenken/ankommen"
+  }
+}

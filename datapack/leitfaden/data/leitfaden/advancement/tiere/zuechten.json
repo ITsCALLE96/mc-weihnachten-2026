@@ -1,0 +1,53 @@
+{
+  "parent": "leitfaden:tiere/start",
+  "criteria": {
+    "bred": {
+      "trigger": "minecraft:bred_animals"
+    }
+  },
+  "requirements": [
+    [
+      "bred"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:wheat"
+    },
+    "title": {
+      "translate": "advancements.husbandry.breed_an_animal.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.tiere.zuechten.tun",
+        "fallback": "Breed two animals."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.tiere.zuechten.brauchst",
+        "fallback": "Wheat for cows and sheep, carrots for pigs, seeds for chickens",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.tiere.zuechten.tipp",
+        "fallback": "The parents need a 5-minute break afterwards.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

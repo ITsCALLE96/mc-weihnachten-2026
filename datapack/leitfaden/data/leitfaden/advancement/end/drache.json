@@ -1,0 +1,60 @@
+{
+  "parent": "leitfaden:end/end",
+  "criteria": {
+    "killed_dragon": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:ender_dragon"
+          }
+        }
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "requirements": [
+    [
+      "killed_dragon"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:dragon_head"
+    },
+    "title": {
+      "translate": "advancements.end.kill_dragon.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.end.drache.tun",
+        "fallback": "Defeat the Ender Dragon."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.end.drache.tipp",
+        "fallback": "Destroy the crystals on the pillars first, or it keeps healing.",
+        "color": "gold"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.kern",
+        "fallback": "★ counts towards the souvenir",
+        "color": "aqua"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "rewards": {
+    "function": "leitfaden:andenken/end"
+  }
+}

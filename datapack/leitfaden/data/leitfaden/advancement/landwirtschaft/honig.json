@@ -1,0 +1,75 @@
+{
+  "parent": "leitfaden:landwirtschaft/start",
+  "criteria": {
+    "safely_harvest_honey": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:all_of",
+          "terms": [
+            {
+              "type": "minecraft:location_check",
+              "predicate": {
+                "block": {
+                  "blocks": "#minecraft:beehives"
+                },
+                "smokey": true
+              }
+            },
+            {
+              "type": "minecraft:match_tool",
+              "predicate": {
+                "items": "minecraft:glass_bottle"
+              }
+            }
+          ]
+        }
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "requirements": [
+    [
+      "safely_harvest_honey"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:honey_bottle"
+    },
+    "title": {
+      "translate": "advancements.husbandry.safely_harvest_honey.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.landwirtschaft.honig.tun",
+        "fallback": "Collect honey with a glass bottle without angering the bees."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.landwirtschaft.honig.brauchst",
+        "fallback": "Glass bottle, campfire under the hive",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.landwirtschaft.honig.tipp",
+        "fallback": "The smoke calms the bees. Harvest once honey drips from the hive.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "parent": "leitfaden:nether/ghast_fernrohr",
+  "criteria": {
+    "place_dried_ghast_in_water": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "minecraft:dried_ghast",
+          "state": {
+            "waterlogged": "true"
+          }
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "requirements": [
+    [
+      "place_dried_ghast_in_water"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:dried_ghast"
+    },
+    "title": {
+      "translate": "advancements.husbandry.place_dried_ghast_in_water.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.ausgetrockneter_ghast.tun",
+        "fallback": "Place a dried ghast in water."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.nether.ausgetrockneter_ghast.brauchst",
+        "fallback": "Dried ghast: 8 ghast tears, 1 soul sand",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.ausgetrockneter_ghast.tipp",
+        "fallback": "Given water, a happy ghast hatches from it. You can ride it later!",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

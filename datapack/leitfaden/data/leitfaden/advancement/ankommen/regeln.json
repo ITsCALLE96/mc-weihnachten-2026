@@ -1,0 +1,38 @@
+{
+  "parent": "leitfaden:ankommen/start",
+  "criteria": {
+    "info": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:writable_book"
+    },
+    "title": {
+      "translate": "questbuch.ankommen.regeln.titel",
+      "fallback": "House Rules"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.regeln.tun",
+        "fallback": "No griefing, no stealing, no X-ray. PvP only if both players agree."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.regeln.tipp",
+        "fallback": "No building on the spawn island. Apart from that: have fun and merry Christmas!",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

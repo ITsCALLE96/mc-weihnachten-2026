@@ -1,0 +1,77 @@
+{
+  "parent": "leitfaden:entdecken/start",
+  "criteria": {
+    "play_jukebox_in_meadows": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:all_of",
+          "terms": [
+            {
+              "type": "minecraft:location_check",
+              "predicate": {
+                "biomes": "minecraft:meadow",
+                "block": {
+                  "blocks": "minecraft:jukebox"
+                }
+              }
+            },
+            {
+              "type": "minecraft:match_tool",
+              "predicate": {
+                "predicates": {
+                  "minecraft:jukebox_playable": {}
+                }
+              }
+            }
+          ]
+        }
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "requirements": [
+    [
+      "play_jukebox_in_meadows"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:jukebox"
+    },
+    "title": {
+      "translate": "advancements.adventure.play_jukebox_in_meadows.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.entdecken.musik.tun",
+        "fallback": "Play music in a meadow with a jukebox."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.entdecken.musik.brauchst",
+        "fallback": "Jukebox: 8 planks, 1 diamond. Plus a music disc",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.entdecken.musik.tipp",
+        "fallback": "Discs are found in chests or drop when a skeleton shoots a creeper.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

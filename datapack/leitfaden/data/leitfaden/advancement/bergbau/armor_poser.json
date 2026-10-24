@@ -1,0 +1,38 @@
+{
+  "parent": "leitfaden:bergbau/start",
+  "criteria": {
+    "info": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:armor_stand"
+    },
+    "title": {
+      "translate": "questbuch.bergbau.armor_poser.titel",
+      "fallback": "Strike a Pose"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.bergbau.armor_poser.tun",
+        "fallback": "Hold Ctrl and right-click an armor stand to change its pose."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.bergbau.armor_poser.tipp",
+        "fallback": "Head, arms and legs can be posed one by one. Great for decorating.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

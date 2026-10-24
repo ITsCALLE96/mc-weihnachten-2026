@@ -1,0 +1,62 @@
+{
+  "parent": "leitfaden:nether/lohe",
+  "criteria": {
+    "potion": {
+      "trigger": "minecraft:brewed_potion"
+    }
+  },
+  "requirements": [
+    [
+      "potion"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:potion"
+    },
+    "title": {
+      "translate": "advancements.nether.brew_potion.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.trank.tun",
+        "fallback": "Brew a potion."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.nether.trank.brauchst",
+        "fallback": "Brewing stand: 1 blaze rod, 3 cobblestone. Plus water bottles, nether wart, blaze powder",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.trank.tipp",
+        "fallback": "Nether wart grows on soul sand in fortresses. Blaze powder is the fuel.",
+        "color": "gold"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.kern",
+        "fallback": "★ counts towards the souvenir",
+        "color": "aqua"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "rewards": {
+    "function": "leitfaden:andenken/nether"
+  }
+}

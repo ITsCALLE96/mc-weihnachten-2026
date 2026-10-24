@@ -1,0 +1,74 @@
+{
+  "parent": "leitfaden:tiere/hilfsgeist",
+  "criteria": {
+    "allay_deliver_cake_to_note_block": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:all_of",
+          "terms": [
+            {
+              "type": "minecraft:location_check",
+              "predicate": {
+                "block": {
+                  "blocks": "minecraft:note_block"
+                }
+              }
+            },
+            {
+              "type": "minecraft:match_tool",
+              "predicate": {
+                "items": "minecraft:cake"
+              }
+            }
+          ]
+        }
+      },
+      "trigger": "minecraft:allay_drop_item_on_block"
+    }
+  },
+  "requirements": [
+    [
+      "allay_deliver_cake_to_note_block"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:note_block"
+    },
+    "title": {
+      "translate": "advancements.husbandry.allay_deliver_cake_to_note_block.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.tiere.hilfsgeist_kuchen.tun",
+        "fallback": "Have an allay drop a cake at a note block."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.tiere.hilfsgeist_kuchen.brauchst",
+        "fallback": "Cake, note block",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.tiere.hilfsgeist_kuchen.tipp",
+        "fallback": "When a note block plays, the allay brings its loot there. Happy birthday!",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

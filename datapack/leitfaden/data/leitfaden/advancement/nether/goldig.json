@@ -1,0 +1,118 @@
+{
+  "parent": "leitfaden:nether/portal",
+  "criteria": {
+    "head": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:equipment": {
+              "head": {
+                "items": "minecraft:golden_helmet"
+              }
+            }
+          }
+        }
+      }
+    },
+    "chest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:equipment": {
+              "chest": {
+                "items": "minecraft:golden_chestplate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "legs": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:equipment": {
+              "legs": {
+                "items": "minecraft:golden_leggings"
+              }
+            }
+          }
+        }
+      }
+    },
+    "feet": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:equipment": {
+              "feet": {
+                "items": "minecraft:golden_boots"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "head",
+      "chest",
+      "legs",
+      "feet"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:golden_helmet"
+    },
+    "title": {
+      "translate": "questbuch.nether.goldig.titel",
+      "fallback": "Good as Gold"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.goldig.tun",
+        "fallback": "Wear a piece of gold armor."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.nether.goldig.brauchst",
+        "fallback": "e.g. golden boots: 4 gold ingots",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.goldig.tipp",
+        "fallback": "Piglins then leave you alone. Mining gold or opening their chests still makes them angry.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "parent": "leitfaden:nether/bastion_truhe",
+  "criteria": {
+    "netherite_upgrade_smithing_template": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:netherite_upgrade_smithing_template"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "netherite_upgrade_smithing_template"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "title": {
+      "translate": "questbuch.nether.aufwertung.titel",
+      "fallback": "Upgrade Plan"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.aufwertung.tun",
+        "fallback": "Find a netherite upgrade template."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.aufwertung.tipp",
+        "fallback": "It's in bastion chests. 7 diamonds and netherrack let you copy it.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

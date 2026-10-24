@@ -1,0 +1,54 @@
+{
+  "parent": "leitfaden:nether/ghast_feuerball",
+  "criteria": {
+    "killed_ghast": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:ghast",
+            "minecraft:location": {
+              "dimension": "minecraft:overworld"
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "requirements": [
+    [
+      "killed_ghast"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:ghast_tear"
+    },
+    "title": {
+      "translate": "advancements.nether.uneasy_alliance.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.ghast_ausflug.tun",
+        "fallback": "Bring a ghast to the Overworld alive, then kill it there."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.ghast_ausflug.tipp",
+        "fallback": "Build a portal right next to a ghast and lure it in. Bring lots of patience.",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

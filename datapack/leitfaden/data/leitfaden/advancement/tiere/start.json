@@ -1,0 +1,24 @@
+{
+  "criteria": {
+    "freigeschaltet": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:axolotl_bucket"
+    },
+    "title": {
+      "translate": "questbuch.tiere.titel",
+      "fallback": "Animals & Water"
+    },
+    "description": {
+      "translate": "questbuch.tiere.beschreibung",
+      "fallback": "Breed, tame, fish. And yes, you may keep them all."
+    },
+    "background": "minecraft:block/moss_block",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

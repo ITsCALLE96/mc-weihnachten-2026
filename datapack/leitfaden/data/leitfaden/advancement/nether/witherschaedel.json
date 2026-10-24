@@ -1,0 +1,49 @@
+{
+  "parent": "leitfaden:nether/festung",
+  "criteria": {
+    "wither_skull": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:wither_skeleton_skull"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "wither_skull"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:wither_skeleton_skull"
+    },
+    "title": {
+      "translate": "advancements.nether.get_wither_skull.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.witherschaedel.tun",
+        "fallback": "Get a wither skeleton skull."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.witherschaedel.tipp",
+        "fallback": "Wither skeletons live in fortresses. Looting improves your odds.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

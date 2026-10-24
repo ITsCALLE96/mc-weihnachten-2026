@@ -1,0 +1,47 @@
+{
+  "parent": "leitfaden:tiere/eimerfisch",
+  "criteria": {
+    "axolotl_bucket": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:axolotl_bucket"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    }
+  },
+  "requirements": [
+    [
+      "axolotl_bucket"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:axolotl_bucket"
+    },
+    "title": {
+      "translate": "advancements.husbandry.axolotl_in_a_bucket.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.tiere.axolotl.tun",
+        "fallback": "Catch an axolotl in a water bucket."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.tiere.axolotl.tipp",
+        "fallback": "Axolotls live underwater in lush caves.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "parent": "leitfaden:ankommen/start",
+  "criteria": {
+    "info": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:glow_ink_sac"
+    },
+    "title": {
+      "translate": "questbuch.ankommen.block_marker.titel",
+      "fallback": "Block Marker"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.block_marker.tun",
+        "fallback": "Comma switches the profile, period marks the block you are looking at."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.block_marker.tipp",
+        "fallback": "Adjust everything via Mod Menu. Block Marker needs the modpack.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

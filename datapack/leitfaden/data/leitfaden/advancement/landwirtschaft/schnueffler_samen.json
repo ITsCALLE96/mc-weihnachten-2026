@@ -1,0 +1,58 @@
+{
+  "parent": "leitfaden:landwirtschaft/schnueffler_junges",
+  "criteria": {
+    "pitcher_pod": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "minecraft:pitcher_crop"
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "torchflower": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "minecraft:torchflower_crop"
+        }
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "requirements": [
+    [
+      "torchflower",
+      "pitcher_pod"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:pitcher_pod"
+    },
+    "title": {
+      "translate": "advancements.husbandry.plant_any_sniffer_seed.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.landwirtschaft.schnueffler_samen.tun",
+        "fallback": "Plant a seed dug up by a sniffer."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.landwirtschaft.schnueffler_samen.tipp",
+        "fallback": "Adult sniffers dig up torchflower seeds and pitcher pods.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

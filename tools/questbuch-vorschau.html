@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Questbuch-Vorschau</title>
+<style>
+  :root { --rahmen: #c6c6c6; --dunkel: #373737; --hell: #fff; --tt: #100010f0; --tt-rand: #2a0060; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #1d1d1d; color: #e0e0e0; font: 15px/1.35 "Segoe UI", system-ui, sans-serif; }
+  header { display: flex; gap: 12px; align-items: center; padding: 12px 16px; flex-wrap: wrap; }
+  header h1 { font-size: 17px; margin: 0 12px 0 0; font-weight: 600; }
+  .sprache button { background: #3a3a3a; color: #ddd; border: 1px solid #555; padding: 4px 12px; cursor: pointer; font: inherit; }
+  .sprache button[aria-pressed="true"] { background: #6b8e23; color: #fff; border-color: #8fbf3a; }
+  .hinweis { color: #999; font-size: 13px; }
+  .fenster { margin: 0 16px 16px; max-width: 1400px; }
+  .reiter { display: flex; gap: 2px; flex-wrap: wrap; }
+  .reiter button { width: 52px; height: 46px; background: #8b8b8b; border: 2px solid; border-color: var(--hell) var(--dunkel) transparent var(--hell); cursor: pointer; position: relative; top: 4px; padding: 0; }
+  .reiter button[aria-selected="true"] { background: var(--rahmen); top: 0; height: 50px; }
+  .reiter img { width: 32px; height: 32px; image-rendering: pixelated; }
+  .reiter .phase { position: absolute; right: 2px; bottom: 1px; font-size: 10px; color: #222; font-weight: 700; }
+  .rahmen { background: var(--rahmen); border: 4px solid; border-color: var(--hell) var(--dunkel) var(--dunkel) var(--hell); padding: 8px; }
+  .rahmen h2 { margin: 0 0 6px; font: 600 15px "Segoe UI", sans-serif; color: #3f3f3f; }
+  .baum { position: relative; overflow: auto; height: min(68vh, 720px); border: 2px solid; border-color: var(--dunkel) var(--hell) var(--hell) var(--dunkel); background-size: 48px; image-rendering: pixelated; }
+  .baum::before { content: ""; position: absolute; inset: 0; background: #0006; pointer-events: none; }
+  .flaeche { position: relative; }
+  svg.linien { position: absolute; left: 0; top: 0; pointer-events: none; }
+  .quest { position: absolute; width: 44px; height: 44px; display: grid; place-items: center; cursor: default; background: #999; border: 3px solid #5a5a5a; border-radius: 6px; box-shadow: inset 0 0 0 2px #bdbdbd; }
+  .quest.goal { border-radius: 16px; }
+  .quest.challenge { border-radius: 2px; clip-path: polygon(15% 0, 85% 0, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0 85%, 0 15%); }
+  .quest.fertig { background: #e8c33a; border-color: #8a6a00; box-shadow: inset 0 0 0 2px #ffe680; }
+  .quest.wurzel { background: #7fb0d8; border-color: #2d5f87; box-shadow: inset 0 0 0 2px #b7dbf5; }
+  .quest img { width: 32px; height: 32px; image-rendering: pixelated; }
+  .quest:hover, .quest.gezeigt { outline: 2px solid #fff; z-index: 2; }
+  .tooltip { position: fixed; z-index: 10; max-width: 340px; background: var(--tt); border: 2px solid var(--tt-rand); outline: 1px solid #100010; padding: 6px 9px; color: #fff; font: 15px/1.35 "Segoe UI", sans-serif; pointer-events: none; display: none; white-space: pre-wrap; }
+  .tooltip .titel { color: #55ff55; font-weight: 600; margin-bottom: 3px; }
+  .tooltip .titel.challenge { color: #ff55ff; }
+  .c-gray { color: #aaa; } .c-gold { color: #ffaa00; } .c-aqua { color: #55ffff; }
+  @media (max-width: 600px) { .reiter button { width: 40px; height: 38px; } .reiter img { width: 24px; height: 24px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Questbuch-Vorschau</h1>
+  <div class="sprache" role="group" aria-label="Sprache">
+    <button data-lang="de">Deutsch</button><button data-lang="en">English</button>
+  </div>
+  <span class="hinweis">Maus über eine Quest = Tooltip wie im Spiel. Gelb = beim Freischalten abgehakt (Info). Zahl am Reiter = Phase.</span>
+</header>
+<div class="fenster">
+  <div class="reiter" role="tablist"></div>
+  <div class="rahmen"><h2 id="kapitel-titel"></h2><div class="baum"><div class="flaeche"></div></div></div>
+</div>
+<div class="tooltip" role="tooltip"></div>
+<script>
+const DATEN = /*DATEN*/null;
+const X = 70, Y = 54, RAND = 24;
+const params = new URLSearchParams(location.search);
+let sprache = params.get('lang') === 'en' ? 'en' : 'de';
+let aktiv = params.get('k') ?? DATEN.kapitel[0].id;
+const tip = document.querySelector('.tooltip');
+
+function teile(liste) {
+  return liste.map((s) => `<span class="${s.farbe ? 'c-' + s.farbe : ''}">${s.t.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]))}</span>`).join('');
+}
+function zeigeTip(q, el) {
+  tip.innerHTML = `<div class="titel ${q.frame}">${teile(q.titel[sprache])}</div>${teile(q.text[sprache])}`;
+  tip.style.display = 'block';
+  const r = el.getBoundingClientRect();
+  let left = r.right + 8, top = r.top;
+  if (left + 350 > innerWidth) left = Math.max(8, r.left - tip.offsetWidth - 8);
+  if (top + tip.offsetHeight > innerHeight) top = Math.max(8, innerHeight - tip.offsetHeight - 8);
+  tip.style.left = left + 'px'; tip.style.top = top + 'px';
+}
+function zeichne() {
+  document.documentElement.lang = sprache;
+  document.querySelectorAll('.sprache button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.lang === sprache));
+  const reiter = document.querySelector('.reiter');
+  reiter.innerHTML = '';
+  for (const k of DATEN.kapitel) {
+    const b = document.createElement('button');
+    b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', k.id === aktiv); b.title = k.titel[sprache];
+    b.innerHTML = `<img alt="" src="${k.icon}"><span class="phase">${k.phase}</span>`;
+    b.onclick = () => { aktiv = k.id; zeichne(); };
+    reiter.append(b);
+  }
+  const k = DATEN.kapitel.find((x) => x.id === aktiv);
+  document.getElementById('kapitel-titel').textContent = `${k.titel[sprache]} · ${k.quests.length - 1} Quests`;
+  const baum = document.querySelector('.baum');
+  baum.style.backgroundImage = DATEN.hg[k.id] ? `url(${DATEN.hg[k.id]})` : '';
+  const flaeche = document.querySelector('.flaeche');
+  const breite = RAND * 2 + (Math.max(...k.quests.map((q) => q.x)) + 1) * X, hoehe = RAND * 2 + (Math.max(...k.quests.map((q) => q.y)) + 1) * Y;
+  flaeche.style.width = breite + 'px'; flaeche.style.height = hoehe + 'px';
+  const pos = (q) => ({ x: RAND + q.x * X, y: RAND + q.y * Y });
+  let linien = '';
+  for (const q of k.quests) {
+    if (!q.parent) continue;
+    const p = k.quests.find((x) => x.id === q.parent), a = pos(p), b = pos(q), mx = a.x + 44 + (X - 44) / 2;
+    linien += `<polyline points="${a.x + 44},${a.y + 22} ${mx},${a.y + 22} ${mx},${b.y + 22} ${b.x},${b.y + 22}" fill="none" stroke="#000" stroke-width="5"/><polyline points="${a.x + 44},${a.y + 22} ${mx},${a.y + 22} ${mx},${b.y + 22} ${b.x},${b.y + 22}" fill="none" stroke="#fff" stroke-width="2"/>`;
+  }
+  flaeche.innerHTML = `<svg class="linien" width="${breite}" height="${hoehe}">${linien}</svg>`;
+  for (const q of k.quests) {
+    const d = document.createElement('div'), p = pos(q);
+    d.className = `quest ${q.frame}${q.info ? ' fertig' : ''}${q.parent ? '' : ' wurzel'}`;
+    d.style.left = p.x + 'px'; d.style.top = p.y + 'px';
+    d.innerHTML = q.icon ? `<img alt="" src="${q.icon}">` : '?';
+    d.tabIndex = 0;
+    d.onmouseenter = d.onfocus = () => zeigeTip(q, d);
+    d.onmouseleave = d.onblur = () => { if (!d.classList.contains('gezeigt')) tip.style.display = 'none'; };
+    flaeche.append(d);
+    if (params.get('tip') === q.id) { d.classList.add('gezeigt'); requestAnimationFrame(() => zeigeTip(q, d)); }
+  }
+}
+document.querySelectorAll('.sprache button').forEach((b) => (b.onclick = () => { sprache = b.dataset.lang; zeichne(); }));
+zeichne();
+</script>
+</body>
+</html>

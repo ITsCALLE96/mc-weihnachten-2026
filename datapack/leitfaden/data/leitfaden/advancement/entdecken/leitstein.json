@@ -1,0 +1,74 @@
+{
+  "parent": "leitfaden:entdecken/start",
+  "criteria": {
+    "use_lodestone": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:all_of",
+          "terms": [
+            {
+              "type": "minecraft:location_check",
+              "predicate": {
+                "block": {
+                  "blocks": "minecraft:lodestone"
+                }
+              }
+            },
+            {
+              "type": "minecraft:match_tool",
+              "predicate": {
+                "items": "minecraft:compass"
+              }
+            }
+          ]
+        }
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "requirements": [
+    [
+      "use_lodestone"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:lodestone"
+    },
+    "title": {
+      "translate": "advancements.adventure.use_lodestone.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.entdecken.leitstein.tun",
+        "fallback": "Use a compass on a lodestone."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.entdecken.leitstein.brauchst",
+        "fallback": "Lodestone: 8 chiseled stone bricks, 1 iron ingot. Plus a compass",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.entdecken.leitstein.tipp",
+        "fallback": "The compass then always points to the lodestone. Your way home.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

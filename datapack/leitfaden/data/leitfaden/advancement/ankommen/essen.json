@@ -1,0 +1,52 @@
+{
+  "parent": "leitfaden:ankommen/start",
+  "criteria": {
+    "consumed_item": {
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "requirements": [
+    [
+      "consumed_item"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:hay_block"
+    },
+    "title": {
+      "translate": "questbuch.ankommen.essen.titel",
+      "fallback": "Full Belly"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.essen.tun",
+        "fallback": "Eat something."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.essen.tipp",
+        "fallback": "Cooked meat fills you up far more than raw. Apples drop from oak leaves.",
+        "color": "gold"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.kern",
+        "fallback": "★ counts towards the souvenir",
+        "color": "aqua"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "rewards": {
+    "function": "leitfaden:andenken/ankommen"
+  }
+}

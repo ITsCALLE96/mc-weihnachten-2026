@@ -1,0 +1,77 @@
+{
+  "parent": "leitfaden:entdecken/tresor",
+  "criteria": {
+    "revaulting": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:all_of",
+          "terms": [
+            {
+              "type": "minecraft:location_check",
+              "predicate": {
+                "block": {
+                  "blocks": "minecraft:vault",
+                  "state": {
+                    "ominous": "true"
+                  }
+                }
+              }
+            },
+            {
+              "type": "minecraft:match_tool",
+              "predicate": {
+                "items": "minecraft:ominous_trial_key"
+              }
+            }
+          ]
+        }
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "requirements": [
+    [
+      "revaulting"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:ominous_trial_key"
+    },
+    "title": {
+      "translate": "advancements.adventure.revaulting.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.entdecken.tresor_unheil.tun",
+        "fallback": "Unlock an ominous vault with an ominous trial key."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.entdecken.tresor_unheil.brauchst",
+        "fallback": "Ominous bottle",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.entdecken.tresor_unheil.tipp",
+        "fallback": "Drink the bottle before entering: spawners get tougher and drop ominous keys.",
+        "color": "gold"
+      }
+    ],
+    "frame": "goal",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

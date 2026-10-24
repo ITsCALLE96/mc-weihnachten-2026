@@ -1,0 +1,62 @@
+{
+  "parent": "leitfaden:nether/portal",
+  "criteria": {
+    "fortress": {
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "structures": "minecraft:fortress"
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "requirements": [
+    [
+      "fortress"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:nether_bricks"
+    },
+    "title": {
+      "translate": "advancements.nether.find_fortress.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.festung.tun",
+        "fallback": "Enter a Nether fortress."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.festung.tipp",
+        "fallback": "Fortresses are made of dark nether bricks. Bring plenty of food and blocks.",
+        "color": "gold"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.kern",
+        "fallback": "★ counts towards the souvenir",
+        "color": "aqua"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "rewards": {
+    "function": "leitfaden:andenken/nether"
+  }
+}

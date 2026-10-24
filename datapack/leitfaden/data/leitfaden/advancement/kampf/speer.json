@@ -1,0 +1,56 @@
+{
+  "parent": "leitfaden:kampf/start",
+  "criteria": {
+    "spear_many_mobs": {
+      "conditions": {
+        "count": 5
+      },
+      "trigger": "minecraft:spear_mobs"
+    }
+  },
+  "requirements": [
+    [
+      "spear_many_mobs"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:iron_spear"
+    },
+    "title": {
+      "translate": "advancements.adventure.spear_many_mobs.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.kampf.speer.tun",
+        "fallback": "Hit 5 mobs in a single charge with a spear."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.kampf.speer.brauchst",
+        "fallback": "Spear: 1 iron (or wood, stone, copper, gold, diamond), 2 sticks",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.kampf.speer.tipp",
+        "fallback": "Take a run-up and charge straight through a group.",
+        "color": "gold"
+      }
+    ],
+    "frame": "goal",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "parent": "leitfaden:dorf/handel",
+  "criteria": {
+    "trade_at_world_height": {
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "position": {
+                "y": {
+                  "min": 319
+                }
+              }
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:villager_trade"
+    }
+  },
+  "requirements": [
+    [
+      "trade_at_world_height"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:emerald"
+    },
+    "title": {
+      "translate": "advancements.adventure.trade_at_world_height.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.dorf.sternhaendler.tun",
+        "fallback": "Trade with a villager at the build limit."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.dorf.sternhaendler.brauchst",
+        "fallback": "Lots of blocks, a villager and patience",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.dorf.sternhaendler.tipp",
+        "fallback": "A water elevator or minecart gets them up there. Don't push them off!",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

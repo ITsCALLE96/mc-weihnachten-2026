@@ -1,0 +1,76 @@
+{
+  "parent": "leitfaden:kampf/windkugel",
+  "criteria": {
+    "overoverkill": {
+      "conditions": {
+        "damage": {
+          "type": {
+            "direct_entity": {
+              "minecraft:entity_type": "minecraft:player",
+              "minecraft:equipment": {
+                "mainhand": {
+                  "items": "minecraft:mace"
+                }
+              }
+            },
+            "tags": [
+              {
+                "expected": true,
+                "id": "#minecraft:mace_smash"
+              }
+            ]
+          },
+          "dealt": {
+            "min": 100
+          }
+        }
+      },
+      "trigger": "minecraft:player_hurt_entity"
+    }
+  },
+  "requirements": [
+    [
+      "overoverkill"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:mace"
+    },
+    "title": {
+      "translate": "advancements.adventure.overoverkill.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.kampf.streitkolben.tun",
+        "fallback": "Deal 50 hearts of damage in one hit with a mace."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.kampf.streitkolben.brauchst",
+        "fallback": "Mace: heavy core + breeze rod",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.kampf.streitkolben.tipp",
+        "fallback": "The further you fall, the harder you hit. Wind charges get you up high.",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

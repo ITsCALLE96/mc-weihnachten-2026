@@ -1,0 +1,53 @@
+{
+  "parent": "leitfaden:tiere/start",
+  "criteria": {
+    "tamed_animal": {
+      "trigger": "minecraft:tame_animal"
+    }
+  },
+  "requirements": [
+    [
+      "tamed_animal"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:lead"
+    },
+    "title": {
+      "translate": "advancements.husbandry.tame_an_animal.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.tiere.zaehmen.tun",
+        "fallback": "Tame an animal."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.tiere.zaehmen.brauchst",
+        "fallback": "e.g. bones for wolves, raw fish for cats",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.tiere.zaehmen.tipp",
+        "fallback": "Tamed animals follow you. Right-click to make them sit.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

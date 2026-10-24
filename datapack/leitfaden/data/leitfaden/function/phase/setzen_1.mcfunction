@@ -1,3 +1,4 @@
 scoreboard players set #phase lf_phase 1
-tellraw @a ["",{"text":"❄ Das Weihnachtsprojekt startet! ","color":"aqua","bold":true},{"text":"Drück L und öffne den Reiter „Leitfaden“, wenn du Hilfe brauchst.","color":"white"}]
-title @a title {"text":"Frohes Bauen!","color":"aqua"}
+# Kapitel und Meldung je Spieler kommen über tick → questbuch/aktualisieren
+tellraw @a {"translate":"leitfaden.phase.1.chat","fallback":"❄ The Christmas project begins! Press L for your quest book.","color":"aqua","bold":true}
+title @a title {"translate":"leitfaden.phase.1.titel","fallback":"Happy building!","color":"aqua"}

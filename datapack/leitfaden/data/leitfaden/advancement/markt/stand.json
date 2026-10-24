@@ -1,0 +1,38 @@
+{
+  "parent": "leitfaden:markt/start",
+  "criteria": {
+    "info": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:barrel"
+    },
+    "title": {
+      "translate": "questbuch.markt.stand.titel",
+      "fallback": "Your Own Stall"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.markt.stand.tun",
+        "fallback": "Build a market stall, for example outside your home or next to your neighbours."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.markt.stand.tipp",
+        "fallback": "Signs and item frames show what you're selling. Lanterns make it cosy.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

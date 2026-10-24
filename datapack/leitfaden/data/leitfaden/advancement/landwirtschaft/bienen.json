@@ -1,0 +1,69 @@
+{
+  "parent": "leitfaden:landwirtschaft/honig",
+  "criteria": {
+    "silk_touch_nest": {
+      "conditions": {
+        "blocks": "minecraft:bee_nest",
+        "item": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "minecraft:silk_touch",
+                "levels": {
+                  "min": 1
+                }
+              }
+            ]
+          }
+        },
+        "num_bees_inside": 3
+      },
+      "trigger": "minecraft:bee_nest_destroyed"
+    }
+  },
+  "requirements": [
+    [
+      "silk_touch_nest"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:bee_nest"
+    },
+    "title": {
+      "translate": "advancements.husbandry.silk_touch_nest.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.landwirtschaft.bienen.tun",
+        "fallback": "Move a bee nest with 3 bees inside using Silk Touch."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.landwirtschaft.bienen.brauchst",
+        "fallback": "A Silk Touch tool",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.landwirtschaft.bienen.tipp",
+        "fallback": "At night or in the rain all bees are at home.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

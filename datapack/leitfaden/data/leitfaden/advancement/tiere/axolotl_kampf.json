@@ -1,0 +1,51 @@
+{
+  "parent": "leitfaden:tiere/axolotl",
+  "criteria": {
+    "kill_axolotl_target": {
+      "conditions": {
+        "source": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:axolotl"
+          }
+        }
+      },
+      "trigger": "minecraft:effects_changed"
+    }
+  },
+  "requirements": [
+    [
+      "kill_axolotl_target"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:tropical_fish_bucket"
+    },
+    "title": {
+      "translate": "advancements.husbandry.kill_axolotl_target.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.tiere.axolotl_kampf.tun",
+        "fallback": "Team up with an axolotl and win a fight."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.tiere.axolotl_kampf.tipp",
+        "fallback": "Axolotls attack water mobs. When the enemy falls, you get Regeneration.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

@@ -1,3 +1,4 @@
 scoreboard players set #phase lf_phase 3
-tellraw @a ["",{"text":"☃ Weihnachtsmarkt-Woche! ","color":"green","bold":true},{"text":"Bau deinen Marktstand am Spawn.","color":"white"}]
-title @a title {"text":"Weihnachtsmarkt","color":"green"}
+# Kapitel und Meldung je Spieler kommen über tick → questbuch/aktualisieren
+tellraw @a {"translate":"leitfaden.phase.3.chat","fallback":"☃ Christmas market week! Build a stall and trade with the others.","color":"green","bold":true}
+title @a title {"translate":"leitfaden.phase.3.titel","fallback":"Christmas Market","color":"green"}

@@ -1,0 +1,74 @@
+{
+  "parent": "leitfaden:kampf/armbrust",
+  "criteria": {
+    "two_birds": {
+      "conditions": {
+        "fired_from_weapon": {
+          "items": "minecraft:crossbow"
+        },
+        "victims": [
+          {
+            "type": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "minecraft:entity_type": "minecraft:phantom"
+            }
+          },
+          {
+            "type": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "minecraft:entity_type": "minecraft:phantom"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:killed_by_arrow"
+    }
+  },
+  "requirements": [
+    [
+      "two_birds"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:crossbow"
+    },
+    "title": {
+      "translate": "advancements.adventure.two_birds_one_arrow.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.kampf.phantome.tun",
+        "fallback": "Kill 2 phantoms with one piercing arrow."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.kampf.phantome.brauchst",
+        "fallback": "Crossbow with Piercing",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.kampf.phantome.tipp",
+        "fallback": "Phantoms show up if you skip sleep for 3 nights. This time you want that!",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

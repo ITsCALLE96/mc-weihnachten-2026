@@ -1,0 +1,60 @@
+{
+  "parent": "leitfaden:end/drache",
+  "criteria": {
+    "dragon_breath": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:dragon_breath"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "dragon_breath"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:dragon_breath"
+    },
+    "title": {
+      "translate": "advancements.end.dragon_breath.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.end.drachenatem.tun",
+        "fallback": "Collect dragon's breath in a glass bottle."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.end.drachenatem.brauchst",
+        "fallback": "Glass bottles",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.end.drachenatem.tipp",
+        "fallback": "Hold the bottle into the purple cloud the dragon leaves behind.",
+        "color": "gold"
+      }
+    ],
+    "frame": "goal",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

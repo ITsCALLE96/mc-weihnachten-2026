@@ -1,0 +1,73 @@
+{
+  "parent": "leitfaden:end/start",
+  "criteria": {
+    "in_stronghold": {
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "structures": "minecraft:stronghold"
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "requirements": [
+    [
+      "in_stronghold"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:ender_eye"
+    },
+    "title": {
+      "translate": "advancements.story.follow_ender_eye.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.end.enderauge.tun",
+        "fallback": "Follow an eye of ender to a stronghold."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.end.enderauge.brauchst",
+        "fallback": "Eye of ender: ender pearl + blaze powder",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.end.enderauge.tipp",
+        "fallback": "Throw it up and follow it. Some break, so bring plenty.",
+        "color": "gold"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.kern",
+        "fallback": "★ counts towards the souvenir",
+        "color": "aqua"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "rewards": {
+    "function": "leitfaden:andenken/end"
+  }
+}

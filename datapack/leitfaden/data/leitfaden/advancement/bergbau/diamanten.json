@@ -1,0 +1,60 @@
+{
+  "parent": "leitfaden:bergbau/start",
+  "criteria": {
+    "diamond": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:diamond"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "diamond"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:diamond"
+    },
+    "title": {
+      "translate": "advancements.story.mine_diamond.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.bergbau.diamanten.tun",
+        "fallback": "Mine some diamonds."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.bergbau.diamanten.brauchst",
+        "fallback": "Iron pickaxe",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.bergbau.diamanten.tipp",
+        "fallback": "Most common around Y -59. F3 shows your height.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

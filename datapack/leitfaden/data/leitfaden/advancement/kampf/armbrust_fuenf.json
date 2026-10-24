@@ -1,0 +1,59 @@
+{
+  "parent": "leitfaden:kampf/armbrust",
+  "criteria": {
+    "arbalistic": {
+      "conditions": {
+        "fired_from_weapon": {
+          "items": "minecraft:crossbow"
+        },
+        "unique_entity_types": 5
+      },
+      "trigger": "minecraft:killed_by_arrow"
+    }
+  },
+  "requirements": [
+    [
+      "arbalistic"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:crossbow"
+    },
+    "title": {
+      "translate": "advancements.adventure.arbalistic.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.kampf.armbrust_fuenf.tun",
+        "fallback": "Kill 5 different mobs with one crossbow shot."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.kampf.armbrust_fuenf.brauchst",
+        "fallback": "Crossbow with Piercing",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.kampf.armbrust_fuenf.tipp",
+        "fallback": "Line the mobs up. Piercing IV helps a lot.",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

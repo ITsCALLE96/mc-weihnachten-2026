@@ -1,0 +1,60 @@
+{
+  "parent": "leitfaden:landwirtschaft/start",
+  "criteria": {
+    "obtain_sniffer_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:sniffer_egg"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_sniffer_egg"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:sniffer_egg"
+    },
+    "title": {
+      "translate": "advancements.husbandry.obtain_sniffer_egg.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.landwirtschaft.schnueffler_ei.tun",
+        "fallback": "Get a sniffer egg."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.landwirtschaft.schnueffler_ei.brauchst",
+        "fallback": "Brush: 1 feather, 1 copper ingot, 1 stick",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.landwirtschaft.schnueffler_ei.tipp",
+        "fallback": "Brush suspicious sand in warm ocean ruins. With luck there's an egg inside.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

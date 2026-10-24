@@ -1,0 +1,62 @@
+{
+  "parent": "leitfaden:dorf/dorf_finden",
+  "criteria": {
+    "summoned_golem": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:iron_golem"
+          }
+        }
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "requirements": [
+    [
+      "summoned_golem"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:carved_pumpkin"
+    },
+    "title": {
+      "translate": "advancements.adventure.summon_iron_golem.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.dorf.golem.tun",
+        "fallback": "Build an iron golem."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.dorf.golem.brauchst",
+        "fallback": "4 iron blocks, 1 carved pumpkin",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.dorf.golem.tipp",
+        "fallback": "Iron blocks in a T shape, pumpkin on top last.",
+        "color": "gold"
+      }
+    ],
+    "frame": "goal",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

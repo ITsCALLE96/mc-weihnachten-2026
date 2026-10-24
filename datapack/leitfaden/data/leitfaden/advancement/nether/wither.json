@@ -1,0 +1,62 @@
+{
+  "parent": "leitfaden:nether/witherschaedel",
+  "criteria": {
+    "summoned": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:wither"
+          }
+        }
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "requirements": [
+    [
+      "summoned"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:nether_star"
+    },
+    "title": {
+      "translate": "advancements.nether.summon_wither.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.wither.tun",
+        "fallback": "Summon the Wither."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.nether.wither.brauchst",
+        "fallback": "3 wither skeleton skulls, 4 soul sand or soul soil",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.wither.tipp",
+        "fallback": "Far away from homes and spawn, please! Best done together, deep underground.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

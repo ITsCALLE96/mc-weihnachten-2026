@@ -1,0 +1,24 @@
+{
+  "criteria": {
+    "freigeschaltet": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:iron_sword"
+    },
+    "title": {
+      "translate": "questbuch.kampf.titel",
+      "fallback": "Combat & Weapons"
+    },
+    "description": {
+      "translate": "questbuch.kampf.beschreibung",
+      "fallback": "Bow, crossbow, trident, spear and mace. For those who like a bit of action."
+    },
+    "background": "minecraft:block/deepslate",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

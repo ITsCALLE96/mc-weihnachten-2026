@@ -95,3 +95,30 @@ test('falsches Resourcepack-Format wird gemeldet', () => {
   const dir = pack({ 'pack.mcmeta': dpMeta });
   assert.match(pruefeResourcepack(dir).join(), /97/);
 });
+
+test('eigener Übersetzungsschlüssel ohne fallback und fehlende Belohnungsfunktion werden gemeldet', () => {
+  const dir = pack({
+    'pack.mcmeta': dpMeta,
+    'data/leitfaden/advancement/root.json': {
+      criteria: { a: { trigger: 'minecraft:impossible' } },
+      display: { icon: { id: 'minecraft:stone' }, title: { translate: 'questbuch.x.titel' }, description: ['', { translate: 'advancements.story.root.title' }] },
+      rewards: { function: 'leitfaden:gibtsnicht' },
+    },
+  });
+  const fehler = pruefeDatapack(dir);
+  assert.equal(fehler.length, 2);
+  assert.ok(fehler.some((f) => /questbuch\.x\.titel ohne fallback/.test(f)));
+  assert.ok(fehler.some((f) => /Funktion leitfaden:gibtsnicht fehlt/.test(f)));
+});
+
+test('Sprachdateien DE und EN müssen dieselben Schlüssel haben', () => {
+  const dir = pack({
+    'pack.mcmeta': rpMeta,
+    'assets/weihnachten/lang/de_de.json': { 'a.b': 'A', 'nur.de': 'X' },
+    'assets/weihnachten/lang/en_us.json': { 'a.b': 'A', 'nur.en': 'Y' },
+  });
+  const fehler = pruefeResourcepack(dir);
+  assert.equal(fehler.length, 2);
+  assert.ok(fehler.some((f) => /en_us\.json: nur\.de fehlt/.test(f)));
+  assert.ok(fehler.some((f) => /de_de\.json: nur\.en fehlt/.test(f)));
+});

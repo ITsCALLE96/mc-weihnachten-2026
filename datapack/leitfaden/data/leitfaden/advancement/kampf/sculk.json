@@ -1,0 +1,42 @@
+{
+  "parent": "leitfaden:kampf/start",
+  "criteria": {
+    "kill_mob_near_sculk_catalyst": {
+      "trigger": "minecraft:kill_mob_near_sculk_catalyst"
+    }
+  },
+  "requirements": [
+    [
+      "kill_mob_near_sculk_catalyst"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:sculk_catalyst"
+    },
+    "title": {
+      "translate": "advancements.adventure.kill_mob_near_sculk_catalyst.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.kampf.sculk.tun",
+        "fallback": "Kill a mob near a sculk catalyst."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.kampf.sculk.tipp",
+        "fallback": "Catalysts are found in the Deep Dark, at the very bottom of the world.",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

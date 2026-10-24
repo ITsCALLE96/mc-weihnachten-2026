@@ -1,0 +1,64 @@
+{
+  "parent": "leitfaden:kampf/dreizack",
+  "criteria": {
+    "struck_villager": {
+      "conditions": {
+        "victims": [
+          {
+            "type": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "minecraft:entity_type": "minecraft:villager"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:channeled_lightning"
+    }
+  },
+  "requirements": [
+    [
+      "struck_villager"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:trident"
+    },
+    "title": {
+      "translate": "advancements.adventure.very_very_frightening.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.kampf.blitz.tun",
+        "fallback": "Strike a villager with lightning."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.kampf.blitz.brauchst",
+        "fallback": "Trident with Channeling, a thunderstorm",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.kampf.blitz.tipp",
+        "fallback": "The villager turns into a witch. Sorry, little guy.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

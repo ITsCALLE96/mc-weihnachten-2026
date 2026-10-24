@@ -1,0 +1,47 @@
+{
+  "parent": "leitfaden:ankommen/start",
+  "criteria": {
+    "killed_by_something": {
+      "trigger": "minecraft:entity_killed_player"
+    },
+    "killed_something": {
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "requirements": [
+    [
+      "killed_something",
+      "killed_by_something"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:map"
+    },
+    "title": {
+      "translate": "questbuch.ankommen.abenteuer.titel",
+      "fallback": "First Encounter"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.abenteuer.tun",
+        "fallback": "Kill something or get killed. One of the two is bound to happen."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.abenteuer.tipp",
+        "fallback": "A sword helps. So does running away.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

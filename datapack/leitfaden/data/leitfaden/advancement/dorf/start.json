@@ -1,0 +1,24 @@
+{
+  "criteria": {
+    "freigeschaltet": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:emerald"
+    },
+    "title": {
+      "translate": "questbuch.dorf.titel",
+      "fallback": "Villagers"
+    },
+    "description": {
+      "translate": "questbuch.dorf.beschreibung",
+      "fallback": "Trade, help, defend. Hmm!"
+    },
+    "background": "minecraft:block/spruce_planks",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

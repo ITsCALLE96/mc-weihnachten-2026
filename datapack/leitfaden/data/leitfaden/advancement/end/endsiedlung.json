@@ -1,0 +1,53 @@
+{
+  "parent": "leitfaden:end/transitportal",
+  "criteria": {
+    "in_city": {
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "structures": "minecraft:end_city"
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "requirements": [
+    [
+      "in_city"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:purpur_block"
+    },
+    "title": {
+      "translate": "advancements.end.find_end_city.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.end.endsiedlung.tun",
+        "fallback": "Enter an End city."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.end.endsiedlung.tipp",
+        "fallback": "Tall purple towers on the outer islands. Shulkers fire bullets that make you levitate.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

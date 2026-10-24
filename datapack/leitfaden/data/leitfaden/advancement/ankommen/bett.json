@@ -1,0 +1,62 @@
+{
+  "parent": "leitfaden:ankommen/essen",
+  "criteria": {
+    "slept_in_bed": {
+      "trigger": "minecraft:slept_in_bed"
+    }
+  },
+  "requirements": [
+    [
+      "slept_in_bed"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:red_bed"
+    },
+    "title": {
+      "translate": "advancements.adventure.sleep_in_bed.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.bett.tun",
+        "fallback": "Sleep in a bed."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.ankommen.bett.brauchst",
+        "fallback": "3 wool (from sheep), 3 planks",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.bett.tipp",
+        "fallback": "Sleeping skips the night and sets your respawn point. Without a bed you respawn at spawn.",
+        "color": "gold"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.kern",
+        "fallback": "★ counts towards the souvenir",
+        "color": "aqua"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "rewards": {
+    "function": "leitfaden:andenken/ankommen"
+  }
+}

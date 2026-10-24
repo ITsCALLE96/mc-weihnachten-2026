@@ -1,0 +1,87 @@
+{
+  "parent": "leitfaden:tiere/start",
+  "criteria": {
+    "give_tnt_directly": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:sulfur_cube",
+            "minecraft:flags": {
+              "is_baby": false
+            }
+          }
+        },
+        "item": {
+          "items": "#minecraft:sulfur_cube_archetype/explosive"
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    },
+    "pick_up_dropped_tnt": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:sulfur_cube",
+            "minecraft:flags": {
+              "is_baby": false
+            }
+          }
+        },
+        "item": {
+          "items": "#minecraft:sulfur_cube_archetype/explosive"
+        }
+      },
+      "trigger": "minecraft:thrown_item_picked_up_by_entity"
+    }
+  },
+  "requirements": [
+    [
+      "pick_up_dropped_tnt",
+      "give_tnt_directly"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:tnt"
+    },
+    "title": {
+      "translate": "advancements.husbandry.uh_oh.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.tiere.schwefelwuerfel.tun",
+        "fallback": "Have an adult sulfur cube pick up a block of TNT."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.tiere.schwefelwuerfel.brauchst",
+        "fallback": "TNT",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.tiere.schwefelwuerfel.tipp",
+        "fallback": "Sulfur cubes live in sulfur caves. Hand it the TNT or throw it over, then keep your distance!",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "parent": "leitfaden:nether/trank",
+  "criteria": {
+    "andenken": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:paper",
+      "components": {
+        "minecraft:item_model": "weihnachten:weihnachtsmuetze"
+      }
+    },
+    "title": {
+      "translate": "questbuch.nether.andenken.titel",
+      "fallback": "Souvenir: Santa Hat"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.andenken.tun",
+        "fallback": "Finish every ★ quest in this chapter."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.andenken.tipp",
+        "fallback": "A real Santa hat to wear. Doesn't keep you warm, but looks great.",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "rewards": {
+    "function": "leitfaden:items/weihnachtsmuetze"
+  }
+}

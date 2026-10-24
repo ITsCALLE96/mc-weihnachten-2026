@@ -1,0 +1,69 @@
+{
+  "parent": "leitfaden:tiere/start",
+  "criteria": {
+    "spyglass_at_parrot": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:spyglass"
+        },
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:type_specific/player": {
+              "looking_at": {
+                "minecraft:entity_type": "minecraft:parrot"
+              }
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:using_item"
+    }
+  },
+  "requirements": [
+    [
+      "spyglass_at_parrot"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:spyglass"
+    },
+    "title": {
+      "translate": "advancements.adventure.spyglass_at_parrot.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.tiere.papagei.tun",
+        "fallback": "Look at a parrot through a spyglass."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.tiere.papagei.brauchst",
+        "fallback": "Spyglass: 2 copper ingots, 1 amethyst shard",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.tiere.papagei.tipp",
+        "fallback": "Parrots live in jungles. Seeds tame them.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "parent": "leitfaden:ankommen/start",
+  "criteria": {
+    "gleiten": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:flags": {
+              "is_fall_flying": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "gleiten"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:elytra"
+    },
+    "title": {
+      "translate": "questbuch.ankommen.abflug.titel",
+      "fallback": "Take-off!"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.abflug.tun",
+        "fallback": "Double-jump on the spawn island and you glide off with an elytra."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.abflug.tipp",
+        "fallback": "Press F for a boost. The elytra is only on loan for this flight.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

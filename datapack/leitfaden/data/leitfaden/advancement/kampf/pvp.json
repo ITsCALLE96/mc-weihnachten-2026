@@ -1,0 +1,38 @@
+{
+  "parent": "leitfaden:kampf/start",
+  "criteria": {
+    "info": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:shield"
+    },
+    "title": {
+      "translate": "questbuch.kampf.pvp.titel",
+      "fallback": "Fight Fair"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.kampf.pvp.tun",
+        "fallback": "PvP only if both players agree."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.kampf.pvp.tipp",
+        "fallback": "Ask in chat before you duel.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

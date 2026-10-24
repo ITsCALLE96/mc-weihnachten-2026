@@ -1,0 +1,85 @@
+{
+  "parent": "leitfaden:tiere/angeln",
+  "criteria": {
+    "cod_bucket": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:cod_bucket"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "pufferfish_bucket": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:pufferfish_bucket"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "salmon_bucket": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:salmon_bucket"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "tropical_fish_bucket": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:tropical_fish_bucket"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    }
+  },
+  "requirements": [
+    [
+      "cod_bucket",
+      "tropical_fish_bucket",
+      "pufferfish_bucket",
+      "salmon_bucket"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:pufferfish_bucket"
+    },
+    "title": {
+      "translate": "advancements.husbandry.tactical_fishing.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.tiere.eimerfisch.tun",
+        "fallback": "Catch a fish without a fishing rod."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.tiere.eimerfisch.brauchst",
+        "fallback": "Water bucket",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.tiere.eimerfisch.tipp",
+        "fallback": "Right-click a swimming fish with a water bucket.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

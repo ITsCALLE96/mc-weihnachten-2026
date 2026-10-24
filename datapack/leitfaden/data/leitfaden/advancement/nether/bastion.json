@@ -1,0 +1,53 @@
+{
+  "parent": "leitfaden:nether/goldig",
+  "criteria": {
+    "bastion": {
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "structures": "minecraft:bastion_remnant"
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "requirements": [
+    [
+      "bastion"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:polished_blackstone_bricks"
+    },
+    "title": {
+      "translate": "advancements.nether.find_bastion.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.bastion.tun",
+        "fallback": "Enter a bastion remnant."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.bastion.tipp",
+        "fallback": "Huge blackstone buildings. Gold won't save you from piglin brutes.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

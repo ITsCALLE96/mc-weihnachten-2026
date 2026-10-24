@@ -1,0 +1,58 @@
+{
+  "parent": "leitfaden:kampf/start",
+  "criteria": {
+    "shot_crossbow": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:crossbow"
+        }
+      },
+      "trigger": "minecraft:shot_crossbow"
+    }
+  },
+  "requirements": [
+    [
+      "shot_crossbow"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:crossbow"
+    },
+    "title": {
+      "translate": "advancements.adventure.ol_betsy.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.kampf.armbrust.tun",
+        "fallback": "Fire a crossbow."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.kampf.armbrust.brauchst",
+        "fallback": "Crossbow: 3 sticks, 2 string, 1 iron ingot, 1 tripwire hook",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.kampf.armbrust.tipp",
+        "fallback": "Hold right-click to load, then click again.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

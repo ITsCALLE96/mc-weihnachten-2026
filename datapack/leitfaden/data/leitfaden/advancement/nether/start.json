@@ -1,0 +1,24 @@
+{
+  "criteria": {
+    "freigeschaltet": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:netherrack"
+    },
+    "title": {
+      "translate": "questbuch.nether.titel",
+      "fallback": "The Nether"
+    },
+    "description": {
+      "translate": "questbuch.nether.beschreibung",
+      "fallback": "The Nether is open! Hot, dangerous and full of treasure."
+    },
+    "background": "minecraft:block/netherrack",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

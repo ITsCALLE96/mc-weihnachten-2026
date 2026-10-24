@@ -1,0 +1,49 @@
+{
+  "parent": "leitfaden:end/endsiedlung",
+  "criteria": {
+    "levitated": {
+      "conditions": {
+        "distance": {
+          "y": {
+            "min": 50
+          }
+        }
+      },
+      "trigger": "minecraft:levitation"
+    }
+  },
+  "requirements": [
+    [
+      "levitated"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:shulker_shell"
+    },
+    "title": {
+      "translate": "advancements.end.levitate.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.end.schweben.tun",
+        "fallback": "Levitate 50 blocks up from shulker bullets."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.end.schweben.tipp",
+        "fallback": "Get hit several times. For the landing: water bucket!",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "parent": "leitfaden:entdecken/start",
+  "criteria": {
+    "spyglass": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:spyglass"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "spyglass"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:spyglass"
+    },
+    "title": {
+      "translate": "questbuch.entdecken.fernrohr.titel",
+      "fallback": "Far Sight"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.entdecken.fernrohr.tun",
+        "fallback": "Craft a spyglass."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.entdecken.fernrohr.brauchst",
+        "fallback": "2 copper ingots, 1 amethyst shard",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.entdecken.fernrohr.tipp",
+        "fallback": "Amethyst grows in geodes underground. Purple and hard to miss.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

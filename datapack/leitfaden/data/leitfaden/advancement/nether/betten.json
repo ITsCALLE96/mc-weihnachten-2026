@@ -1,0 +1,38 @@
+{
+  "parent": "leitfaden:nether/portal",
+  "criteria": {
+    "info": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:red_bed"
+    },
+    "title": {
+      "translate": "questbuch.nether.betten.titel",
+      "fallback": "No Naps"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.betten.tun",
+        "fallback": "Beds explode in the Nether. Seriously."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.betten.tipp",
+        "fallback": "A charged respawn anchor sets your spawn point here instead.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

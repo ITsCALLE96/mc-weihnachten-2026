@@ -1,0 +1,67 @@
+{
+  "parent": "leitfaden:dorf/hauptmann",
+  "criteria": {
+    "kill_pillager": {
+      "conditions": {
+        "fired_from_weapon": {
+          "items": "minecraft:crossbow"
+        },
+        "victims": [
+          {
+            "type": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "minecraft:entity_type": "minecraft:pillager"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:killed_by_arrow"
+    }
+  },
+  "requirements": [
+    [
+      "kill_pillager"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:crossbow"
+    },
+    "title": {
+      "translate": "advancements.adventure.whos_the_pillager_now.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.dorf.pluenderer.tun",
+        "fallback": "Kill a pillager with a crossbow."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.dorf.pluenderer.brauchst",
+        "fallback": "Crossbow: 3 sticks, 2 string, 1 iron ingot, 1 tripwire hook",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.dorf.pluenderer.tipp",
+        "fallback": "Pillager outposts are the dark wooden towers.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

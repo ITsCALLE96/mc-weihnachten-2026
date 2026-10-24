@@ -1,0 +1,66 @@
+{
+  "parent": "leitfaden:nether/portal",
+  "criteria": {
+    "froglights": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:ochre_froglight"
+          },
+          {
+            "items": "minecraft:pearlescent_froglight"
+          },
+          {
+            "items": "minecraft:verdant_froglight"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "froglights"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:verdant_froglight"
+    },
+    "title": {
+      "translate": "advancements.husbandry.froglights.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.froschlichter.tun",
+        "fallback": "Have all 3 froglights in your inventory."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.nether.froschlichter.brauchst",
+        "fallback": "3 frog variants, small magma cubes",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.froschlichter.tipp",
+        "fallback": "Frogs eat small magma cubes. Take them through the portal in a boat, each colour makes a different light.",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

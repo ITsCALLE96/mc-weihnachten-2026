@@ -1,0 +1,49 @@
+{
+  "parent": "leitfaden:nether/portal",
+  "criteria": {
+    "crying_obsidian": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:crying_obsidian"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "crying_obsidian"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:crying_obsidian"
+    },
+    "title": {
+      "translate": "advancements.nether.obtain_crying_obsidian.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.weinender_obsidian.tun",
+        "fallback": "Get some crying obsidian."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.weinender_obsidian.tipp",
+        "fallback": "Piglins barter it for gold. It's also in bastions and ruined portals.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

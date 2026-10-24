@@ -1,0 +1,2465 @@
+{
+  "kapitel": [
+    {
+      "id": "ankommen",
+      "phase": 1,
+      "icon": "minecraft:oak_sapling",
+      "hintergrund": "minecraft:block/snow",
+      "de": {
+        "titel": "Ankommen",
+        "beschreibung": "Deine ersten Tage auf dem Server. Jede Quest hakt sich von selbst ab."
+      },
+      "en": {
+        "titel": "Getting Started",
+        "beschreibung": "Your first days on the server. Every quest ticks itself off."
+      },
+      "andenken": {
+        "item": "lebkuchen",
+        "parent": "eisenspitzhacke",
+        "icon": {
+          "id": "minecraft:cookie",
+          "components": {
+            "minecraft:item_model": "weihnachten:lebkuchen"
+          }
+        },
+        "de": {
+          "titel": "Andenken: Lebkuchen",
+          "tun": "Schaff alle ★-Quests in diesem Kapitel.",
+          "tipp": "Ein echter Weihnachts-Lebkuchen. Essbar, aber eigentlich viel zu schade dafür."
+        },
+        "en": {
+          "titel": "Souvenir: Gingerbread",
+          "tun": "Finish every ★ quest in this chapter.",
+          "tipp": "Genuine Christmas gingerbread. Edible, but far too nice to eat."
+        }
+      },
+      "quests": [
+        {
+          "id": "regeln",
+          "parent": "start",
+          "icon": "minecraft:writable_book",
+          "erkennung": "info",
+          "de": {
+            "titel": "Hausregeln",
+            "tun": "Kein Griefing, kein Stehlen, kein X-Ray. PvP nur, wenn beide wollen.",
+            "tipp": "Auf der Spawn-Insel wird nicht gebaut. Sonst: Viel Spaß und frohe Weihnachten!"
+          },
+          "en": {
+            "titel": "House Rules",
+            "tun": "No griefing, no stealing, no X-ray. PvP only if both players agree.",
+            "tipp": "No building on the spawn island. Apart from that: have fun and merry Christmas!"
+          }
+        },
+        {
+          "id": "abflug",
+          "parent": "start",
+          "icon": "minecraft:elytra",
+          "erkennung": {
+            "gleiten": true
+          },
+          "de": {
+            "titel": "Abflug!",
+            "tun": "Spring auf der Spawn-Insel zweimal hintereinander, dann gleitest du mit der Elytra los.",
+            "tipp": "Mit F gibst du Schub. Die Elytra ist nur für diesen Flug geliehen."
+          },
+          "en": {
+            "titel": "Take-off!",
+            "tun": "Double-jump on the spawn island and you glide off with an elytra.",
+            "tipp": "Press F for a boost. The elytra is only on loan for this flight."
+          }
+        },
+        {
+          "id": "karte",
+          "parent": "start",
+          "icon": "minecraft:filled_map",
+          "erkennung": "info",
+          "de": {
+            "titel": "Nie mehr verlaufen",
+            "tun": "M öffnet die Weltkarte, B setzt einen Wegpunkt, F3 zeigt deine Koordinaten.",
+            "tipp": "Merk dir die Koordinaten deines Hauses. Höhlen zeigt die Karte absichtlich nicht. Karte und Wegpunkte gibt es nur mit dem Modpack."
+          },
+          "en": {
+            "titel": "Never Get Lost",
+            "tun": "M opens the world map, B sets a waypoint, F3 shows your coordinates.",
+            "tipp": "Note down where your home is. The map hides caves on purpose. Map and waypoints need the modpack."
+          }
+        },
+        {
+          "id": "voice_chat",
+          "parent": "start",
+          "icon": "minecraft:note_block",
+          "erkennung": "info",
+          "de": {
+            "titel": "Sprich mit uns",
+            "tun": "Der Voice Chat hört dich, sobald du sprichst. V öffnet das Menü, Ä schaltet dein Mikro stumm.",
+            "tipp": "Im Menü (V) kannst du Gruppen gründen. Voice Chat gibt es nur mit dem Modpack."
+          },
+          "en": {
+            "titel": "Talk to Us",
+            "tun": "Voice chat picks you up as soon as you speak. V opens the menu, Ä mutes your mic.",
+            "tipp": "Create groups from the menu (V). Voice chat needs the modpack."
+          }
+        },
+        {
+          "id": "block_marker",
+          "parent": "start",
+          "icon": "minecraft:glow_ink_sac",
+          "erkennung": "info",
+          "de": {
+            "titel": "Block-Marker",
+            "tun": "Komma wechselt das Profil, Punkt markiert den Block, den du gerade ansiehst.",
+            "tipp": "Einstellen kannst du alles über Mod Menu. Block-Marker gibt es nur mit dem Modpack."
+          },
+          "en": {
+            "titel": "Block Marker",
+            "tun": "Comma switches the profile, period marks the block you are looking at.",
+            "tipp": "Adjust everything via Mod Menu. Block Marker needs the modpack."
+          }
+        },
+        {
+          "id": "werkbank",
+          "vanilla": "story/root",
+          "parent": "start",
+          "icon": "minecraft:crafting_table",
+          "kern": true,
+          "de": {
+            "titel": "Holz und Werkbank",
+            "tun": "Schlag einen Baumstamm mit der Hand ab, mach Bretter daraus und bau eine Werkbank.",
+            "brauchst": "4 Bretter",
+            "tipp": "Das Rezeptbuch (grünes Buch im Inventar) zeigt dir, was du bauen kannst."
+          },
+          "en": {
+            "titel": "Wood and Workbench",
+            "tun": "Punch a tree, turn the logs into planks and craft a crafting table.",
+            "brauchst": "4 planks",
+            "tipp": "The recipe book (green book in your inventory) shows what you can craft."
+          }
+        },
+        {
+          "id": "stein",
+          "vanilla": "story/mine_stone",
+          "parent": "werkbank",
+          "kern": true,
+          "de": {
+            "tun": "Bau eine Holzspitzhacke und grab damit Stein ab.",
+            "brauchst": "3 Bretter, 2 Stöcke",
+            "tipp": "Stein liegt meist direkt unter der Erde."
+          },
+          "en": {
+            "tun": "Craft a wooden pickaxe and mine some stone.",
+            "brauchst": "3 planks, 2 sticks",
+            "tipp": "Stone is usually right below the dirt."
+          }
+        },
+        {
+          "id": "werkzeug",
+          "vanilla": "story/upgrade_tools",
+          "parent": "stein",
+          "kern": true,
+          "de": {
+            "tun": "Bau eine Steinspitzhacke.",
+            "brauchst": "3 Bruchstein, 2 Stöcke",
+            "tipp": "Damit kannst du Eisen abbauen. Holz war gestern."
+          },
+          "en": {
+            "tun": "Craft a stone pickaxe.",
+            "brauchst": "3 cobblestone, 2 sticks",
+            "tipp": "This one can mine iron. Wood is so last week."
+          }
+        },
+        {
+          "id": "fackeln",
+          "parent": "stein",
+          "icon": "minecraft:torch",
+          "erkennung": {
+            "gesetzt": [
+              "minecraft:torch",
+              "minecraft:wall_torch"
+            ]
+          },
+          "de": {
+            "titel": "Licht an!",
+            "tun": "Setz eine Fackel.",
+            "brauchst": "1 Kohle oder Holzkohle, 1 Stock",
+            "tipp": "Monster spawnen im Dunkeln. Holzkohle bekommst du, wenn du Holz im Ofen brennst."
+          },
+          "en": {
+            "titel": "Lights On!",
+            "tun": "Place a torch.",
+            "brauchst": "1 coal or charcoal, 1 stick",
+            "tipp": "Monsters spawn in the dark. Smelt logs in a furnace to get charcoal."
+          }
+        },
+        {
+          "id": "eisen",
+          "vanilla": "story/smelt_iron",
+          "parent": "werkzeug",
+          "kern": true,
+          "de": {
+            "tun": "Bau einen Ofen und schmelze Roheisen zu einem Eisenbarren.",
+            "brauchst": "8 Bruchstein, Roheisen, Brennstoff",
+            "tipp": "Eisenerz findest du in Höhlen und an Berghängen."
+          },
+          "en": {
+            "tun": "Build a furnace and smelt raw iron into an iron ingot.",
+            "brauchst": "8 cobblestone, raw iron, fuel",
+            "tipp": "Iron ore hides in caves and on mountainsides."
+          }
+        },
+        {
+          "id": "ruestung",
+          "vanilla": "story/obtain_armor",
+          "parent": "eisen",
+          "kern": true,
+          "de": {
+            "tun": "Stell ein Rüstungsteil aus Eisen her.",
+            "brauchst": "z. B. Brustpanzer: 8 Eisenbarren",
+            "tipp": "Der Brustpanzer schützt am meisten, die Stiefel sind am billigsten."
+          },
+          "en": {
+            "tun": "Craft a piece of iron armor.",
+            "brauchst": "e.g. chestplate: 8 iron ingots",
+            "tipp": "The chestplate protects best, the boots are the cheapest."
+          }
+        },
+        {
+          "id": "eisenspitzhacke",
+          "vanilla": "story/iron_tools",
+          "parent": "eisen",
+          "kern": true,
+          "de": {
+            "tun": "Bau eine Eisenspitzhacke.",
+            "brauchst": "3 Eisenbarren, 2 Stöcke",
+            "tipp": "Nur damit kannst du Diamanten, Gold und Redstone abbauen."
+          },
+          "en": {
+            "tun": "Craft an iron pickaxe.",
+            "brauchst": "3 iron ingots, 2 sticks",
+            "tipp": "You need it to mine diamonds, gold and redstone."
+          }
+        },
+        {
+          "id": "lava",
+          "vanilla": "story/lava_bucket",
+          "parent": "eisen",
+          "de": {
+            "tun": "Füll einen Eimer mit Lava.",
+            "brauchst": "Eimer: 3 Eisenbarren",
+            "tipp": "Grab nie direkt unter dir nach unten! Ein Lavaeimer brennt im Ofen sehr lange."
+          },
+          "en": {
+            "tun": "Fill a bucket with lava.",
+            "brauchst": "Bucket: 3 iron ingots",
+            "tipp": "Never dig straight down! A lava bucket is great furnace fuel."
+          }
+        },
+        {
+          "id": "essen",
+          "vanilla": "husbandry/root",
+          "parent": "start",
+          "kern": true,
+          "de": {
+            "titel": "Satt werden",
+            "tun": "Iss irgendwas.",
+            "tipp": "Gebratenes Fleisch macht viel satter als rohes. Äpfel fallen von Eichenblättern."
+          },
+          "en": {
+            "titel": "Full Belly",
+            "tun": "Eat something.",
+            "tipp": "Cooked meat fills you up far more than raw. Apples drop from oak leaves."
+          }
+        },
+        {
+          "id": "bett",
+          "vanilla": "adventure/sleep_in_bed",
+          "parent": "essen",
+          "kern": true,
+          "de": {
+            "tun": "Schlaf in einem Bett.",
+            "brauchst": "3 Wolle (von Schafen), 3 Bretter",
+            "tipp": "Schlafen überspringt die Nacht und setzt deinen Wiedereinstiegspunkt. Ohne Bett startest du wieder am Spawn."
+          },
+          "en": {
+            "tun": "Sleep in a bed.",
+            "brauchst": "3 wool (from sheep), 3 planks",
+            "tipp": "Sleeping skips the night and sets your respawn point. Without a bed you respawn at spawn."
+          }
+        },
+        {
+          "id": "pulverschnee",
+          "vanilla": "adventure/walk_on_powder_snow_with_leather_boots",
+          "parent": "bett",
+          "de": {
+            "tun": "Lauf mit Lederstiefeln über Pulverschnee, ohne einzusinken.",
+            "brauchst": "Lederstiefel: 4 Leder",
+            "tipp": "Pulverschnee gibt es an verschneiten Hängen. Passt zur Jahreszeit!"
+          },
+          "en": {
+            "tun": "Walk on powder snow in leather boots without sinking.",
+            "brauchst": "Leather boots: 4 leather",
+            "tipp": "Powder snow lies on snowy slopes. Very seasonal!"
+          }
+        },
+        {
+          "id": "abenteuer",
+          "vanilla": "adventure/root",
+          "parent": "start",
+          "de": {
+            "titel": "Erste Begegnung",
+            "tun": "Erlege ein Wesen oder werde erlegt. Eins von beidem passiert bestimmt.",
+            "tipp": "Ein Schwert hilft. Weglaufen auch."
+          },
+          "en": {
+            "titel": "First Encounter",
+            "tun": "Kill something or get killed. One of the two is bound to happen.",
+            "tipp": "A sword helps. So does running away."
+          }
+        },
+        {
+          "id": "monster",
+          "vanilla": "adventure/kill_a_mob",
+          "parent": "abenteuer",
+          "kern": true,
+          "de": {
+            "tun": "Erlege ein Monster.",
+            "brauchst": "Schwert: 2 Bruchstein oder Eisen, 1 Stock",
+            "tipp": "Zombies und Skelette kommen nachts. Bleib mit dem Rücken zur Wand."
+          },
+          "en": {
+            "tun": "Kill a hostile mob.",
+            "brauchst": "Sword: 2 cobblestone or iron, 1 stick",
+            "tipp": "Zombies and skeletons come out at night. Keep your back to a wall."
+          }
+        },
+        {
+          "id": "pfeil",
+          "vanilla": "adventure/shoot_arrow",
+          "parent": "monster",
+          "de": {
+            "tun": "Triff ein Wesen mit einem Pfeil.",
+            "brauchst": "Bogen: 3 Stöcke, 3 Faden. Pfeile: Feuerstein, Stock, Feder",
+            "tipp": "Faden gibt es von Spinnen, Federn von Hühnern, Feuerstein aus Kies."
+          },
+          "en": {
+            "tun": "Hit something with an arrow.",
+            "brauchst": "Bow: 3 sticks, 3 string. Arrows: flint, stick, feather",
+            "tipp": "String comes from spiders, feathers from chickens, flint from gravel."
+          }
+        },
+        {
+          "id": "schild",
+          "vanilla": "story/deflect_arrow",
+          "parent": "monster",
+          "de": {
+            "tun": "Wehr ein Geschoss mit einem Schild ab.",
+            "brauchst": "Schild: 6 Bretter, 1 Eisenbarren",
+            "tipp": "Rechte Maustaste hält den Schild hoch. Skelette sind dankbare Trainingspartner."
+          },
+          "en": {
+            "tun": "Block a projectile with a shield.",
+            "brauchst": "Shield: 6 planks, 1 iron ingot",
+            "tipp": "Hold right-click to raise it. Skeletons make great sparring partners."
+          }
+        },
+        {
+          "id": "freier_fall",
+          "vanilla": "adventure/fall_from_world_height",
+          "parent": "abenteuer",
+          "de": {
+            "tun": "Fall von der Bauhöhe bis ganz nach unten und überlebe.",
+            "brauchst": "Mut und einen Wassereimer",
+            "tipp": "Kurz vor dem Aufprall Wasser setzen. Bitte nicht über Lava üben."
+          },
+          "en": {
+            "tun": "Fall from the build limit all the way to the bottom and survive.",
+            "brauchst": "Courage and a water bucket",
+            "tipp": "Place the water right before you land. Please don't practise over lava."
+          }
+        }
+      ]
+    },
+    {
+      "id": "bergbau",
+      "phase": 1,
+      "icon": "minecraft:iron_pickaxe",
+      "hintergrund": "minecraft:block/stone",
+      "de": {
+        "titel": "Bergbau & Ausrüstung",
+        "beschreibung": "Tiefer graben, besser ausrüsten. Unten warten die Diamanten."
+      },
+      "en": {
+        "titel": "Mining & Gear",
+        "beschreibung": "Dig deeper, gear up. The diamonds are waiting below."
+      },
+      "quests": [
+        {
+          "id": "diamanten",
+          "vanilla": "story/mine_diamond",
+          "parent": "start",
+          "de": {
+            "tun": "Bau Diamanten ab.",
+            "brauchst": "Eisenspitzhacke",
+            "tipp": "Am häufigsten um Höhe Y -59. Mit F3 siehst du deine Höhe."
+          },
+          "en": {
+            "tun": "Mine some diamonds.",
+            "brauchst": "Iron pickaxe",
+            "tipp": "Most common around Y -59. F3 shows your height."
+          }
+        },
+        {
+          "id": "diamantruestung",
+          "vanilla": "story/shiny_gear",
+          "parent": "diamanten",
+          "de": {
+            "tun": "Stell ein Rüstungsteil aus Diamant her.",
+            "brauchst": "z. B. Stiefel: 4 Diamanten",
+            "tipp": "Heb dir 2 Diamanten für einen Zaubertisch auf."
+          },
+          "en": {
+            "tun": "Craft a piece of diamond armor.",
+            "brauchst": "e.g. boots: 4 diamonds",
+            "tipp": "Keep 2 diamonds for an enchanting table."
+          }
+        },
+        {
+          "id": "obsidian",
+          "vanilla": "story/form_obsidian",
+          "parent": "diamanten",
+          "de": {
+            "tun": "Besorg dir einen Block Obsidian.",
+            "brauchst": "Wassereimer, Lava, Diamantspitzhacke",
+            "tipp": "Gieß Wasser auf stehende Lava. Abbauen geht nur mit Diamant oder Netherit."
+          },
+          "en": {
+            "tun": "Get a block of obsidian.",
+            "brauchst": "Water bucket, lava, diamond pickaxe",
+            "tipp": "Pour water onto still lava. Only diamond or netherite can mine it."
+          }
+        },
+        {
+          "id": "verzaubern",
+          "vanilla": "story/enchant_item",
+          "parent": "obsidian",
+          "de": {
+            "tun": "Verzaubere etwas an einem Zaubertisch.",
+            "brauchst": "Zaubertisch: 1 Buch, 2 Diamanten, 4 Obsidian. Dazu Lapislazuli und Erfahrung",
+            "tipp": "15 Bücherregale im Abstand von einem Block bringen die besten Verzauberungen."
+          },
+          "en": {
+            "tun": "Enchant an item at an enchanting table.",
+            "brauchst": "Enchanting table: 1 book, 2 diamonds, 4 obsidian. Plus lapis lazuli and XP",
+            "tipp": "15 bookshelves one block away unlock the best enchantments."
+          }
+        },
+        {
+          "id": "buecherregal",
+          "vanilla": "adventure/read_power_of_chiseled_bookshelf",
+          "parent": "verzaubern",
+          "de": {
+            "tun": "Lies ein gearbeitetes Bücherregal mit einem Komparator aus.",
+            "brauchst": "Gearbeitetes Bücherregal: 6 Bretter, 3 Holzstufen. Dazu einen Komparator",
+            "tipp": "Der Komparator muss vom Regal weg zeigen. Die Signalstärke verrät, welches Fach zuletzt benutzt wurde."
+          },
+          "en": {
+            "tun": "Read a chiseled bookshelf's signal with a comparator.",
+            "brauchst": "Chiseled bookshelf: 6 planks, 3 wooden slabs. Plus a comparator",
+            "tipp": "Point the comparator away from the shelf. The signal shows which slot was used last."
+          }
+        },
+        {
+          "id": "werker",
+          "vanilla": "adventure/crafters_crafting_crafters",
+          "parent": "start",
+          "de": {
+            "tun": "Steh neben einem Werker, während er einen Werker herstellt.",
+            "brauchst": "Werker: 5 Eisenbarren, 1 Werkbank, 1 Spender, 2 Redstone",
+            "tipp": "Leg die Zutaten in den Werker und gib ihm einen Redstone-Impuls, z. B. mit einem Knopf."
+          },
+          "en": {
+            "tun": "Be near a crafter while it crafts a crafter.",
+            "brauchst": "Crafter: 5 iron ingots, 1 crafting table, 1 dropper, 2 redstone",
+            "tipp": "Put the ingredients in and give it a redstone pulse, e.g. with a button."
+          }
+        },
+        {
+          "id": "kupferleuchte",
+          "vanilla": "adventure/lighten_up",
+          "parent": "werker",
+          "de": {
+            "tun": "Schab eine angelaufene Kupferleuchte mit einer Axt ab, dann leuchtet sie heller.",
+            "brauchst": "Kupferleuchte: 3 Kupferblöcke, 1 Lohenrute, 1 Redstone. Dazu eine Axt",
+            "tipp": "Die Lohenrute gibt es erst im Nether. In Prüfkammern hängen aber fertige Leuchten."
+          },
+          "en": {
+            "tun": "Scrape a weathered copper bulb with an axe to make it brighter.",
+            "brauchst": "Copper bulb: 3 copper blocks, 1 blaze rod, 1 redstone. Plus an axe",
+            "tipp": "Blaze rods only come from the Nether, but trial chambers have ready-made bulbs."
+          }
+        },
+        {
+          "id": "leuchtschild",
+          "vanilla": "husbandry/make_a_sign_glow",
+          "parent": "start",
+          "de": {
+            "tun": "Lass die Schrift auf einem Schild leuchten.",
+            "brauchst": "Ein Schild, einen Leuchttintenbeutel",
+            "tipp": "Leuchttintenfische leben in dunklem Wasser, oft in Höhlen."
+          },
+          "en": {
+            "tun": "Make the text on a sign glow.",
+            "brauchst": "A sign, a glow ink sac",
+            "tipp": "Glow squids live in dark water, often in caves."
+          }
+        },
+        {
+          "id": "truhe",
+          "parent": "start",
+          "icon": "minecraft:chest",
+          "erkennung": {
+            "gesetzt": [
+              "minecraft:chest"
+            ]
+          },
+          "de": {
+            "titel": "Ordnung muss sein",
+            "tun": "Stell eine Truhe auf.",
+            "brauchst": "8 Bretter",
+            "tipp": "Zwei Truhen nebeneinander ergeben eine große. Mit dem Resourcepack sehen sie aus wie Geschenke!"
+          },
+          "en": {
+            "titel": "A Place for Everything",
+            "tun": "Place a chest.",
+            "brauchst": "8 planks",
+            "tipp": "Two chests side by side make a big one. With the resource pack they look like presents!"
+          }
+        },
+        {
+          "id": "armor_poser",
+          "parent": "start",
+          "icon": "minecraft:armor_stand",
+          "erkennung": "info",
+          "de": {
+            "titel": "Bitte lächeln",
+            "tun": "Halt Strg und klick mit rechts auf einen Rüstungsständer, um seine Pose zu ändern.",
+            "tipp": "Kopf, Arme und Beine lassen sich einzeln drehen. Perfekt für Deko."
+          },
+          "en": {
+            "titel": "Strike a Pose",
+            "tun": "Hold Ctrl and right-click an armor stand to change its pose.",
+            "tipp": "Head, arms and legs can be posed one by one. Great for decorating."
+          }
+        }
+      ]
+    },
+    {
+      "id": "landwirtschaft",
+      "phase": 1,
+      "icon": "minecraft:wheat",
+      "hintergrund": "minecraft:block/farmland",
+      "de": {
+        "titel": "Landwirtschaft",
+        "beschreibung": "Säen, ernten, Bienen umsiedeln. Mit vollem Bauch baut es sich besser."
+      },
+      "en": {
+        "titel": "Farming",
+        "beschreibung": "Sow, harvest, relocate some bees. Building is easier on a full stomach."
+      },
+      "quests": [
+        {
+          "id": "feld",
+          "vanilla": "husbandry/plant_seed",
+          "parent": "start",
+          "de": {
+            "tun": "Säe Samen und sieh ihnen beim Wachsen zu.",
+            "brauchst": "Hacke, Samen, Erde nahe am Wasser",
+            "tipp": "Samen fallen aus hohem Gras. Ein Wasserblock bewässert 4 Blöcke in jede Richtung."
+          },
+          "en": {
+            "tun": "Plant some seeds and watch them grow.",
+            "brauchst": "Hoe, seeds, dirt near water",
+            "tipp": "Seeds drop from tall grass. One water block hydrates 4 blocks in every direction."
+          }
+        },
+        {
+          "id": "knochenmehl",
+          "parent": "feld",
+          "icon": "minecraft:bone_meal",
+          "erkennung": {
+            "inventar": [
+              "minecraft:bone_meal"
+            ]
+          },
+          "de": {
+            "titel": "Wachstumsschub",
+            "tun": "Besorg dir Knochenmehl.",
+            "brauchst": "Knochen (von Skeletten) oder einen Komposter",
+            "tipp": "Rechtsklick auf Pflanzen lässt sie sofort wachsen."
+          },
+          "en": {
+            "titel": "Growth Spurt",
+            "tun": "Get some bone meal.",
+            "brauchst": "Bones (from skeletons) or a composter",
+            "tipp": "Right-click plants to make them grow instantly."
+          }
+        },
+        {
+          "id": "ernaehrung",
+          "vanilla": "husbandry/balanced_diet",
+          "parent": "feld",
+          "de": {
+            "tun": "Iss alles, was essbar ist. Wirklich alles.",
+            "tipp": "Auch Giftkartoffel, Spinnenauge und verdorbenes Fleisch. Ein Eimer Milch hilft danach."
+          },
+          "en": {
+            "tun": "Eat everything edible. And we mean everything.",
+            "tipp": "Yes, poisonous potatoes, spider eyes and rotten flesh too. A milk bucket helps afterwards."
+          }
+        },
+        {
+          "id": "honig",
+          "vanilla": "husbandry/safely_harvest_honey",
+          "parent": "start",
+          "de": {
+            "tun": "Fülle Honig in eine Glasflasche, ohne die Bienen zu ärgern.",
+            "brauchst": "Glasflasche, Lagerfeuer unter dem Bienenstock",
+            "tipp": "Der Rauch beruhigt die Bienen. Ernten kannst du, wenn Honig aus dem Stock tropft."
+          },
+          "en": {
+            "tun": "Collect honey with a glass bottle without angering the bees.",
+            "brauchst": "Glass bottle, campfire under the hive",
+            "tipp": "The smoke calms the bees. Harvest once honey drips from the hive."
+          }
+        },
+        {
+          "id": "bienen",
+          "vanilla": "husbandry/silk_touch_nest",
+          "parent": "honig",
+          "de": {
+            "tun": "Zieh ein Bienennest mit 3 Bienen darin per Behutsamkeit um.",
+            "brauchst": "Werkzeug mit Behutsamkeit",
+            "tipp": "Nachts oder bei Regen sind alle Bienen zu Hause."
+          },
+          "en": {
+            "tun": "Move a bee nest with 3 bees inside using Silk Touch.",
+            "brauchst": "A Silk Touch tool",
+            "tipp": "At night or in the rain all bees are at home."
+          }
+        },
+        {
+          "id": "honigblock",
+          "vanilla": "adventure/honey_block_slide",
+          "parent": "honig",
+          "de": {
+            "tun": "Spring an die Seite eines Honigblocks und rutsch langsam herunter.",
+            "brauchst": "Honigblock: 4 Honigflaschen",
+            "tipp": "Klappt nur, wenn du an der Seite hängst, nicht oben drauf."
+          },
+          "en": {
+            "tun": "Jump against the side of a honey block and slide down slowly.",
+            "brauchst": "Honey block: 4 honey bottles",
+            "tipp": "Only works on the side, not on top."
+          }
+        },
+        {
+          "id": "wachs",
+          "vanilla": "husbandry/wax_on",
+          "parent": "honig",
+          "de": {
+            "tun": "Wachse einen Kupferblock mit einer Honigwabe.",
+            "brauchst": "Kupferblock: 9 Kupferbarren. Honigwabe: Schere an einem vollen Bienenstock",
+            "tipp": "Gewachstes Kupfer läuft nicht mehr grün an."
+          },
+          "en": {
+            "tun": "Wax a copper block with honeycomb.",
+            "brauchst": "Copper block: 9 copper ingots. Honeycomb: shears on a full hive",
+            "tipp": "Waxed copper stops turning green."
+          }
+        },
+        {
+          "id": "wachs_ab",
+          "vanilla": "husbandry/wax_off",
+          "parent": "wachs",
+          "de": {
+            "tun": "Schab das Wachs mit einer Axt wieder ab.",
+            "brauchst": "Axt",
+            "tipp": "Rechtsklick mit der Axt. Funktioniert auch gegen Grünspan."
+          },
+          "en": {
+            "tun": "Scrape the wax off again with an axe.",
+            "brauchst": "Axe",
+            "tipp": "Right-click with the axe. Works on oxidation too."
+          }
+        },
+        {
+          "id": "schnueffler_ei",
+          "vanilla": "husbandry/obtain_sniffer_egg",
+          "parent": "start",
+          "de": {
+            "tun": "Besorg dir ein Schnüffler-Ei.",
+            "brauchst": "Pinsel: 1 Feder, 1 Kupferbarren, 1 Stock",
+            "tipp": "Pinsel seltsamen Sand in warmen Ozeanruinen ab. Mit etwas Glück steckt ein Ei darin."
+          },
+          "en": {
+            "tun": "Get a sniffer egg.",
+            "brauchst": "Brush: 1 feather, 1 copper ingot, 1 stick",
+            "tipp": "Brush suspicious sand in warm ocean ruins. With luck there's an egg inside."
+          }
+        },
+        {
+          "id": "schnueffler_junges",
+          "vanilla": "husbandry/feed_snifflet",
+          "parent": "schnueffler_ei",
+          "de": {
+            "tun": "Füttere ein Schnüffler-Junges.",
+            "brauchst": "Fackellilien-Samen",
+            "tipp": "Das Ei schlüpft auf Moos doppelt so schnell."
+          },
+          "en": {
+            "tun": "Feed a snifflet.",
+            "brauchst": "Torchflower seeds",
+            "tipp": "The egg hatches twice as fast on moss."
+          }
+        },
+        {
+          "id": "schnueffler_samen",
+          "vanilla": "husbandry/plant_any_sniffer_seed",
+          "parent": "schnueffler_junges",
+          "de": {
+            "tun": "Pflanz einen Samen, den ein Schnüffler ausgegraben hat.",
+            "tipp": "Ausgewachsene Schnüffler buddeln Fackellilien- und Kannenpflanzen-Samen aus."
+          },
+          "en": {
+            "tun": "Plant a seed dug up by a sniffer.",
+            "tipp": "Adult sniffers dig up torchflower seeds and pitcher pods."
+          }
+        }
+      ]
+    },
+    {
+      "id": "tiere",
+      "phase": 1,
+      "icon": "minecraft:axolotl_bucket",
+      "hintergrund": "minecraft:block/moss_block",
+      "de": {
+        "titel": "Tiere & Wasser",
+        "beschreibung": "Züchten, zähmen, angeln. Und ja, du darfst sie alle behalten."
+      },
+      "en": {
+        "titel": "Animals & Water",
+        "beschreibung": "Breed, tame, fish. And yes, you may keep them all."
+      },
+      "quests": [
+        {
+          "id": "zuechten",
+          "vanilla": "husbandry/breed_an_animal",
+          "parent": "start",
+          "de": {
+            "tun": "Vermehre zwei Tiere.",
+            "brauchst": "Weizen für Kühe und Schafe, Karotten für Schweine, Samen für Hühner",
+            "tipp": "Danach brauchen die Eltern 5 Minuten Pause."
+          },
+          "en": {
+            "tun": "Breed two animals.",
+            "brauchst": "Wheat for cows and sheep, carrots for pigs, seeds for chickens",
+            "tipp": "The parents need a 5-minute break afterwards."
+          }
+        },
+        {
+          "id": "alle_tiere",
+          "vanilla": "husbandry/bred_all_animals",
+          "parent": "zuechten",
+          "de": {
+            "tun": "Vermehre jede Tierart.",
+            "tipp": "Auch Hoglins und Schreiter zählen, die gibt es erst im Nether. Ein Projekt für Geduldige."
+          },
+          "en": {
+            "tun": "Breed every kind of animal.",
+            "tipp": "Hoglins and striders count too, so you'll need the Nether. One for the patient."
+          }
+        },
+        {
+          "id": "zaehmen",
+          "vanilla": "husbandry/tame_an_animal",
+          "parent": "start",
+          "de": {
+            "tun": "Zähme ein Tier.",
+            "brauchst": "z. B. Knochen für Wölfe, rohen Fisch für Katzen",
+            "tipp": "Gezähmte Tiere folgen dir. Rechtsklick lässt sie sitzen."
+          },
+          "en": {
+            "tun": "Tame an animal.",
+            "brauchst": "e.g. bones for wolves, raw fish for cats",
+            "tipp": "Tamed animals follow you. Right-click to make them sit."
+          }
+        },
+        {
+          "id": "woelfe",
+          "vanilla": "husbandry/whole_pack",
+          "parent": "zaehmen",
+          "de": {
+            "tun": "Zähme jede Wolfsart.",
+            "brauchst": "Viele Knochen",
+            "tipp": "Es gibt 9 Wolfsarten, jede lebt in einem anderen Biom."
+          },
+          "en": {
+            "tun": "Tame every kind of wolf.",
+            "brauchst": "Lots of bones",
+            "tipp": "There are 9 wolf variants, each in a different biome."
+          }
+        },
+        {
+          "id": "katzen",
+          "vanilla": "husbandry/complete_catalogue",
+          "parent": "zaehmen",
+          "de": {
+            "tun": "Zähme jede Katzenart.",
+            "brauchst": "Rohen Kabeljau oder Lachs",
+            "tipp": "Streuner leben in Dörfern, schwarze Katzen bei Hexenhütten."
+          },
+          "en": {
+            "tun": "Tame every kind of cat.",
+            "brauchst": "Raw cod or salmon",
+            "tipp": "Strays live in villages, black cats near witch huts."
+          }
+        },
+        {
+          "id": "wolfspanzer_ab",
+          "vanilla": "husbandry/remove_wolf_armor",
+          "parent": "zaehmen",
+          "de": {
+            "tun": "Nimm einem Wolf mit der Schere seinen Wolfspanzer ab.",
+            "brauchst": "Schere, gezähmter Wolf mit Wolfspanzer",
+            "tipp": "Einen Wolfspanzer baust du aus 6 Gürteltier-Hornschilden."
+          },
+          "en": {
+            "tun": "Remove a wolf's armor with shears.",
+            "brauchst": "Shears, a tamed wolf wearing wolf armor",
+            "tipp": "Wolf armor is made from 6 armadillo scutes."
+          }
+        },
+        {
+          "id": "wolfspanzer_flicken",
+          "vanilla": "husbandry/repair_wolf_armor",
+          "parent": "wolfspanzer_ab",
+          "de": {
+            "tun": "Repariere einen beschädigten Wolfspanzer komplett.",
+            "brauchst": "Gürteltier-Hornschilde",
+            "tipp": "Rechtsklick mit Hornschilden auf den Wolf, jedes Schild flickt ein Stück."
+          },
+          "en": {
+            "tun": "Fully repair damaged wolf armor.",
+            "brauchst": "Armadillo scutes",
+            "tipp": "Right-click the wolf with scutes, each one patches a bit."
+          }
+        },
+        {
+          "id": "guerteltier",
+          "vanilla": "adventure/brush_armadillo",
+          "parent": "start",
+          "de": {
+            "tun": "Pinsel einem Gürteltier ein Hornschild ab.",
+            "brauchst": "Pinsel: 1 Feder, 1 Kupferbarren, 1 Stock",
+            "tipp": "Gürteltiere leben in Savannen und Tafelbergen. Langsam nähern, sonst rollen sie sich ein."
+          },
+          "en": {
+            "tun": "Brush a scute off an armadillo.",
+            "brauchst": "Brush: 1 feather, 1 copper ingot, 1 stick",
+            "tipp": "Armadillos live in savannas and badlands. Approach slowly or they roll up."
+          }
+        },
+        {
+          "id": "ziege",
+          "vanilla": "husbandry/ride_a_boat_with_a_goat",
+          "parent": "start",
+          "de": {
+            "tun": "Fahr mit einer Ziege Boot.",
+            "brauchst": "Boot, Leine oder Weizen zum Locken",
+            "tipp": "Ziegen leben hoch in den Bergen. Vorsicht, sie rammen gern."
+          },
+          "en": {
+            "tun": "Take a goat for a boat ride.",
+            "brauchst": "Boat, a lead or wheat to lure it",
+            "tipp": "Goats live high in the mountains. Careful, they love to ram."
+          }
+        },
+        {
+          "id": "papagei",
+          "vanilla": "adventure/spyglass_at_parrot",
+          "parent": "start",
+          "de": {
+            "tun": "Schau dir einen Papagei durchs Fernrohr an.",
+            "brauchst": "Fernrohr: 2 Kupferbarren, 1 Amethystscherbe",
+            "tipp": "Papageien leben im Dschungel. Mit Samen kannst du sie zähmen."
+          },
+          "en": {
+            "tun": "Look at a parrot through a spyglass.",
+            "brauchst": "Spyglass: 2 copper ingots, 1 amethyst shard",
+            "tipp": "Parrots live in jungles. Seeds tame them."
+          }
+        },
+        {
+          "id": "angeln",
+          "vanilla": "husbandry/fishy_business",
+          "parent": "start",
+          "de": {
+            "tun": "Fang einen Fisch.",
+            "brauchst": "Angel: 3 Stöcke, 2 Faden",
+            "tipp": "Warte, bis der Schwimmer abtaucht, dann Rechtsklick. Bei Regen beißen sie schneller."
+          },
+          "en": {
+            "tun": "Catch a fish.",
+            "brauchst": "Fishing rod: 3 sticks, 2 string",
+            "tipp": "Wait for the bobber to dip, then right-click. Fish bite faster in the rain."
+          }
+        },
+        {
+          "id": "eimerfisch",
+          "vanilla": "husbandry/tactical_fishing",
+          "parent": "angeln",
+          "de": {
+            "tun": "Fang einen Fisch ganz ohne Angel.",
+            "brauchst": "Wassereimer",
+            "tipp": "Rechtsklick mit dem Wassereimer auf einen schwimmenden Fisch."
+          },
+          "en": {
+            "tun": "Catch a fish without a fishing rod.",
+            "brauchst": "Water bucket",
+            "tipp": "Right-click a swimming fish with a water bucket."
+          }
+        },
+        {
+          "id": "axolotl",
+          "vanilla": "husbandry/axolotl_in_a_bucket",
+          "parent": "eimerfisch",
+          "de": {
+            "tun": "Fang einen Axolotl mit einem Wassereimer.",
+            "tipp": "Axolotl leben in üppigen Höhlen unter Wasser."
+          },
+          "en": {
+            "tun": "Catch an axolotl in a water bucket.",
+            "tipp": "Axolotls live underwater in lush caves."
+          }
+        },
+        {
+          "id": "axolotl_kampf",
+          "vanilla": "husbandry/kill_axolotl_target",
+          "parent": "axolotl",
+          "de": {
+            "tun": "Kämpf zusammen mit einem Axolotl und gewinne.",
+            "tipp": "Axolotl greifen Wassermonster an. Fällt der Gegner, bekommst du Regeneration."
+          },
+          "en": {
+            "tun": "Team up with an axolotl and win a fight.",
+            "tipp": "Axolotls attack water mobs. When the enemy falls, you get Regeneration."
+          }
+        },
+        {
+          "id": "kaulquappe",
+          "vanilla": "husbandry/tadpole_in_a_bucket",
+          "parent": "eimerfisch",
+          "de": {
+            "tun": "Fang eine Kaulquappe mit einem Wassereimer.",
+            "tipp": "Kaulquappen schlüpfen aus Froschlaich. Frösche leben in Sümpfen."
+          },
+          "en": {
+            "tun": "Catch a tadpole in a water bucket.",
+            "tipp": "Tadpoles hatch from frogspawn. Frogs live in swamps."
+          }
+        },
+        {
+          "id": "froesche",
+          "vanilla": "husbandry/leash_all_frog_variants",
+          "parent": "kaulquappe",
+          "de": {
+            "tun": "Hab alle 3 Froscharten gleichzeitig an der Leine.",
+            "brauchst": "3 Leinen",
+            "tipp": "Die Farbe hängt davon ab, wo die Kaulquappe groß wird: kalt, gemäßigt oder warm."
+          },
+          "en": {
+            "tun": "Have all 3 frog variants on leads at once.",
+            "brauchst": "3 leads",
+            "tipp": "The colour depends on where the tadpole grows up: cold, temperate or warm."
+          }
+        },
+        {
+          "id": "hilfsgeist",
+          "vanilla": "husbandry/allay_deliver_item_to_player",
+          "parent": "start",
+          "de": {
+            "tun": "Lass dir von einem Hilfsgeist etwas bringen.",
+            "tipp": "Hilfsgeister findest du in Plündererposten und Waldanwesen. Gib ihm ein Item, dann sammelt er mehr davon."
+          },
+          "en": {
+            "tun": "Have an allay deliver an item to you.",
+            "tipp": "Allays live in pillager outposts and woodland mansions. Hand one an item and it collects more of it."
+          }
+        },
+        {
+          "id": "hilfsgeist_kuchen",
+          "vanilla": "husbandry/allay_deliver_cake_to_note_block",
+          "parent": "hilfsgeist",
+          "de": {
+            "tun": "Lass einen Hilfsgeist einen Kuchen bei einem Notenblock ablegen.",
+            "brauchst": "Kuchen, Notenblock",
+            "tipp": "Spielt ein Notenblock, bringt der Hilfsgeist seine Beute dorthin. Happy Birthday!"
+          },
+          "en": {
+            "tun": "Have an allay drop a cake at a note block.",
+            "brauchst": "Cake, note block",
+            "tipp": "When a note block plays, the allay brings its loot there. Happy birthday!"
+          }
+        },
+        {
+          "id": "schwefelwuerfel",
+          "vanilla": "husbandry/uh_oh",
+          "parent": "start",
+          "de": {
+            "tun": "Lass einen ausgewachsenen Schwefelwürfel einen TNT-Block aufnehmen.",
+            "brauchst": "TNT",
+            "tipp": "Schwefelwürfel leben in den Schwefelhöhlen. Gib ihm das TNT oder wirf es ihm hin und dann: Abstand!"
+          },
+          "en": {
+            "tun": "Have an adult sulfur cube pick up a block of TNT.",
+            "brauchst": "TNT",
+            "tipp": "Sulfur cubes live in sulfur caves. Hand it the TNT or throw it over, then keep your distance!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dorf",
+      "phase": 1,
+      "icon": "minecraft:emerald",
+      "hintergrund": "minecraft:block/spruce_planks",
+      "de": {
+        "titel": "Dorfbewohner",
+        "beschreibung": "Handeln, helfen, verteidigen. Hmm!"
+      },
+      "en": {
+        "titel": "Villagers",
+        "beschreibung": "Trade, help, defend. Hmm!"
+      },
+      "quests": [
+        {
+          "id": "dorf_finden",
+          "parent": "start",
+          "icon": "minecraft:bell",
+          "erkennung": {
+            "bauwerk": "#minecraft:village"
+          },
+          "de": {
+            "titel": "Nachbarschaft",
+            "tun": "Finde ein Dorf.",
+            "tipp": "Dörfer stehen in Ebenen, Wüsten, Savannen, Taigas und Schneetundren."
+          },
+          "en": {
+            "titel": "Neighbourhood",
+            "tun": "Find a village.",
+            "tipp": "Villages appear in plains, deserts, savannas, taigas and snowy tundras."
+          }
+        },
+        {
+          "id": "handel",
+          "vanilla": "adventure/trade",
+          "parent": "dorf_finden",
+          "de": {
+            "tun": "Handle mit einem Dorfbewohner.",
+            "brauchst": "Smaragde oder die Ware, die er sucht",
+            "tipp": "Ein Dorfbewohner ohne Beruf nimmt sich einen Arbeitsblock, z. B. wird er am Komposter zum Bauern."
+          },
+          "en": {
+            "tun": "Trade with a villager.",
+            "brauchst": "Emeralds or the goods they want",
+            "tipp": "Jobless villagers claim a workstation, e.g. a composter makes them a farmer."
+          }
+        },
+        {
+          "id": "rabatt",
+          "parent": "handel",
+          "icon": "minecraft:gold_nugget",
+          "erkennung": "info",
+          "de": {
+            "titel": "Rabatt-Trick",
+            "tun": "Auf dem Server gibt es Rabatt beim Handeln. Er erscheint, wenn du das Handelsfenster schließt und noch einmal öffnest.",
+            "tipp": "Geheilte Zombiedorfbewohner geben zusätzlich große Rabatte."
+          },
+          "en": {
+            "titel": "Discount Trick",
+            "tun": "Trading is discounted on this server. The discount shows once you close the trading window and open it again.",
+            "tipp": "Cured zombie villagers give big extra discounts."
+          }
+        },
+        {
+          "id": "sternhaendler",
+          "vanilla": "adventure/trade_at_world_height",
+          "parent": "handel",
+          "de": {
+            "tun": "Handle auf der maximalen Bauhöhe mit einem Dorfbewohner.",
+            "brauchst": "Viele Blöcke, einen Dorfbewohner und Geduld",
+            "tipp": "Ein Wasserlift oder eine Lore bringt ihn nach oben. Nicht runterschubsen!"
+          },
+          "en": {
+            "tun": "Trade with a villager at the build limit.",
+            "brauchst": "Lots of blocks, a villager and patience",
+            "tipp": "A water elevator or minecart gets them up there. Don't push them off!"
+          }
+        },
+        {
+          "id": "zombiearzt",
+          "vanilla": "story/cure_zombie_villager",
+          "parent": "handel",
+          "de": {
+            "tun": "Heile einen Zombiedorfbewohner.",
+            "brauchst": "Wurftrank der Schwäche, goldener Apfel",
+            "tipp": "Erst den Trank werfen, dann den Apfel geben. Im Schatten halten, sonst verbrennt er."
+          },
+          "en": {
+            "tun": "Cure a zombie villager.",
+            "brauchst": "Splash potion of Weakness, golden apple",
+            "tipp": "Throw the potion first, then feed the apple. Keep them in the shade or they burn."
+          }
+        },
+        {
+          "id": "golem",
+          "vanilla": "adventure/summon_iron_golem",
+          "parent": "dorf_finden",
+          "de": {
+            "tun": "Bau einen Eisengolem.",
+            "brauchst": "4 Eisenblöcke, 1 geschnitzter Kürbis",
+            "tipp": "Eisenblöcke in T-Form, den Kürbis zuletzt oben drauf."
+          },
+          "en": {
+            "tun": "Build an iron golem.",
+            "brauchst": "4 iron blocks, 1 carved pumpkin",
+            "tipp": "Iron blocks in a T shape, pumpkin on top last."
+          }
+        },
+        {
+          "id": "blitzableiter",
+          "vanilla": "adventure/lightning_rod_with_villager_no_fire",
+          "parent": "golem",
+          "de": {
+            "tun": "Schütz einen Dorfbewohner mit einem Blitzableiter, ohne dass etwas brennt.",
+            "brauchst": "Blitzableiter: 3 Kupferbarren. Dazu ein Gewitter",
+            "tipp": "Stell ihn auf Stein, nicht auf ein Holzdach."
+          },
+          "en": {
+            "tun": "Protect a villager with a lightning rod without starting a fire.",
+            "brauchst": "Lightning rod: 3 copper ingots. Plus a thunderstorm",
+            "tipp": "Put it on stone, not on a wooden roof."
+          }
+        },
+        {
+          "id": "hauptmann",
+          "vanilla": "adventure/voluntary_exile",
+          "parent": "dorf_finden",
+          "de": {
+            "tun": "Besieg einen Räuberhauptmann.",
+            "tipp": "Erkennbar am Banner. Er lässt eine unheilvolle Flasche fallen: Wer sie trinkt, löst einen Überfall aus."
+          },
+          "en": {
+            "tun": "Defeat a raid captain.",
+            "tipp": "Spot them by their banner. They drop an ominous bottle: drinking it starts a raid."
+          }
+        },
+        {
+          "id": "dorfheld",
+          "vanilla": "adventure/hero_of_the_village",
+          "parent": "hauptmann",
+          "de": {
+            "tun": "Verteidige ein Dorf erfolgreich gegen einen Überfall.",
+            "brauchst": "Unheilvolle Flasche, gute Rüstung, Freunde",
+            "tipp": "Trink die Flasche im Dorf und überleb alle Wellen. Danach gibt es Rabatte und Geschenke."
+          },
+          "en": {
+            "tun": "Successfully defend a village from a raid.",
+            "brauchst": "Ominous bottle, good armor, friends",
+            "tipp": "Drink the bottle in the village and survive every wave. Discounts and gifts follow."
+          }
+        },
+        {
+          "id": "pluenderer",
+          "vanilla": "adventure/whos_the_pillager_now",
+          "parent": "hauptmann",
+          "de": {
+            "tun": "Erlege einen Plünderer mit einer Armbrust.",
+            "brauchst": "Armbrust: 3 Stöcke, 2 Faden, 1 Eisenbarren, 1 Stolperdrahthaken",
+            "tipp": "Plündererposten erkennst du am dunklen Holzturm."
+          },
+          "en": {
+            "tun": "Kill a pillager with a crossbow.",
+            "brauchst": "Crossbow: 3 sticks, 2 string, 1 iron ingot, 1 tripwire hook",
+            "tipp": "Pillager outposts are the dark wooden towers."
+          }
+        }
+      ]
+    },
+    {
+      "id": "kampf",
+      "phase": 1,
+      "icon": "minecraft:iron_sword",
+      "hintergrund": "minecraft:block/deepslate",
+      "de": {
+        "titel": "Kampf & Waffen",
+        "beschreibung": "Bogen, Armbrust, Dreizack, Speer und Streitkolben. Für alle, die es krachen lassen wollen."
+      },
+      "en": {
+        "titel": "Combat & Weapons",
+        "beschreibung": "Bow, crossbow, trident, spear and mace. For those who like a bit of action."
+      },
+      "quests": [
+        {
+          "id": "pvp",
+          "parent": "start",
+          "icon": "minecraft:shield",
+          "erkennung": "info",
+          "de": {
+            "titel": "Fair kämpfen",
+            "tun": "PvP nur, wenn beide einverstanden sind.",
+            "tipp": "Fragt im Chat, bevor ihr euch duelliert."
+          },
+          "en": {
+            "titel": "Fight Fair",
+            "tun": "PvP only if both players agree.",
+            "tipp": "Ask in chat before you duel."
+          }
+        },
+        {
+          "id": "alle_monster",
+          "vanilla": "adventure/kill_all_mobs",
+          "parent": "start",
+          "de": {
+            "tun": "Erlege jedes Monster mindestens einmal.",
+            "tipp": "Auch Nether- und End-Monster zählen, das dauert also bis Weihnachten und darüber hinaus."
+          },
+          "en": {
+            "tun": "Kill every hostile mob at least once.",
+            "tipp": "Nether and End mobs count too, so this takes until Christmas and beyond."
+          }
+        },
+        {
+          "id": "zielblock",
+          "vanilla": "adventure/bullseye",
+          "parent": "start",
+          "de": {
+            "tun": "Triff die Mitte eines Zielblocks aus mindestens 30 Blöcken Entfernung.",
+            "brauchst": "Zielblock: 4 Redstone, 1 Heuballen. Dazu einen Bogen",
+            "tipp": "Ziel etwas höher, Pfeile fallen auf Entfernung ab."
+          },
+          "en": {
+            "tun": "Hit the bullseye of a target block from at least 30 blocks away.",
+            "brauchst": "Target: 4 redstone, 1 hay bale. Plus a bow",
+            "tipp": "Aim a little high, arrows drop over distance."
+          }
+        },
+        {
+          "id": "scharfschuetze",
+          "vanilla": "adventure/sniper_duel",
+          "parent": "zielblock",
+          "de": {
+            "tun": "Erlege ein Skelett aus mindestens 50 Blöcken Entfernung.",
+            "brauchst": "Bogen, am besten mit Stärke",
+            "tipp": "Von einem Hügel aus über flaches Land klappt es am besten."
+          },
+          "en": {
+            "tun": "Kill a skeleton from at least 50 blocks away.",
+            "brauchst": "Bow, ideally with Power",
+            "tipp": "Works best from a hill over flat land."
+          }
+        },
+        {
+          "id": "armbrust",
+          "vanilla": "adventure/ol_betsy",
+          "parent": "start",
+          "de": {
+            "tun": "Schieß mit einer Armbrust.",
+            "brauchst": "Armbrust: 3 Stöcke, 2 Faden, 1 Eisenbarren, 1 Stolperdrahthaken",
+            "tipp": "Rechtsklick halten zum Spannen, dann noch einmal klicken."
+          },
+          "en": {
+            "tun": "Fire a crossbow.",
+            "brauchst": "Crossbow: 3 sticks, 2 string, 1 iron ingot, 1 tripwire hook",
+            "tipp": "Hold right-click to load, then click again."
+          }
+        },
+        {
+          "id": "armbrust_fuenf",
+          "vanilla": "adventure/arbalistic",
+          "parent": "armbrust",
+          "de": {
+            "tun": "Erlege 5 verschiedene Wesen mit einem einzigen Armbrustschuss.",
+            "brauchst": "Armbrust mit Durchschuss",
+            "tipp": "Stell die Wesen in eine Reihe. Durchschuss IV hilft enorm."
+          },
+          "en": {
+            "tun": "Kill 5 different mobs with one crossbow shot.",
+            "brauchst": "Crossbow with Piercing",
+            "tipp": "Line the mobs up. Piercing IV helps a lot."
+          }
+        },
+        {
+          "id": "phantome",
+          "vanilla": "adventure/two_birds_one_arrow",
+          "parent": "armbrust",
+          "de": {
+            "tun": "Erlege 2 Phantome mit einem Durchschuss-Pfeil.",
+            "brauchst": "Armbrust mit Durchschuss",
+            "tipp": "Phantome kommen, wenn du 3 Nächte nicht schläfst. Diesmal willst du das!"
+          },
+          "en": {
+            "tun": "Kill 2 phantoms with one piercing arrow.",
+            "brauchst": "Crossbow with Piercing",
+            "tipp": "Phantoms show up if you skip sleep for 3 nights. This time you want that!"
+          }
+        },
+        {
+          "id": "dreizack",
+          "vanilla": "adventure/throw_trident",
+          "parent": "start",
+          "de": {
+            "tun": "Wirf einen Dreizack auf irgendetwas.",
+            "brauchst": "Einen Dreizack von einem Ertrunkenen",
+            "tipp": "Nur manche Ertrunkene tragen einen. Mit Treue kommt er von selbst zurück."
+          },
+          "en": {
+            "tun": "Throw a trident at something.",
+            "brauchst": "A trident from a drowned",
+            "tipp": "Only some drowned carry one. Loyalty brings it back."
+          }
+        },
+        {
+          "id": "blitz",
+          "vanilla": "adventure/very_very_frightening",
+          "parent": "dreizack",
+          "de": {
+            "tun": "Triff einen Dorfbewohner mit einem Blitz.",
+            "brauchst": "Dreizack mit Entladung, ein Gewitter",
+            "tipp": "Der Dorfbewohner wird dabei zur Hexe. Sorry, kleiner Mann."
+          },
+          "en": {
+            "tun": "Strike a villager with lightning.",
+            "brauchst": "Trident with Channeling, a thunderstorm",
+            "tipp": "The villager turns into a witch. Sorry, little guy."
+          }
+        },
+        {
+          "id": "speer",
+          "vanilla": "adventure/spear_many_mobs",
+          "parent": "start",
+          "de": {
+            "tun": "Triff 5 Wesen in einem einzigen Anlauf mit dem Speer.",
+            "brauchst": "Speer: 1 Eisen (oder Holz, Stein, Kupfer, Gold, Diamant), 2 Stöcke",
+            "tipp": "Nimm Anlauf und renn mitten durch eine Gruppe."
+          },
+          "en": {
+            "tun": "Hit 5 mobs in a single charge with a spear.",
+            "brauchst": "Spear: 1 iron (or wood, stone, copper, gold, diamond), 2 sticks",
+            "tipp": "Take a run-up and charge straight through a group."
+          }
+        },
+        {
+          "id": "totem",
+          "vanilla": "adventure/totem_of_undying",
+          "parent": "start",
+          "de": {
+            "tun": "Entkomm dem Tod mit einem Totem der Unsterblichkeit.",
+            "brauchst": "Totem (von Magiern aus Waldanwesen und Überfällen)",
+            "tipp": "Halt es in der Hand oder der Zweithand, wenn es eng wird."
+          },
+          "en": {
+            "tun": "Cheat death with a Totem of Undying.",
+            "brauchst": "Totem (from evokers in mansions and raids)",
+            "tipp": "Hold it in your main or off hand when things get tight."
+          }
+        },
+        {
+          "id": "windkugel",
+          "vanilla": "adventure/who_needs_rockets",
+          "parent": "start",
+          "de": {
+            "tun": "Schleuder dich mit einer Windkugel 8 Blöcke hoch.",
+            "brauchst": "Windkugeln (aus Böenruten, von Böen in Prüfkammern)",
+            "tipp": "Wirf sie direkt unter dich und spring im selben Moment."
+          },
+          "en": {
+            "tun": "Launch yourself 8 blocks up with a wind charge.",
+            "brauchst": "Wind charges (from breeze rods, dropped by breezes in trial chambers)",
+            "tipp": "Throw it straight down and jump at the same time."
+          }
+        },
+        {
+          "id": "gegenwind",
+          "vanilla": "adventure/blowback",
+          "parent": "windkugel",
+          "de": {
+            "tun": "Erlege eine Böe mit ihrer eigenen Windkugel.",
+            "tipp": "Schlag die Windkugel der Böe zurück, kurz bevor sie dich trifft."
+          },
+          "en": {
+            "tun": "Kill a breeze with its own wind charge.",
+            "tipp": "Hit the breeze's wind charge back right before it reaches you."
+          }
+        },
+        {
+          "id": "streitkolben",
+          "vanilla": "adventure/overoverkill",
+          "parent": "windkugel",
+          "de": {
+            "tun": "Mach mit dem Streitkolben 50 Herzen Schaden in einem einzigen Schlag.",
+            "brauchst": "Streitkolben: schwerer Kern + Böenrute",
+            "tipp": "Je tiefer du fällst, desto härter der Schlag. Windkugeln bringen dich nach oben."
+          },
+          "en": {
+            "tun": "Deal 50 hearts of damage in one hit with a mace.",
+            "brauchst": "Mace: heavy core + breeze rod",
+            "tipp": "The further you fall, the harder you hit. Wind charges get you up high."
+          }
+        },
+        {
+          "id": "sculk",
+          "vanilla": "adventure/kill_mob_near_sculk_catalyst",
+          "parent": "start",
+          "de": {
+            "tun": "Erlege ein Wesen neben einem Sculk-Katalysator.",
+            "tipp": "Katalysatoren gibt es in der Tiefen Dunkelheit, ganz unten in der Welt."
+          },
+          "en": {
+            "tun": "Kill a mob near a sculk catalyst.",
+            "tipp": "Catalysts are found in the Deep Dark, at the very bottom of the world."
+          }
+        },
+        {
+          "id": "schleichen",
+          "vanilla": "adventure/avoid_vibration",
+          "parent": "sculk",
+          "de": {
+            "tun": "Schleich an einem Sculk-Sensor oder Wärter vorbei, ohne bemerkt zu werden.",
+            "tipp": "Halt Shift gedrückt. Der Wärter hört alles, also bitte ganz leise."
+          },
+          "en": {
+            "tun": "Sneak past a sculk sensor or warden without being noticed.",
+            "tipp": "Hold Shift. The warden hears everything, so keep it quiet."
+          }
+        }
+      ]
+    },
+    {
+      "id": "entdecken",
+      "phase": 1,
+      "icon": "minecraft:brush",
+      "hintergrund": "minecraft:block/sandstone_top",
+      "de": {
+        "titel": "Entdecken",
+        "beschreibung": "Biome, Prüfkammern, Ruinen und alte Scherben. Die Welt ist groß, los geht's!"
+      },
+      "en": {
+        "titel": "Exploring",
+        "beschreibung": "Biomes, trial chambers, ruins and old sherds. It's a big world, off you go!"
+      },
+      "quests": [
+        {
+          "id": "biome",
+          "vanilla": "adventure/adventuring_time",
+          "parent": "start",
+          "de": {
+            "tun": "Besuch alle Biome der Oberwelt.",
+            "tipp": "Die Karte (M) zeigt dir, wo du schon warst. Ein Projekt für mehrere Wochen."
+          },
+          "en": {
+            "tun": "Visit every Overworld biome.",
+            "tipp": "The map (M) shows where you've been. A project for several weeks."
+          }
+        },
+        {
+          "id": "fernrohr",
+          "parent": "start",
+          "icon": "minecraft:spyglass",
+          "erkennung": {
+            "inventar": [
+              "minecraft:spyglass"
+            ]
+          },
+          "de": {
+            "titel": "Weitblick",
+            "tun": "Bau ein Fernrohr.",
+            "brauchst": "2 Kupferbarren, 1 Amethystscherbe",
+            "tipp": "Amethyst wächst in Geoden unter der Erde. Lila und kaum zu überhören."
+          },
+          "en": {
+            "titel": "Far Sight",
+            "tun": "Craft a spyglass.",
+            "brauchst": "2 copper ingots, 1 amethyst shard",
+            "tipp": "Amethyst grows in geodes underground. Purple and hard to miss."
+          }
+        },
+        {
+          "id": "leitstein",
+          "vanilla": "adventure/use_lodestone",
+          "parent": "start",
+          "de": {
+            "tun": "Benutze einen Kompass an einem Leitstein.",
+            "brauchst": "Leitstein: 8 gemeißelte Steinziegel, 1 Eisenbarren. Dazu einen Kompass",
+            "tipp": "Der Kompass zeigt danach immer zum Leitstein. So findest du sicher nach Hause."
+          },
+          "en": {
+            "tun": "Use a compass on a lodestone.",
+            "brauchst": "Lodestone: 8 chiseled stone bricks, 1 iron ingot. Plus a compass",
+            "tipp": "The compass then always points to the lodestone. Your way home."
+          }
+        },
+        {
+          "id": "musik",
+          "vanilla": "adventure/play_jukebox_in_meadows",
+          "parent": "start",
+          "de": {
+            "tun": "Spiel auf einer Alm Musik mit einem Plattenspieler.",
+            "brauchst": "Plattenspieler: 8 Bretter, 1 Diamant. Dazu eine Schallplatte",
+            "tipp": "Schallplatten liegen in Truhen oder fallen, wenn ein Skelett einen Creeper erschießt."
+          },
+          "en": {
+            "tun": "Play music in a meadow with a jukebox.",
+            "brauchst": "Jukebox: 8 planks, 1 diamond. Plus a music disc",
+            "tipp": "Discs are found in chests or drop when a skeleton shoots a creeper."
+          }
+        },
+        {
+          "id": "pruefkammer",
+          "vanilla": "adventure/minecraft_trials_edition",
+          "parent": "start",
+          "de": {
+            "tun": "Betritt eine Prüfkammer.",
+            "tipp": "Prüfkammern liegen unter der Erde und bestehen aus Tuff und Kupfer. Die Karte zeigt sie absichtlich nicht."
+          },
+          "en": {
+            "tun": "Enter a trial chamber.",
+            "tipp": "Trial chambers are underground, built from tuff and copper. The map hides them on purpose."
+          }
+        },
+        {
+          "id": "tresor",
+          "vanilla": "adventure/under_lock_and_key",
+          "parent": "pruefkammer",
+          "de": {
+            "tun": "Öffne einen Tresor mit einem Prüfungsschlüssel.",
+            "tipp": "Schlüssel gibt es von Prüfungsspawnern. Jeder Tresor öffnet sich für jeden Spieler nur einmal."
+          },
+          "en": {
+            "tun": "Unlock a vault with a trial key.",
+            "tipp": "Trial spawners drop the keys. Each vault opens only once per player."
+          }
+        },
+        {
+          "id": "tresor_unheil",
+          "vanilla": "adventure/revaulting",
+          "parent": "tresor",
+          "de": {
+            "tun": "Öffne einen unheilvollen Tresor mit einem unheilvollen Prüfungsschlüssel.",
+            "brauchst": "Unheilvolle Flasche",
+            "tipp": "Trink die Flasche vor der Prüfkammer: Die Spawner werden härter und lassen unheilvolle Schlüssel fallen."
+          },
+          "en": {
+            "tun": "Unlock an ominous vault with an ominous trial key.",
+            "brauchst": "Ominous bottle",
+            "tipp": "Drink the bottle before entering: spawners get tougher and drop ominous keys."
+          }
+        },
+        {
+          "id": "scherbe",
+          "vanilla": "adventure/salvage_sherd",
+          "parent": "start",
+          "de": {
+            "tun": "Pinsel seltsamen Sand oder Kies ab und finde eine Töpferscherbe.",
+            "brauchst": "Pinsel: 1 Feder, 1 Kupferbarren, 1 Stock",
+            "tipp": "Seltsamer Sand liegt in Wüstentempeln und Ozeanruinen, seltsamer Kies in Pfadruinen."
+          },
+          "en": {
+            "tun": "Brush suspicious sand or gravel to find a pottery sherd.",
+            "brauchst": "Brush: 1 feather, 1 copper ingot, 1 stick",
+            "tipp": "Suspicious sand hides in desert temples and ocean ruins, suspicious gravel in trail ruins."
+          }
+        },
+        {
+          "id": "krug",
+          "vanilla": "adventure/craft_decorated_pot_using_only_sherds",
+          "parent": "scherbe",
+          "de": {
+            "tun": "Stell einen verzierten Krug aus 4 Töpferscherben her.",
+            "tipp": "Die Scherben bestimmen die Bilder auf den Seiten."
+          },
+          "en": {
+            "tun": "Craft a decorated pot from 4 pottery sherds.",
+            "tipp": "The sherds decide the pictures on each side."
+          }
+        },
+        {
+          "id": "besatz",
+          "vanilla": "adventure/trim_with_any_armor_pattern",
+          "parent": "start",
+          "de": {
+            "tun": "Verzier ein Rüstungsteil am Schmiedetisch mit einem Besatz.",
+            "brauchst": "Schmiedetisch, Schmiedevorlage, Rüstungsteil, Material wie Gold, Kupfer oder Amethyst",
+            "tipp": "Vorlagen liegen in Truhen von Bauwerken. Mit 7 Diamanten kannst du sie kopieren."
+          },
+          "en": {
+            "tun": "Add a trim to armor at a smithing table.",
+            "brauchst": "Smithing table, smithing template, armor, a material like gold, copper or amethyst",
+            "tipp": "Templates are in structure chests. 7 diamonds let you copy one."
+          }
+        },
+        {
+          "id": "knarzherz",
+          "vanilla": "adventure/heart_transplanter",
+          "parent": "start",
+          "de": {
+            "tun": "Setz ein Knarzherz richtig herum zwischen zwei Blasseichenstämme.",
+            "brauchst": "Knarzherz (nur mit Behutsamkeit abbaubar), 2 Blasseichenstämme",
+            "tipp": "Knarzherzen findest du im Blassen Garten. Nachts erwacht dort der Knarz, also lieber tagsüber."
+          },
+          "en": {
+            "tun": "Place a creaking heart the right way round between two pale oak logs.",
+            "brauchst": "Creaking heart (needs Silk Touch), 2 pale oak logs",
+            "tipp": "Creaking hearts are in the pale garden. The creaking wakes at night, so go by day."
+          }
+        }
+      ]
+    },
+    {
+      "id": "nether",
+      "phase": 2,
+      "icon": "minecraft:netherrack",
+      "hintergrund": "minecraft:block/netherrack",
+      "de": {
+        "titel": "Nether",
+        "beschreibung": "Der Nether ist offen! Heiß, gefährlich und voller Schätze."
+      },
+      "en": {
+        "titel": "The Nether",
+        "beschreibung": "The Nether is open! Hot, dangerous and full of treasure."
+      },
+      "andenken": {
+        "item": "weihnachtsmuetze",
+        "parent": "trank",
+        "icon": {
+          "id": "minecraft:paper",
+          "components": {
+            "minecraft:item_model": "weihnachten:weihnachtsmuetze"
+          }
+        },
+        "de": {
+          "titel": "Andenken: Weihnachtsmütze",
+          "tun": "Schaff alle ★-Quests in diesem Kapitel.",
+          "tipp": "Eine echte Weihnachtsmütze zum Aufsetzen. Hält nicht warm, sieht aber super aus."
+        },
+        "en": {
+          "titel": "Souvenir: Santa Hat",
+          "tun": "Finish every ★ quest in this chapter.",
+          "tipp": "A real Santa hat to wear. Doesn't keep you warm, but looks great."
+        }
+      },
+      "quests": [
+        {
+          "id": "portal",
+          "vanilla": [
+            "story/enter_the_nether",
+            "nether/root"
+          ],
+          "parent": "start",
+          "kern": true,
+          "de": {
+            "tun": "Bau ein Netherportal, zünde es an und geh hindurch.",
+            "brauchst": "10 Obsidian, Feuerzeug (Eisenbarren + Feuerstein)",
+            "tipp": "Der Rahmen ist 4 breit und 5 hoch, die Ecken darfst du weglassen. Merk dir die Koordinaten!"
+          },
+          "en": {
+            "tun": "Build a Nether portal, light it and step through.",
+            "brauchst": "10 obsidian, flint and steel (iron ingot + flint)",
+            "tipp": "The frame is 4 wide and 5 tall, corners optional. Note the coordinates!"
+          }
+        },
+        {
+          "id": "betten",
+          "parent": "portal",
+          "icon": "minecraft:red_bed",
+          "erkennung": "info",
+          "de": {
+            "titel": "Kein Nickerchen",
+            "tun": "Betten explodieren im Nether. Wirklich.",
+            "tipp": "Hier setzt ein aufgeladener Seelenanker deinen Wiedereinstiegspunkt."
+          },
+          "en": {
+            "titel": "No Naps",
+            "tun": "Beds explode in the Nether. Seriously.",
+            "tipp": "A charged respawn anchor sets your spawn point here instead."
+          }
+        },
+        {
+          "id": "goldig",
+          "parent": "portal",
+          "icon": "minecraft:golden_helmet",
+          "erkennung": {
+            "tragen": {
+              "head": "minecraft:golden_helmet",
+              "chest": "minecraft:golden_chestplate",
+              "legs": "minecraft:golden_leggings",
+              "feet": "minecraft:golden_boots"
+            }
+          },
+          "de": {
+            "titel": "Ganz schön goldig",
+            "tun": "Trag ein Teil Goldrüstung.",
+            "brauchst": "z. B. Goldstiefel: 4 Goldbarren",
+            "tipp": "Dann greifen dich Piglins nicht an. Gold abbauen oder ihre Truhen öffnen macht sie trotzdem wütend."
+          },
+          "en": {
+            "titel": "Good as Gold",
+            "tun": "Wear a piece of gold armor.",
+            "brauchst": "e.g. golden boots: 4 gold ingots",
+            "tipp": "Piglins then leave you alone. Mining gold or opening their chests still makes them angry."
+          }
+        },
+        {
+          "id": "piglin",
+          "vanilla": "nether/distract_piglin",
+          "parent": "goldig",
+          "kern": true,
+          "de": {
+            "tun": "Lenk einen Piglin mit Gold ab.",
+            "brauchst": "Goldbarren",
+            "tipp": "Wirf ihm einen Goldbarren hin, er gibt dir dafür etwas zurück."
+          },
+          "en": {
+            "tun": "Distract a piglin with gold.",
+            "brauchst": "Gold ingot",
+            "tipp": "Toss them a gold ingot and they'll give you something in return."
+          }
+        },
+        {
+          "id": "festung",
+          "vanilla": "nether/find_fortress",
+          "parent": "portal",
+          "kern": true,
+          "de": {
+            "tun": "Betritt eine Netherfestung.",
+            "tipp": "Festungen bestehen aus dunklen Netherziegeln. Nimm genug Essen und Blöcke mit."
+          },
+          "en": {
+            "tun": "Enter a Nether fortress.",
+            "tipp": "Fortresses are made of dark nether bricks. Bring plenty of food and blocks."
+          }
+        },
+        {
+          "id": "lohe",
+          "vanilla": "nether/obtain_blaze_rod",
+          "parent": "festung",
+          "kern": true,
+          "de": {
+            "tun": "Besorg dir eine Lohenrute.",
+            "tipp": "Lohen schweben bei Spawnern in Festungen. Schneebälle machen ihnen erstaunlich viel Schaden!"
+          },
+          "en": {
+            "tun": "Get a blaze rod.",
+            "tipp": "Blazes float around spawners in fortresses. Snowballs hurt them surprisingly much!"
+          }
+        },
+        {
+          "id": "trank",
+          "vanilla": "nether/brew_potion",
+          "parent": "lohe",
+          "kern": true,
+          "de": {
+            "tun": "Braue einen Trank.",
+            "brauchst": "Braustand: 1 Lohenrute, 3 Bruchstein. Dazu Wasserflaschen, Netherwarze, Lohenstaub",
+            "tipp": "Netherwarze wächst in Festungen auf Seelensand. Lohenstaub ist der Brennstoff."
+          },
+          "en": {
+            "tun": "Brew a potion.",
+            "brauchst": "Brewing stand: 1 blaze rod, 3 cobblestone. Plus water bottles, nether wart, blaze powder",
+            "tipp": "Nether wart grows on soul sand in fortresses. Blaze powder is the fuel."
+          }
+        },
+        {
+          "id": "alle_traenke",
+          "vanilla": "nether/all_potions",
+          "parent": "trank",
+          "de": {
+            "tun": "Hab alle Trankeffekte gleichzeitig.",
+            "tipp": "Trink die langen Tränke zuerst und die kurzen zuletzt. Redstone verlängert sie."
+          },
+          "en": {
+            "tun": "Have every potion effect at once.",
+            "tipp": "Drink the long ones first and the short ones last. Redstone extends them."
+          }
+        },
+        {
+          "id": "witherschaedel",
+          "vanilla": "nether/get_wither_skull",
+          "parent": "festung",
+          "de": {
+            "tun": "Erbeute einen Witherskelettschädel.",
+            "tipp": "Witherskelette leben in Festungen. Plünderung erhöht die Chance."
+          },
+          "en": {
+            "tun": "Get a wither skeleton skull.",
+            "tipp": "Wither skeletons live in fortresses. Looting improves your odds."
+          }
+        },
+        {
+          "id": "wither",
+          "vanilla": "nether/summon_wither",
+          "parent": "witherschaedel",
+          "de": {
+            "tun": "Erschaffe den Wither.",
+            "brauchst": "3 Witherskelettschädel, 4 Seelensand oder Seelenerde",
+            "tipp": "Bitte weit weg von Häusern und vom Spawn! Am besten gemeinsam und tief unter der Erde."
+          },
+          "en": {
+            "tun": "Summon the Wither.",
+            "brauchst": "3 wither skeleton skulls, 4 soul sand or soul soil",
+            "tipp": "Far away from homes and spawn, please! Best done together, deep underground."
+          }
+        },
+        {
+          "id": "leuchtfeuer",
+          "vanilla": "nether/create_beacon",
+          "parent": "wither",
+          "de": {
+            "tun": "Bau und aktiviere ein Leuchtfeuer.",
+            "brauchst": "Netherstern, 5 Glas, 3 Obsidian. Dazu 9 Eisen-, Gold-, Smaragd- oder Diamantblöcke",
+            "tipp": "Die kleinste Pyramide ist 3 × 3 Blöcke groß, das Leuchtfeuer kommt oben drauf."
+          },
+          "en": {
+            "tun": "Build and activate a beacon.",
+            "brauchst": "Nether star, 5 glass, 3 obsidian. Plus 9 iron, gold, emerald or diamond blocks",
+            "tipp": "The smallest pyramid is 3 × 3, the beacon sits on top."
+          }
+        },
+        {
+          "id": "leuchtfeuer_voll",
+          "vanilla": "nether/create_full_beacon",
+          "parent": "leuchtfeuer",
+          "de": {
+            "tun": "Bring ein Leuchtfeuer auf volle Stärke.",
+            "brauchst": "164 Mineralblöcke für 4 Stufen",
+            "tipp": "Eisen lässt sich am leichtesten sammeln. Zusammen geht es schneller!"
+          },
+          "en": {
+            "tun": "Bring a beacon to full power.",
+            "brauchst": "164 mineral blocks for 4 tiers",
+            "tipp": "Iron is the easiest to farm. Team up!"
+          }
+        },
+        {
+          "id": "bastion",
+          "vanilla": "nether/find_bastion",
+          "parent": "goldig",
+          "de": {
+            "tun": "Betritt eine Bastionsruine.",
+            "tipp": "Riesige Bauten aus Schwarzstein. Gegen Piglin-Barbaren hilft auch Gold nicht."
+          },
+          "en": {
+            "tun": "Enter a bastion remnant.",
+            "tipp": "Huge blackstone buildings. Gold won't save you from piglin brutes."
+          }
+        },
+        {
+          "id": "bastion_truhe",
+          "vanilla": "nether/loot_bastion",
+          "parent": "bastion",
+          "de": {
+            "tun": "Plündere eine Truhe in einer Bastionsruine.",
+            "tipp": "Das macht alle Piglins in der Nähe wütend. Schnell sein!"
+          },
+          "en": {
+            "tun": "Loot a chest in a bastion remnant.",
+            "tipp": "That angers every piglin nearby. Be quick!"
+          }
+        },
+        {
+          "id": "aufwertung",
+          "parent": "bastion_truhe",
+          "icon": "minecraft:netherite_upgrade_smithing_template",
+          "erkennung": {
+            "inventar": [
+              "minecraft:netherite_upgrade_smithing_template"
+            ]
+          },
+          "de": {
+            "titel": "Upgrade-Plan",
+            "tun": "Finde eine Netherit-Aufwertung.",
+            "tipp": "Sie liegt in Bastionstruhen. Mit 7 Diamanten und Netherrack kannst du sie kopieren."
+          },
+          "en": {
+            "titel": "Upgrade Plan",
+            "tun": "Find a netherite upgrade template.",
+            "tipp": "It's in bastion chests. 7 diamonds and netherrack let you copy it."
+          }
+        },
+        {
+          "id": "schrott",
+          "vanilla": "nether/obtain_ancient_debris",
+          "parent": "portal",
+          "de": {
+            "tun": "Bau antiken Schrott ab.",
+            "brauchst": "Diamantspitzhacke",
+            "tipp": "Am häufigsten um Höhe Y 15. Er übersteht Explosionen."
+          },
+          "en": {
+            "tun": "Mine some ancient debris.",
+            "brauchst": "Diamond pickaxe",
+            "tipp": "Most common around Y 15. It survives explosions."
+          }
+        },
+        {
+          "id": "netheritruestung",
+          "vanilla": "nether/netherite_armor",
+          "parent": "schrott",
+          "de": {
+            "tun": "Besorg dir eine komplette Netheritrüstung.",
+            "brauchst": "4 Netheritbarren, 4 Netherit-Aufwertungen, Diamantrüstung",
+            "tipp": "Netheritbarren = 4 Netheritplatten + 4 Goldbarren. Aufwerten am Schmiedetisch."
+          },
+          "en": {
+            "tun": "Get a full set of netherite armor.",
+            "brauchst": "4 netherite ingots, 4 upgrade templates, diamond armor",
+            "tipp": "Netherite ingot = 4 netherite scrap + 4 gold ingots. Upgrade at a smithing table."
+          }
+        },
+        {
+          "id": "netherithacke",
+          "vanilla": "husbandry/obtain_netherite_hoe",
+          "parent": "schrott",
+          "de": {
+            "tun": "Werte eine Diamanthacke zu Netherit auf.",
+            "tipp": "Völlig übertrieben. Genau richtig."
+          },
+          "en": {
+            "tun": "Upgrade a diamond hoe to netherite.",
+            "tipp": "Completely over the top. Just right."
+          }
+        },
+        {
+          "id": "weinender_obsidian",
+          "vanilla": "nether/obtain_crying_obsidian",
+          "parent": "portal",
+          "de": {
+            "tun": "Besorg dir weinenden Obsidian.",
+            "tipp": "Piglins tauschen ihn gegen Gold. In Bastionen und Portalruinen liegt er auch."
+          },
+          "en": {
+            "tun": "Get some crying obsidian.",
+            "tipp": "Piglins barter it for gold. It's also in bastions and ruined portals."
+          }
+        },
+        {
+          "id": "seelenanker",
+          "vanilla": "nether/charge_respawn_anchor",
+          "parent": "weinender_obsidian",
+          "de": {
+            "tun": "Lade einen Seelenanker voll auf.",
+            "brauchst": "Seelenanker: 6 weinender Obsidian, 3 Leuchtstein. Dazu 4 Leuchtstein zum Laden",
+            "tipp": "Der Seelenanker ist das Bett des Nethers. In der Oberwelt explodiert er!"
+          },
+          "en": {
+            "tun": "Charge a respawn anchor to the max.",
+            "brauchst": "Respawn anchor: 6 crying obsidian, 3 glowstone. Plus 4 glowstone to charge",
+            "tipp": "It's the Nether's bed. In the Overworld it explodes!"
+          }
+        },
+        {
+          "id": "schreiter",
+          "vanilla": "nether/ride_strider",
+          "parent": "portal",
+          "de": {
+            "tun": "Reite einen Schreiter mit einer Wirrpilzrute.",
+            "brauchst": "Sattel, Wirrpilzrute (Angel + Wirrpilz)",
+            "tipp": "Schreiter laufen über Lava. Ideal für Lavaseen."
+          },
+          "en": {
+            "tun": "Ride a strider with a warped fungus on a stick.",
+            "brauchst": "Saddle, warped fungus on a stick (fishing rod + warped fungus)",
+            "tipp": "Striders walk on lava. Perfect for lava lakes."
+          }
+        },
+        {
+          "id": "schreiter_heim",
+          "vanilla": "nether/ride_strider_in_overworld_lava",
+          "parent": "schreiter",
+          "de": {
+            "tun": "Reite mit einem Schreiter mindestens 50 Blöcke über einen Lavasee in der Oberwelt.",
+            "tipp": "Locke ihn mit der Wirrpilzrute durchs Portal."
+          },
+          "en": {
+            "tun": "Ride a strider at least 50 blocks across an Overworld lava lake.",
+            "tipp": "Lure it through the portal with the fungus on a stick."
+          }
+        },
+        {
+          "id": "netherbiome",
+          "vanilla": "nether/explore_nether",
+          "parent": "portal",
+          "de": {
+            "tun": "Besuch alle 5 Netherbiome.",
+            "tipp": "Nether-Ödland, Seelensandtal, Karmesinwald, Wirrwald und Basaltdeltas."
+          },
+          "en": {
+            "tun": "Visit all 5 Nether biomes.",
+            "tipp": "Nether wastes, soul sand valley, crimson forest, warped forest and basalt deltas."
+          }
+        },
+        {
+          "id": "schnellreise",
+          "vanilla": "nether/fast_travel",
+          "parent": "portal",
+          "de": {
+            "tun": "Reise durch den Nether 7 km weit in der Oberwelt.",
+            "tipp": "1 Block im Nether sind 8 in der Oberwelt. Also reichen knapp 900 Blöcke."
+          },
+          "en": {
+            "tun": "Use the Nether to travel 7 km in the Overworld.",
+            "tipp": "1 block in the Nether is 8 in the Overworld, so about 900 blocks will do."
+          }
+        },
+        {
+          "id": "ghast_feuerball",
+          "vanilla": "nether/return_to_sender",
+          "parent": "portal",
+          "de": {
+            "tun": "Erlege einen Ghast mit seinem eigenen Feuerball.",
+            "tipp": "Schlag den Feuerball zurück, kurz bevor er dich trifft."
+          },
+          "en": {
+            "tun": "Kill a ghast with its own fireball.",
+            "tipp": "Hit the fireball back right before it reaches you."
+          }
+        },
+        {
+          "id": "ghast_ausflug",
+          "vanilla": "nether/uneasy_alliance",
+          "parent": "ghast_feuerball",
+          "de": {
+            "tun": "Bring einen Ghast lebend in die Oberwelt und erlege ihn dort.",
+            "tipp": "Bau ein Portal dicht neben einen Ghast und lock ihn hindurch. Viel Geduld einpacken."
+          },
+          "en": {
+            "tun": "Bring a ghast to the Overworld alive, then kill it there.",
+            "tipp": "Build a portal right next to a ghast and lure it in. Bring lots of patience."
+          }
+        },
+        {
+          "id": "ghast_fernrohr",
+          "vanilla": "adventure/spyglass_at_ghast",
+          "parent": "portal",
+          "de": {
+            "tun": "Schau dir einen Ghast durchs Fernrohr an.",
+            "tipp": "Große weiße Würfel, die viel weinen. Am besten aus sicherer Entfernung."
+          },
+          "en": {
+            "tun": "Look at a ghast through a spyglass.",
+            "tipp": "Big white cubes that cry a lot. Best from a safe distance."
+          }
+        },
+        {
+          "id": "ausgetrockneter_ghast",
+          "vanilla": "husbandry/place_dried_ghast_in_water",
+          "parent": "ghast_fernrohr",
+          "de": {
+            "tun": "Setz einen ausgetrockneten Ghast in Wasser.",
+            "brauchst": "Ausgetrockneter Ghast: 8 Ghastträne, 1 Seelensand",
+            "tipp": "Mit genug Wasser schlüpft daraus ein glücklicher Ghast. Den kannst du später reiten!"
+          },
+          "en": {
+            "tun": "Place a dried ghast in water.",
+            "brauchst": "Dried ghast: 8 ghast tears, 1 soul sand",
+            "tipp": "Given water, a happy ghast hatches from it. You can ride it later!"
+          }
+        },
+        {
+          "id": "froschlichter",
+          "vanilla": "husbandry/froglights",
+          "parent": "portal",
+          "de": {
+            "tun": "Hab alle 3 Froschlichter gleichzeitig im Inventar.",
+            "brauchst": "3 Froscharten, kleine Magmawürfel",
+            "tipp": "Frösche fressen kleine Magmawürfel. Fahr sie im Boot durchs Portal, jede Farbe macht ein anderes Licht."
+          },
+          "en": {
+            "tun": "Have all 3 froglights in your inventory.",
+            "brauchst": "3 frog variants, small magma cubes",
+            "tipp": "Frogs eat small magma cubes. Take them through the portal in a boat, each colour makes a different light."
+          }
+        }
+      ]
+    },
+    {
+      "id": "markt",
+      "phase": 3,
+      "icon": {
+        "id": "minecraft:paper",
+        "components": {
+          "minecraft:item_model": "weihnachten:lichterkette"
+        }
+      },
+      "hintergrund": "minecraft:block/snow",
+      "de": {
+        "titel": "Weihnachtsmarkt",
+        "beschreibung": "Weihnachtsmarkt-Woche! Handeln, tauschen, beisammen sein."
+      },
+      "en": {
+        "titel": "Christmas Market",
+        "beschreibung": "Christmas market week! Trade, swap and spend time together."
+      },
+      "quests": [
+        {
+          "id": "stand",
+          "parent": "start",
+          "icon": "minecraft:barrel",
+          "erkennung": "info",
+          "de": {
+            "titel": "Eigener Stand",
+            "tun": "Bau einen Marktstand, zum Beispiel vor deinem Haus oder bei deinen Nachbarn.",
+            "tipp": "Schilder und Gegenstandsrahmen zeigen, was du anbietest. Laternen machen es gemütlich."
+          },
+          "en": {
+            "titel": "Your Own Stall",
+            "tun": "Build a market stall, for example outside your home or next to your neighbours.",
+            "tipp": "Signs and item frames show what you're selling. Lanterns make it cosy."
+          }
+        },
+        {
+          "id": "tauschen",
+          "parent": "start",
+          "icon": "minecraft:emerald",
+          "erkennung": "info",
+          "de": {
+            "titel": "Tausch unter Freunden",
+            "tun": "Handel mit anderen Spielern: Ware gegen Ware oder gegen Smaragde.",
+            "tipp": "Verabredet euch im Chat. Bleibt fair, es ist Weihnachten!"
+          },
+          "en": {
+            "titel": "Swap with Friends",
+            "tun": "Trade with other players: goods for goods or for emeralds.",
+            "tipp": "Meet up via chat. Keep it fair, it's Christmas!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "phase": 4,
+      "icon": "minecraft:end_stone",
+      "hintergrund": "minecraft:block/end_stone",
+      "de": {
+        "titel": "Das End",
+        "beschreibung": "Das End ist offen! Den Drachen besiegen wir gemeinsam."
+      },
+      "en": {
+        "titel": "The End",
+        "beschreibung": "The End is open! We'll take on the dragon together."
+      },
+      "andenken": {
+        "item": "lichterkette",
+        "parent": "drache",
+        "icon": {
+          "id": "minecraft:paper",
+          "components": {
+            "minecraft:item_model": "weihnachten:lichterkette"
+          }
+        },
+        "de": {
+          "titel": "Andenken: Lichterkette",
+          "tun": "Schaff alle ★-Quests in diesem Kapitel.",
+          "tipp": "Die Trophäe für Drachenbezwinger. Frohe Weihnachten!"
+        },
+        "en": {
+          "titel": "Souvenir: Fairy Lights",
+          "tun": "Finish every ★ quest in this chapter.",
+          "tipp": "The trophy for dragon slayers. Merry Christmas!"
+        }
+      },
+      "quests": [
+        {
+          "id": "drachenkampf",
+          "parent": "start",
+          "icon": "minecraft:dragon_head",
+          "erkennung": "info",
+          "de": {
+            "titel": "Gemeinsam gegen den Drachen",
+            "tun": "Den Drachenkampf machen wir zusammen. Den Termin findest du im Chat und auf Discord.",
+            "tipp": "Mitbringen: Bogen, viele Pfeile, Blöcke, Wassereimer, Essen."
+          },
+          "en": {
+            "titel": "Together vs. the Dragon",
+            "tun": "We fight the dragon together. Check chat and Discord for the date.",
+            "tipp": "Bring a bow, lots of arrows, blocks, a water bucket and food."
+          }
+        },
+        {
+          "id": "kuerbis",
+          "parent": "start",
+          "icon": "minecraft:carved_pumpkin",
+          "erkennung": {
+            "tragen": {
+              "head": "minecraft:carved_pumpkin"
+            }
+          },
+          "de": {
+            "titel": "Kürbiskopf",
+            "tun": "Setz einen geschnitzten Kürbis auf.",
+            "brauchst": "Kürbis, Schere",
+            "tipp": "Dann werden Endermen nicht wütend, wenn du sie ansiehst. Steht dir!"
+          },
+          "en": {
+            "titel": "Pumpkin Head",
+            "tun": "Wear a carved pumpkin.",
+            "brauchst": "Pumpkin, shears",
+            "tipp": "Endermen won't get angry when you look at them. Suits you!"
+          }
+        },
+        {
+          "id": "enderauge",
+          "vanilla": "story/follow_ender_eye",
+          "parent": "start",
+          "kern": true,
+          "de": {
+            "tun": "Folge einem Enderauge bis zu einer Festung.",
+            "brauchst": "Enderauge: Enderperle + Lohenstaub",
+            "tipp": "Wirf es in die Luft und lauf hinterher. Manche zerbrechen, nimm genug mit."
+          },
+          "en": {
+            "tun": "Follow an eye of ender to a stronghold.",
+            "brauchst": "Eye of ender: ender pearl + blaze powder",
+            "tipp": "Throw it up and follow it. Some break, so bring plenty."
+          }
+        },
+        {
+          "id": "end",
+          "vanilla": [
+            "story/enter_the_end",
+            "end/root"
+          ],
+          "parent": "enderauge",
+          "kern": true,
+          "de": {
+            "tun": "Betritt das End durch das Endportal.",
+            "brauchst": "Bis zu 12 Enderaugen für den Rahmen",
+            "tipp": "Das Portal liegt tief in der Festung. Nimm Blöcke und einen Bogen mit."
+          },
+          "en": {
+            "tun": "Enter the End through the End portal.",
+            "brauchst": "Up to 12 eyes of ender for the frame",
+            "tipp": "The portal is deep inside the stronghold. Bring blocks and a bow."
+          }
+        },
+        {
+          "id": "drache",
+          "vanilla": "end/kill_dragon",
+          "parent": "end",
+          "kern": true,
+          "de": {
+            "tun": "Besiege den Enderdrachen.",
+            "tipp": "Zerstört zuerst die Kristalle auf den Säulen, sonst heilt er sich."
+          },
+          "en": {
+            "tun": "Defeat the Ender Dragon.",
+            "tipp": "Destroy the crystals on the pillars first, or it keeps healing."
+          }
+        },
+        {
+          "id": "drache_fernrohr",
+          "vanilla": "adventure/spyglass_at_dragon",
+          "parent": "end",
+          "de": {
+            "tun": "Schau dir den Enderdrachen durchs Fernrohr an.",
+            "tipp": "Am besten, bevor er dich bemerkt."
+          },
+          "en": {
+            "tun": "Look at the Ender Dragon through a spyglass.",
+            "tipp": "Preferably before it notices you."
+          }
+        },
+        {
+          "id": "drachenei",
+          "vanilla": "end/dragon_egg",
+          "parent": "drache",
+          "de": {
+            "tun": "Halte das Drachenei.",
+            "tipp": "Nicht anklicken, sonst teleportiert es sich! Ein Kolben schiebt es herunter, dann kannst du es aufheben."
+          },
+          "en": {
+            "tun": "Hold the dragon egg.",
+            "tipp": "Don't click it or it teleports! Push it with a piston and pick it up."
+          }
+        },
+        {
+          "id": "drachenatem",
+          "vanilla": "end/dragon_breath",
+          "parent": "drache",
+          "de": {
+            "tun": "Sammle Drachenatem in einer Glasflasche.",
+            "brauchst": "Glasflaschen",
+            "tipp": "Halt die Flasche in die lila Wolke, die der Drache hinterlässt."
+          },
+          "en": {
+            "tun": "Collect dragon's breath in a glass bottle.",
+            "brauchst": "Glass bottles",
+            "tipp": "Hold the bottle into the purple cloud the dragon leaves behind."
+          }
+        },
+        {
+          "id": "drache_zurueck",
+          "vanilla": "end/respawn_dragon",
+          "parent": "drache",
+          "de": {
+            "tun": "Ruf den Enderdrachen zurück ins Leben.",
+            "brauchst": "4 Enderkristalle",
+            "tipp": "Je einen Kristall an jede Seite des Ausgangsportals. Bitte vorher im Chat absprechen!"
+          },
+          "en": {
+            "tun": "Respawn the Ender Dragon.",
+            "brauchst": "4 end crystals",
+            "tipp": "One crystal on each side of the exit portal. Please check in chat first!"
+          }
+        },
+        {
+          "id": "transitportal",
+          "vanilla": "end/enter_end_gateway",
+          "parent": "drache",
+          "de": {
+            "tun": "Verlass die Hauptinsel durch ein Endtransitportal.",
+            "brauchst": "Enderperle",
+            "tipp": "Nach dem Sieg erscheinen kleine Portale am Rand. Wirf eine Enderperle hinein."
+          },
+          "en": {
+            "tun": "Leave the main island through an End gateway.",
+            "brauchst": "Ender pearl",
+            "tipp": "After the fight small portals appear at the edge. Throw a pearl into one."
+          }
+        },
+        {
+          "id": "endsiedlung",
+          "vanilla": "end/find_end_city",
+          "parent": "transitportal",
+          "de": {
+            "tun": "Betritt eine Endsiedlung.",
+            "tipp": "Hohe lila Türme auf den äußeren Inseln. Shulker schießen Geschosse, die dich schweben lassen."
+          },
+          "en": {
+            "tun": "Enter an End city.",
+            "tipp": "Tall purple towers on the outer islands. Shulkers fire bullets that make you levitate."
+          }
+        },
+        {
+          "id": "schweben",
+          "vanilla": "end/levitate",
+          "parent": "endsiedlung",
+          "de": {
+            "tun": "Schwebe durch Shulker-Geschosse 50 Blöcke nach oben.",
+            "tipp": "Lass dich mehrmals treffen. Für die Landung: Wassereimer!"
+          },
+          "en": {
+            "tun": "Levitate 50 blocks up from shulker bullets.",
+            "tipp": "Get hit several times. For the landing: water bucket!"
+          }
+        },
+        {
+          "id": "elytra",
+          "vanilla": "end/elytra",
+          "parent": "endsiedlung",
+          "de": {
+            "tun": "Finde eine Elytra.",
+            "tipp": "Sie hängt im Endschiff neben manchen Endsiedlungen. Raketen geben Schub."
+          },
+          "en": {
+            "tun": "Find an elytra.",
+            "tipp": "It hangs in the End ship next to some End cities. Rockets give a boost."
+          }
+        },
+        {
+          "id": "alle_effekte",
+          "vanilla": "nether/all_effects",
+          "parent": "schweben",
+          "de": {
+            "tun": "Hab jeden Statuseffekt gleichzeitig.",
+            "tipp": "Die schwerste Quest von allen. Braucht Planung, Freunde und danach viel Milch."
+          },
+          "en": {
+            "tun": "Have every status effect at once.",
+            "tipp": "The hardest quest of all. Needs planning, friends and lots of milk afterwards."
+          }
+        },
+        {
+          "id": "besatz_alle",
+          "vanilla": "adventure/trim_with_all_exclusive_armor_patterns",
+          "parent": "endsiedlung",
+          "de": {
+            "tun": "Benutze jede dieser Schmiedevorlagen einmal: Turmspitze, Schnauze, Rippe, Warthof, Stille, Plagegeist, Gezeiten, Wegfinder.",
+            "tipp": "Turmspitze liegt in Endsiedlungen, Stille in antiken Städten, Gezeiten gibt es von Großen Wächtern."
+          },
+          "en": {
+            "tun": "Use each of these smithing templates once: Spire, Snout, Rib, Ward, Silence, Vex, Tide, Wayfinder.",
+            "tipp": "Spire is in End cities, Silence in ancient cities, Tide drops from elder guardians."
+          }
+        }
+      ]
+    }
+  ],
+  "texte": {
+    "questbuch.meldung.start": {
+      "de": "❄ Dein Questbuch ist da! Drück L und such dir ein Kapitel aus.",
+      "en": "❄ Your quest book is here! Press L and pick a chapter."
+    },
+    "questbuch.meldung.neu": {
+      "de": "✦ Neues Kapitel im Questbuch: %s (Taste L)",
+      "en": "✦ New quest book chapter: %s (press L)"
+    },
+    "leitfaden.phase.1.chat": {
+      "de": "❄ Das Weihnachtsprojekt startet! Drück L für dein Questbuch.",
+      "en": "❄ The Christmas project begins! Press L for your quest book."
+    },
+    "leitfaden.phase.1.titel": {
+      "de": "Frohes Bauen!",
+      "en": "Happy building!"
+    },
+    "leitfaden.phase.2.chat": {
+      "de": "✦ Der Nether ist offen!",
+      "en": "✦ The Nether is open!"
+    },
+    "leitfaden.phase.2.titel": {
+      "de": "Der Nether ist offen",
+      "en": "The Nether is open"
+    },
+    "leitfaden.phase.3.chat": {
+      "de": "☃ Weihnachtsmarkt-Woche! Bau einen Stand und handel mit den anderen.",
+      "en": "☃ Christmas market week! Build a stall and trade with the others."
+    },
+    "leitfaden.phase.3.titel": {
+      "de": "Weihnachtsmarkt",
+      "en": "Christmas Market"
+    },
+    "leitfaden.phase.4.chat": {
+      "de": "★ Das End ist offen! Den Drachen besiegen wir gemeinsam, Termin im Chat.",
+      "en": "★ The End is open! We fight the dragon together, date in chat."
+    },
+    "leitfaden.phase.4.titel": {
+      "de": "Auf ins End!",
+      "en": "Off to the End!"
+    },
+    "item.weihnachten.lebkuchen": {
+      "de": "Lebkuchen",
+      "en": "Gingerbread"
+    },
+    "item.weihnachten.weihnachtsmuetze": {
+      "de": "Weihnachtsmütze",
+      "en": "Santa Hat"
+    },
+    "item.weihnachten.lichterkette": {
+      "de": "Lichterkette",
+      "en": "Fairy Lights"
+    },
+    "item.weihnachten.andenken": {
+      "de": "Andenken · Weihnachten 2026",
+      "en": "Souvenir · Christmas 2026"
+    }
+  }
+}

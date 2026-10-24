@@ -1,0 +1,62 @@
+{
+  "parent": "leitfaden:nether/portal",
+  "criteria": {
+    "killed_ghast": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:ghast"
+          }
+        },
+        "killing_blow": {
+          "direct_entity": {
+            "minecraft:entity_type": "minecraft:fireball"
+          },
+          "tags": [
+            {
+              "expected": true,
+              "id": "#minecraft:is_projectile"
+            }
+          ]
+        }
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "requirements": [
+    [
+      "killed_ghast"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:fire_charge"
+    },
+    "title": {
+      "translate": "advancements.nether.return_to_sender.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.ghast_feuerball.tun",
+        "fallback": "Kill a ghast with its own fireball."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.ghast_feuerball.tipp",
+        "fallback": "Hit the fireball back right before it reaches you.",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "parent": "leitfaden:nether/weinender_obsidian",
+  "criteria": {
+    "charge_respawn_anchor": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:all_of",
+          "terms": [
+            {
+              "type": "minecraft:location_check",
+              "predicate": {
+                "block": {
+                  "blocks": "minecraft:respawn_anchor",
+                  "state": {
+                    "charges": "4"
+                  }
+                }
+              }
+            },
+            {
+              "type": "minecraft:match_tool",
+              "predicate": {
+                "items": "minecraft:glowstone"
+              }
+            }
+          ]
+        }
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "requirements": [
+    [
+      "charge_respawn_anchor"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:respawn_anchor"
+    },
+    "title": {
+      "translate": "advancements.nether.charge_respawn_anchor.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.seelenanker.tun",
+        "fallback": "Charge a respawn anchor to the max."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.nether.seelenanker.brauchst",
+        "fallback": "Respawn anchor: 6 crying obsidian, 3 glowstone. Plus 4 glowstone to charge",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.seelenanker.tipp",
+        "fallback": "It's the Nether's bed. In the Overworld it explodes!",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

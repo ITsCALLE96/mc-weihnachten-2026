@@ -1,0 +1,58 @@
+{
+  "parent": "leitfaden:end/end",
+  "criteria": {
+    "spyglass_at_dragon": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:spyglass"
+        },
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:type_specific/player": {
+              "looking_at": {
+                "minecraft:entity_type": "minecraft:ender_dragon"
+              }
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:using_item"
+    }
+  },
+  "requirements": [
+    [
+      "spyglass_at_dragon"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:spyglass"
+    },
+    "title": {
+      "translate": "advancements.adventure.spyglass_at_dragon.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.end.drache_fernrohr.tun",
+        "fallback": "Look at the Ender Dragon through a spyglass."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.end.drache_fernrohr.tipp",
+        "fallback": "Preferably before it notices you.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

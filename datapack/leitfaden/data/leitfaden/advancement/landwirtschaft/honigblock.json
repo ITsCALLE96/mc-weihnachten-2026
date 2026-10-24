@@ -1,0 +1,56 @@
+{
+  "parent": "leitfaden:landwirtschaft/honig",
+  "criteria": {
+    "honey_block_slide": {
+      "conditions": {
+        "blocks": "minecraft:honey_block"
+      },
+      "trigger": "minecraft:slide_down_block"
+    }
+  },
+  "requirements": [
+    [
+      "honey_block_slide"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:honey_block"
+    },
+    "title": {
+      "translate": "advancements.adventure.honey_block_slide.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.landwirtschaft.honigblock.tun",
+        "fallback": "Jump against the side of a honey block and slide down slowly."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.landwirtschaft.honigblock.brauchst",
+        "fallback": "Honey block: 4 honey bottles",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.landwirtschaft.honigblock.tipp",
+        "fallback": "Only works on the side, not on top.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

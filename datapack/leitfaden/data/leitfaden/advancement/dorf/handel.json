@@ -1,0 +1,53 @@
+{
+  "parent": "leitfaden:dorf/dorf_finden",
+  "criteria": {
+    "traded": {
+      "trigger": "minecraft:villager_trade"
+    }
+  },
+  "requirements": [
+    [
+      "traded"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:emerald"
+    },
+    "title": {
+      "translate": "advancements.adventure.trade.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.dorf.handel.tun",
+        "fallback": "Trade with a villager."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.dorf.handel.brauchst",
+        "fallback": "Emeralds or the goods they want",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.dorf.handel.tipp",
+        "fallback": "Jobless villagers claim a workstation, e.g. a composter makes them a farmer.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

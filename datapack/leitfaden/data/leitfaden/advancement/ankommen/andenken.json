@@ -1,0 +1,44 @@
+{
+  "parent": "leitfaden:ankommen/eisenspitzhacke",
+  "criteria": {
+    "andenken": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:cookie",
+      "components": {
+        "minecraft:item_model": "weihnachten:lebkuchen"
+      }
+    },
+    "title": {
+      "translate": "questbuch.ankommen.andenken.titel",
+      "fallback": "Souvenir: Gingerbread"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.andenken.tun",
+        "fallback": "Finish every ★ quest in this chapter."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.andenken.tipp",
+        "fallback": "Genuine Christmas gingerbread. Edible, but far too nice to eat.",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "rewards": {
+    "function": "leitfaden:items/lebkuchen"
+  }
+}

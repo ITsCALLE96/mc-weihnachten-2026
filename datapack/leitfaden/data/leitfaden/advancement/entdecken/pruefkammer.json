@@ -1,0 +1,53 @@
+{
+  "parent": "leitfaden:entdecken/start",
+  "criteria": {
+    "minecraft_trials_edition": {
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "structures": "minecraft:trial_chambers"
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "requirements": [
+    [
+      "minecraft_trials_edition"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:chiseled_tuff"
+    },
+    "title": {
+      "translate": "advancements.adventure.minecraft_trials_edition.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.entdecken.pruefkammer.tun",
+        "fallback": "Enter a trial chamber."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.entdecken.pruefkammer.tipp",
+        "fallback": "Trial chambers are underground, built from tuff and copper. The map hides them on purpose.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

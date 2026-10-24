@@ -1,1 +1,1 @@
-give @s minecraft:cookie[minecraft:item_model="weihnachten:lebkuchen",minecraft:item_name="Lebkuchen"] 1
+give @s minecraft:cookie[minecraft:item_model="weihnachten:lebkuchen",minecraft:item_name={translate:"item.weihnachten.lebkuchen",fallback:"Gingerbread"},minecraft:lore=[{translate:"item.weihnachten.andenken",fallback:"Souvenir · Christmas 2026",color:"gold",italic:false}]] 1

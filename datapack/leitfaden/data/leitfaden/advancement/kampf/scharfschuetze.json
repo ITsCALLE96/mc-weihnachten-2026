@@ -1,0 +1,75 @@
+{
+  "parent": "leitfaden:kampf/zielblock",
+  "criteria": {
+    "killed_skeleton": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:distance": {
+              "horizontal": {
+                "min": 50
+              }
+            },
+            "minecraft:entity_type": "minecraft:skeleton"
+          }
+        },
+        "killing_blow": {
+          "tags": [
+            {
+              "expected": true,
+              "id": "#minecraft:is_projectile"
+            }
+          ]
+        }
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "requirements": [
+    [
+      "killed_skeleton"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:arrow"
+    },
+    "title": {
+      "translate": "advancements.adventure.sniper_duel.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.kampf.scharfschuetze.tun",
+        "fallback": "Kill a skeleton from at least 50 blocks away."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.kampf.scharfschuetze.brauchst",
+        "fallback": "Bow, ideally with Power",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.kampf.scharfschuetze.tipp",
+        "fallback": "Works best from a hill over flat land.",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

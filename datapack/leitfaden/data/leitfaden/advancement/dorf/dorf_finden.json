@@ -1,0 +1,54 @@
+{
+  "parent": "leitfaden:dorf/start",
+  "criteria": {
+    "bauwerk": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "structures": "#minecraft:village"
+            }
+          }
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bauwerk"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:bell"
+    },
+    "title": {
+      "translate": "questbuch.dorf.dorf_finden.titel",
+      "fallback": "Neighbourhood"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.dorf.dorf_finden.tun",
+        "fallback": "Find a village."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.dorf.dorf_finden.tipp",
+        "fallback": "Villages appear in plains, deserts, savannas, taigas and snowy tundras.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

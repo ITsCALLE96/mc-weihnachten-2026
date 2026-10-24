@@ -1,0 +1,24 @@
+{
+  "criteria": {
+    "freigeschaltet": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:iron_pickaxe"
+    },
+    "title": {
+      "translate": "questbuch.bergbau.titel",
+      "fallback": "Mining & Gear"
+    },
+    "description": {
+      "translate": "questbuch.bergbau.beschreibung",
+      "fallback": "Dig deeper, gear up. The diamonds are waiting below."
+    },
+    "background": "minecraft:block/stone",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

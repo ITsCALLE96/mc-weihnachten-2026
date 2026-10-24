@@ -1,0 +1,62 @@
+{
+  "parent": "leitfaden:end/drache",
+  "criteria": {
+    "summoned_dragon": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:ender_dragon"
+          }
+        }
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "requirements": [
+    [
+      "summoned_dragon"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:end_crystal"
+    },
+    "title": {
+      "translate": "advancements.end.respawn_dragon.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.end.drache_zurueck.tun",
+        "fallback": "Respawn the Ender Dragon."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.end.drache_zurueck.brauchst",
+        "fallback": "4 end crystals",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.end.drache_zurueck.tipp",
+        "fallback": "One crystal on each side of the exit portal. Please check in chat first!",
+        "color": "gold"
+      }
+    ],
+    "frame": "goal",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

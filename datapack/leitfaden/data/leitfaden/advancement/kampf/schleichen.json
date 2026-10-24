@@ -1,0 +1,42 @@
+{
+  "parent": "leitfaden:kampf/sculk",
+  "criteria": {
+    "avoid_vibration": {
+      "trigger": "minecraft:avoid_vibration"
+    }
+  },
+  "requirements": [
+    [
+      "avoid_vibration"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:sculk_sensor"
+    },
+    "title": {
+      "translate": "advancements.adventure.avoid_vibration.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.kampf.schleichen.tun",
+        "fallback": "Sneak past a sculk sensor or warden without being noticed."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.kampf.schleichen.tipp",
+        "fallback": "Hold Shift. The warden hears everything, so keep it quiet.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

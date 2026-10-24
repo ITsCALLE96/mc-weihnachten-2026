@@ -1,0 +1,85 @@
+{
+  "parent": "leitfaden:tiere/start",
+  "criteria": {
+    "cod": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:cod"
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "pufferfish": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:pufferfish"
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "salmon": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:salmon"
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "tropical_fish": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:tropical_fish"
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    }
+  },
+  "requirements": [
+    [
+      "cod",
+      "tropical_fish",
+      "pufferfish",
+      "salmon"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:fishing_rod"
+    },
+    "title": {
+      "translate": "advancements.husbandry.fishy_business.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.tiere.angeln.tun",
+        "fallback": "Catch a fish."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.tiere.angeln.brauchst",
+        "fallback": "Fishing rod: 3 sticks, 2 string",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.tiere.angeln.tipp",
+        "fallback": "Wait for the bobber to dip, then right-click. Fish bite faster in the rain.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

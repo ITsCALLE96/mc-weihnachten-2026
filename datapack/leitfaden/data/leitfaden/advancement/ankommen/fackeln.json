@@ -1,0 +1,70 @@
+{
+  "parent": "leitfaden:ankommen/stein",
+  "criteria": {
+    "torch": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "minecraft:torch"
+        }
+      }
+    },
+    "wall_torch": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "minecraft:wall_torch"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "torch",
+      "wall_torch"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:torch"
+    },
+    "title": {
+      "translate": "questbuch.ankommen.fackeln.titel",
+      "fallback": "Lights On!"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.fackeln.tun",
+        "fallback": "Place a torch."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.ankommen.fackeln.brauchst",
+        "fallback": "1 coal or charcoal, 1 stick",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.fackeln.tipp",
+        "fallback": "Monsters spawn in the dark. Smelt logs in a furnace to get charcoal.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

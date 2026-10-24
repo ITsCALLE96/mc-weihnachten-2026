@@ -1,0 +1,66 @@
+{
+  "parent": "leitfaden:nether/bastion",
+  "criteria": {
+    "loot_bastion_bridge": {
+      "conditions": {
+        "loot_tables": "minecraft:chests/bastion_bridge"
+      },
+      "trigger": "minecraft:player_generates_container_loot"
+    },
+    "loot_bastion_hoglin_stable": {
+      "conditions": {
+        "loot_tables": "minecraft:chests/bastion_hoglin_stable"
+      },
+      "trigger": "minecraft:player_generates_container_loot"
+    },
+    "loot_bastion_other": {
+      "conditions": {
+        "loot_tables": "minecraft:chests/bastion_other"
+      },
+      "trigger": "minecraft:player_generates_container_loot"
+    },
+    "loot_bastion_treasure": {
+      "conditions": {
+        "loot_tables": "minecraft:chests/bastion_treasure"
+      },
+      "trigger": "minecraft:player_generates_container_loot"
+    }
+  },
+  "requirements": [
+    [
+      "loot_bastion_other",
+      "loot_bastion_treasure",
+      "loot_bastion_hoglin_stable",
+      "loot_bastion_bridge"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:chest"
+    },
+    "title": {
+      "translate": "advancements.nether.loot_bastion.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.bastion_truhe.tun",
+        "fallback": "Loot a chest in a bastion remnant."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.bastion_truhe.tipp",
+        "fallback": "That angers every piglin nearby. Be quick!",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

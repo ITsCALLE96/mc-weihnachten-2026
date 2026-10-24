@@ -1,0 +1,73 @@
+{
+  "parent": "leitfaden:tiere/wolfspanzer_ab",
+  "criteria": {
+    "repair_wolf_armor": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:wolf",
+            "minecraft:equipment": {
+              "body": {
+                "components": {
+                  "minecraft:damage": 0
+                },
+                "items": "minecraft:wolf_armor"
+              }
+            }
+          }
+        },
+        "item": {
+          "items": "minecraft:armadillo_scute"
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    }
+  },
+  "requirements": [
+    [
+      "repair_wolf_armor"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:wolf_armor"
+    },
+    "title": {
+      "translate": "advancements.husbandry.repair_wolf_armor.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.tiere.wolfspanzer_flicken.tun",
+        "fallback": "Fully repair damaged wolf armor."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.tiere.wolfspanzer_flicken.brauchst",
+        "fallback": "Armadillo scutes",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.tiere.wolfspanzer_flicken.tipp",
+        "fallback": "Right-click the wolf with scutes, each one patches a bit.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

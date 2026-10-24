@@ -1,0 +1,49 @@
+{
+  "parent": "leitfaden:nether/portal",
+  "criteria": {
+    "travelled": {
+      "conditions": {
+        "distance": {
+          "horizontal": {
+            "min": 7000
+          }
+        }
+      },
+      "trigger": "minecraft:nether_travel"
+    }
+  },
+  "requirements": [
+    [
+      "travelled"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:map"
+    },
+    "title": {
+      "translate": "advancements.nether.fast_travel.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.schnellreise.tun",
+        "fallback": "Use the Nether to travel 7 km in the Overworld."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.schnellreise.tipp",
+        "fallback": "1 block in the Nether is 8 in the Overworld, so about 900 blocks will do.",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

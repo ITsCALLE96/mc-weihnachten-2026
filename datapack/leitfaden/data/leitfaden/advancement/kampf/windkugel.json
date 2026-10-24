@@ -1,0 +1,67 @@
+{
+  "parent": "leitfaden:kampf/start",
+  "criteria": {
+    "who_needs_rockets": {
+      "conditions": {
+        "cause": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:wind_charge"
+          }
+        },
+        "distance": {
+          "y": {
+            "min": 7
+          }
+        }
+      },
+      "trigger": "minecraft:fall_after_explosion"
+    }
+  },
+  "requirements": [
+    [
+      "who_needs_rockets"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:wind_charge"
+    },
+    "title": {
+      "translate": "advancements.adventure.who_needs_rockets.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.kampf.windkugel.tun",
+        "fallback": "Launch yourself 8 blocks up with a wind charge."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.kampf.windkugel.brauchst",
+        "fallback": "Wind charges (from breeze rods, dropped by breezes in trial chambers)",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.kampf.windkugel.tipp",
+        "fallback": "Throw it straight down and jump at the same time.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "parent": "leitfaden:ankommen/start",
+  "criteria": {
+    "info": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:filled_map"
+    },
+    "title": {
+      "translate": "questbuch.ankommen.karte.titel",
+      "fallback": "Never Get Lost"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.karte.tun",
+        "fallback": "M opens the world map, B sets a waypoint, F3 shows your coordinates."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.karte.tipp",
+        "fallback": "Note down where your home is. The map hides caves on purpose. Map and waypoints need the modpack.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

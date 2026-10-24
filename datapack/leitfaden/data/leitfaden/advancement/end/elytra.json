@@ -1,0 +1,49 @@
+{
+  "parent": "leitfaden:end/endsiedlung",
+  "criteria": {
+    "elytra": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:elytra"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "elytra"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:elytra"
+    },
+    "title": {
+      "translate": "advancements.end.elytra.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.end.elytra.tun",
+        "fallback": "Find an elytra."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.end.elytra.tipp",
+        "fallback": "It hangs in the End ship next to some End cities. Rockets give a boost.",
+        "color": "gold"
+      }
+    ],
+    "frame": "goal",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

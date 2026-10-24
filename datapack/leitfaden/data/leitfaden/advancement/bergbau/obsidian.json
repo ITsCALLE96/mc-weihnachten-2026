@@ -1,0 +1,60 @@
+{
+  "parent": "leitfaden:bergbau/diamanten",
+  "criteria": {
+    "obsidian": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:obsidian"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "obsidian"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:obsidian"
+    },
+    "title": {
+      "translate": "advancements.story.form_obsidian.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.bergbau.obsidian.tun",
+        "fallback": "Get a block of obsidian."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.bergbau.obsidian.brauchst",
+        "fallback": "Water bucket, lava, diamond pickaxe",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.bergbau.obsidian.tipp",
+        "fallback": "Pour water onto still lava. Only diamond or netherite can mine it.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

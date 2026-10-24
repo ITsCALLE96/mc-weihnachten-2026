@@ -1,0 +1,60 @@
+{
+  "parent": "leitfaden:bergbau/start",
+  "criteria": {
+    "chest": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "minecraft:chest"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "chest"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:chest"
+    },
+    "title": {
+      "translate": "questbuch.bergbau.truhe.titel",
+      "fallback": "A Place for Everything"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.bergbau.truhe.tun",
+        "fallback": "Place a chest."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.bergbau.truhe.brauchst",
+        "fallback": "8 planks",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.bergbau.truhe.tipp",
+        "fallback": "Two chests side by side make a big one. With the resource pack they look like presents!",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

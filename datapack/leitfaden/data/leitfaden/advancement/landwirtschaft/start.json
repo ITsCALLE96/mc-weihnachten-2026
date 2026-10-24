@@ -1,0 +1,24 @@
+{
+  "criteria": {
+    "freigeschaltet": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:wheat"
+    },
+    "title": {
+      "translate": "questbuch.landwirtschaft.titel",
+      "fallback": "Farming"
+    },
+    "description": {
+      "translate": "questbuch.landwirtschaft.beschreibung",
+      "fallback": "Sow, harvest, relocate some bees. Building is easier on a full stomach."
+    },
+    "background": "minecraft:block/farmland",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

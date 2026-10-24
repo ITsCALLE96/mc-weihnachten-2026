@@ -1,0 +1,92 @@
+{
+  "parent": "leitfaden:bergbau/werker",
+  "criteria": {
+    "lighten_up": {
+      "conditions": {
+        "location": {
+          "type": "minecraft:all_of",
+          "terms": [
+            {
+              "type": "minecraft:location_check",
+              "predicate": {
+                "block": {
+                  "blocks": [
+                    "minecraft:exposed_copper_bulb",
+                    "minecraft:weathered_copper_bulb",
+                    "minecraft:oxidized_copper_bulb",
+                    "minecraft:waxed_exposed_copper_bulb",
+                    "minecraft:waxed_weathered_copper_bulb",
+                    "minecraft:waxed_oxidized_copper_bulb"
+                  ],
+                  "state": {
+                    "lit": "true"
+                  }
+                }
+              }
+            },
+            {
+              "type": "minecraft:match_tool",
+              "predicate": {
+                "items": [
+                  "minecraft:wooden_axe",
+                  "minecraft:golden_axe",
+                  "minecraft:stone_axe",
+                  "minecraft:copper_axe",
+                  "minecraft:iron_axe",
+                  "minecraft:diamond_axe",
+                  "minecraft:netherite_axe"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "requirements": [
+    [
+      "lighten_up"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:copper_bulb"
+    },
+    "title": {
+      "translate": "advancements.adventure.lighten_up.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.bergbau.kupferleuchte.tun",
+        "fallback": "Scrape a weathered copper bulb with an axe to make it brighter."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.bergbau.kupferleuchte.brauchst",
+        "fallback": "Copper bulb: 3 copper blocks, 1 blaze rod, 1 redstone. Plus an axe",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.bergbau.kupferleuchte.tipp",
+        "fallback": "Blaze rods only come from the Nether, but trial chambers have ready-made bulbs.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

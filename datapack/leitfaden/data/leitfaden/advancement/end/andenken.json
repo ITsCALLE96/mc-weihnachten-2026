@@ -1,0 +1,44 @@
+{
+  "parent": "leitfaden:end/drache",
+  "criteria": {
+    "andenken": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:paper",
+      "components": {
+        "minecraft:item_model": "weihnachten:lichterkette"
+      }
+    },
+    "title": {
+      "translate": "questbuch.end.andenken.titel",
+      "fallback": "Souvenir: Fairy Lights"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.end.andenken.tun",
+        "fallback": "Finish every ★ quest in this chapter."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.end.andenken.tipp",
+        "fallback": "The trophy for dragon slayers. Merry Christmas!",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "rewards": {
+    "function": "leitfaden:items/lichterkette"
+  }
+}

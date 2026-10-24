@@ -1,0 +1,80 @@
+{
+  "parent": "leitfaden:ankommen/abenteuer",
+  "criteria": {
+    "fall_from_world_height": {
+      "conditions": {
+        "distance": {
+          "y": {
+            "min": 379
+          }
+        },
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "position": {
+                "y": {
+                  "max": -59
+                }
+              }
+            }
+          }
+        },
+        "start_position": {
+          "position": {
+            "y": {
+              "min": 319
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:fall_from_height"
+    }
+  },
+  "requirements": [
+    [
+      "fall_from_world_height"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:water_bucket"
+    },
+    "title": {
+      "translate": "advancements.adventure.fall_from_world_height.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.freier_fall.tun",
+        "fallback": "Fall from the build limit all the way to the bottom and survive."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.ankommen.freier_fall.brauchst",
+        "fallback": "Courage and a water bucket",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.freier_fall.tipp",
+        "fallback": "Place the water right before you land. Please don't practise over lava.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

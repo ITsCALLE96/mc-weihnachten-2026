@@ -1,0 +1,49 @@
+{
+  "parent": "leitfaden:nether/schrott",
+  "criteria": {
+    "netherite_hoe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:netherite_hoe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "netherite_hoe"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:netherite_hoe"
+    },
+    "title": {
+      "translate": "advancements.husbandry.netherite_hoe.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.netherithacke.tun",
+        "fallback": "Upgrade a diamond hoe to netherite."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.netherithacke.tipp",
+        "fallback": "Completely over the top. Just right.",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

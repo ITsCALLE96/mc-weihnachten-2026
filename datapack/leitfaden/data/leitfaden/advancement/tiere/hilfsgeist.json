@@ -1,0 +1,51 @@
+{
+  "parent": "leitfaden:tiere/start",
+  "criteria": {
+    "allay_deliver_item_to_player": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:allay"
+          }
+        }
+      },
+      "trigger": "minecraft:thrown_item_picked_up_by_player"
+    }
+  },
+  "requirements": [
+    [
+      "allay_deliver_item_to_player"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:cookie"
+    },
+    "title": {
+      "translate": "advancements.husbandry.allay_deliver_item_to_player.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.tiere.hilfsgeist.tun",
+        "fallback": "Have an allay deliver an item to you."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.tiere.hilfsgeist.tipp",
+        "fallback": "Allays live in pillager outposts and woodland mansions. Hand one an item and it collects more of it.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

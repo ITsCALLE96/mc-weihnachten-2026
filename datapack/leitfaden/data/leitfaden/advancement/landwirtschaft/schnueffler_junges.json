@@ -1,0 +1,68 @@
+{
+  "parent": "leitfaden:landwirtschaft/schnueffler_ei",
+  "criteria": {
+    "feed_snifflet": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:sniffer",
+            "minecraft:flags": {
+              "is_baby": true
+            }
+          }
+        },
+        "item": {
+          "items": "#minecraft:sniffer_food"
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    }
+  },
+  "requirements": [
+    [
+      "feed_snifflet"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:torchflower_seeds"
+    },
+    "title": {
+      "translate": "advancements.husbandry.feed_snifflet.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.landwirtschaft.schnueffler_junges.tun",
+        "fallback": "Feed a snifflet."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.landwirtschaft.schnueffler_junges.brauchst",
+        "fallback": "Torchflower seeds",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.landwirtschaft.schnueffler_junges.tipp",
+        "fallback": "The egg hatches twice as fast on moss.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

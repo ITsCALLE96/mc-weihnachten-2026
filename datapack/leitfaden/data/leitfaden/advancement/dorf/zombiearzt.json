@@ -1,0 +1,53 @@
+{
+  "parent": "leitfaden:dorf/handel",
+  "criteria": {
+    "cured_zombie": {
+      "trigger": "minecraft:cured_zombie_villager"
+    }
+  },
+  "requirements": [
+    [
+      "cured_zombie"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:golden_apple"
+    },
+    "title": {
+      "translate": "advancements.story.cure_zombie_villager.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.dorf.zombiearzt.tun",
+        "fallback": "Cure a zombie villager."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.dorf.zombiearzt.brauchst",
+        "fallback": "Splash potion of Weakness, golden apple",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.dorf.zombiearzt.tipp",
+        "fallback": "Throw the potion first, then feed the apple. Keep them in the shade or they burn.",
+        "color": "gold"
+      }
+    ],
+    "frame": "goal",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

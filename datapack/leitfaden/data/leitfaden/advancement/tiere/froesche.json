@@ -1,0 +1,110 @@
+{
+  "parent": "leitfaden:tiere/kaulquappe",
+  "criteria": {
+    "minecraft:cold": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:components": {
+              "minecraft:frog/variant": "minecraft:cold"
+            },
+            "minecraft:entity_type": "minecraft:frog"
+          }
+        },
+        "item": {
+          "items": "minecraft:lead"
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    },
+    "minecraft:temperate": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:components": {
+              "minecraft:frog/variant": "minecraft:temperate"
+            },
+            "minecraft:entity_type": "minecraft:frog"
+          }
+        },
+        "item": {
+          "items": "minecraft:lead"
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    },
+    "minecraft:warm": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:components": {
+              "minecraft:frog/variant": "minecraft:warm"
+            },
+            "minecraft:entity_type": "minecraft:frog"
+          }
+        },
+        "item": {
+          "items": "minecraft:lead"
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    }
+  },
+  "requirements": [
+    [
+      "minecraft:cold"
+    ],
+    [
+      "minecraft:temperate"
+    ],
+    [
+      "minecraft:warm"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:lead"
+    },
+    "title": {
+      "translate": "advancements.husbandry.leash_all_frog_variants.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.tiere.froesche.tun",
+        "fallback": "Have all 3 frog variants on leads at once."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.tiere.froesche.brauchst",
+        "fallback": "3 leads",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.tiere.froesche.tipp",
+        "fallback": "The colour depends on where the tadpole grows up: cold, temperate or warm.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

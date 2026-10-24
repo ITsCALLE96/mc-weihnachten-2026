@@ -1,0 +1,24 @@
+{
+  "criteria": {
+    "freigeschaltet": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:brush"
+    },
+    "title": {
+      "translate": "questbuch.entdecken.titel",
+      "fallback": "Exploring"
+    },
+    "description": {
+      "translate": "questbuch.entdecken.beschreibung",
+      "fallback": "Biomes, trial chambers, ruins and old sherds. It's a big world, off you go!"
+    },
+    "background": "minecraft:block/sandstone_top",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

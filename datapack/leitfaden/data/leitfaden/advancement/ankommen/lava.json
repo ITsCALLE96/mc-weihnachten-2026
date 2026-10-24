@@ -1,0 +1,60 @@
+{
+  "parent": "leitfaden:ankommen/eisen",
+  "criteria": {
+    "lava_bucket": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:lava_bucket"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "lava_bucket"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:lava_bucket"
+    },
+    "title": {
+      "translate": "advancements.story.lava_bucket.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.lava.tun",
+        "fallback": "Fill a bucket with lava."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.ankommen.lava.brauchst",
+        "fallback": "Bucket: 3 iron ingots",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.lava.tipp",
+        "fallback": "Never dig straight down! A lava bucket is great furnace fuel.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "parent": "leitfaden:dorf/hauptmann",
+  "criteria": {
+    "hero_of_the_village": {
+      "trigger": "minecraft:hero_of_the_village"
+    }
+  },
+  "requirements": [
+    [
+      "hero_of_the_village"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:white_banner"
+    },
+    "title": {
+      "translate": "advancements.adventure.hero_of_the_village.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.dorf.dorfheld.tun",
+        "fallback": "Successfully defend a village from a raid."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.dorf.dorfheld.brauchst",
+        "fallback": "Ominous bottle, good armor, friends",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.dorf.dorfheld.tipp",
+        "fallback": "Drink the bottle in the village and survive every wave. Discounts and gifts follow.",
+        "color": "gold"
+      }
+    ],
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

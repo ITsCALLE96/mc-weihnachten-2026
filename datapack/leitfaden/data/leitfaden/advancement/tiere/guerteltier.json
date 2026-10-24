@@ -1,0 +1,65 @@
+{
+  "parent": "leitfaden:tiere/start",
+  "criteria": {
+    "brush_armadillo": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:armadillo"
+          }
+        },
+        "item": {
+          "items": "minecraft:brush"
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    }
+  },
+  "requirements": [
+    [
+      "brush_armadillo"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:armadillo_scute"
+    },
+    "title": {
+      "translate": "advancements.adventure.brush_armadillo.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.tiere.guerteltier.tun",
+        "fallback": "Brush a scute off an armadillo."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.tiere.guerteltier.brauchst",
+        "fallback": "Brush: 1 feather, 1 copper ingot, 1 stick",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.tiere.guerteltier.tipp",
+        "fallback": "Armadillos live in savannas and badlands. Approach slowly or they roll up.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

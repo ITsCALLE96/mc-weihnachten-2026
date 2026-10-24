@@ -1,0 +1,24 @@
+{
+  "criteria": {
+    "freigeschaltet": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:oak_sapling"
+    },
+    "title": {
+      "translate": "questbuch.ankommen.titel",
+      "fallback": "Getting Started"
+    },
+    "description": {
+      "translate": "questbuch.ankommen.beschreibung",
+      "fallback": "Your first days on the server. Every quest ticks itself off."
+    },
+    "background": "minecraft:block/snow",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

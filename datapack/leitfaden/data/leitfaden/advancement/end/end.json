@@ -1,0 +1,65 @@
+{
+  "parent": "leitfaden:end/enderauge",
+  "criteria": {
+    "entered_end": {
+      "conditions": {
+        "to": "minecraft:the_end"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "requirements": [
+    [
+      "entered_end"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:end_stone"
+    },
+    "title": {
+      "translate": "advancements.story.enter_the_end.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.end.end.tun",
+        "fallback": "Enter the End through the End portal."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.end.end.brauchst",
+        "fallback": "Up to 12 eyes of ender for the frame",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.end.end.tipp",
+        "fallback": "The portal is deep inside the stronghold. Bring blocks and a bow.",
+        "color": "gold"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.kern",
+        "fallback": "★ counts towards the souvenir",
+        "color": "aqua"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "rewards": {
+    "function": "leitfaden:andenken/end"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "parent": "leitfaden:tiere/zaehmen",
+  "criteria": {
+    "remove_wolf_armor": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:wolf"
+          }
+        },
+        "item": {
+          "items": "minecraft:wolf_armor"
+        }
+      },
+      "trigger": "minecraft:player_sheared_equipment"
+    }
+  },
+  "requirements": [
+    [
+      "remove_wolf_armor"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:shears"
+    },
+    "title": {
+      "translate": "advancements.husbandry.remove_wolf_armor.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.tiere.wolfspanzer_ab.tun",
+        "fallback": "Remove a wolf's armor with shears."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.tiere.wolfspanzer_ab.brauchst",
+        "fallback": "Shears, a tamed wolf wearing wolf armor",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.tiere.wolfspanzer_ab.tipp",
+        "fallback": "Wolf armor is made from 6 armadillo scutes.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

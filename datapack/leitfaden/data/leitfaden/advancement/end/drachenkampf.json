@@ -1,0 +1,38 @@
+{
+  "parent": "leitfaden:end/start",
+  "criteria": {
+    "info": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:dragon_head"
+    },
+    "title": {
+      "translate": "questbuch.end.drachenkampf.titel",
+      "fallback": "Together vs. the Dragon"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.end.drachenkampf.tun",
+        "fallback": "We fight the dragon together. Check chat and Discord for the date."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.end.drachenkampf.tipp",
+        "fallback": "Bring a bow, lots of arrows, blocks, a water bucket and food.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "parent": "leitfaden:end/start",
+  "criteria": {
+    "head": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:equipment": {
+              "head": {
+                "items": "minecraft:carved_pumpkin"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "head"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:carved_pumpkin"
+    },
+    "title": {
+      "translate": "questbuch.end.kuerbis.titel",
+      "fallback": "Pumpkin Head"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.end.kuerbis.tun",
+        "fallback": "Wear a carved pumpkin."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.end.kuerbis.brauchst",
+        "fallback": "Pumpkin, shears",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.end.kuerbis.tipp",
+        "fallback": "Endermen won't get angry when you look at them. Suits you!",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

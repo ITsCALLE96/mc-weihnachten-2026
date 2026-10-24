@@ -60,8 +60,24 @@ export function pruefeDatapack(wurzel) {
     if (parent && !parent.startsWith('minecraft:') && !advancements.has(parent)) {
       fehler.push(`${rel}: parent ${parent} existiert nicht`);
     }
+    const fn = inhalt.rewards?.function;
+    if (fn) {
+      const [ns, pfad] = fn.split(':');
+      if (!existsSync(join(wurzel, 'data', ns, 'function', `${pfad}.mcfunction`))) fehler.push(`${rel}: Funktion ${fn} fehlt`);
+    }
+    for (const key of ohneFallback(inhalt.display)) fehler.push(`${rel}: ${key} ohne fallback`);
   }
   return fehler;
+}
+
+// Eigene Übersetzungsschlüssel brauchen einen fallback (Spieler ohne Resourcepack); Vanilla-Schlüssel nicht.
+function ohneFallback(x, treffer = []) {
+  if (Array.isArray(x)) x.forEach((y) => ohneFallback(y, treffer));
+  else if (x && typeof x === 'object') {
+    if (typeof x.translate === 'string' && !x.translate.startsWith('advancements.') && typeof x.fallback !== 'string') treffer.push(x.translate);
+    Object.values(x).forEach((y) => ohneFallback(y, treffer));
+  }
+  return treffer;
 }
 
 export function pruefeResourcepack(wurzel) {
@@ -69,6 +85,14 @@ export function pruefeResourcepack(wurzel) {
   const json = leseJson(wurzel, fehler);
   pruefeMeta(json, VERSIONEN.resourcepack_format, fehler);
 
+  for (const [rel, inhalt] of json) {
+    const m = rel.match(/^(assets\/[^/]+\/lang\/)de_de\.json$/);
+    if (!m) continue;
+    const en = json.get(`${m[1]}en_us.json`);
+    if (!en) { fehler.push(`${m[1]}en_us.json fehlt zu de_de.json`); continue; }
+    for (const k of Object.keys(inhalt)) if (!(k in en)) fehler.push(`${m[1]}en_us.json: ${k} fehlt`);
+    for (const k of Object.keys(en)) if (!(k in inhalt)) fehler.push(`${m[1]}de_de.json: ${k} fehlt`);
+  }
   for (const [rel, inhalt] of json) {
     if (!/^assets\/[^/]+\/models\//.test(rel)) continue;
     for (const ref of Object.values(inhalt.textures ?? {})) {

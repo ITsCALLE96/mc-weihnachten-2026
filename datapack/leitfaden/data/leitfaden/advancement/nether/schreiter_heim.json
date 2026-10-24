@@ -1,0 +1,61 @@
+{
+  "parent": "leitfaden:nether/schreiter",
+  "criteria": {
+    "ride_entity_distance": {
+      "conditions": {
+        "distance": {
+          "horizontal": {
+            "min": 50
+          }
+        },
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "dimension": "minecraft:overworld"
+            },
+            "minecraft:vehicle": {
+              "minecraft:entity_type": "minecraft:strider"
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:ride_entity_in_lava"
+    }
+  },
+  "requirements": [
+    [
+      "ride_entity_distance"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:warped_fungus_on_a_stick"
+    },
+    "title": {
+      "translate": "advancements.nether.ride_strider_in_overworld_lava.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.schreiter_heim.tun",
+        "fallback": "Ride a strider at least 50 blocks across an Overworld lava lake."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.schreiter_heim.tipp",
+        "fallback": "Lure it through the portal with the fungus on a stick.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

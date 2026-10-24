@@ -1,0 +1,2 @@
+# Andenken Ankommen: alle ★-Quests geschafft? (generiert, Belohnung über das Advancement)
+execute if entity @s[advancements={leitfaden:ankommen/werkbank=true,leitfaden:ankommen/stein=true,leitfaden:ankommen/werkzeug=true,leitfaden:ankommen/eisen=true,leitfaden:ankommen/ruestung=true,leitfaden:ankommen/eisenspitzhacke=true,leitfaden:ankommen/essen=true,leitfaden:ankommen/bett=true,leitfaden:ankommen/monster=true}] run advancement grant @s only leitfaden:ankommen/andenken

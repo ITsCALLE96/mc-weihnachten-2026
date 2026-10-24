@@ -1,0 +1,47 @@
+{
+  "parent": "leitfaden:tiere/eimerfisch",
+  "criteria": {
+    "tadpole_bucket": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:tadpole_bucket"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    }
+  },
+  "requirements": [
+    [
+      "tadpole_bucket"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:tadpole_bucket"
+    },
+    "title": {
+      "translate": "advancements.husbandry.tadpole_in_a_bucket.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.tiere.kaulquappe.tun",
+        "fallback": "Catch a tadpole in a water bucket."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.tiere.kaulquappe.tipp",
+        "fallback": "Tadpoles hatch from frogspawn. Frogs live in swamps.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

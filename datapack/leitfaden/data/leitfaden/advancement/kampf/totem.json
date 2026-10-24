@@ -1,0 +1,58 @@
+{
+  "parent": "leitfaden:kampf/start",
+  "criteria": {
+    "used_totem": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:totem_of_undying"
+        }
+      },
+      "trigger": "minecraft:used_totem"
+    }
+  },
+  "requirements": [
+    [
+      "used_totem"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:totem_of_undying"
+    },
+    "title": {
+      "translate": "advancements.adventure.totem_of_undying.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.kampf.totem.tun",
+        "fallback": "Cheat death with a Totem of Undying."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.kampf.totem.brauchst",
+        "fallback": "Totem (from evokers in mansions and raids)",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.kampf.totem.tipp",
+        "fallback": "Hold it in your main or off hand when things get tight.",
+        "color": "gold"
+      }
+    ],
+    "frame": "goal",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

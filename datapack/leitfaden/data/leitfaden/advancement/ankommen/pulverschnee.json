@@ -1,0 +1,71 @@
+{
+  "parent": "leitfaden:ankommen/bett",
+  "criteria": {
+    "walk_on_powder_snow_with_leather_boots": {
+      "conditions": {
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:equipment": {
+              "feet": {
+                "items": "minecraft:leather_boots"
+              }
+            },
+            "minecraft:stepping_on": {
+              "block": {
+                "blocks": "minecraft:powder_snow"
+              }
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "requirements": [
+    [
+      "walk_on_powder_snow_with_leather_boots"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:leather_boots"
+    },
+    "title": {
+      "translate": "advancements.adventure.walk_on_powder_snow_with_leather_boots.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.pulverschnee.tun",
+        "fallback": "Walk on powder snow in leather boots without sinking."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.ankommen.pulverschnee.brauchst",
+        "fallback": "Leather boots: 4 leather",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.pulverschnee.tipp",
+        "fallback": "Powder snow lies on snowy slopes. Very seasonal!",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

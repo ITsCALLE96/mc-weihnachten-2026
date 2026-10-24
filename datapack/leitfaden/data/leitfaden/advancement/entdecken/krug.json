@@ -1,0 +1,59 @@
+{
+  "parent": "leitfaden:entdecken/scherbe",
+  "criteria": {
+    "pot_crafted_using_only_sherds": {
+      "conditions": {
+        "ingredients": [
+          {
+            "items": "#minecraft:decorated_pot_sherds"
+          },
+          {
+            "items": "#minecraft:decorated_pot_sherds"
+          },
+          {
+            "items": "#minecraft:decorated_pot_sherds"
+          },
+          {
+            "items": "#minecraft:decorated_pot_sherds"
+          }
+        ],
+        "recipes": "minecraft:decorated_pot"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    }
+  },
+  "requirements": [
+    [
+      "pot_crafted_using_only_sherds"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:decorated_pot"
+    },
+    "title": {
+      "translate": "advancements.adventure.craft_decorated_pot_using_only_sherds.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.entdecken.krug.tun",
+        "fallback": "Craft a decorated pot from 4 pottery sherds."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.entdecken.krug.tipp",
+        "fallback": "The sherds decide the pictures on each side.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

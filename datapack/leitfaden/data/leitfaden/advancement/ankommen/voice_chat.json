@@ -1,0 +1,38 @@
+{
+  "parent": "leitfaden:ankommen/start",
+  "criteria": {
+    "info": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:note_block"
+    },
+    "title": {
+      "translate": "questbuch.ankommen.voice_chat.titel",
+      "fallback": "Talk to Us"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.voice_chat.tun",
+        "fallback": "Voice chat picks you up as soon as you speak. V opens the menu, Ä mutes your mic."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.voice_chat.tipp",
+        "fallback": "Create groups from the menu (V). Voice chat needs the modpack.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

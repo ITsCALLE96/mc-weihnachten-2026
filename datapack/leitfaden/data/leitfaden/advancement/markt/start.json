@@ -1,0 +1,27 @@
+{
+  "criteria": {
+    "freigeschaltet": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:paper",
+      "components": {
+        "minecraft:item_model": "weihnachten:lichterkette"
+      }
+    },
+    "title": {
+      "translate": "questbuch.markt.titel",
+      "fallback": "Christmas Market"
+    },
+    "description": {
+      "translate": "questbuch.markt.beschreibung",
+      "fallback": "Christmas market week! Trade, swap and spend time together."
+    },
+    "background": "minecraft:block/snow",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

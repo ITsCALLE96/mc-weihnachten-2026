@@ -1,0 +1,38 @@
+{
+  "parent": "leitfaden:markt/start",
+  "criteria": {
+    "info": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:emerald"
+    },
+    "title": {
+      "translate": "questbuch.markt.tauschen.titel",
+      "fallback": "Swap with Friends"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.markt.tauschen.tun",
+        "fallback": "Trade with other players: goods for goods or for emeralds."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.markt.tauschen.tipp",
+        "fallback": "Meet up via chat. Keep it fair, it's Christmas!",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

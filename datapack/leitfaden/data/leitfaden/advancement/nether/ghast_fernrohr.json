@@ -1,0 +1,58 @@
+{
+  "parent": "leitfaden:nether/portal",
+  "criteria": {
+    "spyglass_at_ghast": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:spyglass"
+        },
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:type_specific/player": {
+              "looking_at": {
+                "minecraft:entity_type": "minecraft:ghast"
+              }
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:using_item"
+    }
+  },
+  "requirements": [
+    [
+      "spyglass_at_ghast"
+    ]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:spyglass"
+    },
+    "title": {
+      "translate": "advancements.adventure.spyglass_at_ghast.title"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.nether.ghast_fernrohr.tun",
+        "fallback": "Look at a ghast through a spyglass."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.nether.ghast_fernrohr.tipp",
+        "fallback": "Big white cubes that cry a lot. Best from a safe distance.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}
