@@ -47,7 +47,8 @@
   },
   "abflug": "drei Wege vom Spawnplatz über die Schirmkante (Südwest, Nordwest, Ost)",
   "erweiterung": "weitere Schirme und Plattformen, Terrassen am Fuß, Turm innen",
-  "lichtbloecke": 39,
-  "kerzen": 2205,
-  "dunkleStellenOhnePilzland": 1961
+  "lichtbloecke": 35,
+  "kerzen": 631,
+  "augenblueten": 8155,
+  "dunkleStellenOhnePilzland": 5448
 }

@@ -13,7 +13,9 @@ const drin = (x, y, z) => x >= 0 && y >= 0 && z >= 0 && x < W && y < H && z < L;
 const leer = (x, y, z) => drin(x, y, z) && hole(m, x, y, z) === LUFT;
 const RINDE = ['minecraft:dark_oak_wood[axis=y]', 'minecraft:dark_oak_wood[axis=y]', 'minecraft:spruce_wood[axis=y]', 'minecraft:dark_oak_wood[axis=y]'];
 const rinde = (x, y, z) => (rauschen(x + z * 0.7, y * 0.5, 7, 21) > 0.74 ? 'minecraft:moss_block' : RINDE[Math.floor(rauschen(x * 0.5 + y, z * 0.5, 5, 22) * 3.99)]);
-const laub = (x, y, z) => { const n = rauschen(x * 0.8, z * 0.8 + y, 6, 41); return n > 0.8 ? 'minecraft:dark_oak_leaves[distance=1,persistent=true,waterlogged=false]' : n < 0.12 ? 'minecraft:azalea_leaves[distance=1,persistent=true,waterlogged=false]' : 'minecraft:spruce_leaves[distance=1,persistent=true,waterlogged=false]'; };
+// Laub: Dunkeleiche (Biomfarbe), Fichte (festes Dunkelgrün), Azalee (fest, hell), etwas Blasse Eiche (fest, graugrün) – in Flecken gemischt
+const LAUBARTEN = [[0.40, 'dark_oak_leaves'], [0.70, 'spruce_leaves'], [0.90, 'azalea_leaves'], [0.95, 'flowering_azalea_leaves'], [1.01, 'pale_oak_leaves']];
+const laub = (x, y, z) => { const n = rauschen(x * 0.8, z * 0.8 + y, 7, 41); return `minecraft:${LAUBARTEN.find(([g]) => n < g)[1]}[distance=1,persistent=true,waterlogged=false]`; };
 const kerze = (x, y, z) => `minecraft:candle[candles=${1 + Math.floor(zufall(x, y, z, 31) * 4)},lit=true,waterlogged=false]`;
 const lichter = [];
 
@@ -156,19 +158,51 @@ for (let z = 1; z < L - 1; z++) for (let x = 1; x < W - 1; x++) {
 // Wurzelstränge über die Rücken (Holz bricht aus den Terrassen)
 for (const R of RUECKEN) { const p = []; for (let s = 0; s <= 1; s += 0.01) { const r = 8 + R.len * s; const hh = R.hoehe * (1 - (r - 8) / R.len); p.push([CX + r * Math.cos(R.w), G + hh + 1 - 3 * s, CZ + r * Math.sin(R.w)]); } roehre(p, 3.2, 1); }
 
-// 7) Kerzenteppich auf der Kronenoberseite (Nachtbild), Laternen an Ketten unter den Schirmen
-for (const [x, y, z] of OBERSEITE) if (leer(x, y + 1, z) && hole(m, x, y, z) !== LUFT && zufall(x, y, z, 95) > 0.94) setze(m, x, y + 1, z, kerze(x, y, z));
-for (const s of SCHIRME) for (let j = 0; j < 10; j++) {
+// 7) Kronenoberseite: Moosflecken mit Augenblüten (öffnen sich nachts, die emissive Mitte „funkelt“ – Pumis Nachteffekt; kein echtes Licht,
+//    in 26.3 gemessen), dazwischen wenige Kerzen als warme Akzente. Augenblüten brauchen Moos/Erde/Gras (Tag supports_vegetation), kein Laub.
+let augen = 0;
+for (const [x, y, z] of OBERSEITE) {
+  if (!leer(x, y + 1, z) || hole(m, x, y, z) === LUFT) continue;
+  if (rauschen(x, z, 7, 96) > 0.42) { setze(m, x, y, z, 'minecraft:moss_block'); const r = zufall(x, y, z, 97); if (r > 0.55) { setze(m, x, y + 1, z, 'minecraft:open_eyeblossom'); augen++; } else if (r > 0.45) setze(m, x, y + 1, z, 'minecraft:moss_carpet'); }
+  else if (zufall(x, y, z, 95) > 0.985) setze(m, x, y + 1, z, kerze(x, y, z));
+}
+// Laternen an Ketten unter den Schirmen und entlang der Äste
+for (const s of SCHIRME) for (let j = 0; j < 18; j++) {
   const w = j * Math.PI / 5 + s.x, x = Math.round(CX + s.x + Math.cos(w) * s.a * 0.5), z = Math.round(CZ + s.z + Math.sin(w) * s.b * 0.5);
   for (let y = s.y; y > G; y--) if (drin(x, y, z) && hole(m, x, y, z) !== LUFT && leer(x, y - 1, z)) { for (let i = 1; i <= 4; i++) setze(m, x, y - i, z, 'minecraft:iron_chain[axis=y,waterlogged=false]'); setze(m, x, y - 5, z, 'minecraft:lantern[hanging=true,waterlogged=false]'); break; }
 }
+
+// 7b) Blütenlaternen (Idee von Pumi: aus Pflanzen wachsende „Blütenblätter“ mit Laterne vorne): Holzstiel, Azaleen-Blatt, Laterne darunter –
+//     am Rand des Spawnplatzes und entlang der Abflugwege
+function bluetenlaterne(x, y, z, w) {
+  const fx = Math.round(Math.cos(w)), fz = Math.round(Math.sin(w));
+  for (let i = 1; i <= 3; i++) if (leer(x, y + i, z)) setze(m, x, y + i, z, 'minecraft:dark_oak_fence[east=false,north=false,south=false,waterlogged=false,west=false]');
+  for (const [a, b] of [[0, 0], [fx, fz], [-fz, fx], [fz, -fx]]) if (leer(x + a, y + 4, z + b)) setze(m, x + a, y + 4, z + b, 'minecraft:flowering_azalea_leaves[distance=1,persistent=true,waterlogged=false]');
+  if (leer(x + 2 * fx, y + 4, z + 2 * fz)) setze(m, x + 2 * fx, y + 4, z + 2 * fz, 'minecraft:azalea_leaves[distance=1,persistent=true,waterlogged=false]');
+  if (leer(x + fx, y + 3, z + fz)) setze(m, x + fx, y + 3, z + fz, 'minecraft:lantern[hanging=true,waterlogged=false]');
+}
+for (let k = 0; k < 10; k++) { const w = k * Math.PI / 5 + 0.3; if (amWeg(w)) continue; bluetenlaterne(Math.round(PX + (PLATZ - 2) * Math.cos(w)), D, Math.round(PZ + (PLATZ - 2) * Math.sin(w)), w); }
+for (const w of WEGE) for (let r = PLATZ + 8; r <= 70; r += 9) { const x = Math.round(PX + r * Math.cos(w) - 2 * Math.sin(w)), z = Math.round(PZ + r * Math.sin(w) + 2 * Math.cos(w)); let y = -1; for (let yy = D + 4; yy >= D - 12; yy--) if (drin(x, yy, z) && hole(m, x, yy, z) !== LUFT) { y = yy; break; } if (y > 0) bluetenlaterne(x, y, z, w + Math.PI / 2); }
+
+// 7c) Herzkammer im Stamm (Idee von Pumi: Stamm innen aus Amethyst, offen sichtbar): hohler Raum am Fuß, mit Amethyst ausgekleidet,
+//     schwebende Balken, Amethyst-Kristalle, Eingänge von den Terrassen (Norden und Osten)
+for (let y = G + 1; y <= G + 26; y++) for (let dz = -9; dz <= 9; dz++) for (let dx = -9; dx <= 9; dx++) {
+  const r = Math.hypot(dx, dz), x = CX + dx, z = CZ + dz, rr = 7 - Math.max(0, (y - G - 18) * 0.6);
+  if (r > rr + 1.2) continue;
+  if (r <= rr) setze(m, x, y, z, y === G + 1 ? (r < 2 ? 'minecraft:moss_block' : 'minecraft:calcite') : LUFT);
+  else setze(m, x, y, z, zufall(x, y, z, 98) > 0.85 ? 'minecraft:budding_amethyst' : 'minecraft:amethyst_block');
+}
+for (const [a, b] of [[0, -1], [1, 0]]) for (let s = 6; s <= 30; s++) for (let q = -1; q <= 1; q++) for (let y = G + 2; y <= G + 5; y++) { const x = CX + a * s + q * b, z = CZ + b * s + q * a; if (drin(x, y, z) && (hole(m, x, y, z).includes('wood') || hole(m, x, y, z).includes('moss') || hole(m, x, y, z).includes('dirt') || hole(m, x, y, z).includes('stone') || hole(m, x, y, z).includes('grass') || hole(m, x, y, z).includes('amethyst'))) setze(m, x, y, z, LUFT); }
+for (const [y, w] of [[G + 9, 0.4], [G + 14, 1.6], [G + 19, 2.6]]) for (let s = -6; s <= 6; s++) setze(m, Math.round(CX + s * Math.cos(w)), y, Math.round(CZ + s * Math.sin(w)), `minecraft:stripped_dark_oak_log[axis=${Math.abs(Math.cos(w)) > 0.7 ? 'x' : 'z'}]`);
+for (let k = 0; k < 40; k++) { const w = k * 0.61, y = G + 3 + (k * 7) % 20, x = Math.round(CX + 6 * Math.cos(w)), z = Math.round(CZ + 6 * Math.sin(w)); if (leer(x, y, z)) setze(m, x, y, z, 'minecraft:amethyst_cluster[facing=up,waterlogged=false]'); }
+for (let i = 1; i <= 6; i++) setze(m, CX, G + 26 - i, CZ, i < 6 ? 'minecraft:iron_chain[axis=y,waterlogged=false]' : 'minecraft:lantern[hanging=true,waterlogged=false]');
 
 // 8) Unsichtbare Lichter für Orientierung auf dem Spawnplatz
 for (let dz = -15; dz <= 15; dz += 6) for (let dx = -15; dx <= 15; dx += 6) if (Math.hypot(dx, dz) < PLATZ - 1 && leer(PX + dx, D + 1, PZ + dz)) lichter.push([PX + dx, D + 1, PZ + dz]);
 let nL = 0; for (const [x, y, z] of lichter) if (leer(x, y, z)) { setze(m, x, y, z, 'minecraft:light[level=15,waterlogged=false]'); nL++; }
 
 // 9) Ausleuchtung prüfen (Blocklicht wie im Spiel); mit PFLICHTLICHT=1 dunkle begehbare Stellen schließen (nur ohne Pilzland nötig)
-const DURCHLAESSIG = /^minecraft:(air|light|lantern|iron_chain|vine|cave_vines|cave_vines_plant|candle|open_eyeblossom|closed_eyeblossom|moss_carpet|short_grass|.*_fence|.*_sign|.*_pane|flowering_azalea|azalea)(\[|$)/;
+const DURCHLAESSIG = /^minecraft:(air|light|lantern|iron_chain|vine|cave_vines|cave_vines_plant|candle|open_eyeblossom|closed_eyeblossom|moss_carpet|short_grass|amethyst_cluster|.*_fence|.*_sign|.*_pane|flowering_azalea|azalea)(\[|$)/;
 const LICHTQ = [[/^minecraft:light\[.*level=(\d+)/, null], [/^minecraft:(lantern|shroomlight|sea_lantern)/, 15], [/froglight/, 15], [/^minecraft:cave_vines.*berries=true/, 14], [/^minecraft:end_rod/, 14], [/^minecraft:candle\[candles=(\d).*lit=true/, 'kerze']];
 const WL = W * L, hell = new Uint8Array(W * H * L), idx = (x, y, z) => x + z * W + y * WL;
 function ausbreiten(q) {
@@ -202,6 +236,6 @@ speichern(m, process.argv[2], {
   oval: { x: Math.round((ax0 + ax1) / 2), z: Math.round((az0 + az1) / 2), a: Math.ceil((ax1 - ax0) / 2), b: Math.ceil((az1 - az0) / 2) },
   pilzland: { x: Math.round((ax0 + ax1) / 2), z: Math.round((az0 + az1) / 2), a: Math.ceil((ax1 - ax0) / 2) + 30, b: Math.ceil((az1 - az0) / 2) + 30 },
   abflug: 'drei Wege vom Spawnplatz über die Schirmkante (Südwest, Nordwest, Ost)', erweiterung: 'weitere Schirme und Plattformen, Terrassen am Fuß, Turm innen',
-  lichtbloecke: nL, kerzen, dunkleStellenOhnePilzland: dunkel,
+  lichtbloecke: nL, kerzen, augenblueten: augen, dunkleStellenOhnePilzland: dunkel,
 });
-console.log(`Weltenbaum ${W}×${H}×${L}, Ausdehnung x ${ax0}–${ax1}, z ${az0}–${az1}, Kerzen ${kerzen}, Lichtblöcke ${nL}, dunkle Stellen ohne Pilzland ${dunkel}`);
+console.log(`Weltenbaum ${W}×${H}×${L}, Ausdehnung x ${ax0}–${ax1}, z ${az0}–${az1}, Kerzen ${kerzen}, Augenblüten ${augen}, Lichtblöcke ${nL}, dunkle Stellen ohne Pilzland ${dunkel}`);

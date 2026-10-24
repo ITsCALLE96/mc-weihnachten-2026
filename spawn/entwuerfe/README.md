@@ -30,14 +30,20 @@ Frühere Fassungen: `weltenbaum-klein.mjs` (erster Entwurf). Die zweite Fassung 
 5. **Nachts ein Teppich aus kleinen warmen Lichtpunkten auf der Kronenoberseite** als Wahrzeichen
 6. Der Baum als **Mittelpunkt einer bebauten Fläche** (passt zu „später weiterbauen“)
 
+Aus dem Video-Transkript (Recherche der Leitung) zusätzlich belegt und übernommen: **Augenblüten auf der Krone** als Nachteffekt (öffnen sich nachts, der Baum „funkelt“), **Laternen an den Ästen** (bei Pumi geplant, nicht mehr gebaut), **Pflanzen-Laternen** („Blütenblätter“ mit Laterne vorne), **Kerzen** als Lichtpunkte, **Stamm innen aus Amethyst** offen sichtbar, **fallendes Laub** (Vanilla-Partikel bei dichtem Laub). Pumis Problem mit Mobs und einem Creeper auf der Krone lösen bei uns Pilzland und WorldGuard (keine Explosionen).
+
 **Unser eigenes Design** (Formen, Maße, Materialien und Aufteilung sind eigene):
 - **Maße:** Ausschnitt 270 × 200 × 270, Boden lokal y 14. Bei Boden auf y 64 liegt die **Spawnfläche auf y 174** (110 über dem Boden), der Turm endet mit Spitze bei y ~191. **Krone ~215 × 185 Blöcke** in sieben Schirmen; alles im Umkreis von ~110 Blöcken um den Stamm, bei Sichtweite 8 also geladen
 - **Stamm:** gefurchter Kern plus acht gedrehte Stränge, unten ~46 breit ausgestellt, Teilung auf ~58 Blöcken Höhe. Rinde Dunkeleiche/Fichte mit Moosflecken
-- **Krone:** sieben Laubschirme (der höchste 140 × 112 mit dem Spawnplatz), Dicke 8–14, Oberseite wellig, Unterseite gewölbt. An den Unterseiten herabhängende Laubstränge und Leuchtbeeren, Laternen an Ketten. **Laub überwiegend Fichte** (feste dunkelgrüne Farbe, auch im Pilzland), dazu Dunkeleiche und Azalee
+- **Krone:** sieben Laubschirme (der höchste 140 × 112 mit dem Spawnplatz), Dicke 8–14, Oberseite wellig, Unterseite gewölbt. An den Unterseiten herabhängende Laubstränge und Leuchtbeeren, viele Laternen an Ketten
+- **Laub (Materialwahl):** in Flecken gemischt: 40 % Dunkeleiche, 30 % Fichte, 20 % Azalee, 5 % blühende Azalee, 5 % Blasse Eiche. Fichte, Azalee und Blasse Eiche haben feste Farben, Dunkeleiche wird im Pilzland kräftig grün. Zusammen wirkt das dunkel und abwechslungsreich. Das fast schwarze Laub bei Pumi kommt vermutlich vom Shader
+- **Kronenoberseite:** Moosflecken mit **~8.000 offenen Augenblüten** (der Pumi-Nachteffekt), dazwischen wenige Kerzen als warme Akzente. **Augenblüten in 26.3 geprüft:** Sie wachsen auf Moos, Erde, Wurzelerde, Schlamm, Gras und Ackerboden (Tag `supports_vegetation`), nicht auf Laub, deshalb die Moosschicht. Die Blume auf Pumis Bild 2 (weiße Blütenblätter, orange Mitte) ist die offene Augenblüte, das Auge ist eine emissive Textur. **Gemessen auf dem 26.3-Server: kein Blocklicht** (geschlossener Hohlraum bleibt dunkel, mit Fackel hell). Sie funkelt nur, das Licht kommt aus Laternen, Kerzen und Leuchtbeeren
+- **Blütenlaternen:** Holzstiel mit Azaleen-Blütenblatt und Laterne vorne, am Rand des Spawnplatzes und entlang der Abflugwege
+- **Herzkammer im Stamm:** hohler Raum am Fuß (Radius 7, 25 hoch), offen mit Amethyst ausgekleidet, schwebende Balken, Amethyst-Kristalle, Laterne an einer Kette. Eingänge von den Terrassen im Norden und Osten
 - **Spawn:** Holzdeck (Radius 17) **oben auf dem höchsten Schirm unter freiem Himmel**, Ring aus Froschlicht, Infotafeln, Geländer. **Drei Abflugwege** (Südwest, Nordwest, Ost) führen über die Schirmoberseite bis über die Kante
 - **Turm** (Kalzit mit Bändern aus dunklem Prismarin, hellblaue Fenster, Leuchtkern aus Seelaternen, Amethyst-Dach mit Endstab) an der Südseite des Stamms, vom Boden bis über den Spawnplatz. Türen unten und oben
 - **Terrassenwurzeln:** sieben Rücken in Stufen von 2 Blöcken, Moos und Gras, Wurzelstränge brechen heraus. **Kerzenreihen auf den Stufenkanten**, Augenblüten dazwischen
-- **Nacht:** ~2.200 brennende Kerzen (1–4 je Block) auf der Kronenoberseite und den Terrassen, dazu Laternen, Leuchtbeeren, Seelaternen im Turm, Froschlicht am Platz
+- **Nacht:** Augenblüten funkeln auf der ganzen Krone, ~630 Kerzen (Terrassenkanten und Akzente auf der Krone), Laternen, Leuchtbeeren, Seelaternen im Turm, Froschlicht am Platz
 - Rückweg-Plattform im Stil „wurzel“ zwischen den Terrassen (Ort nach der Seed-Wahl)
 
 **Pilzland um den Baum (Pascal 24.10.)** – geprüft an den Spieldaten von 26.3 (`worldgen/biome/mushroom_fields.json` und Biom-Tags im offiziellen Server-Jar):
@@ -72,6 +78,6 @@ Quellen: Beschreibung und FAQ der Nitrado-Seite „SparkofPhoenix’s Craft Atta
 | Entwurf | oben | Seite | Spielersicht Spawn | Abflug | von unten | Extra |
 |---|---|---|---|---|---|---|
 | Felsinsel | `felsinsel-oben.png` | `felsinsel-seite.png` | `felsinsel-spawn.png` | `felsinsel-abflug.png` | `felsinsel-unten.png` | `felsinsel-wasserfall.png` |
-| Weltenbaum (Etagenkrone) | `weltenbaum-oben-schraeg.png` | `weltenbaum-seite.png` | `weltenbaum-spawn.png`, `weltenbaum-platz.png` | – | `weltenbaum-unten.png` | Nacht: `weltenbaum-nacht-seite.png`, `-nacht-oben.png`, `-nacht-platz.png`, `-nacht-terrassen.png`; Plattform: `weltenbaum-plattform-wurzel.png` |
+| Weltenbaum (Etagenkrone) | `weltenbaum-oben-schraeg.png` | `weltenbaum-seite.png` | `weltenbaum-spawn.png`, `weltenbaum-platz.png` | – | `weltenbaum-unten.png` | Herzkammer: `weltenbaum-herzkammer.png`; Nacht: `weltenbaum-nacht-oben.png`, `-nacht-seite.png`, `-nacht-platz.png`, `-nacht-terrassen.png`; Plattform: `weltenbaum-plattform-wurzel.png` |
 
 Gerendert mit einem einfachen Raycaster (Nachtansicht mit Lichtausbreitung wie im Spiel; das Karomuster der Bodenlichter ist ein Effekt des Renderers) (Blocktexturen, Wasser blau; kleine Dinge wie Zäune, Laternen, Schilder und Blumen werden weggelassen). Kulisse: Meer bzw. flache Wiese.
