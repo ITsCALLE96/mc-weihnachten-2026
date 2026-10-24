@@ -40,5 +40,5 @@ Das prüfe ich beim Einrichten mit `/spark` gegen die Version in Paper 26.3.
 Umgesetzt ist nur `spark.tps`, keine Profiler-Rechte. Mit den Profiler-Rechten könnten Spieler Interna hochladen.
 
 **Einrichten:** `paper/permissions.yml` in den Serverordner (neben `server.properties`) kopieren, Server neu starten. Die Datei vergibt `spark.tps` über eine
-eigene Sammel-Berechtigung `weihnachten.spieler` (Begründung in der Datei). **Prüfen:** Spieler ohne OP: `/spark tps` geht, `/spark profiler` und `/spark health` werden
-abgelehnt. Im Serverlog keine Warnung zu `permissions.yml`
+eigene Sammel-Berechtigung `weihnachten.spieler` (Begründung in der Datei). **Bestätigt (lokaler Testserver, Pascal ohne OP, 24.10.):** `/spark tps` geht, `/spark profiler` ist gesperrt, im Serverlog keine Warnung zu
+`permissions.yml`. Auf VM200 nur noch kurz gegenprüfen
