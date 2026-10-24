@@ -47,7 +47,11 @@ Die Voreinstellungen liegen in `modpack/overrides/` und landen beim Bau 1:1 unte
 
 - `options.txt`: nur `version`, `lang:de_de`, alle Tastenzeilen (`key_…`) und die Lautstärken (`soundCategory_…`, von Pascal festgelegt: Gesamt 50 %, Musik/Wetter/freundliche Tiere 5 %, Feinde 10 %, Plattenspieler/Umgebung 15 %, Rest 50 %) und die Tastenzeilen aus Pascals Testinstanz – Grafik usw. bleiben beim Standard
 - `config/freecam.json`: „Ignore All Collision“ aus, durch transparente und öffenbare Blöcke (Türen, Falltüren) darf man fliegen – wie von Pascal eingestellt
-- `config/ji-afk-cinematic.json`: AFK-Kamerafahrt nach 30 Sekunden, ohne Musik (Pascal, 24.10.); Tasten der Mod: F7 + H Menü, Strg + H an/aus, F7 + I sofort starten
+- `config/ji-afk-cinematic.json`: AFK-Kamerafahrt nach 30 Sekunden, ohne Musik (Pascal, 24.10.); alle Tasten der Mod leer (Strg + H schaltete auch die Nachtsicht), Einstellungen über Mod Menu
+- `config/betterf3.json`: aufgeräumtes F3 nach Pascals Auswahl (24.10.)
+- `config/armor-hider.json`: Helme bei allen ausgeblendet (Deckkraft 0 %)
+- `config/xaero/minimap/profiles/default.cfg`: runde Minimap
+- `options.txt` außerdem `maxFps:120` (schont den Rechner; im Spiel änderbar)
 - `config/fancymenu/options.txt`: Bearbeitungsleiste aus, `modpack_mode` an (Spieler sehen keine FancyMenu-Leiste; einblenden mit Strg + Alt + C)
 
 Litematica und Do a Barrel Roll sind ausgeschaltet, ihre Tasten stehen deshalb noch nicht in der Datei. Neu übernehmen: Tasten in einer Testinstanz einstellen, dann die `key_`-Zeilen aus deren `options.txt` kopieren.
