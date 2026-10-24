@@ -18,7 +18,6 @@ dann in `plugins/` kopieren.
 | Armor Poser Plugin | 3.0.0 (release, 17.09.) | Modrinth `armor-poser-plugin` | MIT | `ArmorPoser-Plugin-3.0.0.jar`, `cc1f347fdef37ad3320dbba07555299d8b657a81` | Server-Teil zur Mod Armor Poser im Pack. Öffnen mit **Strg + Rechtsklick** auf einen Rüstungsständer (bestätigt im Test 24.10.) |
 | Simple Voice Chat (Bukkit) | bukkit-2.6.25 (release, 22.10.) | Modrinth `simple-voice-chat` | ARR (Nutzung frei) | `voicechat-bukkit-2.6.25.jar`, `7e1113545d931e5a188a21d0ef806371f13813ea` | Sprachchat |
 | Chunky | 1.5.3 (release, 04.05.) | Modrinth `chunky` | GPL-3.0 | `Chunky-Bukkit-1.5.3.jar`, `7ff47ee3afec89a1725e6eef393f373c549eff3b` | Welt vorgenerieren (`kapazitaet.md`) |
-| Spawn Elytra – like in Craft Attack | 2.6.1 (release, 06.09.) | Modrinth `spawnelytra` | MIT | `SpawnElytra-2.6.1.jar`, `4942f2bec4d4ea612a91b1e443745dcaf278d2ee` | Elytra-Flug per Doppelsprung am Spawn wie in Craft Attack |
 | spark | in Paper eingebaut | – | – | – | Profiler: `/spark tps`, `/spark health`, `/spark profiler` |
 
 Alle sind auf Modrinth als 26.3-kompatibel markiert (Filter `game_versions=26.3`, Loader paper/bukkit).
@@ -46,18 +45,8 @@ Alle sind auf Modrinth als 26.3-kompatibel markiert (Filter `game_versions=26.3`
     `allowWorldMapCaveModeInNether: true` (beide standardmäßig `false`)
   - Die Log-Meldung „Legacy plugin … does not specify an api-version“ ist harmlos, das Plugin läuft
 - **Kein VeinMiner** (Pascal, 23.10.)
-- **Spawn Elytra → „Spawn Elytra – like in Craft Attack“** (Leitung 24.10., Ersatz für die CA-Spawn-Elytra). Quelle: github.com/Knabbiii/SpawnElytra.
-  Verworfen: das gleichnamige *Spawn Elytra* (Modrinth `spawn-elytra`, MPL-2.0), weil die Leitung das Craft-Attack-Plugin festgelegt hat.
-  - Doppelsprung startet den Gleitflug ohne echte Elytra, F gibt einen Schub, Landen ohne Fallschaden
-  - **Flugbereich = Spawn-Insel:** Kreis um den Weltspawn, Welt `world`. Beim Weltspawn 64/179/29 (Spawn-&-Welt-Session, Insel v2) braucht es
-    **`spawnRadius: 65`** statt Standard 50 in `config.yml`, damit die ganze Insel drin ist. Die Rückweg-Plattform unten (y 62) liegt bewusst außerhalb,
-    weil die Höhe mitzählt (`ignoreYInSpawnRadius: false` lassen). Mit `/spawnelytra visualize` prüfen.
-    Nur falls nötig: `/spawnelytra setup` (Rechteck, gespeichert in `plugins/SpawnElytra/area.yml`)
-  - **bStats aus:** `enableMetrics: false` in `plugins/SpawnElytra/config.yml` und zusätzlich `enabled: false` in `plugins/bStats/config.yml` (gilt für alle Plugins)
-  - `messages.yml` auf Deutsch übersetzt (`plugin-konfig/plugins/SpawnElytra/`), `checkForUpdates: false`. Optional Flugzeit begrenzen, falls jemand vom Spawn aus endlos fliegt
-  - Rechte: `spawnelytra.use`, `spawnelytra.useboost` (beim Einrichten prüfen, dass Spieler sie ohne Rechte-Plugin haben), `spawnelytra.admin` nur OP
-  - **Prüfen (Task 4, Pascal im Spiel):** Spieler ohne OP fliegt per Doppelsprung auf der Insel, außerhalb nicht. Schub mit F, kein Fallschaden. Brustpanzer bleibt erhalten.
-    Verträgt sich mit WorldGuard-Spawnschutz und Fair Play
+- ~~Spawn Elytra – like in Craft Attack~~ → **gestrichen 24.10.** (Pascal, neuer Spawn im Weltenbaum: Spawn unten im Stamm, kein Gleitflug vom Spawn). Jar, Konfig und `plugins/SpawnElytra/` kommen nicht auf den Server
+- **bStats aus:** `enabled: false` in `plugins/bStats/config.yml` (gilt für alle Plugins, `plugin-konfig/`)
 
 ## Velocity-Instanz `MinecraftProxy01`
 

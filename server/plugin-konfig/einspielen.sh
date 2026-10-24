@@ -26,7 +26,7 @@ done
 cp "$quelle/../paper/permissions.yml" "$ziel/permissions.yml"
 echo "permissions.yml"
 
-for alt in "$ziel"/plugins/harvester-*.jar; do
-  [ -e "$alt" ] && echo "WARNUNG: $alt liegt noch im Server, Right click harvester ist gestrichen (24.10.)" >&2
+for alt in "$ziel"/plugins/harvester-*.jar "$ziel"/plugins/SpawnElytra-*.jar; do
+  [ -e "$alt" ] && echo "WARNUNG: $alt liegt noch im Server, das Plugin ist gestrichen (24.10.)" >&2
 done
 exit 0

@@ -126,7 +126,6 @@ end close
 ```
 
 Plugin-Befehle von DimensionControl, gehen nicht aus einer Funktion. Danach Anti-Xray für Nether/End eintragen, Neustart, dann die Vorgenerierung (oben).
-Spawn Elytra: `spawnRadius: 65` in `plugins/SpawnElytra/config.yml` (`plugins.md`).
 
 Nur falls das Datapack `insel` nicht läuft, Spawn von Hand (in 26.3 braucht `setworldspawn` zwei Winkelwerte):
 
