@@ -1,5 +1,9 @@
 # Spawn-Entwürfe für die echte Welt (Forever-World)
 
+> **Stand 24.10. abends: Weltenbaum verworfen** (Pascal nach dem Test der sechsten Fassung: „Ich glaube, wir lassen es mit dem Baum, das gefällt mir alles nicht.“). Generator und Bilder bleiben als Archiv im Repo. Wie es mit dem Spawn weitergeht, klärt die Leitung mit Pascal.
+>
+> **Wiederverwendbar, unabhängig vom Bauwerk:** Eröffnungs-Event (`insel:eroeffnung`/`schliessen`: geschlossener Spawn, Countdown, Verschluss Reihe für Reihe öffnen, Weltgrenze 128 → 10.000), `spawn/standort.mjs` (Standort-Konfiguration, `aus-entwurf`, Ladebereich inkl. Struktur), Pilzland-Werkzeug (`fillbiome` im Oval), Lichter, WorldGuard-Regionen, `spawn/neu-aufsetzen.sh` (Reset mit Seed und Standort), `insel:aufbau_ende` (räumt abgefallene Gegenstände weg), die Halt-Prüfung für Pflanzen/Laternen (Abschnitt 10 in `weltenbaum.mjs`), Höhlenluft für Hohlräume (räumt Gelände beim `place template` frei), `spawn/treppe-pruefen.mjs` als Muster für Prüfungen in echten Weltdaten.
+
 Stand 2026-10-24, Auftrag Leitung nach grill-me mit Pascal: **eigenes Design**, nicht weihnachtlich, nichts kopiert (weder CA12 noch das Nitrado-Paket).
 Pascal wählt eine Richtung, danach Verfeinerung und Aufbau auf dem Testserver.
 

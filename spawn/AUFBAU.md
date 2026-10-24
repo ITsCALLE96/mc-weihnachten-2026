@@ -48,7 +48,9 @@ Vor dem Start sind alle im verschlossenen Spawn-Raum: Das große Tor im Norden i
 - Der Aufbau endet mit `insel:aufbau_ende` (5 s nach dem Setzen): entfernt herumliegende Gegenstände im Ladebereich, gibt die Chunks frei, meldet „Spawn eingerichtet“
 - Auf Vanilla 26.3 geprüft: alle Funktionen laden ohne Fehler (Block-Partikel in 26.3: `block{block_state:"minecraft:…"}` als Text), Schließen, Öffnen, Aufräumen
 
-## Testserver: Weltenbaum (seit 24.10. abends)
+## Testserver: Weltenbaum (24.10. abends, verworfen)
+
+> Pascal hat den Weltenbaum am 24.10. abends verworfen. Der Testserver steht noch mit Baum (sechste Fassung, Seed 777) und wird bis zur Entscheidung über den neuen Spawn nicht verändert. Die Spawn-Technik oben gilt unverändert für jeden neuen Bau.
 
 Pascal will den Baum im Spiel sehen, deshalb steht auf dem Testserver jetzt der Weltenbaum statt der CA12-Insel. **Vorläufiger Seed `777`**
 (schnell gewählt: Gras, wenig Wasser, mittlere Höhe 71; die gründliche Seed-Suche für die echte Welt kommt später). Stamm bei −16/−40, Boden y 75,
