@@ -52,12 +52,20 @@ export function ladeKasten(k) {
 // Pilzland (mushroom_fields) über die ganze Höhe im Oval: dort erscheinen in 26.3 keine Monster (natürliche Spawns nur Fledermaus,
 // Pilzkuh auf Myzel, Leuchttintenfisch), keine Plünderer-Patrouillen, keine Zombie-Belagerungen. Spawner und Phantome bleiben.
 // fillbiome in 8×8-Säulen von −64 bis 319 (8·8·384 = 24.576 < 32.768, Grenze für Befehle)
-export function pilzlandBefehle({ x, z, a, b }) {
+export function pilzlandBefehle({ x, z, a, b, biom = 'minecraft:mushroom_fields' }) {
   const out = [];
   for (let bz = Math.floor((z - b) / 8) * 8; bz <= z + b; bz += 8) for (let bx = Math.floor((x - a) / 8) * 8; bx <= x + a; bx += 8) {
     const mx = bx + 4, mz = bz + 4; if (((mx - x) / (a + 4)) ** 2 + ((mz - z) / (b + 4)) ** 2 > 1) continue;
-    out.push(`fillbiome ${bx} -64 ${bz} ${bx + 7} 319 ${bz + 7} minecraft:mushroom_fields`);
+    out.push(`fillbiome ${bx} -64 ${bz} ${bx + 7} 319 ${bz + 7} ${biom}`);
   }
+  return out;
+}
+
+// place template für den Bau; mit struktur.kachel in Kacheln (tools/schem-struktur.mjs … <kachel>): <name>_<i>_<j> ab Ecke + (i·k, 0, j·k)
+export function strukturBefehle({ name, ursprung: [x, y, z], groesse, kachel }) {
+  if (!kachel) return [`place template ${name} ${x} ${y} ${z}`];
+  const out = [];
+  for (let j = 0; j * kachel < groesse[2]; j++) for (let i = 0; i * kachel < groesse[0]; i++) out.push(`place template ${name}_${i}_${j} ${x + i * kachel} ${y} ${z + j * kachel}`);
   return out;
 }
 
@@ -136,7 +144,7 @@ execute if score #offen insel_zustand matches 1 run say Spawn ist schon offen �
 execute if score #offen insel_zustand matches 0 if score #countdown insel_zustand matches 0.. run say Eröffnung läuft schon
 execute if score #offen insel_zustand matches 0 unless score #countdown insel_zustand matches 0.. run function insel:eroeffnung_start
 `;
-    f.eroeffnung_start = `bossbar add insel:eroeffnung {"text":"Der Baum öffnet sich …","color":"light_purple"}
+    f.eroeffnung_start = `bossbar add insel:eroeffnung {"text":"${e.text ?? 'Der Baum öffnet sich …'}","color":"light_purple"}
 bossbar set insel:eroeffnung max ${e.sekunden}
 bossbar set insel:eroeffnung color purple
 bossbar set insel:eroeffnung players @a
@@ -166,10 +174,11 @@ scoreboard players remove #countdown insel_zustand 1
         `playsound minecraft:block.wood.break master @a ${m.join(' ')} 1.5 0.7`,
         ...(i === 0 || i === e.ausgaenge.length - 1 ? [`playsound minecraft:block.vault.open_shutter master @a ${m.join(' ')} 2 0.8`] : [])].join('\n') + '\n';
     });
+    // grenzeAufSekunden: die Weltgrenze fährt sichtbar auseinander statt zu springen
     f.willkommen = `worldborder center ${g.x} ${g.z}
-worldborder set ${g.breite}
+worldborder set ${g.breite}${e.grenzeAufSekunden ? ` ${e.grenzeAufSekunden}` : ''}
 title @a times 10 60 20
-title @a subtitle {"text":"Der Baum ist offen – viel Spaß!","color":"green"}
+title @a subtitle {"text":"${e.untertitel ?? 'Der Baum ist offen – viel Spaß!'}","color":"green"}
 title @a title {"text":"Willkommen!","color":"gold","bold":true}
 execute as @a at @s run playsound minecraft:ui.toast.challenge_complete master @s ~ ~ ~ 1 1
 `;
@@ -186,10 +195,12 @@ execute if score #geladen insel_tp matches 1 run function insel:aufbau_teil2
 execute unless score #geladen insel_tp matches 1 run schedule function insel:aufbau_pruefen 20t
 `;
   f.aufbau_teil2 = [
-    k.struktur && `# Spawn-Bau als Struktur (untere Nordwest-Ecke ${k.struktur.ursprung.join('/')})\nplace template ${k.struktur.name} ${k.struktur.ursprung.join(' ')}`,
+    // Hinweis gekaufter Bauten: beim Einfügen kein Zufallsticken (Laub, Ranken, Gras); aufbau_ende stellt den Standard wieder her
+    k.struktur && `# Spawn-Bau als Struktur (untere Nordwest-Ecke ${k.struktur.ursprung.join('/')})\ngamerule random_tick_speed 0\n${strukturBefehle(k.struktur).join('\n')}`,
     k.pilzland && '# Pilzland-Biom (keine Monster) über die ganze Höhe\nfunction insel:pilzland',
     p && '# Rückweg-Plattform\nfunction insel:plattform',
     k.lichter !== null && '# Unsichtbare Lichter im Oval (spawn/standort.mjs lichter)\nfunction insel:lichter',
+    k.tafeln?.length && '# Infotafeln (Namensnennung des Erbauers)\nfunction insel:tafeln',
     `setworldspawn ${s.x} ${s.y} ${s.z} ${s.yaw} ${s.pitch}`, 'gamerule respawn_radius 0',
     `# Weltgrenze (Vorgenerierung mit Chunky macht die Server-Session)\nworldborder center ${g.x} ${g.z}\nworldborder set ${g.breite}`,
     e && '# Vor dem Start geschlossen (Eröffnungs-Event)\nfunction insel:schliessen',
@@ -198,6 +209,7 @@ execute unless score #geladen insel_tp matches 1 run schedule function insel:auf
   f.aufbau_ende = [
     `# Beim Setzen abgefallene Gegenstände entfernen (Blumen des Geländes, deren Boden der Bau ersetzt hat), dann Chunks freigeben\nkill @e[type=item,x=${lx1 - 8},y=-64,z=${lz1 - 8},dx=${lx2 - lx1 + 16},dy=384,dz=${lz2 - lz1 + 16}]`,
     `forceload remove ${lx1} ${lz1} ${lx2} ${lz2}`,
+    k.struktur && 'gamerule random_tick_speed 3',
     `say Spawn eingerichtet: ${k.struktur ? 'Bau, ' : ''}${p ? 'Plattform, ' : ''}${k.lichter !== null ? 'Lichter, ' : ''}Weltspawn ${s.x}/${s.y}/${s.z}, Weltgrenze${e ? ', geschlossen' : ''} (Nether/End per Konsole sperren)`,
   ].filter(Boolean).join('\n') + '\n';
   if (k.spawnTeleport) {
@@ -220,7 +232,14 @@ scoreboard players reset @s insel_tod
 execute unless data entity @s respawn run tp @s ${s.x + 0.5} ${s.y} ${s.z + 0.5} ${s.yaw} ${s.pitch}
 `;
   }
-  if (k.pilzland) f.pilzland = `# Pilzland-Biom im Oval (Mitte ${k.pilzland.x}/${k.pilzland.z}, Halbachsen ${k.pilzland.a}/${k.pilzland.b}), ganze Höhe – keine Monster, Licht ist dann Stimmung\n` + pilzlandBefehle(k.pilzland).join('\n') + '\n';
+  if (k.pilzland) f.pilzland = (k.pilzland.biom && k.pilzland.biom !== 'minecraft:mushroom_fields'
+    ? `# Biom ${k.pilzland.biom} im Oval (Mitte ${k.pilzland.x}/${k.pilzland.z}, Halbachsen ${k.pilzland.a}/${k.pilzland.b}), ganze Höhe – Farben wie im Original; keine Monster macht hier die WorldGuard-Region\n`
+    : `# Pilzland-Biom im Oval (Mitte ${k.pilzland.x}/${k.pilzland.z}, Halbachsen ${k.pilzland.a}/${k.pilzland.b}), ganze Höhe – keine Monster, Licht ist dann Stimmung\n`) + pilzlandBefehle(k.pilzland).join('\n') + '\n';
+  // Infotafeln: gewachste Schilder (nicht bearbeitbar), bis 4 Zeilen; in 26.3 ist eine Zeichenkette im SNBT ein schlichter Text
+  if (k.tafeln?.length) f.tafeln = '# Infotafeln am Spawn\n' + k.tafeln.map((t) => {
+    const zeilen = [...t.zeilen, '', '', '', ''].slice(0, 4).map((z) => `"${z.replace(/"/g, '\\"')}"`).join(',');
+    return `setblock ${t.x} ${t.y} ${t.z} ${t.block ?? 'minecraft:spruce_sign[rotation=0]'}{is_waxed:1b,front_text:{messages:[${zeilen}]}}`;
+  }).join('\n') + '\n';
   if (p) f.plattform = `# Rückweg-Plattform (Mitte ${p.x}/${p.y}/${p.z}, Radius 4, Stil ${p.stil ?? 'stein'}), Form von Pascal freigegeben\n` +
     plattformTeile(p.stil).map(([dx, dy, dz, b]) => `setblock ${p.x + dx} ${p.y + dy} ${p.z + dz} ${b}`).join('\n') + '\n';
   const regionen = `# WorldGuard-Region der Oberwelt, erzeugt mit spawn/standort.mjs aus ${k.datei ?? 'der Standort-Konfiguration'}. Einspielen nach
@@ -242,7 +261,7 @@ ${ovalPunkte(k.oval).map(([x, z]) => `            - {x: ${x}, z: ${z}}`).join('\
         members: {}
         owners: {}
         flags:
-${['mob-spawning', 'pvp', 'chest-access', 'creeper-explosion', 'other-explosion', 'tnt', 'fire-spread', 'lava-fire', 'lighter', 'ghast-fireball', 'enderman-grief', 'ravager-grief', 'wither-damage', 'item-frame-rotation', 'vehicle-destroy', 'leaf-decay', 'ice-melt', 'snow-melt'].map((n) => `            ${n}: deny`).join('\n')}
+${['mob-spawning', 'pvp', 'chest-access', 'creeper-explosion', 'other-explosion', 'tnt', 'fire-spread', 'lava-fire', 'lighter', 'ghast-fireball', 'enderman-grief', 'ravager-grief', 'wither-damage', 'item-frame-rotation', 'vehicle-destroy', 'leaf-decay', 'ice-melt', 'snow-melt', 'vine-growth', 'mushroom-growth', 'mycelium-spread', 'coral-fade', 'copper-fade'].map((n) => `            ${n}: deny`).join('\n')}
             use: allow
 `;
   return { funktionen: f, regionen };

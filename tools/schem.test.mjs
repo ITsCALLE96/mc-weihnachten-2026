@@ -36,3 +36,13 @@ test('Einfügen versetzt Blöcke und Block-Entities, Luft überschreibt nichts',
   assert.equal(hole(ziel, 0, 0, 0), LUFT);
   assert.deepEqual(ziel.blockEntities[0].pos, [2, 0, 2]);
 });
+
+test('Entities übersteht Speichern und Laden', async () => {
+  const { tag } = await import('./nbt.mjs');
+  const m = testModell();
+  m.entities = [{ pos: [1.5, 2, 3.5], id: 'minecraft:armor_stand', daten: { Small: tag('byte', 1) } }];
+  const n = lade(speichere(m));
+  assert.deepEqual(n.entities[0].pos, [1.5, 2, 3.5]);
+  assert.equal(n.entities[0].id, 'minecraft:armor_stand');
+  assert.equal(n.entities[0].daten.Small.value, 1);
+});

@@ -34,6 +34,11 @@ export function lade(datei) {
     const { Pos, Id, Data, ...rest } = be;
     return { pos: [...Pos.value], id: Id.value, daten: v3 ? (Data?.value ?? {}) : rest };
   });
+  const ents = s.Entities?.value.items ?? [];
+  if (ents.length) m.entities = ents.map((en) => {
+    const { Pos, Id, Data, ...rest } = en;
+    return { pos: [...Pos.value.items], id: Id.value, daten: v3 ? (Data?.value ?? {}) : rest };
+  });
   return m;
 }
 

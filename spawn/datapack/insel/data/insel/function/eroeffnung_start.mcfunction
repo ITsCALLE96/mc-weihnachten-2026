@@ -1,4 +1,4 @@
-bossbar add insel:eroeffnung {"text":"Der Baum öffnet sich …","color":"light_purple"}
+bossbar add insel:eroeffnung {"text":"Das Dorf öffnet sich …","color":"light_purple"}
 bossbar set insel:eroeffnung max 10
 bossbar set insel:eroeffnung color purple
 bossbar set insel:eroeffnung players @a

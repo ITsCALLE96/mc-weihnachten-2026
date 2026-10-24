@@ -1,0 +1,70 @@
+{
+  "beschreibung": "Testserver, vorläufiger Seed 777: Fantasy Village (LavaBuilds, gekauft) als schwebende Insel, unverändert; Ursprung -150/80/-158, Brunnen auf dem Platz bei 0/0, Boden y 234",
+  "spawn": {
+    "x": 0,
+    "y": 235,
+    "z": 16,
+    "yaw": 180,
+    "pitch": 0
+  },
+  "oval": {
+    "x": -30,
+    "z": -36,
+    "a": 124,
+    "b": 123
+  },
+  "pilzland": {
+    "x": -30,
+    "z": -36,
+    "a": 120,
+    "b": 120,
+    "biom": "minecraft:cherry_grove"
+  },
+  "struktur": {
+    "name": "spawn:fantasy_village",
+    "ursprung": [
+      -150,
+      80,
+      -158
+    ],
+    "groesse": [
+      240,
+      215,
+      244
+    ],
+    "quelle": "spawn/quellen/fantasy-village/fantasy-village.schem",
+    "kachel": 64
+  },
+  "weltgrenze": {
+    "x": 0,
+    "z": 0,
+    "breite": 10000
+  },
+  "lichter": null,
+  "tafeln": [
+    {
+      "x": -3,
+      "y": 235,
+      "z": 15,
+      "block": "minecraft:spruce_sign[rotation=0]",
+      "zeilen": [
+        "Spawn",
+        "Fantasy Village",
+        "gebaut von",
+        "LavaBuilds"
+      ]
+    }
+  ],
+  "eroeffnung": {
+    "sekunden": 10,
+    "text": "Das Dorf öffnet sich …",
+    "untertitel": "Das Dorf ist offen – viel Spaß!",
+    "grenzeZu": {
+      "x": 0,
+      "z": 0,
+      "breite": 80
+    },
+    "grenzeAufSekunden": 20,
+    "ausgaenge": []
+  }
+}

@@ -73,3 +73,22 @@ test('Eröffnung: schließen setzt Wurzeln, Barriere und kleine Grenze; Eröffnu
   assert.match(f.willkommen, /worldborder set 10000/);
   assert.match(f.aufbau_teil2, /function insel:schliessen/);
 });
+
+test('Gekaufter Bau: eigenes Biom, Infotafel gewachst, Zufallsticken beim Einfügen aus, Grenze fährt auf, Eröffnung ohne Ausgänge', () => {
+  const kf = JSON.parse(readFileSync(new URL('./standort-fantasy-village-test.json', import.meta.url)));
+  const { funktionen: f, regionen } = dateien(kf);
+  assert.match(f.pilzland, /fillbiome .* minecraft:cherry_grove$/m);
+  assert.doesNotMatch(f.pilzland, /mushroom_fields/);
+  assert.match(f.tafeln, /^setblock -3 235 15 minecraft:spruce_sign\[rotation=0\]\{is_waxed:1b,front_text:\{messages:\["Spawn","Fantasy Village","gebaut von","LavaBuilds"\]\}\}$/m);
+  assert.match(f.aufbau_teil2, /gamerule random_tick_speed 0\nplace template spawn:fantasy_village_0_0 -150 80 -158\n/);
+  assert.match(f.aufbau_teil2, /^place template spawn:fantasy_village_3_3 42 80 34$/m);
+  assert.equal(f.aufbau_teil2.match(/place template/g).length, 16);
+  assert.match(f.aufbau_teil2, /function insel:tafeln/);
+  assert.match(f.aufbau_ende, /gamerule random_tick_speed 3/);
+  assert.match(f.willkommen, /^worldborder set 10000 20$/m);
+  assert.match(f.eroeffnung_start, /Das Dorf öffnet sich/);
+  assert.match(f.schliessen, /worldborder set 80/);
+  assert.match(f.oeffnen, /schedule function insel:willkommen 20t/);
+  assert.match(regionen, /vine-growth: deny/);
+  assert.deepEqual(ladeKasten(kf), [-152, -152, 88, 88]); // 16 × 16 = 256 Chunks, Grenze von forceload
+});

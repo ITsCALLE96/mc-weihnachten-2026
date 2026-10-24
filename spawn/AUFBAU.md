@@ -13,11 +13,27 @@ Alle Ortsangaben stehen in `spawn/standort-<name>.json` (Vorlage: `standort-test
 | `oval` | Mitte x/z und Halbachsen a (x) / b (z): Spawnschutz-Region (WorldGuard poly2d) und Bereich der Lichter, ≈ Umriss des Spawns am Boden plus Rand |
 | `plattform` | optional (nur Testserver): Mitte x/y/z der Rückweg-Plattform (y = Höhe der Plattform-Oberkante, meist Wasserspiegel 62), Radius des Auslösers. Weglassen = keine Plattform |
 | `obenBereich` | optional, nur mit `saettigung`: Kasten (von/bis), in dem man „oben am Spawn“ ist: dort gibt es beim Betreten einmal Sättigung |
-| `struktur` | optional: Struktur, die `insel:aufbau` per `place template` setzt (Name, untere Nordwest-Ecke); `null` bei eigenem Bau oder fertiger Welt |
+| `struktur` | optional: Struktur, die `insel:aufbau` per `place template` setzt (Name, untere Nordwest-Ecke, `groesse`); `quelle` = Schematic außerhalb der Entwürfe (z. B. gekauft, lokal), `kachel` = in Kacheln k × k einfügen (große Bauten); `null` bei eigenem Bau oder fertiger Welt |
+| `pilzland` | optional: Oval, in dem das Biom über die ganze Höhe gesetzt wird; Standard Pilzland, mit `biom` ein anderes (z. B. `minecraft:cherry_grove` für die Original-Farben) |
+| `tafeln` | optional: gewachste Schilder (`x`/`y`/`z`, `block`, bis 4 `zeilen`), z. B. Namensnennung des Erbauers |
 | `weltgrenze` | Mitte x/z und Breite |
 | `teleportTicks`, `saettigung`, `lichter` | Dauer des Portal-Übergangs, Sättigung (Sekunden, Abklingzeit; weglassen = keine), Licht-Raster und Unterkante des Baus (`null` = keine Lichter, z. B. im Pilzland) |
 | `spawnTeleport` | beim ersten Betreten und nach dem Tod ohne Bett auf den Spawn setzen (nötig, wenn der Spawn unter einem Dach liegt) |
-| `eroeffnung` | optional: Eröffnungs-Event mit `sekunden` (Countdown), `grenzeZu` (Mitte, Breite der kleinen Weltgrenze) und `abstand` (Ticks zwischen den Ausgängen, Standard 15) und `ausgaenge` (je Ausgang Kasten `wurzeln` mit Verschluss-Block `block`, Standard Mangrovenwurzeln, und Kasten `barriere`; beim Weltenbaum eine Reihe des Tors je Eintrag) |
+| `eroeffnung` | optional: Eröffnungs-Event mit `sekunden` (Countdown), `grenzeZu` (Mitte, Breite der kleinen Weltgrenze) und `abstand` (Ticks zwischen den Ausgängen, Standard 15) und `ausgaenge` (je Ausgang Kasten `wurzeln` mit Verschluss-Block `block`, Standard Mangrovenwurzeln, und Kasten `barriere`; beim Weltenbaum eine Reihe des Tors je Eintrag; leer = nur Weltgrenze), `text`/`untertitel` (Bossbar, Begrüßung) und `grenzeAufSekunden` (große Grenze fährt sichtbar auf) |
+
+## Testserver: Fantasy Village (gekauft, ab 24.10. spät)
+
+Pascal hat **Hub/Spawn – Fantasy Village (LavaBuilds, BuiltByBit)** gekauft. Lizenz (README im Paket): nicht weiterverkaufen, nicht weitergeben,
+nicht als eigenen Bau ausgeben; dazu die Standard-EULA von BuiltByBit (Betrieb, Änderungen erlaubt). **Kaufdateien und alles daraus bleiben lokal
+in `spawn/quellen/fantasy-village/` (git-ignoriert), nie ins Repo, nicht in einen öffentlichen Welt-Download.**
+
+- Umwandeln: `node --max-old-space-size=8000 spawn/fantasy-village.mjs "spawn/quellen/fantasy-village/Hub-Spawn - Fantasy Village/File for 1.21+/World/Fantasy Villages" spawn/quellen/fantasy-village/fantasy-village.schem`
+  (aus der Welt, weil nur sie Dorfbewohner, Rahmen, Rüstungsständer und Anzeigen enthält; Laub persistent, Barriere gegen auslaufendes Wasser und fallende Blöcke)
+- Testserver: `SEED=777 bash spawn/neu-aufsetzen.sh testserver/server` (Fantasy Village ist der Standard, `standort-fantasy-village-test.json`)
+- Schwebende Insel, Unterseite ab y 80, Platz auf y 235 (Boden 234), Brunnen bei 0/0, **Spawn 0/235/16** (Blick nach Norden), 16 Kacheln à 64
+- Biom Kirschhain wie im Original (Farben), keine Monster über die Region; Schild mit Namensnennung LavaBuilds neben dem Spawn
+- Eröffnung: Weltgrenze 80 um den Brunnen, `insel:eroeffnung` zählt 10 s herunter, dann fährt die Grenze in 20 s auf 10.000
+- Noch offen (nach Pascals Rundgang): Weg von der Insel nach unten, Höhe, Stil (Kirschblüte/Blasser Garten)
 
 Für einen Entwurf aus `spawn/entwuerfe/` erzeugt `node spawn/standort.mjs aus-entwurf <entwurf.json> <ursprung x,y,z> [struktur]` die Standort-Konfiguration (ohne Plattform und Sättigung, mit Eröffnung).
 
@@ -50,7 +66,7 @@ Vor dem Start sind alle im verschlossenen Spawn-Raum: Das große Tor im Norden i
 
 ## Testserver: Weltenbaum (24.10. abends, verworfen)
 
-> Pascal hat den Weltenbaum am 24.10. abends verworfen. Der Testserver steht noch mit Baum (sechste Fassung, Seed 777) und wird bis zur Entscheidung über den neuen Spawn nicht verändert. Die Spawn-Technik oben gilt unverändert für jeden neuen Bau.
+> Pascal hat den Weltenbaum am 24.10. abends verworfen. Seit dem späten Abend steht auf dem Testserver Fantasy Village (siehe oben). Neu bauen: `STANDORT=spawn/standort-weltenbaum-test.json SEED=777 bash spawn/neu-aufsetzen.sh testserver/server`. Die Spawn-Technik oben gilt unverändert für jeden neuen Bau.
 
 Pascal will den Baum im Spiel sehen, deshalb steht auf dem Testserver jetzt der Weltenbaum statt der CA12-Insel. **Vorläufiger Seed `777`**
 (schnell gewählt: Gras, wenig Wasser, mittlere Höhe 71; die gründliche Seed-Suche für die echte Welt kommt später). Stamm bei −16/−40, Boden y 75,
@@ -89,7 +105,8 @@ Voraussetzungen: Paper 26.3 mit den Plugins aus `server/plugins.md`, `server.pro
 1. Welt löschen bzw. neu anlegen (beim echten Server nur vor dem Start, nie danach)
 2. Nach `world/datapacks/` kopieren: `datapack/leitfaden`, `server/datapacks/wanderhaendler-rabatt`, `spawn/datapack/insel`, lokal `spawn/quellen/datapacks/aufschuettung`
    und das Datapack `spawn-insel` mit der Struktur: `node tools/schem-struktur.mjs spawn/quellen/ca12-spawn-v2.schem world/datapacks/spawn-insel/data/spawn/structure/ca12v2.nbt` (+ `pack.mcmeta`)
-3. `spawn/worldguard/regions.yml` → `plugins/WorldGuard/worlds/world/regions.yml`
+3. `spawn/worldguard/regions.yml` → `plugins/WorldGuard/worlds/world/regions.yml` **erst nach `insel:aufbau`** (Server gestoppt bzw. danach `rg load -w world`):
+   `mob-spawning deny` verhindert sonst die Dorfbewohner und Fische der Struktur beim Einfügen (Test 24.10.: 13 Dorfbewohner fehlten)
 3b. Plugin-Konfigs: `bash server/plugin-konfig/einspielen.sh <server> lokal|vm200` (Server-Session), Right click harvester ist raus
 4. Anti-Xray für Nether/End: **erst nach dem ersten Start** in die von Paper angelegten `world/dimensions/minecraft/the_nether/paper-world.yml` bzw. `the_end/` eintragen (Inhalt `server/paper/anti-xray.md`), wirkt ab dem nächsten Start. Vorab angelegte Dimensions-Ordner lassen Paper beim Start abstürzen
 5. Server starten, in der Konsole nacheinander:
