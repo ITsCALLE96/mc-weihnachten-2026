@@ -27,7 +27,7 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 ## Welt
 
 - [ ] Seed `1560698989` (CA12), Weltgrenze 10.000 × 10.000, Mittelpunkt x 64 / z 37 (Nether 8 / 5)
-- [ ] Nach dem Einfügen der Insel: Datapack `insel` + `function insel:aufbau` (Weltspawn 60/179/22, `respawn_radius 0`, Rückweg-Plattform, Lichtblöcke),
+- [ ] Insel v2 per `//schem load ca12-spawn-v2` + `//paste -e` an 24/64/−9 eingefügt, danach Datapack `insel` + `function insel:aufbau` (Weltspawn 64/179/29, `respawn_radius 0`, Rückweg-Plattform, Lichtblöcke),
   WorldGuard `regions.yml` aus `spawn/worldguard/`, neuer Testspieler landet auf der Insel (`vorgenerierung.md` → Spawn)
 - [ ] **Vorgenerierung** Overworld 5.000 / Nether 1.250 / End 2.000 abgeschlossen (`vorgenerierung.md`), Drachenkampf startet weiterhin (in der Testwelt geprüft)
 - [ ] Datapacks geladen, Reihenfolge per `/datapack list` (`plugins.md`). Wanderhändler-Rabatt `datapacks/wanderhaendler-rabatt` in der Testwelt geprüft, im Spiel erst ab 24.12. eingeschaltet (`datapacks/README.md`)

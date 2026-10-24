@@ -55,7 +55,7 @@ Alle sind auf Modrinth als 26.3-kompatibel markiert (Filter `game_versions=26.3`
 - **Spawn Elytra → „Spawn Elytra – like in Craft Attack“** (Leitung 24.10., Ersatz für die CA-Spawn-Elytra). Quelle: github.com/Knabbiii/SpawnElytra.
   Verworfen: das gleichnamige *Spawn Elytra* (Modrinth `spawn-elytra`, MPL-2.0), weil die Leitung das Craft-Attack-Plugin festgelegt hat.
   - Doppelsprung startet den Gleitflug ohne echte Elytra, F gibt einen Schub, Landen ohne Fallschaden
-  - **Flugbereich = Spawn-Insel:** Kreis um den Weltspawn, Welt `world`. Seit der Weltspawn 60/179/22 ist (Spawn-&-Welt-Session), braucht es
+  - **Flugbereich = Spawn-Insel:** Kreis um den Weltspawn, Welt `world`. Beim Weltspawn 64/179/29 (Spawn-&-Welt-Session, Insel v2) braucht es
     **`spawnRadius: 65`** statt Standard 50 in `config.yml`, damit die ganze Insel drin ist. Die Rückweg-Plattform unten (y 62) liegt bewusst außerhalb,
     weil die Höhe mitzählt (`ignoreYInSpawnRadius: false` lassen). Mit `/spawnelytra visualize` prüfen.
     Nur falls nötig: `/spawnelytra setup` (Rechteck, gespeichert in `plugins/SpawnElytra/area.yml`)

@@ -85,13 +85,23 @@ erwartet, zeigt `chunky world` mit Tab-Vervollständigung. `chunky pause`/`chunk
 
 ## Spawn nach dem Einfügen der Insel
 
-Von der Spawn-&-Welt-Session (24.10.): Die Insel kommt an ihre Originalposition (Kasten x 24…118, y 115…238, z −9…59). Unter 26.3 liegt dort
+Von der Spawn-&-Welt-Session (24.10.): Die Insel kommt als **v2** an ihre Originalposition (Kasten x 24…118, z −9…59, mit allem, was darunter hängt:
+Kette bis y 64, Drachenklaue, zweiter Anhänger). Unter 26.3 liegt dort
 offenes Meer, der natürliche Weltspawn wäre −48 / 102 / 64.
 
-**Weltspawn 60 / 179 / 22** (Spawn-&-Welt-Session, Commit `b424386`). Unter 64/37 liegt die Amethyst-Kuppel, dort würde 26.3 Spieler auf den obersten Block der
-Spalte setzen (Drachenflügel, y 217). **Der Mittelpunkt für Weltgrenze und Chunky bleibt 64 / 37.**
+**Weltspawn 64 / 179 / 29** (Pascal entschieden, Spawn-&-Welt-Session Commit `b80e549`). Genau über 64/37 liegt die Amethyst-Kuppel, dort würde 26.3 Spieler
+auf den obersten Block der Spalte setzen (Drachenflügel, y 217). **Der Mittelpunkt für Weltgrenze und Chunky bleibt 64 / 37.**
 
-Einspielen nach dem Einfügen der Insel (Reihenfolge):
+**Insel einfügen** (WorldEdit, als OP im Spiel; die Datei `ca12-spawn-v2.schem` liegt git-ignoriert in `spawn/quellen/` und kommt nach
+`plugins/WorldEdit/schematics/`):
+
+```text
+/tp 24 64 -9
+//schem load ca12-spawn-v2
+//paste -e
+```
+
+Danach einspielen (Reihenfolge):
 1. Datapack `spawn/datapack/insel/` nach `world/datapacks/`, Neustart oder `/reload`, dann in der Konsole einmal:
 
 ```text
@@ -102,7 +112,7 @@ function insel:aufbau
    `respawn_radius 0`. Nur falls das Datapack nicht läuft, von Hand (in 26.3 braucht `setworldspawn` zwei Winkelwerte):
 
 ```text
-setworldspawn 60 179 22 0 0
+setworldspawn 64 179 29 0 0
 gamerule respawn_radius 0
 ```
 
@@ -113,7 +123,7 @@ gamerule respawn_radius 0
 
 **Spawn-Streuung auf 0:** Sonst landen Neulinge zufällig neben der schwebenden Insel im Meer. Die Regel heißt in 26.3 **`respawn_radius`** (lokaler Testserver,
 24.10.: `spawnRadius` und `spawn_radius` lehnt der Server ab). **Prüfen:** mit einem neuen Testspieler (oder nach Löschen seiner Spielerdaten) beitreten,
-er muss auf der Insel bei 60/179/22 stehen. Dazu: Plattform unten teleportiert ohne OP auf den Spawn, Bauen im Radius 150 als Spieler ohne OP abgelehnt.
+er muss auf der Insel bei 64/179/29 stehen. Dazu: Plattform unten teleportiert ohne OP auf den Spawn, Bauen im Radius 150 als Spieler ohne OP abgelehnt.
 Details: `spawn/KANDIDATEN.md` → „Spawn-Technik für die echte Welt“.
 
 **Prüfen:** `chunky progress` 100 %, `/spark tps` danach wieder 20 TPS, `du -sh` der Weltordner notieren (→ `kapazitaet.md` „Gemessen“).
