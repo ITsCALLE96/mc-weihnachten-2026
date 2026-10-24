@@ -45,7 +45,7 @@ Nicht ausgelesen (Taste wird über eine Hilfsfunktion gesetzt, meist ohne Standa
 
 Die Voreinstellungen liegen in `modpack/overrides/` und landen beim Bau 1:1 unter `overrides/` in der `.mrpack`:
 
-- `options.txt`: nur `version`, `lang:de_de`, alle Tastenzeilen (`key_…`) und die Lautstärken (`soundCategory_…`, z. B. Musik ~6 %, Wetter ~6 %) aus Pascals Testinstanz – Grafik usw. bleiben beim Standard
+- `options.txt`: nur `version`, `lang:de_de`, alle Tastenzeilen (`key_…`) und die Lautstärken (`soundCategory_…`, von Pascal festgelegt: Gesamt 50 %, Musik/Wetter/freundliche Tiere 5 %, Feinde 10 %, Plattenspieler/Umgebung 15 %, Rest 50 %) und die Tastenzeilen aus Pascals Testinstanz – Grafik usw. bleiben beim Standard
 - `config/freecam.json`: „Ignore All Collision“ aus, durch transparente und öffenbare Blöcke (Türen, Falltüren) darf man fliegen – wie von Pascal eingestellt
 - `config/ji-afk-cinematic.json`: AFK-Kamerafahrt nach 30 Sekunden, ohne Musik (Pascal, 24.10.); Tasten der Mod: F7 + H Menü, Strg + H an/aus, F7 + I sofort starten
 - `config/fancymenu/options.txt`: Bearbeitungsleiste aus, `modpack_mode` an (Spieler sehen keine FancyMenu-Leiste; einblenden mit Strg + Alt + C)
