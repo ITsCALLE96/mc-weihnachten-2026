@@ -10,6 +10,8 @@ Bildet den Aufbau von VM200 nach, nur mit anderen Ports. Läuft **neben** `../te
 
 Voice Chat wie auf VM200 über den Proxy, nur auf verschobenen Ports, damit nichts mit dem Testserver (24454) streitet: Proxy UDP 24474, SMP 24475, Hub 24476
 (VM200: 24454 / 24455 / 24456). Ohne Whitelist. Das Secret wird bei jedem Einrichten neu erzeugt und liegt nur in den ignorierten Ordnern.
+**RCON** (seit 25.10., Leitung): Hub 25585, SMP 25586, nur 127.0.0.1 (folgt `server-ip`), Passwort zufällig je Einrichten in `hub/server.properties` bzw.
+`smp/server.properties` (`rcon.password`, git-ignoriert). Damit lassen sich Befehle ohne Konsolenfenster schicken, z. B. `serverwahl status`.
 Die echte Hub-Welt (Fantasy Village, Ursprung −150/80/−158) setzt die Spawn-&-Welt-Session mit ihrem Aufbau-Skript in `hub/` (Server dafür gestoppt, Paper-Jar `paper-26.3-207.jar`).
 Bis dahin ist der Hub eine leere Luftwelt. Für einen Test vorher die Kisten als Platzhalter setzen (Schritt 4).
 

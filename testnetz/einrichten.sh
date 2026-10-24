@@ -93,6 +93,9 @@ max-players=30
 spawn-protection=0
 white-list=false
 motd=Testnetz Hub
+enable-rcon=true
+rcon.port=25585
+rcon.password=$(openssl rand -hex 16)
 $rp
 PROP
 
@@ -111,6 +114,9 @@ max-players=30
 spawn-protection=0
 white-list=false
 motd=Testnetz SMP
+enable-rcon=true
+rcon.port=25586
+rcon.password=$(openssl rand -hex 16)
 $rp
 PROP
 
