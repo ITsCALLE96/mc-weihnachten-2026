@@ -100,6 +100,8 @@ anticheat:
 
 - ~~Pfad der Welt-Konfiguration in 26.x~~ → geklärt (lokaler Testserver, 24.10.): Paper legt sie seit der neuen Weltstruktur unter
   `world/dimensions/minecraft/{overworld,the_nether,the_end}/paper-world.yml` an, nicht mehr in `world_nether/`. Die Overworld nimmt
-  `config/paper-world-defaults.yml`, Nether und End bekommen ihren Abschnitt in der jeweiligen `paper-world.yml`
+  `config/paper-world-defaults.yml`, Nether und End bekommen ihren Abschnitt in der jeweiligen `paper-world.yml`.
+  **Achtung (Spawn-&-Welt-Session, 24.10.):** Die Ordner `the_nether`/`the_end` nicht vor dem ersten Start anlegen, sonst stürzt Paper 26.3 ab
+  („Unable to read … world_gen_settings.dat“). Die beiden Abschnitte also erst nach dem ersten Start eintragen, sie wirken ab dem nächsten Start
 - ~~Unbekannte Block-IDs~~ → geprüft 24.10.: Paper bemängelt beim Start keine
 - Last: Modus 2 kostet etwas mehr Bandbreite und CPU. Vorher und nachher `/tps` und `/mspt` vergleichen (Prüfschritt im Plan).

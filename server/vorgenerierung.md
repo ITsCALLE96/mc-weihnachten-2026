@@ -10,7 +10,7 @@ Werkzeug: **Chunky 1.5.3** (Modrinth `chunky`, GPL-3.0, Prüfsumme in `plugins.m
 | Welt | Wann | Radius |
 |---|---|---|
 | **Testwelt** | vor dem Lasttest (Plan Task 2 Schritt 7), spätestens vor dem Testlauf 21.11. | mindestens **2.500** (Overworld), Nether 650. Dabei Dauer und Größe messen |
-| **Endgültige Welt** | **direkt nach dem Erzeugen in Task 10 Schritt 4 (bis 28.11.)**, auf jeden Fall vor dem ersten Spielerbeitritt. Ob die Spawn-Insel vorher oder nachher eingefügt wird, ist egal | Overworld **5.000**, Nether **1.250**, End **2.000** |
+| **Endgültige Welt** | **direkt nach dem Erzeugen in Task 10 Schritt 4 (bis 28.11.)**, auf jeden Fall vor dem ersten Spielerbeitritt. **Erst Spawn-Aufbau (Aufschüttung + Insel, unten), dann Chunky** | Overworld **5.000**, Nether **1.250**, End **2.000** |
 
 ## Weltgrenze
 
@@ -66,6 +66,8 @@ Ist nach Task 2 Schritt 1 nicht genug frei, gehe ich in dieser Reihenfolge vor: 
 
 ## Befehle (Konsole, endgültige Welt)
 
+Nach dem Spawn-Aufbau (unten). `insel:aufbau` setzt die Overworld-Grenze schon, die ersten beiden Zeilen schaden aber nicht.
+
 ```text
 worldborder center 64 37
 worldborder set 10000
@@ -83,47 +85,54 @@ Nach „Task complete“ dasselbe für `world_nether` (Radius 1.250, Mittelpunkt
 Die Weltnamen kommen aus der 26.3-Instanz: Seit der neuen Weltstruktur liegen alle Dimensionen unter `world/dimensions/minecraft/`. Welche Namen Chunky
 erwartet, zeigt `chunky world` mit Tab-Vervollständigung. `chunky pause`/`chunky continue` übersteht einen Neustart.
 
-## Spawn nach dem Einfügen der Insel
+## Spawn-Aufbau vor der Vorgenerierung
 
-Von der Spawn-&-Welt-Session (24.10.): Die Insel kommt als **v2** an ihre Originalposition (Kasten x 24…118, z −9…59, mit allem, was darunter hängt:
-Kette bis y 64, Drachenklaue, zweiter Anhänger). Unter 26.3 liegt dort
-offenes Meer, der natürliche Weltspawn wäre −48 / 102 / 64.
+Entschieden von Pascal (Spawn-&-Welt-Session, Commit `e788759`): **Kandidat A**. Insel v2 an der Originalposition (Kasten x 24…118, z −9…59, mit allem, was
+darunter hängt) und nördlich davon die **Aufschüttung**, der Boden der CA12-Bauebene (x −8…423, z −512…71, Biom Pilzland, dort erscheinen keine Monster, also
+auch keine Monsterfarmen). Ablauf und Dateien: `spawn/AUFBAU.md`, Prüfliste für einen frischen Join: `spawn/PRUEFLISTE.md`.
 
-**Weltspawn 64 / 179 / 29** (Pascal entschieden, Spawn-&-Welt-Session Commit `b80e549`). Genau über 64/37 liegt die Amethyst-Kuppel, dort würde 26.3 Spieler
-auf den obersten Block der Spalte setzen (Drachenflügel, y 217). **Der Mittelpunkt für Weltgrenze und Chunky bleibt 64 / 37.**
+**Weltspawn 64 / 179 / 29** (Pascal). Genau über 64/37 liegt die Amethyst-Kuppel, dort würde 26.3 Spieler auf den obersten Block setzen.
+**Der Mittelpunkt für Weltgrenze und Chunky bleibt 64 / 37.**
 
-**Insel einfügen** (WorldEdit, als OP im Spiel; die Datei `ca12-spawn-v2.schem` liegt git-ignoriert in `spawn/quellen/` und kommt nach
-`plugins/WorldEdit/schematics/`):
+**Vor dem ersten Start** (Server gestoppt, `level-seed=1560698989`):
+1. Datapacks nach `world/datapacks/`: `datapack/leitfaden`, `server/datapacks/wanderhaendler-rabatt`, `spawn/datapack/insel`, dazu lokal von der
+   Spawn-&-Welt-Session `aufschuettung` und `spawn-insel` (CA12-Daten, nicht im Repo, kommen per Kopie auf VM200)
+2. `spawn/worldguard/regions.yml` → `plugins/WorldGuard/worlds/world/regions.yml`
+3. **Keine** Ordner unter `world/dimensions/minecraft/` vorab anlegen, sonst stürzt Paper 26.3 ab. Anti-Xray für Nether/End erst nach dem ersten Start
+   eintragen (`paper/anti-xray.md`), wirkt ab dem nächsten Start, also vor der Vorgenerierung einmal neu starten
+
+**Nach dem ersten Start** in der Konsole, nacheinander:
 
 ```text
-/tp 24 64 -9
-//schem load ca12-spawn-v2
-//paste -e
+function aufschuettung:start
 ```
 
-Danach einspielen (Reihenfolge):
-1. Datapack `spawn/datapack/insel/` nach `world/datapacks/`, Neustart oder `/reload`, dann in der Konsole einmal:
+Warten auf „Aufschüttung fertig“ (59 Kacheln, ~2–3 min).
 
 ```text
 function insel:aufbau
 ```
 
-   Baut die Rückweg-Plattform (x 72–76, z 20–24, y 62, Teleport auf den Spawn, wirkt ohne OP) und 372 Lichtblöcke unter der Insel, setzt Weltspawn und
-   `respawn_radius 0`. Nur falls das Datapack nicht läuft, von Hand (in 26.3 braucht `setworldspawn` zwei Winkelwerte):
+Warten auf „Spawn-Insel eingerichtet“. Das setzt Insel v2 per `place template`, Rückweg-Plattform, 372 Lichtblöcke, `setworldspawn 64 179 29 0 0`,
+`respawn_radius 0` und `worldborder center 64 37` / `set 10000`. WorldEdit braucht es dafür nicht mehr.
+
+```text
+nether close
+end close
+```
+
+Plugin-Befehle von DimensionControl, gehen nicht aus einer Funktion. Danach Anti-Xray für Nether/End eintragen, Neustart, dann die Vorgenerierung (oben).
+Spawn Elytra: `spawnRadius: 65` in `plugins/SpawnElytra/config.yml` (`plugins.md`).
+
+Nur falls das Datapack `insel` nicht läuft, Spawn von Hand (in 26.3 braucht `setworldspawn` zwei Winkelwerte):
 
 ```text
 setworldspawn 64 179 29 0 0
 gamerule respawn_radius 0
 ```
 
-2. WorldGuard-Regionen: `spawn/worldguard/regions.yml` nach `plugins/WorldGuard/worlds/world/regions.yml`, dann `/rg reload` bzw. Neustart.
-   `spawn` (x 14…128, z −19…69, volle Höhe: keine Mobs, Hunger aufgefüllt, kein PvP, keine Truhen, kein Feuer, keine Explosionen, Benutzen erlaubt) und
-   `spawn_bauverbot` (Radius 150 um 64/37). Auf dem Testserver erkennt WorldGuard 7.0.20 beide samt Flags. Prüfen mit `/rg info` auf der Insel
-3. Spawn Elytra: `spawnRadius: 65` in `plugins/SpawnElytra/config.yml` (`plugins.md`)
-
 **Spawn-Streuung auf 0:** Sonst landen Neulinge zufällig neben der schwebenden Insel im Meer. Die Regel heißt in 26.3 **`respawn_radius`** (lokaler Testserver,
 24.10.: `spawnRadius` und `spawn_radius` lehnt der Server ab). **Prüfen:** mit einem neuen Testspieler (oder nach Löschen seiner Spielerdaten) beitreten,
-er muss auf der Insel bei 64/179/29 stehen. Dazu: Plattform unten teleportiert ohne OP auf den Spawn, Bauen im Radius 150 als Spieler ohne OP abgelehnt.
-Details: `spawn/KANDIDATEN.md` → „Spawn-Technik für die echte Welt“.
+er muss auf der Insel bei 64/179/29 stehen. Vollständig: `spawn/PRUEFLISTE.md` (Vorlage für den Testlauf 21.11.).
 
 **Prüfen:** `chunky progress` 100 %, `/spark tps` danach wieder 20 TPS, `du -sh` der Weltordner notieren (→ `kapazitaet.md` „Gemessen“).

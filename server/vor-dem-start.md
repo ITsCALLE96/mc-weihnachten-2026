@@ -17,7 +17,7 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 - [ ] `sync-chunk-writes=false` in `server.properties`: schreibt Chunks asynchron, das entlastet den Haupt-Thread beim Speichern. Unter Linux mit Journaling-Dateisystem
   üblich. Bei einem Stromausfall gehen höchstens die letzten Sekunden verloren, und dafür gibt es die Backups
 - [ ] `paper-global.yml`: Velocity Modern Forwarding (`paper/paper-global.yml.auszug`)
-- [ ] `paper-world-defaults.yml`: Anti-Xray (`paper/anti-xray.md`), Entity-Speicherlimits, `optimize-explosions` (`kapazitaet.md` → Paper-Einstellungen). Schlüssel gegen die von 26.3 erzeugte Datei geprüft
+- [ ] `paper-world-defaults.yml`: Anti-Xray Overworld (`paper/anti-xray.md`), Entity-Speicherlimits, `optimize-explosions` (`kapazitaet.md` → Paper-Einstellungen). Schlüssel gegen die von 26.3 erzeugte Datei geprüft
 - [ ] `permissions.yml` aus `paper/permissions.yml`: alle Spieler dürfen `/spark tps` (`spark.md`)
 - [ ] Spawn Elytra: `spawnRadius: 65` um den Weltspawn deckt die Insel, bStats aus, `messages.yml` auf Deutsch (`plugins.md`)
 - [ ] Fair Play: `xaero-fair-play.json` mit Höhlenansicht im Nether erlaubt (`plugins.md`)
@@ -27,8 +27,10 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 ## Welt
 
 - [ ] Seed `1560698989` (CA12), Weltgrenze 10.000 × 10.000, Mittelpunkt x 64 / z 37 (Nether 8 / 5)
-- [ ] Insel v2 per `//schem load ca12-spawn-v2` + `//paste -e` an 24/64/−9 eingefügt, danach Datapack `insel` + `function insel:aufbau` (Weltspawn 64/179/29, `respawn_radius 0`, Rückweg-Plattform, Lichtblöcke),
-  WorldGuard `regions.yml` aus `spawn/worldguard/`, neuer Testspieler landet auf der Insel (`vorgenerierung.md` → Spawn)
+- [ ] Spawn-Aufbau nach `spawn/AUFBAU.md` **vor** der Vorgenerierung: `function aufschuettung:start` (Pilzland-Ebene), dann `function insel:aufbau` (Insel v2, Weltspawn 64/179/29,
+  `respawn_radius 0`, Plattform, Lichter, Weltgrenze), dann `nether close` / `end close`. WorldGuard `regions.yml` aus `spawn/worldguard/` (`vorgenerierung.md` → Spawn-Aufbau)
+- [ ] Keine Dimensions-Ordner vor dem ersten Start anlegen (Absturz in 26.3). Anti-Xray für Nether/End erst danach eintragen und einmal neu starten (`paper/anti-xray.md`)
+- [ ] Frischer Join nach `spawn/PRUEFLISTE.md` geprüft (neuer Testspieler auf der Insel, Plattform ohne OP, Bauverbot, keine Monster auf der Pilzland-Ebene)
 - [ ] **Vorgenerierung** Overworld 5.000 / Nether 1.250 / End 2.000 abgeschlossen (`vorgenerierung.md`), Drachenkampf startet weiterhin (in der Testwelt geprüft)
 - [ ] Datapacks geladen, Reihenfolge per `/datapack list` (`plugins.md`). Wanderhändler-Rabatt `datapacks/wanderhaendler-rabatt` in der Testwelt geprüft, im Spiel erst ab 24.12. eingeschaltet (`datapacks/README.md`)
 - [ ] Server-Bild und MOTD in Velocity (`icon/README.md`), Servername statt Platzhalter „Weihnachtsserver“, sobald er feststeht
