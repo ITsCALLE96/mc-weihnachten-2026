@@ -7,6 +7,8 @@
 set -euo pipefail
 
 ziel="${1:?Aufruf: einspielen.sh <server-ordner> [vm200|lokal]}"
+[ -d "$ziel" ] || { echo "Ordner $ziel fehlt" >&2; exit 1; }
+ziel="$(cd "$ziel" && pwd)"   # absolut, das Skript wechselt unten in den Quellordner
 modus="${2:-vm200}"
 quelle="$(cd "$(dirname "$0")" && pwd)"
 
