@@ -32,6 +32,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Objective;
 
 /**
  * Server-Wahl für Hub und SMP hinter Velocity.
@@ -134,10 +135,35 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                 zeilen.forEach(z -> text.add(String.valueOf(z)));
             }
             int slot = 13 - (Math.min(server.size(), 7) - 1) / 2 + i;
+            String gesperrt = sperrText(p, s.get("sperre"));
+            if (gesperrt != null) {
+                // Text unter „Klicken zum Beitreten“ ersetzen: letzte Zeile raus, Sperrtext rein
+                if (!text.isEmpty()) {
+                    text.remove(text.size() - 1);
+                }
+                text.add(gesperrt);
+                menue.inventar.setItem(slot, gegenstand(Material.BARRIER, String.valueOf(s.get("anzeige")), text));
+                continue;
+            }
             menue.inventar.setItem(slot, gegenstand(mat == null ? Material.GRASS_BLOCK : mat, String.valueOf(s.get("anzeige")), text));
             menue.ziele.put(slot, String.valueOf(s.get("name")));
         }
         p.openInventory(menue.inventar);
+    }
+
+    /**
+     * Sperre aus der Config: {objective, eintrag, ab, text}. Gesperrt, solange der Punktestand von eintrag im Haupt-Scoreboard
+     * unter ab liegt (z. B. #offen in insel_zustand vor der Eröffnung). Wer serverwahl.vorab hat (Ops, Tester), kommt trotzdem durch.
+     * @return Sperrtext oder null, wenn frei
+     */
+    private String sperrText(Player p, Object sperre) {
+        if (!(sperre instanceof Map<?, ?> sp) || p.hasPermission("serverwahl.vorab")) {
+            return null;
+        }
+        Objective obj = Bukkit.getScoreboardManager().getMainScoreboard().getObjective(String.valueOf(sp.get("objective")));
+        int ab = sp.get("ab") instanceof Number n ? n.intValue() : 1;
+        int stand = obj == null ? 0 : obj.getScore(String.valueOf(sp.get("eintrag"))).getScore();
+        return stand >= ab ? null : String.valueOf(sp.containsKey("text") ? sp.get("text") : "<red>Noch geschlossen");
     }
 
     private static ItemStack gegenstand(Material mat, String name, List<String> beschreibung) {

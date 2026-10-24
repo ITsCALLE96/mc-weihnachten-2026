@@ -10,6 +10,8 @@ kisten:
   - {welt: world, x: 27, y: 236, z: 5, kategorie: minigames}
   - {welt: world, x: 25, y: 236, z: 9, kategorie: bald}
 # name = Servername in velocity.toml [servers]; Text in MiniMessage
+# sperre (optional): gesperrt, solange Scoreboard objective/eintrag unter ab liegt. Ops und serverwahl.vorab kommen trotzdem rein.
+#   Eröffnung 05.12.: das Hub-Datapack (Spawn-&-Welt) setzt #offen in insel_zustand auf 1
 kategorien:
   smp:
     titel: "<dark_green>SMP-Server"
@@ -17,6 +19,7 @@ kategorien:
       - name: smp
         anzeige: "<gradient:#ff5252:#ffffff:#4cd964>Weihnachtsserver 2026</gradient>"
         material: SPRUCE_SAPLING
+        sperre: {objective: insel_zustand, eintrag: "#offen", ab: 1, text: "<red>Öffnet am <white>05.12.</white>"}
         beschreibung:
           - "<gray>Survival mit dem Weihnachts-Modpack"
           - "<gray>Start am <white>05.12.</white>"
@@ -28,6 +31,7 @@ kategorien:
       - name: smp
         anzeige: "<gradient:#ff5252:#ffffff:#4cd964>Weihnachtsserver 2026</gradient>"
         material: SPRUCE_SAPLING
+        sperre: {objective: insel_zustand, eintrag: "#offen", ab: 1, text: "<red>Öffnet am <white>05.12.</white>"}
         beschreibung:
           - "<gray>SMP · Survival"
           - ""

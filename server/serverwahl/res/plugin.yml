@@ -17,3 +17,6 @@ permissions:
     default: true
   serverwahl.admin:
     default: op
+  serverwahl.vorab:
+    description: gesperrte Server (Sperre in der Config) trotzdem betreten, z. B. Tester vor der Eröffnung
+    default: op

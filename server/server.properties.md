@@ -64,6 +64,9 @@ white-list=true
 enforce-whitelist=true
 enable-rcon=false
 spawn-protection=0
+level-type=minecraft\:flat
+generator-settings={"layers":[{"block":"minecraft:air","height":1}],"biome":"minecraft:the_void"}
+generate-structures=false
 gamemode=adventure
 force-gamemode=true
 difficulty=peaceful
@@ -80,10 +83,11 @@ motd=§b❄ Hub ❄
 
 - **Resourcepack auf beiden mit derselben ID und SHA1:** Der Client lädt es einmal im Hub, beim Wechsel aufs SMP erkennt er es wieder und lädt nicht neu.
   Bei einem neuen Pack (`rp-vN`) URL und SHA1 auf **beiden** Servern gleichzeitig ändern, sonst lädt jeder Wechsel neu.
-- **Whitelist auf beiden** (Annahme, liegt bei der Leitung): Wer nicht auf der Liste steht, kommt schon im Hub nicht rein. Neue Namen also auf Hub und SMP eintragen
+- **Whitelist auf beiden** (entschieden Leitung 24.10., Hub nicht offen): Wer nicht auf der Liste steht, kommt schon im Hub nicht rein. Neue Namen also auf Hub und SMP eintragen
   (`whitelist add <name>` in beiden Konsolen).
 - `force-gamemode=true` setzt jeden Beitritt auf Abenteuer, auch Ops. Bauen im Hub: `/gamemode creative` nach dem Beitritt.
 - **Spielregeln** (einmal in der Hub-Konsole, bleiben in der Welt; Namen in 26.3, geprüft im Testnetz 24.10.):
   `gamerule advance_time false` · `gamerule advance_weather false` · `gamerule spawn_mobs false` · `gamerule fall_damage false` ·
   `gamerule show_advancement_messages false` · `time set noon` · `weather clear`
+- **Leerwelt** (`generator-settings` oben, Welt `world`): Die Spawn-&-Welt-Session setzt das Fantasy Village hinein (Ursprung −150/80/−158), Spawn `setworldspawn 0 235 16 180` (Blick Norden).
 - Keine Datapacks des SMP im Hub (Leitfaden, Rabatt, Statistik laufen nur auf dem SMP).
