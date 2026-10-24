@@ -53,6 +53,8 @@ Die Voreinstellungen liegen in `modpack/overrides/` und landen beim Bau 1:1 unte
 - `config/xaero/minimap/profiles/default.cfg`: runde Minimap
 - `options.txt` außerdem `maxFps:240` (Pascal, 24.10.; begrenzt statt unbegrenzt, im Spiel änderbar)
 - `config/voicechat/voicechat-client.properties`: Sprachaktivierung statt Push-to-Talk, Einführung übersprungen, Gruppen-Symbole oben rechts unter den Effekt-Symbolen statt links unter der Minimap (Pascal, 24.10.); Mikrofon und Lautsprecher leer = Standardgerät. Push-to-Talk-Taste trotzdem auf Feststelltaste (stand vorher leer)
+- `config/fancymenu/customization/weihnachten_hauptmenue.txt`: Knopf „❄ Weihnachtsserver beitreten ❄“ oben im Hauptmenü (zwischen Logo und Einzelspieler), verbindet mit `mc.grahl.cloud`
+- `config/fancymenu/customization/weihnachten_inventar.txt` + `customizablemenus.txt`: Questbuch-Knopf (Wissensbuch-Symbol) über der rechten oberen Ecke des Inventars (E), öffnet das Fortschrittsfenster wie L. Nur im Überlebens-Inventar, nicht im Kreativ-Inventar; bei aufgeklapptem Rezeptbuch rutscht das Inventar nach rechts, der Knopf bleibt stehen
 - `config/fancymenu/options.txt`: Bearbeitungsleiste aus, `modpack_mode` an (Spieler sehen keine FancyMenu-Leiste; einblenden mit Strg + Alt + C)
 
 Litematica und Do a Barrel Roll sind ausgeschaltet, ihre Tasten stehen deshalb noch nicht in der Datei. Neu übernehmen: Tasten in einer Testinstanz einstellen, dann die `key_`-Zeilen aus deren `options.txt` kopieren.

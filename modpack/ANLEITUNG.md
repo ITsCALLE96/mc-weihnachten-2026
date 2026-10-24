@@ -27,6 +27,7 @@ Nicht zusammen einschalten: **voxy** und **Distant Horizons** (Distant Horizons 
 | Zoom | **C** gedrückt halten · mit Kinobalken: **X** |
 | Lichtlevel (wo Monster spawnen) | **F9** |
 | Mikro stumm | **Ä** |
+| Questbuch (Fortschritte) | **L** oder im Inventar (**E**) der Buch-Knopf oben rechts |
 | Rezepte nachschlagen (JEI) | im Inventar rechts die Liste, Item anklicken |
 | Weltkarte | **M** |
 | Wegpunkt setzen | **B** |

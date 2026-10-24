@@ -1,0 +1,72 @@
+type = fancymenu_layout
+
+layout-meta {
+  identifier = inventory_screen
+  render_custom_elements_behind_vanilla = false
+  last_edited_time = 1761300000000
+  is_enabled = true
+  randommode = false
+  randomgroup = 1
+  randomonlyfirsttime = false
+  layout_index = 0
+  [loading_requirement_container_meta:b6d1ab0f-e97b-45a2-97bb-0fa2e11b1556-1761300000000] = [groups:][instances:]
+}
+
+element {
+  button_element_executable_block_identifier = 9b22b852-1959-409d-adae-a5ad8008f61f-1761300000000
+  [executable_action_instance:d018adf3-62c6-435c-824b-7a78fce117da-1761300000000][action_type:opengui] = advancements_screen
+  [executable_block:9b22b852-1959-409d-adae-a5ad8008f61f-1761300000000][type:generic] = [executables:d018adf3-62c6-435c-824b-7a78fce117da-1761300000000;]
+  label = 
+  description = Questbuch (Fortschritte, Taste L)
+  navigatable = true
+  widget_active_state_requirement_container_identifier = 388d252d-df03-4fb0-bdd1-facadf2957b3-1761300000000
+  [loading_requirement_container_meta:388d252d-df03-4fb0-bdd1-facadf2957b3-1761300000000] = [groups:][instances:]
+  element_type = custom_button
+  instance_identifier = b3084cf0-9b2c-4141-84d4-11eab9056528-1761300000000
+  appearance_delay = no_delay
+  appearance_delay_seconds = 1.0
+  fade_in_v2 = no_fading
+  fade_in_speed = 1.0
+  fade_out = no_fading
+  fade_out_speed = 1.0
+  base_opacity = 1.0
+  auto_sizing = false
+  sticky_anchor = false
+  anchor_point = mid-centered
+  x = 68
+  y = -105
+  width = 20
+  height = 20
+  stretch_x = false
+  stretch_y = false
+  stay_on_screen = true
+  element_loading_requirement_container_identifier = c25d5094-2db7-4097-aa03-1fbdfce20581-1761300000000
+  [loading_requirement_container_meta:c25d5094-2db7-4097-aa03-1fbdfce20581-1761300000000] = [groups:][instances:]
+}
+
+element {
+  item_key = minecraft:knowledge_book
+  enchanted = false
+  show_tooltip = false
+  element_type = item
+  instance_identifier = 3c33d6d6-248c-438f-bd48-46f0eb09687d-1761300000000
+  appearance_delay = no_delay
+  appearance_delay_seconds = 1.0
+  fade_in_v2 = no_fading
+  fade_in_speed = 1.0
+  fade_out = no_fading
+  fade_out_speed = 1.0
+  base_opacity = 1.0
+  auto_sizing = false
+  sticky_anchor = false
+  anchor_point = mid-centered
+  x = 70
+  y = -103
+  width = 16
+  height = 16
+  stretch_x = false
+  stretch_y = false
+  stay_on_screen = true
+  element_loading_requirement_container_identifier = e11d0b6d-569d-4d5d-8a41-d4231fae29be-1761300000000
+  [loading_requirement_container_meta:e11d0b6d-569d-4d5d-8a41-d4231fae29be-1761300000000] = [groups:][instances:]
+}

@@ -1,0 +1,45 @@
+type = fancymenu_layout
+
+layout-meta {
+  identifier = title_screen
+  render_custom_elements_behind_vanilla = false
+  last_edited_time = 1761300000000
+  is_enabled = true
+  randommode = false
+  randomgroup = 1
+  randomonlyfirsttime = false
+  layout_index = 0
+  [loading_requirement_container_meta:31f00b15-93fb-4cfd-8be9-d890131d9dca-1761300000000] = [groups:][instances:]
+}
+
+element {
+  button_element_executable_block_identifier = 570eb12a-2f88-4330-a23f-1b5876a1312a-1761300000000
+  [executable_action_instance:e901f9b8-ec4c-400c-bf8c-f8ac468e5ee6-1761300000000][action_type:joinserver] = mc.grahl.cloud
+  [executable_block:570eb12a-2f88-4330-a23f-1b5876a1312a-1761300000000][type:generic] = [executables:e901f9b8-ec4c-400c-bf8c-f8ac468e5ee6-1761300000000;]
+  label = ❄ Weihnachtsserver beitreten ❄
+  description = mc.grahl.cloud
+  navigatable = true
+  widget_active_state_requirement_container_identifier = 93ad1b43-959c-4251-b370-b289a900c239-1761300000000
+  [loading_requirement_container_meta:93ad1b43-959c-4251-b370-b289a900c239-1761300000000] = [groups:][instances:]
+  element_type = custom_button
+  instance_identifier = 69c5c504-a284-48f5-8421-e295d40092f2-1761300000000
+  appearance_delay = no_delay
+  appearance_delay_seconds = 1.0
+  fade_in_v2 = no_fading
+  fade_in_speed = 1.0
+  fade_out = no_fading
+  fade_out_speed = 1.0
+  base_opacity = 1.0
+  auto_sizing = false
+  sticky_anchor = false
+  anchor_point = top-centered
+  x = -100
+  y = 80
+  width = 200
+  height = 20
+  stretch_x = false
+  stretch_y = false
+  stay_on_screen = true
+  element_loading_requirement_container_identifier = 810d2124-fb98-41b6-936b-7c635c2cc222-1761300000000
+  [loading_requirement_container_meta:810d2124-fb98-41b6-936b-7c635c2cc222-1761300000000] = [groups:][instances:]
+}
