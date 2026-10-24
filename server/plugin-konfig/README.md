@@ -34,3 +34,9 @@ listet jede kopierte Datei und warnt, falls noch eine `harvester-*.jar` im Serve
 
 Einstellung hier in der Datei ändern, nicht auf dem Server. Neue Plugin-Versionen können Schlüssel ergänzen: Nach einem Update die vom Plugin neu
 erzeugte Datei mit der hiesigen vergleichen und neue Schlüssel übernehmen.
+
+## Lokaler Testserver: bewusste Abweichungen in `server.properties`
+
+Abgeglichen am 24.10. Ohne Velocity davor sind diese Werte lokal richtig und bleiben so: `online-mode=true`, `server-port=25565`, `enable-rcon=true`,
+`white-list=false`, `max-players=10`, `network-compression-threshold=256`, MOTD mit „(lokaler Test)“. Angeglichen wurde `sync-chunk-writes=false`.
+Alles andere (Seed, Sichtweite 8, Simulationsweite 6, `enforce-secure-profile=false`, Resourcepack, `spawn-protection=0`) stimmt mit `../server.properties.md`.
