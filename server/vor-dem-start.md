@@ -65,18 +65,18 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 ## Eröffnung (Weltenbaum öffnet sich)
 
 Pascal, 24.10.: Vor dem Start warten alle im geschlossenen Weltenbaum, beim offiziellen Start öffnet er sich und die Weltgrenze springt von klein auf 10.000.
-Funktionen aus dem Datapack  der Spawn-&-Welt-Session (abgestimmt 24.10.):
+Funktionen aus dem Datapack `insel` der Spawn-&-Welt-Session (abgestimmt 24.10.):
 
 | Funktion | Wirkung |
 |---|---|
-|  | einmalig alles einrichten, endet geschlossen (kleine Grenze, Merker  = 0) |
-|  | Ausgänge zu, kleine Grenze (128 breit um den Stamm-Mittelpunkt, Koordinaten nach der Seed-Wahl),  = 0 |
-|  | 10 s Countdown mit Bossbar/Titel, öffnet die vier Ausgänge mit Partikeln und Sound, „Willkommen!“, . Läuft nur bei  = 0, ein zweiter Aufruf tut nichts |
+| `insel:aufbau` | einmalig alles einrichten, endet geschlossen (kleine Grenze, Merker `#offen` = 0) |
+| `insel:schliessen` | Ausgänge zu, kleine Grenze (128 breit um den Stamm-Mittelpunkt, Koordinaten nach der Seed-Wahl), `#offen` = 0 |
+| `insel:eroeffnung` | 10 s Countdown mit Bossbar/Titel, öffnet die vier Ausgänge mit Partikeln und Sound, „Willkommen!“, `worldborder set 10000`. Läuft nur bei `#offen` = 0, ein zweiter Aufruf tut nichts |
 
-Der Spawnpunkt bleibt vor und nach dem Öffnen derselbe (Spawn-Raum im Stammfuß). Die Phase setzt  bewusst nicht, das bleibt getrennt.
+Der Spawnpunkt bleibt vor und nach dem Öffnen derselbe (Spawn-Raum im Stammfuß). Die Phase setzt `insel:eroeffnung` bewusst nicht, das bleibt getrennt.
 
-**Vorher (Task 10 Schritt 4, bis 28.11.):** Season-Wechsel  →  mit Abschluss-Schnappschuss, neue Welt, ,
-Chunky-Vorgenerierung (hängt nicht an der Weltgrenze, geht also auch bei kleiner Grenze). Whitelist an, alle ~25 Namen eingetragen. Nether/End geschlossen,  = 0.
+**Vorher (Task 10 Schritt 4, bis 28.11.):** Season-Wechsel `testlauf` → `weihnachten-2026` mit Abschluss-Schnappschuss, neue Welt, `function insel:aufbau`,
+Chunky-Vorgenerierung (hängt nicht an der Weltgrenze, geht also auch bei kleiner Grenze). Whitelist an, alle ~25 Namen eingetragen. Nether/End geschlossen, `#phase` = 0.
 
 **Am Starttag:**
 
@@ -84,18 +84,18 @@ Chunky-Vorgenerierung (hängt nicht an der Weltgrenze, geht also auch bei kleine
 |---|---|---|
 | vor 04:00 | normaler Tagesbetrieb: Schnappschuss 04:00, Neustart 05:00 | AMP |
 | ab ~1 h vor Start | Spieler dürfen beitreten und warten im Baum (Whitelist bleibt an, sonst nichts zu tun) | – |
-| Startzeit |  in der AMP-Konsole | **Pascal** (bewusst von Hand, damit er auf Nachzügler warten kann) |
-| nach „Willkommen!“ (~15 s) |  | Pascal |
-| direkt danach | Statistik-Nullpunkt: , dann  (ersetzt den 04:00-Stand des Tages, der alte bleibt als ). Spielzeit im Baum vor dem Start zählt dann nicht | Pascal (Befehl aus ) |
-| Start + 10 min | **Rückfall-Aufgabe in AMP**, falls Pascal ausfällt. Sendet nacheinander:  und . Beides wirkt nur, wenn es noch nicht passiert ist ( allein würde die Ansage doppelt senden) | AMP |
+| Startzeit | `function insel:eroeffnung` in der AMP-Konsole | **Pascal** (bewusst von Hand, damit er auf Nachzügler warten kann) |
+| nach „Willkommen!“ (~15 s) | `function leitfaden:phase/setzen_1` | Pascal |
+| direkt danach | Statistik-Nullpunkt: `save-all flush`, dann `SCHNAPPSCHUSS_ERSETZEN=1 /opt/mc-weihnachten/schnappschuss.sh …` (ersetzt den 04:00-Stand des Tages, der alte bleibt als `.vorher-…`). Spielzeit im Baum vor dem Start zählt dann nicht | Pascal (Befehl aus `statistik/README.md`) |
+| Start + 10 min | **Rückfall-Aufgabe in AMP**, falls Pascal ausfällt. Sendet nacheinander `function insel:eroeffnung` und `execute if score #phase lf_phase matches 0 run function leitfaden:phase/setzen_1`. Beides wirkt nur, wenn es noch nicht passiert ist (`setzen_1` allein würde die Ansage doppelt senden) | AMP |
 
 Der Season-Wechsel hat mit der Eröffnung nichts zu tun: Er passiert schon beim Weltwechsel (bis 28.11.). Fällt Pascal aus, fehlt nur der Statistik-Nullpunkt
 (dann zählt die Wartezeit im Baum mit, das ist verschmerzbar).
 
 **Testlauf 21.11.:** dieselbe Eröffnung als Generalprobe in der Testwelt mit den 2–3 Testern (Baum in der Testwelt, Spawn-&-Welt-Session).
-Prüfen: Spieler kommt vorher nicht aus dem Baum, nach  Grenze 10.000, zweiter Aufruf ändert nichts, Rückfall-Befehl für die Phase wirkt nur bei Phase 0,
-Ansage kommt einmal. Für weitere Proben , danach geht  wieder (kein Neustart nötig).
-Auf dem Testlauf-Server ist der Statistik-Nullpunkt egal (Season ).
+Prüfen: Spieler kommt vorher nicht aus dem Baum, nach `insel:eroeffnung` Grenze 10.000, zweiter Aufruf ändert nichts, Rückfall-Befehl für die Phase wirkt nur bei Phase 0,
+Ansage kommt einmal. Für weitere Proben `function insel:schliessen`, danach geht `insel:eroeffnung` wieder (kein Neustart nötig).
+Auf dem Testlauf-Server ist der Statistik-Nullpunkt egal (Season `testlauf`).
 
 **Start 05.12.:** wie oben. Uhrzeit legt Pascal fest (Plan Task 9 Schritt 1).
 
