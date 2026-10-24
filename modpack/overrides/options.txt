@@ -202,3 +202,14 @@ key_lambdynlights.key.toggle_fps_dynamic_lighting:key.keyboard.unknown
 key_key.armorhider.toggle_keybind:key.keyboard.page.up
 key_key.armorhider.open_settings:key.keyboard.home
 key_key.armorhider.preset:key.keyboard.left.alt
+soundCategory_master:0.5005520918722249
+soundCategory_music:0.057118973112395714
+soundCategory_record:0.15149231979145478
+soundCategory_weather:0.05946730755481736
+soundCategory_block:0.506090820597148
+soundCategory_hostile:0.10643399640325353
+soundCategory_neutral:0.05755894209458245
+soundCategory_player:0.5009541827301176
+soundCategory_ambient:0.15853732311872012
+soundCategory_voice:0.5056508516149609
+soundCategory_ui:0.506090820597148
