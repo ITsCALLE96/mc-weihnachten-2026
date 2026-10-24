@@ -1,0 +1,53 @@
+# WorldGuard-Regionen der Oberwelt (Task 7 Schritt 4). Einspielen bei gestopptem Server nach
+#   plugins/WorldGuard/worlds/world/regions.yml
+# oder bei laufendem Server dort ablegen und /rg load -w world ausführen.
+# spawn:           Insel samt Luftraum und Boden darunter (ganze Höhe): Spawnschutz, keine Monster, dauerhaft satt, kein PvP
+# spawn_bauverbot: 150 Blöcke um den Spawn: nur Bauen/Abbauen verboten, Türen, Knöpfe und Truhen benutzbar
+# Nicht-Mitglieder dürfen in Regionen nicht bauen (WorldGuard-Standard), OPs umgehen das.
+regions:
+    spawn:
+        type: cuboid
+        priority: 10
+        min: {x: 14.0, y: -64.0, z: -19.0}
+        max: {x: 128.0, y: 319.0, z: 69.0}
+        members: {}
+        owners: {}
+        flags:
+            mob-spawning: deny
+            pvp: deny
+            feed-amount: 20
+            feed-delay: 1
+            feed-min-hunger: 0
+            feed-max-hunger: 20
+            chest-access: deny
+            creeper-explosion: deny
+            other-explosion: deny
+            tnt: deny
+            fire-spread: deny
+            lava-fire: deny
+            lighter: deny
+            ghast-fireball: deny
+            enderman-grief: deny
+            ravager-grief: deny
+            wither-damage: deny
+            item-frame-rotation: deny
+            vehicle-destroy: deny
+            leaf-decay: deny
+            ice-melt: deny
+            snow-melt: deny
+            use: allow
+    spawn_bauverbot:
+        type: cuboid
+        priority: 5
+        min: {x: -86.0, y: -64.0, z: -113.0}
+        max: {x: 214.0, y: 319.0, z: 187.0}
+        members: {}
+        owners: {}
+        flags:
+            use: allow
+            chest-access: allow
+            interact: allow
+            tnt: deny
+            creeper-explosion: deny
+            lighter: deny
+            fire-spread: deny

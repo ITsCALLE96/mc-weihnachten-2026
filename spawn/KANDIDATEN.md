@@ -77,3 +77,19 @@ Testwelt mit Vanilla-Server 26.3 und Seed `1560698989` lokal erzeugt (nur Scratc
 - **Mittelpunkt für Weltgrenze und Chunky:** x 64, z 37 (Spawnpunkt auf der Insel). `worldborder center 64 37`, `worldborder set 10000`, `chunky center 64 37`, `chunky radius 5000` (Quadrat).
 
 `tools/schem-welt.mjs` liest jetzt auch die echte 26.3-Palette (Einträge als Text, `{"": Text}` oder `{id, properties}`), Test ergänzt.
+
+### Spawn-Technik für die echte Welt (2026-10-24, auf dem lokalen Testserver geprüft)
+
+Erster Test von Pascal: Spawnpunkt falsch, kein Rückweg, Monster unter der Insel. Gelöst mit Dateien im Repo:
+
+- **Spawnpunkt 60/179/22 statt 64/179/37.** Der CA12-Spawn liegt unter der Amethyst-Kuppel. In 26.3 setzt das Spiel Spieler auf den obersten Block der Spalte, wenn darüber etwas ist (dort wäre das der Drachenflügel auf 217). Bei 60/22 steht man auf Gras auf der Hauptebene 178 mit freiem Himmel, Blick nach Süden zur Kuppel. Der Großteil der offenen Ebene ist ein unsichtbarer Barrier-Boden über dem Inselloch, sichtbarer Boden mit freiem Himmel gibt es nur am Nord- und Südrand.
+- **Datapack `spawn/datapack/insel/`** (nach `world/datapacks/`, danach einmal `function insel:aufbau` in der Konsole):
+  - Rückweg-Plattform 5×5 im Flachwasser am Strand unter der Insel (x 72–76, z 20–24, y 62, schlicht: polierter Andesit, Seelaterne in der Mitte; Aussehen entscheidet Pascal). Wer darauf steht, wird auf den Spawn teleportiert. Das wirkt ohne OP.
+  - Elytra: Spawn Elytra gibt keine echte Elytra. Im Bereich um den Weltspawn startet ein Doppelsprung den Flug, nach dem Teleport also sofort wieder. Bereich `spawnRadius: 65` (Kreis um 60/179/22, Höhe zählt mit). So reicht er bis zur Ostspitze, die Plattform unten liegt außerhalb.
+  - 372 unsichtbare Lichtblöcke (Level 15) im Raster von 6 Blöcken: auf Boden bzw. Wasser unter der Insel und direkt unter ihrer Unterseite (`lichter.mcfunction`, erzeugt mit `node tools/schem-licht.mjs <welt> 14 -19 128 69 115 6` aus der Testwelt mit gleichem Seed, gilt also auch für die echte Welt)
+  - setzt Weltspawn (`setworldspawn 60 179 22 0 0`, in 26.3 mit zwei Winkelwerten) und `respawn_radius 0`
+- **WorldGuard `spawn/worldguard/regions.yml`** (nach `plugins/WorldGuard/worlds/world/regions.yml`):
+  - `spawn`: x 14…128, z −19…69, volle Höhe. Keine Monster (`mob-spawning deny`), dauerhaft satt (`feed-amount 20`, `feed-delay 1`), kein PvP, Truhen zu, kein Feuer und keine Explosionen, Türen und Knöpfe benutzbar
+  - `spawn_bauverbot`: 150 um 64/37, nur Bauen verboten
+
+Reihenfolge in der echten Welt: Insel einfügen (`/tp 24 115 -9`, `//schem load ca12-spawn`, `//paste -e`), Datapack `insel` rein, `function insel:aufbau`, `regions.yml` rein, `/rg load -w world`.
