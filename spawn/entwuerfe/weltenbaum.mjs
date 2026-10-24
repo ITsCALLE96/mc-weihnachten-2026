@@ -208,20 +208,30 @@ function ausbreiten(start) {
 const quellen = [];
 for (let y = 0; y < H; y++) for (let z = 0; z < L; z++) for (let x = 0; x < W; x++) { const b = hole(m, x, y, z); if (b === LUFT) continue; for (const [re, l] of LICHTQ) { const mm = b.match(re); if (mm) { hell[idx(x, y, z)] = l ?? +mm[1]; quellen.push(idx(x, y, z)); break; } } }
 ausbreiten(quellen);
-let nachgesetzt = 0;
+// Pflicht-Ausleuchtung nur ohne Pilzland nötig (Pascal 24.10.: Pilzland um den Baum, Licht ist dann Stimmung). Aufruf mit PFLICHTLICHT=1.
+let nachgesetzt = 0, dunkel = 0;
 for (let y = G + 1; y < H - 3; y++) for (let z = 0; z < L; z++) for (let x = 0; x < W; x++) {
   const b = hole(m, x, y, z); if (b === LUFT || b.includes('leaves') || DURCHLAESSIG.test(b)) continue;
   if (hole(m, x, y + 1, z) !== LUFT || hole(m, x, y + 2, z) !== LUFT || hell[idx(x, y + 1, z)] > 0) continue;
+  dunkel++;
+  if (!process.env.PFLICHTLICHT) continue;
   setze(m, x, y + 1, z, 'minecraft:light[level=12,waterlogged=false]'); hell[idx(x, y + 1, z)] = 12; ausbreiten([idx(x, y + 1, z)]); nachgesetzt++;
 }
 nL += nachgesetzt;
-console.log('Ausleuchtung: nachgesetzte Lichtblöcke', nachgesetzt);
+console.log(`Ausleuchtung: ${dunkel} dunkle begehbare Stellen am Baum${process.env.PFLICHTLICHT ? `, ${nachgesetzt} Lichtblöcke nachgesetzt` : ' (Pilzland verhindert Monster, mit PFLICHTLICHT=1 schließen)'}`);
+
+// Ausdehnung (für Oval und Pilzland)
+let ax0 = W, ax1 = 0, az0 = L, az1 = 0;
+for (let i = 0; i < m.bloecke.length; i++) { if (m.bloecke[i] === LUFT) continue; const x = i % W, z = ((i / W) | 0) % L; if (x < ax0) ax0 = x; if (x > ax1) ax1 = x; if (z < az0) az0 = z; if (z > az1) az1 = z; }
+const RAND = 30;
 
 speichern(m, process.argv[2], {
   name: 'Weltenbaum (groß)', spawn: SP, blick: [0, 0], boden: G, plattformHoehe: D,
   obenBereich: { von: [CX - 32, D - 4, CZ - 32], bis: [CX + 32, D + 30, CZ + 32] },
-  oval: { x: CX, z: CZ, a: 110, b: 80 }, // Krone reicht nach Osten bis ~106, nach Norden/Süden ~72 Blöcke vom Stamm abflug: 'vier begehbare Äste (Azimut 20°, 112°, 203°, 286°)',
+  oval: { x: CX, z: CZ, a: 110, b: 80 }, // Krone reicht nach Osten bis ~106, nach Norden/Süden ~72 Blöcke vom Stamm
+  pilzland: { x: Math.round((ax0 + ax1) / 2), z: Math.round((az0 + az1) / 2), a: Math.ceil((ax1 - ax0) / 2) + RAND, b: Math.ceil((az1 - az0) / 2) + RAND }, // Baum + 30 Rand
+  abflug: 'vier begehbare Äste (Azimut 20°, 112°, 203°, 286°)',
   erweiterung: 'äußerer Plattformring, Abflugäste, Wurzelbögen am Boden; später weitere Plattformen in der Krone',
-  lichtbloecke: nL, spitzen: SPITZEN.length,
+  lichtbloecke: nL, spitzen: SPITZEN.length, dunkleStellenOhnePilzland: dunkel,
 });
 console.log('Weltenbaum', m.w, m.h, m.l, 'Spitzen', SPITZEN.length, 'Lichtblöcke', nL);

@@ -39,6 +39,16 @@ Der erste, kleine Entwurf liegt als `weltenbaum-klein.mjs` daneben.
 - Den Boden rundherum übernimmt nach der Seed-Wahl `spawn/standort.mjs lichter` (Oval, Raster 8)
 - **Augenblüte:** gibt in Vanilla **kein echtes Licht** ab (Lichtstufe 0 laut Datenreferenz 1.21.4), sie öffnet sich nur nachts und sieht leuchtend aus. Wir setzen sie als Deko ein, das Licht kommt aus den anderen Quellen. In 26.3 beim Nacht-Rundgang gegenprüfen
 
+**Pilzland um den Baum (Pascal 24.10.)** – geprüft an den Spieldaten von 26.3 (`worldgen/biome/mushroom_fields.json` und Biom-Tags im offiziellen Server-Jar):
+- **Natürliche Spawns** sind nur Fledermaus (Höhlen), Pilzkuh (nur auf Myzel, auf Gras also keine) und Leuchttintenfisch (unter Wasser). **Keine Monster in keiner Höhe**, auch keine Schleime
+- **Plünderer-Patrouillen:** aus (`can_pillager_patrol_spawn: false`). **Zombie-Belagerungen:** aus (Tag `without_zombie_sieges`). **Wanderhändler:** kommen weiter (nicht im Ausschluss-Tag), passt zum Händler-Datapack
+- **Bleiben trotzdem:** **Phantome** spawnen unabhängig vom Biom (laut Minecraft-Wiki und Mojang-Bug MC-126778), Abhilfe nur serverweit über die Gamerule zur Schlaflosigkeit (Entscheidung Leitung/Server). **Spawner** (Verliese, Trial Chambers) spawnen weiter, wenn welche im Bereich liegen, das prüfe ich nach der Seed-Wahl. **Überfälle** brauchen ein Dorf, im Pilzland gibt es keine Patrouillen, die das Böse Omen bringen
+- **Höhlen darunter:** Biome sind in 26.3 dreidimensional. Die Spawn-Technik setzt `fillbiome` von y −64 bis 319, in 8 × 8-Säulen (24.576 Blöcke je Befehl, unter der Grenze 32.768). Damit sind auch Höhlen und die Luft bis zur Bauhöhe Pilzland
+- **Farben:** Das Pilzland hat in 26.3 keine eigenen Gras- und Laubfarben mehr, sie kommen aus Temperatur 0,9 und Niederschlag 1,0. Das ist die sattgrüne Ecke der Farbtabelle (ähnlich Dschungel, heller und kräftiger als Wald). Gras bleibt Gras, kein Myzel nötig. Eichen- und Dunkeleichenlaub wird ebenfalls kräftig grün, Azaleenlaub bleibt unverändert
+- **Größe:** Baum plus 30 Blöcke Rand, als Oval Mitte (131/122 im Entwurf), Halbachsen 125 × 102, etwa 40.000 Spalten, 670 `fillbiome`-Befehle. Wurzeln, Rückweg-Plattform und der Landeplatz unter der Krone liegen sicher drin
+- **Licht ist damit Stimmung:** Sichtbare Lichter bleiben (Laternen, Leuchtbeeren, Pilzlicht, Froschlicht). Die Pflicht-Ausleuchtung (jede begehbare Stelle ≥ 1) läuft nur noch mit `PFLICHTLICHT=1`, falls das Pilzland wegfällt. Die Nachtansicht bleibt Teil der Abnahme
+- Technik: Feld `pilzland` in der Standort-Konfiguration, `insel:aufbau` ruft `insel:pilzland` auf
+
 **Spawn unter der Krone:** 26.3 setzt Spieler beim ersten Betreten auf den obersten Block der Spalte, hier also auf die Krone. Darum teleportiert die Spawn-Technik (`spawnTeleport` in der Standort-Konfiguration) beim ersten Betreten und nach dem Tod ohne Bett auf den Spawn. Die Idee stammt aus der Nitrado-Auswertung, der Code ist eigen.
 
 **Prinzipien, die ich übernehme (Inspiration „größter Baum“):** Das Video selbst konnte ich nicht ansehen, die Seite liefert nur den Titel. Die Prinzipien stammen daher aus allgemeiner Praxis für Riesenbäume, nichts davon aus dem Video:

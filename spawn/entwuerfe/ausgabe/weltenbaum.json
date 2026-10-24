@@ -34,7 +34,15 @@
     "a": 110,
     "b": 80
   },
+  "pilzland": {
+    "x": 131,
+    "z": 122,
+    "a": 125,
+    "b": 102
+  },
+  "abflug": "vier begehbare Äste (Azimut 20°, 112°, 203°, 286°)",
   "erweiterung": "äußerer Plattformring, Abflugäste, Wurzelbögen am Boden; später weitere Plattformen in der Krone",
-  "lichtbloecke": 438,
-  "spitzen": 123
+  "lichtbloecke": 159,
+  "spitzen": 123,
+  "dunkleStellenOhnePilzland": 5059
 }

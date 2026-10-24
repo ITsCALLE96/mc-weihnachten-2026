@@ -41,9 +41,22 @@ export function plattformTeile(stil = 'stein') {
 
 // Kasten um Oval und Plattform, auf ganze Chunks erweitert (für forceload)
 export function ladeKasten(k) {
-  const { x, z, a, b } = k.oval, p = k.plattform;
-  const x1 = Math.min(x - a, p.x - p.radius), x2 = Math.max(x + a, p.x + p.radius), z1 = Math.min(z - b, p.z - p.radius), z2 = Math.max(z + b, p.z + p.radius);
+  const p = k.plattform, ovale = [k.oval, k.pilzland].filter(Boolean);
+  const x1 = Math.min(p.x - p.radius, ...ovale.map((o) => o.x - o.a)), x2 = Math.max(p.x + p.radius, ...ovale.map((o) => o.x + o.a));
+  const z1 = Math.min(p.z - p.radius, ...ovale.map((o) => o.z - o.b)), z2 = Math.max(p.z + p.radius, ...ovale.map((o) => o.z + o.b));
   return [Math.floor(x1 / 16) * 16 + 8, Math.floor(z1 / 16) * 16 + 8, Math.floor(x2 / 16) * 16 + 8, Math.floor(z2 / 16) * 16 + 8];
+}
+
+// Pilzland (mushroom_fields) über die ganze Höhe im Oval: dort erscheinen in 26.3 keine Monster (natürliche Spawns nur Fledermaus,
+// Pilzkuh auf Myzel, Leuchttintenfisch), keine Plünderer-Patrouillen, keine Zombie-Belagerungen. Spawner und Phantome bleiben.
+// fillbiome in 8×8-Säulen von −64 bis 319 (8·8·384 = 24.576 < 32.768, Grenze für Befehle)
+export function pilzlandBefehle({ x, z, a, b }) {
+  const out = [];
+  for (let bz = Math.floor((z - b) / 8) * 8; bz <= z + b; bz += 8) for (let bx = Math.floor((x - a) / 8) * 8; bx <= x + a; bx += 8) {
+    const mx = bx + 4, mz = bz + 4; if (((mx - x) / (a + 4)) ** 2 + ((mz - z) / (b + 4)) ** 2 > 1) continue;
+    out.push(`fillbiome ${bx} -64 ${bz} ${bx + 7} 319 ${bz + 7} minecraft:mushroom_fields`);
+  }
+  return out;
 }
 
 export function ovalPunkte({ x, z, a, b }, n = 32) {
@@ -113,6 +126,7 @@ execute unless score #geladen insel_tp matches 1 run schedule function insel:auf
 `;
   f.aufbau_teil2 = [
     k.struktur && `# Spawn-Bau als Struktur (untere Nordwest-Ecke ${k.struktur.ursprung.join('/')})\nplace template ${k.struktur.name} ${k.struktur.ursprung.join(' ')}`,
+    k.pilzland && '# Pilzland-Biom (keine Monster) über die ganze Höhe\nfunction insel:pilzland',
     '# Rückweg-Plattform\nfunction insel:plattform',
     '# Unsichtbare Lichter im Oval (spawn/standort.mjs lichter)\nfunction insel:lichter',
     `setworldspawn ${s.x} ${s.y} ${s.z} ${s.yaw} ${s.pitch}`, 'gamerule respawn_radius 0',
@@ -140,6 +154,7 @@ scoreboard players reset @s insel_tod
 execute unless data entity @s respawn run tp @s ${s.x + 0.5} ${s.y} ${s.z + 0.5} ${s.yaw} ${s.pitch}
 `;
   }
+  if (k.pilzland) f.pilzland = `# Pilzland-Biom im Oval (Mitte ${k.pilzland.x}/${k.pilzland.z}, Halbachsen ${k.pilzland.a}/${k.pilzland.b}), ganze Höhe – keine Monster, Licht ist dann Stimmung\n` + pilzlandBefehle(k.pilzland).join('\n') + '\n';
   f.plattform = `# Rückweg-Plattform (Mitte ${p.x}/${p.y}/${p.z}, Radius 4, Stil ${p.stil ?? 'stein'}), Form von Pascal freigegeben\n` +
     plattformTeile(p.stil).map(([dx, dy, dz, b]) => `setblock ${p.x + dx} ${p.y + dy} ${p.z + dz} ${b}`).join('\n') + '\n';
   const regionen = `# WorldGuard-Region der Oberwelt, erzeugt mit spawn/standort.mjs aus ${k.datei ?? 'der Standort-Konfiguration'}. Einspielen nach
@@ -201,6 +216,7 @@ if (process.argv[1]?.replace(/\\/g, '/').endsWith('spawn/standort.mjs')) {
     console.log(JSON.stringify({
       beschreibung: `${k.name}, Ursprung ${U.join('/')}`, spawn: { x: sp[0], y: sp[1], z: sp[2], yaw: k.blick?.[0] ?? 0, pitch: k.blick?.[1] ?? 0 },
       spawnTeleport: true, oval: { x: k.oval.x + U[0], z: k.oval.z + U[2], a: k.oval.a, b: k.oval.b },
+      ...(k.pilzland && { pilzland: { x: k.pilzland.x + U[0], z: k.pilzland.z + U[2], a: k.pilzland.a, b: k.pilzland.b } }),
       plattform: { x: P[0], y: P[1], z: P[2], radius: 4, stil }, obenBereich: { von: plus(k.obenBereich.von), bis: plus(k.obenBereich.bis) },
       struktur: { name, ursprung: U }, weltgrenze: { x: sp[0], z: sp[2], breite: 10000 }, teleportTicks: 70,
       saettigung: { sekunden: 2, abklingTicks: 6000 }, lichter: { raster: 8, unterkante: boden + 30 },

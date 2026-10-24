@@ -39,3 +39,14 @@ test('Wurzel-Stil und Spawn-Teleport (erstes Betreten, Respawn ohne Bett)', () =
   assert.match(funktionen.respawn, /unless data entity @s respawn run tp/);
   assert.equal(plattformTeile('wurzel').length, plattformTeile('stein').length);
 });
+
+test('Pilzland: fillbiome in 8×8-Säulen über die ganze Höhe, nur im Oval, unter der Befehlsgrenze', async () => {
+  const { pilzlandBefehle } = await import('./standort.mjs');
+  const b = pilzlandBefehle({ x: 0, z: 0, a: 20, b: 12 });
+  assert.ok(b.length > 10);
+  for (const c of b) { const n = c.split(' ').slice(1, 7).map(Number); assert.equal((n[3] - n[0] + 1) * (n[4] - n[1] + 1) * (n[5] - n[2] + 1), 8 * 384 * 8); }
+  assert.ok(!b.some((c) => c.startsWith('fillbiome 24 ')));
+  const { funktionen } = dateien({ ...k, pilzland: { x: 64, z: 37, a: 30, b: 30 } });
+  assert.match(funktionen.aufbau_teil2, /function insel:pilzland/);
+  assert.match(funktionen.pilzland, /minecraft:mushroom_fields/);
+});
