@@ -93,3 +93,18 @@ Erster Test von Pascal: Spawnpunkt falsch, kein Rückweg, Monster unter der Inse
   - `spawn_bauverbot`: 150 um 64/37, nur Bauen verboten
 
 Reihenfolge in der echten Welt: Insel einfügen (`/tp 24 115 -9`, `//schem load ca12-spawn`, `//paste -e`), Datapack `insel` rein, `function insel:aufbau`, `regions.yml` rein, `/rg load -w world`.
+
+### Insel v2: hängendes Design vollständig (2026-10-24)
+
+Pascal sah unter der Insel „komische Sachen“ schweben. Ursache: Der erste Ausschnitt endete bei y 115 und hat alles abgeschnitten, was unter dem Drachen hängt. Übrig blieben Stummel an der Unterkante (z.B. die Drachenklaue bei 54–57/115–117/17–20). Unter der Insel hängen in CA12:
+- die Kette aus poliertem Andesit mit dem Schriftzug „CRAFT ATTACK“, bis y 64 (knapp über dem Meer)
+- die Drachenklaue (grüne/hellgrüne Terrakotta, Quarzkrallen) und ein kleiner Drache an der Kette
+- ein zweiter lila Kristall-Anhänger (58–70/73–87/22–34), der erste schwebt bei 34–46/118–132/1–13
+- Ranken bis zum Wasser
+
+In CA12 ist das mit einem Spielerbau verwachsen (dunkles Prismarin/Fichte, x 20–46, y 63–92). Deshalb kein einfacher Kasten, sondern eine Auswahl (`spawn/quellen/insel-v2.mjs`, git-ignoriert wie die Quellen): alles aus dem alten Kasten, dazu nach unten alle verbundenen Design-Blöcke ab x 44 sowie der freie Anhänger. Die Endstäbe bei x 34–38 sind Licht des Spielerbaus und nicht dabei.
+→ `spawn/quellen/ca12-spawn-v2.schem`: 95×175×69, Ursprung **24/64/−9**, 30.843 Blöcke (1.616 davon unter y 115), Vorschau `ca12-spawn-v2.png`. Einfügen: `/tp 24 64 -9`, `//schem load ca12-spawn-v2`, `//paste -e`.
+
+`tools/schem-welt.mjs ausschneiden` warnt jetzt, wenn Blöcke an einer Seite des Kastens anstoßen (beim alten Ausschnitt: „unten 18“).
+
+**Spawnpunkt (Analyse für Pascal):** Die obere Spawnfläche ist ein ovaler Platz auf y 178 (x ~52–86, z ~19–55). Fast die ganze Mitte ist ein **unsichtbarer Barrier-Boden** über einer 6 Blöcke tiefen Senke, in der Mitte stehen die Kuppel mit Glasboden und das Drachenei bei 64/37. Draufsicht: `spawn/quellen/spawnflaeche-oben.png`. Eine Streuung über die Fläche (`respawn_radius` > 0) geht nicht sicher, weil das Spiel gestreute Spieler auf den obersten Block ihrer Spalte setzt, also auf Drache, Bäume oder Kuppel. Deshalb ein fester Punkt mit `respawn_radius 0`.

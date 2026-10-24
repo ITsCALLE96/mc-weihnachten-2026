@@ -161,6 +161,19 @@ export function ausschneiden(ordner, a, b) {
   return m;
 }
 
+// Nicht-Luft-Blöcke auf jeder Seite des Kastens. Stößt etwas an den Rand, ist der Ausschnitt vermutlich zu klein
+// (z.B. hängende Ketten unter einer Insel abgeschnitten) – dann den Kasten auf dieser Seite vergrößern.
+export function randBloecke(m) {
+  const r = { unten: 0, oben: 0, west: 0, ost: 0, nord: 0, sued: 0 };
+  for (let y = 0; y < m.h; y++) for (let z = 0; z < m.l; z++) for (let x = 0; x < m.w; x++) {
+    if (istLuft(m.bloecke[x + z * m.w + y * m.w * m.l])) continue;
+    if (y === 0) r.unten++; if (y === m.h - 1) r.oben++;
+    if (x === 0) r.west++; if (x === m.w - 1) r.ost++;
+    if (z === 0) r.nord++; if (z === m.l - 1) r.sued++;
+  }
+  return Object.fromEntries(Object.entries(r).filter(([, n]) => n));
+}
+
 if (process.argv[1]?.replace(/\\/g, '/').endsWith('tools/schem-welt.mjs')) {
   const [befehl, ordner, ...z] = process.argv.slice(2);
   const n = z.map(Number);
@@ -170,5 +183,7 @@ if (process.argv[1]?.replace(/\\/g, '/').endsWith('tools/schem-welt.mjs')) {
     const m = ausschneiden(ordner, n.slice(0, 3), n.slice(3, 6));
     writeFileSync(z[6], speichere(m));
     console.log(`${z[6]}: ${m.w}×${m.h}×${m.l}, ${m.bloecke.filter((b) => !istLuft(b)).length} Blöcke, ${m.blockEntities.length} Block-Entities, ${m.entities.length} Entities`);
+    const rand = randBloecke(m);
+    if (Object.keys(rand).length) console.log(`WARNUNG: Blöcke am Rand des Kastens (${Object.entries(rand).map(([s, n]) => `${s} ${n}`).join(', ')}) – wird etwas abgeschnitten? Kasten dort vergrößern und mit „umriss“ prüfen`);
   } else console.log('Aufruf: info | umriss | ausschneiden – siehe Kopf der Datei');
 }

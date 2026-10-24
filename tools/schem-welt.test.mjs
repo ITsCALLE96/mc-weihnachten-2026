@@ -4,7 +4,7 @@ import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { schreibeNbt, leseNbt, tag } from './nbt.mjs';
-import { weltInfo, umriss, ausschneiden, sektionsBloecke } from './schem-welt.mjs';
+import { weltInfo, umriss, ausschneiden, sektionsBloecke, randBloecke } from './schem-welt.mjs';
 import { lade, speichere, hole } from './schem.mjs';
 
 // Regionsdatei mit genau einem Chunk (gzip-Kompression = Art 1).
@@ -85,4 +85,9 @@ test('26.x-Palette: Text, {"": Text} und {id, properties}', () => {
   assert.equal(b[0], 'minecraft:tall_seagrass[half=upper]');
   assert.equal(b[1], 'minecraft:andesite');
   assert.equal(sektionsBloecke({ block_states: tag('compound', { palette: tag('list', { elem: 'string', items: ['minecraft:stone'] }) }) })[5], 'minecraft:stone');
+});
+
+test('Randwarnung: meldet Blöcke an den Seiten des Kastens', () => {
+  assert.deepEqual(randBloecke(ausschneiden(testwelt(), [0, 99, 0], [5, 105, 5])), {});
+  assert.deepEqual(randBloecke(ausschneiden(testwelt(), [0, 101, 0], [5, 105, 5])), { unten: 1 }); // Truhe auf y 101 liegt auf der Unterkante
 });
