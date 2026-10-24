@@ -10,6 +10,7 @@ max-players=30
 view-distance=8
 simulation-distance=6
 network-compression-threshold=-1
+sync-chunk-writes=false
 online-mode=false
 white-list=true
 enforce-whitelist=true

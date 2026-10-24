@@ -47,7 +47,7 @@ unter Dauerlast thermisch begrenzt). Die übrigen Kerne nimmt Paper für Chunk-E
 | `network-compression-threshold` | **-1** | Kompression macht Velocity für die Spieler. Zwischen Velocity und Paper auf derselben VM kostet sie nur CPU |
 
 Stufenplan, falls die MSPT im Testlauf über ~40 ms steigen (Ziel: unter 50 ms, sonst sinkt der Server unter 20 TPS):
-erst `simulation-distance` 5, dann `view-distance` 7, dann Farmen per spark-Profil ansehen.
+erst `simulation-distance` 5, dann `view-distance` 7, dann per spark-Profil ansehen, was die Last macht.
 
 ### Paper-Einstellungen (`config/paper-world-defaults.yml`, zusätzlich zu Anti-Xray)
 
@@ -76,9 +76,14 @@ misc:
 Paper-Standards behalten: `tick-rates`, `max-entity-collisions`, Hopper-Einstellungen. Bei echten Engpässen erst messen (spark), dann gezielt ändern.
 Die Schlüsselnamen prüfe ich gegen die `paper-world-defaults.yml`, die Paper 26.3 beim ersten Start anlegt.
 
-**Entity-Limits in der Welt** (Villager-Hallen, Hühnerfarmen) sind eine Spielregel, kein Konfigwert → **Für die Leitung**: Farm-Regeln
-im Leitfaden/Regeln festhalten (Vorschlag: keine Massen-Tierfarmen über ~50 Tiere pro Ort, Villager-Hallen bis ~30 Villager).
-`maxEntityCramming` bleibt beim Standard 24.
+**Keine Farm-Regeln** (Pascal, 24.10.): Jeder spielt, wie er will. `maxEntityCramming` bleibt beim Standard 24.
+
+**Nur als Option, falls die Last später zum Problem wird** (erst spark-Profil, dann gezielt). Paper-seitige Grenzen nah an Vanilla, die nicht wie Regeln wirken:
+- `entities.spawning.spawn-limits` bzw. `bukkit.yml` `spawn-limits` leicht senken (weniger natürlich spawnende Mobs, Farmen merken es kaum)
+- `chunks.entity-per-chunk-save-limit` um weitere Typen ergänzen (z. B. `item`)
+- Spigot `entity-activation-range` etwas kleiner (weit entfernte Tiere/Villager rechnen seltener)
+- `hopper.cooldown-when-full`/`hopper.disable-move-event` (Paper-Standard prüfen) gegen Hopper-Ketten
+- Erst als letzter Schritt `misc.redstone-implementation: ALTERNATE_CURRENT`
 
 ### Host
 
@@ -88,21 +93,11 @@ im Leitfaden/Regeln festhalten (Vorschlag: keine Massen-Tierfarmen über ~50 Tie
 
 ### Chunk-Vorgenerierung
 
-Neue Chunks zu erzeugen ist das Teuerste überhaupt. Mit 25 Spielern, die gleichzeitig mit Elytra in verschiedene Richtungen fliegen, würde das den Server
-ausbremsen. Deshalb vorher erzeugen:
-
-- Plugin **Chunky** 1.5.3 (Modrinth `chunky`, für 26.3, siehe `plugins.md`)
-- Weltgrenze per `/worldborder` (Vanilla), Vorschlag **Overworld Radius 5.000** (10.000 × 10.000 Blöcke), Nether Radius 1.250 (entspricht der Overworld /8 plus etwas Reserve), End
-  nicht vorgenerieren (Inseln, wenig Last)
-- Aufwand grob geschätzt: ~390.000 Chunks Overworld → 1–3 h auf dem 9850H (über Nacht, ohne Spieler), Speicher ~3–5 GB. Wird mit dem freien
-  Platz aus Task 2 Schritt 1 abgeglichen, ggf. Radius 4.000
-- Wann: Testwelt vor dem 14.11. (dabei messen, wie lange es dauert), echte Welt in Task 10 Schritt 4 (Weltwechsel bis 28.11.)
-- Befehle (Konsole): `chunky world <welt>` · `chunky radius 5000` · `chunky start`, danach dasselbe für den Nether
+**Pflicht vor dem Start** (Pascal, 24.10.). Ablauf, Dauer, Platz und Weltgrenze: `vorgenerierung.md`.
 
 ### Profiler
 
-**spark ist in Paper eingebaut** (seit 1.21), es gibt keine eigene 26.3-Version auf Modrinth, und es braucht keine. Beim Einrichten mit `/spark` prüfen.
-Im Testlauf: `/spark tps`, `/spark health`, bei Rucklern `/spark profiler start --timeout 300` und den Link in die Doku.
+spark ist in Paper eingebaut. Befehle, Rechte und Web-Ansicht: `spark.md`.
 
 ## 3. Upload
 
@@ -128,18 +123,45 @@ Schätzung (Velocity-Kompression an, Sichtweite 8, Simple Voice Chat mit Opus ~2
 - Dazu Beitritts-Spitzen: Kommen alle zum Start gleichzeitig, dauert das Laden der 75 MB bei 20 Mbit/s freiem Upload ~30 s
 - **Summe Dauerlast: ~10–15 Mbit/s, Spitzen 25–30 Mbit/s**
 
-**Bewertung:** Ab **≥ 40 Mbit/s Upload** passt es mit Reserve. Mit 20 Mbit/s geht es, Elytra-Flüge laden dann aber nur zäh nach. Unter **~10 Mbit/s** wird es
-eng → dann `view-distance` 6 und in `paper-global.yml` die Chunk-Senderate pro Spieler begrenzen (`chunk-loading-basic.player-max-chunk-send-rate`, z. B. 40).
-Hält Velocity den Upload knapp, verzögern sich zuerst die Chunks. Bewegung und Sprache haben kleine Pakete und leiden zuletzt.
+**Leitung: 40 Mbit/s Upload laut Vertrag** (Pascal, 24.10., **noch nicht gemessen**). Real kommen bei DSL nach Overhead meist ~90 % an, also ~36 Mbit/s.
+Für Spiele sollte die Dauerlast höchstens ~70 % davon belegen, sonst steigen Ping und Paketverluste, sobald zu Hause jemand anderes hochlädt. **Budget ≈ 25 Mbit/s.**
 
-### Was Pascal messen muss, sobald das Netz steht
+| Fall | Schätzung | Anteil an ~36 Mbit/s | Bewertung |
+|---|---|---|---|
+| Normaler Abend | 10–20 Mbit/s | 30–55 % | passt |
+| Alle am Spawn, Dauerlast | 10–15 Mbit/s | 30–40 % | passt |
+| Spitze (Spawn + viele Sprecher, Ansturm, viele Flieger) | 25–30 Mbit/s | 70–85 % | kurz knapp, Chunks laden dann langsamer nach |
 
-1. **FritzBox → Internet → Online-Monitor:** synchronisierte Upload-Rate (Leitungskapazität) notieren
-2. **Echter Upload vom Server aus** (VM200, abends zur Spielzeit, zwei Läufe), z. B. mit `speedtest` von Ookla oder `iperf3` gegen einen Rechner außerhalb
-   (ich bereite den Befehl vor, wenn VM200 erreichbar ist). Wichtig ist der Wert **von VM200 aus**, nicht vom PC, weil dazwischen der neue Router liegt
-3. Ob die FritzBox bzw. der neue Router Priorisierung/QoS hat. Minecraft und Sprachchat vor Downloads im Heimnetz priorisieren, falls jemand zu Hause gleichzeitig hochlädt
-   (Cloud-Backups, OneDrive)
-4. **Im Testlauf 21.11.:** `vnstat -l` oder `iftop` auf VM200 mitlaufen lassen (tatsächlicher Upload pro Spielerzahl), `/spark tps`, MSPT. Ergebnis hier und im Testprotokoll nachtragen
+**Ergebnis: Sichtweite 8 bleibt vorläufig.** Die Spitzen sind kurz, und wenn es eng wird, verzögern sich zuerst die Chunks. Bewegung und Sprache haben kleine Pakete und leiden zuletzt.
+Endgültig entscheidet die Messung von VM200 aus.
+Hinweis: Externe Palworld-Spieler laggen laut Backlog, lokale nicht. Das kann auf einen knappen oder schwankenden Upload hindeuten (oder auf Tailscale-Relay) → die Messung klärt das.
+
+**Grenzwerte für die Sichtweite** (Maßstab: niedrigster gemessener Upload zur Hauptspielzeit):
+
+| gemessener Upload | Maßnahme |
+|---|---|
+| ≥ 30 Mbit/s | `view-distance` 8 |
+| 20–30 Mbit/s | `view-distance` 7 (~22 % weniger Chunk-Daten: 15² statt 17² Chunks) |
+| 12–20 Mbit/s | `view-distance` 6 und Chunk-Senderate pro Spieler begrenzen (`paper-global.yml` `chunk-loading-basic.player-max-chunk-send-rate`, z. B. 40) |
+| < 12 Mbit/s | Problem für 25 Spieler → Leitung/Pascal (Leitung prüfen, Router-QoS, Spielerzahl) |
+
+Zusätzlich gilt: Liegt im Lasttest die Senderate von VM200 in Phase 4/5 (plus ~5 Mbit/s Sprachchat-Schätzung) über 70 % des gemessenen Uploads, eine Stufe herunter.
+
+### Live-Messung von VM200 aus (Plan Task 3 Schritt 6, nach dem Netzumbau)
+
+Gemessen wird **direkt auf VM200**, nicht am PC, weil dazwischen der neue Router liegt und genau dieser Weg zählt.
+
+- **Werkzeug:** `librespeed-cli` (LGPL-3.0, eine Datei, misst gegen öffentliche LibreSpeed-Server). Alternative: Debians Paket `speedtest-cli` (Apache-2.0).
+  Ookla `speedtest` nur, wenn Pascal dessen Lizenz selbst annimmt
+- **Wann:** an zwei verschiedenen Tagen je 3× tagsüber und 3× zur Hauptspielzeit (19–22 Uhr), dazu **einmal während des Bot-Lasttests** (Phase 4 oder 5, `lasttest.md`).
+  Damit sieht man, ob Server-Last und Messung sich gegenseitig stören
+- **Notieren:** Upload, Download, Ping, Jitter, Server und Uhrzeit, Tabelle hier unter „Gemessen“. Außerdem die synchronisierte Upload-Rate im FritzBox-Online-Monitor
+- **Router:** prüfen, ob der neue Router bzw. die FritzBox Priorisierung (QoS) hat. Minecraft (TCP 25565) und Sprachchat (UDP 24454) vor Cloud-Backups/OneDrive priorisieren
+- **Im Testlauf 21.11.:** `vnstat -l` oder `iftop` auf VM200 mitlaufen lassen (echte Senderate pro Spielerzahl), dazu `/spark tps`. Ergebnis hier und im Testprotokoll
+
+## Gemessen
+
+*(noch nichts. Hier kommen die Werte aus Speedtest, Lasttest, Vorgenerierung und Testlauf hin.)*
 
 ## 4. Velocity und Whitelist
 
