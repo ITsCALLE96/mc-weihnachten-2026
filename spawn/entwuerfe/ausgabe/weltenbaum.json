@@ -1,54 +1,160 @@
 {
   "groesse": [
-    270,
-    200,
-    270
+    220,
+    160,
+    220
   ],
-  "name": "Weltenbaum (Etagenkrone)",
+  "name": "Weltenbaum (Spawn unten im Stamm)",
   "spawn": [
-    139,
-    125,
-    136
+    110,
+    13,
+    117
   ],
   "blick": [
-    0,
+    180,
     0
   ],
-  "boden": 14,
-  "plattformHoehe": 124,
+  "boden": 12,
+  "kronenplatz": 122,
   "turm": [
-    138,
-    14,
-    156
+    112,
+    12,
+    129
   ],
-  "obenBereich": {
-    "von": [
-      120,
-      121,
+  "spawnRaum": {
+    "mitte": [
+      110,
+      13,
       110
     ],
-    "bis": [
-      158,
-      136,
-      148
-    ]
+    "radius": 11,
+    "hoehe": 15
   },
+  "treppe": {
+    "stufen": 109,
+    "von": 13,
+    "bis": 122
+  },
+  "blasensaeule": [
+    110,
+    12,
+    110
+  ],
+  "ausgaenge": [
+    {
+      "wurzeln": [
+        141,
+        13,
+        120,
+        141,
+        16,
+        122
+      ],
+      "barriere": [
+        140,
+        13,
+        120,
+        140,
+        16,
+        122
+      ],
+      "aussen": [
+        146,
+        13,
+        123
+      ]
+    },
+    {
+      "wurzeln": [
+        75,
+        13,
+        114,
+        75,
+        16,
+        116
+      ],
+      "barriere": [
+        76,
+        13,
+        114,
+        76,
+        16,
+        116
+      ],
+      "aussen": [
+        70,
+        13,
+        115
+      ]
+    },
+    {
+      "wurzeln": [
+        114,
+        13,
+        76,
+        116,
+        16,
+        77
+      ],
+      "barriere": [
+        114,
+        13,
+        77,
+        116,
+        16,
+        78
+      ],
+      "aussen": [
+        116,
+        13,
+        71
+      ]
+    },
+    {
+      "wurzeln": [
+        138,
+        13,
+        93,
+        139,
+        16,
+        95
+      ],
+      "barriere": [
+        138,
+        13,
+        94,
+        139,
+        16,
+        95
+      ],
+      "aussen": [
+        143,
+        13,
+        92
+      ]
+    }
+  ],
   "oval": {
-    "x": 133,
-    "z": 132,
-    "a": 108,
-    "b": 92
+    "x": 109,
+    "z": 109,
+    "a": 81,
+    "b": 69
   },
   "pilzland": {
-    "x": 133,
-    "z": 132,
-    "a": 138,
-    "b": 122
+    "x": 109,
+    "z": 109,
+    "a": 111,
+    "b": 99
   },
-  "abflug": "drei Wege vom Spawnplatz über die Schirmkante (Südwest, Nordwest, Ost)",
-  "erweiterung": "weitere Schirme und Plattformen, Terrassen am Fuß, Turm innen",
-  "lichtbloecke": 35,
-  "kerzen": 631,
-  "augenblueten": 8155,
-  "dunkleStellenOhnePilzland": 5448
+  "ausdehnung": {
+    "x": 162,
+    "z": 138,
+    "hoeheUeberBoden": 125
+  },
+  "leistung": {
+    "bloecke": 301898,
+    "laub": 161756,
+    "kerzen": 430,
+    "augenblueten": 4472
+  }
 }

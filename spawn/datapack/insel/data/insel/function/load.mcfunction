@@ -1,4 +1,3 @@
-# Zähler für den Portal-Übergang auf der Rückweg-Plattform (Ticks, die man schon draufsteht)
+# Zähler und Merker der Spawn-Technik
 scoreboard objectives add insel_tp dummy
-# Abklingzeit der Sättigung beim Betreten des Spawns oben (Ticks)
 scoreboard objectives add insel_satt dummy

@@ -50,3 +50,25 @@ test('Pilzland: fillbiome in 8×8-Säulen über die ganze Höhe, nur im Oval, un
   assert.match(funktionen.aufbau_teil2, /function insel:pilzland/);
   assert.match(funktionen.pilzland, /minecraft:mushroom_fields/);
 });
+
+test('Ohne Plattform und Sättigung: keine Teleport- oder Sättigungslogik', () => {
+  const { plattform, saettigung, ...rest } = k;
+  const { funktionen } = dateien({ ...rest, lichter: null });
+  assert.equal(funktionen.plattform, undefined);
+  assert.equal(funktionen.betreten, undefined);
+  assert.doesNotMatch(funktionen.tick, /insel_tp|insel_satt/);
+  assert.doesNotMatch(funktionen.aufbau_teil2, /insel:plattform|insel:lichter/);
+});
+
+test('Eröffnung: schließen setzt Wurzeln, Barriere und kleine Grenze; Eröffnung nur einmal; Ausgänge öffnen, große Grenze', () => {
+  const e = { sekunden: 10, grenzeZu: { x: 5, z: 6, breite: 128 }, ausgaenge: [{ wurzeln: [1, 65, 1, 3, 68, 1], barriere: [1, 65, 2, 3, 68, 2] }] };
+  const { funktionen: f } = dateien({ ...k, eroeffnung: e });
+  assert.match(f.schliessen, /fill 1 65 1 3 68 1 minecraft:mangrove_roots/);
+  assert.match(f.schliessen, /fill 1 65 2 3 68 2 minecraft:barrier/);
+  assert.match(f.schliessen, /worldborder center 5 6\nworldborder set 128/);
+  assert.match(f.eroeffnung, /if score #offen insel_zustand matches 1 run say/);
+  assert.match(f.oeffnen, /schedule function insel:ausgang_0/);
+  assert.match(f.ausgang_0, /fill 1 65 1 3 68 1 minecraft:air destroy/);
+  assert.match(f.willkommen, /worldborder set 10000/);
+  assert.match(f.aufbau_teil2, /function insel:schliessen/);
+});

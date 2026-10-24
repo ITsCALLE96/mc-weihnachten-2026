@@ -11,16 +11,20 @@ Alle Ortsangaben stehen in `spawn/standort-<name>.json` (Vorlage: `standort-test
 |---|---|
 | `spawn` | Weltspawn x/y/z und Blickrichtung (yaw/pitch); dorthin führt auch der Rückweg-Teleport |
 | `oval` | Mitte x/z und Halbachsen a (x) / b (z): Spawnschutz-Region (WorldGuard poly2d) und Bereich der Lichter, ≈ Umriss des Spawns am Boden plus Rand |
-| `plattform` | Mitte x/y/z der Rückweg-Plattform (y = Höhe der Plattform-Oberkante, meist Wasserspiegel 62), Radius des Auslösers |
-| `obenBereich` | Kasten (von/bis), in dem man „oben am Spawn“ ist: dort gibt es beim Betreten einmal Sättigung |
+| `plattform` | optional (nur Testserver): Mitte x/y/z der Rückweg-Plattform (y = Höhe der Plattform-Oberkante, meist Wasserspiegel 62), Radius des Auslösers. Weglassen = keine Plattform |
+| `obenBereich` | optional, nur mit `saettigung`: Kasten (von/bis), in dem man „oben am Spawn“ ist: dort gibt es beim Betreten einmal Sättigung |
 | `struktur` | optional: Struktur, die `insel:aufbau` per `place template` setzt (Name, untere Nordwest-Ecke); `null` bei eigenem Bau oder fertiger Welt |
 | `weltgrenze` | Mitte x/z und Breite |
-| `teleportTicks`, `saettigung`, `lichter` | Dauer des Portal-Übergangs, Sättigung (Sekunden, Abklingzeit), Licht-Raster und Unterkante des Baus |
+| `teleportTicks`, `saettigung`, `lichter` | Dauer des Portal-Übergangs, Sättigung (Sekunden, Abklingzeit; weglassen = keine), Licht-Raster und Unterkante des Baus (`null` = keine Lichter, z. B. im Pilzland) |
+| `spawnTeleport` | beim ersten Betreten und nach dem Tod ohne Bett auf den Spawn setzen (nötig, wenn der Spawn unter einem Dach liegt) |
+| `eroeffnung` | optional: Eröffnungs-Event mit `sekunden` (Countdown), `grenzeZu` (Mitte, Breite der kleinen Weltgrenze) und `ausgaenge` (je Ausgang Kasten `wurzeln` und `barriere`) |
+
+Für einen Entwurf aus `spawn/entwuerfe/` erzeugt `node spawn/standort.mjs aus-entwurf <entwurf.json> <ursprung x,y,z> [struktur]` die Standort-Konfiguration (ohne Plattform und Sättigung, mit Eröffnung).
 
 Ablauf für einen neuen Standort:
 1. `spawn/standort-<name>.json` anlegen
 2. `node spawn/standort.mjs bauen spawn/standort-<name>.json` → Datapack `spawn/datapack/insel/` und `spawn/worldguard/regions.yml`
-3. Welt mit Spawn-Bau aufsetzen und `function insel:aufbau` ausführen (Plattform, Spawn, Weltgrenze; Lichter beim ersten Mal noch die alten)
+3. Welt mit Spawn-Bau aufsetzen und `function insel:aufbau` ausführen (Bau, Pilzland, Plattform falls vorhanden, Spawn, Weltgrenze; mit Eröffnung am Ende `insel:schliessen`; Lichter beim ersten Mal noch die alten)
 4. `node spawn/standort.mjs lichter spawn/standort-<name>.json <welt>` → `lichter.mcfunction` aus dem fertigen Gelände, dann `minecraft:reload` und `function insel:lichter`
 5. Mit `spawn/PRUEFLISTE.md` prüfen
 
@@ -34,6 +38,14 @@ Am Anfang ist der Spawn geschützt (Nicht-Mitglieder bauen in der Region `spawn`
 - wieder schützen: `rg flag -w world spawn build` (Flag löschen)
 
 Bewusst kein `build deny` in der Datei: das würde auch Mitglieder sperren.
+
+### Eröffnungs-Event (Weltenbaum, Pascal 24.10.)
+
+Vor dem Start sind alle im verschlossenen Spawn-Raum: Ausgänge mit Mangrovenwurzeln und Barriere zu, **Weltgrenze 128 um die Raummitte**. In der Konsole oder als AMP-Aufgabe:
+- `function insel:eroeffnung`: Bossbar „Der Baum öffnet sich …“, 10 s Countdown (letzte 3 Sekunden als Titel mit Glocke), dann öffnen die Ausgänge nacheinander (Wurzeln brechen, Kirschblatt- und Grün-Partikel, Tresor-Geräusch), danach **Weltgrenze 10.000** und Titel „Willkommen!“
+- Doppelt auslösen schadet nicht: „Eröffnung läuft schon“ bzw. „Spawn ist schon offen“ (Merker `#offen` und `#countdown` in `insel_zustand`)
+- `function insel:schliessen`: Ausgänge wieder zu, kleine Weltgrenze, Merker zurück. Damit lässt sich das Event beliebig oft proben (Testlauf 21.11., Start 05.12.)
+- Auf Vanilla 26.3 geprüft: Aufbau geschlossen, Countdown, Öffnen, Wiederholschutz, Schließen, keine Ladefehler
 
 ## Testserver (CA12-Platzhalter)
 
@@ -69,17 +81,17 @@ Voraussetzungen: Paper 26.3 mit den Plugins aus `server/plugins.md`, `server.pro
    - `function aufschuettung:start` → warten auf „Aufschüttung fertig“ (51 Kacheln, ~1 min; jede Kachel wartet, bis ihre 16 Chunks geladen sind)
    - `function insel:aufbau` → warten auf „Spawn-Insel eingerichtet“ (Insel, Plattform, Lichter, `setworldspawn 64 179 29 0 0`, `respawn_radius 0`, Weltgrenze 64/37 × 10.000)
    - `nether close`, `end close` (Plugin-Befehle, gehen nicht aus einer Funktion)
-6. Danach: Chunky-Vorgenerierung um 64/37 (Server-Session, `server/vorgenerierung.md`), Spawn Elytra `spawnRadius: 65`
+6. Danach: Chunky-Vorgenerierung um 64/37 (Server-Session, `server/vorgenerierung.md`). Spawn Elytra ist gestrichen (Server-Session, 24.10.)
 7. Prüfen mit `spawn/PRUEFLISTE.md`
 
 Lokal macht `bash spawn/neu-aufsetzen.sh testserver/server` die Schritte 1–5 auf einmal (löscht auch OP-Liste, Spielerdaten, Elytra- und Sperrzustand).
 
 ## Hinweise
 
-- **Sättigung** (Pascal 24.10.): nur oben auf der Insel, einmal beim Betreten Sättigung I für 2 s, danach 5 min Abklingzeit (`insel:betreten`). Nicht mehr über WorldGuard-`feed`.
+- **Sättigung** (nur noch Testserver-Platzhalter; beim Weltenbaum gestrichen, Pascal 24.10.): nur oben auf der Insel, einmal beim Betreten Sättigung I für 2 s, danach 5 min Abklingzeit (`insel:betreten`). Nicht mehr über WorldGuard-`feed`.
 - **Strukturen mit `place template`** brauchen in 26.x die alte DataVersion (3955), wenn die Palette im Format `{Name, Properties}` vorliegt, sonst werden alle Blöcke Luft. Und `place template` scheitert in Funktionen still, wenn Chunks noch nicht geladen sind – deshalb prüfen die Ketten mit `execute if loaded`.
 
-- **Rückweg-Teleport** wie ein Netherportal (`insel:tick`): 70 Ticks (3,5 s) auf der Plattform stehen, dabei Übelkeit (Bildschirm wabert), Portal-Partikel und `block.portal.trigger`; dann Teleport, `block.portal.travel`, umgekehrte Portal-Partikel, 1 s Blindheit als Einblendung. Plattform vorher verlassen bricht ab.
+- **Rückweg-Teleport** (nur Testserver-Platzhalter, beim Weltenbaum gestrichen) wie ein Netherportal (`insel:tick`): 70 Ticks (3,5 s) auf der Plattform stehen, dabei Übelkeit (Bildschirm wabert), Portal-Partikel und `block.portal.trigger`; dann Teleport, `block.portal.travel`, umgekehrte Portal-Partikel, 1 s Blindheit als Einblendung. Plattform vorher verlassen bricht ab.
 
 - **Oval um die Insel** (Pascal 24.10.): Mitte 71/25, Halbachsen 62 (x) und 46 (z) = Insel-Umriss plus Rand. Gilt für die Region `spawn` (poly2d, 32 Punkte, kein großes Bauverbot mehr) und die Lichter.
 - **Lichter** (`insel:lichter`, 138 Stück, nur Boden/Wasser im Oval, Raster 8) sind aus der aufgebauten Testwelt berechnet (`node tools/schem-licht.mjs <welt> 9 -21 133 71 115 8 71,25,62,46 nurBoden`). Gleicher Seed und gleicher Aufbau ergeben dasselbe Gelände, sie gelten also auch für die echte Welt. Bei Änderungen an Insel oder Aufschüttung neu berechnen.

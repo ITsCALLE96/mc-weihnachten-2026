@@ -41,7 +41,7 @@ export function plattformTeile(stil = 'stein') {
 
 // Kasten um Oval und Plattform, auf ganze Chunks erweitert (für forceload)
 export function ladeKasten(k) {
-  const p = k.plattform, ovale = [k.oval, k.pilzland].filter(Boolean);
+  const p = k.plattform ?? { x: k.spawn.x, z: k.spawn.z, radius: 0 }, ovale = [k.oval, k.pilzland].filter(Boolean);
   const x1 = Math.min(p.x - p.radius, ...ovale.map((o) => o.x - o.a)), x2 = Math.max(p.x + p.radius, ...ovale.map((o) => o.x + o.a));
   const z1 = Math.min(p.z - p.radius, ...ovale.map((o) => o.z - o.b)), z2 = Math.max(p.z + p.radius, ...ovale.map((o) => o.z + o.b));
   return [Math.floor(x1 / 16) * 16 + 8, Math.floor(z1 / 16) * 16 + 8, Math.floor(x2 / 16) * 16 + 8, Math.floor(z2 / 16) * 16 + 8];
@@ -64,42 +64,35 @@ export function ovalPunkte({ x, z, a, b }, n = 32) {
 }
 
 export function dateien(k) {
-  const s = k.spawn, p = k.plattform, t = k.teleportTicks, o = k.obenBereich, g = k.weltgrenze;
+  // Optional: plattform (Rückweg mit Portal-Übergang), saettigung (+ obenBereich), lichter (Oval), eroeffnung (Ausgänge zu/auf), spawnTeleport
+  const s = k.spawn, p = k.plattform, t = k.teleportTicks ?? 70, o = k.obenBereich, g = k.weltgrenze;
   const [lx1, lz1, lx2, lz2] = ladeKasten(k);
-  const auf = `x=${p.x + 0.5},y=${p.y + 1},z=${p.z + 0.5},distance=..${p.radius}`;
-  const oben = `x=${o.von[0]},y=${o.von[1]},z=${o.von[2]},dx=${o.bis[0] - o.von[0]},dy=${o.bis[1] - o.von[1]},dz=${o.bis[2] - o.von[2]}`;
-  const geladen = []; for (let x = lx1; x <= lx2; x += 16) for (let z = lz1; z <= lz2; z += 16) geladen.push(`if loaded ${x} ${p.y + 2} ${z}`);
+  const geladen = []; for (let x = lx1; x <= lx2; x += 16) for (let z = lz1; z <= lz2; z += 16) geladen.push(`if loaded ${x} ${(p?.y ?? s.y) + 2} ${z}`);
   const f = {};
-  f.load = `# Zähler für den Portal-Übergang auf der Rückweg-Plattform (Ticks, die man schon draufsteht)
-scoreboard objectives add insel_tp dummy
-# Abklingzeit der Sättigung beim Betreten des Spawns oben (Ticks)
-scoreboard objectives add insel_satt dummy
-`;
-  f.tick = `# Rückweg wie ein Netherportal: auf der runden Plattform (Mitte ${p.x}/${p.y}/${p.z}, Radius ${p.radius}) stehen bleiben,
+  f.load = '# Zähler und Merker der Spawn-Technik\n';
+  f.tick = '';
+  if (p) {
+    const auf = `x=${p.x + 0.5},y=${p.y + 1},z=${p.z + 0.5},distance=..${p.radius}`;
+    f.load += 'scoreboard objectives add insel_tp dummy\n';
+    f.tick += `# Rückweg wie ein Netherportal: auf der runden Plattform (Mitte ${p.x}/${p.y}/${p.z}, Radius ${p.radius}) stehen bleiben,
 # nach ${t} Ticks (${t / 20} s) geht es auf den Spawn. Wer vorher runtergeht, bricht ab. Wirkt ohne OP (Datapack).
 scoreboard players add @a[${auf},gamemode=!spectator] insel_tp 1
 execute as @a[scores={insel_tp=1..}] unless entity @s[${auf},gamemode=!spectator] run function insel:abbruch
 execute as @a[scores={insel_tp=1}] at @s run function insel:start
 execute as @a[scores={insel_tp=2..${t - 1}}] at @s run particle minecraft:portal ~ ~1 ~ 0.4 0.9 0.4 0.6 6 normal
 execute as @a[scores={insel_tp=${t}..}] at @s run function insel:zurueck
-
-# Sättigung: beim Betreten des Spawns oben (Kasten ${o.von.join('/')} bis ${o.bis.join('/')}) einmal kurz Sättigung I für ${k.saettigung.sekunden} s,
-# danach ${k.saettigung.abklingTicks / 1200} min Abklingzeit, damit Rein- und Rausspringen nichts bringt
-scoreboard players remove @a[scores={insel_satt=1..}] insel_satt 1
-execute as @a[tag=insel_oben] unless entity @s[${oben}] run tag @s remove insel_oben
-execute as @a[${oben},tag=!insel_oben] run function insel:betreten
 `;
-  f.start = `# Beginn des Übergangs: Portal-Geräusch, Bildschirm wabert (Übelkeit), Hinweis
+    f.start = `# Beginn des Übergangs: Portal-Geräusch, Bildschirm wabert (Übelkeit), Hinweis
 playsound minecraft:block.portal.trigger block @s ~ ~ ~ 0.7 1
 effect give @s minecraft:nausea ${Math.ceil(t / 20) + 2} 0 true
 title @s actionbar {"text":"Stehen bleiben – gleich geht es zurück zum Spawn …","color":"light_purple"}
 `;
-  f.abbruch = `# Plattform vor Ablauf verlassen: alles zurücksetzen
+    f.abbruch = `# Plattform vor Ablauf verlassen: alles zurücksetzen
 scoreboard players reset @s insel_tp
 effect clear @s minecraft:nausea
 stopsound @s block minecraft:block.portal.trigger
 `;
-  f.zurueck = `# Ankommen am Spawn: Reise-Geräusch, umgekehrte Portal-Partikel, kurz Blindheit als Einblendung
+    f.zurueck = `# Ankommen am Spawn: Reise-Geräusch, umgekehrte Portal-Partikel, kurz Blindheit als Einblendung
 scoreboard players reset @s insel_tp
 stopsound @s block minecraft:block.portal.trigger
 tp @s ${s.x + 0.5} ${s.y} ${s.z + 0.5} ${s.yaw} ${s.pitch}
@@ -108,11 +101,73 @@ playsound minecraft:block.portal.travel block @s ~ ~ ~ 0.35 1
 particle minecraft:reverse_portal ~ ~1 ~ 0.6 1 0.6 0.05 60 normal
 title @s actionbar {"text":"Zurück am Spawn – zweimal springen zum Fliegen","color":"aqua"}
 `;
-  f.betreten = `# Spawn oben betreten: Sättigung nur, wenn die Abklingzeit abgelaufen ist
+  }
+  if (k.saettigung && o) {
+    const oben = `x=${o.von[0]},y=${o.von[1]},z=${o.von[2]},dx=${o.bis[0] - o.von[0]},dy=${o.bis[1] - o.von[1]},dz=${o.bis[2] - o.von[2]}`;
+    f.load += 'scoreboard objectives add insel_satt dummy\n';
+    f.tick += `
+# Sättigung: beim Betreten des Spawns oben (Kasten ${o.von.join('/')} bis ${o.bis.join('/')}) einmal kurz Sättigung I für ${k.saettigung.sekunden} s,
+# danach ${k.saettigung.abklingTicks / 1200} min Abklingzeit, damit Rein- und Rausspringen nichts bringt
+scoreboard players remove @a[scores={insel_satt=1..}] insel_satt 1
+execute as @a[tag=insel_oben] unless entity @s[${oben}] run tag @s remove insel_oben
+execute as @a[${oben},tag=!insel_oben] run function insel:betreten
+`;
+    f.betreten = `# Spawn oben betreten: Sättigung nur, wenn die Abklingzeit abgelaufen ist
 tag @s add insel_oben
 execute unless score @s insel_satt matches 1.. run effect give @s minecraft:saturation ${k.saettigung.sekunden} 0 true
 execute unless score @s insel_satt matches 1.. run scoreboard players set @s insel_satt ${k.saettigung.abklingTicks}
 `;
+  }
+  const e = k.eroeffnung;
+  if (e) {
+    // Eröffnungs-Event: vor dem Start sind alle im geschlossenen Spawn (Ausgänge zu, kleine Weltgrenze). insel:eroeffnung zählt 10 s herunter,
+    // öffnet die Ausgänge nacheinander und setzt die große Weltgrenze. Doppelt auslösen tut nichts (#offen), insel:schliessen setzt alles zurück.
+    const fill = (b, blk) => `fill ${b.join(' ')} ${blk}`;
+    f.load += 'scoreboard objectives add insel_zustand dummy\nexecute unless score #offen insel_zustand matches 0.. run scoreboard players set #offen insel_zustand 0\n';
+    f.schliessen = [`# Spawn schließen (vor dem Start, auch zum Proben): Ausgänge zu, kleine Weltgrenze, Merker zurück`,
+      ...e.ausgaenge.flatMap((a) => [fill(a.wurzeln, 'minecraft:mangrove_roots'), fill(a.barriere, 'minecraft:barrier')]),
+      `worldborder center ${e.grenzeZu.x} ${e.grenzeZu.z}`, `worldborder set ${e.grenzeZu.breite}`,
+      'scoreboard players set #offen insel_zustand 0', 'scoreboard players set #countdown insel_zustand -1', 'bossbar remove insel:eroeffnung',
+      'say Spawn geschlossen – bereit für die Eröffnung (function insel:eroeffnung)'].join('\n') + '\n';
+    f.eroeffnung = `# Eröffnung auslösen (Konsole oder AMP-Aufgabe). Läuft nur einmal, solange der Spawn offen ist (#offen = 1).
+execute if score #offen insel_zustand matches 1 run say Spawn ist schon offen – nichts zu tun
+execute if score #offen insel_zustand matches 0 if score #countdown insel_zustand matches 0.. run say Eröffnung läuft schon
+execute if score #offen insel_zustand matches 0 unless score #countdown insel_zustand matches 0.. run function insel:eroeffnung_start
+`;
+    f.eroeffnung_start = `bossbar add insel:eroeffnung {"text":"Der Baum öffnet sich …","color":"light_purple"}
+bossbar set insel:eroeffnung max ${e.sekunden}
+bossbar set insel:eroeffnung color purple
+bossbar set insel:eroeffnung players @a
+scoreboard players set #countdown insel_zustand ${e.sekunden}
+playsound minecraft:block.beacon.activate master @a ~ ~ ~ 1 0.8
+function insel:eroeffnung_tick
+`;
+    f.eroeffnung_tick = `# Jede Sekunde: Bossbar füllen, letzte 3 Sekunden als Titel, bei 0 öffnen
+execute store result bossbar insel:eroeffnung value run scoreboard players get #countdown insel_zustand
+execute if score #countdown insel_zustand matches 1..3 run title @a title {"score":{"name":"#countdown","objective":"insel_zustand"},"color":"gold"}
+execute if score #countdown insel_zustand matches 1..3 as @a at @s run playsound minecraft:block.note_block.bell master @s ~ ~ ~ 1 1
+execute if score #countdown insel_zustand matches 0 run function insel:oeffnen
+execute if score #countdown insel_zustand matches 1.. run schedule function insel:eroeffnung_tick 20t
+scoreboard players remove #countdown insel_zustand 1
+`;
+    f.oeffnen = [`# Ausgänge nacheinander öffnen, dann große Weltgrenze und Begrüßung`,
+      'scoreboard players set #offen insel_zustand 1', 'bossbar remove insel:eroeffnung',
+      ...e.ausgaenge.map((_, i) => `schedule function insel:ausgang_${i} ${1 + i * 15}t`),
+      `schedule function insel:willkommen ${20 + e.ausgaenge.length * 15}t`].join('\n') + '\n';
+    e.ausgaenge.forEach((a, i) => {
+      const m = a.wurzeln.slice(0, 3).map((v, j) => (v + a.wurzeln[j + 3]) / 2);
+      f[`ausgang_${i}`] = [fill(a.barriere, 'minecraft:air'), `fill ${a.wurzeln.join(' ')} minecraft:air destroy`,
+        `particle minecraft:cherry_leaves ${m.join(' ')} 1.5 1.5 1.5 0 80 force`, `particle minecraft:happy_villager ${m.join(' ')} 1.5 1.5 1.5 0 30 force`,
+        `playsound minecraft:block.vault.open_shutter master @a ${m.join(' ')} 2 0.8`].join('\n') + '\n';
+    });
+    f.willkommen = `worldborder center ${g.x} ${g.z}
+worldborder set ${g.breite}
+title @a times 10 60 20
+title @a subtitle {"text":"Der Baum ist offen – viel Spaß!","color":"green"}
+title @a title {"text":"Willkommen!","color":"gold","bold":true}
+execute as @a at @s run playsound minecraft:ui.toast.challenge_complete master @s ~ ~ ~ 1 1
+`;
+  }
   f.aufbau = `# Kompletter Spawn-Aufbau in einer frischen Welt (Konsole: function insel:aufbau)${k.struktur ? `, braucht lokal die Struktur ${k.struktur.name}` : ''}.
 # Lädt die Chunks und wartet, bis sie da sind. Erzeugt aus ${k.datei ?? 'der Standort-Konfiguration'} mit spawn/standort.mjs.
 forceload add ${lx1} ${lz1} ${lx2} ${lz2}
@@ -127,12 +182,13 @@ execute unless score #geladen insel_tp matches 1 run schedule function insel:auf
   f.aufbau_teil2 = [
     k.struktur && `# Spawn-Bau als Struktur (untere Nordwest-Ecke ${k.struktur.ursprung.join('/')})\nplace template ${k.struktur.name} ${k.struktur.ursprung.join(' ')}`,
     k.pilzland && '# Pilzland-Biom (keine Monster) über die ganze Höhe\nfunction insel:pilzland',
-    '# Rückweg-Plattform\nfunction insel:plattform',
-    '# Unsichtbare Lichter im Oval (spawn/standort.mjs lichter)\nfunction insel:lichter',
+    p && '# Rückweg-Plattform\nfunction insel:plattform',
+    k.lichter !== null && '# Unsichtbare Lichter im Oval (spawn/standort.mjs lichter)\nfunction insel:lichter',
     `setworldspawn ${s.x} ${s.y} ${s.z} ${s.yaw} ${s.pitch}`, 'gamerule respawn_radius 0',
     `# Weltgrenze (Vorgenerierung mit Chunky macht die Server-Session)\nworldborder center ${g.x} ${g.z}\nworldborder set ${g.breite}`,
+    e && '# Vor dem Start geschlossen (Eröffnungs-Event)\nfunction insel:schliessen',
     `forceload remove ${lx1} ${lz1} ${lx2} ${lz2}`,
-    `say Spawn eingerichtet: ${k.struktur ? 'Bau, ' : ''}Plattform, Lichter, Weltspawn ${s.x}/${s.y}/${s.z}, Weltgrenze (Nether/End per Konsole sperren)`,
+    `say Spawn eingerichtet: ${k.struktur ? 'Bau, ' : ''}${p ? 'Plattform, ' : ''}${k.lichter !== null ? 'Lichter, ' : ''}Weltspawn ${s.x}/${s.y}/${s.z}, Weltgrenze${e ? ', geschlossen' : ''} (Nether/End per Konsole sperren)`,
   ].filter(Boolean).join('\n') + '\n';
   if (k.spawnTeleport) {
     // Spawn unter einem Dach (z.B. Baumkrone): 26.3 setzt Spieler sonst auf den obersten Block der Spalte. Deshalb beim ersten Betreten
@@ -155,7 +211,7 @@ execute unless data entity @s respawn run tp @s ${s.x + 0.5} ${s.y} ${s.z + 0.5}
 `;
   }
   if (k.pilzland) f.pilzland = `# Pilzland-Biom im Oval (Mitte ${k.pilzland.x}/${k.pilzland.z}, Halbachsen ${k.pilzland.a}/${k.pilzland.b}), ganze Höhe – keine Monster, Licht ist dann Stimmung\n` + pilzlandBefehle(k.pilzland).join('\n') + '\n';
-  f.plattform = `# Rückweg-Plattform (Mitte ${p.x}/${p.y}/${p.z}, Radius 4, Stil ${p.stil ?? 'stein'}), Form von Pascal freigegeben\n` +
+  if (p) f.plattform = `# Rückweg-Plattform (Mitte ${p.x}/${p.y}/${p.z}, Radius 4, Stil ${p.stil ?? 'stein'}), Form von Pascal freigegeben\n` +
     plattformTeile(p.stil).map(([dx, dy, dz, b]) => `setblock ${p.x + dx} ${p.y + dy} ${p.z + dz} ${b}`).join('\n') + '\n';
   const regionen = `# WorldGuard-Region der Oberwelt, erzeugt mit spawn/standort.mjs aus ${k.datei ?? 'der Standort-Konfiguration'}. Einspielen nach
 #   plugins/WorldGuard/worlds/world/regions.yml   (laufender Server: rg load -w world)
@@ -209,17 +265,17 @@ if (process.argv[1]?.replace(/\\/g, '/').endsWith('spawn/standort.mjs')) {
     const [welt, aus = join(REPO, 'spawn')] = rest;
     lichterAus(k, welt).then((t) => { writeFileSync(join(aus, 'datapack/insel/data/insel/function/lichter.mcfunction'), t); console.log(`${t.split('\n').length - 2} Lichter → ${aus}`); });
   } else if (befehl === 'aus-entwurf') {
-    // Standort-Konfiguration aus Entwurfs-Metadaten (spawn/entwuerfe/ausgabe/*.json) und Platzierung in der Welt
-    const [u, pl, stil = 'stein', name = 'spawn:entwurf'] = rest, U = u.split(',').map(Number), P = pl.split(',').map(Number);
-    const plus = (a) => a.map((v, i) => v + U[i]);
-    const sp = plus(k.spawn), boden = U[1] + (k.boden ?? 0);
+    // Standort-Konfiguration aus Entwurfs-Metadaten (spawn/entwuerfe/ausgabe/*.json) und Platzierung (untere Nordwest-Ecke) in der Welt
+    const [u, name = 'spawn:entwurf'] = rest, U = u.split(',').map(Number);
+    const plus = (a) => a.map((v, i) => v + U[i % 3]);
+    const sp = plus(k.spawn), mitte = k.spawnRaum ? plus(k.spawnRaum.mitte) : sp;
     console.log(JSON.stringify({
       beschreibung: `${k.name}, Ursprung ${U.join('/')}`, spawn: { x: sp[0], y: sp[1], z: sp[2], yaw: k.blick?.[0] ?? 0, pitch: k.blick?.[1] ?? 0 },
       spawnTeleport: true, oval: { x: k.oval.x + U[0], z: k.oval.z + U[2], a: k.oval.a, b: k.oval.b },
       ...(k.pilzland && { pilzland: { x: k.pilzland.x + U[0], z: k.pilzland.z + U[2], a: k.pilzland.a, b: k.pilzland.b } }),
-      plattform: { x: P[0], y: P[1], z: P[2], radius: 4, stil }, obenBereich: { von: plus(k.obenBereich.von), bis: plus(k.obenBereich.bis) },
-      struktur: { name, ursprung: U }, weltgrenze: { x: sp[0], z: sp[2], breite: 10000 }, teleportTicks: 70,
-      saettigung: { sekunden: 2, abklingTicks: 6000 }, lichter: { raster: 8, unterkante: boden + 30 },
+      struktur: { name, ursprung: U }, weltgrenze: { x: mitte[0], z: mitte[2], breite: 10000 }, lichter: null,
+      ...(k.ausgaenge?.length && { eroeffnung: { sekunden: 10, grenzeZu: { x: mitte[0], z: mitte[2], breite: 128 },
+        ausgaenge: k.ausgaenge.map((a) => ({ wurzeln: plus(a.wurzeln), barriere: plus(a.barriere) })) } }),
     }, null, 2));
-  } else console.log('Aufruf: bauen <konfig> [ausgabe] | lichter <konfig> <welt> [ausgabe] | aus-entwurf <entwurf.json> <ursprung x,y,z> <plattform x,y,z> [stil] [struktur] – siehe Kopf der Datei');
+  } else console.log('Aufruf: bauen <konfig> [ausgabe] | lichter <konfig> <welt> [ausgabe] | aus-entwurf <entwurf.json> <ursprung x,y,z> [struktur] – siehe Kopf der Datei');
 }
