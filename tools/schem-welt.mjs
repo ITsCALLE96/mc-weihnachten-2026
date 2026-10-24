@@ -62,9 +62,12 @@ export function leseChunk(regionDatei, cx, cz) {
 export function sektionsBloecke(sektion) {
   const bs = sektion.block_states.value;
   const palette = bs.palette.value.items.map((p) => {
-    if (typeof p === 'string') return p; // 26.x speichert die Palette als Text, z.B. "minecraft:grass_block"
-    const props = p.Properties ? Object.entries(p.Properties.value).map(([k, v]) => `${k}=${v.value}`).sort() : [];
-    return props.length ? `${p.Name.value}[${props.join(',')}]` : p.Name.value;
+    // 26.x: Text ("minecraft:stone"), in gemischten Listen {"": Text}, mit Eigenschaften {id, properties}
+    if (typeof p === 'string') return p;
+    if (p['']) return p[''].value;
+    const name = (p.Name ?? p.id).value, eig = p.Properties ?? p.properties;
+    const props = eig ? Object.entries(eig.value).map(([k, v]) => `${k}=${v.value}`).sort() : [];
+    return props.length ? `${name}[${props.join(',')}]` : name;
   });
   if (palette.length === 1 || !bs.data) return new Array(4096).fill(palette[0]);
   const bits = Math.max(4, Math.ceil(Math.log2(palette.length)));

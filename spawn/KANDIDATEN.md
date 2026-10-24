@@ -33,7 +33,7 @@ Spawn-Quelle, in dieser Reihenfolge:
 | 20 (Pascal) | `-3361685360695458093` | Jagged Peaks + Cherry Grove ~600 vom Spawn, ~200 auseinander |
 | Suche | `5501184897758720731` | Jagged Peaks -528 -896, Ebene 160, Cherry Grove 183 |
 
-Bei einer CA-Welt entfällt die Seed-Wahl ggf. (CA-Seed).
+**Entschieden (Pascal, 24.10.): CA12-Seed `1560698989`** – die Kandidaten oben sind damit raus.
 
 ### Werkzeuge
 
@@ -65,3 +65,15 @@ Quelle: `CraftAttack-12-Map.zip` (2,5 GB, über Pascals Nitrado-Miete), nur loka
 **One-Way-Elytra:** kommt aus einem Plugin, nicht aus der Welt. Original: CloudCraft „CraftAttack“ (nur Paper 1.21.1, braucht CommandAPI + CloudCore). **Ersatz für 26.3:** [Spawn Elytra – like in Craft Attack](https://modrinth.com/plugin/spawnelytra) (MIT, Paper/Purpur, 26.3 unterstützt, Doppelsprung = Gleiten, F = Boost, Bedrock/Geyser-tauglich).
 
 **Einfügen in 26.3:** WorldEdit wandelt die 1.21.1-Schematic beim Einfügen um (DataVersion steht in der Datei). Namensnennung am Spawn: „Spawn: CraftAttack 12“.
+
+### CA12-Seed unter 26.3 und Lage der Insel (2026-10-24)
+
+Testwelt mit Vanilla-Server 26.3 und Seed `1560698989` lokal erzeugt (nur Scratchpad, Bereich x −48…192, z −112…176):
+
+- **Gelände wie in CA12:** Die Weltgenerierung von 1.21.1 und 26.3 ist hier gleich. Unter der Inselposition liegt offenes Meer auf Höhe 62. Westlich (x < 0) steigt Land bis 102 an, südlich (z > 40) liegen Hügel mit 70–110. Die Erhebungen in CA12 bei x 16…56, z 8…32 (bis 114) sind Spielerbauten, im frischen 26.3-Gelände ist dort Wasser.
+- **Natürlicher Weltspawn unter 26.3:** −48 / 102 / 64, auf dem Hügel westlich, etwa 120 Blöcke vom Inselmittelpunkt. Der CA12-Spawn 64/179/37 war von Hand gesetzt (auf der Insel), nicht der natürliche Spawn.
+- **Lage der Insel: Originalposition übernehmen.** Kasten x 24…118, y 115…238, z −9…59. Die Unterseite liegt 53 Blöcke über dem Meer, gut 35 über den Hügeln im Süden, die Spitze bei 238 bleibt unter der Bauhöhe 320. So sieht sie aus wie in CA12. Vorschau: `spawn/quellen/lage-26.3.png` (Wasser wird nicht gezeichnet).
+- **Einfügen:** `/tp 24 115 -9`, `//schem load ca12-spawn`, `//paste -e` (die Schematic hat Offset 0, die untere Nordwest-Ecke landet auf der Spielerposition). Danach `/setworldspawn 64 179 37`, Spawn-Streuung (Gamerule `spawnRadius`, ab 1.21.11 `respawn_radius`, Namen auf dem Server prüfen) auf 0, sonst landen Neulinge neben der Insel im Meer.
+- **Mittelpunkt für Weltgrenze und Chunky:** x 64, z 37 (Spawnpunkt auf der Insel). `worldborder center 64 37`, `worldborder set 10000`, `chunky center 64 37`, `chunky radius 5000` (Quadrat).
+
+`tools/schem-welt.mjs` liest jetzt auch die echte 26.3-Palette (Einträge als Text, `{"": Text}` oder `{id, properties}`), Test ergänzt.

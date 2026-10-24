@@ -4,7 +4,7 @@ import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { schreibeNbt, leseNbt, tag } from './nbt.mjs';
-import { weltInfo, umriss, ausschneiden } from './schem-welt.mjs';
+import { weltInfo, umriss, ausschneiden, sektionsBloecke } from './schem-welt.mjs';
 import { lade, speichere, hole } from './schem.mjs';
 
 // Regionsdatei mit genau einem Chunk (gzip-Kompression = Art 1).
@@ -74,4 +74,15 @@ test('Ausschneiden liefert Blöcke, Block-Entities und Entities relativ zur Ecke
   const zurueck = lade(speichere(m));
   assert.deepEqual(zurueck.bloecke, m.bloecke);
   assert.equal(leseNbt(speichere(m)).value.Entities.value.items[0].Id.value, 'minecraft:villager');
+});
+
+test('26.x-Palette: Text, {"": Text} und {id, properties}', () => {
+  const sektion = { block_states: tag('compound', { palette: tag('list', { elem: 'compound', items: [
+    { '': tag('string', 'minecraft:andesite') },
+    { id: tag('string', 'minecraft:tall_seagrass'), properties: tag('compound', { half: tag('string', 'upper') }) },
+  ] }), data: tag('longArray', [1n, ...new Array(255).fill(0n)]) }) };
+  const b = sektionsBloecke(sektion);
+  assert.equal(b[0], 'minecraft:tall_seagrass[half=upper]');
+  assert.equal(b[1], 'minecraft:andesite');
+  assert.equal(sektionsBloecke({ block_states: tag('compound', { palette: tag('list', { elem: 'string', items: ['minecraft:stone'] }) }) })[5], 'minecraft:stone');
 });
