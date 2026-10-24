@@ -3,7 +3,10 @@
 # und die Schlüssel mit der erzeugten Datei abgleichen (Velocity 4.3, config-version kann abweichen).
 
 bind = "0.0.0.0:25565"
-motd = "<aqua>❄ Weihnachtsprojekt 2026 ❄</aqua>"
+# Serverliste: MOTD und Bild kommen bei Velocity vom Proxy, nicht von Paper (ping-passthrough = DISABLED).
+# MiniMessage, zwei Zeilen. „Weihnachtsserver“ ist Platzhalter, bis der Servername feststeht.
+# Zeile 2 ab dem Start (05.12.) z. B. auf "<gray>Frohe Weihnachten! · <white>~25 Spieler</white></gray>" ändern
+motd = "<gradient:#ff5252:#ffffff:#4cd964>❄ Weihnachtsserver ❄</gradient><newline><gray>Frohe Weihnachten! · Start am <white>05.12.</white></gray>"
 show-max-players = 30
 online-mode = true
 force-key-authentication = true

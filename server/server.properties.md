@@ -20,8 +20,11 @@ require-resource-pack=false
 resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v1/weihnachten-rp.zip
 resource-pack-sha1=b9ed50d1b2e329f92d417c2de9d53cff7348a17b
 resource-pack-prompt={"text":"Weihnachts-Texturen für unseren Server – annehmen empfohlen, Ablehnen geht aber auch.","color":"aqua"}
-motd=§b❄ Weihnachtsprojekt 2026 ❄
+motd=§b❄ Weihnachtsserver ❄
 ```
+
+**Serverliste:** Spieler verbinden sich mit Velocity. Dort stehen die sichtbare MOTD (`velocity/velocity.toml.auszug`) und das Bild
+(`icon/server-icon.png` neben `velocity.toml`). Die Paper-`motd` sieht nur, wer den Backend-Port direkt anfragt, sie bleibt nur der Ordnung halber gesetzt.
 
 **Wichtig:** `online-mode=false` ist nur zusammen mit `proxies.velocity.enabled: true` und `online-mode: true` in `config/paper-global.yml` sicher
 (`paper/paper-global.yml.auszug`). Ohne Proxy-Konfiguration nie so starten.
