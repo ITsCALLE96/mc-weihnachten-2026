@@ -10,7 +10,7 @@ Stand 2026-10-24, entschieden von Pascal: **CA12-Seed `1560698989`**, **Kandidat
 | Insel v2 | – | `spawn/quellen/ca12-spawn-v2.schem` (95×175×69, Ursprung 24/64/−9) |
 | Aufschüttung | Werkzeug `tools/schem-aufschuettung.mjs` | `spawn/quellen/datapacks/aufschuettung/` (59 Kacheln, ~22 MB) |
 | Plattform, Lichter, Spawn, Weltgrenze | Datapack `spawn/datapack/insel/` | – |
-| Spawnschutz, Sättigung, keine Monster | `spawn/worldguard/regions.yml` | – |
+| Spawnschutz, Sättigung, keine Monster (Oval um die Insel) | `spawn/worldguard/regions.yml` | – |
 | Ablauf in einem Rutsch | `spawn/neu-aufsetzen.sh` (Testserver) | – |
 | Prüfliste frischer Join | `spawn/PRUEFLISTE.md` | – |
 
@@ -38,6 +38,9 @@ Lokal macht `bash spawn/neu-aufsetzen.sh testserver/server` die Schritte 1–5 a
 
 ## Hinweise
 
-- **Lichter** (`insel:lichter`) sind aus der aufgebauten Testwelt berechnet (`node tools/schem-licht.mjs <welt> 14 -19 128 69 115 6`). Gleicher Seed und gleicher Aufbau ergeben dasselbe Gelände, sie gelten also auch für die echte Welt. Bei Änderungen an Insel oder Aufschüttung neu berechnen.
+- **Rückweg-Teleport** wie ein Netherportal (`insel:tick`): 70 Ticks (3,5 s) auf der Plattform stehen, dabei Übelkeit (Bildschirm wabert), Portal-Partikel und `block.portal.trigger`; dann Teleport, `block.portal.travel`, umgekehrte Portal-Partikel, 1 s Blindheit als Einblendung. Plattform vorher verlassen bricht ab.
+
+- **Oval um die Insel** (Pascal 24.10.): Mitte 71/25, Halbachsen 62 (x) und 46 (z) = Insel-Umriss plus Rand. Gilt für die Region `spawn` (poly2d, 32 Punkte, kein großes Bauverbot mehr) und die Lichter.
+- **Lichter** (`insel:lichter`, 138 Stück, nur Boden/Wasser im Oval, Raster 8) sind aus der aufgebauten Testwelt berechnet (`node tools/schem-licht.mjs <welt> 9 -21 133 71 115 8 71,25,62,46 nurBoden`). Gleicher Seed und gleicher Aufbau ergeben dasselbe Gelände, sie gelten also auch für die echte Welt. Bei Änderungen an Insel oder Aufschüttung neu berechnen.
 - **Pilzland:** Auf der ganzen Ebene erscheinen keine Monster (wie in CA12), Monsterfarmen gehen dort nicht.
 - Kein OP vorab. OP vergibt die Leitung bei Bedarf.

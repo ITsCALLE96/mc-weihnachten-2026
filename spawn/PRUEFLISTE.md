@@ -22,12 +22,13 @@ Testserver: Adresse `localhost`. Testlauf 21.11.: echte Adresse, Whitelist, Velo
 ## 3. Elytra und Rückweg
 - [ ] Auf der Insel zweimal springen → Gleitflug startet, Hinweis zur Boost-Taste; **F** gibt einmal Schub; Landung ohne Fallschaden
 - [ ] Abseits der Insel (z.B. auf der Ebene) startet der Doppelsprung keinen Flug
-- [ ] Rückweg: runde Plattform genau unter der Inselmitte (leuchtende Mitte, Amethyst, lila Ring, vier Kristallsäulen, Laternen; Spawn senkrecht darüber) → draufstellen → zurück auf dem Spawn, Hinweis in der Aktionsleiste, erneut fliegen geht
+- [ ] Rückweg: runde Plattform genau unter der Inselmitte (leuchtende Mitte, Amethyst, lila Ring, vier Kristallsäulen, Laternen; Spawn senkrecht darüber) → draufstellen und **stehen bleiben**: Portal-Geräusch, Bildschirm wabert, lila Partikel, nach ~3,5 s Teleport auf den Spawn mit Ankunfts-Geräusch und kurzer Einblendung; erneut fliegen geht
+- [ ] Vorher von der Plattform runtergehen → Übergang bricht ab (Wabern hört auf, kein Teleport)
 
 ## 4. Monster und Umgebung
 - [ ] Nachts (Konsole `time set night`) erscheinen auf der Insel, unter ihr, auf der Plattform und auf der Ebene (Pilzland) keine Monster
 - [ ] Außerhalb der Ebene (z.B. Hügel im Süden, Wald im Westen) erscheinen nachts ganz normal Monster
-- [ ] Im 150er-Umkreis um den Spawn lässt sich nichts bauen, außerhalb normal
+- [ ] Spawnschutz nur im Oval um die Insel (am Boden etwa der Insel-Umriss plus Rand): dort nichts bauen, daneben auf der Ebene und am Hügel normal bauen
 
 ## 5. Leitfaden-Datapack
 - [ ] Phase 0: noch kein Leitfaden-Buch (richtig so)

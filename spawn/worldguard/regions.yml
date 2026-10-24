@@ -1,15 +1,48 @@
 # WorldGuard-Regionen der Oberwelt (Task 7 Schritt 4). Einspielen bei gestopptem Server nach
 #   plugins/WorldGuard/worlds/world/regions.yml
-# oder bei laufendem Server dort ablegen und /rg load -w world ausführen.
-# spawn:           Insel samt Luftraum und Boden darunter (ganze Höhe): Spawnschutz, keine Monster, dauerhaft satt, kein PvP
-# spawn_bauverbot: 150 Blöcke um den Spawn: nur Bauen/Abbauen verboten, Türen, Knöpfe und Truhen benutzbar
-# Nicht-Mitglieder dürfen in Regionen nicht bauen (WorldGuard-Standard), OPs umgehen das.
+# oder bei laufendem Server dort ablegen und in der Konsole: rg load -w world
+# spawn: Oval um den Insel-Umriss plus Rand (Mitte 71/25, Halbachsen 62 in x und 46 in z, 32 Punkte), volle Höhe:
+#   Spawnschutz (Nicht-Mitglieder bauen nicht, OPs umgehen das), keine Monster, dauerhaft satt, kein PvP, Truhen zu, Türen/Knöpfe frei.
+#   Seit 24.10. (Pascal) kein großes Bauverbot mehr, die Ebene ringsum ist frei bebaubar (Monster hält dort das Pilzland-Biom fern).
 regions:
     spawn:
-        type: cuboid
+        type: poly2d
         priority: 10
-        min: {x: 14.0, y: -64.0, z: -19.0}
-        max: {x: 128.0, y: 319.0, z: 69.0}
+        min-y: -64
+        max-y: 319
+        points:
+            - {x: 133, z: 25}
+            - {x: 132, z: 34}
+            - {x: 128, z: 43}
+            - {x: 123, z: 51}
+            - {x: 115, z: 58}
+            - {x: 105, z: 63}
+            - {x: 95, z: 67}
+            - {x: 83, z: 70}
+            - {x: 71, z: 71}
+            - {x: 59, z: 70}
+            - {x: 47, z: 67}
+            - {x: 37, z: 63}
+            - {x: 27, z: 58}
+            - {x: 19, z: 51}
+            - {x: 14, z: 43}
+            - {x: 10, z: 34}
+            - {x: 9, z: 25}
+            - {x: 10, z: 16}
+            - {x: 14, z: 7}
+            - {x: 19, z: -1}
+            - {x: 27, z: -8}
+            - {x: 37, z: -13}
+            - {x: 47, z: -17}
+            - {x: 59, z: -20}
+            - {x: 71, z: -21}
+            - {x: 83, z: -20}
+            - {x: 95, z: -17}
+            - {x: 105, z: -13}
+            - {x: 115, z: -8}
+            - {x: 123, z: -1}
+            - {x: 128, z: 7}
+            - {x: 132, z: 16}
         members: {}
         owners: {}
         flags:
@@ -36,18 +69,3 @@ regions:
             ice-melt: deny
             snow-melt: deny
             use: allow
-    spawn_bauverbot:
-        type: cuboid
-        priority: 5
-        min: {x: -86.0, y: -64.0, z: -113.0}
-        max: {x: 214.0, y: 319.0, z: 187.0}
-        members: {}
-        owners: {}
-        flags:
-            use: allow
-            chest-access: allow
-            interact: allow
-            tnt: deny
-            creeper-explosion: deny
-            lighter: deny
-            fire-spread: deny

@@ -122,3 +122,5 @@ Höhenkarten von CA12 (1.21.1) und frisch erzeugtem 26.3-Gelände (gleicher Seed
 - Vorschauen (git-ignoriert): `spawn/quellen/vergleich-{ca12,263,a}-{seite,spawn,unten}.png`, `kandidat-b{1,2}-{seite,spawn}.png`, Differenzbild `vergleich-ca12-263.png`.
 
 **Entschieden (Pascal, 24.10.): Kandidat A mit Pilzland-Biom.** Umgesetzt mit `tools/schem-aufschuettung.mjs` (164.248 Spalten, 59 Kacheln, Daten lokal in `spawn/quellen/datapacks/`), Ablauf und Werkzeuge in `spawn/AUFBAU.md`, Neuaufbau lokal mit `spawn/neu-aufsetzen.sh`, Prüfliste `spawn/PRUEFLISTE.md`. Plattform bleibt bei 64/62/29 (7 Blöcke Wasser am Südufer, nach Norden öffnet sich der Kanal), Lichter für das neue Gelände neu berechnet (369/370, 33 Positionen anders).
+
+**Nach Pascals Test der frischen Welt (24.10.):** Lichter nur noch im Oval um den Insel-Umriss (138 statt 369, nur Boden/Wasser), Spawnschutz-Region `spawn` als Oval-Polygon, `spawn_bauverbot` entfällt, Rückweg mit Portal-Übergang (3,5 s). Live per RCON auf dem Testserver eingespielt.
