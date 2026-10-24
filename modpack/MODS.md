@@ -16,7 +16,7 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 - Geräusche: Cool Rain, Sound Physics Remastered, AmbientSounds, Presence Footsteps, Extreme Sound Muffler
 - Kamera: Zoomify, Cinematic Zoom (beide standardmäßig auf C – Anleitung sagt, eine umlegen), Ji AFK Cinematic
 - Sicht: Bobby, Distant Horizons, Gamma Utils (Fullbright), Freecam
-- Karte und Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars, Locator Heads, Peek, Entity Selection Outlines, BetterF3, Better Statistics Screen, Jade, Enchantment Descriptions, JEI
+- Karte und Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars, Locator Heads, Peek, Entity Selection Outlines, BetterF3, Better Statistics Screen, Better Advancements (großes Fortschrittsfenster, Taste L – Grundlage fürs Questbuch), Jade, Enchantment Descriptions, JEI
 - Chat: Here 'n' There, Chat Heads, No Chat Reports, More Chat History
 - Bedienung: Mod Menu, Mouse Tweaks, More Mouse Tweaks, Client Sort, ClickThrough Plus, Controlling, Multi Key Bindings, Bundles Beyond, Scribble, Armor Hider, Packed Packs, Borderless Fullscreen
 - Bauen: Armor Poser (Server-Plugin nötig)
@@ -25,7 +25,7 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 - Eigene Mod: **Block-Marker** (`lokal` in `mods.json`, liegt nicht auf Modrinth; das Jar kommt beim Bau aus dem Nachbar-Repo `block-marker` als `overrides/mods/` ins Pack)
 - Nur im Einzelspieler wirksam (brauchen Mod auf dem Server, auf Paper ohne Wirkung): Easy Shulker Boxes, Bookshelf Inspector
 
-**Aktiv, sobald es eine Version für 26.3 gibt** (`aktivSobaldVerfuegbar`): Paginated Advancements, RP Renames
+**Aktiv, sobald es eine Version für 26.3 gibt** (`aktivSobaldVerfuegbar`): RP Renames
 
 **Deaktiviert dabei** (`optional`): Litematica (auf dem Server vorerst nicht erlaubt, Gruppe stimmt ab – bei Nein fliegt es ganz raus), Nvidium (nur Nvidia), voxy (nicht zusammen mit Distant Horizons), uku's Armor HUD, Flashback, Do a Barrel Roll
 
@@ -181,7 +181,7 @@ Quelle: YouTube-Video von demonjoeTV (15.08.2026) und seine Modrinth-Sammlung `m
 
 | Mod | Wofür | Stufe | Anmerkung |
 |---|---|---|---|
-| [Paginated Advancements](https://modrinth.com/mod/paginatedadvancements) | übersichtlicherer Fortschritte-Bildschirm | ⚪ | **26.2** – passt gut zu unserem Leitfaden, der aus Fortschritten besteht; aufnehmen, sobald es 26.3 gibt |
+| [Paginated Advancements](https://modrinth.com/mod/paginatedadvancements) | übersichtlicherer Fortschritte-Bildschirm | ❌ | ersetzt durch Better Advancements (24.10., gibt es für 26.3) |
 | [Status Effect Bars](https://modrinth.com/mod/status-effect-bars) | Restdauer von Tränken als Balken | ⚪ | |
 | [BetterF3](https://modrinth.com/mod/betterf3) | aufgeräumter, farbiger F3-Bildschirm | ⚪ | zeigt nichts, was F3 nicht ohnehin zeigt |
 | [Better Statistics Screen](https://modrinth.com/mod/better-stats) | bessere Statistik-Ansicht | ⚪ | |

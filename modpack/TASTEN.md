@@ -24,7 +24,7 @@ Stand 24.10.2026, Pack `modpack-v2`. Alle Vorschläge unten sind umgesetzt und v
 | Iris | Shader neu laden · an/aus · Auswahl | R · K · I |
 | Xaero's World Map | Karte · Einstellungen | M · + |
 | Xaero's Minimap | neuer Wegpunkt ¹ · Wegpunktliste · Minimap groß · Einstellungen · Schnell-Wegpunkt | B · U · Z · Y · Num + |
-| Simple Voice Chat | Sprechen (halten) ¹ · Menü · Mikro stumm · Chat aus · Symbole aus | Feststelltaste · V · M · N · H |
+| Simple Voice Chat | Sprechen (halten) ¹ · Menü · Mikro stumm · Chat aus · Symbole aus | Feststelltaste (nur bei Push-to-Talk; Standard im Pack ist Sprachaktivierung) · V · Ä · N · ohne Taste |
 | Simple Voice Animations | Einstellungen | J |
 | Block-Marker (eigene Mod) | nächstes Profil bzw. aus · angeschauten Block markieren · Menü | Komma · Punkt · über Mod Menu |
 | Light Overlay | Lichtlevel an/aus | F9 |
@@ -52,6 +52,7 @@ Die Voreinstellungen liegen in `modpack/overrides/` und landen beim Bau 1:1 unte
 - `config/armor-hider.json`: Helme bei allen ausgeblendet (Deckkraft 0 %)
 - `config/xaero/minimap/profiles/default.cfg`: runde Minimap
 - `options.txt` außerdem `maxFps:240` (Pascal, 24.10.; begrenzt statt unbegrenzt, im Spiel änderbar)
+- `config/voicechat/voicechat-client.properties`: Sprachaktivierung statt Push-to-Talk, Einführung übersprungen, Gruppen-Symbole oben rechts unter den Effekt-Symbolen statt links unter der Minimap (Pascal, 24.10.); Mikrofon und Lautsprecher leer = Standardgerät. Push-to-Talk-Taste trotzdem auf Feststelltaste (stand vorher leer)
 - `config/fancymenu/options.txt`: Bearbeitungsleiste aus, `modpack_mode` an (Spieler sehen keine FancyMenu-Leiste; einblenden mit Strg + Alt + C)
 
 Litematica und Do a Barrel Roll sind ausgeschaltet, ihre Tasten stehen deshalb noch nicht in der Datei. Neu übernehmen: Tasten in einer Testinstanz einstellen, dann die `key_`-Zeilen aus deren `options.txt` kopieren.

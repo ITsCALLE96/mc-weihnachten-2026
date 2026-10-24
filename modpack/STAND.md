@@ -64,6 +64,7 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/BetterF3-20.0.0-Fabric-26.3.jar | https://cdn.modrinth.com/data/8shC1gFX/versions/XB7u4eSf/BetterF3-20.0.0-Fabric-26.3.jar |
 | mods/betterstats-5.7.0+fn-26.3.jar | https://cdn.modrinth.com/data/n6PXGAoM/versions/Mefnti0P/betterstats-5.7.0%2Bfn-26.3.jar |
 | mods/tcdcommons-5.7.0+fn-26.3.jar | https://cdn.modrinth.com/data/Eldc1g37/versions/y6a97oNq/tcdcommons-5.7.0%2Bfn-26.3.jar |
+| mods/BetterAdvancements-Fabric-26.3-0.6.0.81.jar | https://cdn.modrinth.com/data/Q2OqKxDG/versions/FQp3HIDr/BetterAdvancements-Fabric-26.3-0.6.0.81.jar |
 | mods/Jade-mc26.3-Fabric-26.3.5.jar | https://cdn.modrinth.com/data/nvQzSEkH/versions/71CTWqdE/Jade-mc26.3-Fabric-26.3.5.jar |
 | mods/EnchantmentDescriptions-fabric-MC26.3-26.3.0.2.jar | https://cdn.modrinth.com/data/UVtY3ZAC/versions/uZf2qbql/EnchantmentDescriptions-fabric-MC26.3-26.3.0.2.jar |
 | mods/PrickleMC-fabric-MC26.3-26.3.0.2.jar | https://cdn.modrinth.com/data/aaRl8GiW/versions/aPdekuq6/PrickleMC-fabric-MC26.3-26.3.0.2.jar |
@@ -94,9 +95,9 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/bookshelfinspector-fabric-2.4+26.3.jar | https://cdn.modrinth.com/data/rOrXjyPb/versions/ShIoLf04/bookshelfinspector-fabric-2.4%2B26.3.jar |
 | mods/ArmorPoser-fabric-26.3-16.0.1.jar | https://cdn.modrinth.com/data/PFwYNrHb/versions/qmCAgvPA/ArmorPoser-fabric-26.3-16.0.1.jar |
 | mods/fancymenu_fabric_3.9.14_MC_26.3.jar | https://cdn.modrinth.com/data/Wq5SjeWM/versions/CBLbyHzH/fancymenu_fabric_3.9.14_MC_26.3.jar |
-| mods/konkrete_fabric_1.11.1_MC_26.3.jar | https://cdn.modrinth.com/data/J81TRJWm/versions/pQLA2B54/konkrete_fabric_1.11.1_MC_26.3.jar |
 | mods/melody_fabric_1.0.17_MC_26.3.jar | https://cdn.modrinth.com/data/CVT4pFB2/versions/gjl2Yw81/melody_fabric_1.0.17_MC_26.3.jar |
-| mods/voicechat-fabric-2.6.25+26.3.jar | https://cdn.modrinth.com/data/9eGKb6K1/versions/yuPrCKIE/voicechat-fabric-2.6.25%2B26.3.jar |
+| mods/konkrete_fabric_1.11.1_MC_26.3.jar | https://cdn.modrinth.com/data/J81TRJWm/versions/pQLA2B54/konkrete_fabric_1.11.1_MC_26.3.jar |
+| mods/voicechat-fabric-2.6.26+26.3.jar | https://cdn.modrinth.com/data/9eGKb6K1/versions/cZm965sW/voicechat-fabric-2.6.26%2B26.3.jar |
 | mods/simplevoiceanimations-fabric-1.3.1+26.3.jar | https://cdn.modrinth.com/data/F1oVAMoc/versions/UOevvLgE/simplevoiceanimations-fabric-1.3.1%2B26.3.jar |
 | mods/voicechat-names-26.3-1.0.2.jar | https://cdn.modrinth.com/data/AcHVdC8l/versions/nCgCmgzo/voicechat-names-26.3-1.0.2.jar |
 | mods/litematica-fabric-26.3-0.29.1.jar.disabled | https://cdn.modrinth.com/data/bEpr0Arc/versions/ZqV316KY/litematica-fabric-26.3-0.29.1.jar |

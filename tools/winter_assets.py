@@ -1,17 +1,17 @@
-# Holt gemeinfreie Wintergemälde und freie Wintermusik von Wikimedia Commons,
-# rechnet sie auf Minecraft-Gemälde- bzw. .ogg-Format um und legt sie ins Resourcepack.
+# Holt gemeinfreie Wintergemälde von Wikimedia Commons, rechnet sie auf Minecraft-Gemälde um,
+# legt sie ins Resourcepack und packt build/weihnachten-rp.zip (ohne quellen/ und *.md).
 # Quellen landen in resourcepack/quellen/ (git-ignoriert), Ergebnisse unter resourcepack/assets/.
-# Aufruf: uv run --with pillow --with imageio-ffmpeg python tools/winter_assets.py
-import json
-import subprocess
+# Musik war bis 24.10. dabei und ist raus: die meisten Spieler hören eigene Musik.
+# Aufruf: uv run --with pillow python tools/winter_assets.py
+import hashlib
 import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import zipfile
 from pathlib import Path
 
 from PIL import Image
-import imageio_ffmpeg
 
 REPO = Path(__file__).resolve().parent.parent
 RP = REPO / 'resourcepack'
@@ -60,16 +60,6 @@ GEMAELDE = {
     'graham': (1, 2, 'eichbaum'), 'prairie_ride': (1, 2, 'repin'), 'wanderer': (1, 2, 'sisley'),
 }
 
-# Kürzel → (Commons-Datei, Namensnennung)
-MUSIK = {
-    'gymnopedie': ('Satie_Gymnopedie_No_2_performed_by_Michael_Laucke.flac', 'Erik Satie, Gymnopédie No. 2, gespielt von Michael Laucke – gemeinfrei'),
-    'clair_de_lune': ('Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg', 'Claude Debussy, Clair de lune – gemeinfrei'),
-    'jingle_bells': ('Jingle_Bells_(Calm)_(ISRC_USUAN1100188).mp3', '„Jingle Bells (Calm)“ Kevin MacLeod (incompetech.com), CC BY 3.0'),
-    'angels': ('Angels_We_Have_Heard_On_High_(piano)_(Kevin_MacLeod)_(ISRC_USUAN1100329).oga', '„Angels We Have Heard on High“ Kevin MacLeod (incompetech.com), CC BY 3.0'),
-    'stille_nacht': ('Silent_Night_Librivox_2009.ogg', 'Silent Night, LibriVox 2009 – CC0'),
-}
-
-
 def hole(datei, breite=None):
     ziel = QUELLEN / (datei if not breite else f'{breite}px-{datei}')
     if ziel.exists():
@@ -113,23 +103,15 @@ def main():
         bild = zuschneiden(bilder[motiv], b / h, RAND.get(motiv, 0.03)).resize((b * PX, h * PX), Image.LANCZOS)
         bild.save(ordner / f'{name}.png', optimize=True)
 
-    ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
-    musik = RP / 'assets/weihnachten/sounds/music'
-    musik.mkdir(parents=True, exist_ok=True)
-    for name, (datei, _) in MUSIK.items():
-        ziel = musik / f'{name}.ogg'
-        if not ziel.exists():
-            subprocess.run([ffmpeg, '-y', '-loglevel', 'error', '-i', str(hole(datei)), '-vn', '-ac', '2',
-                            '-c:a', 'libvorbis', '-q:a', '3', str(ziel)], check=True)
-    eintraege = [{'name': f'weihnachten:music/{n}', 'stream': True, 'volume': 0.4} for n in MUSIK]
-    ereignisse = ['music.game', 'music.menu'] + [f'music.overworld.{b}' for b in (
-        'badlands bamboo_jungle cherry_grove deep_dark desert dripstone_caves flower_forest forest frozen_peaks '
-        'grove jagged_peaks jungle lush_caves meadow old_growth_taiga snowy_slopes sparse_jungle stony_peaks '
-        'sulfur_caves swamp').split()]
-    sounds = {e: {'replace': True, 'sounds': eintraege} for e in ereignisse}
-    (RP / 'assets/minecraft/sounds.json').write_text(json.dumps(sounds, indent=2) + '\n', encoding='utf-8')
-    print(f'{len(GEMAELDE)} Gemälde, {len(MUSIK)} Musikstücke für {len(ereignisse)} Musik-Ereignisse')
-
+    zipdatei = REPO / 'build/weihnachten-rp.zip'
+    zipdatei.parent.mkdir(exist_ok=True)
+    with zipfile.ZipFile(zipdatei, 'w', zipfile.ZIP_DEFLATED) as z:
+        for datei in sorted(RP.rglob('*')):
+            teil = datei.relative_to(RP)
+            if datei.is_file() and teil.parts[0] != 'quellen' and datei.suffix != '.md':
+                z.write(datei, teil.as_posix())
+    sha1 = hashlib.sha1(zipdatei.read_bytes()).hexdigest()
+    print(f'{len(GEMAELDE)} Gemälde, {zipdatei} ({zipdatei.stat().st_size / 1e6:.1f} MB, SHA1 {sha1})')
 
 if __name__ == '__main__':
     main()

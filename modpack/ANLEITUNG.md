@@ -23,7 +23,7 @@ Nicht zusammen einschalten: **voxy** und **Distant Horizons** (Distant Horizons 
 | Shader an/aus | **Optionen → Videoeinstellungen → Shader-Pakete** → „Complementary Reimagined“ |
 | Hell sehen (Fullbright) | **H** = Nachtsicht, funktioniert auch mit Shadern · **G** = Helligkeit hoch, nur ohne Shader |
 | Freecam (Kamera frei bewegen) | **F4** |
-| Sprachchat (Einstellungen, Gruppen) | **V** · Sprechen: **Caps Lock** gedrückt halten |
+| Sprachchat (Einstellungen, Gruppen) | **V** · Mikro geht von selbst an, wenn du sprichst (Sprachaktivierung). Wer lieber Push-to-Talk will: **V** → Mikrofon-Aktivierung umstellen, dann **Caps Lock** halten |
 | Zoom | **C** gedrückt halten · mit Kinobalken: **X** |
 | Lichtlevel (wo Monster spawnen) | **F9** |
 | Mikro stumm | **Ä** |
