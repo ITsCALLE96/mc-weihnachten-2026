@@ -82,17 +82,17 @@ Testwelt mit Vanilla-Server 26.3 und Seed `1560698989` lokal erzeugt (nur Scratc
 
 Erster Test von Pascal: Spawnpunkt falsch, kein Rückweg, Monster unter der Insel. Gelöst mit Dateien im Repo:
 
-- **Spawnpunkt 60/179/22 statt 64/179/37.** Der CA12-Spawn liegt unter der Amethyst-Kuppel. In 26.3 setzt das Spiel Spieler auf den obersten Block der Spalte, wenn darüber etwas ist (dort wäre das der Drachenflügel auf 217). Bei 60/22 steht man auf Gras auf der Hauptebene 178 mit freiem Himmel, Blick nach Süden zur Kuppel. Der Großteil der offenen Ebene ist ein unsichtbarer Barrier-Boden über dem Inselloch, sichtbarer Boden mit freiem Himmel gibt es nur am Nord- und Südrand.
+- **Spawnpunkt (erst 60/179/22, seit 24.10. nachmittags 64/179/29, siehe Insel v2) statt 64/179/37.** Der CA12-Spawn liegt unter der Amethyst-Kuppel. In 26.3 setzt das Spiel Spieler auf den obersten Block der Spalte, wenn darüber etwas ist (dort wäre das der Drachenflügel auf 217). Bei 60/22 steht man auf Gras auf der Hauptebene 178 mit freiem Himmel, Blick nach Süden zur Kuppel. Der Großteil der offenen Ebene ist ein unsichtbarer Barrier-Boden über dem Inselloch, sichtbarer Boden mit freiem Himmel gibt es nur am Nord- und Südrand.
 - **Datapack `spawn/datapack/insel/`** (nach `world/datapacks/`, danach einmal `function insel:aufbau` in der Konsole):
   - Rückweg-Plattform 5×5 im Flachwasser am Strand unter der Insel (x 72–76, z 20–24, y 62, schlicht: polierter Andesit, Seelaterne in der Mitte; Aussehen entscheidet Pascal). Wer darauf steht, wird auf den Spawn teleportiert. Das wirkt ohne OP.
-  - Elytra: Spawn Elytra gibt keine echte Elytra. Im Bereich um den Weltspawn startet ein Doppelsprung den Flug, nach dem Teleport also sofort wieder. Bereich `spawnRadius: 65` (Kreis um 60/179/22, Höhe zählt mit). So reicht er bis zur Ostspitze, die Plattform unten liegt außerhalb.
-  - 372 unsichtbare Lichtblöcke (Level 15) im Raster von 6 Blöcken: auf Boden bzw. Wasser unter der Insel und direkt unter ihrer Unterseite (`lichter.mcfunction`, erzeugt mit `node tools/schem-licht.mjs <welt> 14 -19 128 69 115 6` aus der Testwelt mit gleichem Seed, gilt also auch für die echte Welt)
-  - setzt Weltspawn (`setworldspawn 60 179 22 0 0`, in 26.3 mit zwei Winkelwerten) und `respawn_radius 0`
+  - Elytra: Spawn Elytra gibt keine echte Elytra. Im Bereich um den Weltspawn startet ein Doppelsprung den Flug, nach dem Teleport also sofort wieder. Bereich `spawnRadius: 65` (Kreis um den Weltspawn 64/179/29, Höhe zählt mit; deckt den Platz (weitester Punkt ~34) und die Bauminseln). So reicht er bis zur Ostspitze, die Plattform unten liegt außerhalb.
+  - 370 unsichtbare Lichtblöcke (für Insel v2 neu berechnet) (Level 15) im Raster von 6 Blöcken: auf Boden bzw. Wasser unter der Insel und direkt unter ihrer Unterseite (`lichter.mcfunction`, erzeugt mit `node tools/schem-licht.mjs <welt> 14 -19 128 69 115 6` aus der Testwelt mit gleichem Seed, gilt also auch für die echte Welt)
+  - setzt Weltspawn (`setworldspawn 64 179 29 0 0`, in 26.3 mit zwei Winkelwerten) und `respawn_radius 0`
 - **WorldGuard `spawn/worldguard/regions.yml`** (nach `plugins/WorldGuard/worlds/world/regions.yml`):
   - `spawn`: x 14…128, z −19…69, volle Höhe. Keine Monster (`mob-spawning deny`), dauerhaft satt (`feed-amount 20`, `feed-delay 1`), kein PvP, Truhen zu, kein Feuer und keine Explosionen, Türen und Knöpfe benutzbar
   - `spawn_bauverbot`: 150 um 64/37, nur Bauen verboten
 
-Reihenfolge in der echten Welt: Insel einfügen (`/tp 24 115 -9`, `//schem load ca12-spawn`, `//paste -e`), Datapack `insel` rein, `function insel:aufbau`, `regions.yml` rein, `/rg load -w world`.
+Reihenfolge in der echten Welt: Insel v2 einfügen (`/tp 24 64 -9`, `//schem load ca12-spawn-v2`, `//paste -e`), Datapack `insel` rein, `function insel:aufbau`, `regions.yml` rein, `/rg load -w world`.
 
 ### Insel v2: hängendes Design vollständig (2026-10-24)
 
@@ -108,3 +108,5 @@ In CA12 ist das mit einem Spielerbau verwachsen (dunkles Prismarin/Fichte, x 20�
 `tools/schem-welt.mjs ausschneiden` warnt jetzt, wenn Blöcke an einer Seite des Kastens anstoßen (beim alten Ausschnitt: „unten 18“).
 
 **Spawnpunkt (Analyse für Pascal):** Die obere Spawnfläche ist ein ovaler Platz auf y 178 (x ~52–86, z ~19–55). Fast die ganze Mitte ist ein **unsichtbarer Barrier-Boden** über einer 6 Blöcke tiefen Senke, in der Mitte stehen die Kuppel mit Glasboden und das Drachenei bei 64/37. Draufsicht: `spawn/quellen/spawnflaeche-oben.png`. Eine Streuung über die Fläche (`respawn_radius` > 0) geht nicht sicher, weil das Spiel gestreute Spieler auf den obersten Block ihrer Spalte setzt, also auf Drache, Bäume oder Kuppel. Deshalb ein fester Punkt mit `respawn_radius 0`.
+
+**Entschieden (Pascal, 24.10.): Spawn 64/179/29 und Insel v2.** Mitten auf dem Platz, 8 Blöcke vor der Kuppel, Blick zu ihr, auf dem unsichtbaren Boden (freier Himmel, sonst setzt 26.3 Spieler auf den Drachen). Auf dem Testserver umgesetzt: alte Lichter entfernt, v2 per `place template spawn:ca12v2 24 64 -9` (deckt die alte Insel exakt ab, die Stummel hängen jetzt an der Kette), Lichter neu (370), Region `spawn` und Elytra-Radius 65 decken v2 ganz ab.
