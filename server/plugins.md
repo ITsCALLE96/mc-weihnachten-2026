@@ -32,7 +32,8 @@ Alle sind auf Modrinth als 26.3-kompatibel markiert (Filter `game_versions=26.3`
   - **Achtung:** Operatoren und die Rechte `dimensioncontrol.bypass[.end|.nether]` umgehen die Sperre. Die Tests aus Task 4
     deshalb nur mit einem Account ohne OP machen (oder vorher `deop`).
   - **Neustart (lokaler Testserver, 24.10.):** `nether close`/`end close` aus der Konsole gehen. Der Zustand steht in `plugins/DimensionControl/data.yml`
-    (`closed-dimensions: [nether, end]`) und ist nach dem Neustart noch drin. Die Sperre sollte also halten. Der Test im Spiel ohne OP (Task 4 Schritt 4) steht noch aus. Falls nicht:
+    (`closed-dimensions: [nether, end]`) und ist nach dem Neustart noch drin. **Bestätigt (Leitung, 24.10.):** Nether und End blieben nach einem Neustart geschlossen (`nether status`). Auf VM200 in Task 4 Schritt 4
+    noch einmal kurz prüfen. Falls es dort doch nicht hält:
     AMP-Aufgabe „nach dem Start“ sendet je nach Phase `nether close` bzw. `end close` (Phase steht in `#phase lf_phase`).
 - **Rechtsklick-Ernte → Right click harvester**: HarvestMaster (Hangar `Imperialroma10/HarvestMaster`) endet bei 1.21.8
   und fällt deshalb raus. Right click harvester ist GPL, für Paper/Folia und deckt Weizen, Karotten, Kartoffeln,

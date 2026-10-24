@@ -9,7 +9,8 @@ bind = "0.0.0.0:25565"
 motd = "<gradient:#ff5252:#ffffff:#4cd964>❄ Weihnachtsserver ❄</gradient><newline><gray>Frohe Weihnachten! · Start am <white>05.12.</white></gray>"
 show-max-players = 30
 online-mode = true
-force-key-authentication = true
+# false: Spieler ohne Chat-Signatur (No Chat Reports im Pack) dürfen chatten. Die Anmeldung prüft weiter Mojang (online-mode). Siehe README.md → Chat
+force-key-authentication = false
 prevent-client-proxy-connections = false
 player-info-forwarding-mode = "modern"
 # Datei liegt neben velocity.toml und kommt NICHT ins Repo (siehe README.md)

@@ -43,6 +43,16 @@ Den Pfad prüfe ich, sobald die Instanz angelegt ist, denn AMP legt Velocity eve
   **Plan B**, falls die Velocity-Version von Simple Voice Chat nicht läuft: Plugin vom Proxy nehmen, Backend auf `port=24454` und
   `bind_address=` (alle) stellen, `voice_host=mc.grahl.cloud`. Die Portfreigabe UDP 24454 bleibt dann gleich.
 
+## Chat-Signaturen (No Chat Reports)
+
+Im Modpack ist **No Chat Reports**. Die Mod signiert Chatnachrichten nicht, damit sie nicht an Mojang gemeldet werden können. Auf dem lokalen Testserver
+(24.10.) kam deshalb „Chat disabled due to missing profile public key“, und Nachrichten wurden abgelehnt. Die Signatur prüfen zwei Stellen, beide müssen aus sein:
+- **Velocity:** `force-key-authentication = false` (`velocity.toml.auszug`). Sonst verlangt der Proxy beim Beitritt einen gültigen Chat-Schlüssel
+- **Paper:** `enforce-secure-profile=false` (`../server.properties.md`). Sonst lehnt das Backend unsignierte Nachrichten ab
+
+Das betrifft nur die Chat-Meldefunktion, nicht die Anmeldung. Velocity prüft mit `online-mode = true` weiter jedes Konto bei Mojang, die Whitelist bleibt.
+Spieler ohne Pack (Vanilla) können ebenfalls chatten, ihre Nachrichten sind dann signiert, das stört nicht.
+
 ## Prüfen
 
 1. Beitritt über `192.168.178.78:25565` mit Pascals Account klappt, `/velocity info` zeigt die Version
@@ -50,3 +60,4 @@ Den Pfad prüfe ich, sobald die Instanz angelegt ist, denn AMP legt Velocity eve
 3. Von einem anderen Rechner: `Test-NetConnection 192.168.178.78 -Port 25566` → keine Verbindung
 4. Backend-Log zeigt beim Beitritt die echte UUID (nicht die Offline-UUID)
 5. Zwei Clients mit Pack: Voice-Chat-Symbol verbunden, gegenseitig hörbar
+6. Chat: ein Client mit Pack und ein Vanilla-Client schreiben sich gegenseitig, keine Meldung „missing profile public key“

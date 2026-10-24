@@ -21,6 +21,7 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 - [ ] `permissions.yml` aus `paper/permissions.yml`: alle Spieler dürfen `/spark tps` (`spark.md`)
 - [ ] Spawn Elytra: `spawnRadius: 65` um den Weltspawn deckt die Insel, bStats aus, `messages.yml` auf Deutsch (`plugins.md`)
 - [ ] Fair Play: `xaero-fair-play.json` mit Höhlenansicht im Nether erlaubt (`plugins.md`)
+- [ ] Chat mit No Chat Reports: Paper `enforce-secure-profile=false` und Velocity `force-key-authentication = false` (`velocity/README.md` → Chat-Signaturen)
 - [ ] Velocity: `velocity.toml` nach `velocity/velocity.toml.auszug` (`show-max-players = 30`, Modern Forwarding, Secret nur auf dem Server)
 
 ## Welt

@@ -12,6 +12,7 @@ simulation-distance=6
 network-compression-threshold=-1
 sync-chunk-writes=false
 online-mode=false
+enforce-secure-profile=false
 white-list=true
 enforce-whitelist=true
 enable-rcon=false
@@ -23,6 +24,9 @@ resource-pack-id=73014a80-9072-4aee-961a-5ed01a359e3f
 resource-pack-prompt={"text":"Weihnachts-Texturen für unseren Server – annehmen empfohlen, Ablehnen geht aber auch.","color":"aqua"}
 motd=§b❄ Weihnachtsserver ❄
 ```
+
+**`enforce-secure-profile=false`** (seit 24.10., lokaler Testserver): Sonst lehnt Paper Chatnachrichten von Spielern mit No Chat Reports ab („missing profile public key“).
+Gehört zusammen mit `force-key-authentication = false` in Velocity, Begründung in `velocity/README.md` → Chat-Signaturen.
 
 **`resource-pack-id`** (seit 24.10.): feste UUID, damit der Client das Pack über Updates hinweg als dasselbe erkennt (sonst meldet Paper „resource-pack-id missing,
 using default“). Bei neuen Pack-Versionen bleibt die ID gleich, nur URL und `resource-pack-sha1` ändern sich.
