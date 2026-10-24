@@ -58,7 +58,7 @@ Nur was der Hub braucht, sonst nichts:
 |---|---|---|---|
 | Serverwahl (eigenes) | 1.0.0 | `serverwahl-1.0.0.jar` | Rechtsklick auf die 5 Crate-Kisten öffnet das Menü, Klick auf einen Server wechselt über Velocity (`serverwahl/README.md`) |
 | WorldEdit | 7.4.6 | wie SMP | Hub-Welt einfügen, für WorldGuard nötig |
-| WorldGuard | 7.0.20 | wie SMP | ganze Welt geschützt über `__global__` (`plugin-konfig/hub/plugins/WorldGuard/worlds/world/regions.yml`): Kisten nicht plünderbar, Rahmen nicht drehbar, kein PvP, unverwundbar |
+| WorldGuard | 7.0.20 | wie SMP | ganze Welt geschützt über `__global__` (`plugin-konfig/hub/plugins/WorldGuard/worlds/world/regions.yml`): Kisten nicht plünderbar, Rahmen nicht drehbar, kein PvP, unverwundbar. Bewusst ohne `mob-spawning deny` (würde beim Einfügen Dorfbewohner und Fische der Struktur verhindern), Mobs verhindern `peaceful` + `spawn_mobs false` |
 | Simple Voice Chat (Bukkit) | bukkit-2.6.25 | wie SMP | Sprachchat auch im Hub, lokal auf UDP 24456 (Velocity leitet weiter) |
 | spark | eingebaut | – | `/spark tps` |
 

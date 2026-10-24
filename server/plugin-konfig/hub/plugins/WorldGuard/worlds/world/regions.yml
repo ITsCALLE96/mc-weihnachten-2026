@@ -2,6 +2,8 @@
 # Abenteuermodus verhindert Abbauen und Bauen schon; das hier sperrt den Rest (Kisten plündern, Rahmen drehen, PvP, Mobs).
 # Die Crate-Kisten öffnen trotzdem das Menü (serverwahl reagiert auch auf von WorldGuard gesperrte Klicks).
 # Ops mit /rg bypass sind ausgenommen.
+# Kein mob-spawning deny: Das hätte beim Einfügen der Hub-Struktur die Dorfbewohner und Fische verhindert (Spawn & Welt, Test 24.10.).
+# Natürliches Spawnen verhindern schon difficulty=peaceful und gamerule spawn_mobs false.
 regions:
   __global__:
     type: global
@@ -13,7 +15,6 @@ regions:
       entity-item-frame-destroy: deny
       entity-painting-destroy: deny
       damage-animals: deny
-      mob-spawning: deny
       invincible: allow
       item-drop: deny
       vehicle-destroy: deny
