@@ -31,10 +31,9 @@
   "oval": {
     "x": 120,
     "z": 120,
-    "a": 95,
-    "b": 95
+    "a": 110,
+    "b": 80
   },
-  "abflug": "vier begehbare Äste (Azimut 20°, 112°, 203°, 286°)",
   "erweiterung": "äußerer Plattformring, Abflugäste, Wurzelbögen am Boden; später weitere Plattformen in der Krone",
   "lichtbloecke": 438,
   "spitzen": 123

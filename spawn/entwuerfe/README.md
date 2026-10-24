@@ -22,7 +22,7 @@ Schwebende Felsinsel, ca. 60 × 60 Blöcke Oberfläche, unten ein unregelmäßig
 
 Der erste, kleine Entwurf liegt als `weltenbaum-klein.mjs` daneben.
 
-**Maße (Vorschlag):** Ausschnitt 240 × 262 × 240. Boden lokal y 14, **Spawnplattform 118 Blöcke über dem Boden** (Boden auf y 64 ergibt Plattform auf y 182). Kronenspitze etwa 100 Blöcke darüber (bis y ~300, unter der Bauhöhe 320). **Kronendurchmesser ~170, Wurzeln bis ~75 Blöcke vom Stamm.** Alles liegt im Umkreis von ~95 Blöcken um den Stamm, bei Sichtweite 8 (128 Blöcke) ist der Baum vom Spawn aus also komplett geladen.
+**Maße (Vorschlag):** Ausschnitt 240 × 262 × 240. Boden lokal y 14, **Spawnplattform 118 Blöcke über dem Boden** (Boden auf y 64 ergibt Plattform auf y 182). Kronenspitze 94 Blöcke darüber (bei Boden y 64 auf y 276, unter der Bauhöhe 320). **Krone ~190 × 145 Blöcke (nach Osten bis ~106 vom Stamm), Wurzeln bis ~75 Blöcke vom Stamm.** Alles liegt im Umkreis von ~106 Blöcken um den Stamm, bei Sichtweite 8 (128 Blöcke) ist der Baum vom Spawn aus also komplett geladen.
 
 - **Stamm:** Kern mit Längsfurchen plus sieben gedrehte Stränge, unten breit ausgestellt (Durchmesser ~40), oben ~14. Rinde aus Dunkeleiche, Fichte und Eiche, mit Moosflecken
 - **Wurzeln:** neun Brettwurzeln laufen als begehbare Bögen hinaus und tauchen in den Boden, dazu Seitenwurzeln. Auf den Bögen Laternen, darunter Leuchtbeeren, Moos und Augenblüten

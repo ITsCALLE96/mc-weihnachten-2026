@@ -220,7 +220,7 @@ console.log('Ausleuchtung: nachgesetzte Lichtblöcke', nachgesetzt);
 speichern(m, process.argv[2], {
   name: 'Weltenbaum (groß)', spawn: SP, blick: [0, 0], boden: G, plattformHoehe: D,
   obenBereich: { von: [CX - 32, D - 4, CZ - 32], bis: [CX + 32, D + 30, CZ + 32] },
-  oval: { x: CX, z: CZ, a: 95, b: 95 }, abflug: 'vier begehbare Äste (Azimut 20°, 112°, 203°, 286°)',
+  oval: { x: CX, z: CZ, a: 110, b: 80 }, // Krone reicht nach Osten bis ~106, nach Norden/Süden ~72 Blöcke vom Stamm abflug: 'vier begehbare Äste (Azimut 20°, 112°, 203°, 286°)',
   erweiterung: 'äußerer Plattformring, Abflugäste, Wurzelbögen am Boden; später weitere Plattformen in der Krone',
   lichtbloecke: nL, spitzen: SPITZEN.length,
 });
