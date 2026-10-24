@@ -78,6 +78,10 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 
 ## Eröffnung (Weltenbaum öffnet sich)
 
+> **Überholt seit 24.10. spät (Hub-Kurswechsel):** Weltenbaum verworfen, die Eröffnung läuft jetzt im Hub (Datapack `hub` der Spawn-&-Welt-Session setzt `#offen` in `insel_zustand`,
+> der Hub legt den Merker an, das SMP öffnet, `serverwahl/README.md` → Eröffnungssperre). Die Tabelle unten (Funktionen `insel:…`, Weltgrenze) wird mit den `hub:`-Funktionsnamen neu geschrieben.
+> Gültig bleiben: Pascal löst von Hand aus, danach Phase 1, Statistik-Nullpunkt, Rückfall-Aufgabe in AMP, Generalprobe am 21.11.
+
 Pascal, 24.10.: Vor dem Start warten alle im geschlossenen Weltenbaum, beim offiziellen Start öffnet er sich und die Weltgrenze springt von klein auf 10.000.
 Funktionen aus dem Datapack `insel` der Spawn-&-Welt-Session (abgestimmt 24.10.):
 
