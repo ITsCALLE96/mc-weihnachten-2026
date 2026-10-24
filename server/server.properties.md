@@ -17,11 +17,11 @@ white-list=true
 enforce-whitelist=true
 enable-rcon=false
 spawn-protection=0
-require-resource-pack=false
+require-resource-pack=true
 resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v3/weihnachten-rp.zip
 resource-pack-sha1=34a0d1971ccd9b960e5107a5510191bbb122a0cb
 resource-pack-id=73014a80-9072-4aee-961a-5ed01a359e3f
-resource-pack-prompt={"text":"Weihnachts-Texturen für unseren Server – annehmen empfohlen, Ablehnen geht aber auch.","color":"aqua"}
+resource-pack-prompt={"text":"Pflicht: Weihnachts-Texturen und das deutsche Questbuch. Ohne Annehmen kein Beitritt.","color":"aqua"}
 motd=§b❄ Weihnachtsserver ❄
 ```
 
@@ -32,7 +32,7 @@ Gehört zusammen mit `force-key-authentication = false` in Velocity, Begründung
 using default“). Bei neuen Pack-Versionen bleibt die ID gleich, nur URL und `resource-pack-sha1` ändern sich.
 **Seit 24.10.: `rp-v3`** (rp-v2 mit Wintergemälden ohne Musik, dazu Questbuch-Texte DE/EN und Quest-Inhalte; 878.510 Bytes, SHA1 von der Leitung nachgerechnet).
 ID unverändert, die neue SHA1 reicht, damit Clients das Pack neu laden. Lokaler Testserver auf dieselben Werte umgestellt.
-**Questbuch braucht das Pack:** Ohne Pack sehen Spieler die Quests nur englisch. Ob `require-resource-pack=true` kommt, entscheidet die Leitung (Empfehlung im Plan, Stand Server).
+**Questbuch braucht das Pack:** Ohne Pack sehen Spieler die Quests nur englisch. Deshalb **`require-resource-pack=true`** (Pascal, 24.10.): Wer ablehnt, wird mit dem Hinweistext getrennt und kann beim nächsten Beitritt annehmen.
 
 **Serverliste:** Spieler verbinden sich mit Velocity. Dort stehen die sichtbare MOTD (`velocity/velocity.toml.auszug`) und das Bild
 (`icon/server-icon.png` neben `velocity.toml`). Die Paper-`motd` sieht nur, wer den Backend-Port direkt anfragt, sie bleibt nur der Ordnung halber gesetzt.
