@@ -33,13 +33,31 @@ falschen Season landet.
 | `testlauf` | Sa 21.11.2026 (Testlauf, Task 10 Schritt 2) | Testwelt |
 | `weihnachten-2026` | Sa 05.12.2026 (Start) | echte Welt |
 
-**Umstellen** (zusammen mit dem Weltwechsel in Task 10 Schritt 4, vor dem ersten Beitritt in der neuen Welt):
+**Umstellen** (Wunsch der Statistikseite, 24.10.): **immer erst ein Abschluss-Schnappschuss von Hand, dann `SEASON` ändern.** Sonst fehlt der Stand
+zwischen dem letzten 04:00-Lauf und dem Wechsel.
+
+1. Whitelist zu oder sicherstellen, dass niemand mehr spielt
+2. In der Paper-Konsole (AMP): `save-all flush`, auf „Saved the game“ warten
+3. Auf VM200 den Schnappschuss von Hand, mit `SCHNAPPSCHUSS_ERSETZEN=1`. Hat der 04:00-Lauf heute schon einen angelegt, wird er neu erstellt, und der
+   alte bleibt als `<datum>.tar.gz.vorher-<HHMMSS>` liegen. Pfade wie in der Cron-Zeile:
+
+```bash
+SCHNAPPSCHUSS_ERSETZEN=1 /opt/mc-weihnachten/schnappschuss.sh <paper> /home/amp/mc-archiv <velocity>
+```
+
+4. Ausgabe prüfen („Schnappschuss … (N Dateien)“, N > 0), erst dann die Season umstellen:
 
 ```bash
 echo weihnachten-2026 > /home/amp/mc-archiv/SEASON
 ```
 
-Der Ordner der alten Season bleibt unverändert liegen.
+**Wann genau:**
+- `testlauf` → `weihnachten-2026`: **direkt vor dem Weltwechsel in Task 10 Schritt 4** (bis 28.11.), also bevor die Testwelt gesichert und verworfen wird,
+  nicht erst am 05.12. Danach gibt es keine Testwelt-Daten mehr
+- vor `testlauf` (21.11.): Nur nötig, wenn vorher schon eine Season lief (Pascals Solotest ab 14.11.). Ohne `SEASON` bricht das Skript ab, es gibt dann
+  nichts abzuschließen. Ob der Solotest eine eigene Season bekommt, entscheiden Leitung und Statistikseite
+
+Der Ordner der alten Season bleibt unverändert liegen. Hinweis der Statistikseite: `testlauf` zählt dort nicht zu „Allzeit“.
 
 ## Datum und Zeitzone
 

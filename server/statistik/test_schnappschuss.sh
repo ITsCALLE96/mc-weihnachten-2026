@@ -57,4 +57,10 @@ SCHNAPPSCHUSS_DATUM=2026-12-07 bash "$HIER/schnappschuss.sh" "$P" "$A" 2>/dev/nu
 pruefe "neue Season eigener Ordner" "[ -f \"$A/weihnachten-2026/schnappschuesse/2026-12-07.tar.gz\" ] && [ -f \"$A/weihnachten-2026/logs/paper/2026-12-07-1.log.gz\" ]"
 pruefe "alte Season unverändert" '[ "$(ls "$A/testlauf/schnappschuesse" | wc -l)" -eq 2 ]'
 
+# Von Hand vor dem Season-Wechsel: ersetzen, alten Stand behalten
+echo '{"stats":{"minecraft:custom":{"minecraft:play_time":555}}}' > "$P/welt/players/stats/uuid1.json"
+SCHNAPPSCHUSS_ERSETZEN=1 SCHNAPPSCHUSS_DATUM=2026-12-07 bash "$HIER/schnappschuss.sh" "$P" "$A" 2>/dev/null > "$T/out5"
+pruefe "Ersetzen: neuer Stand drin" 'tar -xzOf "$A/weihnachten-2026/schnappschuesse/2026-12-07.tar.gz" 2026-12-07/players/stats/uuid1.json | grep -q ":555"'
+pruefe "Ersetzen: alter Stand behalten" 'ls "$A/weihnachten-2026/schnappschuesse/" | grep -q "^2026-12-07.tar.gz.vorher-" && tar -xzOf "$A"/weihnachten-2026/schnappschuesse/2026-12-07.tar.gz.vorher-* 2026-12-07/players/stats/uuid1.json | grep -q ":999"'
+
 exit $fehler

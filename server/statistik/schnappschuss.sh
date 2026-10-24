@@ -11,6 +11,8 @@
 #   Das Format JJJJ-MM-TT bleibt fest, die Statistikseite verlässt sich darauf.
 # - Vorher sendet AMP um 03:58 "save-all flush" an die Paper-Instanz (siehe README.md), sonst fehlen Werte von
 #   Spielern, die über Nacht online sind.
+# - Von Hand vor einem Season-Wechsel: SCHNAPPSCHUSS_ERSETZEN=1 erstellt den Schnappschuss des Tages neu, auch wenn
+#   der 04:00-Lauf ihn schon angelegt hat. Der alte bleibt als <datum>.tar.gz.vorher-<HHMMSS> liegen.
 #
 # Aufruf: schnappschuss.sh <paper-instanzordner> <archivordner> [velocity-instanzordner]
 #   Instanzordner = Ordner mit server.properties (Paper) bzw. velocity.toml (Velocity)
@@ -52,6 +54,12 @@ WELT="$PAPER/${LEVEL:-world}"
 
 mkdir -p "$ZIELORDNER/schnappschuesse" "$ZIELORDNER/logs"
 ZIEL="$ZIELORDNER/schnappschuesse/$DATUM.tar.gz"
+
+if [ -e "$ZIEL" ] && [ "${SCHNAPPSCHUSS_ERSETZEN:-}" = 1 ]; then
+  ALT="$ZIEL.vorher-$(TZ=Europe/Berlin date +%H%M%S)"
+  mv "$ZIEL" "$ALT"
+  echo "$DATUM [$SEASON]: vorhandener Schnappschuss bleibt als $ALT, wird neu erstellt"
+fi
 
 if [ -e "$ZIEL" ]; then
   echo "$DATUM [$SEASON]: Schnappschuss existiert schon, übersprungen"
