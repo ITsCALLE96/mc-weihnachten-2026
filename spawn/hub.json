@@ -1,0 +1,85 @@
+{
+  "beschreibung": "Hub (eigener Paper-Server hinter Velocity, Leerwelt): Fantasy Village (LavaBuilds, gekauft), Ursprung -150/80/-158, Brunnen bei 0/0, Boden y 234",
+  "spawn": { "x": 0, "y": 235, "z": 16, "yaw": 180, "pitch": 0 },
+  "struktur": {
+    "name": "spawn:fantasy_village",
+    "ursprung": [-150, 80, -158],
+    "groesse": [240, 215, 244],
+    "quelle": "spawn/quellen/fantasy-village/fantasy-village.schem",
+    "kachel": 64
+  },
+  "biom": { "x": -30, "z": -36, "a": 120, "b": 120, "biom": "minecraft:cherry_grove" },
+  "weltgrenze": { "x": -30, "z": -36, "breite": 260 },
+  "zurueckUnter": 190,
+  "tafeln": [
+    { "x": -3, "y": 235, "z": 15, "block": "minecraft:spruce_sign[rotation=0]", "zeilen": ["Spawn", "Fantasy Village", "gebaut von", "LavaBuilds"] }
+  ],
+  "eroeffnung": {
+    "sekunden": 10,
+    "text": "Der Weihnachtsserver öffnet …",
+    "titel": "Der SMP ist offen!",
+    "untertitel": "Rechtsklick auf die SMP-Kiste"
+  },
+  "kisten": [
+    { "x": 25, "y": 236, "z": -9, "titel": "SMP", "farbe": "gold" },
+    { "x": 27, "y": 236, "z": -5, "titel": "Testwelt – bald", "farbe": "gray" },
+    { "x": 28, "y": 236, "z": 0, "titel": "Alle Server", "farbe": "aqua" },
+    { "x": 27, "y": 236, "z": 5, "titel": "Minigames – bald", "farbe": "gray" },
+    { "x": 25, "y": 236, "z": 9, "titel": "Bald", "farbe": "gray" }
+  ],
+  "bestenlisten": [
+    { "x": 0.5, "y": 236, "z": -10 },
+    { "x": 7.5, "y": 236, "z": -6.5 },
+    { "x": 11, "y": 236, "z": 0.5 },
+    { "x": 7.5, "y": 236, "z": 7.5 },
+    { "x": 0.5, "y": 236, "z": 11 },
+    { "x": -6.5, "y": 236, "z": 7.5 },
+    { "x": -10, "y": 236, "z": 0.5 },
+    { "x": -6.5, "y": 236, "z": -6.5 }
+  ],
+  "stände": [
+    { "titel": "Regeln", "front": [42, 235, -19], "schilder": [[45, 237, -22, "north"], [49, 237, -22, "north"], [51, 237, -20, "east"]],
+      "text": "Sei fair und freundlich. Kein Griefing, kein Stehlen, keine Cheats oder X-Ray. Die ausführlichen Regeln stehen im Discord." },
+    { "titel": "Modpack", "front": [39, 235, -15], "schilder": [[41, 237, -18, "west"], [41, 237, -14, "west"]],
+      "text": "Wir spielen mit unserem eigenen Modpack in der Modrinth-App. Die Anleitung steht im Discord. Wichtig: immer die aktuelle Pack-Version nehmen." },
+    { "titel": "Voice Chat", "front": [42, 235, -11], "schilder": [[43, 237, -12, "south"], [45, 237, -10, "west"]],
+      "text": "Simple Voice Chat ist im Pack. Taste V öffnet die Einstellungen. Mikrofon testen: an der Voice-Chat-Ecke beim Kirschblütenhaus." },
+    { "titel": "Questbuch", "front": [46, 235, -7], "schilder": [[47, 237, -8, "south"], [48, 237, -6, "west"], [49, 237, -7, "north"]],
+      "text": "Das Questbuch begleitet dich auf dem SMP: Kapitel für Kapitel durch Minecraft, mit Tipps und kleinen Andenken." },
+    { "titel": "Termine", "front": [46, 235, 7], "schilder": [[47, 237, 8, "north"], [48, 237, 6, "west"], [49, 237, 7, "south"]],
+      "text": "Testlauf: 21.11. · Eröffnung: 05.12. Danach läuft der Server dauerhaft weiter. Phasen und Freischaltungen stehen im Discord." },
+    { "titel": "Discord", "front": [42, 235, 11], "schilder": [[45, 237, 10, "west"], [43, 237, 12, "north"]],
+      "text": "Ankündigungen, Hilfe und alle Links gibt es auf unserem Discord. Link: folgt." },
+    { "titel": "Statistik", "front": [39, 235, 15], "schilder": [[41, 237, 14, "west"], [41, 237, 18, "west"]],
+      "text": "Auf der Statistikseite siehst du Spielzeit, Bestenlisten und mehr. Link: folgt. Die Bestenlisten am Brunnen zeigen einen Auszug." },
+    { "titel": "Danke", "front": [42, 235, 19], "schilder": [[45, 237, 22, "south"], [49, 237, 22, "south"], [51, 237, 20, "east"]],
+      "text": "Dieses Dorf: „Fantasy Village“ von LavaBuilds (BuiltByBit). Danke an alle Mod-Autoren und an euch fürs Mitspielen!" }
+  ],
+  "dorfbewohner": [
+    { "pos": [-51.5, 235, -98.5], "text": "Psst … hier gibt es nichts zu kaufen. Im Hub ist alles Kulisse, gehandelt wird auf dem SMP." },
+    { "pos": [-54.5, 234, 0.5], "text": "Angeln ist im Hub erlaubt! Wirf deine Angel in einen der Teiche." },
+    { "pos": [-51.5, 234, 25.5], "text": "Willkommen im Blumenladen. Die Gärten des Dorfs sind zum Anschauen da." },
+    { "pos": [-39.5, 234, 25.5], "text": "Auf dem SMP baust du selbst an. Das Questbuch zeigt dir, wie es losgeht." },
+    { "pos": [-17.5, 234, -54.5], "text": "Hier im Hub bist du sicher: kein Hunger, kein Fallschaden. Wer runterfällt, landet wieder am Brunnen." },
+    { "pos": [-24.5, 234, -54.5], "text": "Kämpfe gibt es hier keine, PvP ist im Hub aus." },
+    { "pos": [-1, 234, 50.5], "text": "Du suchst den Weg zum Server? Geh zum Brunnen und dann zu den Kisten im Osten. Rechtsklick auf „SMP“." },
+    { "pos": [6.5, 235, -33.5], "text": "Die Verzauberungstische sind Kulisse. Verzaubern kannst du auf dem SMP." },
+    { "pos": [33.5, 236, 30.5], "text": "Die Bank ist Kulisse, auf unserem Server gibt es nichts zu kaufen." },
+    { "pos": [51.5, 236, -41.5], "text": "Frohe Feiertage! Ab dem 01.12. sind auf der Insel Adventsgeschenke versteckt, jeden Tag eins." },
+    { "pos": [58.5, 237, -4.5], "text": "Das Auktionshaus ist Kulisse. Schau dir lieber die Info-Stände am Markt an." },
+    { "pos": [58.5, 237, 0.5], "text": "Fragen zum Server? Die Info-Stände am Markt erklären das Wichtigste." },
+    { "pos": [58.5, 237, 5.5], "text": "Dieses Dorf hat LavaBuilds gebaut. Schön, oder?" }
+  ],
+  "voiceEcke": { "x": -104, "y": 239, "z": 10 },
+  "advent": [
+    [-116, 272, -81], [-42, 234, 63], [-50, 235, 33], [8, 244, 46], [32, 244, 26], [61, 241, -44], [-57, 243, -119], [50, 247, 5],
+    [60, 247, -7], [-35, 237, 24], [-55, 235, 7], [-69, 257, -80], [-116, 239, 13], [-79, 235, -33], [-89, 264, -65], [18, 242, -27],
+    [-54, 247, -65], [-31, 234, -61], [24, 242, -41], [37, 237, -71], [24, 249, -80], [27, 237, -101], [44, 244, -18], [-108, 240, 26]
+  ],
+  "adventGeschenke": [
+    "minecraft:red_candle", "minecraft:snowball", "minecraft:green_candle", "minecraft:cookie", "minecraft:lantern", "minecraft:white_candle",
+    "minecraft:sweet_berries", "minecraft:spruce_sapling", "minecraft:gold_nugget", "minecraft:pumpkin_pie", "minecraft:blue_ice", "minecraft:red_bed",
+    "minecraft:music_disc_cat", "minecraft:cake", "minecraft:firework_rocket", "minecraft:amethyst_shard", "minecraft:glow_berries", "minecraft:honey_bottle",
+    "minecraft:lime_candle", "minecraft:snow_block", "minecraft:sea_lantern", "minecraft:bell", "minecraft:nether_star", "minecraft:player_head"
+  ]
+}

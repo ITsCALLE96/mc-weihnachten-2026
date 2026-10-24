@@ -1,0 +1,35 @@
+# Ausgelöst als das Interaction-Entity: Funktion nach Tag, ausgeführt als der klickende Spieler, dann Klick löschen
+execute if entity @s[tag=hub_f_stand_1,tag=!hub_advent_zu] on target at @s run function hub:stand/1
+execute if entity @s[tag=hub_f_stand_2,tag=!hub_advent_zu] on target at @s run function hub:stand/2
+execute if entity @s[tag=hub_f_stand_3,tag=!hub_advent_zu] on target at @s run function hub:stand/3
+execute if entity @s[tag=hub_f_stand_4,tag=!hub_advent_zu] on target at @s run function hub:stand/4
+execute if entity @s[tag=hub_f_stand_5,tag=!hub_advent_zu] on target at @s run function hub:stand/5
+execute if entity @s[tag=hub_f_stand_6,tag=!hub_advent_zu] on target at @s run function hub:stand/6
+execute if entity @s[tag=hub_f_stand_7,tag=!hub_advent_zu] on target at @s run function hub:stand/7
+execute if entity @s[tag=hub_f_stand_8,tag=!hub_advent_zu] on target at @s run function hub:stand/8
+execute if entity @s[tag=hub_f_stand_voice,tag=!hub_advent_zu] on target at @s run function hub:stand/voice
+execute if entity @s[tag=hub_f_advent_fund_1,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_1
+execute if entity @s[tag=hub_f_advent_fund_2,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_2
+execute if entity @s[tag=hub_f_advent_fund_3,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_3
+execute if entity @s[tag=hub_f_advent_fund_4,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_4
+execute if entity @s[tag=hub_f_advent_fund_5,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_5
+execute if entity @s[tag=hub_f_advent_fund_6,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_6
+execute if entity @s[tag=hub_f_advent_fund_7,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_7
+execute if entity @s[tag=hub_f_advent_fund_8,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_8
+execute if entity @s[tag=hub_f_advent_fund_9,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_9
+execute if entity @s[tag=hub_f_advent_fund_10,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_10
+execute if entity @s[tag=hub_f_advent_fund_11,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_11
+execute if entity @s[tag=hub_f_advent_fund_12,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_12
+execute if entity @s[tag=hub_f_advent_fund_13,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_13
+execute if entity @s[tag=hub_f_advent_fund_14,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_14
+execute if entity @s[tag=hub_f_advent_fund_15,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_15
+execute if entity @s[tag=hub_f_advent_fund_16,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_16
+execute if entity @s[tag=hub_f_advent_fund_17,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_17
+execute if entity @s[tag=hub_f_advent_fund_18,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_18
+execute if entity @s[tag=hub_f_advent_fund_19,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_19
+execute if entity @s[tag=hub_f_advent_fund_20,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_20
+execute if entity @s[tag=hub_f_advent_fund_21,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_21
+execute if entity @s[tag=hub_f_advent_fund_22,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_22
+execute if entity @s[tag=hub_f_advent_fund_23,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_23
+execute if entity @s[tag=hub_f_advent_fund_24,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_24
+data remove entity @s interaction

@@ -1,5 +1,28 @@
 # Spawn-Aufbau (Testserver und echte Welt)
 
+> **Kurswechsel 24.10. spät (Pascal, Decision Log): Fantasy Village wird Hub, nicht Weltspawn.** Der SMP bekommt einen normalen Vanilla-Spawn
+> ohne Bau. Für den SMP **entfallen** damit Insel, Pilzland, Rückweg-Plattform, Spawn-Regionen und die Eröffnung über die Weltgrenze; die Werkzeuge
+> (`standort.mjs`, Datapack `insel`, `neu-aufsetzen.sh`) bleiben für Testzwecke und spätere Bauten erhalten.
+
+## Hub (Fantasy Village)
+
+Eigener Paper-Server hinter Velocity (Ordner und Plugins: Server-Session, lokal `testnetz/hub/`, Leerwelt `world`, Port 25567). Von hier: Welt und Datapack.
+
+- Konfiguration `spawn/hub.json`, Generator `spawn/hub.mjs` → Datapack `spawn/datapack/hub/` (Tests `spawn/hub.test.mjs`)
+- Aufbau (Hub-Server gestoppt): `bash spawn/hub-aufsetzen.sh testnetz/hub` – Kacheln + Datapack in die Welt, `function hub:aufbau`, speichern, stoppen;
+  mehrfach ausführbar. Die WorldGuard-Datei des Hubs (Server-Session, `server/plugin-konfig/hub/`) wird währenddessen beiseitegelegt und zurückgelegt
+- Welt: Insel bei Ursprung −150/80/−158 (16 Kacheln), Kirschhain, **Spawn 0/235/16** Blick Nord, Weltgrenze Mitte −30/−36, Breite 260; Gamerules: kein
+  Zufallsticken, kein Fallschaden, keine Monster/Phantome/Patrouillen/Händler, kein PvP, Inventar bleibt
+- Hub-Regeln (Datapack): Abenteuermodus, dauerhaft satt, unter y 190 → zurück zum Brunnen, beim Betreten → Brunnen
+- **Eröffnung 05.12.:** `function hub:eroeffnung` (10 s Countdown) setzt `#offen insel_zustand` auf 1 → Plugin `serverwahl` gibt die SMP-Kiste frei;
+  `function hub:schliessen` sperrt wieder. Kisten (Rechtsklick → Menü, Plugin der Server-Session): SMP 25/236/−9, Testwelt 27/236/−5, Alle Server
+  28/236/0, Minigames 27/236/5, Bald 25/236/9; Schriften darüber aus dem Datapack
+- Bestenlisten: 8 Text Displays auf den Cyan-Feldern (Tags `hub_bestenliste_1…8`, Inhalt später von der Statistik-Session)
+- Info-Stände: 8 Marktzelte (Schrift, Klickfeld, beschriftete Zeltschilder; Texte in `hub.json`), Voice-Chat-Ecke beim Kirschblütenhaus,
+  13 Info-Dorfbewohner (Klick → Text über Fortschritt `hub:npc/<n>`)
+- **Adventskalender:** 24 Geschenke entstehen beim Aufbau unsichtbar, `function hub:advent/naechster_tag` (täglich 00:00 ab 01.12. als AMP-Aufgabe)
+  schaltet das nächste frei; sichtbar wird es, sobald sein Chunk geladen ist. Je Spieler einmal, Belohnung kosmetisch (Platzhalter in `hub.json`)
+
 > **Kurswechsel 24.10. (Decision Log):** Die CA12-Insel kommt **nicht** auf die echte Welt (Forever-World, neuer Seed). Sie bleibt nur als Platzhalter
 > auf dem Testserver. Die Spawn-Technik ist davon unabhängig und wird über eine **Standort-Konfiguration** auf jeden Spawn angepasst (siehe unten).
 

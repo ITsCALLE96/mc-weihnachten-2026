@@ -1,0 +1,210 @@
+// Hub-Datapack „hub“ aus spawn/hub.json: Fantasy Village als Hub (eigener Paper-Server hinter Velocity, Leerwelt).
+// Aufbau (Bau in Kacheln, Kirschhain, Spawn, Weltgrenze, Gamerules), Hub-Regeln (Abenteuermodus, satt, wer fällt → Brunnen, beim Betreten
+// zum Brunnen), Eröffnung (schaltet die SMP-Kiste frei: insel_zustand #offen, liest das Plugin serverwahl), Schriften über den Kisten,
+// Bestenlisten-Platzhalter, Info-Stände, Info-Dorfbewohner, Voice-Chat-Ecke, Adventskalender (24 Geschenke).
+// Aufruf: node spawn/hub.mjs bauen <hub.json> [ausgabeordner]   → <ausgabe>/datapack/hub/ (ohne Ausgabeordner: spawn/)
+// Die Bau-Struktur selbst (gekauft) kommt lokal dazu, siehe spawn/hub-aufsetzen.sh.
+import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { ladeKasten, pilzlandBefehle, strukturBefehle } from './standort.mjs';
+
+const REPO = join(dirname(fileURLToPath(import.meta.url)), '..');
+const q = (t) => JSON.stringify(t); // Text als SNBT-Zeichenkette (JSON-Schreibweise ist gültiges SNBT)
+const txt = (text, extra = {}) => JSON.stringify({ text, ...extra });
+
+export function dateien(k) {
+  const s = k.spawn, g = k.weltgrenze, e = k.eroeffnung;
+  const [lx1, lz1, lx2, lz2] = ladeKasten({ spawn: s, oval: k.biom, struktur: k.struktur });
+  const [ux, uy, uz] = k.struktur.ursprung, [gw, gh, gl] = k.struktur.groesse;
+  const kasten = `x=${ux},y=${uy},z=${uz},dx=${gw},dy=${gh},dz=${gl}`;
+  const geladen = []; for (let x = lx1; x <= lx2; x += 16) for (let z = lz1; z <= lz2; z += 16) geladen.push(`if loaded ${x} ${s.y} ${z}`);
+  const zumSpawn = `tp @s ${s.x + 0.5} ${s.y} ${s.z + 0.5} ${s.yaw} ${s.pitch}`;
+  const f = {}, adv = {};
+
+  f.load = `# Zustand und Zähler des Hubs
+scoreboard objectives add insel_zustand dummy
+execute unless score #offen insel_zustand matches 0.. run scoreboard players set #offen insel_zustand 0
+scoreboard objectives add hub_weg minecraft.custom:minecraft.leave_game
+scoreboard objectives add hub_advent dummy
+execute unless score #tag hub_advent matches 0.. run scoreboard players set #tag hub_advent 0
+scoreboard objectives add hub_funde dummy
+schedule function hub:sekunde 20t replace
+`;
+  f.tick = `# Wer unter y ${k.zurueckUnter} fällt (Insel verlassen), kommt zurück zum Brunnen
+execute as @a[y=-64,dy=${k.zurueckUnter + 63}] at @s run function hub:zurueck
+# Beim Betreten (nach dem Verlassen) zum Brunnen
+execute as @a[scores={hub_weg=1..}] run function hub:ankommen
+# Klicks auf Info-Stände, Voice-Ecke und Adventsgeschenke (Interaction-Entities)
+execute as @e[type=interaction,tag=hub_klick] if data entity @s interaction run function hub:klick
+`;
+  f.sekunde = `# Jede Sekunde: Abenteuermodus (außer Kreativ/Zuschauer für OPs) und satt
+gamemode adventure @a[gamemode=survival]
+effect give @a[gamemode=adventure] minecraft:saturation infinite 0 true
+# Adventsgeschenke freischalten, sobald ihr Tag erreicht ist (nur in geladenen Chunks, also wo Spieler sind)
+execute as @e[tag=hub_advent_zu] if score @s hub_advent <= #tag hub_advent run function hub:advent/zeigen
+schedule function hub:sekunde 20t replace
+`;
+  f.zurueck = `# Insel verlassen: zurück zum Brunnen, kurz Blindheit als Einblendung
+${zumSpawn}
+effect give @s minecraft:blindness 1 0 true
+playsound minecraft:entity.enderman.teleport master @s ~ ~ ~ 0.6 1.2
+title @s actionbar ${txt('Zurück am Brunnen', { color: 'aqua' })}
+`;
+  f.ankommen = `scoreboard players reset @s hub_weg
+${zumSpawn}
+`;
+  // Klick-Verteiler: jedes Interaction-Entity trägt hub_klick und genau einen Funktionsnamen als Tag „hub_f_<name>“
+  const klicks = [];
+  const interaktion = (x, y, z, name, w = 1, h = 1.5) => { klicks.push(name); return `summon interaction ${x} ${y} ${z} {width:${w}f,height:${h}f,response:1b,Tags:["hub","hub_klick","hub_f_${name.replace(/\//g, '_')}"]}`; };
+  const anzeige = (x, y, z, text, tags = []) => `summon text_display ${x} ${y} ${z} {text:${text},billboard:"center",alignment:"center",line_width:200,background:1073741824,Tags:${q(['hub', ...tags])}}`;
+
+  // Schriften über den Kisten (Serverwahl), Bestenlisten-Platzhalter, Info-Stände, Voice-Ecke
+  const kisten = k.kisten.map((c) => anzeige(c.x + 0.5, c.y + 1.2, c.z + 0.5, `[${txt(c.titel + '\n', { color: c.farbe, bold: true })},${txt('Rechtsklick', { color: 'gray' })}]`));
+  const besten = k.bestenlisten.map((b, i) => anzeige(b.x, b.y + 1.5, b.z, `[${txt(`Bestenliste ${i + 1}\n`, { color: 'gold', bold: true })},${txt('folgt', { color: 'gray', italic: true })}]`, ['hub_bestenliste', `hub_bestenliste_${i + 1}`]));
+  const staende = k.stände.flatMap((st, i) => {
+    const [x, y, z] = st.front;
+    f[`stand/${i + 1}`] = `tellraw @s [${txt(`[${st.titel}] `, { color: 'gold', bold: true })},${txt(st.text, { color: 'white' })}]\nplaysound minecraft:item.book.page_turn master @s ~ ~ ~ 1 1\n`;
+    return [anzeige(x + 0.5, y + 2.2, z + 0.5, `[${txt(st.titel + '\n', { color: 'gold', bold: true })},${txt('Klick für Infos', { color: 'gray' })}]`), interaktion(x + 0.5, y, z + 0.5, `stand/${i + 1}`, 1.2, 2),
+      // Zeltschilder ohne festen Halt fallen beim Einfügen ab: dann neu setzen, danach beschriften
+      ...st.schilder.flatMap(([sx, sy, sz, blick]) => [`execute unless block ${sx} ${sy} ${sz} #minecraft:wall_signs run setblock ${sx} ${sy} ${sz} minecraft:spruce_wall_sign[facing=${blick}]`,
+        `data merge block ${sx} ${sy} ${sz} {is_waxed:1b,front_text:{messages:["",${q(st.titel)},"",""]}}`])];
+  });
+  const v = k.voiceEcke;
+  f['stand/voice'] = `tellraw @s [${txt('[Voice Chat] ', { color: 'light_purple', bold: true })},${txt('Taste V öffnet die Einstellungen. Dort kannst du dein Mikrofon testen und die Lautstärke einstellen. Wer in der Nähe ist, hört dich.', { color: 'white' })}]\n`;
+  const voice = [anzeige(v.x + 0.5, v.y + 2.2, v.z + 0.5, `[${txt('Voice-Chat-Ecke\n', { color: 'light_purple', bold: true })},${txt('Taste V: Einstellungen und Mikrofontest', { color: 'gray' })}]`), interaktion(v.x + 0.5, v.y, v.z + 0.5, 'stand/voice', 1.2, 2)];
+
+  // Info-Dorfbewohner: Klick löst einen Fortschritt aus (player_interacted_with_entity), dessen Belohnung den Text zeigt
+  const npcTags = k.dorfbewohner.map((d, i) => `tag @e[type=villager,x=${d.pos[0]},y=${d.pos[1]},z=${d.pos[2]},distance=..1.5,limit=1] add hub_npc_${i + 1}`);
+  k.dorfbewohner.forEach((d, i) => {
+    adv[`npc/${i + 1}`] = { criteria: { klick: { trigger: 'minecraft:player_interacted_with_entity', conditions: { entity: { type: 'minecraft:entity_properties', entity: 'this', predicate: { 'minecraft:entity_type': 'minecraft:villager', 'minecraft:nbt': `{Tags:["hub_npc_${i + 1}"]}` } } } } }, rewards: { function: `hub:npc/${i + 1}` } };
+    f[`npc/${i + 1}`] = `advancement revoke @s only hub:npc/${i + 1}\ntellraw @s [${txt('Dorfbewohner: ', { color: 'green' })},${txt(d.text, { color: 'white' })}]\nplaysound minecraft:entity.villager.ambient neutral @s ~ ~ ~ 1 1\n`;
+  });
+
+  // Adventskalender: alle 24 Geschenke entstehen beim Aufbau unsichtbar und gesperrt (hub_advent_zu, Nummer im Score hub_advent).
+  // Geschenk n wird sichtbar und klickbar, sobald #tag hub_advent ≥ n ist (täglich per Aufgabe: function hub:advent/naechster_tag) und
+  // sein Chunk geladen ist – nachträglich setzen ginge in ungeladenen Chunks nicht. Je Spieler einmal (Tag hub_hat_<n>), Belohnung kosmetisch
+  f['advent/naechster_tag'] = `# Täglich um 00:00 ab 01.12. (AMP-Aufgabe): nächstes Geschenk freischalten
+scoreboard players add #tag hub_advent 1
+execute if score #tag hub_advent matches 25.. run scoreboard players set #tag hub_advent 24
+tellraw @a [${txt('Adventskalender: ', { color: 'red', bold: true })},${txt('Ein neues Geschenk ist auf der Insel versteckt!', { color: 'white' })}]
+`;
+  f['advent/zeigen'] = `# Freigeschaltet: sichtbar (Anzeige) bzw. klickbar (Interaktion)
+tag @s remove hub_advent_zu
+execute if entity @s[type=item_display] run data modify entity @s transformation.scale set value [0.5f,0.5f,0.5f]
+`;
+  const advent = k.advent.flatMap(([x, y, z], i) => {
+    const n = i + 1;
+    return [`summon item_display ${x + 0.5} ${y + 0.3} ${z + 0.5} {item:{id:"minecraft:red_shulker_box",count:1},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[0f,0f,0f]},Tags:["hub","hub_advent","hub_advent_zu","hub_g_${n}"]}`,
+      interaktion(x + 0.5, y, z + 0.5, `advent/fund_${n}`, 0.7, 0.7).replace('"hub_klick"', `"hub_klick","hub_advent","hub_advent_zu","hub_g_${n}"`),
+      `scoreboard players set @e[tag=hub_g_${n}] hub_advent ${n}`];
+  });
+  k.advent.forEach((_, i) => {
+    const n = i + 1, item = k.adventGeschenke[i];
+    f[`advent/fund_${n}`] = `execute if entity @s[tag=hub_hat_${n}] run tellraw @s ${txt(`Geschenk ${n} hast du schon gefunden.`, { color: 'gray' })}
+execute unless entity @s[tag=hub_hat_${n}] run function hub:advent/neu_${n}
+`;
+    f[`advent/neu_${n}`] = `tag @s add hub_hat_${n}
+scoreboard players add @s hub_funde 1
+give @s ${item}[custom_name=${txt(`Adventsgeschenk ${n}`, { color: 'red', italic: false })},lore=[${txt('Weihnachten 2026', { color: 'gray', italic: false })}]]
+tellraw @s [${txt(`Geschenk ${n} gefunden! `, { color: 'red', bold: true })},${txt('Gefunden: ', { color: 'white' })},{"score":{"name":"@s","objective":"hub_funde"},"color":"gold"},${txt(' von 24', { color: 'white' })}]
+playsound minecraft:entity.player.levelup master @s ~ ~ ~ 1 1.4
+particle minecraft:happy_villager ~ ~1 ~ 0.4 0.6 0.4 0 20 normal @s
+`;
+  });
+  klicks.push(...k.advent.map((_, i) => `advent/fund_${i + 1}`));
+  f.klick = `# Ausgelöst als das Interaction-Entity: Funktion nach Tag, ausgeführt als der klickende Spieler, dann Klick löschen
+${[...new Set(klicks)].map((n) => `execute if entity @s[tag=hub_f_${n.replace(/\//g, '_')},tag=!hub_advent_zu] on target at @s run function hub:${n}`).join('\n')}
+data remove entity @s interaction
+`;
+
+  // Eröffnung 05.12.: Countdown, dann SMP-Kiste frei (serverwahl liest #offen)
+  f.eroeffnung = `# Eröffnung auslösen (Konsole oder AMP-Aufgabe), läuft nur einmal (#offen = 1 heißt offen)
+execute if score #offen insel_zustand matches 1 run say SMP ist schon offen – nichts zu tun
+execute if score #offen insel_zustand matches 0 if score #countdown insel_zustand matches 0.. run say Eröffnung läuft schon
+execute if score #offen insel_zustand matches 0 unless score #countdown insel_zustand matches 0.. run function hub:eroeffnung_start
+`;
+  f.eroeffnung_start = `bossbar add hub:eroeffnung ${txt(e.text, { color: 'gold' })}
+bossbar set hub:eroeffnung max ${e.sekunden}
+bossbar set hub:eroeffnung color yellow
+bossbar set hub:eroeffnung players @a
+scoreboard players set #countdown insel_zustand ${e.sekunden}
+playsound minecraft:block.beacon.activate master @a ~ ~ ~ 1 0.8
+function hub:eroeffnung_tick
+`;
+  f.eroeffnung_tick = `execute store result bossbar hub:eroeffnung value run scoreboard players get #countdown insel_zustand
+execute if score #countdown insel_zustand matches 1..3 run title @a title {"score":{"name":"#countdown","objective":"insel_zustand"},"color":"gold"}
+execute if score #countdown insel_zustand matches 1..3 as @a at @s run playsound minecraft:block.note_block.bell master @s ~ ~ ~ 1 1
+execute if score #countdown insel_zustand matches 0 run function hub:oeffnen
+execute if score #countdown insel_zustand matches 1.. run schedule function hub:eroeffnung_tick 20t
+scoreboard players remove #countdown insel_zustand 1
+`;
+  const smp = k.kisten[0];
+  f.oeffnen = `scoreboard players set #offen insel_zustand 1
+bossbar remove hub:eroeffnung
+title @a times 10 70 20
+title @a subtitle ${txt(e.untertitel, { color: 'green' })}
+title @a title ${txt(e.titel, { color: 'gold', bold: true })}
+execute as @a at @s run playsound minecraft:ui.toast.challenge_complete master @s ~ ~ ~ 1 1
+particle minecraft:firework ${smp.x + 0.5} ${smp.y + 1.5} ${smp.z + 0.5} 0.6 0.8 0.6 0.05 120 force
+particle minecraft:totem_of_undying ${smp.x + 0.5} ${smp.y + 1.5} ${smp.z + 0.5} 0.6 0.8 0.6 0.4 80 force
+`;
+  f.schliessen = `# Vor der Eröffnung (auch zum Proben): SMP-Kiste wieder gesperrt
+scoreboard players set #offen insel_zustand 0
+scoreboard players set #countdown insel_zustand -1
+bossbar remove hub:eroeffnung
+say SMP-Kiste gesperrt – bereit für die Eröffnung (function hub:eroeffnung)
+`;
+
+  // Aufbau in der frischen Leerwelt
+  f.aufbau = `# Kompletter Hub-Aufbau (Konsole: function hub:aufbau), braucht lokal die Struktur ${k.struktur.name}_*. Mehrfach ausführbar.
+forceload add ${lx1} ${lz1} ${lx2} ${lz2}
+schedule function hub:aufbau_pruefen 20t
+`;
+  f.aufbau_pruefen = `execute store success score #geladen insel_zustand ${geladen.join(' ')}
+execute if score #geladen insel_zustand matches 1 run function hub:aufbau_teil2
+execute unless score #geladen insel_zustand matches 1 run schedule function hub:aufbau_pruefen 20t
+`;
+  f.aufbau_teil2 = [
+    '# Alte Hub-Entities und die der Struktur entfernen (mehrfacher Aufbau), dann Bau in Kacheln setzen',
+    `kill @e[type=!player,${kasten}]`,
+    'gamerule random_tick_speed 0',
+    ...strukturBefehle(k.struktur),
+    '# Kirschhain wie im Original (Gras- und Laubfarben)', ...pilzlandBefehle(k.biom),
+    `setworldspawn ${s.x} ${s.y} ${s.z} ${s.yaw} ${s.pitch}`,
+    ...['respawn_radius 0', 'fall_damage false', 'drowning_damage false', 'fire_damage false', 'freeze_damage false', 'pvp false', 'spawn_mobs false', 'spawn_monsters false',
+      'spawn_phantoms false', 'spawn_patrols false', 'spawn_wandering_traders false', 'spawn_wardens false', 'mob_griefing false', 'keep_inventory true',
+      'show_death_messages false', 'advance_weather false', 'spread_vines false', 'fire_spread_radius_around_player 0'].map((r) => `gamerule ${r}`),
+    'weather clear',
+    `worldborder center ${g.x} ${g.z}`, `worldborder set ${g.breite}`,
+    'schedule function hub:aufbau_ende 100t',
+  ].join('\n') + '\n';
+  f.aufbau_ende = [
+    '# Herausgefallene Gegenstände weg, Dorfbewohner markieren, Hub-Inhalte setzen, Chunks freigeben',
+    `kill @e[type=item,${kasten}]`,
+    ...npcTags,
+    ...k.tafeln.map((t) => `setblock ${t.x} ${t.y} ${t.z} ${t.block}{is_waxed:1b,front_text:{messages:[${[...t.zeilen, '', '', '', ''].slice(0, 4).map(q).join(',')}]}}`),
+    ...kisten, ...besten, ...staende, ...voice,
+    ...advent,
+    'function hub:schliessen',
+    `forceload remove ${lx1} ${lz1} ${lx2} ${lz2}`,
+    `say Hub eingerichtet: Bau, Kirschhain, Spawn ${s.x}/${s.y}/${s.z}, Weltgrenze, ${k.dorfbewohner.length} Info-Dorfbewohner, ${k.stände.length} Stände, Adventskalender, SMP gesperrt`,
+  ].join('\n') + '\n';
+  return { funktionen: f, fortschritte: adv };
+}
+
+if (process.argv[1]?.replace(/\\/g, '/').endsWith('spawn/hub.mjs')) {
+  const [befehl, konfig, aus = join(REPO, 'spawn')] = process.argv.slice(2);
+  if (befehl !== 'bauen') { console.log('Aufruf: node spawn/hub.mjs bauen <hub.json> [ausgabeordner]'); process.exit(1); }
+  const k = JSON.parse(readFileSync(konfig, 'utf8'));
+  const dp = join(aus, 'datapack/hub');
+  rmSync(dp, { recursive: true, force: true });
+  const { funktionen, fortschritte } = dateien(k);
+  for (const [n, t] of Object.entries(funktionen)) { const p = join(dp, 'data/hub/function', `${n}.mcfunction`); mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, t); }
+  for (const [n, a] of Object.entries(fortschritte)) { const p = join(dp, 'data/hub/advancement', `${n}.json`); mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, JSON.stringify(a, null, 2) + '\n'); }
+  mkdirSync(join(dp, 'data/minecraft/tags/function'), { recursive: true });
+  writeFileSync(join(dp, 'data/minecraft/tags/function/tick.json'), '{ "values": ["hub:tick"] }\n');
+  writeFileSync(join(dp, 'data/minecraft/tags/function/load.json'), '{ "values": ["hub:load"] }\n');
+  writeFileSync(join(dp, 'pack.mcmeta'), JSON.stringify({ pack: { description: 'Hub: Fantasy Village (LavaBuilds), Info-Stände, Adventskalender, Eröffnung', min_format: [121, 0], max_format: [121, 0] } }, null, 2) + '\n');
+  console.log(`Datapack hub aus ${konfig} → ${dp} (${Object.keys(funktionen).length} Funktionen, ${Object.keys(fortschritte).length} Fortschritte)`);
+}

@@ -1,0 +1,1 @@
+tellraw @s [{"text":"[Voice Chat] ","color":"light_purple","bold":true},{"text":"Taste V öffnet die Einstellungen. Dort kannst du dein Mikrofon testen und die Lautstärke einstellen. Wer in der Nähe ist, hört dich.","color":"white"}]
