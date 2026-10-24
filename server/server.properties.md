@@ -6,6 +6,10 @@ und prüft das gemeinsame Secret (`velocity/README.md`).
 ```properties
 server-ip=127.0.0.1
 server-port=25566
+max-players=30
+view-distance=8
+simulation-distance=6
+network-compression-threshold=-1
 online-mode=false
 white-list=true
 enforce-whitelist=true
@@ -22,5 +26,7 @@ motd=§b❄ Weihnachtsprojekt 2026 ❄
 (`paper/paper-global.yml.auszug`). Ohne Proxy-Konfiguration nie so starten.
 
 In AMP lassen sich Port und Bindung in den Instanz-Einstellungen setzen. AMP überschreibt `server.properties` sonst beim Start.
+
+Begründung für Spielerzahl, Sichtweiten und Kompression: `kapazitaet.md`.
 
 Port, RAM und Pfade: siehe Administration-Doku im Vault.
