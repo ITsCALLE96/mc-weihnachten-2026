@@ -1,10 +1,7 @@
-# WorldGuard-Regionen der Oberwelt (Task 7 Schritt 4). Einspielen bei gestopptem Server nach
-#   plugins/WorldGuard/worlds/world/regions.yml
-# oder bei laufendem Server dort ablegen und in der Konsole: rg load -w world
-# spawn: Oval um den Insel-Umriss plus Rand (Mitte 71/25, Halbachsen 62 in x und 46 in z, 32 Punkte), volle Höhe:
-#   Spawnschutz (Nicht-Mitglieder bauen nicht, OPs umgehen das), keine Monster, kein PvP, Truhen zu, Türen/Knöpfe frei.
-#   Sättigung gibt es nicht mehr hier, sondern einmalig beim Betreten der Insel über das Datapack insel (Pascal 24.10.).
-#   Seit 24.10. (Pascal) kein großes Bauverbot mehr, die Ebene ringsum ist frei bebaubar (Monster hält dort das Pilzland-Biom fern).
+# WorldGuard-Region der Oberwelt, erzeugt mit spawn/standort.mjs aus spawn/standort-testserver.json. Einspielen nach
+#   plugins/WorldGuard/worlds/world/regions.yml   (laufender Server: rg load -w world)
+# spawn: Oval (Mitte 71/25, Halbachsen 62 in x und 46 in z, 32 Punkte), volle Höhe: Spawnschutz (Nicht-Mitglieder bauen
+#   nicht, OPs umgehen das), keine Monster, kein PvP, Truhen zu, Türen/Knöpfe frei. Sättigung macht das Datapack insel. Kein großes Bauverbot.
 regions:
     spawn:
         type: poly2d

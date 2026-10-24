@@ -1,5 +1,33 @@
 # Spawn-Aufbau (Testserver und echte Welt)
 
+> **Kurswechsel 24.10. (Decision Log):** Die CA12-Insel kommt **nicht** auf die echte Welt (Forever-World, neuer Seed). Sie bleibt nur als Platzhalter
+> auf dem Testserver. Die Spawn-Technik ist davon unabhängig und wird über eine **Standort-Konfiguration** auf jeden Spawn angepasst (siehe unten).
+
+## Spawn-Technik für jeden Standort
+
+Alle Ortsangaben stehen in `spawn/standort-<name>.json` (Vorlage: `standort-testserver.json`):
+
+| Feld | Bedeutung |
+|---|---|
+| `spawn` | Weltspawn x/y/z und Blickrichtung (yaw/pitch); dorthin führt auch der Rückweg-Teleport |
+| `oval` | Mitte x/z und Halbachsen a (x) / b (z): Spawnschutz-Region (WorldGuard poly2d) und Bereich der Lichter, ≈ Umriss des Spawns am Boden plus Rand |
+| `plattform` | Mitte x/y/z der Rückweg-Plattform (y = Höhe der Plattform-Oberkante, meist Wasserspiegel 62), Radius des Auslösers |
+| `obenBereich` | Kasten (von/bis), in dem man „oben am Spawn“ ist: dort gibt es beim Betreten einmal Sättigung |
+| `struktur` | optional: Struktur, die `insel:aufbau` per `place template` setzt (Name, untere Nordwest-Ecke); `null` bei eigenem Bau oder fertiger Welt |
+| `weltgrenze` | Mitte x/z und Breite |
+| `teleportTicks`, `saettigung`, `lichter` | Dauer des Portal-Übergangs, Sättigung (Sekunden, Abklingzeit), Licht-Raster und Unterkante des Baus |
+
+Ablauf für einen neuen Standort:
+1. `spawn/standort-<name>.json` anlegen
+2. `node spawn/standort.mjs bauen spawn/standort-<name>.json` → Datapack `spawn/datapack/insel/` und `spawn/worldguard/regions.yml`
+3. Welt mit Spawn-Bau aufsetzen und `function insel:aufbau` ausführen (Plattform, Spawn, Weltgrenze; Lichter beim ersten Mal noch die alten)
+4. `node spawn/standort.mjs lichter spawn/standort-<name>.json <welt>` → `lichter.mcfunction` aus dem fertigen Gelände, dann `minecraft:reload` und `function insel:lichter`
+5. Mit `spawn/PRUEFLISTE.md` prüfen
+
+Die Plattform (runde Scheibe, Radius 4, von Pascal freigegeben) ist im Generator festgelegt (`plattformTeile()`); bei einem anderen Spawn-Stil dort anpassen.
+
+## Testserver (CA12-Platzhalter)
+
 Stand 2026-10-24, entschieden von Pascal: **CA12-Seed `1560698989`**, **Kandidat A**: Aufschüttung wie in CA12 (Biom Pilzland), **Insel v2** an der Originalposition,
 **Weltspawn 64/179/29**, Rückweg-Plattform mittig darunter, **Weltgrenze 10.000 um 64/37**.
 

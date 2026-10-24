@@ -1,4 +1,4 @@
-# Unsichtbare Lichter nur im Oval um den Insel-Umriss (Mitte 71/25, Halbachsen 62/46), nur auf Boden bzw. Wasser, Raster 8 – erzeugt mit tools/schem-licht.mjs
+# Unsichtbare Lichter nur im Oval (Mitte 71/25, Halbachsen 62/46), nur auf Boden bzw. Wasser, Raster 8 – erzeugt mit spawn/standort.mjs lichter
 setblock 41 63 -13 minecraft:light[level=15] keep
 setblock 49 63 -13 minecraft:light[level=15] keep
 setblock 57 63 -13 minecraft:light[level=15] keep

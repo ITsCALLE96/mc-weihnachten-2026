@@ -1,7 +1,13 @@
 {
   "pack": {
-    "description": "Spawn-Insel: Rückweg-Plattform, Lichtblöcke – Minecraft Weihnachtsprojekt 2026",
-    "min_format": [121, 0],
-    "max_format": [121, 0]
+    "description": "Spawn-Technik: Rückweg-Plattform, Sättigung, Lichter, Aufbau",
+    "min_format": [
+      121,
+      0
+    ],
+    "max_format": [
+      121,
+      0
+    ]
   }
 }

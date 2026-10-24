@@ -126,3 +126,16 @@ Höhenkarten von CA12 (1.21.1) und frisch erzeugtem 26.3-Gelände (gleicher Seed
 **Nach Pascals Test der frischen Welt (24.10.):** Lichter nur noch im Oval um den Insel-Umriss (138 statt 369, nur Boden/Wasser), Spawnschutz-Region `spawn` als Oval-Polygon, `spawn_bauverbot` entfällt, Rückweg mit Portal-Übergang (3,5 s). Live per RCON auf dem Testserver eingespielt.
 
 **Zweiter Test (24.10.), umgesetzt:** Aufschüttung als schlichte Ebene (nur CA12-Umriss, gleichmäßig gefüllt, keine Spuren der Shops), Sättigung nur noch einmalig oben auf der Insel (Datapack statt WorldGuard-`feed`), Harvester raus, Plugin-Konfigs der Server-Session werden beim Reset eingespielt, rp-v2. Testwelt komplett zurückgesetzt und neu aufgebaut.
+
+### Kurswechsel 24.10.: kein CA12-Spawn auf der echten Welt
+
+Forever-World, neuer Seed, kein Kopieren (Pascal, Decision Log). Die CA12-Insel bleibt nur Platzhalter auf dem Testserver, keine weitere Arbeit daran. Die Spawn-Technik ist jetzt über `spawn/standort-*.json` + `spawn/standort.mjs` an jeden Spawn anpassbar (`AUFBAU.md`).
+
+### Recherche: Nitrado „SparkofPhoenix’s Craft Attack Experience“ (24.10.)
+
+Quelle: Nitrado-Aktionsseite pages.nitrado.net/craftattack (Betreiber marbis GmbH = Nitrado), FAQ-Texte aus dem Seitenquelltext. Nichts entschieden.
+- **Was es ist:** kein offizielles Craft-Attack-Material. Ein von SparkofPhoenix zusammengestelltes Serverpaket, nur als **Nitrado-Servermiete** („Craft Attack-Server mieten“), kein Download-Angebot. Welt auf einem eigenen Seed („wäre beinahe der Seed von Craft Attack 14 gewesen“), **selbst gebaute Spawninsel**, **Shopping District samt Netherportal**, ausgewählte **Datapacks**: **Einmal-Elytra**, zusätzliche Crafting-Rezepte, Schlafquote 15 % „und vieles mehr“. Vanilla-Spielgefühl.
+- **Version:** Minecraft Java **26.3**. Optional Simple Voice Chat (Mod auf dem Client). Server-Software nicht genannt; Einmal-Elytra als Datapack deutet auf Vanilla (ohne Plugins).
+- **Nutzung/Lizenz:** Auf der Seite **keine Aussage** zu Lizenz, Weitergabe, Nutzung außerhalb von Nitrado, nach Mietende oder beim Streamen. Die verlinkten Nitrado-AGB (server.nitrado.net/…/legal/terms-and-conditions) waren nur per JavaScript lesbar und lieferten keinen Text; einen Abschnitt zu solchen Paketen habe ich nicht gefunden. Die Seite wirbt mit Partner-Streamern, Streamen ist also offensichtlich vorgesehen, aber nicht ausdrücklich geregelt.
+- **Offene Fragen an Nitrado bzw. SparkofPhoenix (vor einer Entscheidung schriftlich klären):** Dürfen Welt, Spawn und Datapacks heruntergeladen und auf einem eigenen Server (Proxmox/AMP) weiterbetrieben werden, auch nach Mietende? Dürfen wir den Spawn auf einen anderen Seed übertragen? Ist Streamen/YouTube erlaubt, mit welcher Namensnennung? Sind die Datapacks von Dritten (Lizenzen)?
+- **Rabattcode** SPARKOFPHOENIX (−40 %) laut Twitch-Seite von SparkofPhoenixTV; nicht auf der Nitrado-Seite genannt.

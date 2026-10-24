@@ -1,0 +1,12 @@
+{
+  "beschreibung": "Lokaler Testserver: CA12-Insel nur als Platzhalter für Funktionstests (kommt nicht auf die echte Welt, Kurswechsel 24.10.)",
+  "spawn": { "x": 64, "y": 179, "z": 29, "yaw": 0, "pitch": 0 },
+  "oval": { "x": 71, "z": 25, "a": 62, "b": 46 },
+  "plattform": { "x": 64, "y": 62, "z": 29, "radius": 4 },
+  "obenBereich": { "von": [27, 165, -6], "bis": [115, 240, 56] },
+  "struktur": { "name": "spawn:ca12v2", "ursprung": [24, 64, -9] },
+  "weltgrenze": { "x": 64, "z": 37, "breite": 10000 },
+  "teleportTicks": 70,
+  "saettigung": { "sekunden": 2, "abklingTicks": 6000 },
+  "lichter": { "raster": 8, "unterkante": 115 }
+}
