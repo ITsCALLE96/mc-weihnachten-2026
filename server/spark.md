@@ -33,8 +33,12 @@ Server-Interna (Plugins, Konfiguration, Threads), aber keine Passwörter. Links 
 Standardmäßig dürfen **nur OPs** und die Konsole alle spark-Befehle sowie `/tps` und `/mspt` nutzen. Spark-Rechte heißen `spark` (alles) bzw. `spark.<befehl>`, z. B. `spark.tps`.
 Das prüfe ich beim Einrichten mit `/spark` gegen die Version in Paper 26.3.
 
-**Option, nicht umgesetzt: normale Spieler sehen `/spark tps`.** Dafür gibt es zwei Wege:
+**Entschieden (Leitung 24.10.): alle Spieler sehen `/spark tps`**, über Weg 1 mit der Datei `paper/permissions.yml`. Zur Wahl standen:
 1. **Ohne Zusatz-Plugin:** Bukkits eigene `permissions.yml` im Serverordner, `spark.tps` mit `default: true`. Klein, ohne neues Plugin, gilt dann aber für alle
 2. **LuckPerms** (Rechte-Plugin): fein steuerbar (Gruppen, einzelne Spieler), aber ein Plugin mehr, das gepflegt werden will
 
-Mein Vorschlag, falls gewünscht: Weg 1, und zwar nur `spark.tps`, keine Profiler-Rechte. Mit den Profiler-Rechten könnten Spieler Interna hochladen.
+Umgesetzt ist nur `spark.tps`, keine Profiler-Rechte. Mit den Profiler-Rechten könnten Spieler Interna hochladen.
+
+**Einrichten:** `paper/permissions.yml` in den Serverordner (neben `server.properties`) kopieren, Server neu starten. Die Datei vergibt `spark.tps` über eine
+eigene Sammel-Berechtigung `weihnachten.spieler` (Begründung in der Datei). **Prüfen:** Spieler ohne OP: `/spark tps` geht, `/spark profiler` und `/spark health` werden
+abgelehnt. Im Serverlog keine Warnung zu `permissions.yml`

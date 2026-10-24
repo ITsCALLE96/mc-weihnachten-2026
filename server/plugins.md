@@ -17,6 +17,7 @@ dann in `plugins/` kopieren.
 | Simple Voice Chat (Bukkit) | bukkit-2.6.25 (release, 22.10.) | Modrinth `simple-voice-chat` | ARR (Nutzung frei) | `voicechat-bukkit-2.6.25.jar`, `7e1113545d931e5a188a21d0ef806371f13813ea` | Sprachchat |
 | Right click harvester | 1.1 (release, 22.06.) | Modrinth `right-click-harvester` | GPL-3.0 | `harvester-1.1.jar`, `73530a00b32a7a789f632df22d8f1ba6cdc3c0ca` | Rechtsklick-Ernte mit Neupflanzen |
 | Chunky | 1.5.3 (release, 04.05.) | Modrinth `chunky` | GPL-3.0 | `Chunky-Bukkit-1.5.3.jar`, `7ff47ee3afec89a1725e6eef393f373c549eff3b` | Welt vorgenerieren (`kapazitaet.md`) |
+| Spawn Elytra – like in Craft Attack | 2.6.1 (release, 06.09.) | Modrinth `spawnelytra` | MIT | `SpawnElytra-2.6.1.jar`, `4942f2bec4d4ea612a91b1e443745dcaf278d2ee` | Elytra-Flug per Doppelsprung am Spawn wie in Craft Attack |
 | spark | in Paper eingebaut | – | – | – | Profiler: `/spark tps`, `/spark health`, `/spark profiler` |
 
 Alle sind auf Modrinth als 26.3-kompatibel markiert (Filter `game_versions=26.3`, Loader paper/bukkit).
@@ -46,6 +47,16 @@ Alle sind auf Modrinth als 26.3-kompatibel markiert (Filter `game_versions=26.3`
   verborgen, weil Anti-Xray ihn im Nether versteckt (siehe `paper/anti-xray.md`). Den genauen Schlüssel prüfe ich in der
   `config.yml`, die das Plugin beim ersten Start anlegt.
 - **Kein VeinMiner** (Pascal, 23.10.)
+- **Spawn Elytra → „Spawn Elytra – like in Craft Attack“** (Leitung 24.10., Ersatz für die CA-Spawn-Elytra). Quelle: github.com/Knabbiii/SpawnElytra.
+  Verworfen: das gleichnamige *Spawn Elytra* (Modrinth `spawn-elytra`, MPL-2.0), weil die Leitung das Craft-Attack-Plugin festgelegt hat.
+  - Doppelsprung startet den Gleitflug ohne echte Elytra, F gibt einen Schub, Landen ohne Fallschaden
+  - **Flugbereich = Spawn-Insel:** im Spiel mit `/spawnelytra setup` (Rechteck pos1/pos2/save) bzw. `/spawnelytra center`, danach mit
+    `/spawnelytra visualize` prüfen. Ohne eigenen Bereich nimmt es einen Radius um den Welt-Spawn. Gespeichert in `plugins/SpawnElytra/area.yml`
+  - `config.yml`: Welt auf die Overworld, Meldungen auf Deutsch (`messages.yml`), **bStats aus**. Optional Flugzeit begrenzen, falls jemand vom Spawn
+    aus endlos fliegt
+  - Rechte: `spawnelytra.use`, `spawnelytra.useboost` (beim Einrichten prüfen, dass Spieler sie ohne Rechte-Plugin haben), `spawnelytra.admin` nur OP
+  - **Prüfen (Task 4):** Spieler ohne OP fliegt per Doppelsprung auf der Insel, außerhalb nicht. Schub mit F, kein Fallschaden. Brustpanzer bleibt erhalten.
+    Verträgt sich mit WorldGuard-Spawnschutz und Fair Play
 
 ## Velocity-Instanz `MinecraftProxy01`
 

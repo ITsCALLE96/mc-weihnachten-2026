@@ -19,7 +19,8 @@ Werkzeug: **Chunky 1.5.3** (Modrinth `chunky`, GPL-3.0, Prüfsumme in `plugins.m
   Overworld automatisch mit 1/8 übernimmt, prüfe ich auf dem Server. Der Befehl schadet in keinem Fall)
 - End: `execute in minecraft:the_end run worldborder set 10000` (Elytra-Flüge nach außen bleiben möglich, nur nicht endlos)
 - **Mittelpunkt = Spawn:** Liegt die Spawn-Insel nicht bei 0/0, kommen Weltgrenze und Chunky-Mittelpunkt auf die Spawn-Koordinaten.
-  **Mit der Spawn-&-Welt-Session abstimmen**, die die Insel setzt (Plan Task 7). Bis dahin: Mittelpunkt 0/0
+  **Entschieden (Leitung 24.10.):** Seed ist der CA12-Seed `1560698989`, Weltgrenze 10.000 × 10.000 um den Spawn, vorgeneriert bis zur Grenze.
+  Den genauen Mittelpunkt liefert die Spawn-&-Welt-Session (Plan Task 7). Bis dahin: Mittelpunkt 0/0
 - Chunky übernimmt Form und Mittelpunkt: `chunky center <x> <z>` · `chunky shape square` · `chunky radius 5000`
 
 ## End: ja, im Radius 2.000
@@ -52,11 +53,12 @@ Die vorgenerierte Welt macht **jedes Backup** größer. Region-Dateien sind scho
 |---|---|
 | Welt nach Vorgenerierung, wächst im Spiel auf | ~5 GB → ~7 GB bis Januar |
 | Testwelt-Sicherung (Task 10 Schritt 4: sichern, dann verwerfen) | ~1,5 GB |
-| AMP-Backups laut Plan (stündlich, 24 aufbewahren) | **24 × ~6 GB ≈ 145 GB** |
+| AMP-Backups, ursprünglich geplant (stündlich, 24 aufbewahren) | 24 × ~6 GB ≈ 145 GB |
+| **AMP-Backups, entschieden (alle 3 h, 8 aufbewahren)** | **8 × ~6 GB ≈ 50 GB** |
 | Statistik-Archiv | < 1 GB |
 
 **Das stündliche Backup mit 24 Ständen passt mit vorgenerierter Welt vermutlich nicht.** VM200 hatte im Juni ~196 GB Datenplatte, darauf liegen auch die anderen Instanzen.
-Vorschlag (Task 9 Schritt 3, **Für die Leitung**):
+**Entschieden (Leitung 24.10.): alle 3 Stunden, 8 Stände, plus das nächtliche Proxmox-Backup auf die QNAP** (Task 9 Schritt 3). Zur Wahl standen:
 - AMP-Backup **alle 3 Stunden, 8 Stände aufbewahren** (= 24 h zurück, ~50 GB) plus das nächtliche Proxmox-Backup von VM200 auf die QNAP (deckt ältere Stände ab)
 - oder: stündlich, aber nur 6 aufbewahren (~36 GB)
 
