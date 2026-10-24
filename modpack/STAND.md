@@ -101,14 +101,14 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/simplevoiceanimations-fabric-1.3.1+26.3.jar | https://cdn.modrinth.com/data/F1oVAMoc/versions/UOevvLgE/simplevoiceanimations-fabric-1.3.1%2B26.3.jar |
 | mods/voicechat-names-26.3-1.0.2.jar | https://cdn.modrinth.com/data/AcHVdC8l/versions/nCgCmgzo/voicechat-names-26.3-1.0.2.jar |
 | mods/litematica-fabric-26.3-0.29.1.jar.disabled | https://cdn.modrinth.com/data/bEpr0Arc/versions/ZqV316KY/litematica-fabric-26.3-0.29.1.jar |
-| mods/malilib-fabric-26.3-0.30.2.jar | https://cdn.modrinth.com/data/GcWjdA9I/versions/JX9bESec/malilib-fabric-26.3-0.30.2.jar |
+| mods/malilib-fabric-26.3-0.30.2.jar.disabled | https://cdn.modrinth.com/data/GcWjdA9I/versions/JX9bESec/malilib-fabric-26.3-0.30.2.jar |
 | mods/nvidium-0.4.4-beta7-26.3.jar.disabled | https://cdn.modrinth.com/data/SfMw2IZN/versions/8mVK1zbk/nvidium-0.4.4-beta7-26.3.jar |
 | mods/voxy-0.2.20-beta.jar.disabled | https://cdn.modrinth.com/data/fxxUqruK/versions/iIrM8ZKQ/voxy-0.2.20-beta.jar |
 | mods/ukus-armor-hud-fabric-0.14.0+mc26.3.jar.disabled | https://cdn.modrinth.com/data/wF189hn9/versions/URl1E7bP/ukus-armor-hud-fabric-0.14.0%2Bmc26.3.jar |
-| mods/ukulib-fabric-2.2.0+26.3.jar | https://cdn.modrinth.com/data/Y8uFrUil/versions/whtjB9LL/ukulib-fabric-2.2.0%2B26.3.jar |
+| mods/ukulib-fabric-2.2.0+26.3.jar.disabled | https://cdn.modrinth.com/data/Y8uFrUil/versions/whtjB9LL/ukulib-fabric-2.2.0%2B26.3.jar |
 | mods/Flashback-0.43.6-for-MC26.3.jar.disabled | https://cdn.modrinth.com/data/4das1Fjq/versions/cV1pa0YV/Flashback-0.43.6-for-MC26.3.jar |
 | mods/do_a_barrel_roll-fabric-3.8.5+26.3.jar.disabled | https://cdn.modrinth.com/data/6FtRfnLg/versions/fmAJrjVS/do_a_barrel_roll-fabric-3.8.5%2B26.3.jar |
-| mods/cicada-lib-0.15.3+26.3.jar | https://cdn.modrinth.com/data/IwCkru1D/versions/f5sDzSl6/cicada-lib-0.15.3%2B26.3.jar |
+| mods/cicada-lib-0.15.3+26.3.jar.disabled | https://cdn.modrinth.com/data/IwCkru1D/versions/f5sDzSl6/cicada-lib-0.15.3%2B26.3.jar |
 | shaderpacks/ComplementaryReimagined_r5.9.3.zip | https://cdn.modrinth.com/data/HVnmMxH1/versions/Bqen1mJX/ComplementaryReimagined_r5.9.3.zip |
 | shaderpacks/ComplementaryUnbound_r5.9.3.zip | https://cdn.modrinth.com/data/R6NEzAwj/versions/B1kyfoUZ/ComplementaryUnbound_r5.9.3.zip |
 | resourcepacks/Redstone Tweaks 2.5.6.zip | https://cdn.modrinth.com/data/RvfAlf4Z/versions/A19pA3wb/Redstone%20Tweaks%202.5.6.zip |

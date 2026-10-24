@@ -36,6 +36,16 @@ Nicht zusammen einschalten: **voxy** und **Distant Horizons** (Distant Horizons 
 
 Die Tasten lassen sich unter **Optionen → Steuerung** ändern (mit Suchfeld).
 
+## Neue Pack-Version von uns
+
+Eine bestehende Instanz übernimmt neue Mods und Voreinstellungen **nicht** von selbst (nach „Unlink instance“ gar nicht, sonst bleiben deine geänderten Einstellungen stehen). Am saubersten:
+
+1. Die neue `.mrpack`-Datei wie beim ersten Mal als **neues Profil** importieren und Schritt 4 (Unlink) wiederholen.
+2. Aus dem alten Profil-Ordner (Profil → **⋯ → Ordner öffnen**) mitnehmen, was du behalten willst: `servers.dat` (Serverliste), `XaeroWaypoints/` und `xaero/` (Wegpunkte, Karte), `screenshots/`.
+3. Das alte Profil löschen, sobald im neuen alles passt.
+
+**Voice Chat stumm oder unsichtbar?** **Ä** schaltet dein Mikro stumm und wieder an. Unter **V** gibt es den Knopf „Symbole ausblenden“; ist er an, siehst du keine Voice-Symbole.
+
 ## Block-Marker
 
 Unsere eigene Mod. Sie färbt Blöcke ein, die du auswählst, und lässt sie auf Wunsch leuchten, zum Beispiel alle Truhen oder die Erze in deiner Mine. Mehrere Auswahlen speicherst du als **Profile**. **Komma** schaltet zum nächsten Profil, nach dem letzten ist alles aus. **Punkt** fügt den Block hinzu, den du gerade anschaust. Das Menü mit Suche öffnest du über **Mods → Block-Marker** im Hauptmenü oder Pausenmenü. Auf dem Server erlaubt, weil es kein X-Ray ist: Blöcke hinter Wänden bleiben unsichtbar.

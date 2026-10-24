@@ -110,10 +110,9 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   for (const projekt of aktivSobaldVerfuegbar) await hole(projekt, false);
   const aktivVorher = new Set(gefunden.keys());
   const deaktiviert = new Set();
-  for (const projekt of optional) {
-    const id = await hole(projekt, false);
-    if (id && !aktivVorher.has(id)) deaktiviert.add(id);
-  }
+  for (const projekt of optional) await hole(projekt, false);
+  // Optionale Mods und alles, was nur sie mitbringen (z. B. malilib für Litematica), liegen deaktiviert bei.
+  for (const id of gefunden.keys()) if (!aktivVorher.has(id)) deaktiviert.add(id);
   // Was eine aktive Mod braucht, muss selbst aktiv bleiben.
   for (let geaendert = true; geaendert;) {
     geaendert = false;
