@@ -1,0 +1,42 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.dorf.handel.schritt.1",
+        "fallback": "Collect a few emeralds or the goods the trader wants."
+      },
+      "items": [
+        "minecraft:emerald"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.handel.schritt.2",
+        "fallback": "Find a villager with a job. Jobless ones don't trade."
+      },
+      "items": [
+        "minecraft:villager_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.handel.schritt.3",
+        "fallback": "No job yet? Place a workstation, e.g. a composter for a farmer."
+      },
+      "items": [
+        "minecraft:composter"
+      ],
+      "rezept": "minecraft:composter"
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.handel.schritt.4",
+        "fallback": "Right-click the villager, pick an offer and trade."
+      },
+      "items": [
+        "minecraft:emerald",
+        "minecraft:villager_spawn_egg"
+      ]
+    }
+  ]
+}

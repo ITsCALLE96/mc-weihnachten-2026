@@ -1,0 +1,44 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.entdecken.leitstein.schritt.1",
+        "fallback": "Craft 8 chiseled stone bricks around an iron ingot: a lodestone."
+      },
+      "items": [
+        "minecraft:lodestone",
+        "minecraft:chiseled_stone_bricks"
+      ],
+      "rezept": "minecraft:lodestone"
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.leitstein.schritt.2",
+        "fallback": "Craft a compass from 4 iron ingots and redstone."
+      },
+      "items": [
+        "minecraft:compass"
+      ],
+      "rezept": "minecraft:compass"
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.leitstein.schritt.3",
+        "fallback": "Place the lodestone and right-click it with the compass."
+      },
+      "items": [
+        "minecraft:lodestone",
+        "minecraft:compass"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.leitstein.schritt.4",
+        "fallback": "The compass now always points to the lodestone, your way home."
+      },
+      "items": [
+        "minecraft:compass"
+      ]
+    }
+  ]
+}

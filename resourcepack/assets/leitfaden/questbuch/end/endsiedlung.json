@@ -1,0 +1,44 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.end.endsiedlung.schritt.1",
+        "fallback": "Travel through an End gateway to the outer islands."
+      },
+      "items": [
+        "minecraft:end_gateway"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.endsiedlung.schritt.2",
+        "fallback": "Look for tall purple towers in the End Highlands and Midlands."
+      },
+      "items": [
+        "minecraft:purpur_block",
+        "minecraft:end_rod"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.endsiedlung.schritt.3",
+        "fallback": "Step inside, but beware of shulkers!"
+      },
+      "items": [
+        "minecraft:shulker_spawn_egg"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.end.endsiedlung.fundort.1",
+        "fallback": "End cities only generate on the outer islands."
+      },
+      "biome": [
+        "minecraft:end_highlands",
+        "minecraft:end_midlands"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.feld.schritt.1",
+        "fallback": "Craft a wooden hoe: 2 planks and 2 sticks."
+      },
+      "items": [
+        "minecraft:wooden_hoe"
+      ],
+      "rezept": "minecraft:wooden_hoe"
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.feld.schritt.2",
+        "fallback": "Break tall grass until seeds drop."
+      },
+      "items": [
+        "minecraft:short_grass",
+        "minecraft:wheat_seeds"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.feld.schritt.3",
+        "fallback": "Till dirt with the hoe, ideally next to water."
+      },
+      "items": [
+        "minecraft:farmland",
+        "minecraft:water_bucket"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.feld.schritt.4",
+        "fallback": "Plant the seeds: water hydrates 4 blocks in every direction."
+      },
+      "items": [
+        "minecraft:wheat_seeds"
+      ]
+    }
+  ]
+}

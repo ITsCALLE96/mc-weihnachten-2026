@@ -1,0 +1,57 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.dorf.hauptmann.schritt.1",
+        "fallback": "Find a pillager outpost, the dark wooden tower."
+      },
+      "items": [
+        "minecraft:pillager_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.hauptmann.schritt.2",
+        "fallback": "Look for the pillager with a banner on their head: that's the captain."
+      },
+      "items": [
+        "minecraft:white_banner"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.hauptmann.schritt.3",
+        "fallback": "Defeat them, ideally with armor and some distance."
+      },
+      "items": [
+        "minecraft:crossbow",
+        "minecraft:iron_ingot"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.hauptmann.schritt.4",
+        "fallback": "Pick up the ominous bottle they drop."
+      },
+      "items": [
+        "minecraft:ominous_bottle"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.dorf.hauptmann.fundort.1",
+        "fallback": "Pillager outposts stand in deserts, plains, savannas, snowy plains, taigas, mountains and groves."
+      },
+      "biome": [
+        "minecraft:desert",
+        "minecraft:plains",
+        "minecraft:savanna",
+        "minecraft:snowy_plains",
+        "minecraft:taiga",
+        "minecraft:grove"
+      ]
+    }
+  ]
+}

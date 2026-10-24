@@ -1,0 +1,54 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.werkbank.schritt.1",
+        "fallback": "Punch a tree trunk with your bare hand."
+      },
+      "items": [
+        "minecraft:oak_log"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.werkbank.schritt.2",
+        "fallback": "Turn it into planks in your inventory."
+      },
+      "items": [
+        "minecraft:oak_planks"
+      ],
+      "rezept": "minecraft:oak_planks"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.werkbank.schritt.3",
+        "fallback": "Put 4 planks in the 2×2 grid: there's your crafting table."
+      },
+      "items": [
+        "minecraft:crafting_table"
+      ],
+      "rezept": "minecraft:crafting_table"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.werkbank.schritt.4",
+        "fallback": "Place it down. It gives you a 3×3 grid."
+      },
+      "items": [
+        "minecraft:crafting_table"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.werkbank.fundort.1",
+        "fallback": "Oaks grow in almost every forest and in plains."
+      },
+      "biome": [
+        "minecraft:forest",
+        "minecraft:plains"
+      ]
+    }
+  ]
+}

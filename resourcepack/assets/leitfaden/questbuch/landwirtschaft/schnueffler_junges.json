@@ -1,0 +1,32 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.schnueffler_junges.schritt.1",
+        "fallback": "Put the sniffer egg on moss to hatch it twice as fast."
+      },
+      "items": [
+        "minecraft:sniffer_egg",
+        "minecraft:moss_block"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.schnueffler_junges.schritt.2",
+        "fallback": "Wait for the snifflet to hatch."
+      },
+      "items": [
+        "minecraft:sniffer_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.schnueffler_junges.schritt.3",
+        "fallback": "Feed it torchflower seeds."
+      },
+      "items": [
+        "minecraft:torchflower_seeds"
+      ]
+    }
+  ]
+}

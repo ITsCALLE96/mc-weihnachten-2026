@@ -1,0 +1,40 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.witherschaedel.schritt.1",
+        "fallback": "Head to a Nether fortress and look for wither skeletons."
+      },
+      "items": [
+        "minecraft:wither_skeleton_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.witherschaedel.schritt.2",
+        "fallback": "Enchant your sword with Looting to improve your odds."
+      },
+      "items": [
+        "minecraft:diamond_sword"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.witherschaedel.schritt.3",
+        "fallback": "Defeat wither skeletons until a wither skeleton skull drops."
+      },
+      "items": [
+        "minecraft:wither_skeleton_skull"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.nether.witherschaedel.fundort.1",
+        "fallback": "Wither skeletons live in Nether fortresses."
+      },
+      "dimension": "minecraft:the_nether"
+    }
+  ]
+}

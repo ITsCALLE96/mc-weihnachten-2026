@@ -1,0 +1,69 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.entdecken.scherbe.schritt.1",
+        "fallback": "Craft a brush from a feather, copper ingot and stick."
+      },
+      "items": [
+        "minecraft:brush",
+        "minecraft:feather"
+      ],
+      "rezept": "minecraft:brush"
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.scherbe.schritt.2",
+        "fallback": "Find a desert pyramid, trail ruins or ocean ruins."
+      },
+      "items": [
+        "minecraft:suspicious_sand",
+        "minecraft:suspicious_gravel"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.scherbe.schritt.3",
+        "fallback": "Hold right-click on suspicious sand or gravel to brush it."
+      },
+      "items": [
+        "minecraft:brush",
+        "minecraft:suspicious_sand"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.scherbe.schritt.4",
+        "fallback": "With luck, a pottery sherd turns up."
+      },
+      "items": [
+        "minecraft:archer_pottery_sherd"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.entdecken.scherbe.fundort.1",
+        "fallback": "Suspicious sand hides in desert temples and warm ocean ruins."
+      },
+      "biome": [
+        "minecraft:desert",
+        "minecraft:warm_ocean",
+        "minecraft:lukewarm_ocean"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.scherbe.fundort.2",
+        "fallback": "Suspicious gravel hides in trail ruins and cold ocean ruins."
+      },
+      "biome": [
+        "minecraft:taiga",
+        "minecraft:old_growth_pine_taiga",
+        "minecraft:jungle",
+        "minecraft:cold_ocean"
+      ]
+    }
+  ]
+}

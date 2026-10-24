@@ -1,0 +1,5166 @@
+{
+  "ankommen/regeln": {
+    "schritte": [
+      {
+        "de": "Lies die Regeln einmal in Ruhe durch, sie sind kurz.",
+        "en": "Read the rules once, calmly. They are short.",
+        "items": [
+          "minecraft:writable_book"
+        ]
+      },
+      {
+        "de": "Merk dir: Auf der Spawn-Insel wird nicht gebaut.",
+        "en": "Remember: no building on the spawn island.",
+        "items": [
+          "minecraft:grass_block"
+        ]
+      },
+      {
+        "de": "Frag im Chat nach, wenn etwas unklar ist.",
+        "en": "Ask in chat if anything is unclear."
+      }
+    ]
+  },
+  "ankommen/abflug": {
+    "schritte": [
+      {
+        "de": "Stell dich auf die Spawn-Insel und spring.",
+        "en": "Stand on the spawn island and jump.",
+        "items": [
+          "minecraft:elytra"
+        ]
+      },
+      {
+        "de": "Spring in der Luft gleich noch einmal: Die Elytra klappt auf.",
+        "en": "Jump again in mid-air and the elytra opens.",
+        "items": [
+          "minecraft:elytra"
+        ]
+      },
+      {
+        "de": "Drück F für Schub und flieg los.",
+        "en": "Press F for a boost and fly off.",
+        "items": [
+          "minecraft:firework_rocket"
+        ]
+      },
+      {
+        "de": "Die Elytra ist nur geliehen, also lande sanft.",
+        "en": "The elytra is only on loan, so land gently.",
+        "items": [
+          "minecraft:elytra"
+        ]
+      }
+    ]
+  },
+  "ankommen/karte": {
+    "schritte": [
+      {
+        "de": "Drück M, dann öffnet sich die Weltkarte.",
+        "en": "Press M to open the world map.",
+        "items": [
+          "minecraft:filled_map"
+        ]
+      },
+      {
+        "de": "Drück B, um an deinem Haus einen Wegpunkt zu setzen.",
+        "en": "Press B to set a waypoint at your home.",
+        "items": [
+          "minecraft:red_bed"
+        ]
+      },
+      {
+        "de": "Drück F3 und schreib dir deine Koordinaten auf.",
+        "en": "Press F3 and note down your coordinates.",
+        "items": [
+          "minecraft:compass"
+        ]
+      }
+    ]
+  },
+  "ankommen/voice_chat": {
+    "schritte": [
+      {
+        "de": "Sprich einfach, der Voice Chat hört dich automatisch.",
+        "en": "Just talk, voice chat picks you up automatically.",
+        "items": [
+          "minecraft:note_block"
+        ]
+      },
+      {
+        "de": "Drück V, dann öffnet sich das Voice-Chat-Menü.",
+        "en": "Press V to open the voice chat menu.",
+        "items": [
+          "minecraft:note_block"
+        ]
+      },
+      {
+        "de": "Mit Ä schaltest du dein Mikro stumm und wieder an.",
+        "en": "Ä mutes and unmutes your mic.",
+        "items": [
+          "minecraft:note_block"
+        ]
+      },
+      {
+        "de": "Gründe dort eine Gruppe für dich und deine Freunde.",
+        "en": "Create a group there for you and your friends."
+      }
+    ]
+  },
+  "ankommen/block_marker": {
+    "schritte": [
+      {
+        "de": "Sieh den Block an, den du markieren willst.",
+        "en": "Look at the block you want to mark.",
+        "items": [
+          "minecraft:glow_ink_sac"
+        ]
+      },
+      {
+        "de": "Drück den Punkt, dann ist er markiert.",
+        "en": "Press the period key to mark it.",
+        "items": [
+          "minecraft:glow_ink_sac"
+        ]
+      },
+      {
+        "de": "Drück das Komma, um das Profil zu wechseln.",
+        "en": "Press the comma key to switch profile.",
+        "items": [
+          "minecraft:glow_ink_sac"
+        ]
+      },
+      {
+        "de": "Alles Weitere stellst du über Mod Menu ein.",
+        "en": "Adjust everything else via Mod Menu."
+      }
+    ]
+  },
+  "ankommen/werkbank": {
+    "schritte": [
+      {
+        "de": "Schlag einen Baumstamm mit der Hand ab.",
+        "en": "Punch a tree trunk with your bare hand.",
+        "items": [
+          "minecraft:oak_log"
+        ]
+      },
+      {
+        "de": "Mach im Inventar Bretter daraus.",
+        "en": "Turn it into planks in your inventory.",
+        "items": [
+          "minecraft:oak_planks"
+        ],
+        "rezept": "minecraft:oak_planks"
+      },
+      {
+        "de": "Leg 4 Bretter ins 2×2-Feld: fertig ist die Werkbank.",
+        "en": "Put 4 planks in the 2×2 grid: there's your crafting table.",
+        "items": [
+          "minecraft:crafting_table"
+        ],
+        "rezept": "minecraft:crafting_table"
+      },
+      {
+        "de": "Stell die Werkbank ab, mit ihr hast du ein 3×3-Feld.",
+        "en": "Place it down. It gives you a 3×3 grid.",
+        "items": [
+          "minecraft:crafting_table"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:oak_log",
+        "de": "Eichen wachsen in fast jedem Wald und in Ebenen.",
+        "en": "Oaks grow in almost every forest and in plains.",
+        "biome": [
+          "minecraft:forest",
+          "minecraft:plains"
+        ]
+      }
+    ]
+  },
+  "ankommen/stein": {
+    "schritte": [
+      {
+        "de": "Mach aus Brettern Stöcke, das geht schon im Inventar.",
+        "en": "Craft sticks from planks. Your inventory grid is enough.",
+        "items": [
+          "minecraft:stick"
+        ],
+        "rezept": "minecraft:stick"
+      },
+      {
+        "de": "Leg 3 Bretter und 2 Stöcke an der Werkbank als Spitzhacke aus.",
+        "en": "Lay 3 planks and 2 sticks out as a pickaxe at the crafting table.",
+        "items": [
+          "minecraft:wooden_pickaxe"
+        ],
+        "rezept": "minecraft:wooden_pickaxe"
+      },
+      {
+        "de": "Grab einen Steinblock ab: Du bekommst Bruchstein.",
+        "en": "Mine a stone block: you get cobblestone.",
+        "items": [
+          "minecraft:stone",
+          "minecraft:cobblestone"
+        ]
+      }
+    ]
+  },
+  "ankommen/werkzeug": {
+    "schritte": [
+      {
+        "de": "Sammle mindestens 3 Bruchstein mit der Holzspitzhacke.",
+        "en": "Collect at least 3 cobblestone with the wooden pickaxe.",
+        "items": [
+          "minecraft:cobblestone"
+        ]
+      },
+      {
+        "de": "Leg 3 Bruchstein und 2 Stöcke wie bei der Holzspitzhacke aus.",
+        "en": "Lay out 3 cobblestone and 2 sticks like the wooden pickaxe.",
+        "items": [
+          "minecraft:stone_pickaxe"
+        ],
+        "rezept": "minecraft:stone_pickaxe"
+      },
+      {
+        "de": "Mit ihr kannst du Eisenerz abbauen.",
+        "en": "This one can mine iron ore.",
+        "items": [
+          "minecraft:iron_ore"
+        ]
+      }
+    ]
+  },
+  "ankommen/fackeln": {
+    "schritte": [
+      {
+        "de": "Hol Kohle aus einem Kohleerz oder brenn Holz im Ofen zu Holzkohle.",
+        "en": "Mine coal ore or smelt logs in a furnace to get charcoal.",
+        "items": [
+          "minecraft:coal",
+          "minecraft:charcoal"
+        ],
+        "rezept": "minecraft:charcoal"
+      },
+      {
+        "de": "Leg Kohle oder Holzkohle über einen Stock: Du bekommst 4 Fackeln.",
+        "en": "Put coal or charcoal above a stick: you get 4 torches.",
+        "items": [
+          "minecraft:torch"
+        ],
+        "rezept": "minecraft:torch"
+      },
+      {
+        "de": "Stell eine Fackel auf den Boden oder an eine Wand.",
+        "en": "Place a torch on the ground or on a wall.",
+        "items": [
+          "minecraft:torch"
+        ]
+      }
+    ]
+  },
+  "ankommen/eisen": {
+    "schritte": [
+      {
+        "de": "Hol Eisenerz mit der Steinspitzhacke: Es gibt Roheisen.",
+        "en": "Mine iron ore with the stone pickaxe: it drops raw iron.",
+        "items": [
+          "minecraft:iron_ore",
+          "minecraft:raw_iron"
+        ]
+      },
+      {
+        "de": "Leg 8 Bruchstein im Ring um ein leeres Feld: Das ist der Ofen.",
+        "en": "Put 8 cobblestone in a ring around an empty slot: that's a furnace.",
+        "items": [
+          "minecraft:furnace"
+        ],
+        "rezept": "minecraft:furnace"
+      },
+      {
+        "de": "Leg Roheisen oben und Brennstoff unten in den Ofen.",
+        "en": "Put raw iron on top and fuel at the bottom of the furnace.",
+        "items": [
+          "minecraft:raw_iron",
+          "minecraft:charcoal"
+        ]
+      },
+      {
+        "de": "Warte kurz und nimm den Eisenbarren heraus.",
+        "en": "Wait a moment and take out the iron ingot.",
+        "items": [
+          "minecraft:iron_ingot"
+        ],
+        "rezept": "minecraft:iron_ingot_from_smelting_raw_iron"
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:iron_ore",
+        "de": "Eisen liegt am häufigsten in Höhen von etwa -24 bis 56.",
+        "en": "Iron is most common at heights of about -24 to 56.",
+        "hoehe": [
+          -24,
+          56
+        ],
+        "dimension": "minecraft:overworld"
+      },
+      {
+        "was": "minecraft:iron_ore",
+        "de": "Hoch oben in den Bergen gibt es noch einmal viel Eisen, ab Höhe 80.",
+        "en": "High up in the mountains there is plenty more iron, from height 80.",
+        "hoehe": [
+          80,
+          384
+        ],
+        "dimension": "minecraft:overworld"
+      }
+    ]
+  },
+  "ankommen/ruestung": {
+    "schritte": [
+      {
+        "de": "Schmelze Eisenbarren im Ofen, du brauchst genug davon.",
+        "en": "Smelt iron ingots in the furnace. Make enough of them.",
+        "items": [
+          "minecraft:iron_ingot"
+        ],
+        "rezept": "minecraft:iron_ingot_from_smelting_raw_iron"
+      },
+      {
+        "de": "Leg 4 Eisenbarren als Stiefel aus: das billigste Teil.",
+        "en": "Lay out 4 iron ingots as boots: the cheapest piece.",
+        "items": [
+          "minecraft:iron_boots"
+        ],
+        "rezept": "minecraft:iron_boots"
+      },
+      {
+        "de": "Oder nimm 8 Barren für den Eisenharnisch, der schützt am meisten.",
+        "en": "Or use 8 ingots for the chestplate, which protects most.",
+        "items": [
+          "minecraft:iron_chestplate"
+        ],
+        "rezept": "minecraft:iron_chestplate"
+      },
+      {
+        "de": "Zieh es an: Leg es im Inventar in den Rüstungsplatz.",
+        "en": "Put it on by dragging it into an armor slot in your inventory.",
+        "items": [
+          "minecraft:iron_chestplate"
+        ]
+      }
+    ]
+  },
+  "ankommen/eisenspitzhacke": {
+    "schritte": [
+      {
+        "de": "Schmelze 3 Roheisen zu Eisenbarren.",
+        "en": "Smelt 3 raw iron into iron ingots.",
+        "items": [
+          "minecraft:iron_ingot"
+        ],
+        "rezept": "minecraft:iron_ingot_from_smelting_raw_iron"
+      },
+      {
+        "de": "Leg 3 Eisenbarren und 2 Stöcke an der Werkbank wie eine Spitzhacke aus.",
+        "en": "Lay out 3 iron ingots and 2 sticks like a pickaxe at the crafting table.",
+        "items": [
+          "minecraft:iron_pickaxe"
+        ],
+        "rezept": "minecraft:iron_pickaxe"
+      },
+      {
+        "de": "Mit ihr baust du Diamanten, Gold und Redstone ab.",
+        "en": "With it you can mine diamonds, gold and redstone.",
+        "items": [
+          "minecraft:diamond",
+          "minecraft:gold_ingot",
+          "minecraft:redstone"
+        ]
+      }
+    ]
+  },
+  "ankommen/lava": {
+    "schritte": [
+      {
+        "de": "Bau aus 3 Eisenbarren einen Eimer, V-förmig gelegt.",
+        "en": "Craft a bucket from 3 iron ingots in a V shape.",
+        "items": [
+          "minecraft:bucket"
+        ],
+        "rezept": "minecraft:bucket"
+      },
+      {
+        "de": "Such einen Lavasee, am besten tief unter der Erde.",
+        "en": "Find a lava pool, best deep underground.",
+        "items": [
+          "minecraft:lava_bucket"
+        ]
+      },
+      {
+        "de": "Steh sicher und fang die Lava mit Rechtsklick.",
+        "en": "Stand safely and scoop the lava with right-click.",
+        "items": [
+          "minecraft:lava_bucket"
+        ]
+      },
+      {
+        "de": "Grab nie direkt unter dir nach unten, sonst wird es heiß.",
+        "en": "Never dig straight down, or it gets hot.",
+        "items": [
+          "minecraft:lava_bucket"
+        ]
+      }
+    ]
+  },
+  "ankommen/essen": {
+    "schritte": [
+      {
+        "de": "Töte ein Tier wie Kuh oder Schwein, es lässt Fleisch fallen.",
+        "en": "Kill an animal like a cow or pig. It drops meat.",
+        "items": [
+          "minecraft:beef",
+          "minecraft:porkchop"
+        ]
+      },
+      {
+        "de": "Brat das Fleisch im Ofen, dann macht es viel satter.",
+        "en": "Cook the meat in a furnace: it fills you up far more.",
+        "items": [
+          "minecraft:cooked_beef",
+          "minecraft:furnace"
+        ]
+      },
+      {
+        "de": "Halte Rechtsklick gedrückt, bis du fertig gegessen hast.",
+        "en": "Hold right-click until you finish eating.",
+        "items": [
+          "minecraft:cooked_porkchop"
+        ]
+      },
+      {
+        "de": "Auch Äpfel von Eichenblättern sind eine Notlösung.",
+        "en": "Apples from oak leaves work in a pinch.",
+        "items": [
+          "minecraft:apple"
+        ]
+      }
+    ]
+  },
+  "ankommen/bett": {
+    "schritte": [
+      {
+        "de": "Schere oder töte Schafe und sammle 3 Wolle der gleichen Farbe.",
+        "en": "Shear or kill sheep and collect 3 wool of the same colour.",
+        "items": [
+          "minecraft:white_wool"
+        ]
+      },
+      {
+        "de": "Leg 3 Wolle über 3 Bretter an der Werkbank aus.",
+        "en": "Lay 3 wool above 3 planks at the crafting table.",
+        "items": [
+          "minecraft:white_bed"
+        ],
+        "rezept": "minecraft:white_bed"
+      },
+      {
+        "de": "Stell das Bett auf und klick es abends mit Rechtsklick an.",
+        "en": "Place the bed and right-click it in the evening.",
+        "items": [
+          "minecraft:white_bed"
+        ]
+      },
+      {
+        "de": "Das setzt deinen Wiedereinstiegspunkt: Ohne Bett landest du am Spawn.",
+        "en": "It sets your respawn point. Without a bed you land at spawn.",
+        "items": [
+          "minecraft:white_bed"
+        ]
+      }
+    ]
+  },
+  "ankommen/pulverschnee": {
+    "schritte": [
+      {
+        "de": "Töte Kühe und sammle 4 Leder.",
+        "en": "Kill cows and collect 4 leather.",
+        "items": [
+          "minecraft:leather"
+        ]
+      },
+      {
+        "de": "Leg 4 Leder als Stiefel aus und zieh sie an.",
+        "en": "Lay out 4 leather as boots and put them on.",
+        "items": [
+          "minecraft:leather_boots"
+        ],
+        "rezept": "minecraft:leather_boots"
+      },
+      {
+        "de": "Such verschneite Hänge mit Pulverschnee, er sieht aus wie normaler Schnee.",
+        "en": "Find snowy slopes with powder snow. It looks like normal snow.",
+        "items": [
+          "minecraft:powder_snow_bucket"
+        ]
+      },
+      {
+        "de": "Lauf mit den Stiefeln darüber und sink nicht ein.",
+        "en": "Walk across it in the boots without sinking.",
+        "items": [
+          "minecraft:leather_boots"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:powder_snow_bucket",
+        "de": "Pulverschnee findest du an verschneiten Hängen.",
+        "en": "Powder snow lies on snowy slopes.",
+        "biome": [
+          "minecraft:snowy_slopes",
+          "minecraft:grove"
+        ]
+      }
+    ]
+  },
+  "ankommen/abenteuer": {
+    "schritte": [
+      {
+        "de": "Warte auf die Nacht oder geh in eine dunkle Höhle.",
+        "en": "Wait for night or enter a dark cave.",
+        "items": [
+          "minecraft:zombie_head"
+        ]
+      },
+      {
+        "de": "Nimm eine Waffe und schlag ein Wesen, bis es besiegt ist.",
+        "en": "Take a weapon and hit a mob until it is defeated.",
+        "items": [
+          "minecraft:stone_sword"
+        ]
+      },
+      {
+        "de": "Falls du stirbst: kein Drama, du startest am Bett oder Spawn neu.",
+        "en": "If you die: no drama, you respawn at your bed or spawn.",
+        "items": [
+          "minecraft:red_bed"
+        ]
+      }
+    ]
+  },
+  "ankommen/monster": {
+    "schritte": [
+      {
+        "de": "Mach aus 2 Bruchstein und 1 Stock ein Steinschwert.",
+        "en": "Make a stone sword from 2 cobblestone and 1 stick.",
+        "items": [
+          "minecraft:stone_sword"
+        ],
+        "rezept": "minecraft:stone_sword"
+      },
+      {
+        "de": "Warte auf die Nacht, dann kommen Zombies und Skelette von selbst.",
+        "en": "Wait for night and zombies and skeletons show up on their own.",
+        "items": [
+          "minecraft:zombie_head",
+          "minecraft:skeleton_skull"
+        ]
+      },
+      {
+        "de": "Schlag das Monster und zieh dich zurück, wenn deine Herzen schwinden.",
+        "en": "Hit the monster and back off when your hearts run low.",
+        "items": [
+          "minecraft:stone_sword"
+        ]
+      },
+      {
+        "de": "Steh mit dem Rücken zur Wand, dann kommt nichts von hinten.",
+        "en": "Keep your back to a wall so nothing comes from behind."
+      }
+    ]
+  },
+  "ankommen/pfeil": {
+    "schritte": [
+      {
+        "de": "Sammle 3 Faden von Spinnen und 3 Stöcke.",
+        "en": "Collect 3 string from spiders and 3 sticks.",
+        "items": [
+          "minecraft:string",
+          "minecraft:stick"
+        ]
+      },
+      {
+        "de": "Leg sie an der Werkbank als Bogen aus.",
+        "en": "Lay them out as a bow at the crafting table.",
+        "items": [
+          "minecraft:bow"
+        ],
+        "rezept": "minecraft:bow"
+      },
+      {
+        "de": "Mach Pfeile aus Feuerstein, Stock und Feder.",
+        "en": "Craft arrows from flint, stick and feather.",
+        "items": [
+          "minecraft:arrow"
+        ],
+        "rezept": "minecraft:arrow"
+      },
+      {
+        "de": "Halte Rechtsklick zum Spannen, lass los zum Schießen.",
+        "en": "Hold right-click to draw, release to shoot.",
+        "items": [
+          "minecraft:bow",
+          "minecraft:arrow"
+        ]
+      }
+    ]
+  },
+  "ankommen/schild": {
+    "schritte": [
+      {
+        "de": "Leg 6 Bretter und 1 Eisenbarren als Schild aus.",
+        "en": "Lay out 6 planks and 1 iron ingot as a shield.",
+        "items": [
+          "minecraft:shield"
+        ],
+        "rezept": "minecraft:shield"
+      },
+      {
+        "de": "Nimm den Schild in die zweite Hand und halte Rechtsklick.",
+        "en": "Hold the shield in your off hand and keep right-click pressed.",
+        "items": [
+          "minecraft:shield"
+        ]
+      },
+      {
+        "de": "Such ein Skelett, das auf dich schießt, und wehr einen Pfeil ab.",
+        "en": "Find a skeleton that shoots at you and block an arrow.",
+        "items": [
+          "minecraft:skeleton_skull",
+          "minecraft:arrow"
+        ]
+      }
+    ]
+  },
+  "ankommen/freier_fall": {
+    "schritte": [
+      {
+        "de": "Füll einen Eimer mit Wasser und steig auf die Bauhöhe.",
+        "en": "Fill a bucket with water and climb to the build limit.",
+        "items": [
+          "minecraft:water_bucket"
+        ]
+      },
+      {
+        "de": "Spring und fall ganz nach unten, am besten über einem See.",
+        "en": "Jump and fall all the way down, ideally over a lake.",
+        "items": [
+          "minecraft:water_bucket"
+        ]
+      },
+      {
+        "de": "Setz kurz vor dem Aufprall Wasser, dann fällst du weich.",
+        "en": "Place the water right before you land to soften the fall.",
+        "items": [
+          "minecraft:water_bucket"
+        ]
+      },
+      {
+        "de": "Bitte nicht über Lava üben, das gibt nur Rauch.",
+        "en": "Please don't practise over lava. It only ends in smoke.",
+        "items": [
+          "minecraft:lava_bucket"
+        ]
+      }
+    ]
+  },
+  "bergbau/diamanten": {
+    "schritte": [
+      {
+        "de": "Nimm deine Eisenspitzhacke und Fackeln mit nach unten.",
+        "en": "Take your iron pickaxe and torches down with you.",
+        "items": [
+          "minecraft:iron_pickaxe",
+          "minecraft:torch"
+        ]
+      },
+      {
+        "de": "Drück F3 und achte auf die Höhe (Y), zum Beispiel -59.",
+        "en": "Press F3 and watch your height (Y), for example -59.",
+        "items": [
+          "minecraft:compass"
+        ]
+      },
+      {
+        "de": "Grab dort in einem Gang geradeaus und leuchte ihn aus.",
+        "en": "Dig a straight tunnel there and light it up.",
+        "items": [
+          "minecraft:torch"
+        ]
+      },
+      {
+        "de": "Baue Diamanterz ab, du bekommst Diamanten.",
+        "en": "Mine diamond ore to get diamonds.",
+        "items": [
+          "minecraft:diamond_ore",
+          "minecraft:diamond"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:diamond_ore",
+        "de": "Diamanten liegen tief unter der Erde, am häufigsten ganz unten.",
+        "en": "Diamonds lie deep underground, most common near the bottom.",
+        "hoehe": [
+          -64,
+          16
+        ],
+        "dimension": "minecraft:overworld"
+      }
+    ]
+  },
+  "bergbau/diamantruestung": {
+    "schritte": [
+      {
+        "de": "Sammle mindestens 4 Diamanten für ein Rüstungsteil.",
+        "en": "Collect at least 4 diamonds for one piece of armor.",
+        "items": [
+          "minecraft:diamond"
+        ]
+      },
+      {
+        "de": "Leg 4 Diamanten als Stiefel an der Werkbank aus.",
+        "en": "Lay out 4 diamonds as boots at the crafting table.",
+        "items": [
+          "minecraft:diamond_boots"
+        ],
+        "rezept": "minecraft:diamond_boots"
+      },
+      {
+        "de": "Heb 2 Diamanten für den Zaubertisch auf.",
+        "en": "Keep 2 diamonds for an enchanting table.",
+        "items": [
+          "minecraft:diamond"
+        ]
+      }
+    ]
+  },
+  "bergbau/obsidian": {
+    "schritte": [
+      {
+        "de": "Bau aus Eisen einen Eimer und fang Wasser und Lava.",
+        "en": "Craft a bucket from iron and collect water and lava.",
+        "items": [
+          "minecraft:bucket",
+          "minecraft:water_bucket",
+          "minecraft:lava_bucket"
+        ],
+        "rezept": "minecraft:bucket"
+      },
+      {
+        "de": "Gieß Wasser auf stehende Lava: Es wird Obsidian.",
+        "en": "Pour water onto still lava: it turns into obsidian.",
+        "items": [
+          "minecraft:obsidian"
+        ]
+      },
+      {
+        "de": "Bau eine Diamantspitzhacke: 3 Diamanten und 2 Stöcke.",
+        "en": "Craft a diamond pickaxe: 3 diamonds and 2 sticks.",
+        "items": [
+          "minecraft:diamond_pickaxe"
+        ],
+        "rezept": "minecraft:diamond_pickaxe"
+      },
+      {
+        "de": "Baue den Obsidian damit ab. Das dauert ein bisschen.",
+        "en": "Mine the obsidian with it. It takes a while.",
+        "items": [
+          "minecraft:obsidian"
+        ]
+      }
+    ]
+  },
+  "bergbau/verzaubern": {
+    "schritte": [
+      {
+        "de": "Mach aus 3 Papier und 1 Leder ein Buch.",
+        "en": "Craft a book from 3 paper and 1 leather.",
+        "items": [
+          "minecraft:book"
+        ],
+        "rezept": "minecraft:book"
+      },
+      {
+        "de": "Leg Buch, 2 Diamanten und 4 Obsidian als Zaubertisch aus.",
+        "en": "Lay out the book, 2 diamonds and 4 obsidian as an enchanting table.",
+        "items": [
+          "minecraft:enchanting_table"
+        ],
+        "rezept": "minecraft:enchanting_table"
+      },
+      {
+        "de": "Stell ihn auf, leg Lapislazuli und ein Werkzeug hinein.",
+        "en": "Place it and put lapis lazuli and a tool inside.",
+        "items": [
+          "minecraft:enchanting_table",
+          "minecraft:lapis_lazuli"
+        ]
+      },
+      {
+        "de": "Wähl eine Verzauberung und bezahl mit Erfahrung.",
+        "en": "Pick an enchantment and pay with experience.",
+        "items": [
+          "minecraft:experience_bottle"
+        ]
+      },
+      {
+        "de": "Mit 15 Bücherregalen im Umkreis gibt es die besten Verzauberungen.",
+        "en": "With 15 bookshelves nearby you unlock the best enchantments.",
+        "items": [
+          "minecraft:bookshelf"
+        ],
+        "rezept": "minecraft:bookshelf"
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:lapis_ore",
+        "de": "Lapislazuli liegt am häufigsten in Höhen von etwa -32 bis 32.",
+        "en": "Lapis lazuli is most common at heights of about -32 to 32.",
+        "hoehe": [
+          -32,
+          32
+        ],
+        "dimension": "minecraft:overworld"
+      }
+    ]
+  },
+  "bergbau/buecherregal": {
+    "schritte": [
+      {
+        "de": "Leg 6 Bretter und 3 Holzstufen als gearbeitetes Bücherregal aus.",
+        "en": "Lay out 6 planks and 3 wooden slabs as a chiseled bookshelf.",
+        "items": [
+          "minecraft:chiseled_bookshelf"
+        ],
+        "rezept": "minecraft:chiseled_bookshelf"
+      },
+      {
+        "de": "Bau einen Komparator und stell ihn hinter das Regal.",
+        "en": "Craft a comparator and place it behind the shelf.",
+        "items": [
+          "minecraft:comparator"
+        ],
+        "rezept": "minecraft:comparator"
+      },
+      {
+        "de": "Der Komparator muss vom Regal weg zeigen.",
+        "en": "The comparator must point away from the shelf.",
+        "items": [
+          "minecraft:comparator"
+        ]
+      },
+      {
+        "de": "Leg ein Buch in ein Fach: Die Signalstärke zeigt das zuletzt genutzte Fach.",
+        "en": "Put a book in a slot: the signal shows the last used slot.",
+        "items": [
+          "minecraft:book",
+          "minecraft:chiseled_bookshelf"
+        ]
+      }
+    ]
+  },
+  "bergbau/werker": {
+    "schritte": [
+      {
+        "de": "Bau einen Spender und eine Werkbank dazu.",
+        "en": "Craft a dropper and a crafting table to go with it.",
+        "items": [
+          "minecraft:dropper",
+          "minecraft:crafting_table"
+        ],
+        "rezept": "minecraft:dropper"
+      },
+      {
+        "de": "Leg 5 Eisenbarren, Werkbank, Spender und 2 Redstone als Werker aus.",
+        "en": "Lay out 5 iron ingots, crafting table, dropper and 2 redstone as a crafter.",
+        "items": [
+          "minecraft:crafter"
+        ],
+        "rezept": "minecraft:crafter"
+      },
+      {
+        "de": "Stell den Werker auf und leg die Zutaten für einen weiteren hinein.",
+        "en": "Place the crafter and fill it with the ingredients for another.",
+        "items": [
+          "minecraft:crafter"
+        ]
+      },
+      {
+        "de": "Gib ihm einen Redstone-Impuls, etwa mit einem Knopf. Bleib daneben.",
+        "en": "Give it a redstone pulse, e.g. with a button. Stay nearby.",
+        "items": [
+          "minecraft:stone_button",
+          "minecraft:redstone"
+        ]
+      }
+    ]
+  },
+  "bergbau/kupferleuchte": {
+    "schritte": [
+      {
+        "de": "Sammle 3 Kupferblöcke (je 9 Kupferbarren), 1 Lohenrute und 1 Redstone.",
+        "en": "Collect 3 copper blocks (9 ingots each), 1 blaze rod and 1 redstone.",
+        "items": [
+          "minecraft:copper_block",
+          "minecraft:blaze_rod",
+          "minecraft:redstone"
+        ],
+        "rezept": "minecraft:copper_block"
+      },
+      {
+        "de": "Leg sie als Kupferleuchte aus. Oder hol eine fertige aus einer Prüfungskammer.",
+        "en": "Craft a copper bulb, or grab a ready-made one from a trial chamber.",
+        "items": [
+          "minecraft:copper_bulb"
+        ],
+        "rezept": "minecraft:copper_bulb"
+      },
+      {
+        "de": "Nimm eine Kupferleuchte, die schon angelaufen ist.",
+        "en": "Take a copper bulb that has already weathered.",
+        "items": [
+          "minecraft:weathered_copper_bulb"
+        ]
+      },
+      {
+        "de": "Schab sie mit einer Axt ab: Sie leuchtet heller.",
+        "en": "Scrape it with an axe: it glows brighter.",
+        "items": [
+          "minecraft:iron_axe",
+          "minecraft:copper_bulb"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:copper_bulb",
+        "de": "Fertige Kupferleuchten hängen in Prüfungskammern.",
+        "en": "Ready-made copper bulbs hang in trial chambers.",
+        "dimension": "minecraft:overworld"
+      }
+    ]
+  },
+  "bergbau/leuchtschild": {
+    "schritte": [
+      {
+        "de": "Finde einen Leuchttintenfisch in dunklem Wasser, oft in Höhlen.",
+        "en": "Find a glow squid in dark water, often in caves.",
+        "items": [
+          "minecraft:glow_ink_sac"
+        ]
+      },
+      {
+        "de": "Töte ihn und nimm den Leuchttintenbeutel auf.",
+        "en": "Kill it and pick up the glow ink sac.",
+        "items": [
+          "minecraft:glow_ink_sac"
+        ]
+      },
+      {
+        "de": "Stell ein Schild auf und schreib etwas darauf.",
+        "en": "Place a sign and write something on it.",
+        "items": [
+          "minecraft:oak_sign"
+        ],
+        "rezept": "minecraft:oak_sign"
+      },
+      {
+        "de": "Klick mit dem Leuchttintenbeutel auf den Text: Er leuchtet.",
+        "en": "Right-click the text with the glow ink sac: it glows.",
+        "items": [
+          "minecraft:glow_ink_sac",
+          "minecraft:oak_sign"
+        ]
+      }
+    ]
+  },
+  "bergbau/truhe": {
+    "schritte": [
+      {
+        "de": "Leg 8 Bretter im Ring um ein leeres Feld aus.",
+        "en": "Lay out 8 planks in a ring around an empty slot.",
+        "items": [
+          "minecraft:chest"
+        ],
+        "rezept": "minecraft:chest"
+      },
+      {
+        "de": "Stell die Truhe auf den Boden.",
+        "en": "Place the chest on the ground.",
+        "items": [
+          "minecraft:chest"
+        ]
+      },
+      {
+        "de": "Stell eine zweite daneben: So wird sie eine große Truhe.",
+        "en": "Place a second next to it to make a large chest.",
+        "items": [
+          "minecraft:chest"
+        ]
+      }
+    ]
+  },
+  "bergbau/armor_poser": {
+    "schritte": [
+      {
+        "de": "Stell einen Rüstungsständer auf.",
+        "en": "Place an armor stand.",
+        "items": [
+          "minecraft:armor_stand"
+        ]
+      },
+      {
+        "de": "Halt Strg und klick mit Rechtsklick auf ihn.",
+        "en": "Hold Ctrl and right-click it.",
+        "items": [
+          "minecraft:armor_stand"
+        ]
+      },
+      {
+        "de": "Dreh Kopf, Arme und Beine einzeln in die gewünschte Pose.",
+        "en": "Turn head, arms and legs one by one into your pose."
+      }
+    ]
+  },
+  "landwirtschaft/feld": {
+    "schritte": [
+      {
+        "de": "Mach eine Holzhacke: 2 Bretter und 2 Stöcke.",
+        "en": "Craft a wooden hoe: 2 planks and 2 sticks.",
+        "items": [
+          "minecraft:wooden_hoe"
+        ],
+        "rezept": "minecraft:wooden_hoe"
+      },
+      {
+        "de": "Schlag hohes Gras ab, bis Samen fallen.",
+        "en": "Break tall grass until seeds drop.",
+        "items": [
+          "minecraft:short_grass",
+          "minecraft:wheat_seeds"
+        ]
+      },
+      {
+        "de": "Pflüg Erde mit der Hacke, am besten neben Wasser.",
+        "en": "Till dirt with the hoe, ideally next to water.",
+        "items": [
+          "minecraft:farmland",
+          "minecraft:water_bucket"
+        ]
+      },
+      {
+        "de": "Pflanz die Samen: Wasser bewässert 4 Blöcke in jede Richtung.",
+        "en": "Plant the seeds: water hydrates 4 blocks in every direction.",
+        "items": [
+          "minecraft:wheat_seeds"
+        ]
+      }
+    ]
+  },
+  "landwirtschaft/knochenmehl": {
+    "schritte": [
+      {
+        "de": "Besiege Skelette, sie lassen Knochen fallen.",
+        "en": "Defeat skeletons, they drop bones.",
+        "items": [
+          "minecraft:bone"
+        ]
+      },
+      {
+        "de": "Leg einen Knochen ins Werkfeld: Du bekommst 3 Knochenmehl.",
+        "en": "Put a bone in the grid: you get 3 bone meal.",
+        "items": [
+          "minecraft:bone_meal"
+        ],
+        "rezept": "minecraft:bone_meal"
+      },
+      {
+        "de": "Klick mit Rechtsklick auf Pflanzen: Sie wachsen sofort.",
+        "en": "Right-click plants and they grow instantly.",
+        "items": [
+          "minecraft:bone_meal",
+          "minecraft:wheat"
+        ]
+      }
+    ]
+  },
+  "landwirtschaft/ernaehrung": {
+    "schritte": [
+      {
+        "de": "Iss alle Sorten Essen, die du findest. Wirklich alle.",
+        "en": "Eat every kind of food you can find. Really every one.",
+        "items": [
+          "minecraft:bread",
+          "minecraft:apple",
+          "minecraft:carrot"
+        ]
+      },
+      {
+        "de": "Auch Giftige Kartoffel, Spinnenauge und verrottetes Fleisch zählen.",
+        "en": "Poisonous potatoes, spider eyes and rotten flesh count too.",
+        "items": [
+          "minecraft:poisonous_potato",
+          "minecraft:spider_eye",
+          "minecraft:rotten_flesh"
+        ]
+      },
+      {
+        "de": "Trink danach einen Eimer Milch gegen die Vergiftung.",
+        "en": "Drink a bucket of milk afterwards to cure the poison.",
+        "items": [
+          "minecraft:milk_bucket"
+        ]
+      }
+    ]
+  },
+  "landwirtschaft/honig": {
+    "schritte": [
+      {
+        "de": "Finde einen Bienenstock oder ein Bienennest, oft nahe Blumen.",
+        "en": "Find a beehive or bee nest, often near flowers.",
+        "items": [
+          "minecraft:bee_nest",
+          "minecraft:beehive"
+        ]
+      },
+      {
+        "de": "Stell ein Lagerfeuer unter den Stock: Der Rauch beruhigt die Bienen.",
+        "en": "Place a campfire under the hive: the smoke calms the bees.",
+        "items": [
+          "minecraft:campfire"
+        ]
+      },
+      {
+        "de": "Warte, bis Honig aus dem Stock tropft.",
+        "en": "Wait until honey drips from the hive.",
+        "items": [
+          "minecraft:bee_nest"
+        ]
+      },
+      {
+        "de": "Klick mit einer Glasflasche auf den Stock und nimm den Honig.",
+        "en": "Right-click the hive with a glass bottle to collect the honey.",
+        "items": [
+          "minecraft:glass_bottle",
+          "minecraft:honey_bottle"
+        ],
+        "rezept": "minecraft:glass_bottle"
+      }
+    ]
+  },
+  "landwirtschaft/bienen": {
+    "schritte": [
+      {
+        "de": "Verzaubere eine Spitzhacke oder Axt mit Behutsamkeit.",
+        "en": "Enchant a pickaxe or axe with Silk Touch.",
+        "items": [
+          "minecraft:enchanted_book",
+          "minecraft:iron_pickaxe"
+        ]
+      },
+      {
+        "de": "Warte auf Nacht oder Regen, dann sind alle Bienen zu Hause.",
+        "en": "Wait for night or rain so all the bees are at home.",
+        "items": [
+          "minecraft:bee_nest"
+        ]
+      },
+      {
+        "de": "Prüfe, dass 3 Bienen im Nest sind.",
+        "en": "Check that 3 bees are inside the nest.",
+        "items": [
+          "minecraft:bee_nest"
+        ]
+      },
+      {
+        "de": "Bau das Nest mit dem Behutsamkeits-Werkzeug ab und setz es um.",
+        "en": "Mine the nest with the Silk Touch tool and move it.",
+        "items": [
+          "minecraft:bee_nest"
+        ]
+      }
+    ]
+  },
+  "landwirtschaft/honigblock": {
+    "schritte": [
+      {
+        "de": "Füll 4 Honigflaschen ab.",
+        "en": "Fill 4 honey bottles.",
+        "items": [
+          "minecraft:honey_bottle"
+        ]
+      },
+      {
+        "de": "Leg die 4 Honigflaschen als Honigblock ins 2×2-Feld.",
+        "en": "Put the 4 honey bottles in the 2×2 grid as a honey block.",
+        "items": [
+          "minecraft:honey_block"
+        ],
+        "rezept": "minecraft:honey_block"
+      },
+      {
+        "de": "Stell ihn auf und spring von der Seite dagegen.",
+        "en": "Place it and jump against the side.",
+        "items": [
+          "minecraft:honey_block"
+        ]
+      },
+      {
+        "de": "Halt dich an der Seite fest und rutsch langsam herunter.",
+        "en": "Cling to the side and slide slowly down.",
+        "items": [
+          "minecraft:honey_block"
+        ]
+      }
+    ]
+  },
+  "landwirtschaft/wachs": {
+    "schritte": [
+      {
+        "de": "Hol eine Honigwabe: Scher einen vollen Bienenstock mit einer Schere.",
+        "en": "Get honeycomb: shear a full hive with shears.",
+        "items": [
+          "minecraft:honeycomb",
+          "minecraft:shears"
+        ]
+      },
+      {
+        "de": "Leg 9 Kupferbarren als Kupferblock aus.",
+        "en": "Lay out 9 copper ingots as a copper block.",
+        "items": [
+          "minecraft:copper_block"
+        ],
+        "rezept": "minecraft:copper_block"
+      },
+      {
+        "de": "Leg Kupferblock und Honigwabe zusammen ins Werkfeld.",
+        "en": "Put the copper block and honeycomb together in the grid.",
+        "items": [
+          "minecraft:waxed_copper_block"
+        ],
+        "rezept": "minecraft:waxed_copper_block_from_honeycomb"
+      }
+    ]
+  },
+  "landwirtschaft/wachs_ab": {
+    "schritte": [
+      {
+        "de": "Nimm eine Axt in die Hand.",
+        "en": "Take an axe in hand.",
+        "items": [
+          "minecraft:iron_axe"
+        ]
+      },
+      {
+        "de": "Klick mit Rechtsklick auf den gewachsten Kupferblock.",
+        "en": "Right-click the waxed copper block.",
+        "items": [
+          "minecraft:waxed_copper_block"
+        ]
+      },
+      {
+        "de": "Das Wachs geht ab. Das klappt auch bei Grünspan.",
+        "en": "The wax comes off. It works on oxidation too.",
+        "items": [
+          "minecraft:copper_block"
+        ]
+      }
+    ]
+  },
+  "landwirtschaft/schnueffler_ei": {
+    "schritte": [
+      {
+        "de": "Bau einen Pinsel: Feder, Kupferbarren und Stock übereinander.",
+        "en": "Craft a brush: feather, copper ingot and stick stacked.",
+        "items": [
+          "minecraft:brush"
+        ],
+        "rezept": "minecraft:brush"
+      },
+      {
+        "de": "Such warme Ozeanruinen und finde verdächtigen Sand.",
+        "en": "Find warm ocean ruins and look for suspicious sand.",
+        "items": [
+          "minecraft:suspicious_sand"
+        ]
+      },
+      {
+        "de": "Halte Rechtsklick auf den Sand mit dem Pinsel.",
+        "en": "Hold right-click on the sand with the brush.",
+        "items": [
+          "minecraft:brush",
+          "minecraft:suspicious_sand"
+        ]
+      },
+      {
+        "de": "Mit etwas Glück kommt ein Schnüffler-Ei heraus.",
+        "en": "With luck, a sniffer egg appears.",
+        "items": [
+          "minecraft:sniffer_egg"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:suspicious_sand",
+        "de": "Verdächtiger Sand liegt in warmen Ozeanruinen.",
+        "en": "Suspicious sand lies in warm ocean ruins.",
+        "biome": [
+          "minecraft:lukewarm_ocean",
+          "minecraft:warm_ocean",
+          "minecraft:deep_lukewarm_ocean"
+        ],
+        "dimension": "minecraft:overworld"
+      }
+    ]
+  },
+  "landwirtschaft/schnueffler_junges": {
+    "schritte": [
+      {
+        "de": "Leg das Schnüffler-Ei auf Moos, dann schlüpft es doppelt so schnell.",
+        "en": "Put the sniffer egg on moss to hatch it twice as fast.",
+        "items": [
+          "minecraft:sniffer_egg",
+          "minecraft:moss_block"
+        ]
+      },
+      {
+        "de": "Warte, bis das Junge schlüpft.",
+        "en": "Wait for the snifflet to hatch.",
+        "items": [
+          "minecraft:sniffer_egg"
+        ]
+      },
+      {
+        "de": "Füttere es mit Fackelliliensamen.",
+        "en": "Feed it torchflower seeds.",
+        "items": [
+          "minecraft:torchflower_seeds"
+        ]
+      }
+    ]
+  },
+  "landwirtschaft/schnueffler_samen": {
+    "schritte": [
+      {
+        "de": "Zieh das Junge mit Fackelliliensamen groß.",
+        "en": "Raise the snifflet with torchflower seeds.",
+        "items": [
+          "minecraft:torchflower_seeds"
+        ]
+      },
+      {
+        "de": "Warte, bis der Schnüffler groß ist und Samen ausgräbt.",
+        "en": "Wait for the sniffer to grow up and dig up seeds.",
+        "items": [
+          "minecraft:sniffer_egg"
+        ]
+      },
+      {
+        "de": "Sammle Fackelliliensamen oder Kannenpflanzenkapseln auf.",
+        "en": "Pick up torchflower seeds or pitcher pods.",
+        "items": [
+          "minecraft:torchflower_seeds",
+          "minecraft:pitcher_pod"
+        ]
+      },
+      {
+        "de": "Pflanz einen Samen auf Ackerboden oder Erde.",
+        "en": "Plant a seed on farmland or dirt.",
+        "items": [
+          "minecraft:torchflower_seeds"
+        ]
+      }
+    ]
+  },
+  "tiere/zuechten": {
+    "schritte": [
+      {
+        "de": "Such zwei Tiere der gleichen Art, z. B. zwei Kühe.",
+        "en": "Find two animals of the same kind, e.g. two cows.",
+        "items": [
+          "minecraft:cow_spawn_egg",
+          "minecraft:sheep_spawn_egg"
+        ]
+      },
+      {
+        "de": "Halt ihr Futter in der Hand: Weizen für Kuh und Schaf, Karotte für Schweine.",
+        "en": "Hold their food: wheat for cows and sheep, carrots for pigs.",
+        "items": [
+          "minecraft:wheat",
+          "minecraft:carrot"
+        ]
+      },
+      {
+        "de": "Füttere beide per Rechtsklick, bis Herzchen aufsteigen.",
+        "en": "Right-click both to feed them until hearts appear.",
+        "items": [
+          "minecraft:wheat"
+        ]
+      },
+      {
+        "de": "Gratulation, ein Baby! Es braucht ein Weilchen, bis es groß ist.",
+        "en": "Congratulations, it's a baby! It takes a while to grow up.",
+        "items": [
+          "minecraft:cow_spawn_egg"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:cow_spawn_egg",
+        "de": "Kühe, Schafe, Schweine und Hühner leben in Ebenen und Wäldern.",
+        "en": "Cows, sheep, pigs and chickens live in plains and forests.",
+        "biome": [
+          "minecraft:plains",
+          "minecraft:forest"
+        ]
+      }
+    ]
+  },
+  "tiere/alle_tiere": {
+    "schritte": [
+      {
+        "de": "Fang mit den bekannten Tieren an: Kuh, Schaf, Schwein, Huhn.",
+        "en": "Start with the familiar ones: cow, sheep, pig, chicken.",
+        "items": [
+          "minecraft:cow_spawn_egg",
+          "minecraft:pig_spawn_egg",
+          "minecraft:chicken_spawn_egg"
+        ]
+      },
+      {
+        "de": "Frag bei jeder neuen Art nach ihrem Lieblingsfutter, z. B. Weizen für Ziegen.",
+        "en": "For each new kind, check its favourite food, e.g. wheat for goats.",
+        "items": [
+          "minecraft:goat_spawn_egg",
+          "minecraft:wheat"
+        ]
+      },
+      {
+        "de": "Für Hoglins brauchst du Karmesinpilze, für Schreiter Wirrpilze.",
+        "en": "Hoglins want crimson fungus, striders want warped fungus.",
+        "items": [
+          "minecraft:hoglin_spawn_egg",
+          "minecraft:strider_spawn_egg",
+          "minecraft:crimson_fungus",
+          "minecraft:warped_fungus"
+        ]
+      },
+      {
+        "de": "Zähl mit: Es sind 26 Arten, also bring Geduld mit.",
+        "en": "Keep count: there are 26 kinds, so bring patience.",
+        "items": [
+          "minecraft:wheat"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:hoglin_spawn_egg",
+        "de": "Hoglins leben im Nether, im Karmesinwald.",
+        "en": "Hoglins live in the Nether, in the Crimson Forest.",
+        "biome": [
+          "minecraft:crimson_forest"
+        ],
+        "dimension": "minecraft:the_nether"
+      }
+    ]
+  },
+  "tiere/zaehmen": {
+    "schritte": [
+      {
+        "de": "Such einen Wolf oder eine Katze. Wölfe gibt es z. B. im Wald.",
+        "en": "Find a wolf or a cat. Wolves live in forests, for example.",
+        "items": [
+          "minecraft:wolf_spawn_egg",
+          "minecraft:cat_spawn_egg"
+        ]
+      },
+      {
+        "de": "Nimm Knochen für den Wolf oder rohen Fisch für die Katze in die Hand.",
+        "en": "Hold bones for the wolf or raw fish for the cat.",
+        "items": [
+          "minecraft:bone",
+          "minecraft:cod",
+          "minecraft:salmon"
+        ]
+      },
+      {
+        "de": "Füttere das Tier per Rechtsklick, bis rote Herzen erscheinen. Das kann dauern.",
+        "en": "Right-click to feed it until red hearts appear. It may take a few tries.",
+        "items": [
+          "minecraft:bone"
+        ]
+      },
+      {
+        "de": "Rechtsklick ohne Futter lässt es sitzen oder wieder mitkommen.",
+        "en": "Right-click without food to make it sit or follow again.",
+        "items": [
+          "minecraft:wolf_spawn_egg"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:wolf_spawn_egg",
+        "de": "Wölfe leben in Wäldern und Taigas.",
+        "en": "Wolves live in forests and taigas.",
+        "biome": [
+          "minecraft:forest",
+          "minecraft:taiga"
+        ]
+      }
+    ]
+  },
+  "tiere/woelfe": {
+    "schritte": [
+      {
+        "de": "Pack einen ganzen Stapel Knochen ein.",
+        "en": "Pack a whole stack of bones.",
+        "items": [
+          "minecraft:bone"
+        ]
+      },
+      {
+        "de": "Reise von Biom zu Biom: Jede Wolfsart wohnt in einem anderen.",
+        "en": "Travel from biome to biome: each wolf kind lives in a different one.",
+        "items": [
+          "minecraft:wolf_spawn_egg"
+        ]
+      },
+      {
+        "de": "Zähme dort je einen Wolf mit Knochen und hak die Art ab.",
+        "en": "Tame one wolf there with bones and tick the kind off.",
+        "items": [
+          "minecraft:bone",
+          "minecraft:wolf_spawn_egg"
+        ]
+      },
+      {
+        "de": "Typische Orte: Wald, Taiga, Dschungel, Savanne, Tafelberge, Berghain.",
+        "en": "Typical places: forest, taiga, jungle, savanna, badlands, grove.",
+        "items": [
+          "minecraft:wolf_spawn_egg"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:wolf_spawn_egg",
+        "de": "Waldwolf: Wald. Gescheckter Wolf: Savannenhochebene. Rostiger Wolf: Lichter Dschungel.",
+        "en": "Woods wolf: forest. Spotted wolf: savanna plateau. Rusty wolf: sparse jungle.",
+        "biome": [
+          "minecraft:forest",
+          "minecraft:savanna_plateau",
+          "minecraft:sparse_jungle"
+        ]
+      },
+      {
+        "was": "minecraft:wolf_spawn_egg",
+        "de": "Aschfarbener Wolf: Verschneite Taiga. Schwarzer Wolf: Kiefern-Urtaiga. Kastanienbrauner Wolf: Fichten-Urtaiga.",
+        "en": "Ashen wolf: snowy taiga. Black wolf: old growth pine taiga. Chestnut wolf: old growth spruce taiga.",
+        "biome": [
+          "minecraft:snowy_taiga",
+          "minecraft:old_growth_pine_taiga",
+          "minecraft:old_growth_spruce_taiga"
+        ]
+      },
+      {
+        "was": "minecraft:wolf_spawn_egg",
+        "de": "Verschneiter Wolf: Berghain. Gestreifter Wolf: Bewaldete Tafelberge. Blasser Wolf: Taiga.",
+        "en": "Snowy wolf: grove. Striped wolf: wooded badlands. Pale wolf: taiga.",
+        "biome": [
+          "minecraft:grove",
+          "minecraft:wooded_badlands",
+          "minecraft:taiga"
+        ]
+      }
+    ]
+  },
+  "tiere/katzen": {
+    "schritte": [
+      {
+        "de": "Nimm rohen Kabeljau oder Lachs mit.",
+        "en": "Bring raw cod or salmon.",
+        "items": [
+          "minecraft:cod",
+          "minecraft:salmon"
+        ]
+      },
+      {
+        "de": "Such Streuner in Dörfern. Geh langsam, sonst flitzen sie davon.",
+        "en": "Look for strays in villages. Walk slowly or they dash off.",
+        "items": [
+          "minecraft:cat_spawn_egg"
+        ]
+      },
+      {
+        "de": "Füttere die Katze mit Fisch, bis Herzen erscheinen: Sie gehört dir.",
+        "en": "Feed the cat fish until hearts appear: it's yours.",
+        "items": [
+          "minecraft:cod"
+        ]
+      },
+      {
+        "de": "Für die schwarze Katze such eine Sumpfhütte (Hexenhütte).",
+        "en": "For the black cat, look for a swamp hut (witch hut).",
+        "items": [
+          "minecraft:cat_spawn_egg"
+        ]
+      },
+      {
+        "de": "Besuch weitere Dörfer, bis alle Fellmuster in deiner Sammlung sind.",
+        "en": "Visit more villages until every coat pattern is in your collection.",
+        "items": [
+          "minecraft:cat_spawn_egg"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:cat_spawn_egg",
+        "de": "Streuner in Dörfern: Ebene, Alm, Wüste, Savanne, Taiga, Verschneite Ebene.",
+        "en": "Strays in villages: plains, meadow, desert, savanna, taiga, snowy plains.",
+        "biome": [
+          "minecraft:plains",
+          "minecraft:meadow",
+          "minecraft:desert",
+          "minecraft:savanna",
+          "minecraft:taiga",
+          "minecraft:snowy_plains"
+        ]
+      },
+      {
+        "was": "minecraft:cat_spawn_egg",
+        "de": "Schwarze Katzen bei Sumpfhütten.",
+        "en": "Black cats at swamp huts.",
+        "biome": [
+          "minecraft:swamp"
+        ]
+      }
+    ]
+  },
+  "tiere/wolfspanzer_ab": {
+    "schritte": [
+      {
+        "de": "Stell 6 Hornschilde zum Wolfspanzer zusammen (Muster im Rezeptbuch).",
+        "en": "Craft 6 scutes into wolf armor (pattern in the recipe book).",
+        "items": [
+          "minecraft:armadillo_scute",
+          "minecraft:wolf_armor"
+        ],
+        "rezept": "minecraft:wolf_armor"
+      },
+      {
+        "de": "Zieh einem gezähmten Wolf den Panzer per Rechtsklick an.",
+        "en": "Right-click a tamed wolf to put the armor on.",
+        "items": [
+          "minecraft:wolf_armor",
+          "minecraft:wolf_spawn_egg"
+        ]
+      },
+      {
+        "de": "Bau dir eine Schere aus 2 Eisenbarren.",
+        "en": "Craft shears from 2 iron ingots.",
+        "items": [
+          "minecraft:shears",
+          "minecraft:iron_ingot"
+        ],
+        "rezept": "minecraft:shears"
+      },
+      {
+        "de": "Rechtsklick mit der Schere auf den Wolf: Panzer ab, Wolf glücklich.",
+        "en": "Right-click the wolf with shears: armor off, wolf happy.",
+        "items": [
+          "minecraft:shears",
+          "minecraft:wolf_armor"
+        ]
+      }
+    ]
+  },
+  "tiere/wolfspanzer_flicken": {
+    "schritte": [
+      {
+        "de": "Zieh deinem Wolf den Panzer an und lass ihn kämpfen, bis er Kratzer hat.",
+        "en": "Put the armor on your wolf and let it fight until it gets dented.",
+        "items": [
+          "minecraft:wolf_armor"
+        ]
+      },
+      {
+        "de": "Halt Hornschilde in der Hand.",
+        "en": "Hold armadillo scutes.",
+        "items": [
+          "minecraft:armadillo_scute"
+        ]
+      },
+      {
+        "de": "Rechtsklick auf den Wolf, jedes Schild flickt ein Stück. Wiederhol das bis zum Schluss.",
+        "en": "Right-click the wolf, each scute patches a bit. Repeat until it's whole.",
+        "items": [
+          "minecraft:armadillo_scute",
+          "minecraft:wolf_armor"
+        ]
+      }
+    ]
+  },
+  "tiere/guerteltier": {
+    "schritte": [
+      {
+        "de": "Bau einen Pinsel: Feder oben, Kupferbarren in der Mitte, Stock unten.",
+        "en": "Craft a brush: feather on top, copper ingot in the middle, stick at the bottom.",
+        "items": [
+          "minecraft:brush",
+          "minecraft:feather",
+          "minecraft:copper_ingot",
+          "minecraft:stick"
+        ],
+        "rezept": "minecraft:brush"
+      },
+      {
+        "de": "Such ein Gürteltier in Savanne oder Tafelbergen.",
+        "en": "Find an armadillo in a savanna or badlands.",
+        "items": [
+          "minecraft:armadillo_spawn_egg"
+        ]
+      },
+      {
+        "de": "Schleich dich langsam heran, sonst rollt es sich ein.",
+        "en": "Sneak up slowly or it curls into a ball.",
+        "items": [
+          "minecraft:armadillo_spawn_egg"
+        ]
+      },
+      {
+        "de": "Halt Rechtsklick mit dem Pinsel gedrückt, bis das Hornschild abfällt.",
+        "en": "Hold right-click with the brush until the scute drops.",
+        "items": [
+          "minecraft:brush",
+          "minecraft:armadillo_scute"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:armadillo_spawn_egg",
+        "de": "Gürteltiere leben in Savannen und Tafelbergen.",
+        "en": "Armadillos live in savannas and badlands.",
+        "biome": [
+          "minecraft:savanna",
+          "minecraft:savanna_plateau",
+          "minecraft:badlands",
+          "minecraft:wooded_badlands",
+          "minecraft:eroded_badlands"
+        ]
+      }
+    ]
+  },
+  "tiere/ziege": {
+    "schritte": [
+      {
+        "de": "Bau ein Boot aus 5 Brettern, z. B. Eiche.",
+        "en": "Craft a boat from 5 planks, e.g. oak.",
+        "items": [
+          "minecraft:oak_boat",
+          "minecraft:oak_planks"
+        ],
+        "rezept": "minecraft:oak_boat"
+      },
+      {
+        "de": "Nimm Weizen oder eine Leine mit, um die Ziege zu locken.",
+        "en": "Bring wheat or a lead to lure the goat.",
+        "items": [
+          "minecraft:wheat",
+          "minecraft:lead"
+        ]
+      },
+      {
+        "de": "Such eine Ziege hoch in den Bergen. Geh nicht zu nah ran: Sie rammt gern!",
+        "en": "Find a goat high in the mountains. Don't stand too close: it loves to ram!",
+        "items": [
+          "minecraft:goat_spawn_egg"
+        ]
+      },
+      {
+        "de": "Führ sie zum Boot am Wasser und fahr mit ihr los.",
+        "en": "Lead it to a boat on the water and set off together.",
+        "items": [
+          "minecraft:oak_boat",
+          "minecraft:goat_spawn_egg"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:goat_spawn_egg",
+        "de": "Ziegen leben auf verschneiten Berggipfeln und Hängen.",
+        "en": "Goats live on snowy mountain peaks and slopes.",
+        "biome": [
+          "minecraft:frozen_peaks",
+          "minecraft:jagged_peaks",
+          "minecraft:snowy_slopes"
+        ]
+      }
+    ]
+  },
+  "tiere/papagei": {
+    "schritte": [
+      {
+        "de": "Bau ein Fernrohr: Amethystscherbe oben, 2 Kupferbarren darunter.",
+        "en": "Craft a spyglass: amethyst shard on top, 2 copper ingots below.",
+        "items": [
+          "minecraft:spyglass",
+          "minecraft:amethyst_shard",
+          "minecraft:copper_ingot"
+        ],
+        "rezept": "minecraft:spyglass"
+      },
+      {
+        "de": "Such einen Papagei im Dschungel.",
+        "en": "Find a parrot in a jungle.",
+        "items": [
+          "minecraft:parrot_spawn_egg"
+        ]
+      },
+      {
+        "de": "Halt Rechtsklick mit dem Fernrohr gedrückt und schau ihn an.",
+        "en": "Hold right-click with the spyglass and look at it.",
+        "items": [
+          "minecraft:spyglass",
+          "minecraft:parrot_spawn_egg"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:parrot_spawn_egg",
+        "de": "Papageien leben im Dschungel und im Bambusdschungel.",
+        "en": "Parrots live in jungles and bamboo jungles.",
+        "biome": [
+          "minecraft:jungle",
+          "minecraft:bamboo_jungle"
+        ]
+      }
+    ]
+  },
+  "tiere/angeln": {
+    "schritte": [
+      {
+        "de": "Bau eine Angel aus 3 Stöcken und 2 Fäden.",
+        "en": "Craft a fishing rod from 3 sticks and 2 string.",
+        "items": [
+          "minecraft:fishing_rod",
+          "minecraft:stick",
+          "minecraft:string"
+        ],
+        "rezept": "minecraft:fishing_rod"
+      },
+      {
+        "de": "Stell dich ans Wasser und wirf die Angel per Rechtsklick aus.",
+        "en": "Stand by the water and cast the rod with right-click.",
+        "items": [
+          "minecraft:fishing_rod"
+        ]
+      },
+      {
+        "de": "Warte geduldig, bis der Schwimmer abtaucht.",
+        "en": "Wait patiently until the bobber dips.",
+        "items": [
+          "minecraft:fishing_rod"
+        ]
+      },
+      {
+        "de": "Jetzt Rechtsklick und der Fisch zappelt im Inventar. Regen hilft beim Anbeißen.",
+        "en": "Right-click now and the fish flops into your inventory. Rain helps the bites.",
+        "items": [
+          "minecraft:cod",
+          "minecraft:salmon"
+        ]
+      }
+    ]
+  },
+  "tiere/eimerfisch": {
+    "schritte": [
+      {
+        "de": "Bau einen Eimer aus 3 Eisenbarren und fülle ihn am Wasser.",
+        "en": "Craft a bucket from 3 iron ingots and fill it at water.",
+        "items": [
+          "minecraft:bucket",
+          "minecraft:water_bucket"
+        ],
+        "rezept": "minecraft:bucket"
+      },
+      {
+        "de": "Schwimm oder geh ans Wasser, wo Fische unterwegs sind, z. B. im Meer.",
+        "en": "Head to water where fish swim, e.g. in the ocean.",
+        "items": [
+          "minecraft:cod",
+          "minecraft:salmon"
+        ]
+      },
+      {
+        "de": "Rechtsklick mit dem Wassereimer auf einen Fisch, schon sitzt er im Eimer.",
+        "en": "Right-click a fish with the water bucket and it's in the bucket.",
+        "items": [
+          "minecraft:water_bucket",
+          "minecraft:cod"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:cod",
+        "de": "Kabeljau schwimmt in Ozeanen.",
+        "en": "Cod swim in oceans.",
+        "biome": [
+          "minecraft:ocean",
+          "minecraft:deep_ocean",
+          "minecraft:cold_ocean"
+        ]
+      },
+      {
+        "was": "minecraft:salmon",
+        "de": "Lachse schwimmen in Flüssen und kalten Ozeanen.",
+        "en": "Salmon swim in rivers and cold oceans.",
+        "biome": [
+          "minecraft:river",
+          "minecraft:cold_ocean"
+        ]
+      }
+    ]
+  },
+  "tiere/axolotl": {
+    "schritte": [
+      {
+        "de": "Füll einen Eimer mit Wasser.",
+        "en": "Fill a bucket with water.",
+        "items": [
+          "minecraft:water_bucket"
+        ]
+      },
+      {
+        "de": "Such in den Üppigen Höhlen einen Wasserteich.",
+        "en": "Look for a pond in a lush cave.",
+        "items": [
+          "minecraft:axolotl_spawn_egg"
+        ]
+      },
+      {
+        "de": "Rechtsklick mit dem Eimer auf den Axolotl, schon hast du ihn.",
+        "en": "Right-click the axolotl with the bucket and it's yours.",
+        "items": [
+          "minecraft:water_bucket",
+          "minecraft:axolotl_bucket"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:axolotl_spawn_egg",
+        "de": "Axolotl schwimmen in Teichen der Üppigen Höhlen.",
+        "en": "Axolotls swim in ponds of lush caves.",
+        "biome": [
+          "minecraft:lush_caves"
+        ]
+      }
+    ]
+  },
+  "tiere/axolotl_kampf": {
+    "schritte": [
+      {
+        "de": "Setz deinen Axolotl am Wasser aus, in dem Wassermonster schwimmen.",
+        "en": "Release your axolotl in water where water mobs swim.",
+        "items": [
+          "minecraft:axolotl_bucket",
+          "minecraft:axolotl_spawn_egg"
+        ]
+      },
+      {
+        "de": "Bleib in der Nähe: Er greift Wassermonster von selbst an.",
+        "en": "Stay close: it attacks water mobs on its own.",
+        "items": [
+          "minecraft:axolotl_spawn_egg"
+        ]
+      },
+      {
+        "de": "Fällt der Gegner, bekommst du Regeneration als Belohnung.",
+        "en": "When the enemy falls, you get Regeneration as a reward.",
+        "items": [
+          "minecraft:axolotl_spawn_egg"
+        ]
+      }
+    ]
+  },
+  "tiere/kaulquappe": {
+    "schritte": [
+      {
+        "de": "Such Frösche in einem Sumpf und füttere zwei mit Schleimbällen.",
+        "en": "Find frogs in a swamp and feed two of them slimeballs.",
+        "items": [
+          "minecraft:frog_spawn_egg",
+          "minecraft:slime_ball"
+        ]
+      },
+      {
+        "de": "Sie legen Froschlaich ins Wasser, daraus schlüpfen Kaulquappen.",
+        "en": "They lay frogspawn in the water, and tadpoles hatch from it.",
+        "items": [
+          "minecraft:frogspawn",
+          "minecraft:tadpole_spawn_egg"
+        ]
+      },
+      {
+        "de": "Rechtsklick mit dem Wassereimer auf eine Kaulquappe.",
+        "en": "Right-click a tadpole with a water bucket.",
+        "items": [
+          "minecraft:water_bucket",
+          "minecraft:tadpole_bucket"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:frog_spawn_egg",
+        "de": "Frösche leben in Sümpfen und Mangrovensümpfen.",
+        "en": "Frogs live in swamps and mangrove swamps.",
+        "biome": [
+          "minecraft:swamp",
+          "minecraft:mangrove_swamp"
+        ]
+      }
+    ]
+  },
+  "tiere/froesche": {
+    "schritte": [
+      {
+        "de": "Knüpf 3 Leinen. Aus Fäden gibt es zwei Leinen auf einmal.",
+        "en": "Make 3 leads. Crafting gives you two at a time.",
+        "items": [
+          "minecraft:lead",
+          "minecraft:string"
+        ],
+        "rezept": "minecraft:lead"
+      },
+      {
+        "de": "Der Sumpf liefert den gemäßigten Frosch, der Mangrovensumpf den warmen.",
+        "en": "The swamp gives the temperate frog, the mangrove swamp the warm one.",
+        "items": [
+          "minecraft:frog_spawn_egg"
+        ]
+      },
+      {
+        "de": "Für den kalten Frosch bring eine Kaulquappe im Eimer in ein kaltes Biom, z. B. Verschneite Ebene.",
+        "en": "For the cold frog, carry a bucketed tadpole to a cold biome, e.g. snowy plains.",
+        "items": [
+          "minecraft:tadpole_bucket",
+          "minecraft:tadpole_spawn_egg"
+        ]
+      },
+      {
+        "de": "Warte, bis sie dort zum Frosch wächst, dann Leine dran.",
+        "en": "Wait until it grows into a frog there, then lead it.",
+        "items": [
+          "minecraft:lead",
+          "minecraft:frog_spawn_egg"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:frog_spawn_egg",
+        "de": "Gemäßigter Frosch: Sumpf. Warmer Frosch: Mangrovensumpf, Wüste, Dschungel, Savanne.",
+        "en": "Temperate frog: swamp. Warm frog: mangrove swamp, desert, jungle, savanna.",
+        "biome": [
+          "minecraft:swamp",
+          "minecraft:mangrove_swamp",
+          "minecraft:desert",
+          "minecraft:jungle",
+          "minecraft:savanna"
+        ]
+      },
+      {
+        "was": "minecraft:frog_spawn_egg",
+        "de": "Kalter Frosch: z. B. Verschneite Ebene, Verschneite Taiga, Berghain.",
+        "en": "Cold frog: e.g. snowy plains, snowy taiga, grove.",
+        "biome": [
+          "minecraft:snowy_plains",
+          "minecraft:snowy_taiga",
+          "minecraft:grove"
+        ]
+      }
+    ]
+  },
+  "tiere/hilfsgeist": {
+    "schritte": [
+      {
+        "de": "Such einen Hilfsgeist in einem Plünderer-Außenposten oder Waldanwesen.",
+        "en": "Find an allay in a pillager outpost or woodland mansion.",
+        "items": [
+          "minecraft:allay_spawn_egg"
+        ]
+      },
+      {
+        "de": "Gib ihm ein Item per Rechtsklick, z. B. Weizenkörner.",
+        "en": "Hand it an item with right-click, e.g. wheat seeds.",
+        "items": [
+          "minecraft:wheat_seeds"
+        ]
+      },
+      {
+        "de": "Er sammelt gleiche Items ein. Lauf ein Stück weg und warte, bis er sie dir bringt.",
+        "en": "It collects matching items. Walk a bit away and wait for it to bring them.",
+        "items": [
+          "minecraft:allay_spawn_egg"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:allay_spawn_egg",
+        "de": "Hilfsgeister sitzen in Käfigen von Plünderer-Außenposten und in Waldanwesen.",
+        "en": "Allays sit in cages at pillager outposts and in woodland mansions.",
+        "biome": [
+          "minecraft:plains",
+          "minecraft:taiga",
+          "minecraft:dark_forest"
+        ]
+      }
+    ]
+  },
+  "tiere/hilfsgeist_kuchen": {
+    "schritte": [
+      {
+        "de": "Bau einen Kuchen aus 3 Milcheimern, 2 Zucker, 1 Ei und 3 Weizen.",
+        "en": "Craft a cake from 3 milk buckets, 2 sugar, 1 egg and 3 wheat.",
+        "items": [
+          "minecraft:cake",
+          "minecraft:milk_bucket",
+          "minecraft:sugar",
+          "minecraft:egg"
+        ],
+        "rezept": "minecraft:cake"
+      },
+      {
+        "de": "Bau einen Notenblock aus 8 Brettern und 1 Redstone-Staub.",
+        "en": "Craft a note block from 8 planks and 1 redstone dust.",
+        "items": [
+          "minecraft:note_block",
+          "minecraft:redstone"
+        ],
+        "rezept": "minecraft:note_block"
+      },
+      {
+        "de": "Gib deinem Hilfsgeist den Kuchen in die Hand.",
+        "en": "Hand your allay the cake.",
+        "items": [
+          "minecraft:cake",
+          "minecraft:allay_spawn_egg"
+        ]
+      },
+      {
+        "de": "Spiel den Notenblock per Rechtsklick, der Hilfsgeist legt den Kuchen dort ab.",
+        "en": "Play the note block with right-click and the allay drops the cake there.",
+        "items": [
+          "minecraft:note_block",
+          "minecraft:cake"
+        ]
+      }
+    ]
+  },
+  "tiere/schwefelwuerfel": {
+    "schritte": [
+      {
+        "de": "Bau TNT aus 5 Schwarzpulver und 4 Sand.",
+        "en": "Craft TNT from 5 gunpowder and 4 sand.",
+        "items": [
+          "minecraft:tnt",
+          "minecraft:gunpowder",
+          "minecraft:sand"
+        ],
+        "rezept": "minecraft:tnt"
+      },
+      {
+        "de": "Such einen ausgewachsenen Schwefelwürfel in den Schwefelhöhlen.",
+        "en": "Find an adult sulfur cube in the sulfur caves.",
+        "items": [
+          "minecraft:sulfur_cube_spawn_egg"
+        ]
+      },
+      {
+        "de": "Gib ihm das TNT per Rechtsklick oder wirf es ihm hin.",
+        "en": "Hand it the TNT with right-click or throw it over.",
+        "items": [
+          "minecraft:tnt",
+          "minecraft:sulfur_cube_spawn_egg"
+        ]
+      },
+      {
+        "de": "Und jetzt: Abstand halten, sonst wird es laut!",
+        "en": "Now keep your distance, or it gets loud!",
+        "items": [
+          "minecraft:tnt"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:sulfur_cube_spawn_egg",
+        "de": "Schwefelwürfel leben in den Schwefelhöhlen.",
+        "en": "Sulfur cubes live in the sulfur caves.",
+        "biome": [
+          "minecraft:sulfur_caves"
+        ]
+      }
+    ]
+  },
+  "dorf/dorf_finden": {
+    "schritte": [
+      {
+        "de": "Geh in Ebenen, Almen, Wüsten, Savannen, Taigas oder Verschneite Ebenen.",
+        "en": "Head to plains, meadows, deserts, savannas, taigas or snowy plains.",
+        "items": [
+          "minecraft:bell"
+        ]
+      },
+      {
+        "de": "Halt Ausschau nach Häusern, Wegen und einer Glocke.",
+        "en": "Look out for houses, paths and a bell.",
+        "items": [
+          "minecraft:bell",
+          "minecraft:villager_spawn_egg"
+        ]
+      },
+      {
+        "de": "Bleib in der Nähe, bis du einen Dorfbewohner siehst: Nachbarschaft!",
+        "en": "Stay close until you see a villager: neighbourhood!",
+        "items": [
+          "minecraft:villager_spawn_egg"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:bell",
+        "de": "Dörfer gibt es in Ebenen, Almen, Wüsten, Savannen, Taigas und Verschneite Ebenen.",
+        "en": "Villages appear in plains, meadows, deserts, savannas, taigas and snowy plains.",
+        "biome": [
+          "minecraft:plains",
+          "minecraft:meadow",
+          "minecraft:desert",
+          "minecraft:savanna",
+          "minecraft:taiga",
+          "minecraft:snowy_plains"
+        ]
+      }
+    ]
+  },
+  "dorf/handel": {
+    "schritte": [
+      {
+        "de": "Sammel ein paar Smaragde oder die Ware, die der Händler sucht.",
+        "en": "Collect a few emeralds or the goods the trader wants.",
+        "items": [
+          "minecraft:emerald"
+        ]
+      },
+      {
+        "de": "Such einen Dorfbewohner mit Beruf. Ohne Beruf handelt er nicht.",
+        "en": "Find a villager with a job. Jobless ones don't trade.",
+        "items": [
+          "minecraft:villager_spawn_egg"
+        ]
+      },
+      {
+        "de": "Ohne Beruf: Stell einen Arbeitsblock hin, z. B. einen Komposter für den Bauern.",
+        "en": "No job yet? Place a workstation, e.g. a composter for a farmer.",
+        "items": [
+          "minecraft:composter"
+        ],
+        "rezept": "minecraft:composter"
+      },
+      {
+        "de": "Rechtsklick auf den Dorfbewohner, wähl ein Angebot und tausch.",
+        "en": "Right-click the villager, pick an offer and trade.",
+        "items": [
+          "minecraft:emerald",
+          "minecraft:villager_spawn_egg"
+        ]
+      }
+    ]
+  },
+  "dorf/rabatt": {
+    "schritte": [
+      {
+        "de": "Öffne das Handelsfenster, schließ es und öffne es erneut.",
+        "en": "Open the trading window, close it and open it again.",
+        "items": [
+          "minecraft:emerald"
+        ]
+      },
+      {
+        "de": "Jetzt siehst du den Rabatt auf den Preisen. Geheilte Zombiedorfbewohner geben noch mehr.",
+        "en": "Now the discount shows in the prices. Cured zombie villagers add even more.",
+        "items": [
+          "minecraft:gold_nugget",
+          "minecraft:golden_apple"
+        ]
+      }
+    ]
+  },
+  "dorf/sternhaendler": {
+    "schritte": [
+      {
+        "de": "Bring reichlich Blöcke mit, z. B. Bruchstein.",
+        "en": "Bring plenty of blocks, e.g. cobblestone.",
+        "items": [
+          "minecraft:cobblestone"
+        ]
+      },
+      {
+        "de": "Bau einen Wasserlift oder fahr mit einer Lore: So kommt der Dorfbewohner nach oben.",
+        "en": "Build a water elevator or use a minecart: that's how the villager gets up.",
+        "items": [
+          "minecraft:water_bucket",
+          "minecraft:villager_spawn_egg"
+        ]
+      },
+      {
+        "de": "Bau oben eine Plattform mit Rand, damit er nicht abstürzt.",
+        "en": "Build a platform with a rim up there so he can't fall.",
+        "items": [
+          "minecraft:cobblestone"
+        ]
+      },
+      {
+        "de": "Handle ab Höhe Y 319 mit ihm.",
+        "en": "Trade with him from height Y 319 upwards.",
+        "items": [
+          "minecraft:emerald"
+        ]
+      }
+    ]
+  },
+  "dorf/zombiearzt": {
+    "schritte": [
+      {
+        "de": "Besorg einen Wurftrank der Schwäche.",
+        "en": "Get a splash potion of Weakness.",
+        "items": [
+          "minecraft:splash_potion"
+        ]
+      },
+      {
+        "de": "Bau einen Goldenen Apfel aus 8 Goldbarren und 1 Apfel.",
+        "en": "Craft a golden apple from 8 gold ingots and 1 apple.",
+        "items": [
+          "minecraft:golden_apple",
+          "minecraft:gold_ingot",
+          "minecraft:apple"
+        ],
+        "rezept": "minecraft:golden_apple"
+      },
+      {
+        "de": "Lock einen Zombiedorfbewohner in den Schatten oder in einen Raum.",
+        "en": "Get a zombie villager into the shade or a room.",
+        "items": [
+          "minecraft:zombie_villager_spawn_egg"
+        ]
+      },
+      {
+        "de": "Wirf den Trank auf ihn, dann gib ihm den Apfel per Rechtsklick.",
+        "en": "Throw the potion at him, then give him the apple with right-click.",
+        "items": [
+          "minecraft:splash_potion",
+          "minecraft:golden_apple"
+        ]
+      },
+      {
+        "de": "Warte, bis er sich zurückverwandelt. Sonnenschutz nicht vergessen!",
+        "en": "Wait until he turns back. Don't forget the sun protection!",
+        "items": [
+          "minecraft:villager_spawn_egg"
+        ]
+      }
+    ]
+  },
+  "dorf/golem": {
+    "schritte": [
+      {
+        "de": "Bau 4 Eisenblöcke, je aus 9 Eisenbarren.",
+        "en": "Craft 4 iron blocks, each from 9 iron ingots.",
+        "items": [
+          "minecraft:iron_block",
+          "minecraft:iron_ingot"
+        ],
+        "rezept": "minecraft:iron_block"
+      },
+      {
+        "de": "Schnitz einen Kürbis mit der Schere zum Geschnitzten Kürbis.",
+        "en": "Carve a pumpkin with shears to get a carved pumpkin.",
+        "items": [
+          "minecraft:carved_pumpkin",
+          "minecraft:pumpkin",
+          "minecraft:shears"
+        ]
+      },
+      {
+        "de": "Stell 3 Eisenblöcke nebeneinander und 1 mittig darüber, eine T-Form.",
+        "en": "Place 3 iron blocks in a row and 1 above the middle, a T shape.",
+        "items": [
+          "minecraft:iron_block"
+        ]
+      },
+      {
+        "de": "Setz den Kürbis zuletzt oben drauf: Der Golem erwacht.",
+        "en": "Put the pumpkin on top last: the golem awakens.",
+        "items": [
+          "minecraft:carved_pumpkin",
+          "minecraft:iron_golem_spawn_egg"
+        ]
+      }
+    ]
+  },
+  "dorf/blitzableiter": {
+    "schritte": [
+      {
+        "de": "Bau einen Blitzableiter aus 3 Kupferbarren übereinander.",
+        "en": "Craft a lightning rod from 3 copper ingots stacked.",
+        "items": [
+          "minecraft:lightning_rod",
+          "minecraft:copper_ingot"
+        ],
+        "rezept": "minecraft:lightning_rod"
+      },
+      {
+        "de": "Stell ihn auf ein Steindach oder einen Steinturm beim Dorfbewohner.",
+        "en": "Put it on a stone roof or stone tower next to the villager.",
+        "items": [
+          "minecraft:lightning_rod",
+          "minecraft:cobblestone"
+        ]
+      },
+      {
+        "de": "Lass einen Dorfbewohner in der Nähe, im Umkreis von 30 Blöcken.",
+        "en": "Keep a villager close, within 30 blocks.",
+        "items": [
+          "minecraft:villager_spawn_egg"
+        ]
+      },
+      {
+        "de": "Warte auf ein Gewitter: Der Blitz trifft den Ableiter, nichts brennt.",
+        "en": "Wait for a thunderstorm: lightning hits the rod and nothing burns.",
+        "items": [
+          "minecraft:lightning_rod"
+        ]
+      }
+    ]
+  },
+  "dorf/hauptmann": {
+    "schritte": [
+      {
+        "de": "Such einen Plünderer-Außenposten, den dunklen Holzturm.",
+        "en": "Find a pillager outpost, the dark wooden tower.",
+        "items": [
+          "minecraft:pillager_spawn_egg"
+        ]
+      },
+      {
+        "de": "Halt Ausschau nach dem Plünderer mit Banner auf dem Kopf: das ist der Hauptmann.",
+        "en": "Look for the pillager with a banner on their head: that's the captain.",
+        "items": [
+          "minecraft:white_banner"
+        ]
+      },
+      {
+        "de": "Besieg ihn, am besten mit Rüstung und Abstand.",
+        "en": "Defeat them, ideally with armor and some distance.",
+        "items": [
+          "minecraft:crossbow",
+          "minecraft:iron_ingot"
+        ]
+      },
+      {
+        "de": "Heb die unheilvolle Flasche auf, die er fallen lässt.",
+        "en": "Pick up the ominous bottle they drop.",
+        "items": [
+          "minecraft:ominous_bottle"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:pillager_spawn_egg",
+        "de": "Plünderer-Außenposten stehen in Wüsten, Ebenen, Savannen, Verschneite Ebenen, Taigas, Bergen und Berghainen.",
+        "en": "Pillager outposts stand in deserts, plains, savannas, snowy plains, taigas, mountains and groves.",
+        "biome": [
+          "minecraft:desert",
+          "minecraft:plains",
+          "minecraft:savanna",
+          "minecraft:snowy_plains",
+          "minecraft:taiga",
+          "minecraft:grove"
+        ]
+      }
+    ]
+  },
+  "dorf/dorfheld": {
+    "schritte": [
+      {
+        "de": "Rüste dich aus: gute Rüstung, Waffe, Essen, am besten mit Freunden.",
+        "en": "Gear up: good armor, a weapon, food, ideally with friends.",
+        "items": [
+          "minecraft:iron_chestplate",
+          "minecraft:iron_sword",
+          "minecraft:golden_apple"
+        ]
+      },
+      {
+        "de": "Geh mit der unheilvollen Flasche in ein Dorf und trink sie dort.",
+        "en": "Take the ominous bottle to a village and drink it there.",
+        "items": [
+          "minecraft:ominous_bottle"
+        ]
+      },
+      {
+        "de": "Verteidige die Dorfbewohner gegen alle Wellen des Überfalls.",
+        "en": "Defend the villagers against every wave of the raid.",
+        "items": [
+          "minecraft:iron_golem_spawn_egg",
+          "minecraft:villager_spawn_egg"
+        ]
+      },
+      {
+        "de": "Hast du alle Wellen überstanden, wirst du Held des Dorfes. Rabatte inklusive!",
+        "en": "Survive all the waves and you become Hero of the Village. Discounts included!",
+        "items": [
+          "minecraft:emerald"
+        ]
+      }
+    ]
+  },
+  "dorf/pluenderer": {
+    "schritte": [
+      {
+        "de": "Bau eine Armbrust: 3 Stöcke, 2 Fäden, 1 Eisenbarren, 1 Haken.",
+        "en": "Craft a crossbow: 3 sticks, 2 string, 1 iron ingot, 1 tripwire hook.",
+        "items": [
+          "minecraft:crossbow",
+          "minecraft:tripwire_hook",
+          "minecraft:string",
+          "minecraft:iron_ingot"
+        ],
+        "rezept": "minecraft:crossbow"
+      },
+      {
+        "de": "Pack Pfeile ein und spann die Armbrust per Rechtsklick.",
+        "en": "Pack arrows and load the crossbow with right-click.",
+        "items": [
+          "minecraft:crossbow",
+          "minecraft:arrow"
+        ]
+      },
+      {
+        "de": "Such einen Plünderer, z. B. am dunklen Holzturm eines Außenpostens.",
+        "en": "Find a pillager, e.g. at the dark wooden tower of an outpost.",
+        "items": [
+          "minecraft:pillager_spawn_egg"
+        ]
+      },
+      {
+        "de": "Schieß ihn mit der Armbrust nieder.",
+        "en": "Shoot him down with the crossbow.",
+        "items": [
+          "minecraft:crossbow"
+        ]
+      }
+    ]
+  },
+  "kampf/pvp": {
+    "schritte": [
+      {
+        "de": "Willst du jemanden herausfordern? Frag zuerst im Chat nach.",
+        "en": "Want to challenge someone? Ask in chat first.",
+        "items": [
+          "minecraft:shield"
+        ]
+      },
+      {
+        "de": "Nur wenn beide Ja sagen, wird gekämpft. Danach gibt es einen Handschlag.",
+        "en": "Only fight if both say yes. A virtual handshake afterwards is nice.",
+        "items": [
+          "minecraft:iron_sword",
+          "minecraft:shield"
+        ]
+      }
+    ]
+  },
+  "kampf/alle_monster": {
+    "schritte": [
+      {
+        "de": "Rüste dich mit Schwert, Rüstung und Bogen aus.",
+        "en": "Gear up with a sword, armor and a bow.",
+        "items": [
+          "minecraft:iron_sword",
+          "minecraft:iron_chestplate",
+          "minecraft:bow"
+        ]
+      },
+      {
+        "de": "Erlege Zombie, Skelett, Spinne, Creeper und Hexe, die bekommst du schnell.",
+        "en": "Kill a zombie, skeleton, spider, creeper and witch, those come quickly.",
+        "items": [
+          "minecraft:zombie_spawn_egg",
+          "minecraft:skeleton_spawn_egg",
+          "minecraft:creeper_spawn_egg",
+          "minecraft:witch_spawn_egg"
+        ]
+      },
+      {
+        "de": "Such dir die Seltenen: Böe, Knarz, Phantom und Ertrunkener.",
+        "en": "Hunt the rarer ones: breeze, creaking, phantom and drowned.",
+        "items": [
+          "minecraft:breeze_spawn_egg",
+          "minecraft:creaking_spawn_egg",
+          "minecraft:phantom_spawn_egg",
+          "minecraft:drowned_spawn_egg"
+        ]
+      },
+      {
+        "de": "Danach warten Nether und Ende, die Liste hat 41 Wesen. Viel Geduld!",
+        "en": "Nether and End mobs come next, the list has 41 mobs. Be patient!",
+        "items": [
+          "minecraft:blaze_spawn_egg",
+          "minecraft:wither_skeleton_spawn_egg",
+          "minecraft:shulker_spawn_egg"
+        ]
+      }
+    ]
+  },
+  "kampf/zielblock": {
+    "schritte": [
+      {
+        "de": "Bastle einen Strohballen aus 9 Weizen.",
+        "en": "Craft a hay bale from 9 wheat.",
+        "items": [
+          "minecraft:hay_block"
+        ],
+        "rezept": "minecraft:hay_block"
+      },
+      {
+        "de": "Leg den Strohballen in die Mitte und 4 Redstone drumherum: Zielblock!",
+        "en": "Put the hay bale in the middle and 4 redstone around it: target block!",
+        "items": [
+          "minecraft:target",
+          "minecraft:redstone"
+        ],
+        "rezept": "minecraft:target"
+      },
+      {
+        "de": "Stell den Zielblock auf und geh mindestens 30 Blöcke weg.",
+        "en": "Place the target block and walk at least 30 blocks away.",
+        "items": [
+          "minecraft:target"
+        ]
+      },
+      {
+        "de": "Zieh den Bogen voll auf, halte etwas höher und triff genau die Mitte.",
+        "en": "Draw the bow fully, aim a bit high and hit the exact center.",
+        "items": [
+          "minecraft:bow",
+          "minecraft:arrow"
+        ]
+      }
+    ]
+  },
+  "kampf/scharfschuetze": {
+    "schritte": [
+      {
+        "de": "Nimm einen Bogen und viele Pfeile mit, gern mit Stärke.",
+        "en": "Take a bow and plenty of arrows, ideally with Power.",
+        "items": [
+          "minecraft:bow",
+          "minecraft:arrow"
+        ]
+      },
+      {
+        "de": "Such ein Skelett auf freiem Gelände, am besten nachts oder in einer Höhle.",
+        "en": "Find a skeleton out in the open, best at night or in a cave.",
+        "items": [
+          "minecraft:skeleton_spawn_egg"
+        ]
+      },
+      {
+        "de": "Geh mindestens 50 Blöcke auf Abstand und halte höher als das Ziel.",
+        "en": "Back off at least 50 blocks and aim above the target.",
+        "items": [
+          "minecraft:bow"
+        ]
+      },
+      {
+        "de": "Erledige es mit einem Pfeil. Nur Pfeile zählen, kein Schwert!",
+        "en": "Finish it with an arrow. Only arrows count, no sword!",
+        "items": [
+          "minecraft:arrow"
+        ]
+      }
+    ]
+  },
+  "kampf/armbrust": {
+    "schritte": [
+      {
+        "de": "Bastle einen Haken aus Eisenbarren, Stock und Brettern.",
+        "en": "Craft a tripwire hook from an iron ingot, a stick and a plank.",
+        "items": [
+          "minecraft:tripwire_hook"
+        ],
+        "rezept": "minecraft:tripwire_hook"
+      },
+      {
+        "de": "Leg 3 Stöcke, 2 Fäden, 1 Eisenbarren und den Haken in die Werkbank.",
+        "en": "Put 3 sticks, 2 string, 1 iron ingot and the hook in the crafting table.",
+        "items": [
+          "minecraft:crossbow",
+          "minecraft:string",
+          "minecraft:iron_ingot"
+        ],
+        "rezept": "minecraft:crossbow"
+      },
+      {
+        "de": "Halte Rechtsklick, bis die Armbrust gespannt ist, und lass los.",
+        "en": "Hold right-click until the crossbow is loaded, then release.",
+        "items": [
+          "minecraft:crossbow",
+          "minecraft:arrow"
+        ]
+      },
+      {
+        "de": "Klick noch einmal, und der Pfeil fliegt.",
+        "en": "Click again and the arrow flies.",
+        "items": [
+          "minecraft:arrow"
+        ]
+      }
+    ]
+  },
+  "kampf/armbrust_fuenf": {
+    "schritte": [
+      {
+        "de": "Verzauber eine Armbrust mit Durchschuss, am besten auf Stufe IV.",
+        "en": "Enchant a crossbow with Piercing, ideally level IV.",
+        "items": [
+          "minecraft:crossbow",
+          "minecraft:enchanted_book"
+        ]
+      },
+      {
+        "de": "Locke fünf verschiedene Wesen in eine gerade Reihe, zum Beispiel in einen Gang.",
+        "en": "Lure five different mobs into a straight line, for example a corridor.",
+        "items": [
+          "minecraft:zombie_spawn_egg",
+          "minecraft:skeleton_spawn_egg",
+          "minecraft:creeper_spawn_egg",
+          "minecraft:spider_spawn_egg"
+        ]
+      },
+      {
+        "de": "Spann die Armbrust und schieß der Länge nach durch die Reihe.",
+        "en": "Load the crossbow and shoot along the whole line.",
+        "items": [
+          "minecraft:crossbow",
+          "minecraft:arrow"
+        ]
+      },
+      {
+        "de": "Alle fünf müssen vom selben Schuss fallen und verschiedene Arten sein.",
+        "en": "All five must die from the same shot and be different kinds.",
+        "items": [
+          "minecraft:arrow"
+        ]
+      }
+    ]
+  },
+  "kampf/phantome": {
+    "schritte": [
+      {
+        "de": "Verzauber eine Armbrust mit Durchschuss.",
+        "en": "Enchant a crossbow with Piercing.",
+        "items": [
+          "minecraft:crossbow",
+          "minecraft:enchanted_book"
+        ]
+      },
+      {
+        "de": "Schlaf 3 Nächte lang nicht, dann tauchen Phantome auf.",
+        "en": "Skip sleeping for 3 nights and phantoms will show up.",
+        "items": [
+          "minecraft:phantom_spawn_egg",
+          "minecraft:red_bed"
+        ]
+      },
+      {
+        "de": "Warte, bis zwei Phantome hintereinander auf dich zufliegen.",
+        "en": "Wait until two phantoms line up while diving at you.",
+        "items": [
+          "minecraft:phantom_spawn_egg"
+        ]
+      },
+      {
+        "de": "Schieß einen einzigen Pfeil durch beide.",
+        "en": "Shoot a single arrow through both.",
+        "items": [
+          "minecraft:crossbow",
+          "minecraft:arrow"
+        ]
+      }
+    ]
+  },
+  "kampf/dreizack": {
+    "schritte": [
+      {
+        "de": "Such Ertrunkene in Ozeanen und Flüssen, auch nachts an Land.",
+        "en": "Look for drowned in oceans and rivers, also on land at night.",
+        "items": [
+          "minecraft:drowned_spawn_egg"
+        ]
+      },
+      {
+        "de": "Manche tragen einen Dreizack. Erlege so einen und heb ihn auf.",
+        "en": "Some carry a trident. Kill one and pick it up.",
+        "items": [
+          "minecraft:trident"
+        ]
+      },
+      {
+        "de": "Halte Rechtsklick und lass los, dann fliegt der Dreizack.",
+        "en": "Hold right-click and release to throw the trident.",
+        "items": [
+          "minecraft:trident"
+        ]
+      }
+    ]
+  },
+  "kampf/blitz": {
+    "schritte": [
+      {
+        "de": "Verzauber einen Dreizack mit Entladung.",
+        "en": "Enchant a trident with Channeling.",
+        "items": [
+          "minecraft:trident",
+          "minecraft:enchanted_book"
+        ]
+      },
+      {
+        "de": "Warte auf ein Gewitter, nur dann schlägt der Blitz ein.",
+        "en": "Wait for a thunderstorm, only then the lightning strikes.",
+        "items": [
+          "minecraft:trident"
+        ]
+      },
+      {
+        "de": "Such einen Dorfbewohner im Freien und wirf den Dreizack auf ihn.",
+        "en": "Find a villager outdoors and throw the trident at him.",
+        "items": [
+          "minecraft:villager_spawn_egg",
+          "minecraft:trident"
+        ]
+      },
+      {
+        "de": "Der Blitz trifft ihn, und aus ihm wird eine Hexe. Sorry, kleiner Mann.",
+        "en": "Lightning hits him and he turns into a witch. Sorry, little guy.",
+        "items": [
+          "minecraft:witch_spawn_egg"
+        ]
+      }
+    ]
+  },
+  "kampf/speer": {
+    "schritte": [
+      {
+        "de": "Leg ein Eisen und 2 Stöcke diagonal in die Werkbank: ein Speer.",
+        "en": "Put 1 iron and 2 sticks diagonally in the crafting table: a spear.",
+        "items": [
+          "minecraft:iron_spear",
+          "minecraft:stick"
+        ],
+        "rezept": "minecraft:iron_spear"
+      },
+      {
+        "de": "Such eine Gruppe Wesen, zum Beispiel ein Gehege mit Tieren.",
+        "en": "Find a group of mobs, for example a pen full of animals.",
+        "items": [
+          "minecraft:zombie_spawn_egg",
+          "minecraft:skeleton_spawn_egg"
+        ]
+      },
+      {
+        "de": "Nimm Anlauf und renn mit dem Speer mitten durch die Gruppe.",
+        "en": "Take a run-up and charge through the group with the spear.",
+        "items": [
+          "minecraft:iron_spear"
+        ]
+      },
+      {
+        "de": "Fünf Treffer in einem Anlauf, dann ist es geschafft.",
+        "en": "Five hits in a single charge and you're done.",
+        "items": [
+          "minecraft:iron_spear"
+        ]
+      }
+    ]
+  },
+  "kampf/totem": {
+    "schritte": [
+      {
+        "de": "Such ein Waldanwesen oder löse einen Überfall aus.",
+        "en": "Find a woodland mansion or trigger a raid.",
+        "items": [
+          "minecraft:evoker_spawn_egg"
+        ]
+      },
+      {
+        "de": "Erlege einen Magier, er lässt ein Totem der Unsterblichkeit fallen.",
+        "en": "Kill an evoker, it drops a Totem of Undying.",
+        "items": [
+          "minecraft:totem_of_undying"
+        ]
+      },
+      {
+        "de": "Halte das Totem in der Haupt- oder Zweithand.",
+        "en": "Hold the totem in your main or off hand.",
+        "items": [
+          "minecraft:totem_of_undying"
+        ]
+      },
+      {
+        "de": "Wenn du eigentlich sterben würdest, rettet es dich und ist danach weg.",
+        "en": "When you would die, it saves you and is used up.",
+        "items": [
+          "minecraft:totem_of_undying"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:totem_of_undying",
+        "de": "Waldanwesen stehen in Dunkelwäldern und im Blassen Garten.",
+        "en": "Woodland mansions stand in dark forests and in the pale garden.",
+        "biome": [
+          "minecraft:dark_forest",
+          "minecraft:pale_garden"
+        ]
+      }
+    ]
+  },
+  "kampf/windkugel": {
+    "schritte": [
+      {
+        "de": "Besorg Böenruten von Böen in einer Prüfungskammer.",
+        "en": "Get breeze rods from breezes in a trial chamber.",
+        "items": [
+          "minecraft:breeze_rod",
+          "minecraft:breeze_spawn_egg"
+        ]
+      },
+      {
+        "de": "Leg eine Böenrute ins Handwerksfeld: 4 Windkugeln.",
+        "en": "Put a breeze rod in the crafting grid: 4 wind charges.",
+        "items": [
+          "minecraft:wind_charge",
+          "minecraft:breeze_rod"
+        ],
+        "rezept": "minecraft:wind_charge"
+      },
+      {
+        "de": "Wirf eine Windkugel direkt unter dich und spring im selben Moment.",
+        "en": "Throw a wind charge straight down and jump at the same time.",
+        "items": [
+          "minecraft:wind_charge"
+        ]
+      },
+      {
+        "de": "Du fliegst mindestens 8 Blöcke hoch. Wer braucht schon Raketen?",
+        "en": "You soar at least 8 blocks up. Who needs rockets?",
+        "items": [
+          "minecraft:wind_charge"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:wind_charge",
+        "de": "Prüfungskammern liegen tief unter der Erde.",
+        "en": "Trial chambers lie deep underground.",
+        "hoehe": [
+          -40,
+          -20
+        ]
+      }
+    ]
+  },
+  "kampf/gegenwind": {
+    "schritte": [
+      {
+        "de": "Such eine Böe, zum Beispiel in einer Prüfungskammer.",
+        "en": "Find a breeze, for example in a trial chamber.",
+        "items": [
+          "minecraft:breeze_spawn_egg"
+        ]
+      },
+      {
+        "de": "Lass sie auf dich schießen und warte auf ihre Windkugel.",
+        "en": "Let it shoot at you and wait for its wind charge.",
+        "items": [
+          "minecraft:wind_charge"
+        ]
+      },
+      {
+        "de": "Schlag die Windkugel kurz vor dem Einschlag zurück zur Böe.",
+        "en": "Hit the wind charge back at the breeze just before it reaches you.",
+        "items": [
+          "minecraft:breeze_spawn_egg",
+          "minecraft:wind_charge"
+        ]
+      }
+    ]
+  },
+  "kampf/streitkolben": {
+    "schritte": [
+      {
+        "de": "Hol dir einen Schweren Kern aus einem unheilvollen Tresor.",
+        "en": "Get a heavy core from an ominous vault.",
+        "items": [
+          "minecraft:heavy_core",
+          "minecraft:vault"
+        ]
+      },
+      {
+        "de": "Leg Schweren Kern und Böenrute übereinander: ein Streitkolben.",
+        "en": "Stack a heavy core on a breeze rod: a mace.",
+        "items": [
+          "minecraft:mace",
+          "minecraft:heavy_core",
+          "minecraft:breeze_rod"
+        ],
+        "rezept": "minecraft:mace"
+      },
+      {
+        "de": "Schleuder dich mit einer Windkugel weit nach oben.",
+        "en": "Launch yourself way up with a wind charge.",
+        "items": [
+          "minecraft:wind_charge"
+        ]
+      },
+      {
+        "de": "Stürz dich auf ein Wesen: Je tiefer du fällst, desto härter der Schlag.",
+        "en": "Plunge onto a mob: the longer the fall, the harder the hit.",
+        "items": [
+          "minecraft:mace"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:heavy_core",
+        "de": "Schwere Kerne gibt es in unheilvollen Tresoren der Prüfungskammern.",
+        "en": "Heavy cores come from ominous vaults in trial chambers.",
+        "hoehe": [
+          -40,
+          -20
+        ]
+      }
+    ]
+  },
+  "kampf/sculk": {
+    "schritte": [
+      {
+        "de": "Grab dich ins Tiefe Dunkel, ganz unten in der Welt. Nimm Fackeln mit.",
+        "en": "Dig down to the Deep Dark at the very bottom of the world. Bring torches.",
+        "items": [
+          "minecraft:sculk_catalyst"
+        ]
+      },
+      {
+        "de": "Such einen Sculk-Katalysator, er wächst im Tiefen Dunkel.",
+        "en": "Find a sculk catalyst, it grows in the Deep Dark.",
+        "items": [
+          "minecraft:sculk_catalyst"
+        ]
+      },
+      {
+        "de": "Erlege dort in der Nähe ein Wesen, zum Beispiel ein Skelett, das du mitgebracht hast.",
+        "en": "Kill a mob close to it, for example one you brought along.",
+        "items": [
+          "minecraft:sculk_catalyst",
+          "minecraft:skeleton_spawn_egg"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:sculk_catalyst",
+        "de": "Uralte Städte und Sculk gibt es im Tiefen Dunkel.",
+        "en": "Ancient cities and sculk are found in the Deep Dark.",
+        "biome": [
+          "minecraft:deep_dark"
+        ]
+      }
+    ]
+  },
+  "kampf/schleichen": {
+    "schritte": [
+      {
+        "de": "Geh ins Tiefe Dunkel und such einen Sculk-Sensor.",
+        "en": "Go to the Deep Dark and find a sculk sensor.",
+        "items": [
+          "minecraft:sculk_sensor"
+        ]
+      },
+      {
+        "de": "Halte Shift gedrückt, so schleichst du lautlos.",
+        "en": "Hold Shift to sneak silently.",
+        "items": [
+          "minecraft:sculk_sensor"
+        ]
+      },
+      {
+        "de": "Schleich am Sensor oder am Wärter vorbei, ohne dass er etwas bemerkt.",
+        "en": "Sneak past the sensor or warden without it noticing.",
+        "items": [
+          "minecraft:warden_spawn_egg",
+          "minecraft:sculk_sensor"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:sculk_sensor",
+        "de": "Sculk-Sensoren findest du im Tiefen Dunkel.",
+        "en": "You find sculk sensors in the Deep Dark.",
+        "biome": [
+          "minecraft:deep_dark"
+        ]
+      }
+    ]
+  },
+  "entdecken/biome": {
+    "schritte": [
+      {
+        "de": "Pack Proviant, Bett und Karte ein und zieh los.",
+        "en": "Pack food, a bed and a map and set off.",
+        "items": [
+          "minecraft:cooked_beef",
+          "minecraft:red_bed",
+          "minecraft:map"
+        ]
+      },
+      {
+        "de": "Öffne die Karte mit M und sieh, welche Ecken noch leer sind.",
+        "en": "Open the map with M and see which corners are still empty.",
+        "items": [
+          "minecraft:filled_map"
+        ]
+      },
+      {
+        "de": "Besuch ein Biom nach dem anderen, 56 Stück sind es insgesamt.",
+        "en": "Visit one biome after another, 56 in total.",
+        "items": [
+          "minecraft:compass"
+        ]
+      },
+      {
+        "de": "Vergiss die Höhlen und Meere nicht, sie zählen auch mit.",
+        "en": "Don't forget caves and oceans, they count too.",
+        "items": [
+          "minecraft:oak_boat"
+        ]
+      }
+    ]
+  },
+  "entdecken/fernrohr": {
+    "schritte": [
+      {
+        "de": "Schmelz Kupfererz im Ofen zu Kupferbarren.",
+        "en": "Smelt copper ore in a furnace into copper ingots.",
+        "items": [
+          "minecraft:copper_ingot",
+          "minecraft:furnace"
+        ]
+      },
+      {
+        "de": "Such eine Geode und bau eine Amethystscherbe ab.",
+        "en": "Find a geode and mine an amethyst shard.",
+        "items": [
+          "minecraft:amethyst_shard"
+        ]
+      },
+      {
+        "de": "Scherbe oben, darunter 2 Kupferbarren: dein Fernrohr.",
+        "en": "Shard on top, 2 copper ingots below: your spyglass.",
+        "items": [
+          "minecraft:spyglass"
+        ],
+        "rezept": "minecraft:spyglass"
+      }
+    ]
+  },
+  "entdecken/leitstein": {
+    "schritte": [
+      {
+        "de": "Bastle 8 gemeißelte Steinziegel um einen Eisenbarren: ein Leitstein.",
+        "en": "Craft 8 chiseled stone bricks around an iron ingot: a lodestone.",
+        "items": [
+          "minecraft:lodestone",
+          "minecraft:chiseled_stone_bricks"
+        ],
+        "rezept": "minecraft:lodestone"
+      },
+      {
+        "de": "Bau einen Kompass aus 4 Eisenbarren und Redstone.",
+        "en": "Craft a compass from 4 iron ingots and redstone.",
+        "items": [
+          "minecraft:compass"
+        ],
+        "rezept": "minecraft:compass"
+      },
+      {
+        "de": "Stell den Leitstein auf und mach Rechtsklick mit dem Kompass.",
+        "en": "Place the lodestone and right-click it with the compass.",
+        "items": [
+          "minecraft:lodestone",
+          "minecraft:compass"
+        ]
+      },
+      {
+        "de": "Der Kompass zeigt jetzt immer zum Leitstein, dein Weg nach Hause.",
+        "en": "The compass now always points to the lodestone, your way home.",
+        "items": [
+          "minecraft:compass"
+        ]
+      }
+    ]
+  },
+  "entdecken/musik": {
+    "schritte": [
+      {
+        "de": "Bastle einen Plattenspieler aus 8 Brettern und 1 Diamant.",
+        "en": "Craft a jukebox from 8 planks and 1 diamond.",
+        "items": [
+          "minecraft:jukebox",
+          "minecraft:diamond"
+        ],
+        "rezept": "minecraft:jukebox"
+      },
+      {
+        "de": "Besorg eine Schallplatte aus einer Truhe oder von einem Creeper-Unfall.",
+        "en": "Get a music disc from a chest or a creeper-skeleton accident.",
+        "items": [
+          "minecraft:music_disc_13"
+        ]
+      },
+      {
+        "de": "Such eine Alm, das ist das Biom mit den bunten Wiesen und Bergen.",
+        "en": "Find a meadow biome with its flowery grass.",
+        "items": [
+          "minecraft:oxeye_daisy"
+        ]
+      },
+      {
+        "de": "Stell den Plattenspieler dort auf und leg die Platte ein.",
+        "en": "Place the jukebox there and put in the disc.",
+        "items": [
+          "minecraft:jukebox",
+          "minecraft:music_disc_13"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:jukebox",
+        "de": "Der Plattenspieler muss in einer Alm spielen.",
+        "en": "The jukebox has to play in a meadow.",
+        "biome": [
+          "minecraft:meadow"
+        ]
+      }
+    ]
+  },
+  "entdecken/pruefkammer": {
+    "schritte": [
+      {
+        "de": "Zieh mit Fackeln, Essen und Rüstung in die Tiefe.",
+        "en": "Head down with torches, food and armor.",
+        "items": [
+          "minecraft:torch",
+          "minecraft:iron_chestplate"
+        ]
+      },
+      {
+        "de": "Such Tuff und Kupferblöcke, daran erkennst du eine Prüfungskammer.",
+        "en": "Look for tuff and copper blocks, that's how you spot a trial chamber.",
+        "items": [
+          "minecraft:tuff_bricks",
+          "minecraft:copper_block"
+        ]
+      },
+      {
+        "de": "Die Karte zeigt sie nicht, du musst sie also selbst aufspüren.",
+        "en": "The map doesn't show them, so you have to track one down yourself.",
+        "items": [
+          "minecraft:filled_map"
+        ]
+      },
+      {
+        "de": "Geh hinein, dann ist es geschafft.",
+        "en": "Step inside and you're done.",
+        "items": [
+          "minecraft:trial_spawner"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:trial_spawner",
+        "de": "Prüfungskammern liegen tief unter der Erde, in vielen Biomen.",
+        "en": "Trial chambers lie deep underground, in many biomes.",
+        "biome": [
+          "minecraft:plains",
+          "minecraft:forest",
+          "minecraft:desert",
+          "minecraft:taiga",
+          "minecraft:swamp"
+        ],
+        "hoehe": [
+          -40,
+          -20
+        ]
+      }
+    ]
+  },
+  "entdecken/tresor": {
+    "schritte": [
+      {
+        "de": "Geh in eine Prüfungskammer und such einen Prüfungs-Spawner.",
+        "en": "Enter a trial chamber and find a trial spawner.",
+        "items": [
+          "minecraft:trial_spawner"
+        ]
+      },
+      {
+        "de": "Besiege die Wesen, die er ausspuckt: Er lässt dann einen Prüfungsschlüssel fallen.",
+        "en": "Defeat the mobs it spawns: it then drops a trial key.",
+        "items": [
+          "minecraft:trial_key"
+        ]
+      },
+      {
+        "de": "Halte den Schlüssel in der Hand und mach Rechtsklick auf einen Tresor.",
+        "en": "Hold the key and right-click a vault.",
+        "items": [
+          "minecraft:trial_key",
+          "minecraft:vault"
+        ]
+      },
+      {
+        "de": "Er spuckt Beute aus. Jeder Tresor öffnet sich pro Spieler nur einmal.",
+        "en": "It ejects loot. Each vault opens once per player.",
+        "items": [
+          "minecraft:vault"
+        ]
+      }
+    ]
+  },
+  "entdecken/tresor_unheil": {
+    "schritte": [
+      {
+        "de": "Besorg eine Unheilvolle Flasche: aus einem Tresor der Prüfungskammer oder von einem Räuberhauptmann.",
+        "en": "Get an ominous bottle: from a trial chamber vault or from a raid captain.",
+        "items": [
+          "minecraft:ominous_bottle"
+        ]
+      },
+      {
+        "de": "Trink sie vor der Prüfungskammer, dann bist du vom Unheil gezeichnet.",
+        "en": "Drink it before the trial chamber to get the Bad Omen effect.",
+        "items": [
+          "minecraft:ominous_bottle"
+        ]
+      },
+      {
+        "de": "Betritt die Kammer: Die Spawner werden härter und lassen unheilvolle Schlüssel fallen.",
+        "en": "Enter the chamber: spawners get tougher and drop ominous keys.",
+        "items": [
+          "minecraft:trial_spawner",
+          "minecraft:ominous_trial_key"
+        ]
+      },
+      {
+        "de": "Öffne mit dem unheilvollen Schlüssel einen unheilvollen Tresor.",
+        "en": "Open an ominous vault with the ominous key.",
+        "items": [
+          "minecraft:ominous_trial_key",
+          "minecraft:vault"
+        ]
+      }
+    ]
+  },
+  "entdecken/scherbe": {
+    "schritte": [
+      {
+        "de": "Bastle einen Pinsel aus Feder, Kupferbarren und Stock.",
+        "en": "Craft a brush from a feather, copper ingot and stick.",
+        "items": [
+          "minecraft:brush",
+          "minecraft:feather"
+        ],
+        "rezept": "minecraft:brush"
+      },
+      {
+        "de": "Such einen Wüstentempel, Pfadruinen oder Ozeanruinen.",
+        "en": "Find a desert pyramid, trail ruins or ocean ruins.",
+        "items": [
+          "minecraft:suspicious_sand",
+          "minecraft:suspicious_gravel"
+        ]
+      },
+      {
+        "de": "Halte Rechtsklick auf seltsamen Sand oder Kies und pinsel ihn ab.",
+        "en": "Hold right-click on suspicious sand or gravel to brush it.",
+        "items": [
+          "minecraft:brush",
+          "minecraft:suspicious_sand"
+        ]
+      },
+      {
+        "de": "Mit Glück kommt eine Töpferscherbe zum Vorschein.",
+        "en": "With luck, a pottery sherd turns up.",
+        "items": [
+          "minecraft:archer_pottery_sherd"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:suspicious_sand",
+        "de": "Seltsamer Sand liegt in Wüstentempeln und warmen Ozeanruinen.",
+        "en": "Suspicious sand hides in desert temples and warm ocean ruins.",
+        "biome": [
+          "minecraft:desert",
+          "minecraft:warm_ocean",
+          "minecraft:lukewarm_ocean"
+        ]
+      },
+      {
+        "was": "minecraft:suspicious_gravel",
+        "de": "Seltsamer Kies liegt in Pfadruinen und kalten Ozeanruinen.",
+        "en": "Suspicious gravel hides in trail ruins and cold ocean ruins.",
+        "biome": [
+          "minecraft:taiga",
+          "minecraft:old_growth_pine_taiga",
+          "minecraft:jungle",
+          "minecraft:cold_ocean"
+        ]
+      }
+    ]
+  },
+  "entdecken/krug": {
+    "schritte": [
+      {
+        "de": "Sammle 4 Töpferscherben, auch verschiedene sind erlaubt.",
+        "en": "Collect 4 pottery sherds, different ones are fine.",
+        "items": [
+          "minecraft:archer_pottery_sherd",
+          "minecraft:angler_pottery_sherd"
+        ]
+      },
+      {
+        "de": "Leg sie in der Werkbank an die vier Seiten.",
+        "en": "Place them on the four sides in the crafting table.",
+        "items": [
+          "minecraft:crafting_table"
+        ]
+      },
+      {
+        "de": "Fertig ist der verzierte Krug. Die Scherben bestimmen die Bilder.",
+        "en": "There's your decorated pot. The sherds decide the pictures.",
+        "items": [
+          "minecraft:decorated_pot"
+        ],
+        "rezept": "minecraft:decorated_pot"
+      }
+    ]
+  },
+  "entdecken/besatz": {
+    "schritte": [
+      {
+        "de": "Bastle einen Schmiedetisch aus 2 Eisenbarren und 4 Brettern.",
+        "en": "Craft a smithing table from 2 iron ingots and 4 planks.",
+        "items": [
+          "minecraft:smithing_table"
+        ],
+        "rezept": "minecraft:smithing_table"
+      },
+      {
+        "de": "Such in Truhen von Bauwerken eine Schmiedevorlage.",
+        "en": "Look in structure chests for a smithing template.",
+        "items": [
+          "minecraft:bolt_armor_trim_smithing_template",
+          "minecraft:chest"
+        ]
+      },
+      {
+        "de": "Leg am Schmiedetisch Vorlage, Rüstungsteil und Material ein, etwa Gold oder Kupfer.",
+        "en": "At the smithing table, add template, armor and a material like gold or copper.",
+        "items": [
+          "minecraft:smithing_table",
+          "minecraft:iron_chestplate",
+          "minecraft:gold_ingot",
+          "minecraft:copper_ingot"
+        ]
+      },
+      {
+        "de": "Nimm das verzierte Teil heraus: schick!",
+        "en": "Take out the trimmed piece: stylish!",
+        "items": [
+          "minecraft:iron_chestplate"
+        ]
+      }
+    ]
+  },
+  "entdecken/knarzherz": {
+    "schritte": [
+      {
+        "de": "Verzauber eine Spitzhacke mit Behutsamkeit.",
+        "en": "Enchant a pickaxe with Silk Touch.",
+        "items": [
+          "minecraft:diamond_pickaxe",
+          "minecraft:enchanted_book"
+        ]
+      },
+      {
+        "de": "Such den Blassen Garten und geh nur tagsüber hin, nachts erwacht der Knarz.",
+        "en": "Find the pale garden and go by day only, the creaking wakes at night.",
+        "items": [
+          "minecraft:creaking_spawn_egg",
+          "minecraft:pale_oak_log"
+        ]
+      },
+      {
+        "de": "Bau ein Knarzherz mit der Spitzhacke ab und nimm 2 Blasseichenstämme mit.",
+        "en": "Mine a creaking heart with the pickaxe and take 2 pale oak logs.",
+        "items": [
+          "minecraft:creaking_heart",
+          "minecraft:pale_oak_log"
+        ]
+      },
+      {
+        "de": "Setz zwei Stämme übereinander mit einer Lücke und das Herz in die Mitte.",
+        "en": "Place two logs with a gap between them and the heart in the middle.",
+        "items": [
+          "minecraft:creaking_heart",
+          "minecraft:pale_oak_log"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:creaking_heart",
+        "de": "Knarzherzen wachsen in Blasseichen im Blassen Garten.",
+        "en": "Creaking hearts grow in pale oaks in the pale garden.",
+        "biome": [
+          "minecraft:pale_garden"
+        ]
+      }
+    ]
+  },
+  "nether/portal": {
+    "schritte": [
+      {
+        "de": "Sammle 10 Obsidian, z. B. mit einer Diamantspitzhacke.",
+        "en": "Collect 10 obsidian, e.g. with a diamond pickaxe.",
+        "items": [
+          "minecraft:obsidian",
+          "minecraft:diamond_pickaxe"
+        ]
+      },
+      {
+        "de": "Mach dir ein Feuerzeug: Eisenbarren plus Feuerstein.",
+        "en": "Craft a flint and steel: iron ingot plus flint.",
+        "items": [
+          "minecraft:flint_and_steel"
+        ],
+        "rezept": "minecraft:flint_and_steel"
+      },
+      {
+        "de": "Stell den Rahmen 4 breit und 5 hoch auf, die Ecken bleiben leer.",
+        "en": "Build the frame 4 wide and 5 tall; the corners stay empty.",
+        "items": [
+          "minecraft:obsidian"
+        ]
+      },
+      {
+        "de": "Zünde das Innere an und geh hindurch. Merk dir die Koordinaten!",
+        "en": "Light the inside and walk through. Note your coordinates!",
+        "items": [
+          "minecraft:nether_portal"
+        ]
+      }
+    ]
+  },
+  "nether/betten": {
+    "schritte": [
+      {
+        "de": "Leg dich im Nether nicht in ein Bett: Es explodiert.",
+        "en": "Don't sleep in a bed in the Nether: it explodes.",
+        "items": [
+          "minecraft:red_bed"
+        ]
+      },
+      {
+        "de": "Nimm stattdessen einen aufgeladenen Seelenanker als Wiedereinstiegspunkt.",
+        "en": "Use a charged respawn anchor as your spawn point instead.",
+        "items": [
+          "minecraft:respawn_anchor"
+        ]
+      }
+    ]
+  },
+  "nether/goldig": {
+    "schritte": [
+      {
+        "de": "Schmelze Gold zu Goldbarren, 4 reichen für Stiefel.",
+        "en": "Smelt gold into ingots; 4 are enough for boots.",
+        "items": [
+          "minecraft:gold_ingot"
+        ]
+      },
+      {
+        "de": "Stell Goldstiefel her: 2 Reihen mit je zwei Barren und einer Lücke.",
+        "en": "Craft golden boots: two rows of two ingots with a gap.",
+        "items": [
+          "minecraft:golden_boots"
+        ],
+        "rezept": "minecraft:golden_boots"
+      },
+      {
+        "de": "Zieh sie an: Piglins greifen dich jetzt nicht mehr an.",
+        "en": "Put them on: piglins won't attack you anymore.",
+        "items": [
+          "minecraft:golden_boots"
+        ]
+      },
+      {
+        "de": "Aber Gold abbauen oder ihre Truhen öffnen macht sie trotzdem wütend.",
+        "en": "But mining gold or opening their chests still angers them.",
+        "items": [
+          "minecraft:piglin_spawn_egg"
+        ]
+      }
+    ]
+  },
+  "nether/piglin": {
+    "schritte": [
+      {
+        "de": "Zieh Gold an, damit dich die Piglins in Ruhe lassen.",
+        "en": "Wear some gold so the piglins leave you alone.",
+        "items": [
+          "minecraft:golden_boots"
+        ]
+      },
+      {
+        "de": "Nimm einen Goldbarren in die Hand und geh zu einem Piglin.",
+        "en": "Hold a gold ingot and walk up to a piglin.",
+        "items": [
+          "minecraft:gold_ingot",
+          "minecraft:piglin_spawn_egg"
+        ]
+      },
+      {
+        "de": "Wirf ihn hin und warte kurz: Er prüft ihn und gibt dir etwas zurück.",
+        "en": "Toss it and wait a moment: it inspects it and gives you something back.",
+        "items": [
+          "minecraft:gold_ingot"
+        ]
+      },
+      {
+        "de": "Zum Beispiel Obsidian, Seelensand, Enderperlen oder Eisenklumpen.",
+        "en": "For example obsidian, soul sand, ender pearls or iron nuggets.",
+        "items": [
+          "minecraft:obsidian",
+          "minecraft:soul_sand",
+          "minecraft:ender_pearl",
+          "minecraft:iron_nugget"
+        ]
+      }
+    ]
+  },
+  "nether/festung": {
+    "schritte": [
+      {
+        "de": "Pack Essen, Blöcke und ein gutes Schwert ein.",
+        "en": "Pack food, blocks and a good sword.",
+        "items": [
+          "minecraft:cooked_beef",
+          "minecraft:cobblestone"
+        ]
+      },
+      {
+        "de": "Such im Nether dunkle Netherziegel: So sieht eine Festung aus.",
+        "en": "Look for dark nether bricks in the Nether: that's a fortress.",
+        "items": [
+          "minecraft:nether_bricks"
+        ]
+      },
+      {
+        "de": "Geh hinein, sobald du eine gefunden hast. Fertig!",
+        "en": "Step inside once you've found one. Done!",
+        "items": [
+          "minecraft:nether_bricks"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:nether_bricks",
+        "de": "Netherfestungen können in allen Nether-Biomen entstehen.",
+        "en": "Nether fortresses can generate in any Nether biome.",
+        "biome": [
+          "minecraft:nether_wastes",
+          "minecraft:soul_sand_valley",
+          "minecraft:crimson_forest",
+          "minecraft:warped_forest",
+          "minecraft:basalt_deltas"
+        ],
+        "dimension": "minecraft:the_nether"
+      }
+    ]
+  },
+  "nether/lohe": {
+    "schritte": [
+      {
+        "de": "Such in der Festung einen Spawner, um den Lohen schweben.",
+        "en": "Find a spawner in the fortress with blazes floating around it.",
+        "items": [
+          "minecraft:spawner",
+          "minecraft:blaze_spawn_egg"
+        ]
+      },
+      {
+        "de": "Wirf Schneebälle auf die Lohen: Sie vertragen sie erstaunlich schlecht.",
+        "en": "Throw snowballs at the blazes: they handle them surprisingly badly.",
+        "items": [
+          "minecraft:snowball"
+        ]
+      },
+      {
+        "de": "Erlege eine Lohe und sammle ihre Lohenrute auf.",
+        "en": "Defeat a blaze and pick up its blaze rod.",
+        "items": [
+          "minecraft:blaze_rod"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:blaze_rod",
+        "de": "Lohen schweben bei Spawnern in Netherfestungen.",
+        "en": "Blazes hover around spawners in Nether fortresses.",
+        "dimension": "minecraft:the_nether"
+      }
+    ]
+  },
+  "nether/trank": {
+    "schritte": [
+      {
+        "de": "Mach aus der Lohenrute einen Braustand: 3 Bruchstein dazu.",
+        "en": "Craft a brewing stand from the blaze rod and 3 cobblestone.",
+        "items": [
+          "minecraft:brewing_stand"
+        ],
+        "rezept": "minecraft:brewing_stand"
+      },
+      {
+        "de": "Mach aus einer Lohenrute Lohenstaub: Das ist der Brennstoff.",
+        "en": "Turn a blaze rod into blaze powder: that's the fuel.",
+        "items": [
+          "minecraft:blaze_powder"
+        ],
+        "rezept": "minecraft:blaze_powder"
+      },
+      {
+        "de": "Hol Netherwarze aus der Festung und füll Wasserflaschen ab.",
+        "en": "Get nether wart from the fortress and fill water bottles.",
+        "items": [
+          "minecraft:nether_wart",
+          "minecraft:glass_bottle"
+        ]
+      },
+      {
+        "de": "Stell Warze oben und Flaschen unten in den Braustand: Trank fertig.",
+        "en": "Put wart on top and bottles below in the brewing stand: potion done.",
+        "items": [
+          "minecraft:brewing_stand",
+          "minecraft:potion"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:nether_wart",
+        "de": "Netherwarze wächst in Netherfestungen auf Seelensand.",
+        "en": "Nether wart grows on soul sand in Nether fortresses.",
+        "dimension": "minecraft:the_nether"
+      }
+    ]
+  },
+  "nether/alle_traenke": {
+    "schritte": [
+      {
+        "de": "Braue Tränke für alle 17 Effekte, die die Herausforderung verlangt.",
+        "en": "Brew potions for all 17 effects the challenge asks for.",
+        "items": [
+          "minecraft:potion",
+          "minecraft:brewing_stand"
+        ]
+      },
+      {
+        "de": "Dazu zählen auch Befallen, Schleimen, Weben und Windgeladen.",
+        "en": "That includes Infested, Oozing, Weaving and Wind Charged.",
+        "items": [
+          "minecraft:slime_block",
+          "minecraft:breeze_rod"
+        ]
+      },
+      {
+        "de": "Verlängere Tränke mit Redstone, die langen trinkst du zuerst.",
+        "en": "Extend potions with redstone and drink the long ones first.",
+        "items": [
+          "minecraft:redstone"
+        ]
+      },
+      {
+        "de": "Trink alle nacheinander, bis jeder Effekt gleichzeitig läuft.",
+        "en": "Drink them all in turn until every effect is active at once.",
+        "items": [
+          "minecraft:potion"
+        ]
+      }
+    ]
+  },
+  "nether/witherschaedel": {
+    "schritte": [
+      {
+        "de": "Geh in eine Netherfestung und such die Wither-Skelette.",
+        "en": "Head to a Nether fortress and look for wither skeletons.",
+        "items": [
+          "minecraft:wither_skeleton_spawn_egg"
+        ]
+      },
+      {
+        "de": "Verzaubere dein Schwert mit Plünderung für bessere Chancen.",
+        "en": "Enchant your sword with Looting to improve your odds.",
+        "items": [
+          "minecraft:diamond_sword"
+        ]
+      },
+      {
+        "de": "Erlege Wither-Skelette, bis ein Wither-Skelettschädel fällt.",
+        "en": "Defeat wither skeletons until a wither skeleton skull drops.",
+        "items": [
+          "minecraft:wither_skeleton_skull"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:wither_skeleton_skull",
+        "de": "Wither-Skelette leben in Netherfestungen.",
+        "en": "Wither skeletons live in Nether fortresses.",
+        "dimension": "minecraft:the_nether"
+      }
+    ]
+  },
+  "nether/wither": {
+    "schritte": [
+      {
+        "de": "Sammle 3 Wither-Skelettschädel und 4 Seelensand oder Seelenerde.",
+        "en": "Gather 3 wither skeleton skulls and 4 soul sand or soul soil.",
+        "items": [
+          "minecraft:wither_skeleton_skull",
+          "minecraft:soul_sand",
+          "minecraft:soul_soil"
+        ]
+      },
+      {
+        "de": "Such dir einen Ort weit weg von Häusern und vom Spawn.",
+        "en": "Pick a spot far away from homes and spawn.",
+        "items": [
+          "minecraft:bow"
+        ]
+      },
+      {
+        "de": "Stell 4 Seelensand als T auf, die 3 Schädel oben drauf.",
+        "en": "Place 4 soul sand in a T shape with the 3 skulls on top.",
+        "items": [
+          "minecraft:soul_sand",
+          "minecraft:wither_skeleton_skull"
+        ]
+      },
+      {
+        "de": "Der Wither erwacht: Kämpf gemeinsam und halte Abstand.",
+        "en": "The Wither awakens: fight together and keep your distance.",
+        "items": [
+          "minecraft:nether_star"
+        ]
+      }
+    ]
+  },
+  "nether/leuchtfeuer": {
+    "schritte": [
+      {
+        "de": "Besiege den Wither und nimm seinen Netherstern mit.",
+        "en": "Defeat the Wither and take its nether star.",
+        "items": [
+          "minecraft:nether_star"
+        ]
+      },
+      {
+        "de": "Stell ein Leuchtfeuer her: Netherstern, 5 Glas, 3 Obsidian.",
+        "en": "Craft a beacon: nether star, 5 glass, 3 obsidian.",
+        "items": [
+          "minecraft:beacon"
+        ],
+        "rezept": "minecraft:beacon"
+      },
+      {
+        "de": "Bau eine Pyramide 3 × 3 aus 9 Eisen-, Gold-, Smaragd- oder Diamantblöcken.",
+        "en": "Build a 3 × 3 pyramid from 9 iron, gold, emerald or diamond blocks.",
+        "items": [
+          "minecraft:iron_block",
+          "minecraft:gold_block"
+        ]
+      },
+      {
+        "de": "Setz das Leuchtfeuer oben drauf und wähl einen Effekt.",
+        "en": "Place the beacon on top and pick an effect.",
+        "items": [
+          "minecraft:beacon"
+        ]
+      }
+    ]
+  },
+  "nether/leuchtfeuer_voll": {
+    "schritte": [
+      {
+        "de": "Sammle 164 Mineralblöcke: Eisen ist am leichtesten.",
+        "en": "Collect 164 mineral blocks: iron is the easiest.",
+        "items": [
+          "minecraft:iron_block"
+        ]
+      },
+      {
+        "de": "Bau Stufe 1 mit 3 × 3 (9 Blöcke), Stufe 2 mit 5 × 5 (25 Blöcke).",
+        "en": "Build tier 1 at 3 × 3 (9 blocks), tier 2 at 5 × 5 (25 blocks).",
+        "items": [
+          "minecraft:iron_block"
+        ]
+      },
+      {
+        "de": "Stufe 3 ist 7 × 7 (49 Blöcke), Stufe 4 ist 9 × 9 (81 Blöcke).",
+        "en": "Tier 3 is 7 × 7 (49 blocks), tier 4 is 9 × 9 (81 blocks).",
+        "items": [
+          "minecraft:iron_block"
+        ]
+      },
+      {
+        "de": "Das Leuchtfeuer oben drauf: Volle Stärke erreicht!",
+        "en": "Beacon on top: full power reached!",
+        "items": [
+          "minecraft:beacon"
+        ]
+      }
+    ]
+  },
+  "nether/bastion": {
+    "schritte": [
+      {
+        "de": "Such im Nether riesige Bauten aus Schwarzstein.",
+        "en": "Look for huge blackstone buildings in the Nether.",
+        "items": [
+          "minecraft:blackstone"
+        ]
+      },
+      {
+        "de": "Zieh Gold an, aber trau dem Frieden nicht: Barbaren ignorieren es.",
+        "en": "Wear gold, but don't relax: brutes ignore it.",
+        "items": [
+          "minecraft:golden_boots",
+          "minecraft:piglin_brute_spawn_egg"
+        ]
+      },
+      {
+        "de": "Betritt die Bastionsruine und halt dich nah am Ausgang.",
+        "en": "Enter the bastion remnant and stay close to the exit.",
+        "items": [
+          "minecraft:blackstone"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:blackstone",
+        "de": "Bastionsruinen gibt es in Nether-Ödland, Seelensandtal, Karmesinwald und Wirrwald.",
+        "en": "Bastion remnants generate in nether wastes, soul sand valley, crimson forest and warped forest.",
+        "biome": [
+          "minecraft:nether_wastes",
+          "minecraft:soul_sand_valley",
+          "minecraft:crimson_forest",
+          "minecraft:warped_forest"
+        ],
+        "dimension": "minecraft:the_nether"
+      }
+    ]
+  },
+  "nether/bastion_truhe": {
+    "schritte": [
+      {
+        "de": "Geh in eine Bastionsruine und such eine Truhe.",
+        "en": "Go into a bastion remnant and find a chest.",
+        "items": [
+          "minecraft:chest"
+        ]
+      },
+      {
+        "de": "Öffne sie: Alle Piglins in der Nähe werden wütend.",
+        "en": "Open it: every piglin nearby gets angry.",
+        "items": [
+          "minecraft:chest"
+        ]
+      },
+      {
+        "de": "Schnapp dir den Loot und lauf, bevor sie dich erwischen.",
+        "en": "Grab the loot and run before they catch you.",
+        "items": [
+          "minecraft:gold_ingot",
+          "minecraft:crying_obsidian"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:chest",
+        "de": "Bastionstruhen stehen in Brücken, Hoglin-Ställen, Schatzräumen und anderen Bereichen.",
+        "en": "Bastion chests are in bridges, hoglin stables, treasure rooms and other areas.",
+        "biome": [
+          "minecraft:nether_wastes",
+          "minecraft:soul_sand_valley",
+          "minecraft:crimson_forest",
+          "minecraft:warped_forest"
+        ],
+        "dimension": "minecraft:the_nether"
+      }
+    ]
+  },
+  "nether/aufwertung": {
+    "schritte": [
+      {
+        "de": "Plündere die Truhen einer Bastionsruine.",
+        "en": "Loot the chests of a bastion remnant.",
+        "items": [
+          "minecraft:chest"
+        ]
+      },
+      {
+        "de": "Nimm die Netheritaufwertung mit, die darin liegen kann.",
+        "en": "Take the netherite upgrade template that can be in there.",
+        "items": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ]
+      },
+      {
+        "de": "Kopieren: 7 Diamanten, Netherrack und die Vorlage in die Werkbank.",
+        "en": "To copy: 7 diamonds, netherrack and the template in a crafting table.",
+        "items": [
+          "minecraft:diamond",
+          "minecraft:netherrack",
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "rezept": "minecraft:netherite_upgrade_smithing_template"
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:netherite_upgrade_smithing_template",
+        "de": "Die Netheritaufwertung liegt in Truhen von Bastionsruinen.",
+        "en": "The netherite upgrade template is in bastion remnant chests.",
+        "biome": [
+          "minecraft:nether_wastes",
+          "minecraft:soul_sand_valley",
+          "minecraft:crimson_forest",
+          "minecraft:warped_forest"
+        ],
+        "dimension": "minecraft:the_nether"
+      }
+    ]
+  },
+  "nether/schrott": {
+    "schritte": [
+      {
+        "de": "Mach dir eine Diamantspitzhacke: Nur sie baut antiken Schrott ab.",
+        "en": "Craft a diamond pickaxe: only it mines ancient debris.",
+        "items": [
+          "minecraft:diamond_pickaxe"
+        ]
+      },
+      {
+        "de": "Geh in den Nether und grab auf Höhe Y 15 einen Stollen.",
+        "en": "Go to the Nether and dig a tunnel at about Y 15.",
+        "items": [
+          "minecraft:diamond_pickaxe"
+        ]
+      },
+      {
+        "de": "Such nach antikem Schrott und bau ihn ab.",
+        "en": "Look for ancient debris and mine it.",
+        "items": [
+          "minecraft:ancient_debris"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:ancient_debris",
+        "de": "Große Adern liegen zwischen Y 8 und 24, am häufigsten um Y 15.",
+        "en": "Large veins lie between Y 8 and 24, most commonly around Y 15.",
+        "hoehe": [
+          8,
+          24
+        ],
+        "dimension": "minecraft:the_nether"
+      },
+      {
+        "was": "minecraft:ancient_debris",
+        "de": "Einzelne Stücke gibt es auch höher, zwischen Y 8 und 120.",
+        "en": "Single pieces also appear higher up, between Y 8 and 120.",
+        "hoehe": [
+          8,
+          120
+        ],
+        "dimension": "minecraft:the_nether"
+      }
+    ]
+  },
+  "nether/netheritruestung": {
+    "schritte": [
+      {
+        "de": "Schmelze antiken Schrott im Ofen zu Netheritplatten.",
+        "en": "Smelt ancient debris in a furnace into netherite scrap.",
+        "items": [
+          "minecraft:netherite_scrap"
+        ],
+        "rezept": "minecraft:netherite_scrap"
+      },
+      {
+        "de": "4 Netheritplatten und 4 Goldbarren ergeben einen Netheritbarren.",
+        "en": "4 netherite scrap and 4 gold ingots make one netherite ingot.",
+        "items": [
+          "minecraft:netherite_ingot"
+        ],
+        "rezept": "minecraft:netherite_ingot"
+      },
+      {
+        "de": "Lege Diamantrüstung, Netheritaufwertung und Barren in den Schmiedetisch.",
+        "en": "Put diamond armor, upgrade template and ingot in a smithing table.",
+        "items": [
+          "minecraft:smithing_table",
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "rezept": "minecraft:netherite_chestplate_smithing"
+      },
+      {
+        "de": "Wiederhol das für Helm, Hose und Stiefel: 4 Teile.",
+        "en": "Repeat for helmet, leggings and boots: 4 pieces.",
+        "items": [
+          "minecraft:netherite_helmet",
+          "minecraft:netherite_boots"
+        ],
+        "rezept": "minecraft:netherite_helmet_smithing"
+      }
+    ]
+  },
+  "nether/netherithacke": {
+    "schritte": [
+      {
+        "de": "Mach eine Diamanthacke: 2 Diamanten und 2 Stöcke.",
+        "en": "Craft a diamond hoe: 2 diamonds and 2 sticks.",
+        "items": [
+          "minecraft:diamond_hoe"
+        ],
+        "rezept": "minecraft:diamond_hoe"
+      },
+      {
+        "de": "Leg im Schmiedetisch Aufwertung, Hacke und Netheritbarren ein.",
+        "en": "In a smithing table, add template, hoe and netherite ingot.",
+        "items": [
+          "minecraft:smithing_table",
+          "minecraft:netherite_ingot"
+        ],
+        "rezept": "minecraft:netherite_hoe_smithing"
+      },
+      {
+        "de": "Nimm die Netherithacke heraus: völlig übertrieben, genau richtig.",
+        "en": "Take out the netherite hoe: completely over the top, just right.",
+        "items": [
+          "minecraft:netherite_hoe"
+        ]
+      }
+    ]
+  },
+  "nether/weinender_obsidian": {
+    "schritte": [
+      {
+        "de": "Tausch Goldbarren bei Piglins: Manchmal gibt es weinenden Obsidian.",
+        "en": "Barter gold ingots with piglins: sometimes you get crying obsidian.",
+        "items": [
+          "minecraft:gold_ingot",
+          "minecraft:crying_obsidian"
+        ]
+      },
+      {
+        "de": "Oder such in Bastionsruinen und Portalruinen danach.",
+        "en": "Or look for it in bastion remnants and ruined portals.",
+        "items": [
+          "minecraft:crying_obsidian"
+        ]
+      },
+      {
+        "de": "Bau ihn mit der Diamantspitzhacke ab.",
+        "en": "Mine it with a diamond pickaxe.",
+        "items": [
+          "minecraft:diamond_pickaxe",
+          "minecraft:crying_obsidian"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:crying_obsidian",
+        "de": "Bastionsruinen enthalten weinenden Obsidian in ihren Truhen.",
+        "en": "Bastion remnants hold crying obsidian in their chests.",
+        "biome": [
+          "minecraft:nether_wastes",
+          "minecraft:soul_sand_valley",
+          "minecraft:crimson_forest",
+          "minecraft:warped_forest"
+        ],
+        "dimension": "minecraft:the_nether"
+      }
+    ]
+  },
+  "nether/seelenanker": {
+    "schritte": [
+      {
+        "de": "Sammle 6 weinenden Obsidian und 7 Leuchtstein.",
+        "en": "Collect 6 crying obsidian and 7 glowstone.",
+        "items": [
+          "minecraft:crying_obsidian",
+          "minecraft:glowstone"
+        ]
+      },
+      {
+        "de": "Leg oben und unten je 3 weinenden Obsidian, in die Mitte 3 Leuchtstein.",
+        "en": "Put 3 crying obsidian each on top and bottom, 3 glowstone in the middle.",
+        "items": [
+          "minecraft:respawn_anchor"
+        ],
+        "rezept": "minecraft:respawn_anchor"
+      },
+      {
+        "de": "Setz ihn im Nether und klick 4-mal mit Leuchtstein darauf.",
+        "en": "Place it in the Nether and use glowstone on it 4 times.",
+        "items": [
+          "minecraft:glowstone"
+        ]
+      },
+      {
+        "de": "Nur im Nether! In der Oberwelt explodiert er.",
+        "en": "Only in the Nether! In the Overworld it explodes.",
+        "items": [
+          "minecraft:respawn_anchor"
+        ]
+      }
+    ]
+  },
+  "nether/schreiter": {
+    "schritte": [
+      {
+        "de": "Mach einen Sattel aus Leder und Eisen, oder finde einen.",
+        "en": "Craft a saddle from leather and iron, or find one.",
+        "items": [
+          "minecraft:saddle"
+        ],
+        "rezept": "minecraft:saddle"
+      },
+      {
+        "de": "Mach eine Angel und hol einen Wirrpilz im Wirrwald.",
+        "en": "Craft a fishing rod and get a warped fungus from a warped forest.",
+        "items": [
+          "minecraft:fishing_rod",
+          "minecraft:warped_fungus"
+        ],
+        "rezept": "minecraft:fishing_rod"
+      },
+      {
+        "de": "Bau die Wirrpilzrute: Angel und Wirrpilz zusammen.",
+        "en": "Make the warped fungus on a stick: fishing rod plus fungus.",
+        "items": [
+          "minecraft:warped_fungus_on_a_stick"
+        ],
+        "rezept": "minecraft:warped_fungus_on_a_stick"
+      },
+      {
+        "de": "Sattel einen Schreiter auf einem Lavasee, setz dich drauf und reite.",
+        "en": "Saddle a strider on a lava lake, mount it and ride.",
+        "items": [
+          "minecraft:saddle",
+          "minecraft:strider_spawn_egg"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:warped_fungus",
+        "de": "Wirrpilze wachsen im Wirrwald.",
+        "en": "Warped fungus grows in the warped forest.",
+        "biome": [
+          "minecraft:warped_forest"
+        ],
+        "dimension": "minecraft:the_nether"
+      }
+    ]
+  },
+  "nether/schreiter_heim": {
+    "schritte": [
+      {
+        "de": "Besorg dir Schreiter, Sattel und Wirrpilzrute.",
+        "en": "Get a strider, saddle and warped fungus on a stick.",
+        "items": [
+          "minecraft:strider_spawn_egg",
+          "minecraft:saddle",
+          "minecraft:warped_fungus_on_a_stick"
+        ]
+      },
+      {
+        "de": "Lock den Schreiter mit der Wirrpilzrute durch das Portal.",
+        "en": "Lure the strider through the portal with the fungus on a stick.",
+        "items": [
+          "minecraft:warped_fungus_on_a_stick",
+          "minecraft:nether_portal"
+        ]
+      },
+      {
+        "de": "Such in der Oberwelt einen Lavasee und reite 50 Blöcke darüber.",
+        "en": "Find an Overworld lava lake and ride 50 blocks across it.",
+        "items": [
+          "minecraft:lava_bucket"
+        ]
+      }
+    ]
+  },
+  "nether/netherbiome": {
+    "schritte": [
+      {
+        "de": "Erkunde das Nether-Ödland rund ums Portal.",
+        "en": "Explore the nether wastes around your portal.",
+        "items": [
+          "minecraft:netherrack"
+        ]
+      },
+      {
+        "de": "Such Seelensandtal, Karmesinwald und Wirrwald.",
+        "en": "Find the soul sand valley, crimson forest and warped forest.",
+        "items": [
+          "minecraft:soul_sand",
+          "minecraft:crimson_fungus",
+          "minecraft:warped_fungus"
+        ]
+      },
+      {
+        "de": "Zum Schluss die Basaltdeltas: Der Boden dort ist sehr uneben.",
+        "en": "Last, the basalt deltas: the ground there is very uneven.",
+        "items": [
+          "minecraft:basalt"
+        ]
+      }
+    ]
+  },
+  "nether/schnellreise": {
+    "schritte": [
+      {
+        "de": "Bau ein Portal in der Oberwelt und geh in den Nether.",
+        "en": "Build a portal in the Overworld and enter the Nether.",
+        "items": [
+          "minecraft:nether_portal"
+        ]
+      },
+      {
+        "de": "Lauf im Nether in eine Richtung: 1 Block zählt wie 8 Blöcke.",
+        "en": "Walk in one direction in the Nether: 1 block counts as 8 blocks.",
+        "items": [
+          "minecraft:compass"
+        ]
+      },
+      {
+        "de": "Knapp 900 Blöcke im Nether sind 7000 in der Oberwelt.",
+        "en": "Just under 900 blocks in the Nether equal 7000 in the Overworld.",
+        "items": [
+          "minecraft:clock"
+        ]
+      }
+    ]
+  },
+  "nether/ghast_feuerball": {
+    "schritte": [
+      {
+        "de": "Such einen Ghast im Nether, am besten auf freier Fläche.",
+        "en": "Find a ghast in the Nether, ideally on open ground.",
+        "items": [
+          "minecraft:ghast_spawn_egg"
+        ]
+      },
+      {
+        "de": "Warte, bis er einen Feuerball auf dich schießt.",
+        "en": "Wait until it fires a fireball at you.",
+        "items": [
+          "minecraft:fire_charge"
+        ]
+      },
+      {
+        "de": "Schlag den Feuerball kurz vor dem Treffer zurück.",
+        "en": "Hit the fireball back right before it reaches you.",
+        "items": [
+          "minecraft:fire_charge"
+        ]
+      },
+      {
+        "de": "Der zurückgeschlagene Feuerball erledigt den Ghast.",
+        "en": "The returned fireball finishes off the ghast.",
+        "items": [
+          "minecraft:ghast_tear"
+        ]
+      }
+    ]
+  },
+  "nether/ghast_ausflug": {
+    "schritte": [
+      {
+        "de": "Bau ein Netherportal dicht neben einem Ghast.",
+        "en": "Build a Nether portal right next to a ghast.",
+        "items": [
+          "minecraft:nether_portal",
+          "minecraft:ghast_spawn_egg"
+        ]
+      },
+      {
+        "de": "Lock den Ghast durchs Portal. Viel Geduld einpacken!",
+        "en": "Lure the ghast through the portal. Bring lots of patience!",
+        "items": [
+          "minecraft:ghast_spawn_egg"
+        ]
+      },
+      {
+        "de": "Erlege ihn in der Oberwelt, am besten mit dem Bogen.",
+        "en": "Defeat it in the Overworld, ideally with a bow.",
+        "items": [
+          "minecraft:bow"
+        ]
+      }
+    ]
+  },
+  "nether/ghast_fernrohr": {
+    "schritte": [
+      {
+        "de": "Stell ein Fernrohr her: Amethystscherbe und 2 Kupferbarren.",
+        "en": "Craft a spyglass: amethyst shard and 2 copper ingots.",
+        "items": [
+          "minecraft:spyglass"
+        ],
+        "rezept": "minecraft:spyglass"
+      },
+      {
+        "de": "Geh in den Nether und such einen Ghast.",
+        "en": "Go to the Nether and look for a ghast.",
+        "items": [
+          "minecraft:ghast_spawn_egg"
+        ]
+      },
+      {
+        "de": "Schau ihn aus sicherer Entfernung durchs Fernrohr an.",
+        "en": "Look at it through the spyglass from a safe distance.",
+        "items": [
+          "minecraft:spyglass"
+        ]
+      }
+    ]
+  },
+  "nether/ausgetrockneter_ghast": {
+    "schritte": [
+      {
+        "de": "Sammle 8 Ghast-Tränen von Ghasts im Nether.",
+        "en": "Collect 8 ghast tears from ghasts in the Nether.",
+        "items": [
+          "minecraft:ghast_tear"
+        ]
+      },
+      {
+        "de": "Leg sie mit 1 Seelensand in der Mitte in die Werkbank.",
+        "en": "Put them in a crafting table with 1 soul sand in the middle.",
+        "items": [
+          "minecraft:dried_ghast"
+        ],
+        "rezept": "minecraft:dried_ghast"
+      },
+      {
+        "de": "Alternativ tauschst du bei Piglins mit Glück einen ein.",
+        "en": "Alternatively, barter with piglins and you may get one.",
+        "items": [
+          "minecraft:gold_ingot",
+          "minecraft:dried_ghast"
+        ]
+      },
+      {
+        "de": "Setz ihn ins Wasser: Daraus schlüpft ein glücklicher Ghast.",
+        "en": "Place it in water: a happy ghast hatches from it.",
+        "items": [
+          "minecraft:water_bucket",
+          "minecraft:happy_ghast_spawn_egg"
+        ]
+      }
+    ]
+  },
+  "nether/froschlichter": {
+    "schritte": [
+      {
+        "de": "Fang drei verschiedene Froscharten und bring sie in den Nether.",
+        "en": "Catch three different frog variants and bring them to the Nether.",
+        "items": [
+          "minecraft:frog_spawn_egg",
+          "minecraft:oak_boat"
+        ]
+      },
+      {
+        "de": "Fahr sie im Boot durchs Portal.",
+        "en": "Take them through the portal in a boat.",
+        "items": [
+          "minecraft:oak_boat",
+          "minecraft:nether_portal"
+        ]
+      },
+      {
+        "de": "Lass sie kleine Magmawürfel fressen: Dann fällt ein Froschlicht.",
+        "en": "Let them eat small magma cubes: a froglight drops.",
+        "items": [
+          "minecraft:magma_cube_spawn_egg"
+        ]
+      },
+      {
+        "de": "Sammle alle drei Froschlichter zusammen im Inventar.",
+        "en": "Collect all three froglights together in your inventory.",
+        "items": [
+          "minecraft:ochre_froglight",
+          "minecraft:verdant_froglight",
+          "minecraft:pearlescent_froglight"
+        ]
+      }
+    ]
+  },
+  "mission/ziel": {
+    "schritte": [
+      {
+        "de": "Schau bald wieder rein.",
+        "en": "Check back soon.",
+        "items": [
+          "minecraft:compass"
+        ]
+      }
+    ]
+  },
+  "end/drachenkampf": {
+    "schritte": [
+      {
+        "de": "Schau im Chat und auf Discord nach dem Termin für den Drachenkampf.",
+        "en": "Check chat and Discord for the date of the dragon fight.",
+        "items": [
+          "minecraft:dragon_head"
+        ]
+      },
+      {
+        "de": "Pack Bogen, viele Pfeile, Blöcke, Wassereimer und Essen ein.",
+        "en": "Pack a bow, plenty of arrows, blocks, a water bucket and food.",
+        "items": [
+          "minecraft:bow",
+          "minecraft:arrow",
+          "minecraft:water_bucket",
+          "minecraft:cooked_beef"
+        ]
+      },
+      {
+        "de": "Komm pünktlich ins Ende: Wir besiegen den Drachen gemeinsam.",
+        "en": "Be on time in the End: we take down the dragon together.",
+        "items": [
+          "minecraft:end_portal_frame"
+        ]
+      }
+    ]
+  },
+  "end/kuerbis": {
+    "schritte": [
+      {
+        "de": "Finde einen Kürbis und nimm ihn mit.",
+        "en": "Find a pumpkin and take it with you.",
+        "items": [
+          "minecraft:pumpkin"
+        ]
+      },
+      {
+        "de": "Stell aus 2 Eisenbarren eine Schere her.",
+        "en": "Craft shears from 2 iron ingots.",
+        "items": [
+          "minecraft:shears"
+        ],
+        "rezept": "minecraft:shears"
+      },
+      {
+        "de": "Benutze die Schere auf dem Kürbis: Aus ihm wird ein geschnitzter Kürbis.",
+        "en": "Use the shears on the pumpkin to get a carved pumpkin.",
+        "items": [
+          "minecraft:carved_pumpkin",
+          "minecraft:shears"
+        ]
+      },
+      {
+        "de": "Setz ihn in den Kopf-Slot deiner Rüstung auf. Steht dir!",
+        "en": "Put it in your helmet slot. Looks great on you!",
+        "items": [
+          "minecraft:carved_pumpkin"
+        ]
+      }
+    ]
+  },
+  "end/enderauge": {
+    "schritte": [
+      {
+        "de": "Erlege Endermen und sammle ihre Enderperlen.",
+        "en": "Hunt Endermen and collect their ender pearls.",
+        "items": [
+          "minecraft:enderman_spawn_egg",
+          "minecraft:ender_pearl"
+        ]
+      },
+      {
+        "de": "Mach aus Lohenruten Lohenstaub.",
+        "en": "Turn blaze rods into blaze powder.",
+        "items": [
+          "minecraft:blaze_powder"
+        ],
+        "rezept": "minecraft:blaze_powder"
+      },
+      {
+        "de": "Kombiniere Enderperle und Lohenstaub zu einem Enderauge.",
+        "en": "Combine an ender pearl and blaze powder into an eye of ender.",
+        "items": [
+          "minecraft:ender_eye"
+        ],
+        "rezept": "minecraft:ender_eye"
+      },
+      {
+        "de": "Wirf das Enderauge: Es fliegt in Richtung der Festung. Lauf hinterher!",
+        "en": "Throw the eye of ender: it flies toward the stronghold. Follow it!",
+        "items": [
+          "minecraft:ender_eye"
+        ]
+      },
+      {
+        "de": "Wiederhole das, bis das Auge nach unten sinkt: Dort ist die Festung.",
+        "en": "Repeat until the eye sinks down: the stronghold is below.",
+        "items": [
+          "minecraft:ender_eye"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:ender_eye",
+        "de": "Festungen liegen unter der Oberwelt, in fast jedem Biom.",
+        "en": "Strongholds lie beneath the Overworld, in almost any biome.",
+        "biome": [
+          "minecraft:plains",
+          "minecraft:forest",
+          "minecraft:desert"
+        ]
+      }
+    ]
+  },
+  "end/end": {
+    "schritte": [
+      {
+        "de": "Grab dich in der Festung bis zum Raum mit den Endportalrahmen durch.",
+        "en": "Dig through the stronghold to the room with the End portal frames.",
+        "items": [
+          "minecraft:end_portal_frame"
+        ]
+      },
+      {
+        "de": "Setz in jeden leeren Rahmen ein Enderauge: Bis zu 12 brauchst du.",
+        "en": "Put an eye of ender in every empty frame: up to 12 are needed.",
+        "items": [
+          "minecraft:ender_eye",
+          "minecraft:end_portal_frame"
+        ]
+      },
+      {
+        "de": "Sind alle gefüllt, öffnet sich das Endportal.",
+        "en": "Once all are filled, the End portal opens.",
+        "items": [
+          "minecraft:end_portal_frame"
+        ]
+      },
+      {
+        "de": "Nimm Blöcke und einen Bogen mit, bevor du hineinspringst.",
+        "en": "Bring blocks and a bow before you jump in.",
+        "items": [
+          "minecraft:bow",
+          "minecraft:cobblestone"
+        ]
+      },
+      {
+        "de": "Spring ins Portal: Du landest im Ende.",
+        "en": "Jump into the portal: you land in the End.",
+        "items": [
+          "minecraft:end_stone"
+        ]
+      }
+    ]
+  },
+  "end/drache": {
+    "schritte": [
+      {
+        "de": "Vereinbart den Termin: Den Drachen besiegen wir gemeinsam.",
+        "en": "Agree on the date: we beat the dragon together.",
+        "items": [
+          "minecraft:dragon_head"
+        ]
+      },
+      {
+        "de": "Zerstör die Enderkristalle auf den Obsidiansäulen mit Pfeilen.",
+        "en": "Shoot the End crystals on the obsidian pillars with arrows.",
+        "items": [
+          "minecraft:end_crystal",
+          "minecraft:bow",
+          "minecraft:arrow"
+        ]
+      },
+      {
+        "de": "Greif den Drachen an, wenn er tief fliegt.",
+        "en": "Attack the dragon when it swoops low.",
+        "items": [
+          "minecraft:dragon_head"
+        ]
+      },
+      {
+        "de": "Bring seine Lebensleiste auf null: Geschafft!",
+        "en": "Bring its health bar to zero: done!",
+        "items": [
+          "minecraft:dragon_head"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:end_crystal",
+        "de": "Der Drache lebt auf der Hauptinsel im Ende.",
+        "en": "The dragon lives on the main island in the End.",
+        "biome": [
+          "minecraft:the_end"
+        ]
+      }
+    ]
+  },
+  "end/drache_fernrohr": {
+    "schritte": [
+      {
+        "de": "Stell aus Amethystsplitter und 2 Kupferbarren ein Fernrohr her.",
+        "en": "Craft a spyglass from an amethyst shard and 2 copper ingots.",
+        "items": [
+          "minecraft:spyglass"
+        ],
+        "rezept": "minecraft:spyglass"
+      },
+      {
+        "de": "Betritt das Ende und halte nach dem Enderdrachen Ausschau.",
+        "en": "Enter the End and look out for the Ender Dragon.",
+        "items": [
+          "minecraft:end_stone"
+        ]
+      },
+      {
+        "de": "Schau durchs Fernrohr direkt auf den Drachen. Besser, bevor er dich bemerkt!",
+        "en": "Look at the dragon through the spyglass, ideally before it notices you!",
+        "items": [
+          "minecraft:spyglass"
+        ]
+      }
+    ]
+  },
+  "end/drachenei": {
+    "schritte": [
+      {
+        "de": "Besiege den Enderdrachen: Danach liegt das Drachenei auf dem Ausgangsportal.",
+        "en": "Beat the Ender Dragon: afterwards the dragon egg sits on the exit portal.",
+        "items": [
+          "minecraft:dragon_egg"
+        ]
+      },
+      {
+        "de": "Klick es nicht an, sonst teleportiert es sich weg!",
+        "en": "Don't click it or it teleports away!",
+        "items": [
+          "minecraft:dragon_egg"
+        ]
+      },
+      {
+        "de": "Stell aus Brettern, Bruchstein, Eisen und Redstone einen Kolben her.",
+        "en": "Craft a piston from planks, cobblestone, iron and redstone.",
+        "items": [
+          "minecraft:piston"
+        ],
+        "rezept": "minecraft:piston"
+      },
+      {
+        "de": "Schieb das Ei mit dem Kolben nach unten und heb es auf.",
+        "en": "Push the egg down with the piston and pick it up.",
+        "items": [
+          "minecraft:piston",
+          "minecraft:dragon_egg"
+        ]
+      }
+    ]
+  },
+  "end/drachenatem": {
+    "schritte": [
+      {
+        "de": "Stell aus 3 Glasblöcken Glasflaschen her.",
+        "en": "Craft glass bottles from 3 glass blocks.",
+        "items": [
+          "minecraft:glass_bottle"
+        ],
+        "rezept": "minecraft:glass_bottle"
+      },
+      {
+        "de": "Halte dich beim Kampf mit der Flasche in der Hand bereit.",
+        "en": "Keep a bottle in hand during the fight.",
+        "items": [
+          "minecraft:glass_bottle"
+        ]
+      },
+      {
+        "de": "Sammle die lila Wolke des Drachen mit der Flasche ein.",
+        "en": "Scoop the dragon's purple cloud with the bottle.",
+        "items": [
+          "minecraft:dragon_breath"
+        ]
+      }
+    ]
+  },
+  "end/drache_zurueck": {
+    "schritte": [
+      {
+        "de": "Sprich den Termin im Chat ab, bevor du den Drachen wiederbelebst.",
+        "en": "Agree on the date in chat before you respawn the dragon.",
+        "items": [
+          "minecraft:dragon_head"
+        ]
+      },
+      {
+        "de": "Stell einen Enderkristall her: 7 Glas, ein Enderauge und eine Ghastträne.",
+        "en": "Craft an End crystal: 7 glass, an eye of ender and a ghast tear.",
+        "items": [
+          "minecraft:end_crystal"
+        ],
+        "rezept": "minecraft:end_crystal"
+      },
+      {
+        "de": "Wiederhol das, bis du 4 Enderkristalle hast.",
+        "en": "Repeat until you have 4 End crystals.",
+        "items": [
+          "minecraft:end_crystal"
+        ]
+      },
+      {
+        "de": "Setz je einen Kristall an eine Seite des Ausgangsportals.",
+        "en": "Place one crystal on each side of the exit portal.",
+        "items": [
+          "minecraft:end_crystal",
+          "minecraft:bedrock"
+        ]
+      }
+    ]
+  },
+  "end/transitportal": {
+    "schritte": [
+      {
+        "de": "Besiege den Enderdrachen: Dann erscheinen kleine Portale am Inselrand.",
+        "en": "Beat the dragon: small portals then appear at the island's edge.",
+        "items": [
+          "minecraft:end_gateway"
+        ]
+      },
+      {
+        "de": "Nimm eine Enderperle mit und stell dich neben ein Transitportal.",
+        "en": "Take an ender pearl and stand next to a gateway.",
+        "items": [
+          "minecraft:ender_pearl",
+          "minecraft:end_gateway"
+        ]
+      },
+      {
+        "de": "Wirf die Perle in das Portal und reise zu den äußeren Inseln.",
+        "en": "Throw the pearl into the gateway and travel to the outer islands.",
+        "items": [
+          "minecraft:ender_pearl"
+        ]
+      }
+    ]
+  },
+  "end/endsiedlung": {
+    "schritte": [
+      {
+        "de": "Reise durch ein Endtransitportal zu den äußeren Inseln.",
+        "en": "Travel through an End gateway to the outer islands.",
+        "items": [
+          "minecraft:end_gateway"
+        ]
+      },
+      {
+        "de": "Such im End-Hochland und End-Mittelland nach hohen lila Türmen.",
+        "en": "Look for tall purple towers in the End Highlands and Midlands.",
+        "items": [
+          "minecraft:purpur_block",
+          "minecraft:end_rod"
+        ]
+      },
+      {
+        "de": "Geh hinein, aber Vorsicht vor Shulkern!",
+        "en": "Step inside, but beware of shulkers!",
+        "items": [
+          "minecraft:shulker_spawn_egg"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:purpur_block",
+        "de": "Endsiedlungen gibt es nur auf den äußeren Inseln.",
+        "en": "End cities only generate on the outer islands.",
+        "biome": [
+          "minecraft:end_highlands",
+          "minecraft:end_midlands"
+        ]
+      }
+    ]
+  },
+  "end/schweben": {
+    "schritte": [
+      {
+        "de": "Such eine Endsiedlung und lock Shulker an.",
+        "en": "Find an End city and get the attention of some shulkers.",
+        "items": [
+          "minecraft:shulker_spawn_egg"
+        ]
+      },
+      {
+        "de": "Lass dich von ihren Geschossen treffen: Du schwebst nach oben.",
+        "en": "Let their bullets hit you: you start floating up.",
+        "items": [
+          "minecraft:shulker_shell"
+        ]
+      },
+      {
+        "de": "Lass dich mehrmals treffen, bis du 50 Blöcke hoch bist.",
+        "en": "Get hit again and again until you are 50 blocks up.",
+        "items": [
+          "minecraft:shulker_shell"
+        ]
+      },
+      {
+        "de": "Halte den Wassereimer für die Landung bereit.",
+        "en": "Have the water bucket ready for landing.",
+        "items": [
+          "minecraft:water_bucket"
+        ]
+      }
+    ]
+  },
+  "end/elytra": {
+    "schritte": [
+      {
+        "de": "Such eine Endsiedlung mit einem Endschiff daneben.",
+        "en": "Look for an End city with an End ship next to it.",
+        "items": [
+          "minecraft:purpur_block"
+        ]
+      },
+      {
+        "de": "Klettere ins Schiff und schau dich um.",
+        "en": "Climb into the ship and look around.",
+        "items": [
+          "minecraft:end_rod"
+        ]
+      },
+      {
+        "de": "Nimm die Elytren aus dem Rahmen.",
+        "en": "Take the elytra from the item frame.",
+        "items": [
+          "minecraft:elytra"
+        ]
+      },
+      {
+        "de": "Stell Feuerwerksraketen für den Schub her.",
+        "en": "Craft firework rockets for a boost.",
+        "items": [
+          "minecraft:firework_rocket"
+        ],
+        "rezept": "minecraft:firework_rocket"
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:elytra",
+        "de": "Das Endschiff steht bei manchen Endsiedlungen, nicht bei allen.",
+        "en": "The End ship stands next to some End cities, not all.",
+        "biome": [
+          "minecraft:end_highlands",
+          "minecraft:end_midlands"
+        ]
+      }
+    ]
+  },
+  "end/alle_effekte": {
+    "schritte": [
+      {
+        "de": "Plan vorab: Es braucht alle 34 Statuseffekte auf einmal, auch seltene.",
+        "en": "Plan ahead: you need all 34 status effects at once, even rare ones.",
+        "items": [
+          "minecraft:potion"
+        ]
+      },
+      {
+        "de": "Besorg Tränke, ein Leuchtfeuer und Exoten wie Befallen oder Weben.",
+        "en": "Gather potions, a beacon and oddballs like Infested or Weaving.",
+        "items": [
+          "minecraft:splash_potion",
+          "minecraft:beacon"
+        ]
+      },
+      {
+        "de": "Holt Freunde zur Hilfe: Allein ist das kaum zu schaffen.",
+        "en": "Get friends to help: it is nearly impossible alone.",
+        "items": [
+          "minecraft:splash_potion"
+        ]
+      },
+      {
+        "de": "Trink danach Milcheimer: Das löscht die Effekte wieder.",
+        "en": "Drink milk buckets afterwards to clear the effects again.",
+        "items": [
+          "minecraft:milk_bucket"
+        ]
+      }
+    ]
+  },
+  "end/besatz_alle": {
+    "schritte": [
+      {
+        "de": "Sammle alle 8 Vorlagen, von Turmspitze bis Wegfinder.",
+        "en": "Collect all 8 templates, from Spire to Wayfinder.",
+        "items": [
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template"
+        ]
+      },
+      {
+        "de": "Turmspitze: Endsiedlungs-Truhen. Stille und Warthof: antike Städte.",
+        "en": "Spire: End city chests. Silence and Ward: ancient cities.",
+        "items": [
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template"
+        ]
+      },
+      {
+        "de": "Schnauze: Bastionen. Rippe: Netherfestungen. Plagegeist: Waldanwesen.",
+        "en": "Snout: bastions. Rib: Nether fortresses. Vex: woodland mansions.",
+        "items": [
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template"
+        ]
+      },
+      {
+        "de": "Gezeiten: Großer Wächter. Wegfinder: Ruinen in Taiga und Dschungel.",
+        "en": "Tide: Elder Guardian. Wayfinder: ruins in taiga and jungle.",
+        "items": [
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template"
+        ]
+      },
+      {
+        "de": "Wende jede Vorlage einmal am Schmiedetisch auf eine Rüstung an.",
+        "en": "Apply each template once to armor at a smithing table.",
+        "items": [
+          "minecraft:smithing_table"
+        ]
+      }
+    ],
+    "fundort": [
+      {
+        "was": "minecraft:spire_armor_trim_smithing_template",
+        "de": "Die Turmspitze liegt in Truhen der Endsiedlungen.",
+        "en": "The Spire template is in End city chests.",
+        "biome": [
+          "minecraft:end_highlands",
+          "minecraft:end_midlands"
+        ]
+      },
+      {
+        "was": "minecraft:silence_armor_trim_smithing_template",
+        "de": "Stille und Warthof liegen in antiken Städten.",
+        "en": "Silence and Ward are in ancient cities.",
+        "biome": [
+          "minecraft:deep_dark"
+        ]
+      }
+    ]
+  }
+}

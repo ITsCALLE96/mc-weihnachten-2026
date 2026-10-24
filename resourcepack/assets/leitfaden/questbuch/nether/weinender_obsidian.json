@@ -1,0 +1,48 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.weinender_obsidian.schritt.1",
+        "fallback": "Barter gold ingots with piglins: sometimes you get crying obsidian."
+      },
+      "items": [
+        "minecraft:gold_ingot",
+        "minecraft:crying_obsidian"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.weinender_obsidian.schritt.2",
+        "fallback": "Or look for it in bastion remnants and ruined portals."
+      },
+      "items": [
+        "minecraft:crying_obsidian"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.weinender_obsidian.schritt.3",
+        "fallback": "Mine it with a diamond pickaxe."
+      },
+      "items": [
+        "minecraft:diamond_pickaxe",
+        "minecraft:crying_obsidian"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.nether.weinender_obsidian.fundort.1",
+        "fallback": "Bastion remnants hold crying obsidian in their chests."
+      },
+      "biome": [
+        "minecraft:nether_wastes",
+        "minecraft:soul_sand_valley",
+        "minecraft:crimson_forest",
+        "minecraft:warped_forest"
+      ],
+      "dimension": "minecraft:the_nether"
+    }
+  ]
+}

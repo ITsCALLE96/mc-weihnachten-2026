@@ -1,0 +1,44 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.angeln.schritt.1",
+        "fallback": "Craft a fishing rod from 3 sticks and 2 string."
+      },
+      "items": [
+        "minecraft:fishing_rod",
+        "minecraft:stick",
+        "minecraft:string"
+      ],
+      "rezept": "minecraft:fishing_rod"
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.angeln.schritt.2",
+        "fallback": "Stand by the water and cast the rod with right-click."
+      },
+      "items": [
+        "minecraft:fishing_rod"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.angeln.schritt.3",
+        "fallback": "Wait patiently until the bobber dips."
+      },
+      "items": [
+        "minecraft:fishing_rod"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.angeln.schritt.4",
+        "fallback": "Right-click now and the fish flops into your inventory. Rain helps the bites."
+      },
+      "items": [
+        "minecraft:cod",
+        "minecraft:salmon"
+      ]
+    }
+  ]
+}

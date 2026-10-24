@@ -1,0 +1,41 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.honigblock.schritt.1",
+        "fallback": "Fill 4 honey bottles."
+      },
+      "items": [
+        "minecraft:honey_bottle"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.honigblock.schritt.2",
+        "fallback": "Put the 4 honey bottles in the 2×2 grid as a honey block."
+      },
+      "items": [
+        "minecraft:honey_block"
+      ],
+      "rezept": "minecraft:honey_block"
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.honigblock.schritt.3",
+        "fallback": "Place it and jump against the side."
+      },
+      "items": [
+        "minecraft:honey_block"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.honigblock.schritt.4",
+        "fallback": "Cling to the side and slide slowly down."
+      },
+      "items": [
+        "minecraft:honey_block"
+      ]
+    }
+  ]
+}

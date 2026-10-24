@@ -1,0 +1,50 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.alle_monster.schritt.1",
+        "fallback": "Gear up with a sword, armor and a bow."
+      },
+      "items": [
+        "minecraft:iron_sword",
+        "minecraft:iron_chestplate",
+        "minecraft:bow"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.alle_monster.schritt.2",
+        "fallback": "Kill a zombie, skeleton, spider, creeper and witch, those come quickly."
+      },
+      "items": [
+        "minecraft:zombie_spawn_egg",
+        "minecraft:skeleton_spawn_egg",
+        "minecraft:creeper_spawn_egg",
+        "minecraft:witch_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.alle_monster.schritt.3",
+        "fallback": "Hunt the rarer ones: breeze, creaking, phantom and drowned."
+      },
+      "items": [
+        "minecraft:breeze_spawn_egg",
+        "minecraft:creaking_spawn_egg",
+        "minecraft:phantom_spawn_egg",
+        "minecraft:drowned_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.alle_monster.schritt.4",
+        "fallback": "Nether and End mobs come next, the list has 41 mobs. Be patient!"
+      },
+      "items": [
+        "minecraft:blaze_spawn_egg",
+        "minecraft:wither_skeleton_spawn_egg",
+        "minecraft:shulker_spawn_egg"
+      ]
+    }
+  ]
+}

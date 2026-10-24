@@ -1,0 +1,45 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.armbrust.schritt.1",
+        "fallback": "Craft a tripwire hook from an iron ingot, a stick and a plank."
+      },
+      "items": [
+        "minecraft:tripwire_hook"
+      ],
+      "rezept": "minecraft:tripwire_hook"
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.armbrust.schritt.2",
+        "fallback": "Put 3 sticks, 2 string, 1 iron ingot and the hook in the crafting table."
+      },
+      "items": [
+        "minecraft:crossbow",
+        "minecraft:string",
+        "minecraft:iron_ingot"
+      ],
+      "rezept": "minecraft:crossbow"
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.armbrust.schritt.3",
+        "fallback": "Hold right-click until the crossbow is loaded, then release."
+      },
+      "items": [
+        "minecraft:crossbow",
+        "minecraft:arrow"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.armbrust.schritt.4",
+        "fallback": "Click again and the arrow flies."
+      },
+      "items": [
+        "minecraft:arrow"
+      ]
+    }
+  ]
+}

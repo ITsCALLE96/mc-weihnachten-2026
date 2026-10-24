@@ -1,0 +1,55 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.zaehmen.schritt.1",
+        "fallback": "Find a wolf or a cat. Wolves live in forests, for example."
+      },
+      "items": [
+        "minecraft:wolf_spawn_egg",
+        "minecraft:cat_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.zaehmen.schritt.2",
+        "fallback": "Hold bones for the wolf or raw fish for the cat."
+      },
+      "items": [
+        "minecraft:bone",
+        "minecraft:cod",
+        "minecraft:salmon"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.zaehmen.schritt.3",
+        "fallback": "Right-click to feed it until red hearts appear. It may take a few tries."
+      },
+      "items": [
+        "minecraft:bone"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.zaehmen.schritt.4",
+        "fallback": "Right-click without food to make it sit or follow again."
+      },
+      "items": [
+        "minecraft:wolf_spawn_egg"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.zaehmen.fundort.1",
+        "fallback": "Wolves live in forests and taigas."
+      },
+      "biome": [
+        "minecraft:forest",
+        "minecraft:taiga"
+      ]
+    }
+  ]
+}

@@ -6,7 +6,7 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { vanillaFortschritte } from './jar.mjs';
+import { vanillaFortschritte, oeffneJar } from './jar.mjs';
 
 const NS = 'leitfaden';
 const LANG_NS = 'weihnachten';
@@ -187,7 +187,68 @@ export function baueQuestbuch(daten, vanilla) {
   return { advancements, funktionen, lang };
 }
 
-function texteMarkdown(daten) {
+// Detail-Seitenleiste (Mod „Quest-Details“, Format v1): je Quest eine Datei assets/leitfaden/questbuch/<kapitel>/<quest>.json
+// mit nummerierten Schritten (Text, Item-Symbole, Rezept) und „Wo finde ich das?“. Quelle: datapack/schritte.json.
+// `spiel` = { rezepte, biome, biomTags, itemTags } aus der Server-Jar zum Prüfen der IDs.
+export function baueDetails(schritte, daten, spiel) {
+  const fehler = [];
+  const quests = new Set(daten.kapitel.flatMap((k) => [...k.quests.map((q) => `${k.id}/${q.id}`), ...(k.andenken ? [`${k.id}/andenken`] : [])]));
+  const lang = { de: {}, en: {} };
+  const dateien = new Map();
+  const text = (key, t, wo) => {
+    if (!t?.de || !t?.en) fehler.push(`${wo}: Text DE/EN fehlt`);
+    lang.de[key] = t?.de; lang.en[key] = t?.en;
+    return { translate: key, fallback: t?.en };
+  };
+  const pruefeId = (id, menge, tags, wo, art) => {
+    if (id.startsWith('#') ? !tags.has(id.slice(1)) : !menge.has(id)) fehler.push(`${wo}: ${art} ${id} gibt es nicht`);
+  };
+  for (const [q, e] of Object.entries(schritte)) {
+    if (!quests.has(q)) { fehler.push(`${q}: Quest gibt es nicht`); continue; }
+    const basis = `questbuch.${q.replace('/', '.')}`;
+    const datei = { schritte: (e.schritte ?? []).map((s, i) => {
+      const wo = `${q} Schritt ${i + 1}`;
+      const aus = { text: text(`${basis}.schritt.${i + 1}`, s, wo) };
+      if (s.items?.length) {
+        for (const it of s.items) if (it.startsWith('#')) pruefeId(it, new Set(), spiel.itemTags, wo, 'Item-Tag');
+        aus.items = s.items;
+      }
+      if (s.rezept) { pruefeId(s.rezept, spiel.rezepte, new Set(), wo, 'Rezept'); aus.rezept = s.rezept; }
+      return aus;
+    }) };
+    if (!datei.schritte.length) fehler.push(`${q}: keine Schritte`);
+    if (e.fundort?.length) {
+      datei.fundort = e.fundort.map((o, i) => {
+        const wo = `${q} Fundort ${i + 1}`;
+        const aus = { text: text(`${basis}.fundort.${i + 1}`, o, wo) };
+        if (o.biome?.length) { for (const b of o.biome) pruefeId(b, spiel.biome, spiel.biomTags, wo, 'Biom'); aus.biome = o.biome; }
+        if (o.hoehe) {
+          const [von, bis] = o.hoehe;
+          if (!(von <= bis)) fehler.push(`${wo}: hoehe muss [von, bis] sein`);
+          aus.hoehe = { von, bis };
+        }
+        if (o.dimension) aus.dimension = o.dimension;
+        return aus;
+      });
+    }
+    dateien.set(q, datei);
+  }
+  if (fehler.length) throw new Error(fehler.join('\n'));
+  return { dateien, lang };
+}
+
+export function spielDaten(jarPfad) {
+  const namen = oeffneJar(jarPfad).namen();
+  const ids = (prefix) => new Set(namen.filter((n) => n.startsWith(prefix) && n.endsWith('.json')).map((n) => `minecraft:${n.slice(prefix.length, -5)}`));
+  return {
+    rezepte: ids('data/minecraft/recipe/'),
+    biome: ids('data/minecraft/worldgen/biome/'),
+    biomTags: ids('data/minecraft/tags/worldgen/biome/'),
+    itemTags: ids('data/minecraft/tags/item/'),
+  };
+}
+
+function texteMarkdown(daten, schritte = {}) {
   const z = ['# Questbuch-Texte (zum Gegenlesen)', '', 'Quelle: `datapack/questbuch.json`. Nach Änderungen `node tools/questbuch.mjs` ausführen.', 'Titel gespiegelter Quests sind die Vanilla-Titel (in jeder Spielsprache). ★ zählt fürs Andenken.', ''];
   const zelle = (t) => [t.titel ? `**${t.titel}** ` : '', t.tun, t.brauchst ? `<br>_${t.brauchst}_` : '', t.tipp ? `<br>💡 ${t.tipp}` : ''].join('');
   for (const k of daten.kapitel) {
@@ -195,6 +256,17 @@ function texteMarkdown(daten) {
     for (const q of k.quests) z.push(`| ${q.id}${q.kern && k.andenken ? ' ★' : ''} | ${zelle(q.de)} | ${zelle(q.en)} | ${vanillaListe(q).map((v) => `\`${v}\``).join(', ') || (q.erkennung === 'info' ? 'Info' : 'Bonus')} |`);
     if (k.andenken) z.push(`| andenken | ${zelle(k.andenken.de)} | ${zelle(k.andenken.en)} | – |`);
     z.push('');
+    const mitSchritten = k.quests.filter((q) => schritte[`${k.id}/${q.id}`]);
+    if (mitSchritten.length) {
+      z.push(`### Schritte ${k.de.titel} (Seitenleiste)`, '');
+      for (const q of mitSchritten) {
+        const e = schritte[`${k.id}/${q.id}`];
+        z.push(`**${q.id}**`, '');
+        e.schritte.forEach((s, i) => z.push(`${i + 1}. ${s.de} · _${s.en}_${s.rezept ? ` · Rezept \`${s.rezept}\`` : ''}`));
+        for (const o of e.fundort ?? []) z.push(`- 📍 ${o.de} · _${o.en}_${o.hoehe ? ` · Y ${o.hoehe[0]} bis ${o.hoehe[1]}` : ''}${o.biome ? ` · ${o.biome.join(', ')}` : ''}`);
+        z.push('');
+      }
+    }
   }
   return z.join('\n');
 }
@@ -223,15 +295,22 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   if (nurPruefen) process.exit(0);
 
   const { advancements, funktionen, lang } = baueQuestbuch(daten, vanilla);
+  const schritteDatei = join(repo, 'datapack/schritte.json');
+  const details = existsSync(schritteDatei) ? baueDetails(JSON.parse(readFileSync(schritteDatei, 'utf8')), daten, spielDaten(jar)) : { dateien: new Map(), lang: { de: {}, en: {} } };
+  Object.assign(lang.de, details.lang.de);
+  Object.assign(lang.en, details.lang.en);
   const dp = join(repo, 'datapack/leitfaden/data', NS);
   for (const alt of ['advancement', 'function/questbuch', 'function/andenken']) rmSync(join(dp, alt), { recursive: true, force: true });
   const schreibe = (datei, inhalt) => { mkdirSync(dirname(datei), { recursive: true }); writeFileSync(datei, inhalt); };
   for (const [pfad, json] of advancements) schreibe(join(dp, 'advancement', `${pfad}.json`), JSON.stringify(json, null, 2) + '\n');
   for (const [pfad, zeilen] of funktionen) schreibe(join(dp, 'function', `${pfad}.mcfunction`), zeilen.join('\n') + '\n');
+  const qd = join(repo, 'resourcepack/assets', NS, 'questbuch');
+  rmSync(qd, { recursive: true, force: true });
+  for (const [pfad, json] of details.dateien) schreibe(join(qd, `${pfad}.json`), JSON.stringify(json, null, 2) + '\n');
   const sortiert = (o) => Object.fromEntries(Object.entries(o).sort(([a], [b]) => a.localeCompare(b)));
   schreibe(join(repo, 'resourcepack/assets', LANG_NS, 'lang/de_de.json'), JSON.stringify(sortiert(lang.de), null, 2) + '\n');
   schreibe(join(repo, 'resourcepack/assets', LANG_NS, 'lang/en_us.json'), JSON.stringify(sortiert(lang.en), null, 2) + '\n');
   schreibe(join(repo, 'datapack/vanilla-26.3.txt'), [...vanilla.keys()].sort().join('\n') + '\n');
-  writeFileSync(join(repo, 'datapack/TEXTE.md'), texteMarkdown(daten));
-  console.log(`${advancements.size} Advancements, ${funktionen.size} Funktionen, ${Object.keys(lang.de).length} Sprachschlüssel geschrieben, TEXTE.md aktualisiert`);
+  writeFileSync(join(repo, 'datapack/TEXTE.md'), texteMarkdown(daten, existsSync(schritteDatei) ? JSON.parse(readFileSync(schritteDatei, 'utf8')) : {}));
+  console.log(`${advancements.size} Advancements, ${funktionen.size} Funktionen, ${Object.keys(lang.de).length} Sprachschlüssel, ${details.dateien.size} Detail-Dateien geschrieben, TEXTE.md aktualisiert`);
 }

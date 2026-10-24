@@ -1,0 +1,43 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.ausgetrockneter_ghast.schritt.1",
+        "fallback": "Collect 8 ghast tears from ghasts in the Nether."
+      },
+      "items": [
+        "minecraft:ghast_tear"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.ausgetrockneter_ghast.schritt.2",
+        "fallback": "Put them in a crafting table with 1 soul sand in the middle."
+      },
+      "items": [
+        "minecraft:dried_ghast"
+      ],
+      "rezept": "minecraft:dried_ghast"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.ausgetrockneter_ghast.schritt.3",
+        "fallback": "Alternatively, barter with piglins and you may get one."
+      },
+      "items": [
+        "minecraft:gold_ingot",
+        "minecraft:dried_ghast"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.ausgetrockneter_ghast.schritt.4",
+        "fallback": "Place it in water: a happy ghast hatches from it."
+      },
+      "items": [
+        "minecraft:water_bucket",
+        "minecraft:happy_ghast_spawn_egg"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.alle_tiere.schritt.1",
+        "fallback": "Start with the familiar ones: cow, sheep, pig, chicken."
+      },
+      "items": [
+        "minecraft:cow_spawn_egg",
+        "minecraft:pig_spawn_egg",
+        "minecraft:chicken_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.alle_tiere.schritt.2",
+        "fallback": "For each new kind, check its favourite food, e.g. wheat for goats."
+      },
+      "items": [
+        "minecraft:goat_spawn_egg",
+        "minecraft:wheat"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.alle_tiere.schritt.3",
+        "fallback": "Hoglins want crimson fungus, striders want warped fungus."
+      },
+      "items": [
+        "minecraft:hoglin_spawn_egg",
+        "minecraft:strider_spawn_egg",
+        "minecraft:crimson_fungus",
+        "minecraft:warped_fungus"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.alle_tiere.schritt.4",
+        "fallback": "Keep count: there are 26 kinds, so bring patience."
+      },
+      "items": [
+        "minecraft:wheat"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.alle_tiere.fundort.1",
+        "fallback": "Hoglins live in the Nether, in the Crimson Forest."
+      },
+      "biome": [
+        "minecraft:crimson_forest"
+      ],
+      "dimension": "minecraft:the_nether"
+    }
+  ]
+}

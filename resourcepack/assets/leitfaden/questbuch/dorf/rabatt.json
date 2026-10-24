@@ -1,0 +1,23 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.dorf.rabatt.schritt.1",
+        "fallback": "Open the trading window, close it and open it again."
+      },
+      "items": [
+        "minecraft:emerald"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.rabatt.schritt.2",
+        "fallback": "Now the discount shows in the prices. Cured zombie villagers add even more."
+      },
+      "items": [
+        "minecraft:gold_nugget",
+        "minecraft:golden_apple"
+      ]
+    }
+  ]
+}

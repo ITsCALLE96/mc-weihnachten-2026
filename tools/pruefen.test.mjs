@@ -122,3 +122,15 @@ test('Sprachdateien DE und EN müssen dieselben Schlüssel haben', () => {
   assert.ok(fehler.some((f) => /en_us\.json: nur\.de fehlt/.test(f)));
   assert.ok(fehler.some((f) => /de_de\.json: nur\.en fehlt/.test(f)));
 });
+
+test('Detail-Datei der Seitenleiste: Schlüssel muss in beiden Sprachdateien stehen', () => {
+  const dir = pack({
+    'pack.mcmeta': rpMeta,
+    'assets/weihnachten/lang/de_de.json': { 'q.a': 'A' },
+    'assets/weihnachten/lang/en_us.json': { 'q.a': 'A' },
+    'assets/leitfaden/questbuch/k/q.json': { schritte: [{ text: { translate: 'q.a', fallback: 'A' } }, { text: { translate: 'q.b', fallback: 'B' } }] },
+  });
+  const fehler = pruefeResourcepack(dir);
+  assert.equal(fehler.length, 1);
+  assert.match(fehler[0], /q\.b fehlt in de_de\/en_us/);
+});

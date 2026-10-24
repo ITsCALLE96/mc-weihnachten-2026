@@ -1,0 +1,65 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.end.enderauge.schritt.1",
+        "fallback": "Hunt Endermen and collect their ender pearls."
+      },
+      "items": [
+        "minecraft:enderman_spawn_egg",
+        "minecraft:ender_pearl"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.enderauge.schritt.2",
+        "fallback": "Turn blaze rods into blaze powder."
+      },
+      "items": [
+        "minecraft:blaze_powder"
+      ],
+      "rezept": "minecraft:blaze_powder"
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.enderauge.schritt.3",
+        "fallback": "Combine an ender pearl and blaze powder into an eye of ender."
+      },
+      "items": [
+        "minecraft:ender_eye"
+      ],
+      "rezept": "minecraft:ender_eye"
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.enderauge.schritt.4",
+        "fallback": "Throw the eye of ender: it flies toward the stronghold. Follow it!"
+      },
+      "items": [
+        "minecraft:ender_eye"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.enderauge.schritt.5",
+        "fallback": "Repeat until the eye sinks down: the stronghold is below."
+      },
+      "items": [
+        "minecraft:ender_eye"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.end.enderauge.fundort.1",
+        "fallback": "Strongholds lie beneath the Overworld, in almost any biome."
+      },
+      "biome": [
+        "minecraft:plains",
+        "minecraft:forest",
+        "minecraft:desert"
+      ]
+    }
+  ]
+}

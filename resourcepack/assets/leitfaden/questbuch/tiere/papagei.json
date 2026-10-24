@@ -1,0 +1,47 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.papagei.schritt.1",
+        "fallback": "Craft a spyglass: amethyst shard on top, 2 copper ingots below."
+      },
+      "items": [
+        "minecraft:spyglass",
+        "minecraft:amethyst_shard",
+        "minecraft:copper_ingot"
+      ],
+      "rezept": "minecraft:spyglass"
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.papagei.schritt.2",
+        "fallback": "Find a parrot in a jungle."
+      },
+      "items": [
+        "minecraft:parrot_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.papagei.schritt.3",
+        "fallback": "Hold right-click with the spyglass and look at it."
+      },
+      "items": [
+        "minecraft:spyglass",
+        "minecraft:parrot_spawn_egg"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.papagei.fundort.1",
+        "fallback": "Parrots live in jungles and bamboo jungles."
+      },
+      "biome": [
+        "minecraft:jungle",
+        "minecraft:bamboo_jungle"
+      ]
+    }
+  ]
+}

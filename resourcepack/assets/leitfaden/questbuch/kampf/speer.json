@@ -1,0 +1,43 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.speer.schritt.1",
+        "fallback": "Put 1 iron and 2 sticks diagonally in the crafting table: a spear."
+      },
+      "items": [
+        "minecraft:iron_spear",
+        "minecraft:stick"
+      ],
+      "rezept": "minecraft:iron_spear"
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.speer.schritt.2",
+        "fallback": "Find a group of mobs, for example a pen full of animals."
+      },
+      "items": [
+        "minecraft:zombie_spawn_egg",
+        "minecraft:skeleton_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.speer.schritt.3",
+        "fallback": "Take a run-up and charge through the group with the spear."
+      },
+      "items": [
+        "minecraft:iron_spear"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.speer.schritt.4",
+        "fallback": "Five hits in a single charge and you're done."
+      },
+      "items": [
+        "minecraft:iron_spear"
+      ]
+    }
+  ]
+}

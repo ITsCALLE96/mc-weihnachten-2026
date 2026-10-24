@@ -1,0 +1,35 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.eisenspitzhacke.schritt.1",
+        "fallback": "Smelt 3 raw iron into iron ingots."
+      },
+      "items": [
+        "minecraft:iron_ingot"
+      ],
+      "rezept": "minecraft:iron_ingot_from_smelting_raw_iron"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.eisenspitzhacke.schritt.2",
+        "fallback": "Lay out 3 iron ingots and 2 sticks like a pickaxe at the crafting table."
+      },
+      "items": [
+        "minecraft:iron_pickaxe"
+      ],
+      "rezept": "minecraft:iron_pickaxe"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.eisenspitzhacke.schritt.3",
+        "fallback": "With it you can mine diamonds, gold and redstone."
+      },
+      "items": [
+        "minecraft:diamond",
+        "minecraft:gold_ingot",
+        "minecraft:redstone"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.entdecken.musik.schritt.1",
+        "fallback": "Craft a jukebox from 8 planks and 1 diamond."
+      },
+      "items": [
+        "minecraft:jukebox",
+        "minecraft:diamond"
+      ],
+      "rezept": "minecraft:jukebox"
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.musik.schritt.2",
+        "fallback": "Get a music disc from a chest or a creeper-skeleton accident."
+      },
+      "items": [
+        "minecraft:music_disc_13"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.musik.schritt.3",
+        "fallback": "Find a meadow biome with its flowery grass."
+      },
+      "items": [
+        "minecraft:oxeye_daisy"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.musik.schritt.4",
+        "fallback": "Place the jukebox there and put in the disc."
+      },
+      "items": [
+        "minecraft:jukebox",
+        "minecraft:music_disc_13"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.entdecken.musik.fundort.1",
+        "fallback": "The jukebox has to play in a meadow."
+      },
+      "biome": [
+        "minecraft:meadow"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.pulverschnee.schritt.1",
+        "fallback": "Kill cows and collect 4 leather."
+      },
+      "items": [
+        "minecraft:leather"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.pulverschnee.schritt.2",
+        "fallback": "Lay out 4 leather as boots and put them on."
+      },
+      "items": [
+        "minecraft:leather_boots"
+      ],
+      "rezept": "minecraft:leather_boots"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.pulverschnee.schritt.3",
+        "fallback": "Find snowy slopes with powder snow. It looks like normal snow."
+      },
+      "items": [
+        "minecraft:powder_snow_bucket"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.pulverschnee.schritt.4",
+        "fallback": "Walk across it in the boots without sinking."
+      },
+      "items": [
+        "minecraft:leather_boots"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.pulverschnee.fundort.1",
+        "fallback": "Powder snow lies on snowy slopes."
+      },
+      "biome": [
+        "minecraft:snowy_slopes",
+        "minecraft:grove"
+      ]
+    }
+  ]
+}

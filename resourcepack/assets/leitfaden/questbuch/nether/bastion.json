@@ -1,0 +1,47 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.bastion.schritt.1",
+        "fallback": "Look for huge blackstone buildings in the Nether."
+      },
+      "items": [
+        "minecraft:blackstone"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.bastion.schritt.2",
+        "fallback": "Wear gold, but don't relax: brutes ignore it."
+      },
+      "items": [
+        "minecraft:golden_boots",
+        "minecraft:piglin_brute_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.bastion.schritt.3",
+        "fallback": "Enter the bastion remnant and stay close to the exit."
+      },
+      "items": [
+        "minecraft:blackstone"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.nether.bastion.fundort.1",
+        "fallback": "Bastion remnants generate in nether wastes, soul sand valley, crimson forest and warped forest."
+      },
+      "biome": [
+        "minecraft:nether_wastes",
+        "minecraft:soul_sand_valley",
+        "minecraft:crimson_forest",
+        "minecraft:warped_forest"
+      ],
+      "dimension": "minecraft:the_nether"
+    }
+  ]
+}

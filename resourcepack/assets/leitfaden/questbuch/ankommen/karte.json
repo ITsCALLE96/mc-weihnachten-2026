@@ -1,0 +1,31 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.karte.schritt.1",
+        "fallback": "Press M to open the world map."
+      },
+      "items": [
+        "minecraft:filled_map"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.karte.schritt.2",
+        "fallback": "Press B to set a waypoint at your home."
+      },
+      "items": [
+        "minecraft:red_bed"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.karte.schritt.3",
+        "fallback": "Press F3 and note down your coordinates."
+      },
+      "items": [
+        "minecraft:compass"
+      ]
+    }
+  ]
+}

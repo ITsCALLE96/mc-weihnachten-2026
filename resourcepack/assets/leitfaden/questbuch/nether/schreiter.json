@@ -1,0 +1,57 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.schreiter.schritt.1",
+        "fallback": "Craft a saddle from leather and iron, or find one."
+      },
+      "items": [
+        "minecraft:saddle"
+      ],
+      "rezept": "minecraft:saddle"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.schreiter.schritt.2",
+        "fallback": "Craft a fishing rod and get a warped fungus from a warped forest."
+      },
+      "items": [
+        "minecraft:fishing_rod",
+        "minecraft:warped_fungus"
+      ],
+      "rezept": "minecraft:fishing_rod"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.schreiter.schritt.3",
+        "fallback": "Make the warped fungus on a stick: fishing rod plus fungus."
+      },
+      "items": [
+        "minecraft:warped_fungus_on_a_stick"
+      ],
+      "rezept": "minecraft:warped_fungus_on_a_stick"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.schreiter.schritt.4",
+        "fallback": "Saddle a strider on a lava lake, mount it and ride."
+      },
+      "items": [
+        "minecraft:saddle",
+        "minecraft:strider_spawn_egg"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.nether.schreiter.fundort.1",
+        "fallback": "Warped fungus grows in the warped forest."
+      },
+      "biome": [
+        "minecraft:warped_forest"
+      ],
+      "dimension": "minecraft:the_nether"
+    }
+  ]
+}

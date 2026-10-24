@@ -1,0 +1,42 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.portal.schritt.1",
+        "fallback": "Collect 10 obsidian, e.g. with a diamond pickaxe."
+      },
+      "items": [
+        "minecraft:obsidian",
+        "minecraft:diamond_pickaxe"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.portal.schritt.2",
+        "fallback": "Craft a flint and steel: iron ingot plus flint."
+      },
+      "items": [
+        "minecraft:flint_and_steel"
+      ],
+      "rezept": "minecraft:flint_and_steel"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.portal.schritt.3",
+        "fallback": "Build the frame 4 wide and 5 tall; the corners stay empty."
+      },
+      "items": [
+        "minecraft:obsidian"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.portal.schritt.4",
+        "fallback": "Light the inside and walk through. Note your coordinates!"
+      },
+      "items": [
+        "minecraft:nether_portal"
+      ]
+    }
+  ]
+}

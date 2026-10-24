@@ -1,0 +1,32 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.ghast_ausflug.schritt.1",
+        "fallback": "Build a Nether portal right next to a ghast."
+      },
+      "items": [
+        "minecraft:nether_portal",
+        "minecraft:ghast_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.ghast_ausflug.schritt.2",
+        "fallback": "Lure the ghast through the portal. Bring lots of patience!"
+      },
+      "items": [
+        "minecraft:ghast_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.ghast_ausflug.schritt.3",
+        "fallback": "Defeat it in the Overworld, ideally with a bow."
+      },
+      "items": [
+        "minecraft:bow"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.bergbau.verzaubern.schritt.1",
+        "fallback": "Craft a book from 3 paper and 1 leather."
+      },
+      "items": [
+        "minecraft:book"
+      ],
+      "rezept": "minecraft:book"
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.verzaubern.schritt.2",
+        "fallback": "Lay out the book, 2 diamonds and 4 obsidian as an enchanting table."
+      },
+      "items": [
+        "minecraft:enchanting_table"
+      ],
+      "rezept": "minecraft:enchanting_table"
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.verzaubern.schritt.3",
+        "fallback": "Place it and put lapis lazuli and a tool inside."
+      },
+      "items": [
+        "minecraft:enchanting_table",
+        "minecraft:lapis_lazuli"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.verzaubern.schritt.4",
+        "fallback": "Pick an enchantment and pay with experience."
+      },
+      "items": [
+        "minecraft:experience_bottle"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.verzaubern.schritt.5",
+        "fallback": "With 15 bookshelves nearby you unlock the best enchantments."
+      },
+      "items": [
+        "minecraft:bookshelf"
+      ],
+      "rezept": "minecraft:bookshelf"
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.bergbau.verzaubern.fundort.1",
+        "fallback": "Lapis lazuli is most common at heights of about -32 to 32."
+      },
+      "hoehe": {
+        "von": -32,
+        "bis": 32
+      },
+      "dimension": "minecraft:overworld"
+    }
+  ]
+}

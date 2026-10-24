@@ -1,0 +1,48 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.dorf.dorf_finden.schritt.1",
+        "fallback": "Head to plains, meadows, deserts, savannas, taigas or snowy plains."
+      },
+      "items": [
+        "minecraft:bell"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.dorf_finden.schritt.2",
+        "fallback": "Look out for houses, paths and a bell."
+      },
+      "items": [
+        "minecraft:bell",
+        "minecraft:villager_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.dorf_finden.schritt.3",
+        "fallback": "Stay close until you see a villager: neighbourhood!"
+      },
+      "items": [
+        "minecraft:villager_spawn_egg"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.dorf.dorf_finden.fundort.1",
+        "fallback": "Villages appear in plains, meadows, deserts, savannas, taigas and snowy plains."
+      },
+      "biome": [
+        "minecraft:plains",
+        "minecraft:meadow",
+        "minecraft:desert",
+        "minecraft:savanna",
+        "minecraft:taiga",
+        "minecraft:snowy_plains"
+      ]
+    }
+  ]
+}

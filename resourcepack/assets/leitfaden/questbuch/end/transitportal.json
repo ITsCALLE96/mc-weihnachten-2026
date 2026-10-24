@@ -1,0 +1,32 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.end.transitportal.schritt.1",
+        "fallback": "Beat the dragon: small portals then appear at the island's edge."
+      },
+      "items": [
+        "minecraft:end_gateway"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.transitportal.schritt.2",
+        "fallback": "Take an ender pearl and stand next to a gateway."
+      },
+      "items": [
+        "minecraft:ender_pearl",
+        "minecraft:end_gateway"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.transitportal.schritt.3",
+        "fallback": "Throw the pearl into the gateway and travel to the outer islands."
+      },
+      "items": [
+        "minecraft:ender_pearl"
+      ]
+    }
+  ]
+}

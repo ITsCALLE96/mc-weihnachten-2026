@@ -1,0 +1,32 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.bergbau.diamantruestung.schritt.1",
+        "fallback": "Collect at least 4 diamonds for one piece of armor."
+      },
+      "items": [
+        "minecraft:diamond"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.diamantruestung.schritt.2",
+        "fallback": "Lay out 4 diamonds as boots at the crafting table."
+      },
+      "items": [
+        "minecraft:diamond_boots"
+      ],
+      "rezept": "minecraft:diamond_boots"
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.diamantruestung.schritt.3",
+        "fallback": "Keep 2 diamonds for an enchanting table."
+      },
+      "items": [
+        "minecraft:diamond"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.bienen.schritt.1",
+        "fallback": "Enchant a pickaxe or axe with Silk Touch."
+      },
+      "items": [
+        "minecraft:enchanted_book",
+        "minecraft:iron_pickaxe"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.bienen.schritt.2",
+        "fallback": "Wait for night or rain so all the bees are at home."
+      },
+      "items": [
+        "minecraft:bee_nest"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.bienen.schritt.3",
+        "fallback": "Check that 3 bees are inside the nest."
+      },
+      "items": [
+        "minecraft:bee_nest"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.bienen.schritt.4",
+        "fallback": "Mine the nest with the Silk Touch tool and move it."
+      },
+      "items": [
+        "minecraft:bee_nest"
+      ]
+    }
+  ]
+}

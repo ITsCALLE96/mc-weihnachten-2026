@@ -1,0 +1,34 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.netherithacke.schritt.1",
+        "fallback": "Craft a diamond hoe: 2 diamonds and 2 sticks."
+      },
+      "items": [
+        "minecraft:diamond_hoe"
+      ],
+      "rezept": "minecraft:diamond_hoe"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.netherithacke.schritt.2",
+        "fallback": "In a smithing table, add template, hoe and netherite ingot."
+      },
+      "items": [
+        "minecraft:smithing_table",
+        "minecraft:netherite_ingot"
+      ],
+      "rezept": "minecraft:netherite_hoe_smithing"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.netherithacke.schritt.3",
+        "fallback": "Take out the netherite hoe: completely over the top, just right."
+      },
+      "items": [
+        "minecraft:netherite_hoe"
+      ]
+    }
+  ]
+}

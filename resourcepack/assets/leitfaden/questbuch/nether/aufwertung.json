@@ -1,0 +1,49 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.aufwertung.schritt.1",
+        "fallback": "Loot the chests of a bastion remnant."
+      },
+      "items": [
+        "minecraft:chest"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.aufwertung.schritt.2",
+        "fallback": "Take the netherite upgrade template that can be in there."
+      },
+      "items": [
+        "minecraft:netherite_upgrade_smithing_template"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.aufwertung.schritt.3",
+        "fallback": "To copy: 7 diamonds, netherrack and the template in a crafting table."
+      },
+      "items": [
+        "minecraft:diamond",
+        "minecraft:netherrack",
+        "minecraft:netherite_upgrade_smithing_template"
+      ],
+      "rezept": "minecraft:netherite_upgrade_smithing_template"
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.nether.aufwertung.fundort.1",
+        "fallback": "The netherite upgrade template is in bastion remnant chests."
+      },
+      "biome": [
+        "minecraft:nether_wastes",
+        "minecraft:soul_sand_valley",
+        "minecraft:crimson_forest",
+        "minecraft:warped_forest"
+      ],
+      "dimension": "minecraft:the_nether"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.werkzeug.schritt.1",
+        "fallback": "Collect at least 3 cobblestone with the wooden pickaxe."
+      },
+      "items": [
+        "minecraft:cobblestone"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.werkzeug.schritt.2",
+        "fallback": "Lay out 3 cobblestone and 2 sticks like the wooden pickaxe."
+      },
+      "items": [
+        "minecraft:stone_pickaxe"
+      ],
+      "rezept": "minecraft:stone_pickaxe"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.werkzeug.schritt.3",
+        "fallback": "This one can mine iron ore."
+      },
+      "items": [
+        "minecraft:iron_ore"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.lava.schritt.1",
+        "fallback": "Craft a bucket from 3 iron ingots in a V shape."
+      },
+      "items": [
+        "minecraft:bucket"
+      ],
+      "rezept": "minecraft:bucket"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.lava.schritt.2",
+        "fallback": "Find a lava pool, best deep underground."
+      },
+      "items": [
+        "minecraft:lava_bucket"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.lava.schritt.3",
+        "fallback": "Stand safely and scoop the lava with right-click."
+      },
+      "items": [
+        "minecraft:lava_bucket"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.lava.schritt.4",
+        "fallback": "Never dig straight down, or it gets hot."
+      },
+      "items": [
+        "minecraft:lava_bucket"
+      ]
+    }
+  ]
+}

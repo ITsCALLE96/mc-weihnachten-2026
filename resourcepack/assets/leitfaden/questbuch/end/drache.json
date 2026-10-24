@@ -1,0 +1,53 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.end.drache.schritt.1",
+        "fallback": "Agree on the date: we beat the dragon together."
+      },
+      "items": [
+        "minecraft:dragon_head"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.drache.schritt.2",
+        "fallback": "Shoot the End crystals on the obsidian pillars with arrows."
+      },
+      "items": [
+        "minecraft:end_crystal",
+        "minecraft:bow",
+        "minecraft:arrow"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.drache.schritt.3",
+        "fallback": "Attack the dragon when it swoops low."
+      },
+      "items": [
+        "minecraft:dragon_head"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.drache.schritt.4",
+        "fallback": "Bring its health bar to zero: done!"
+      },
+      "items": [
+        "minecraft:dragon_head"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.end.drache.fundort.1",
+        "fallback": "The dragon lives on the main island in the End."
+      },
+      "biome": [
+        "minecraft:the_end"
+      ]
+    }
+  ]
+}

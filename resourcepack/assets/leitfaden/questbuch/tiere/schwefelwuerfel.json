@@ -1,0 +1,55 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.schwefelwuerfel.schritt.1",
+        "fallback": "Craft TNT from 5 gunpowder and 4 sand."
+      },
+      "items": [
+        "minecraft:tnt",
+        "minecraft:gunpowder",
+        "minecraft:sand"
+      ],
+      "rezept": "minecraft:tnt"
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.schwefelwuerfel.schritt.2",
+        "fallback": "Find an adult sulfur cube in the sulfur caves."
+      },
+      "items": [
+        "minecraft:sulfur_cube_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.schwefelwuerfel.schritt.3",
+        "fallback": "Hand it the TNT with right-click or throw it over."
+      },
+      "items": [
+        "minecraft:tnt",
+        "minecraft:sulfur_cube_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.schwefelwuerfel.schritt.4",
+        "fallback": "Now keep your distance, or it gets loud!"
+      },
+      "items": [
+        "minecraft:tnt"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.schwefelwuerfel.fundort.1",
+        "fallback": "Sulfur cubes live in the sulfur caves."
+      },
+      "biome": [
+        "minecraft:sulfur_caves"
+      ]
+    }
+  ]
+}

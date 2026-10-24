@@ -1,0 +1,31 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.abenteuer.schritt.1",
+        "fallback": "Wait for night or enter a dark cave."
+      },
+      "items": [
+        "minecraft:zombie_head"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.abenteuer.schritt.2",
+        "fallback": "Take a weapon and hit a mob until it is defeated."
+      },
+      "items": [
+        "minecraft:stone_sword"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.abenteuer.schritt.3",
+        "fallback": "If you die: no drama, you respawn at your bed or spawn."
+      },
+      "items": [
+        "minecraft:red_bed"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.bett.schritt.1",
+        "fallback": "Shear or kill sheep and collect 3 wool of the same colour."
+      },
+      "items": [
+        "minecraft:white_wool"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.bett.schritt.2",
+        "fallback": "Lay 3 wool above 3 planks at the crafting table."
+      },
+      "items": [
+        "minecraft:white_bed"
+      ],
+      "rezept": "minecraft:white_bed"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.bett.schritt.3",
+        "fallback": "Place the bed and right-click it in the evening."
+      },
+      "items": [
+        "minecraft:white_bed"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.bett.schritt.4",
+        "fallback": "It sets your respawn point. Without a bed you land at spawn."
+      },
+      "items": [
+        "minecraft:white_bed"
+      ]
+    }
+  ]
+}

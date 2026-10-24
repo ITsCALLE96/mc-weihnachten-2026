@@ -1,0 +1,42 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.entdecken.biome.schritt.1",
+        "fallback": "Pack food, a bed and a map and set off."
+      },
+      "items": [
+        "minecraft:cooked_beef",
+        "minecraft:red_bed",
+        "minecraft:map"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.biome.schritt.2",
+        "fallback": "Open the map with M and see which corners are still empty."
+      },
+      "items": [
+        "minecraft:filled_map"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.biome.schritt.3",
+        "fallback": "Visit one biome after another, 56 in total."
+      },
+      "items": [
+        "minecraft:compass"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.biome.schritt.4",
+        "fallback": "Don't forget caves and oceans, they count too."
+      },
+      "items": [
+        "minecraft:oak_boat"
+      ]
+    }
+  ]
+}

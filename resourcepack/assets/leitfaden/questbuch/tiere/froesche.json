@@ -1,0 +1,70 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.froesche.schritt.1",
+        "fallback": "Make 3 leads. Crafting gives you two at a time."
+      },
+      "items": [
+        "minecraft:lead",
+        "minecraft:string"
+      ],
+      "rezept": "minecraft:lead"
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.froesche.schritt.2",
+        "fallback": "The swamp gives the temperate frog, the mangrove swamp the warm one."
+      },
+      "items": [
+        "minecraft:frog_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.froesche.schritt.3",
+        "fallback": "For the cold frog, carry a bucketed tadpole to a cold biome, e.g. snowy plains."
+      },
+      "items": [
+        "minecraft:tadpole_bucket",
+        "minecraft:tadpole_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.froesche.schritt.4",
+        "fallback": "Wait until it grows into a frog there, then lead it."
+      },
+      "items": [
+        "minecraft:lead",
+        "minecraft:frog_spawn_egg"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.froesche.fundort.1",
+        "fallback": "Temperate frog: swamp. Warm frog: mangrove swamp, desert, jungle, savanna."
+      },
+      "biome": [
+        "minecraft:swamp",
+        "minecraft:mangrove_swamp",
+        "minecraft:desert",
+        "minecraft:jungle",
+        "minecraft:savanna"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.froesche.fundort.2",
+        "fallback": "Cold frog: e.g. snowy plains, snowy taiga, grove."
+      },
+      "biome": [
+        "minecraft:snowy_plains",
+        "minecraft:snowy_taiga",
+        "minecraft:grove"
+      ]
+    }
+  ]
+}

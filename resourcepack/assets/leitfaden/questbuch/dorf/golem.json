@@ -1,0 +1,45 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.dorf.golem.schritt.1",
+        "fallback": "Craft 4 iron blocks, each from 9 iron ingots."
+      },
+      "items": [
+        "minecraft:iron_block",
+        "minecraft:iron_ingot"
+      ],
+      "rezept": "minecraft:iron_block"
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.golem.schritt.2",
+        "fallback": "Carve a pumpkin with shears to get a carved pumpkin."
+      },
+      "items": [
+        "minecraft:carved_pumpkin",
+        "minecraft:pumpkin",
+        "minecraft:shears"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.golem.schritt.3",
+        "fallback": "Place 3 iron blocks in a row and 1 above the middle, a T shape."
+      },
+      "items": [
+        "minecraft:iron_block"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.golem.schritt.4",
+        "fallback": "Put the pumpkin on top last: the golem awakens."
+      },
+      "items": [
+        "minecraft:carved_pumpkin",
+        "minecraft:iron_golem_spawn_egg"
+      ]
+    }
+  ]
+}

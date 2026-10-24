@@ -1,0 +1,46 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.netheritruestung.schritt.1",
+        "fallback": "Smelt ancient debris in a furnace into netherite scrap."
+      },
+      "items": [
+        "minecraft:netherite_scrap"
+      ],
+      "rezept": "minecraft:netherite_scrap"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.netheritruestung.schritt.2",
+        "fallback": "4 netherite scrap and 4 gold ingots make one netherite ingot."
+      },
+      "items": [
+        "minecraft:netherite_ingot"
+      ],
+      "rezept": "minecraft:netherite_ingot"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.netheritruestung.schritt.3",
+        "fallback": "Put diamond armor, upgrade template and ingot in a smithing table."
+      },
+      "items": [
+        "minecraft:smithing_table",
+        "minecraft:netherite_upgrade_smithing_template"
+      ],
+      "rezept": "minecraft:netherite_chestplate_smithing"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.netheritruestung.schritt.4",
+        "fallback": "Repeat for helmet, leggings and boots: 4 pieces."
+      },
+      "items": [
+        "minecraft:netherite_helmet",
+        "minecraft:netherite_boots"
+      ],
+      "rezept": "minecraft:netherite_helmet_smithing"
+    }
+  ]
+}

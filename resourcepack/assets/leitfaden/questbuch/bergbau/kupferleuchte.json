@@ -1,0 +1,54 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.bergbau.kupferleuchte.schritt.1",
+        "fallback": "Collect 3 copper blocks (9 ingots each), 1 blaze rod and 1 redstone."
+      },
+      "items": [
+        "minecraft:copper_block",
+        "minecraft:blaze_rod",
+        "minecraft:redstone"
+      ],
+      "rezept": "minecraft:copper_block"
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.kupferleuchte.schritt.2",
+        "fallback": "Craft a copper bulb, or grab a ready-made one from a trial chamber."
+      },
+      "items": [
+        "minecraft:copper_bulb"
+      ],
+      "rezept": "minecraft:copper_bulb"
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.kupferleuchte.schritt.3",
+        "fallback": "Take a copper bulb that has already weathered."
+      },
+      "items": [
+        "minecraft:weathered_copper_bulb"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.kupferleuchte.schritt.4",
+        "fallback": "Scrape it with an axe: it glows brighter."
+      },
+      "items": [
+        "minecraft:iron_axe",
+        "minecraft:copper_bulb"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.bergbau.kupferleuchte.fundort.1",
+        "fallback": "Ready-made copper bulbs hang in trial chambers."
+      },
+      "dimension": "minecraft:overworld"
+    }
+  ]
+}

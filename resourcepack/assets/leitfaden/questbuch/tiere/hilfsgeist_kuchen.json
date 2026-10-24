@@ -1,0 +1,48 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.hilfsgeist_kuchen.schritt.1",
+        "fallback": "Craft a cake from 3 milk buckets, 2 sugar, 1 egg and 3 wheat."
+      },
+      "items": [
+        "minecraft:cake",
+        "minecraft:milk_bucket",
+        "minecraft:sugar",
+        "minecraft:egg"
+      ],
+      "rezept": "minecraft:cake"
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.hilfsgeist_kuchen.schritt.2",
+        "fallback": "Craft a note block from 8 planks and 1 redstone dust."
+      },
+      "items": [
+        "minecraft:note_block",
+        "minecraft:redstone"
+      ],
+      "rezept": "minecraft:note_block"
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.hilfsgeist_kuchen.schritt.3",
+        "fallback": "Hand your allay the cake."
+      },
+      "items": [
+        "minecraft:cake",
+        "minecraft:allay_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.hilfsgeist_kuchen.schritt.4",
+        "fallback": "Play the note block with right-click and the allay drops the cake there."
+      },
+      "items": [
+        "minecraft:note_block",
+        "minecraft:cake"
+      ]
+    }
+  ]
+}

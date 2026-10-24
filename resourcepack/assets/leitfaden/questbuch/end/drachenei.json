@@ -1,0 +1,42 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.end.drachenei.schritt.1",
+        "fallback": "Beat the Ender Dragon: afterwards the dragon egg sits on the exit portal."
+      },
+      "items": [
+        "minecraft:dragon_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.drachenei.schritt.2",
+        "fallback": "Don't click it or it teleports away!"
+      },
+      "items": [
+        "minecraft:dragon_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.drachenei.schritt.3",
+        "fallback": "Craft a piston from planks, cobblestone, iron and redstone."
+      },
+      "items": [
+        "minecraft:piston"
+      ],
+      "rezept": "minecraft:piston"
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.drachenei.schritt.4",
+        "fallback": "Push the egg down with the piston and pick it up."
+      },
+      "items": [
+        "minecraft:piston",
+        "minecraft:dragon_egg"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.schild.schritt.1",
+        "fallback": "Lay out 6 planks and 1 iron ingot as a shield."
+      },
+      "items": [
+        "minecraft:shield"
+      ],
+      "rezept": "minecraft:shield"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.schild.schritt.2",
+        "fallback": "Hold the shield in your off hand and keep right-click pressed."
+      },
+      "items": [
+        "minecraft:shield"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.schild.schritt.3",
+        "fallback": "Find a skeleton that shoots at you and block an arrow."
+      },
+      "items": [
+        "minecraft:skeleton_skull",
+        "minecraft:arrow"
+      ]
+    }
+  ]
+}

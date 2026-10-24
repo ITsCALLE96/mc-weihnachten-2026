@@ -1,0 +1,55 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.schrott.schritt.1",
+        "fallback": "Craft a diamond pickaxe: only it mines ancient debris."
+      },
+      "items": [
+        "minecraft:diamond_pickaxe"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.schrott.schritt.2",
+        "fallback": "Go to the Nether and dig a tunnel at about Y 15."
+      },
+      "items": [
+        "minecraft:diamond_pickaxe"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.schrott.schritt.3",
+        "fallback": "Look for ancient debris and mine it."
+      },
+      "items": [
+        "minecraft:ancient_debris"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.nether.schrott.fundort.1",
+        "fallback": "Large veins lie between Y 8 and 24, most commonly around Y 15."
+      },
+      "hoehe": {
+        "von": 8,
+        "bis": 24
+      },
+      "dimension": "minecraft:the_nether"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.schrott.fundort.2",
+        "fallback": "Single pieces also appear higher up, between Y 8 and 120."
+      },
+      "hoehe": {
+        "von": 8,
+        "bis": 120
+      },
+      "dimension": "minecraft:the_nether"
+    }
+  ]
+}

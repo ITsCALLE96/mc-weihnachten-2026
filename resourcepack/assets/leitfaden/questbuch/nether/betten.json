@@ -1,0 +1,22 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.betten.schritt.1",
+        "fallback": "Don't sleep in a bed in the Nether: it explodes."
+      },
+      "items": [
+        "minecraft:red_bed"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.betten.schritt.2",
+        "fallback": "Use a charged respawn anchor as your spawn point instead."
+      },
+      "items": [
+        "minecraft:respawn_anchor"
+      ]
+    }
+  ]
+}

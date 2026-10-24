@@ -1,0 +1,43 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.sculk.schritt.1",
+        "fallback": "Dig down to the Deep Dark at the very bottom of the world. Bring torches."
+      },
+      "items": [
+        "minecraft:sculk_catalyst"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.sculk.schritt.2",
+        "fallback": "Find a sculk catalyst, it grows in the Deep Dark."
+      },
+      "items": [
+        "minecraft:sculk_catalyst"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.sculk.schritt.3",
+        "fallback": "Kill a mob close to it, for example one you brought along."
+      },
+      "items": [
+        "minecraft:sculk_catalyst",
+        "minecraft:skeleton_spawn_egg"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.sculk.fundort.1",
+        "fallback": "Ancient cities and sculk are found in the Deep Dark."
+      },
+      "biome": [
+        "minecraft:deep_dark"
+      ]
+    }
+  ]
+}

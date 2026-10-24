@@ -1,0 +1,56 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.schnueffler_ei.schritt.1",
+        "fallback": "Craft a brush: feather, copper ingot and stick stacked."
+      },
+      "items": [
+        "minecraft:brush"
+      ],
+      "rezept": "minecraft:brush"
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.schnueffler_ei.schritt.2",
+        "fallback": "Find warm ocean ruins and look for suspicious sand."
+      },
+      "items": [
+        "minecraft:suspicious_sand"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.schnueffler_ei.schritt.3",
+        "fallback": "Hold right-click on the sand with the brush."
+      },
+      "items": [
+        "minecraft:brush",
+        "minecraft:suspicious_sand"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.schnueffler_ei.schritt.4",
+        "fallback": "With luck, a sniffer egg appears."
+      },
+      "items": [
+        "minecraft:sniffer_egg"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.schnueffler_ei.fundort.1",
+        "fallback": "Suspicious sand lies in warm ocean ruins."
+      },
+      "biome": [
+        "minecraft:lukewarm_ocean",
+        "minecraft:warm_ocean",
+        "minecraft:deep_lukewarm_ocean"
+      ],
+      "dimension": "minecraft:overworld"
+    }
+  ]
+}

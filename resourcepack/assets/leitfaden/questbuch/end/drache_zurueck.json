@@ -1,0 +1,42 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.end.drache_zurueck.schritt.1",
+        "fallback": "Agree on the date in chat before you respawn the dragon."
+      },
+      "items": [
+        "minecraft:dragon_head"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.drache_zurueck.schritt.2",
+        "fallback": "Craft an End crystal: 7 glass, an eye of ender and a ghast tear."
+      },
+      "items": [
+        "minecraft:end_crystal"
+      ],
+      "rezept": "minecraft:end_crystal"
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.drache_zurueck.schritt.3",
+        "fallback": "Repeat until you have 4 End crystals."
+      },
+      "items": [
+        "minecraft:end_crystal"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.drache_zurueck.schritt.4",
+        "fallback": "Place one crystal on each side of the exit portal."
+      },
+      "items": [
+        "minecraft:end_crystal",
+        "minecraft:bedrock"
+      ]
+    }
+  ]
+}

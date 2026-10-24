@@ -1,0 +1,42 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.alle_traenke.schritt.1",
+        "fallback": "Brew potions for all 17 effects the challenge asks for."
+      },
+      "items": [
+        "minecraft:potion",
+        "minecraft:brewing_stand"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.alle_traenke.schritt.2",
+        "fallback": "That includes Infested, Oozing, Weaving and Wind Charged."
+      },
+      "items": [
+        "minecraft:slime_block",
+        "minecraft:breeze_rod"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.alle_traenke.schritt.3",
+        "fallback": "Extend potions with redstone and drink the long ones first."
+      },
+      "items": [
+        "minecraft:redstone"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.alle_traenke.schritt.4",
+        "fallback": "Drink them all in turn until every effect is active at once."
+      },
+      "items": [
+        "minecraft:potion"
+      ]
+    }
+  ]
+}

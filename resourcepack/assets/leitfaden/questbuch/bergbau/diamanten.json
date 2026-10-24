@@ -1,0 +1,55 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.bergbau.diamanten.schritt.1",
+        "fallback": "Take your iron pickaxe and torches down with you."
+      },
+      "items": [
+        "minecraft:iron_pickaxe",
+        "minecraft:torch"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.diamanten.schritt.2",
+        "fallback": "Press F3 and watch your height (Y), for example -59."
+      },
+      "items": [
+        "minecraft:compass"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.diamanten.schritt.3",
+        "fallback": "Dig a straight tunnel there and light it up."
+      },
+      "items": [
+        "minecraft:torch"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.diamanten.schritt.4",
+        "fallback": "Mine diamond ore to get diamonds."
+      },
+      "items": [
+        "minecraft:diamond_ore",
+        "minecraft:diamond"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.bergbau.diamanten.fundort.1",
+        "fallback": "Diamonds lie deep underground, most common near the bottom."
+      },
+      "hoehe": {
+        "von": -64,
+        "bis": 16
+      },
+      "dimension": "minecraft:overworld"
+    }
+  ]
+}

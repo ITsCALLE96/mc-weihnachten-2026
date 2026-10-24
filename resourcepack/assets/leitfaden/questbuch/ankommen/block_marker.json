@@ -1,0 +1,37 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.block_marker.schritt.1",
+        "fallback": "Look at the block you want to mark."
+      },
+      "items": [
+        "minecraft:glow_ink_sac"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.block_marker.schritt.2",
+        "fallback": "Press the period key to mark it."
+      },
+      "items": [
+        "minecraft:glow_ink_sac"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.block_marker.schritt.3",
+        "fallback": "Press the comma key to switch profile."
+      },
+      "items": [
+        "minecraft:glow_ink_sac"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.block_marker.schritt.4",
+        "fallback": "Adjust everything else via Mod Menu."
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.knochenmehl.schritt.1",
+        "fallback": "Defeat skeletons, they drop bones."
+      },
+      "items": [
+        "minecraft:bone"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.knochenmehl.schritt.2",
+        "fallback": "Put a bone in the grid: you get 3 bone meal."
+      },
+      "items": [
+        "minecraft:bone_meal"
+      ],
+      "rezept": "minecraft:bone_meal"
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.knochenmehl.schritt.3",
+        "fallback": "Right-click plants and they grow instantly."
+      },
+      "items": [
+        "minecraft:bone_meal",
+        "minecraft:wheat"
+      ]
+    }
+  ]
+}

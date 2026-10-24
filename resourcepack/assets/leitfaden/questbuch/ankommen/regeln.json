@@ -1,0 +1,28 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.regeln.schritt.1",
+        "fallback": "Read the rules once, calmly. They are short."
+      },
+      "items": [
+        "minecraft:writable_book"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.regeln.schritt.2",
+        "fallback": "Remember: no building on the spawn island."
+      },
+      "items": [
+        "minecraft:grass_block"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.regeln.schritt.3",
+        "fallback": "Ask in chat if anything is unclear."
+      }
+    }
+  ]
+}

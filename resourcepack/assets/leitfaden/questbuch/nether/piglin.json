@@ -1,0 +1,44 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.piglin.schritt.1",
+        "fallback": "Wear some gold so the piglins leave you alone."
+      },
+      "items": [
+        "minecraft:golden_boots"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.piglin.schritt.2",
+        "fallback": "Hold a gold ingot and walk up to a piglin."
+      },
+      "items": [
+        "minecraft:gold_ingot",
+        "minecraft:piglin_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.piglin.schritt.3",
+        "fallback": "Toss it and wait a moment: it inspects it and gives you something back."
+      },
+      "items": [
+        "minecraft:gold_ingot"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.piglin.schritt.4",
+        "fallback": "For example obsidian, soul sand, ender pearls or iron nuggets."
+      },
+      "items": [
+        "minecraft:obsidian",
+        "minecraft:soul_sand",
+        "minecraft:ender_pearl",
+        "minecraft:iron_nugget"
+      ]
+    }
+  ]
+}

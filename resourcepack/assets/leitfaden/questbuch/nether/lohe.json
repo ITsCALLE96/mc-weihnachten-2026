@@ -1,0 +1,41 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.lohe.schritt.1",
+        "fallback": "Find a spawner in the fortress with blazes floating around it."
+      },
+      "items": [
+        "minecraft:spawner",
+        "minecraft:blaze_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.lohe.schritt.2",
+        "fallback": "Throw snowballs at the blazes: they handle them surprisingly badly."
+      },
+      "items": [
+        "minecraft:snowball"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.lohe.schritt.3",
+        "fallback": "Defeat a blaze and pick up its blaze rod."
+      },
+      "items": [
+        "minecraft:blaze_rod"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.nether.lohe.fundort.1",
+        "fallback": "Blazes hover around spawners in Nether fortresses."
+      },
+      "dimension": "minecraft:the_nether"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.wither.schritt.1",
+        "fallback": "Gather 3 wither skeleton skulls and 4 soul sand or soul soil."
+      },
+      "items": [
+        "minecraft:wither_skeleton_skull",
+        "minecraft:soul_sand",
+        "minecraft:soul_soil"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.wither.schritt.2",
+        "fallback": "Pick a spot far away from homes and spawn."
+      },
+      "items": [
+        "minecraft:bow"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.wither.schritt.3",
+        "fallback": "Place 4 soul sand in a T shape with the 3 skulls on top."
+      },
+      "items": [
+        "minecraft:soul_sand",
+        "minecraft:wither_skeleton_skull"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.wither.schritt.4",
+        "fallback": "The Wither awakens: fight together and keep your distance."
+      },
+      "items": [
+        "minecraft:nether_star"
+      ]
+    }
+  ]
+}

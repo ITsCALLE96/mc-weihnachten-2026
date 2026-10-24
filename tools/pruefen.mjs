@@ -93,6 +93,17 @@ export function pruefeResourcepack(wurzel) {
     for (const k of Object.keys(inhalt)) if (!(k in en)) fehler.push(`${m[1]}en_us.json: ${k} fehlt`);
     for (const k of Object.keys(en)) if (!(k in inhalt)) fehler.push(`${m[1]}de_de.json: ${k} fehlt`);
   }
+  // Detail-Dateien der Quest-Seitenleiste: jeder Schlüssel mit fallback und in beiden Sprachdateien
+  const alleLang = (sprache) => Object.assign({}, ...[...json].filter(([r]) => r.endsWith(`/lang/${sprache}.json`)).map(([, j]) => j));
+  const deAlle = alleLang('de_de'), enAlle = alleLang('en_us');
+  for (const [rel, inhalt] of json) {
+    if (!/^assets\/[^/]+\/questbuch\//.test(rel)) continue;
+    const texte = [...(inhalt.schritte ?? []), ...(inhalt.fundort ?? [])].map((e) => e.text).filter(Boolean);
+    for (const t of texte) {
+      if (typeof t.fallback !== 'string') fehler.push(`${rel}: ${t.translate} ohne fallback`);
+      if (!(t.translate in deAlle) || !(t.translate in enAlle)) fehler.push(`${rel}: ${t.translate} fehlt in de_de/en_us`);
+    }
+  }
   for (const [rel, inhalt] of json) {
     if (!/^assets\/[^/]+\/models\//.test(rel)) continue;
     for (const ref of Object.values(inhalt.textures ?? {})) {

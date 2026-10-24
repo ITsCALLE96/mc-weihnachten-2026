@@ -1,0 +1,48 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.festung.schritt.1",
+        "fallback": "Pack food, blocks and a good sword."
+      },
+      "items": [
+        "minecraft:cooked_beef",
+        "minecraft:cobblestone"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.festung.schritt.2",
+        "fallback": "Look for dark nether bricks in the Nether: that's a fortress."
+      },
+      "items": [
+        "minecraft:nether_bricks"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.festung.schritt.3",
+        "fallback": "Step inside once you've found one. Done!"
+      },
+      "items": [
+        "minecraft:nether_bricks"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.nether.festung.fundort.1",
+        "fallback": "Nether fortresses can generate in any Nether biome."
+      },
+      "biome": [
+        "minecraft:nether_wastes",
+        "minecraft:soul_sand_valley",
+        "minecraft:crimson_forest",
+        "minecraft:warped_forest",
+        "minecraft:basalt_deltas"
+      ],
+      "dimension": "minecraft:the_nether"
+    }
+  ]
+}

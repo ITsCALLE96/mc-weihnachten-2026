@@ -1,0 +1,23 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.pvp.schritt.1",
+        "fallback": "Want to challenge someone? Ask in chat first."
+      },
+      "items": [
+        "minecraft:shield"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.pvp.schritt.2",
+        "fallback": "Only fight if both say yes. A virtual handshake afterwards is nice."
+      },
+      "items": [
+        "minecraft:iron_sword",
+        "minecraft:shield"
+      ]
+    }
+  ]
+}

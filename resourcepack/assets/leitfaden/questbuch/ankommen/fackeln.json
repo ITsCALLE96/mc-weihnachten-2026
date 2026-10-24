@@ -1,0 +1,34 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.fackeln.schritt.1",
+        "fallback": "Mine coal ore or smelt logs in a furnace to get charcoal."
+      },
+      "items": [
+        "minecraft:coal",
+        "minecraft:charcoal"
+      ],
+      "rezept": "minecraft:charcoal"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.fackeln.schritt.2",
+        "fallback": "Put coal or charcoal above a stick: you get 4 torches."
+      },
+      "items": [
+        "minecraft:torch"
+      ],
+      "rezept": "minecraft:torch"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.fackeln.schritt.3",
+        "fallback": "Place a torch on the ground or on a wall."
+      },
+      "items": [
+        "minecraft:torch"
+      ]
+    }
+  ]
+}

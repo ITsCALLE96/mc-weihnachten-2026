@@ -1,0 +1,44 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.hilfsgeist.schritt.1",
+        "fallback": "Find an allay in a pillager outpost or woodland mansion."
+      },
+      "items": [
+        "minecraft:allay_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.hilfsgeist.schritt.2",
+        "fallback": "Hand it an item with right-click, e.g. wheat seeds."
+      },
+      "items": [
+        "minecraft:wheat_seeds"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.hilfsgeist.schritt.3",
+        "fallback": "It collects matching items. Walk a bit away and wait for it to bring them."
+      },
+      "items": [
+        "minecraft:allay_spawn_egg"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.hilfsgeist.fundort.1",
+        "fallback": "Allays sit in cages at pillager outposts and in woodland mansions."
+      },
+      "biome": [
+        "minecraft:plains",
+        "minecraft:taiga",
+        "minecraft:dark_forest"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.schreiter_heim.schritt.1",
+        "fallback": "Get a strider, saddle and warped fungus on a stick."
+      },
+      "items": [
+        "minecraft:strider_spawn_egg",
+        "minecraft:saddle",
+        "minecraft:warped_fungus_on_a_stick"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.schreiter_heim.schritt.2",
+        "fallback": "Lure the strider through the portal with the fungus on a stick."
+      },
+      "items": [
+        "minecraft:warped_fungus_on_a_stick",
+        "minecraft:nether_portal"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.schreiter_heim.schritt.3",
+        "fallback": "Find an Overworld lava lake and ride 50 blocks across it."
+      },
+      "items": [
+        "minecraft:lava_bucket"
+      ]
+    }
+  ]
+}

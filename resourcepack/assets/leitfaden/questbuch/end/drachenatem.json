@@ -1,0 +1,32 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.end.drachenatem.schritt.1",
+        "fallback": "Craft glass bottles from 3 glass blocks."
+      },
+      "items": [
+        "minecraft:glass_bottle"
+      ],
+      "rezept": "minecraft:glass_bottle"
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.drachenatem.schritt.2",
+        "fallback": "Keep a bottle in hand during the fight."
+      },
+      "items": [
+        "minecraft:glass_bottle"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.drachenatem.schritt.3",
+        "fallback": "Scoop the dragon's purple cloud with the bottle."
+      },
+      "items": [
+        "minecraft:dragon_breath"
+      ]
+    }
+  ]
+}

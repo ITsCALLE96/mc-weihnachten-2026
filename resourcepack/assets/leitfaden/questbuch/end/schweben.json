@@ -1,0 +1,40 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.end.schweben.schritt.1",
+        "fallback": "Find an End city and get the attention of some shulkers."
+      },
+      "items": [
+        "minecraft:shulker_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.schweben.schritt.2",
+        "fallback": "Let their bullets hit you: you start floating up."
+      },
+      "items": [
+        "minecraft:shulker_shell"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.schweben.schritt.3",
+        "fallback": "Get hit again and again until you are 50 blocks up."
+      },
+      "items": [
+        "minecraft:shulker_shell"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.schweben.schritt.4",
+        "fallback": "Have the water bucket ready for landing."
+      },
+      "items": [
+        "minecraft:water_bucket"
+      ]
+    }
+  ]
+}

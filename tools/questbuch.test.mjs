@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { baueQuestbuch, baueErkennung, pruefeAbdeckung } from './questbuch.mjs';
+import { baueQuestbuch, baueErkennung, pruefeAbdeckung, baueDetails } from './questbuch.mjs';
 
 const REPO = join(fileURLToPath(import.meta.url), '..', '..');
 
@@ -136,4 +136,31 @@ test('echtes Questbuch: jeder Vanilla-Fortschritt von 26.3 genau einmal (Liste a
   const ids = new Set(readFileSync(join(REPO, 'datapack/vanilla-26.3.txt'), 'utf8').trim().split('\n'));
   assert.equal(ids.size, 126);
   assert.deepEqual(pruefeAbdeckung(echt, ids), []);
+});
+
+const spiel = {
+  rezepte: new Set(['minecraft:crafting_table', 'minecraft:oak_planks']),
+  biome: new Set(['minecraft:forest']), biomTags: new Set(['minecraft:is_taiga']), itemTags: new Set(['minecraft:logs']),
+};
+
+test('Detail-Datei im Format Quest-Details v1: Schritte, Rezept, Fundort mit Höhe von/bis', () => {
+  const schritte = { 'ankommen/stein': {
+    schritte: [{ de: 'Hau Holz', en: 'Chop wood', items: ['#minecraft:logs'] }, { de: 'Werkbank', en: 'Table', items: ['minecraft:crafting_table'], rezept: 'minecraft:crafting_table' }],
+    fundort: [{ de: 'Wald', en: 'Forest', biome: ['minecraft:forest', '#minecraft:is_taiga'], hoehe: [60, 120], dimension: 'minecraft:overworld' }],
+  } };
+  const { dateien, lang } = baueDetails(schritte, daten, spiel);
+  const d = dateien.get('ankommen/stein');
+  assert.deepEqual(d.schritte[1], { text: { translate: 'questbuch.ankommen.stein.schritt.2', fallback: 'Table' }, items: ['minecraft:crafting_table'], rezept: 'minecraft:crafting_table' });
+  assert.deepEqual(d.fundort[0].hoehe, { von: 60, bis: 120 });
+  assert.equal(d.fundort[0].text.translate, 'questbuch.ankommen.stein.fundort.1');
+  assert.equal(lang.de['questbuch.ankommen.stein.schritt.1'], 'Hau Holz');
+  assert.equal(lang.en['questbuch.ankommen.stein.fundort.1'], 'Forest');
+});
+
+test('Detail-Dateien: unbekannte Quest, Rezept, Biom, Item-Tag und fehlende Sprache brechen ab', () => {
+  const kaputt = {
+    'ankommen/gibtsnicht': { schritte: [{ de: 'x', en: 'x' }] },
+    'ankommen/stein': { schritte: [{ de: 'x', items: ['#minecraft:quatsch'], rezept: 'minecraft:quatsch' }], fundort: [{ de: 'a', en: 'b', biome: ['minecraft:mond'] }] },
+  };
+  assert.throws(() => baueDetails(kaputt, daten, spiel), (e) => ['Quest gibt es nicht', 'Text DE/EN fehlt', 'Item-Tag #minecraft:quatsch', 'Rezept minecraft:quatsch', 'Biom minecraft:mond'].every((s) => e.message.includes(s)));
 });

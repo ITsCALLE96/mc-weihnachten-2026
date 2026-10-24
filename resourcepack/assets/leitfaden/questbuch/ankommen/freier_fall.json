@@ -1,0 +1,40 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.freier_fall.schritt.1",
+        "fallback": "Fill a bucket with water and climb to the build limit."
+      },
+      "items": [
+        "minecraft:water_bucket"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.freier_fall.schritt.2",
+        "fallback": "Jump and fall all the way down, ideally over a lake."
+      },
+      "items": [
+        "minecraft:water_bucket"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.freier_fall.schritt.3",
+        "fallback": "Place the water right before you land to soften the fall."
+      },
+      "items": [
+        "minecraft:water_bucket"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.freier_fall.schritt.4",
+        "fallback": "Please don't practise over lava. It only ends in smoke."
+      },
+      "items": [
+        "minecraft:lava_bucket"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.trank.schritt.1",
+        "fallback": "Craft a brewing stand from the blaze rod and 3 cobblestone."
+      },
+      "items": [
+        "minecraft:brewing_stand"
+      ],
+      "rezept": "minecraft:brewing_stand"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.trank.schritt.2",
+        "fallback": "Turn a blaze rod into blaze powder: that's the fuel."
+      },
+      "items": [
+        "minecraft:blaze_powder"
+      ],
+      "rezept": "minecraft:blaze_powder"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.trank.schritt.3",
+        "fallback": "Get nether wart from the fortress and fill water bottles."
+      },
+      "items": [
+        "minecraft:nether_wart",
+        "minecraft:glass_bottle"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.trank.schritt.4",
+        "fallback": "Put wart on top and bottles below in the brewing stand: potion done."
+      },
+      "items": [
+        "minecraft:brewing_stand",
+        "minecraft:potion"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.nether.trank.fundort.1",
+        "fallback": "Nether wart grows on soul sand in Nether fortresses."
+      },
+      "dimension": "minecraft:the_nether"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.schnueffler_samen.schritt.1",
+        "fallback": "Raise the snifflet with torchflower seeds."
+      },
+      "items": [
+        "minecraft:torchflower_seeds"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.schnueffler_samen.schritt.2",
+        "fallback": "Wait for the sniffer to grow up and dig up seeds."
+      },
+      "items": [
+        "minecraft:sniffer_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.schnueffler_samen.schritt.3",
+        "fallback": "Pick up torchflower seeds or pitcher pods."
+      },
+      "items": [
+        "minecraft:torchflower_seeds",
+        "minecraft:pitcher_pod"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.schnueffler_samen.schritt.4",
+        "fallback": "Plant a seed on farmland or dirt."
+      },
+      "items": [
+        "minecraft:torchflower_seeds"
+      ]
+    }
+  ]
+}

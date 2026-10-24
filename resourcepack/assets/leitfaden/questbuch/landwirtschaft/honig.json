@@ -1,0 +1,43 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.honig.schritt.1",
+        "fallback": "Find a beehive or bee nest, often near flowers."
+      },
+      "items": [
+        "minecraft:bee_nest",
+        "minecraft:beehive"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.honig.schritt.2",
+        "fallback": "Place a campfire under the hive: the smoke calms the bees."
+      },
+      "items": [
+        "minecraft:campfire"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.honig.schritt.3",
+        "fallback": "Wait until honey drips from the hive."
+      },
+      "items": [
+        "minecraft:bee_nest"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.honig.schritt.4",
+        "fallback": "Right-click the hive with a glass bottle to collect the honey."
+      },
+      "items": [
+        "minecraft:glass_bottle",
+        "minecraft:honey_bottle"
+      ],
+      "rezept": "minecraft:glass_bottle"
+    }
+  ]
+}

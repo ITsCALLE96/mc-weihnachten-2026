@@ -1,0 +1,68 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.eisen.schritt.1",
+        "fallback": "Mine iron ore with the stone pickaxe: it drops raw iron."
+      },
+      "items": [
+        "minecraft:iron_ore",
+        "minecraft:raw_iron"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.eisen.schritt.2",
+        "fallback": "Put 8 cobblestone in a ring around an empty slot: that's a furnace."
+      },
+      "items": [
+        "minecraft:furnace"
+      ],
+      "rezept": "minecraft:furnace"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.eisen.schritt.3",
+        "fallback": "Put raw iron on top and fuel at the bottom of the furnace."
+      },
+      "items": [
+        "minecraft:raw_iron",
+        "minecraft:charcoal"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.eisen.schritt.4",
+        "fallback": "Wait a moment and take out the iron ingot."
+      },
+      "items": [
+        "minecraft:iron_ingot"
+      ],
+      "rezept": "minecraft:iron_ingot_from_smelting_raw_iron"
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.eisen.fundort.1",
+        "fallback": "Iron is most common at heights of about -24 to 56."
+      },
+      "hoehe": {
+        "von": -24,
+        "bis": 56
+      },
+      "dimension": "minecraft:overworld"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.eisen.fundort.2",
+        "fallback": "High up in the mountains there is plenty more iron, from height 80."
+      },
+      "hoehe": {
+        "von": 80,
+        "bis": 384
+      },
+      "dimension": "minecraft:overworld"
+    }
+  ]
+}

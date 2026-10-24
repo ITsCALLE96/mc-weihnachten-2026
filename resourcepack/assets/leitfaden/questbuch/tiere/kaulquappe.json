@@ -1,0 +1,46 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.kaulquappe.schritt.1",
+        "fallback": "Find frogs in a swamp and feed two of them slimeballs."
+      },
+      "items": [
+        "minecraft:frog_spawn_egg",
+        "minecraft:slime_ball"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.kaulquappe.schritt.2",
+        "fallback": "They lay frogspawn in the water, and tadpoles hatch from it."
+      },
+      "items": [
+        "minecraft:frogspawn",
+        "minecraft:tadpole_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.kaulquappe.schritt.3",
+        "fallback": "Right-click a tadpole with a water bucket."
+      },
+      "items": [
+        "minecraft:water_bucket",
+        "minecraft:tadpole_bucket"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.kaulquappe.fundort.1",
+        "fallback": "Frogs live in swamps and mangrove swamps."
+      },
+      "biome": [
+        "minecraft:swamp",
+        "minecraft:mangrove_swamp"
+      ]
+    }
+  ]
+}

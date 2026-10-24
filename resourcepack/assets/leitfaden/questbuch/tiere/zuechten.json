@@ -1,0 +1,54 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.zuechten.schritt.1",
+        "fallback": "Find two animals of the same kind, e.g. two cows."
+      },
+      "items": [
+        "minecraft:cow_spawn_egg",
+        "minecraft:sheep_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.zuechten.schritt.2",
+        "fallback": "Hold their food: wheat for cows and sheep, carrots for pigs."
+      },
+      "items": [
+        "minecraft:wheat",
+        "minecraft:carrot"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.zuechten.schritt.3",
+        "fallback": "Right-click both to feed them until hearts appear."
+      },
+      "items": [
+        "minecraft:wheat"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.zuechten.schritt.4",
+        "fallback": "Congratulations, it's a baby! It takes a while to grow up."
+      },
+      "items": [
+        "minecraft:cow_spawn_egg"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.zuechten.fundort.1",
+        "fallback": "Cows, sheep, pigs and chickens live in plains and forests."
+      },
+      "biome": [
+        "minecraft:plains",
+        "minecraft:forest"
+      ]
+    }
+  ]
+}

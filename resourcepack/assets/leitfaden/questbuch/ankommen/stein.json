@@ -1,0 +1,34 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.stein.schritt.1",
+        "fallback": "Craft sticks from planks. Your inventory grid is enough."
+      },
+      "items": [
+        "minecraft:stick"
+      ],
+      "rezept": "minecraft:stick"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.stein.schritt.2",
+        "fallback": "Lay 3 planks and 2 sticks out as a pickaxe at the crafting table."
+      },
+      "items": [
+        "minecraft:wooden_pickaxe"
+      ],
+      "rezept": "minecraft:wooden_pickaxe"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.stein.schritt.3",
+        "fallback": "Mine a stone block: you get cobblestone."
+      },
+      "items": [
+        "minecraft:stone",
+        "minecraft:cobblestone"
+      ]
+    }
+  ]
+}

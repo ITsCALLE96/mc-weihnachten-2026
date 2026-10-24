@@ -1,0 +1,33 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.entdecken.krug.schritt.1",
+        "fallback": "Collect 4 pottery sherds, different ones are fine."
+      },
+      "items": [
+        "minecraft:archer_pottery_sherd",
+        "minecraft:angler_pottery_sherd"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.krug.schritt.2",
+        "fallback": "Place them on the four sides in the crafting table."
+      },
+      "items": [
+        "minecraft:crafting_table"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.krug.schritt.3",
+        "fallback": "There's your decorated pot. The sherds decide the pictures."
+      },
+      "items": [
+        "minecraft:decorated_pot"
+      ],
+      "rezept": "minecraft:decorated_pot"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.entdecken.knarzherz.schritt.1",
+        "fallback": "Enchant a pickaxe with Silk Touch."
+      },
+      "items": [
+        "minecraft:diamond_pickaxe",
+        "minecraft:enchanted_book"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.knarzherz.schritt.2",
+        "fallback": "Find the pale garden and go by day only, the creaking wakes at night."
+      },
+      "items": [
+        "minecraft:creaking_spawn_egg",
+        "minecraft:pale_oak_log"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.knarzherz.schritt.3",
+        "fallback": "Mine a creaking heart with the pickaxe and take 2 pale oak logs."
+      },
+      "items": [
+        "minecraft:creaking_heart",
+        "minecraft:pale_oak_log"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.knarzherz.schritt.4",
+        "fallback": "Place two logs with a gap between them and the heart in the middle."
+      },
+      "items": [
+        "minecraft:creaking_heart",
+        "minecraft:pale_oak_log"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.entdecken.knarzherz.fundort.1",
+        "fallback": "Creaking hearts grow in pale oaks in the pale garden."
+      },
+      "biome": [
+        "minecraft:pale_garden"
+      ]
+    }
+  ]
+}

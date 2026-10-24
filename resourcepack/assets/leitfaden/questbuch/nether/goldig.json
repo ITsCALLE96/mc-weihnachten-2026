@@ -1,0 +1,41 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.goldig.schritt.1",
+        "fallback": "Smelt gold into ingots; 4 are enough for boots."
+      },
+      "items": [
+        "minecraft:gold_ingot"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.goldig.schritt.2",
+        "fallback": "Craft golden boots: two rows of two ingots with a gap."
+      },
+      "items": [
+        "minecraft:golden_boots"
+      ],
+      "rezept": "minecraft:golden_boots"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.goldig.schritt.3",
+        "fallback": "Put them on: piglins won't attack you anymore."
+      },
+      "items": [
+        "minecraft:golden_boots"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.goldig.schritt.4",
+        "fallback": "But mining gold or opening their chests still angers them."
+      },
+      "items": [
+        "minecraft:piglin_spawn_egg"
+      ]
+    }
+  ]
+}

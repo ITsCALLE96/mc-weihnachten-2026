@@ -1,0 +1,42 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.leuchtfeuer.schritt.1",
+        "fallback": "Defeat the Wither and take its nether star."
+      },
+      "items": [
+        "minecraft:nether_star"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.leuchtfeuer.schritt.2",
+        "fallback": "Craft a beacon: nether star, 5 glass, 3 obsidian."
+      },
+      "items": [
+        "minecraft:beacon"
+      ],
+      "rezept": "minecraft:beacon"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.leuchtfeuer.schritt.3",
+        "fallback": "Build a 3 × 3 pyramid from 9 iron, gold, emerald or diamond blocks."
+      },
+      "items": [
+        "minecraft:iron_block",
+        "minecraft:gold_block"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.leuchtfeuer.schritt.4",
+        "fallback": "Place the beacon on top and pick an effect."
+      },
+      "items": [
+        "minecraft:beacon"
+      ]
+    }
+  ]
+}

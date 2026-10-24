@@ -1,0 +1,32 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.bergbau.truhe.schritt.1",
+        "fallback": "Lay out 8 planks in a ring around an empty slot."
+      },
+      "items": [
+        "minecraft:chest"
+      ],
+      "rezept": "minecraft:chest"
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.truhe.schritt.2",
+        "fallback": "Place the chest on the ground."
+      },
+      "items": [
+        "minecraft:chest"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.truhe.schritt.3",
+        "fallback": "Place a second next to it to make a large chest."
+      },
+      "items": [
+        "minecraft:chest"
+      ]
+    }
+  ]
+}

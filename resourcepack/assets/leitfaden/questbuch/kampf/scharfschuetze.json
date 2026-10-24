@@ -1,0 +1,41 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.scharfschuetze.schritt.1",
+        "fallback": "Take a bow and plenty of arrows, ideally with Power."
+      },
+      "items": [
+        "minecraft:bow",
+        "minecraft:arrow"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.scharfschuetze.schritt.2",
+        "fallback": "Find a skeleton out in the open, best at night or in a cave."
+      },
+      "items": [
+        "minecraft:skeleton_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.scharfschuetze.schritt.3",
+        "fallback": "Back off at least 50 blocks and aim above the target."
+      },
+      "items": [
+        "minecraft:bow"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.scharfschuetze.schritt.4",
+        "fallback": "Finish it with an arrow. Only arrows count, no sword!"
+      },
+      "items": [
+        "minecraft:arrow"
+      ]
+    }
+  ]
+}

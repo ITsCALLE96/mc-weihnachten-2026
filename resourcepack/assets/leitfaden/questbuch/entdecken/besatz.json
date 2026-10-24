@@ -1,0 +1,45 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.entdecken.besatz.schritt.1",
+        "fallback": "Craft a smithing table from 2 iron ingots and 4 planks."
+      },
+      "items": [
+        "minecraft:smithing_table"
+      ],
+      "rezept": "minecraft:smithing_table"
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.besatz.schritt.2",
+        "fallback": "Look in structure chests for a smithing template."
+      },
+      "items": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:chest"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.besatz.schritt.3",
+        "fallback": "At the smithing table, add template, armor and a material like gold or copper."
+      },
+      "items": [
+        "minecraft:smithing_table",
+        "minecraft:iron_chestplate",
+        "minecraft:gold_ingot",
+        "minecraft:copper_ingot"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.besatz.schritt.4",
+        "fallback": "Take out the trimmed piece: stylish!"
+      },
+      "items": [
+        "minecraft:iron_chestplate"
+      ]
+    }
+  ]
+}

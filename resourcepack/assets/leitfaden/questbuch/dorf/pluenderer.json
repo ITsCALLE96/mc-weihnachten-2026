@@ -1,0 +1,45 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.dorf.pluenderer.schritt.1",
+        "fallback": "Craft a crossbow: 3 sticks, 2 string, 1 iron ingot, 1 tripwire hook."
+      },
+      "items": [
+        "minecraft:crossbow",
+        "minecraft:tripwire_hook",
+        "minecraft:string",
+        "minecraft:iron_ingot"
+      ],
+      "rezept": "minecraft:crossbow"
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.pluenderer.schritt.2",
+        "fallback": "Pack arrows and load the crossbow with right-click."
+      },
+      "items": [
+        "minecraft:crossbow",
+        "minecraft:arrow"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.pluenderer.schritt.3",
+        "fallback": "Find a pillager, e.g. at the dark wooden tower of an outpost."
+      },
+      "items": [
+        "minecraft:pillager_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.pluenderer.schritt.4",
+        "fallback": "Shoot him down with the crossbow."
+      },
+      "items": [
+        "minecraft:crossbow"
+      ]
+    }
+  ]
+}

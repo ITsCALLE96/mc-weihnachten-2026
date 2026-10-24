@@ -1,0 +1,53 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.dorf.zombiearzt.schritt.1",
+        "fallback": "Get a splash potion of Weakness."
+      },
+      "items": [
+        "minecraft:splash_potion"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.zombiearzt.schritt.2",
+        "fallback": "Craft a golden apple from 8 gold ingots and 1 apple."
+      },
+      "items": [
+        "minecraft:golden_apple",
+        "minecraft:gold_ingot",
+        "minecraft:apple"
+      ],
+      "rezept": "minecraft:golden_apple"
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.zombiearzt.schritt.3",
+        "fallback": "Get a zombie villager into the shade or a room."
+      },
+      "items": [
+        "minecraft:zombie_villager_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.zombiearzt.schritt.4",
+        "fallback": "Throw the potion at him, then give him the apple with right-click."
+      },
+      "items": [
+        "minecraft:splash_potion",
+        "minecraft:golden_apple"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.zombiearzt.schritt.5",
+        "fallback": "Wait until he turns back. Don't forget the sun protection!"
+      },
+      "items": [
+        "minecraft:villager_spawn_egg"
+      ]
+    }
+  ]
+}

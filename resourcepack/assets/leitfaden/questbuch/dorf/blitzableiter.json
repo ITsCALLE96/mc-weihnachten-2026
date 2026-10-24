@@ -1,0 +1,43 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.dorf.blitzableiter.schritt.1",
+        "fallback": "Craft a lightning rod from 3 copper ingots stacked."
+      },
+      "items": [
+        "minecraft:lightning_rod",
+        "minecraft:copper_ingot"
+      ],
+      "rezept": "minecraft:lightning_rod"
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.blitzableiter.schritt.2",
+        "fallback": "Put it on a stone roof or stone tower next to the villager."
+      },
+      "items": [
+        "minecraft:lightning_rod",
+        "minecraft:cobblestone"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.blitzableiter.schritt.3",
+        "fallback": "Keep a villager close, within 30 blocks."
+      },
+      "items": [
+        "minecraft:villager_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.blitzableiter.schritt.4",
+        "fallback": "Wait for a thunderstorm: lightning hits the rod and nothing burns."
+      },
+      "items": [
+        "minecraft:lightning_rod"
+      ]
+    }
+  ]
+}

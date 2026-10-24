@@ -1,0 +1,60 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.guerteltier.schritt.1",
+        "fallback": "Craft a brush: feather on top, copper ingot in the middle, stick at the bottom."
+      },
+      "items": [
+        "minecraft:brush",
+        "minecraft:feather",
+        "minecraft:copper_ingot",
+        "minecraft:stick"
+      ],
+      "rezept": "minecraft:brush"
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.guerteltier.schritt.2",
+        "fallback": "Find an armadillo in a savanna or badlands."
+      },
+      "items": [
+        "minecraft:armadillo_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.guerteltier.schritt.3",
+        "fallback": "Sneak up slowly or it curls into a ball."
+      },
+      "items": [
+        "minecraft:armadillo_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.guerteltier.schritt.4",
+        "fallback": "Hold right-click with the brush until the scute drops."
+      },
+      "items": [
+        "minecraft:brush",
+        "minecraft:armadillo_scute"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.guerteltier.fundort.1",
+        "fallback": "Armadillos live in savannas and badlands."
+      },
+      "biome": [
+        "minecraft:savanna",
+        "minecraft:savanna_plateau",
+        "minecraft:badlands",
+        "minecraft:wooded_badlands",
+        "minecraft:eroded_badlands"
+      ]
+    }
+  ]
+}

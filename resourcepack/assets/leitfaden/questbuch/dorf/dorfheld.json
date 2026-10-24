@@ -1,0 +1,43 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.dorf.dorfheld.schritt.1",
+        "fallback": "Gear up: good armor, a weapon, food, ideally with friends."
+      },
+      "items": [
+        "minecraft:iron_chestplate",
+        "minecraft:iron_sword",
+        "minecraft:golden_apple"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.dorfheld.schritt.2",
+        "fallback": "Take the ominous bottle to a village and drink it there."
+      },
+      "items": [
+        "minecraft:ominous_bottle"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.dorfheld.schritt.3",
+        "fallback": "Defend the villagers against every wave of the raid."
+      },
+      "items": [
+        "minecraft:iron_golem_spawn_egg",
+        "minecraft:villager_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.dorfheld.schritt.4",
+        "fallback": "Survive all the waves and you become Hero of the Village. Discounts included!"
+      },
+      "items": [
+        "minecraft:emerald"
+      ]
+    }
+  ]
+}

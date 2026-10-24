@@ -1,0 +1,43 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.ruestung.schritt.1",
+        "fallback": "Smelt iron ingots in the furnace. Make enough of them."
+      },
+      "items": [
+        "minecraft:iron_ingot"
+      ],
+      "rezept": "minecraft:iron_ingot_from_smelting_raw_iron"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.ruestung.schritt.2",
+        "fallback": "Lay out 4 iron ingots as boots: the cheapest piece."
+      },
+      "items": [
+        "minecraft:iron_boots"
+      ],
+      "rezept": "minecraft:iron_boots"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.ruestung.schritt.3",
+        "fallback": "Or use 8 ingots for the chestplate, which protects most."
+      },
+      "items": [
+        "minecraft:iron_chestplate"
+      ],
+      "rezept": "minecraft:iron_chestplate"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.ruestung.schritt.4",
+        "fallback": "Put it on by dragging it into an armor slot in your inventory."
+      },
+      "items": [
+        "minecraft:iron_chestplate"
+      ]
+    }
+  ]
+}

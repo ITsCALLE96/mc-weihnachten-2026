@@ -1,0 +1,42 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.blitz.schritt.1",
+        "fallback": "Enchant a trident with Channeling."
+      },
+      "items": [
+        "minecraft:trident",
+        "minecraft:enchanted_book"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.blitz.schritt.2",
+        "fallback": "Wait for a thunderstorm, only then the lightning strikes."
+      },
+      "items": [
+        "minecraft:trident"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.blitz.schritt.3",
+        "fallback": "Find a villager outdoors and throw the trident at him."
+      },
+      "items": [
+        "minecraft:villager_spawn_egg",
+        "minecraft:trident"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.blitz.schritt.4",
+        "fallback": "Lightning hits him and he turns into a witch. Sorry, little guy."
+      },
+      "items": [
+        "minecraft:witch_spawn_egg"
+      ]
+    }
+  ]
+}

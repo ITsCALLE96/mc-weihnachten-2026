@@ -1,0 +1,44 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.zielblock.schritt.1",
+        "fallback": "Craft a hay bale from 9 wheat."
+      },
+      "items": [
+        "minecraft:hay_block"
+      ],
+      "rezept": "minecraft:hay_block"
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.zielblock.schritt.2",
+        "fallback": "Put the hay bale in the middle and 4 redstone around it: target block!"
+      },
+      "items": [
+        "minecraft:target",
+        "minecraft:redstone"
+      ],
+      "rezept": "minecraft:target"
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.zielblock.schritt.3",
+        "fallback": "Place the target block and walk at least 30 blocks away."
+      },
+      "items": [
+        "minecraft:target"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.zielblock.schritt.4",
+        "fallback": "Draw the bow fully, aim a bit high and hit the exact center."
+      },
+      "items": [
+        "minecraft:bow",
+        "minecraft:arrow"
+      ]
+    }
+  ]
+}

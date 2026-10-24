@@ -1,0 +1,40 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.abflug.schritt.1",
+        "fallback": "Stand on the spawn island and jump."
+      },
+      "items": [
+        "minecraft:elytra"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.abflug.schritt.2",
+        "fallback": "Jump again in mid-air and the elytra opens."
+      },
+      "items": [
+        "minecraft:elytra"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.abflug.schritt.3",
+        "fallback": "Press F for a boost and fly off."
+      },
+      "items": [
+        "minecraft:firework_rocket"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.abflug.schritt.4",
+        "fallback": "The elytra is only on loan, so land gently."
+      },
+      "items": [
+        "minecraft:elytra"
+      ]
+    }
+  ]
+}

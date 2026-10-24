@@ -1,0 +1,45 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.armbrust_fuenf.schritt.1",
+        "fallback": "Enchant a crossbow with Piercing, ideally level IV."
+      },
+      "items": [
+        "minecraft:crossbow",
+        "minecraft:enchanted_book"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.armbrust_fuenf.schritt.2",
+        "fallback": "Lure five different mobs into a straight line, for example a corridor."
+      },
+      "items": [
+        "minecraft:zombie_spawn_egg",
+        "minecraft:skeleton_spawn_egg",
+        "minecraft:creeper_spawn_egg",
+        "minecraft:spider_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.armbrust_fuenf.schritt.3",
+        "fallback": "Load the crossbow and shoot along the whole line."
+      },
+      "items": [
+        "minecraft:crossbow",
+        "minecraft:arrow"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.armbrust_fuenf.schritt.4",
+        "fallback": "All five must die from the same shot and be different kinds."
+      },
+      "items": [
+        "minecraft:arrow"
+      ]
+    }
+  ]
+}

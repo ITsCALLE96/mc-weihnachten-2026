@@ -1,0 +1,55 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.windkugel.schritt.1",
+        "fallback": "Get breeze rods from breezes in a trial chamber."
+      },
+      "items": [
+        "minecraft:breeze_rod",
+        "minecraft:breeze_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.windkugel.schritt.2",
+        "fallback": "Put a breeze rod in the crafting grid: 4 wind charges."
+      },
+      "items": [
+        "minecraft:wind_charge",
+        "minecraft:breeze_rod"
+      ],
+      "rezept": "minecraft:wind_charge"
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.windkugel.schritt.3",
+        "fallback": "Throw a wind charge straight down and jump at the same time."
+      },
+      "items": [
+        "minecraft:wind_charge"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.windkugel.schritt.4",
+        "fallback": "You soar at least 8 blocks up. Who needs rockets?"
+      },
+      "items": [
+        "minecraft:wind_charge"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.windkugel.fundort.1",
+        "fallback": "Trial chambers lie deep underground."
+      },
+      "hoehe": {
+        "von": -40,
+        "bis": -20
+      }
+    }
+  ]
+}

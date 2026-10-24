@@ -1,0 +1,58 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.eimerfisch.schritt.1",
+        "fallback": "Craft a bucket from 3 iron ingots and fill it at water."
+      },
+      "items": [
+        "minecraft:bucket",
+        "minecraft:water_bucket"
+      ],
+      "rezept": "minecraft:bucket"
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.eimerfisch.schritt.2",
+        "fallback": "Head to water where fish swim, e.g. in the ocean."
+      },
+      "items": [
+        "minecraft:cod",
+        "minecraft:salmon"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.eimerfisch.schritt.3",
+        "fallback": "Right-click a fish with the water bucket and it's in the bucket."
+      },
+      "items": [
+        "minecraft:water_bucket",
+        "minecraft:cod"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.eimerfisch.fundort.1",
+        "fallback": "Cod swim in oceans."
+      },
+      "biome": [
+        "minecraft:ocean",
+        "minecraft:deep_ocean",
+        "minecraft:cold_ocean"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.eimerfisch.fundort.2",
+        "fallback": "Salmon swim in rivers and cold oceans."
+      },
+      "biome": [
+        "minecraft:river",
+        "minecraft:cold_ocean"
+      ]
+    }
+  ]
+}

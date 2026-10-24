@@ -1,0 +1,42 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.entdecken.tresor_unheil.schritt.1",
+        "fallback": "Get an ominous bottle: from a trial chamber vault or from a raid captain."
+      },
+      "items": [
+        "minecraft:ominous_bottle"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.tresor_unheil.schritt.2",
+        "fallback": "Drink it before the trial chamber to get the Bad Omen effect."
+      },
+      "items": [
+        "minecraft:ominous_bottle"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.tresor_unheil.schritt.3",
+        "fallback": "Enter the chamber: spawners get tougher and drop ominous keys."
+      },
+      "items": [
+        "minecraft:trial_spawner",
+        "minecraft:ominous_trial_key"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.tresor_unheil.schritt.4",
+        "fallback": "Open an ominous vault with the ominous key."
+      },
+      "items": [
+        "minecraft:ominous_trial_key",
+        "minecraft:vault"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.end.alle_effekte.schritt.1",
+        "fallback": "Plan ahead: you need all 34 status effects at once, even rare ones."
+      },
+      "items": [
+        "minecraft:potion"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.alle_effekte.schritt.2",
+        "fallback": "Gather potions, a beacon and oddballs like Infested or Weaving."
+      },
+      "items": [
+        "minecraft:splash_potion",
+        "minecraft:beacon"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.alle_effekte.schritt.3",
+        "fallback": "Get friends to help: it is nearly impossible alone."
+      },
+      "items": [
+        "minecraft:splash_potion"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.alle_effekte.schritt.4",
+        "fallback": "Drink milk buckets afterwards to clear the effects again."
+      },
+      "items": [
+        "minecraft:milk_bucket"
+      ]
+    }
+  ]
+}

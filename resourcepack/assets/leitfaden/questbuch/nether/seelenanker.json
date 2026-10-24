@@ -1,0 +1,42 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.seelenanker.schritt.1",
+        "fallback": "Collect 6 crying obsidian and 7 glowstone."
+      },
+      "items": [
+        "minecraft:crying_obsidian",
+        "minecraft:glowstone"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.seelenanker.schritt.2",
+        "fallback": "Put 3 crying obsidian each on top and bottom, 3 glowstone in the middle."
+      },
+      "items": [
+        "minecraft:respawn_anchor"
+      ],
+      "rezept": "minecraft:respawn_anchor"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.seelenanker.schritt.3",
+        "fallback": "Place it in the Nether and use glowstone on it 4 times."
+      },
+      "items": [
+        "minecraft:glowstone"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.seelenanker.schritt.4",
+        "fallback": "Only in the Nether! In the Overworld it explodes."
+      },
+      "items": [
+        "minecraft:respawn_anchor"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.end.drache_fernrohr.schritt.1",
+        "fallback": "Craft a spyglass from an amethyst shard and 2 copper ingots."
+      },
+      "items": [
+        "minecraft:spyglass"
+      ],
+      "rezept": "minecraft:spyglass"
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.drache_fernrohr.schritt.2",
+        "fallback": "Enter the End and look out for the Ender Dragon."
+      },
+      "items": [
+        "minecraft:end_stone"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.drache_fernrohr.schritt.3",
+        "fallback": "Look at the dragon through the spyglass, ideally before it notices you!"
+      },
+      "items": [
+        "minecraft:spyglass"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.schnellreise.schritt.1",
+        "fallback": "Build a portal in the Overworld and enter the Nether."
+      },
+      "items": [
+        "minecraft:nether_portal"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.schnellreise.schritt.2",
+        "fallback": "Walk in one direction in the Nether: 1 block counts as 8 blocks."
+      },
+      "items": [
+        "minecraft:compass"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.schnellreise.schritt.3",
+        "fallback": "Just under 900 blocks in the Nether equal 7000 in the Overworld."
+      },
+      "items": [
+        "minecraft:clock"
+      ]
+    }
+  ]
+}

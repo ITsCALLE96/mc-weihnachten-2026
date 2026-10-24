@@ -1,0 +1,76 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.woelfe.schritt.1",
+        "fallback": "Pack a whole stack of bones."
+      },
+      "items": [
+        "minecraft:bone"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.woelfe.schritt.2",
+        "fallback": "Travel from biome to biome: each wolf kind lives in a different one."
+      },
+      "items": [
+        "minecraft:wolf_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.woelfe.schritt.3",
+        "fallback": "Tame one wolf there with bones and tick the kind off."
+      },
+      "items": [
+        "minecraft:bone",
+        "minecraft:wolf_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.woelfe.schritt.4",
+        "fallback": "Typical places: forest, taiga, jungle, savanna, badlands, grove."
+      },
+      "items": [
+        "minecraft:wolf_spawn_egg"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.woelfe.fundort.1",
+        "fallback": "Woods wolf: forest. Spotted wolf: savanna plateau. Rusty wolf: sparse jungle."
+      },
+      "biome": [
+        "minecraft:forest",
+        "minecraft:savanna_plateau",
+        "minecraft:sparse_jungle"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.woelfe.fundort.2",
+        "fallback": "Ashen wolf: snowy taiga. Black wolf: old growth pine taiga. Chestnut wolf: old growth spruce taiga."
+      },
+      "biome": [
+        "minecraft:snowy_taiga",
+        "minecraft:old_growth_pine_taiga",
+        "minecraft:old_growth_spruce_taiga"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.woelfe.fundort.3",
+        "fallback": "Snowy wolf: grove. Striped wolf: wooded badlands. Pale wolf: taiga."
+      },
+      "biome": [
+        "minecraft:grove",
+        "minecraft:wooded_badlands",
+        "minecraft:taiga"
+      ]
+    }
+  ]
+}

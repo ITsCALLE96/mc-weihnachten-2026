@@ -1,0 +1,53 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.end.elytra.schritt.1",
+        "fallback": "Look for an End city with an End ship next to it."
+      },
+      "items": [
+        "minecraft:purpur_block"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.elytra.schritt.2",
+        "fallback": "Climb into the ship and look around."
+      },
+      "items": [
+        "minecraft:end_rod"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.elytra.schritt.3",
+        "fallback": "Take the elytra from the item frame."
+      },
+      "items": [
+        "minecraft:elytra"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.elytra.schritt.4",
+        "fallback": "Craft firework rockets for a boost."
+      },
+      "items": [
+        "minecraft:firework_rocket"
+      ],
+      "rezept": "minecraft:firework_rocket"
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.end.elytra.fundort.1",
+        "fallback": "The End ship stands next to some End cities, not all."
+      },
+      "biome": [
+        "minecraft:end_highlands",
+        "minecraft:end_midlands"
+      ]
+    }
+  ]
+}

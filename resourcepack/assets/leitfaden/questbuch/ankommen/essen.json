@@ -1,0 +1,42 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.essen.schritt.1",
+        "fallback": "Kill an animal like a cow or pig. It drops meat."
+      },
+      "items": [
+        "minecraft:beef",
+        "minecraft:porkchop"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.essen.schritt.2",
+        "fallback": "Cook the meat in a furnace: it fills you up far more."
+      },
+      "items": [
+        "minecraft:cooked_beef",
+        "minecraft:furnace"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.essen.schritt.3",
+        "fallback": "Hold right-click until you finish eating."
+      },
+      "items": [
+        "minecraft:cooked_porkchop"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.essen.schritt.4",
+        "fallback": "Apples from oak leaves work in a pinch."
+      },
+      "items": [
+        "minecraft:apple"
+      ]
+    }
+  ]
+}

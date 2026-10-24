@@ -1,0 +1,52 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.totem.schritt.1",
+        "fallback": "Find a woodland mansion or trigger a raid."
+      },
+      "items": [
+        "minecraft:evoker_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.totem.schritt.2",
+        "fallback": "Kill an evoker, it drops a Totem of Undying."
+      },
+      "items": [
+        "minecraft:totem_of_undying"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.totem.schritt.3",
+        "fallback": "Hold the totem in your main or off hand."
+      },
+      "items": [
+        "minecraft:totem_of_undying"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.totem.schritt.4",
+        "fallback": "When you would die, it saves you and is used up."
+      },
+      "items": [
+        "minecraft:totem_of_undying"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.totem.fundort.1",
+        "fallback": "Woodland mansions stand in dark forests and in the pale garden."
+      },
+      "biome": [
+        "minecraft:dark_forest",
+        "minecraft:pale_garden"
+      ]
+    }
+  ]
+}

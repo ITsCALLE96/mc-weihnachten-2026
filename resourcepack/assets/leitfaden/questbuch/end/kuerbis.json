@@ -1,0 +1,42 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.end.kuerbis.schritt.1",
+        "fallback": "Find a pumpkin and take it with you."
+      },
+      "items": [
+        "minecraft:pumpkin"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.kuerbis.schritt.2",
+        "fallback": "Craft shears from 2 iron ingots."
+      },
+      "items": [
+        "minecraft:shears"
+      ],
+      "rezept": "minecraft:shears"
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.kuerbis.schritt.3",
+        "fallback": "Use the shears on the pumpkin to get a carved pumpkin."
+      },
+      "items": [
+        "minecraft:carved_pumpkin",
+        "minecraft:shears"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.kuerbis.schritt.4",
+        "fallback": "Put it in your helmet slot. Looks great on you!"
+      },
+      "items": [
+        "minecraft:carved_pumpkin"
+      ]
+    }
+  ]
+}

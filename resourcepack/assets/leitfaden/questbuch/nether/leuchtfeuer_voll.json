@@ -1,0 +1,40 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.leuchtfeuer_voll.schritt.1",
+        "fallback": "Collect 164 mineral blocks: iron is the easiest."
+      },
+      "items": [
+        "minecraft:iron_block"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.leuchtfeuer_voll.schritt.2",
+        "fallback": "Build tier 1 at 3 × 3 (9 blocks), tier 2 at 5 × 5 (25 blocks)."
+      },
+      "items": [
+        "minecraft:iron_block"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.leuchtfeuer_voll.schritt.3",
+        "fallback": "Tier 3 is 7 × 7 (49 blocks), tier 4 is 9 × 9 (81 blocks)."
+      },
+      "items": [
+        "minecraft:iron_block"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.leuchtfeuer_voll.schritt.4",
+        "fallback": "Beacon on top: full power reached!"
+      },
+      "items": [
+        "minecraft:beacon"
+      ]
+    }
+  ]
+}

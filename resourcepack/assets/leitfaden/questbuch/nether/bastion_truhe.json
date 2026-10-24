@@ -1,0 +1,47 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.bastion_truhe.schritt.1",
+        "fallback": "Go into a bastion remnant and find a chest."
+      },
+      "items": [
+        "minecraft:chest"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.bastion_truhe.schritt.2",
+        "fallback": "Open it: every piglin nearby gets angry."
+      },
+      "items": [
+        "minecraft:chest"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.bastion_truhe.schritt.3",
+        "fallback": "Grab the loot and run before they catch you."
+      },
+      "items": [
+        "minecraft:gold_ingot",
+        "minecraft:crying_obsidian"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.nether.bastion_truhe.fundort.1",
+        "fallback": "Bastion chests are in bridges, hoglin stables, treasure rooms and other areas."
+      },
+      "biome": [
+        "minecraft:nether_wastes",
+        "minecraft:soul_sand_valley",
+        "minecraft:crimson_forest",
+        "minecraft:warped_forest"
+      ],
+      "dimension": "minecraft:the_nether"
+    }
+  ]
+}

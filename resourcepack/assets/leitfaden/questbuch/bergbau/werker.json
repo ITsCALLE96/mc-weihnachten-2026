@@ -1,0 +1,44 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.bergbau.werker.schritt.1",
+        "fallback": "Craft a dropper and a crafting table to go with it."
+      },
+      "items": [
+        "minecraft:dropper",
+        "minecraft:crafting_table"
+      ],
+      "rezept": "minecraft:dropper"
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.werker.schritt.2",
+        "fallback": "Lay out 5 iron ingots, crafting table, dropper and 2 redstone as a crafter."
+      },
+      "items": [
+        "minecraft:crafter"
+      ],
+      "rezept": "minecraft:crafter"
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.werker.schritt.3",
+        "fallback": "Place the crafter and fill it with the ingredients for another."
+      },
+      "items": [
+        "minecraft:crafter"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.werker.schritt.4",
+        "fallback": "Give it a redstone pulse, e.g. with a button. Stay nearby."
+      },
+      "items": [
+        "minecraft:stone_button",
+        "minecraft:redstone"
+      ]
+    }
+  ]
+}

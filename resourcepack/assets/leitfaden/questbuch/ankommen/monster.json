@@ -1,0 +1,39 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.monster.schritt.1",
+        "fallback": "Make a stone sword from 2 cobblestone and 1 stick."
+      },
+      "items": [
+        "minecraft:stone_sword"
+      ],
+      "rezept": "minecraft:stone_sword"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.monster.schritt.2",
+        "fallback": "Wait for night and zombies and skeletons show up on their own."
+      },
+      "items": [
+        "minecraft:zombie_head",
+        "minecraft:skeleton_skull"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.monster.schritt.3",
+        "fallback": "Hit the monster and back off when your hearts run low."
+      },
+      "items": [
+        "minecraft:stone_sword"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.monster.schritt.4",
+        "fallback": "Keep your back to a wall so nothing comes from behind."
+      }
+    }
+  ]
+}

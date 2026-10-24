@@ -1,0 +1,32 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.wolfspanzer_flicken.schritt.1",
+        "fallback": "Put the armor on your wolf and let it fight until it gets dented."
+      },
+      "items": [
+        "minecraft:wolf_armor"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.wolfspanzer_flicken.schritt.2",
+        "fallback": "Hold armadillo scutes."
+      },
+      "items": [
+        "minecraft:armadillo_scute"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.wolfspanzer_flicken.schritt.3",
+        "fallback": "Right-click the wolf, each scute patches a bit. Repeat until it's whole."
+      },
+      "items": [
+        "minecraft:armadillo_scute",
+        "minecraft:wolf_armor"
+      ]
+    }
+  ]
+}

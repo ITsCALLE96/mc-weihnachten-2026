@@ -1,0 +1,41 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.dorf.sternhaendler.schritt.1",
+        "fallback": "Bring plenty of blocks, e.g. cobblestone."
+      },
+      "items": [
+        "minecraft:cobblestone"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.sternhaendler.schritt.2",
+        "fallback": "Build a water elevator or use a minecart: that's how the villager gets up."
+      },
+      "items": [
+        "minecraft:water_bucket",
+        "minecraft:villager_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.sternhaendler.schritt.3",
+        "fallback": "Build a platform with a rim up there so he can't fall."
+      },
+      "items": [
+        "minecraft:cobblestone"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.dorf.sternhaendler.schritt.4",
+        "fallback": "Trade with him from height Y 319 upwards."
+      },
+      "items": [
+        "minecraft:emerald"
+      ]
+    }
+  ]
+}

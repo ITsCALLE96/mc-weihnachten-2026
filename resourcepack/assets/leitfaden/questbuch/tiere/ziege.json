@@ -1,0 +1,57 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.ziege.schritt.1",
+        "fallback": "Craft a boat from 5 planks, e.g. oak."
+      },
+      "items": [
+        "minecraft:oak_boat",
+        "minecraft:oak_planks"
+      ],
+      "rezept": "minecraft:oak_boat"
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.ziege.schritt.2",
+        "fallback": "Bring wheat or a lead to lure the goat."
+      },
+      "items": [
+        "minecraft:wheat",
+        "minecraft:lead"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.ziege.schritt.3",
+        "fallback": "Find a goat high in the mountains. Don't stand too close: it loves to ram!"
+      },
+      "items": [
+        "minecraft:goat_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.ziege.schritt.4",
+        "fallback": "Lead it to a boat on the water and set off together."
+      },
+      "items": [
+        "minecraft:oak_boat",
+        "minecraft:goat_spawn_egg"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.ziege.fundort.1",
+        "fallback": "Goats live on snowy mountain peaks and slopes."
+      },
+      "biome": [
+        "minecraft:frozen_peaks",
+        "minecraft:jagged_peaks",
+        "minecraft:snowy_slopes"
+      ]
+    }
+  ]
+}

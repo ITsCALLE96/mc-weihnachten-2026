@@ -1,0 +1,75 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.katzen.schritt.1",
+        "fallback": "Bring raw cod or salmon."
+      },
+      "items": [
+        "minecraft:cod",
+        "minecraft:salmon"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.katzen.schritt.2",
+        "fallback": "Look for strays in villages. Walk slowly or they dash off."
+      },
+      "items": [
+        "minecraft:cat_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.katzen.schritt.3",
+        "fallback": "Feed the cat fish until hearts appear: it's yours."
+      },
+      "items": [
+        "minecraft:cod"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.katzen.schritt.4",
+        "fallback": "For the black cat, look for a swamp hut (witch hut)."
+      },
+      "items": [
+        "minecraft:cat_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.katzen.schritt.5",
+        "fallback": "Visit more villages until every coat pattern is in your collection."
+      },
+      "items": [
+        "minecraft:cat_spawn_egg"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.katzen.fundort.1",
+        "fallback": "Strays in villages: plains, meadow, desert, savanna, taiga, snowy plains."
+      },
+      "biome": [
+        "minecraft:plains",
+        "minecraft:meadow",
+        "minecraft:desert",
+        "minecraft:savanna",
+        "minecraft:taiga",
+        "minecraft:snowy_plains"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.katzen.fundort.2",
+        "fallback": "Black cats at swamp huts."
+      },
+      "biome": [
+        "minecraft:swamp"
+      ]
+    }
+  ]
+}

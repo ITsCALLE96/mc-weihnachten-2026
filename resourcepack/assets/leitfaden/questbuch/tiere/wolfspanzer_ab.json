@@ -1,0 +1,46 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.wolfspanzer_ab.schritt.1",
+        "fallback": "Craft 6 scutes into wolf armor (pattern in the recipe book)."
+      },
+      "items": [
+        "minecraft:armadillo_scute",
+        "minecraft:wolf_armor"
+      ],
+      "rezept": "minecraft:wolf_armor"
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.wolfspanzer_ab.schritt.2",
+        "fallback": "Right-click a tamed wolf to put the armor on."
+      },
+      "items": [
+        "minecraft:wolf_armor",
+        "minecraft:wolf_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.wolfspanzer_ab.schritt.3",
+        "fallback": "Craft shears from 2 iron ingots."
+      },
+      "items": [
+        "minecraft:shears",
+        "minecraft:iron_ingot"
+      ],
+      "rezept": "minecraft:shears"
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.wolfspanzer_ab.schritt.4",
+        "fallback": "Right-click the wolf with shears: armor off, wolf happy."
+      },
+      "items": [
+        "minecraft:shears",
+        "minecraft:wolf_armor"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.mission.ziel.schritt.1",
+        "fallback": "Check back soon."
+      },
+      "items": [
+        "minecraft:compass"
+      ]
+    }
+  ]
+}

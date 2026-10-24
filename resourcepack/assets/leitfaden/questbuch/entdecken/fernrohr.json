@@ -1,0 +1,33 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.entdecken.fernrohr.schritt.1",
+        "fallback": "Smelt copper ore in a furnace into copper ingots."
+      },
+      "items": [
+        "minecraft:copper_ingot",
+        "minecraft:furnace"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.fernrohr.schritt.2",
+        "fallback": "Find a geode and mine an amethyst shard."
+      },
+      "items": [
+        "minecraft:amethyst_shard"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.fernrohr.schritt.3",
+        "fallback": "Shard on top, 2 copper ingots below: your spyglass."
+      },
+      "items": [
+        "minecraft:spyglass"
+      ],
+      "rezept": "minecraft:spyglass"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.end.drachenkampf.schritt.1",
+        "fallback": "Check chat and Discord for the date of the dragon fight."
+      },
+      "items": [
+        "minecraft:dragon_head"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.drachenkampf.schritt.2",
+        "fallback": "Pack a bow, plenty of arrows, blocks, a water bucket and food."
+      },
+      "items": [
+        "minecraft:bow",
+        "minecraft:arrow",
+        "minecraft:water_bucket",
+        "minecraft:cooked_beef"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.drachenkampf.schritt.3",
+        "fallback": "Be on time in the End: we take down the dragon together."
+      },
+      "items": [
+        "minecraft:end_portal_frame"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.entdecken.pruefkammer.schritt.1",
+        "fallback": "Head down with torches, food and armor."
+      },
+      "items": [
+        "minecraft:torch",
+        "minecraft:iron_chestplate"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.pruefkammer.schritt.2",
+        "fallback": "Look for tuff and copper blocks, that's how you spot a trial chamber."
+      },
+      "items": [
+        "minecraft:tuff_bricks",
+        "minecraft:copper_block"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.pruefkammer.schritt.3",
+        "fallback": "The map doesn't show them, so you have to track one down yourself."
+      },
+      "items": [
+        "minecraft:filled_map"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.pruefkammer.schritt.4",
+        "fallback": "Step inside and you're done."
+      },
+      "items": [
+        "minecraft:trial_spawner"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.entdecken.pruefkammer.fundort.1",
+        "fallback": "Trial chambers lie deep underground, in many biomes."
+      },
+      "biome": [
+        "minecraft:plains",
+        "minecraft:forest",
+        "minecraft:desert",
+        "minecraft:taiga",
+        "minecraft:swamp"
+      ],
+      "hoehe": {
+        "von": -40,
+        "bis": -20
+      }
+    }
+  ]
+}

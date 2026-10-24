@@ -1,0 +1,78 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.end.besatz_alle.schritt.1",
+        "fallback": "Collect all 8 templates, from Spire to Wayfinder."
+      },
+      "items": [
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.besatz_alle.schritt.2",
+        "fallback": "Spire: End city chests. Silence and Ward: ancient cities."
+      },
+      "items": [
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.besatz_alle.schritt.3",
+        "fallback": "Snout: bastions. Rib: Nether fortresses. Vex: woodland mansions."
+      },
+      "items": [
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.besatz_alle.schritt.4",
+        "fallback": "Tide: Elder Guardian. Wayfinder: ruins in taiga and jungle."
+      },
+      "items": [
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.besatz_alle.schritt.5",
+        "fallback": "Apply each template once to armor at a smithing table."
+      },
+      "items": [
+        "minecraft:smithing_table"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.end.besatz_alle.fundort.1",
+        "fallback": "The Spire template is in End city chests."
+      },
+      "biome": [
+        "minecraft:end_highlands",
+        "minecraft:end_midlands"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.end.besatz_alle.fundort.2",
+        "fallback": "Silence and Ward are in ancient cities."
+      },
+      "biome": [
+        "minecraft:deep_dark"
+      ]
+    }
+  ]
+}

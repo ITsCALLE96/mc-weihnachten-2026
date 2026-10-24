@@ -1,0 +1,32 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.axolotl_kampf.schritt.1",
+        "fallback": "Release your axolotl in water where water mobs swim."
+      },
+      "items": [
+        "minecraft:axolotl_bucket",
+        "minecraft:axolotl_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.axolotl_kampf.schritt.2",
+        "fallback": "Stay close: it attacks water mobs on its own."
+      },
+      "items": [
+        "minecraft:axolotl_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.axolotl_kampf.schritt.3",
+        "fallback": "When the enemy falls, you get Regeneration as a reward."
+      },
+      "items": [
+        "minecraft:axolotl_spawn_egg"
+      ]
+    }
+  ]
+}

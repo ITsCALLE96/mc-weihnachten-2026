@@ -1,0 +1,34 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.wachs.schritt.1",
+        "fallback": "Get honeycomb: shear a full hive with shears."
+      },
+      "items": [
+        "minecraft:honeycomb",
+        "minecraft:shears"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.wachs.schritt.2",
+        "fallback": "Lay out 9 copper ingots as a copper block."
+      },
+      "items": [
+        "minecraft:copper_block"
+      ],
+      "rezept": "minecraft:copper_block"
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.wachs.schritt.3",
+        "fallback": "Put the copper block and honeycomb together in the grid."
+      },
+      "items": [
+        "minecraft:waxed_copper_block"
+      ],
+      "rezept": "minecraft:waxed_copper_block_from_honeycomb"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.ghast_fernrohr.schritt.1",
+        "fallback": "Craft a spyglass: amethyst shard and 2 copper ingots."
+      },
+      "items": [
+        "minecraft:spyglass"
+      ],
+      "rezept": "minecraft:spyglass"
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.ghast_fernrohr.schritt.2",
+        "fallback": "Go to the Nether and look for a ghast."
+      },
+      "items": [
+        "minecraft:ghast_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.ghast_fernrohr.schritt.3",
+        "fallback": "Look at it through the spyglass from a safe distance."
+      },
+      "items": [
+        "minecraft:spyglass"
+      ]
+    }
+  ]
+}

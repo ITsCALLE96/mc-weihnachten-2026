@@ -1,0 +1,35 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.ernaehrung.schritt.1",
+        "fallback": "Eat every kind of food you can find. Really every one."
+      },
+      "items": [
+        "minecraft:bread",
+        "minecraft:apple",
+        "minecraft:carrot"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.ernaehrung.schritt.2",
+        "fallback": "Poisonous potatoes, spider eyes and rotten flesh count too."
+      },
+      "items": [
+        "minecraft:poisonous_potato",
+        "minecraft:spider_eye",
+        "minecraft:rotten_flesh"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.ernaehrung.schritt.3",
+        "fallback": "Drink a bucket of milk afterwards to cure the poison."
+      },
+      "items": [
+        "minecraft:milk_bucket"
+      ]
+    }
+  ]
+}

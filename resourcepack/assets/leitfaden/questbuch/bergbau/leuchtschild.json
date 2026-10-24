@@ -1,0 +1,42 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.bergbau.leuchtschild.schritt.1",
+        "fallback": "Find a glow squid in dark water, often in caves."
+      },
+      "items": [
+        "minecraft:glow_ink_sac"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.leuchtschild.schritt.2",
+        "fallback": "Kill it and pick up the glow ink sac."
+      },
+      "items": [
+        "minecraft:glow_ink_sac"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.leuchtschild.schritt.3",
+        "fallback": "Place a sign and write something on it."
+      },
+      "items": [
+        "minecraft:oak_sign"
+      ],
+      "rezept": "minecraft:oak_sign"
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.leuchtschild.schritt.4",
+        "fallback": "Right-click the text with the glow ink sac: it glows."
+      },
+      "items": [
+        "minecraft:glow_ink_sac",
+        "minecraft:oak_sign"
+      ]
+    }
+  ]
+}

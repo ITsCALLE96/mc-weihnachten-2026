@@ -1,0 +1,43 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.bergbau.buecherregal.schritt.1",
+        "fallback": "Lay out 6 planks and 3 wooden slabs as a chiseled bookshelf."
+      },
+      "items": [
+        "minecraft:chiseled_bookshelf"
+      ],
+      "rezept": "minecraft:chiseled_bookshelf"
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.buecherregal.schritt.2",
+        "fallback": "Craft a comparator and place it behind the shelf."
+      },
+      "items": [
+        "minecraft:comparator"
+      ],
+      "rezept": "minecraft:comparator"
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.buecherregal.schritt.3",
+        "fallback": "The comparator must point away from the shelf."
+      },
+      "items": [
+        "minecraft:comparator"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.buecherregal.schritt.4",
+        "fallback": "Put a book in a slot: the signal shows the last used slot."
+      },
+      "items": [
+        "minecraft:book",
+        "minecraft:chiseled_bookshelf"
+      ]
+    }
+  ]
+}

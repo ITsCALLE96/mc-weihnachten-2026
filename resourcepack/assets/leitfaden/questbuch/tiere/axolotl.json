@@ -1,0 +1,43 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.axolotl.schritt.1",
+        "fallback": "Fill a bucket with water."
+      },
+      "items": [
+        "minecraft:water_bucket"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.axolotl.schritt.2",
+        "fallback": "Look for a pond in a lush cave."
+      },
+      "items": [
+        "minecraft:axolotl_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.tiere.axolotl.schritt.3",
+        "fallback": "Right-click the axolotl with the bucket and it's yours."
+      },
+      "items": [
+        "minecraft:water_bucket",
+        "minecraft:axolotl_bucket"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.tiere.axolotl.fundort.1",
+        "fallback": "Axolotls swim in ponds of lush caves."
+      },
+      "biome": [
+        "minecraft:lush_caves"
+      ]
+    }
+  ]
+}

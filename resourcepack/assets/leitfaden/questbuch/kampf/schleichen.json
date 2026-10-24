@@ -1,0 +1,43 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.schleichen.schritt.1",
+        "fallback": "Go to the Deep Dark and find a sculk sensor."
+      },
+      "items": [
+        "minecraft:sculk_sensor"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.schleichen.schritt.2",
+        "fallback": "Hold Shift to sneak silently."
+      },
+      "items": [
+        "minecraft:sculk_sensor"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.schleichen.schritt.3",
+        "fallback": "Sneak past the sensor or warden without it noticing."
+      },
+      "items": [
+        "minecraft:warden_spawn_egg",
+        "minecraft:sculk_sensor"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.schleichen.fundort.1",
+        "fallback": "You find sculk sensors in the Deep Dark."
+      },
+      "biome": [
+        "minecraft:deep_dark"
+      ]
+    }
+  ]
+}

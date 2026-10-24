@@ -1,0 +1,40 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.ghast_feuerball.schritt.1",
+        "fallback": "Find a ghast in the Nether, ideally on open ground."
+      },
+      "items": [
+        "minecraft:ghast_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.ghast_feuerball.schritt.2",
+        "fallback": "Wait until it fires a fireball at you."
+      },
+      "items": [
+        "minecraft:fire_charge"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.ghast_feuerball.schritt.3",
+        "fallback": "Hit the fireball back right before it reaches you."
+      },
+      "items": [
+        "minecraft:fire_charge"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.ghast_feuerball.schritt.4",
+        "fallback": "The returned fireball finishes off the ghast."
+      },
+      "items": [
+        "minecraft:ghast_tear"
+      ]
+    }
+  ]
+}

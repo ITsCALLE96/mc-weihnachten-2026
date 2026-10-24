@@ -1,0 +1,37 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.voice_chat.schritt.1",
+        "fallback": "Just talk, voice chat picks you up automatically."
+      },
+      "items": [
+        "minecraft:note_block"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.voice_chat.schritt.2",
+        "fallback": "Press V to open the voice chat menu."
+      },
+      "items": [
+        "minecraft:note_block"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.voice_chat.schritt.3",
+        "fallback": "Ä mutes and unmutes your mic."
+      },
+      "items": [
+        "minecraft:note_block"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.voice_chat.schritt.4",
+        "fallback": "Create a group there for you and your friends."
+      }
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.phantome.schritt.1",
+        "fallback": "Enchant a crossbow with Piercing."
+      },
+      "items": [
+        "minecraft:crossbow",
+        "minecraft:enchanted_book"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.phantome.schritt.2",
+        "fallback": "Skip sleeping for 3 nights and phantoms will show up."
+      },
+      "items": [
+        "minecraft:phantom_spawn_egg",
+        "minecraft:red_bed"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.phantome.schritt.3",
+        "fallback": "Wait until two phantoms line up while diving at you."
+      },
+      "items": [
+        "minecraft:phantom_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.phantome.schritt.4",
+        "fallback": "Shoot a single arrow through both."
+      },
+      "items": [
+        "minecraft:crossbow",
+        "minecraft:arrow"
+      ]
+    }
+  ]
+}

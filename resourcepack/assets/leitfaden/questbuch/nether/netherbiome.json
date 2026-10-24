@@ -1,0 +1,33 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.netherbiome.schritt.1",
+        "fallback": "Explore the nether wastes around your portal."
+      },
+      "items": [
+        "minecraft:netherrack"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.netherbiome.schritt.2",
+        "fallback": "Find the soul sand valley, crimson forest and warped forest."
+      },
+      "items": [
+        "minecraft:soul_sand",
+        "minecraft:crimson_fungus",
+        "minecraft:warped_fungus"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.netherbiome.schritt.3",
+        "fallback": "Last, the basalt deltas: the ground there is very uneven."
+      },
+      "items": [
+        "minecraft:basalt"
+      ]
+    }
+  ]
+}

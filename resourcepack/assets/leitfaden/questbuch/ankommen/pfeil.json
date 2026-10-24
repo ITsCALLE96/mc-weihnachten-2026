@@ -1,0 +1,44 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.ankommen.pfeil.schritt.1",
+        "fallback": "Collect 3 string from spiders and 3 sticks."
+      },
+      "items": [
+        "minecraft:string",
+        "minecraft:stick"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.pfeil.schritt.2",
+        "fallback": "Lay them out as a bow at the crafting table."
+      },
+      "items": [
+        "minecraft:bow"
+      ],
+      "rezept": "minecraft:bow"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.pfeil.schritt.3",
+        "fallback": "Craft arrows from flint, stick and feather."
+      },
+      "items": [
+        "minecraft:arrow"
+      ],
+      "rezept": "minecraft:arrow"
+    },
+    {
+      "text": {
+        "translate": "questbuch.ankommen.pfeil.schritt.4",
+        "fallback": "Hold right-click to draw, release to shoot."
+      },
+      "items": [
+        "minecraft:bow",
+        "minecraft:arrow"
+      ]
+    }
+  ]
+}

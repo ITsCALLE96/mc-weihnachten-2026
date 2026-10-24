@@ -1,0 +1,28 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.bergbau.armor_poser.schritt.1",
+        "fallback": "Place an armor stand."
+      },
+      "items": [
+        "minecraft:armor_stand"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.armor_poser.schritt.2",
+        "fallback": "Hold Ctrl and right-click it."
+      },
+      "items": [
+        "minecraft:armor_stand"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.armor_poser.schritt.3",
+        "fallback": "Turn head, arms and legs one by one into your pose."
+      }
+    }
+  ]
+}

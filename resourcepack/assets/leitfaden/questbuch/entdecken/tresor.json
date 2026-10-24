@@ -1,0 +1,41 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.entdecken.tresor.schritt.1",
+        "fallback": "Enter a trial chamber and find a trial spawner."
+      },
+      "items": [
+        "minecraft:trial_spawner"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.tresor.schritt.2",
+        "fallback": "Defeat the mobs it spawns: it then drops a trial key."
+      },
+      "items": [
+        "minecraft:trial_key"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.tresor.schritt.3",
+        "fallback": "Hold the key and right-click a vault."
+      },
+      "items": [
+        "minecraft:trial_key",
+        "minecraft:vault"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.entdecken.tresor.schritt.4",
+        "fallback": "It ejects loot. Each vault opens once per player."
+      },
+      "items": [
+        "minecraft:vault"
+      ]
+    }
+  ]
+}

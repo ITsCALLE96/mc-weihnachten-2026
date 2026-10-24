@@ -1,0 +1,44 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.nether.froschlichter.schritt.1",
+        "fallback": "Catch three different frog variants and bring them to the Nether."
+      },
+      "items": [
+        "minecraft:frog_spawn_egg",
+        "minecraft:oak_boat"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.froschlichter.schritt.2",
+        "fallback": "Take them through the portal in a boat."
+      },
+      "items": [
+        "minecraft:oak_boat",
+        "minecraft:nether_portal"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.froschlichter.schritt.3",
+        "fallback": "Let them eat small magma cubes: a froglight drops."
+      },
+      "items": [
+        "minecraft:magma_cube_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.nether.froschlichter.schritt.4",
+        "fallback": "Collect all three froglights together in your inventory."
+      },
+      "items": [
+        "minecraft:ochre_froglight",
+        "minecraft:verdant_froglight",
+        "minecraft:pearlescent_froglight"
+      ]
+    }
+  ]
+}

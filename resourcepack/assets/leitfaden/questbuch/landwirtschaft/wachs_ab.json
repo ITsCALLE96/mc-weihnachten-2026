@@ -1,0 +1,31 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.wachs_ab.schritt.1",
+        "fallback": "Take an axe in hand."
+      },
+      "items": [
+        "minecraft:iron_axe"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.wachs_ab.schritt.2",
+        "fallback": "Right-click the waxed copper block."
+      },
+      "items": [
+        "minecraft:waxed_copper_block"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.landwirtschaft.wachs_ab.schritt.3",
+        "fallback": "The wax comes off. It works on oxidation too."
+      },
+      "items": [
+        "minecraft:copper_block"
+      ]
+    }
+  ]
+}

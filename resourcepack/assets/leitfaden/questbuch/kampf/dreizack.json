@@ -1,0 +1,31 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.dreizack.schritt.1",
+        "fallback": "Look for drowned in oceans and rivers, also on land at night."
+      },
+      "items": [
+        "minecraft:drowned_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.dreizack.schritt.2",
+        "fallback": "Some carry a trident. Kill one and pick it up."
+      },
+      "items": [
+        "minecraft:trident"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.dreizack.schritt.3",
+        "fallback": "Hold right-click and release to throw the trident."
+      },
+      "items": [
+        "minecraft:trident"
+      ]
+    }
+  ]
+}

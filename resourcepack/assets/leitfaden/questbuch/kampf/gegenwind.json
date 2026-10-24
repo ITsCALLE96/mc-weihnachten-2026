@@ -1,0 +1,32 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.gegenwind.schritt.1",
+        "fallback": "Find a breeze, for example in a trial chamber."
+      },
+      "items": [
+        "minecraft:breeze_spawn_egg"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.gegenwind.schritt.2",
+        "fallback": "Let it shoot at you and wait for its wind charge."
+      },
+      "items": [
+        "minecraft:wind_charge"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.gegenwind.schritt.3",
+        "fallback": "Hit the wind charge back at the breeze just before it reaches you."
+      },
+      "items": [
+        "minecraft:breeze_spawn_egg",
+        "minecraft:wind_charge"
+      ]
+    }
+  ]
+}

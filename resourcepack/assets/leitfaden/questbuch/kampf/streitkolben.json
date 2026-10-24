@@ -1,0 +1,56 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.streitkolben.schritt.1",
+        "fallback": "Get a heavy core from an ominous vault."
+      },
+      "items": [
+        "minecraft:heavy_core",
+        "minecraft:vault"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.streitkolben.schritt.2",
+        "fallback": "Stack a heavy core on a breeze rod: a mace."
+      },
+      "items": [
+        "minecraft:mace",
+        "minecraft:heavy_core",
+        "minecraft:breeze_rod"
+      ],
+      "rezept": "minecraft:mace"
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.streitkolben.schritt.3",
+        "fallback": "Launch yourself way up with a wind charge."
+      },
+      "items": [
+        "minecraft:wind_charge"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.kampf.streitkolben.schritt.4",
+        "fallback": "Plunge onto a mob: the longer the fall, the harder the hit."
+      },
+      "items": [
+        "minecraft:mace"
+      ]
+    }
+  ],
+  "fundort": [
+    {
+      "text": {
+        "translate": "questbuch.kampf.streitkolben.fundort.1",
+        "fallback": "Heavy cores come from ominous vaults in trial chambers."
+      },
+      "hoehe": {
+        "von": -40,
+        "bis": -20
+      }
+    }
+  ]
+}

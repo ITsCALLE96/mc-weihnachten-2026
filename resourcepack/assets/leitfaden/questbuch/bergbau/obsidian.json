@@ -1,0 +1,44 @@
+{
+  "schritte": [
+    {
+      "text": {
+        "translate": "questbuch.bergbau.obsidian.schritt.1",
+        "fallback": "Craft a bucket from iron and collect water and lava."
+      },
+      "items": [
+        "minecraft:bucket",
+        "minecraft:water_bucket",
+        "minecraft:lava_bucket"
+      ],
+      "rezept": "minecraft:bucket"
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.obsidian.schritt.2",
+        "fallback": "Pour water onto still lava: it turns into obsidian."
+      },
+      "items": [
+        "minecraft:obsidian"
+      ]
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.obsidian.schritt.3",
+        "fallback": "Craft a diamond pickaxe: 3 diamonds and 2 sticks."
+      },
+      "items": [
+        "minecraft:diamond_pickaxe"
+      ],
+      "rezept": "minecraft:diamond_pickaxe"
+    },
+    {
+      "text": {
+        "translate": "questbuch.bergbau.obsidian.schritt.4",
+        "fallback": "Mine the obsidian with it. It takes a while."
+      },
+      "items": [
+        "minecraft:obsidian"
+      ]
+    }
+  ]
+}
