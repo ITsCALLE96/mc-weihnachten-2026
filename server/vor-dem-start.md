@@ -24,7 +24,8 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 
 ## Welt
 
-- [ ] Seed `1560698989` (CA12), Weltgrenze 10.000 × 10.000, Mittelpunkt = Spawn (Koordinaten von der Spawn-&-Welt-Session)
+- [ ] Seed `1560698989` (CA12), Weltgrenze 10.000 × 10.000, Mittelpunkt x 64 / z 37 (Nether 8 / 5)
+- [ ] Nach dem Einfügen der Insel: `setworldspawn 64 179 37`, Spawn-Streuung per Gamerule auf 0 (26.3-Name prüfen), neuer Testspieler landet auf der Insel (`vorgenerierung.md` → Spawn)
 - [ ] **Vorgenerierung** Overworld 5.000 / Nether 1.250 / End 2.000 abgeschlossen (`vorgenerierung.md`), Drachenkampf startet weiterhin (in der Testwelt geprüft)
 - [ ] Datapacks geladen, Reihenfolge per `/datapack list` (`plugins.md`). Wanderhändler-Rabatt `datapacks/wanderhaendler-rabatt` in der Testwelt geprüft, im Spiel erst ab 24.12. eingeschaltet (`datapacks/README.md`)
 - [ ] Server-Bild und MOTD in Velocity (`icon/README.md`), Servername statt Platzhalter „Weihnachtsserver“, sobald er feststeht

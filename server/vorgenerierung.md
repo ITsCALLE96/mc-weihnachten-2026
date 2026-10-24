@@ -20,7 +20,7 @@ Werkzeug: **Chunky 1.5.3** (Modrinth `chunky`, GPL-3.0, Prüfsumme in `plugins.m
 - End: `execute in minecraft:the_end run worldborder set 10000` (Elytra-Flüge nach außen bleiben möglich, nur nicht endlos)
 - **Mittelpunkt = Spawn:** Liegt die Spawn-Insel nicht bei 0/0, kommen Weltgrenze und Chunky-Mittelpunkt auf die Spawn-Koordinaten.
   **Entschieden (Leitung 24.10.):** Seed ist der CA12-Seed `1560698989`, Weltgrenze 10.000 × 10.000 um den Spawn, vorgeneriert bis zur Grenze.
-  Den genauen Mittelpunkt liefert die Spawn-&-Welt-Session (Plan Task 7). Bis dahin: Mittelpunkt 0/0
+  **Mittelpunkt x 64 / z 37** (Spawn-&-Welt-Session, 24.10.: Spawn auf der CA12-Insel, `spawn/KANDIDATEN.md`). Nether entsprechend 8 / 5 (÷ 8, gerundet)
 - Chunky übernimmt Form und Mittelpunkt: `chunky center <x> <z>` · `chunky shape square` · `chunky radius 5000`
 
 ## End: ja, im Radius 2.000
@@ -67,18 +67,34 @@ Ist nach Task 2 Schritt 1 nicht genug frei, gehe ich in dieser Reihenfolge vor: 
 ## Befehle (Konsole, endgültige Welt)
 
 ```text
-worldborder center <x> <z>
+worldborder center 64 37
 worldborder set 10000
+execute in minecraft:the_nether run worldborder center 8 5
 execute in minecraft:the_nether run worldborder set 2500
 execute in minecraft:the_end run worldborder set 10000
 chunky world world
-chunky center <x> <z>
+chunky center 64 37
 chunky shape square
 chunky radius 5000
 chunky start
 ```
 
-Nach „Task complete“ dasselbe für `world_nether` (Radius 1.250, Mittelpunkt `<x>/8` `<z>/8`) und `world_the_end` (Radius 2.000, Mittelpunkt 0/0, dort liegt immer die Hauptinsel).
+Nach „Task complete“ dasselbe für `world_nether` (Radius 1.250, Mittelpunkt 8 / 5) und `world_the_end` (Radius 2.000, Mittelpunkt 0/0, dort liegt immer die Hauptinsel).
 Die Weltnamen kommen aus der 26.3-Instanz (die Weltstruktur hat sich in 26.1 geändert), ich trage sie beim Einrichten ein. `chunky pause`/`chunky continue` übersteht einen Neustart.
+
+## Spawn nach dem Einfügen der Insel
+
+Von der Spawn-&-Welt-Session (24.10.): Die Insel kommt an ihre Originalposition (Kasten x 24…118, y 115…238, z −9…59). Unter 26.3 liegt dort
+offenes Meer, der natürliche Weltspawn wäre −48 / 102 / 64. Deshalb:
+
+```text
+setworldspawn 64 179 37
+gamerule <spawn-radius-regel> 0
+```
+
+**Spawn-Streuung auf 0:** Sonst landen Neulinge zufällig neben der schwebenden Insel im Meer. Die Regel hieß bis 1.21.10 `spawnRadius`, ab 1.21.11
+vermutlich `respawn_radius` (Gamerules haben dort Snake-Case-Namen bekommen). Auf dem Server mit `/gamerule` und Tab-Vervollständigung den 26.3-Namen
+prüfen, setzen, dann mit einem neuen Testspieler (oder nach Löschen seiner Spielerdaten) beitreten: Er muss auf der Insel stehen.
+Spawn Elytra nimmt ohne eigenen Bereich den Weltspawn als Mittelpunkt, der Flugbereich wird trotzdem per `/spawnelytra setup` auf die Insel gesetzt (`plugins.md`).
 
 **Prüfen:** `chunky progress` 100 %, `/spark tps` danach wieder 20 TPS, `du -sh` der Weltordner notieren (→ `kapazitaet.md` „Gemessen“).
