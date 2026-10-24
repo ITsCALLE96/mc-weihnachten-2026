@@ -164,3 +164,29 @@ test('Detail-Dateien: unbekannte Quest, Rezept, Biom, Item-Tag und fehlende Spra
   };
   assert.throws(() => baueDetails(kaputt, daten, spiel), (e) => ['Quest gibt es nicht', 'Text DE/EN fehlt', 'Item-Tag #minecraft:quatsch', 'Rezept minecraft:quatsch', 'Biom minecraft:mond'].every((s) => e.message.includes(s)));
 });
+
+test('ausgeblendetes Kapitel (aktiv: false): kein Reiter, keine Funktion, keine Texte, keine Detail-Datei', () => {
+  const mit = structuredClone(daten);
+  mit.kapitel.push({ id: 'mission', aktiv: false, phase: 3, icon: 'minecraft:compass', hintergrund: 'minecraft:block/stone',
+    de: { titel: 'Server-Mission', beschreibung: 'B' }, en: { titel: 'Server Mission', beschreibung: 'B' },
+    quests: [{ id: 'ziel', parent: 'start', icon: 'minecraft:compass', erkennung: 'info', de: { titel: 'Z', tun: 'T' }, en: { titel: 'Z', tun: 'T' } }] });
+  const { advancements, funktionen, lang } = baueQuestbuch(mit, vanilla);
+  assert.ok(![...advancements.keys()].some((k) => k.startsWith('mission/')));
+  assert.ok(!funktionen.has('questbuch/neu/mission'));
+  assert.doesNotMatch(funktionen.get('questbuch/aktualisieren').join('\n'), /mission/);
+  assert.ok(!Object.keys(lang.de).some((k) => k.startsWith('questbuch.mission')));
+  const { dateien } = baueDetails({ 'mission/ziel': { schritte: [{ de: 'x', en: 'x' }] } }, mit, spiel);
+  assert.equal(dateien.size, 0);
+});
+
+test('Vanilla-Fortschritt nur in einem ausgeblendeten Kapitel gilt als fehlend', () => {
+  const ids = new Set(['story/mine_stone', 'story/enter_the_nether', 'nether/root']);
+  const aus = structuredClone(daten);
+  aus.kapitel[1].aktiv = false;
+  assert.ok(pruefeAbdeckung(aus, ids).some((f) => f.includes('story/enter_the_nether fehlt')));
+});
+
+test('echtes Questbuch: Server-Mission ist vorerst ausgeblendet (Pascal 24.10.)', () => {
+  const echt = JSON.parse(readFileSync(join(REPO, 'datapack/questbuch.json'), 'utf8'));
+  assert.equal(echt.kapitel.find((k) => k.id === 'mission').aktiv, false);
+});

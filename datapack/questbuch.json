@@ -2093,6 +2093,8 @@
     },
     {
       "id": "mission",
+      "aktiv": false,
+      "_hinweis": "Ausgeblendet (Pascal 24.10.: erst mal ohne festes Ziel). Zum Einschalten aktiv entfernen und node tools/questbuch.mjs ausführen.",
       "phase": 3,
       "icon": "minecraft:compass",
       "hintergrund": "minecraft:block/stone_bricks",
@@ -2409,12 +2411,12 @@
       "en": "The Nether is open"
     },
     "leitfaden.phase.3.chat": {
-      "de": "✦ Die Server-Mission startet! Drück L für Details.",
-      "en": "✦ The server mission begins! Press L for details."
+      "de": "☃ Weihnachtswoche! Baut, worauf ihr Lust habt, gern auch zusammen.",
+      "en": "☃ Christmas week! Build whatever you like, together if you want."
     },
     "leitfaden.phase.3.titel": {
-      "de": "Server-Mission",
-      "en": "Server Mission"
+      "de": "Frohe Weihnachtswoche",
+      "en": "Merry Christmas week"
     },
     "leitfaden.phase.4.chat": {
       "de": "★ Das End ist offen! Den Drachen besiegen wir gemeinsam, Termin im Chat.",

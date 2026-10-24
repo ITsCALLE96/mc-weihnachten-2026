@@ -40,6 +40,7 @@ export function pruefeAbdeckung(daten, vanillaIds) {
   const fehler = [];
   const gesehen = new Map();
   for (const k of daten.kapitel) {
+    if (k.aktiv === false) continue; // ausgeblendete Kapitel zählen nicht
     for (const q of k.quests) {
       for (const v of vanillaListe(q)) {
         if (!vanillaIds.has(v)) fehler.push(`${k.id}/${q.id}: ${v} gibt es in der Jar nicht`);
@@ -103,6 +104,8 @@ export function baueQuestbuch(daten, vanilla) {
   const ersteStartKapitel = daten.kapitel.find((k) => k.phase === 1)?.id;
 
   for (const k of daten.kapitel) {
+    // "aktiv": false blendet ein Kapitel aus: kein Reiter, keine Funktionen, keine Texte (Daten bleiben für später)
+    if (k.aktiv === false) continue;
     const basis = `questbuch.${k.id}`;
     advancements.set(`${k.id}/start`, {
       criteria: { freigeschaltet: { trigger: 'minecraft:impossible' } },
@@ -192,6 +195,7 @@ export function baueQuestbuch(daten, vanilla) {
 // `spiel` = { rezepte, biome, biomTags, itemTags } aus der Server-Jar zum Prüfen der IDs.
 export function baueDetails(schritte, daten, spiel) {
   const fehler = [];
+  const aus = new Set(daten.kapitel.filter((k) => k.aktiv === false).map((k) => k.id));
   const quests = new Set(daten.kapitel.flatMap((k) => [...k.quests.map((q) => `${k.id}/${q.id}`), ...(k.andenken ? [`${k.id}/andenken`] : [])]));
   const lang = { de: {}, en: {} };
   const dateien = new Map();
@@ -204,6 +208,7 @@ export function baueDetails(schritte, daten, spiel) {
     if (id.startsWith('#') ? !tags.has(id.slice(1)) : !menge.has(id)) fehler.push(`${wo}: ${art} ${id} gibt es nicht`);
   };
   for (const [q, e] of Object.entries(schritte)) {
+    if (aus.has(q.split('/')[0])) continue;
     if (!quests.has(q)) { fehler.push(`${q}: Quest gibt es nicht`); continue; }
     const basis = `questbuch.${q.replace('/', '.')}`;
     const datei = { schritte: (e.schritte ?? []).map((s, i) => {
@@ -252,7 +257,7 @@ function texteMarkdown(daten, schritte = {}) {
   const z = ['# Questbuch-Texte (zum Gegenlesen)', '', 'Quelle: `datapack/questbuch.json`. Nach Änderungen `node tools/questbuch.mjs` ausführen.', 'Titel gespiegelter Quests sind die Vanilla-Titel (in jeder Spielsprache). ★ zählt fürs Andenken.', ''];
   const zelle = (t) => [t.titel ? `**${t.titel}** ` : '', t.tun, t.brauchst ? `<br>_${t.brauchst}_` : '', t.tipp ? `<br>💡 ${t.tipp}` : ''].join('');
   for (const k of daten.kapitel) {
-    z.push(`## ${k.de.titel} / ${k.en.titel} (ab Phase ${k.phase})`, '', `_${k.de.beschreibung}_ / _${k.en.beschreibung}_`, '', '| Quest | Deutsch | English | Vanilla |', '|---|---|---|---|');
+    z.push(`## ${k.de.titel} / ${k.en.titel} (${k.aktiv === false ? 'ausgeblendet' : `ab Phase ${k.phase}`})`, '', `_${k.de.beschreibung}_ / _${k.en.beschreibung}_`, '', '| Quest | Deutsch | English | Vanilla |', '|---|---|---|---|');
     for (const q of k.quests) z.push(`| ${q.id}${q.kern && k.andenken ? ' ★' : ''} | ${zelle(q.de)} | ${zelle(q.en)} | ${vanillaListe(q).map((v) => `\`${v}\``).join(', ') || (q.erkennung === 'info' ? 'Info' : 'Bonus')} |`);
     if (k.andenken) z.push(`| andenken | ${zelle(k.andenken.de)} | ${zelle(k.andenken.en)} | – |`);
     z.push('');
@@ -289,7 +294,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   }
   for (const k of daten.kapitel) {
     const v = k.quests.reduce((n, q) => n + vanillaListe(q).length, 0);
-    console.log(`${k.id.padEnd(15)} Phase ${k.phase}  ${String(v).padStart(3)} Vanilla  ${String(k.quests.filter((q) => !q.vanilla).length).padStart(2)} Bonus`);
+    console.log(`${k.id.padEnd(15)} ${k.aktiv === false ? 'aus    ' : `Phase ${k.phase}`}  ${String(v).padStart(3)} Vanilla  ${String(k.quests.filter((q) => !q.vanilla).length).padStart(2)} Bonus`);
   }
   console.log(`Alle ${vanilla.size} Vanilla-Fortschritte aus ${jar.split(/[\\/]/).pop()} genau einmal im Questbuch.`);
   if (nurPruefen) process.exit(0);

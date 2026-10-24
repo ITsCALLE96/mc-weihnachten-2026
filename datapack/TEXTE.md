@@ -1096,7 +1096,7 @@ _Der Nether ist offen! Heiß, gefährlich und voller Schätze._ / _The Nether is
 3. Lass sie kleine Magmawürfel fressen: Dann fällt ein Froschlicht. · _Let them eat small magma cubes: a froglight drops._
 4. Sammle alle drei Froschlichter zusammen im Inventar. · _Collect all three froglights together in your inventory._
 
-## Server-Mission / Server Mission (ab Phase 3)
+## Server-Mission / Server Mission (ausgeblendet)
 
 _Ein gemeinsames Ziel für alle auf dem Server. Jeder Beitrag zählt!_ / _One shared goal for everyone on the server. Every contribution counts!_
 
