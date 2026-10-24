@@ -51,7 +51,7 @@ Die Voreinstellungen liegen in `modpack/overrides/` und landen beim Bau 1:1 unte
 - `config/betterf3.json`: aufgeräumtes F3 nach Pascals Auswahl (24.10.)
 - `config/armor-hider.json`: Helme bei allen ausgeblendet (Deckkraft 0 %)
 - `config/xaero/minimap/profiles/default.cfg`: runde Minimap
-- `options.txt` außerdem `maxFps:120` (schont den Rechner; im Spiel änderbar)
+- `options.txt` außerdem `maxFps:240` (Pascal, 24.10.; begrenzt statt unbegrenzt, im Spiel änderbar)
 - `config/fancymenu/options.txt`: Bearbeitungsleiste aus, `modpack_mode` an (Spieler sehen keine FancyMenu-Leiste; einblenden mit Strg + Alt + C)
 
 Litematica und Do a Barrel Roll sind ausgeschaltet, ihre Tasten stehen deshalb noch nicht in der Datei. Neu übernehmen: Tasten in einer Testinstanz einstellen, dann die `key_`-Zeilen aus deren `options.txt` kopieren.

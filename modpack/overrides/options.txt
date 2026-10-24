@@ -1,6 +1,6 @@
 version:5023
 lang:de_de
-maxFps:120
+maxFps:240
 key_key.attack:key.mouse.left
 key_key.use:key.mouse.right
 key_key.forward:key.keyboard.w

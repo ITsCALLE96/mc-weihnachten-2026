@@ -41,7 +41,7 @@ Unsere eigene Mod. Sie färbt Blöcke ein, die du auswählst, und lässt sie auf
 
 ## Wenn der Rechner laut wird
 
-Das Pack begrenzt die Bildrate auf **120 FPS** (Optionen → Grafik → Max. Bildrate). Wer einen 60-Hz-Bildschirm hat, stellt dort 60 ein, das spart viel Strom und Lüfter. Distant Horizons rechnet beim ersten Besuch einer Gegend das ferne Gelände aus, das kostet die ersten Minuten spürbar CPU und legt sich dann.
+Das Pack begrenzt die Bildrate auf **240 FPS** (Optionen → Grafik → Max. Bildrate). Wer einen 60-Hz-Bildschirm hat, stellt dort 60 ein, das spart viel Strom und Lüfter. Distant Horizons rechnet beim ersten Besuch einer Gegend das ferne Gelände aus, das kostet die ersten Minuten spürbar CPU und legt sich dann.
 
 ## Weite Sicht
 
