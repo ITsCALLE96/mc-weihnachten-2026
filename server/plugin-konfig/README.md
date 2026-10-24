@@ -4,17 +4,23 @@ Hintergrund (Leitung, 24.10.): Auf dem lokalen Testserver stand bei Right click 
 Einstellungen, die nur als Text in `plugins.md` stehen, kommen also nicht verlässlich auf den Server. Deshalb liegen alle Abweichungen
 vom Standard hier als vollständige Dateien, und ein Skript kopiert sie.
 
-| Datei (unter `plugins/`) | Was abweicht | Begründung |
-|---|---|---|
-| `DimensionControl/config.yml` | Texte deutsch | „Der Nether ist noch geschlossen!“ statt Englisch |
-| `XaeroFairPlay/xaero-fair-play.json` | Höhlenansicht im Nether erlaubt (Minimap und Weltkarte) | `../plugins.md` → Fair Play, im Test 24.10. bestätigt |
-| `ArmorPoser/config.yml` | keine (Standard, festgehalten) | Spieler ohne Rechte dürfen posieren, Größe ändern für alle (`restrictResizeToOP: false`) |
-| `bStats/config.yml` | `enabled: false` | gilt für alle Plugins |
-| `voicechat/voicechat-server.properties` | `port=24455`, `bind_address=127.0.0.1` | nur VM200: Velocity belegt 24454 und leitet weiter (`../velocity/README.md`) |
+Seit 24.10. (Hub-Kurswechsel) getrennt nach Server: `gemeinsam/` gilt für beide, dazu `smp/` oder `hub/`.
 
-Dazu kommt `../paper/permissions.yml` in den Server-Hauptordner (`/spark tps` für alle, `../spark.md`).
+| Datei | Server | Was abweicht | Begründung |
+|---|---|---|---|
+| `gemeinsam/plugins/bStats/config.yml` | beide | `enabled: false` | gilt für alle Plugins |
+| `smp/plugins/DimensionControl/config.yml` | SMP | Texte deutsch | „Der Nether ist noch geschlossen!“ statt Englisch |
+| `smp/plugins/XaeroFairPlay/xaero-fair-play.json` | SMP | Höhlenansicht im Nether erlaubt (Minimap und Weltkarte) | `../plugins.md` → Fair Play, im Test 24.10. bestätigt |
+| `smp/plugins/ArmorPoser/config.yml` | SMP | keine (Standard, festgehalten) | Spieler ohne Rechte dürfen posieren, Größe ändern für alle (`restrictResizeToOP: false`) |
+| `smp/plugins/voicechat/voicechat-server.properties` | SMP | `port=24455`, `bind_address=127.0.0.1` | nur VM200: Velocity belegt 24454 und leitet weiter (`../velocity/README.md`) |
+| `smp/plugins/Serverwahl/config.yml` | SMP | `ist-hub: false` | nur `/hub` (`../serverwahl/README.md`) |
+| `hub/plugins/voicechat/voicechat-server.properties` | Hub | `port=24456`, `bind_address=127.0.0.1` | zweiter lokaler Voice-Port, Velocity leitet weiter |
+| `hub/plugins/Serverwahl/config.yml` | Hub | Kisten und Menüs | `../serverwahl/README.md` |
+| `hub/plugins/WorldGuard/worlds/world/regions.yml` | Hub | `__global__` mit Schutzflags | ganze Hub-Welt geschützt (`../plugins.md` → Hub). Welt-Name `world` nach dem Hub-Aufbau prüfen |
 
-Nicht hier: WorldGuard-Regionen (`spawn/worldguard/regions.yml`, Spawn-&-Welt-Session), DimensionControl `data.yml` (Zustand, setzen `nether close`/`end close`),
+Dazu kommt `../paper/permissions.yml` in den Server-Hauptordner beider Server (`/spark tps` für alle, `../spark.md`).
+
+Nicht hier: WorldGuard-Regionen des SMP (`spawn/worldguard/regions.yml`, Spawn-&-Welt-Session), DimensionControl `data.yml` (Zustand, setzen `nether close`/`end close`),
 Velocity (`../velocity/`). Right click harvester und Spawn Elytra sind gestrichen (24.10.).
 
 ## Einspielen
@@ -22,11 +28,13 @@ Velocity (`../velocity/`). Right click harvester und Spawn Elytra sind gestriche
 Server gestoppt, Plugins mindestens einmal gestartet (dann gibt es die Ordner, nötig ist es aber nicht):
 
 ```bash
-bash server/plugin-konfig/einspielen.sh <paper-ordner> vm200
+bash server/plugin-konfig/einspielen.sh <smp-ordner> smp vm200
+bash server/plugin-konfig/einspielen.sh <hub-ordner> hub vm200
 ```
 
 Auf dem lokalen Testserver ohne Proxy `lokal` statt `vm200`: dann bleibt Voice Chat auf 24454. Das Skript überschreibt nur die Dateien aus dieser Tabelle,
-listet jede kopierte Datei und warnt, falls noch eine `harvester-*.jar` oder `SpawnElytra-*.jar` im Server liegt. Danach den Server starten.
+listet jede kopierte Datei und warnt, falls noch eine `harvester-*.jar` oder `SpawnElytra-*.jar` im Server liegt (beim Hub auch bei SMP-Plugins wie DimensionControl).
+Der alte Aufruf ohne `smp|hub` (`einspielen.sh <ordner> lokal`) gilt weiter als `smp`. Danach den Server starten.
 
 ## Ändern
 

@@ -1,0 +1,27 @@
+# Hub (MinecraftHub01): Schutz für die ganze Welt über die globale Region.
+# Abenteuermodus verhindert Abbauen und Bauen schon; das hier sperrt den Rest (Kisten plündern, Rahmen drehen, PvP, Mobs).
+# Die Crate-Kisten öffnen trotzdem das Menü (serverwahl reagiert auch auf von WorldGuard gesperrte Klicks).
+# Ops mit /rg bypass sind ausgenommen.
+regions:
+  __global__:
+    type: global
+    priority: 0
+    flags:
+      pvp: deny
+      chest-access: deny
+      item-frame-rotation: deny
+      entity-item-frame-destroy: deny
+      entity-painting-destroy: deny
+      damage-animals: deny
+      mob-spawning: deny
+      invincible: allow
+      item-drop: deny
+      vehicle-destroy: deny
+      fire-spread: deny
+      lava-fire: deny
+      ice-melt: deny
+      snow-melt: deny
+      leaf-decay: deny
+      crop-growth: deny
+    members: {}
+    owners: {}

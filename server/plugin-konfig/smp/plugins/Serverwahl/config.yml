@@ -1,0 +1,6 @@
+# Serverwahl auf dem SMP (MinecraftWeihnachten01): nur /hub, keine Kisten.
+ist-hub: false
+# Name des Hubs in velocity.toml [servers]
+hub-server: hub
+kisten: []
+kategorien: {}

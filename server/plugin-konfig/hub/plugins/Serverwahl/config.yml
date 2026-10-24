@@ -1,0 +1,43 @@
+# Serverwahl auf dem Hub (MinecraftHub01). Nach Änderung: /serverwahl reload
+ist-hub: true
+hub-server: hub
+# Crate-Kisten im Fantasy Village: Rechtsklick öffnet das Menü der Kategorie.
+# Koordinaten vom Testserver (Leitung 24.10.), nach dem Hub-Aufbau der Spawn-&-Welt-Session prüfen.
+kisten:
+  - {welt: world, x: 25, y: 236, z: -9, kategorie: smp}
+  - {welt: world, x: 27, y: 236, z: -5, kategorie: testwelt}
+  - {welt: world, x: 28, y: 236, z: 0, kategorie: alle}
+  - {welt: world, x: 27, y: 236, z: 5, kategorie: minigames}
+  - {welt: world, x: 25, y: 236, z: 9, kategorie: bald}
+# name = Servername in velocity.toml [servers]; Text in MiniMessage
+kategorien:
+  smp:
+    titel: "<dark_green>SMP-Server"
+    server:
+      - name: smp
+        anzeige: "<gradient:#ff5252:#ffffff:#4cd964>Weihnachtsserver 2026</gradient>"
+        material: SPRUCE_SAPLING
+        beschreibung:
+          - "<gray>Survival mit dem Weihnachts-Modpack"
+          - "<gray>Start am <white>05.12.</white>"
+          - ""
+          - "<yellow>Klicken zum Beitreten"
+  alle:
+    titel: "<dark_purple>Alle Server"
+    server:
+      - name: smp
+        anzeige: "<gradient:#ff5252:#ffffff:#4cd964>Weihnachtsserver 2026</gradient>"
+        material: SPRUCE_SAPLING
+        beschreibung:
+          - "<gray>SMP · Survival"
+          - ""
+          - "<yellow>Klicken zum Beitreten"
+  testwelt:
+    titel: "<aqua>Testwelt"
+    server: []
+  minigames:
+    titel: "<gold>Minigames"
+    server: []
+  bald:
+    titel: "<gray>Bald"
+    server: []

@@ -45,3 +45,45 @@ In AMP lassen sich Port und Bindung in den Instanz-Einstellungen setzen. AMP üb
 Begründung für Spielerzahl, Sichtweiten und Kompression: `kapazitaet.md`.
 
 Port, RAM und Pfade: siehe Administration-Doku im Vault.
+
+## Hub `MinecraftHub01` (seit 24.10.)
+
+Zweites Backend hinter Velocity, jeder Beitritt landet hier (`velocity/velocity.toml.auszug` → `try = ["hub"]`). Gleiche Sicherheitslogik wie das SMP
+(nur `127.0.0.1`, Modern Forwarding mit **demselben** Secret in `config/paper-global.yml`).
+
+```properties
+server-ip=127.0.0.1
+server-port=25567
+max-players=30
+view-distance=6
+simulation-distance=4
+network-compression-threshold=-1
+online-mode=false
+enforce-secure-profile=false
+white-list=true
+enforce-whitelist=true
+enable-rcon=false
+spawn-protection=0
+gamemode=adventure
+force-gamemode=true
+difficulty=peaceful
+spawn-monsters=false
+pvp=false
+allow-nether=false
+require-resource-pack=true
+resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v3/weihnachten-rp.zip
+resource-pack-sha1=34a0d1971ccd9b960e5107a5510191bbb122a0cb
+resource-pack-id=73014a80-9072-4aee-961a-5ed01a359e3f
+resource-pack-prompt={"text":"Pflicht: Weihnachts-Texturen und das deutsche Questbuch. Ohne Annehmen kein Beitritt.","color":"aqua"}
+motd=§b❄ Hub ❄
+```
+
+- **Resourcepack auf beiden mit derselben ID und SHA1:** Der Client lädt es einmal im Hub, beim Wechsel aufs SMP erkennt er es wieder und lädt nicht neu.
+  Bei einem neuen Pack (`rp-vN`) URL und SHA1 auf **beiden** Servern gleichzeitig ändern, sonst lädt jeder Wechsel neu.
+- **Whitelist auf beiden** (Annahme, liegt bei der Leitung): Wer nicht auf der Liste steht, kommt schon im Hub nicht rein. Neue Namen also auf Hub und SMP eintragen
+  (`whitelist add <name>` in beiden Konsolen).
+- `force-gamemode=true` setzt jeden Beitritt auf Abenteuer, auch Ops. Bauen im Hub: `/gamemode creative` nach dem Beitritt.
+- **Spielregeln** (einmal in der Hub-Konsole, bleiben in der Welt; Namen in 26.3, geprüft im Testnetz 24.10.):
+  `gamerule advance_time false` · `gamerule advance_weather false` · `gamerule spawn_mobs false` · `gamerule fall_damage false` ·
+  `gamerule show_advancement_messages false` · `time set noon` · `weather clear`
+- Keine Datapacks des SMP im Hub (Leitfaden, Rabatt, Statistik laufen nur auf dem SMP).

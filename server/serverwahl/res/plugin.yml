@@ -1,0 +1,19 @@
+name: Serverwahl
+version: '1.0.0'
+main: de.grahl.serverwahl.Serverwahl
+api-version: '26.3'
+description: Server-Wahl über Kisten im Hub, /hub zurück (Velocity, Kanal BungeeCord)
+commands:
+  hub:
+    description: Zurück zum Hub (auf dem Hub zum Spawn)
+    aliases: [lobby]
+    permission: serverwahl.hub
+  serverwahl:
+    description: "serverwahl reload | serverwahl menue <kategorie>"
+    usage: "/serverwahl reload | /serverwahl menue <kategorie>"
+    permission: serverwahl.admin
+permissions:
+  serverwahl.hub:
+    default: true
+  serverwahl.admin:
+    default: op

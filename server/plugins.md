@@ -2,8 +2,8 @@
 
 Stand 2026-10-23, Versionen über die APIs von Modrinth, Hangar und PaperMC (fill) abgefragt.
 **Ungetestet**: hier steht nur, was ausgewählt ist. Getestet wird in Task 4, sobald die Instanz läuft.
-**Konfigs:** Alle Plugin-Einstellungen, die von den Standards abweichen, liegen als fertige Dateien in `plugin-konfig/plugins/` und kommen per
-`plugin-konfig/einspielen.sh <server-ordner> [vm200|lokal]` auf den Server (`plugin-konfig/README.md`). Was hier im Text steht, ist die Begründung, die Dateien gelten.
+**Konfigs:** Alle Plugin-Einstellungen, die von den Standards abweichen, liegen als fertige Dateien in `plugin-konfig/{gemeinsam,smp,hub}/plugins/` und kommen per
+`plugin-konfig/einspielen.sh <server-ordner> smp|hub [vm200|lokal]` auf den Server (`plugin-konfig/README.md`). Was hier im Text steht, ist die Begründung, die Dateien gelten.
 Bezugsquelle immer die genannte offizielle Seite. Jede `.jar` erst in einen eigenen leeren Ordner laden und dort mit SHA1/SHA256 vergleichen,
 dann in `plugins/` kopieren.
 
@@ -18,6 +18,7 @@ dann in `plugins/` kopieren.
 | Armor Poser Plugin | 3.0.0 (release, 17.09.) | Modrinth `armor-poser-plugin` | MIT | `ArmorPoser-Plugin-3.0.0.jar`, `cc1f347fdef37ad3320dbba07555299d8b657a81` | Server-Teil zur Mod Armor Poser im Pack. Öffnen mit **Strg + Rechtsklick** auf einen Rüstungsständer (bestätigt im Test 24.10.) |
 | Simple Voice Chat (Bukkit) | bukkit-2.6.25 (release, 22.10.) | Modrinth `simple-voice-chat` | ARR (Nutzung frei) | `voicechat-bukkit-2.6.25.jar`, `7e1113545d931e5a188a21d0ef806371f13813ea` | Sprachchat |
 | Chunky | 1.5.3 (release, 04.05.) | Modrinth `chunky` | GPL-3.0 | `Chunky-Bukkit-1.5.3.jar`, `7ff47ee3afec89a1725e6eef393f373c549eff3b` | Welt vorgenerieren (`kapazitaet.md`) |
+| Serverwahl (eigenes) | 1.0.0 | dieses Repo, `serverwahl/` | eigenes | `serverwahl-1.0.0.jar`, selbst gebaut (`serverwahl/README.md`) | nur `/hub` (bzw. `/lobby`) zurück in den Hub |
 | spark | in Paper eingebaut | – | – | – | Profiler: `/spark tps`, `/spark health`, `/spark profiler` |
 
 Alle sind auf Modrinth als 26.3-kompatibel markiert (Filter `game_versions=26.3`, Loader paper/bukkit).
@@ -37,7 +38,7 @@ Alle sind auf Modrinth als 26.3-kompatibel markiert (Filter `game_versions=26.3`
     noch einmal kurz prüfen. Falls es dort doch nicht hält:
     AMP-Aufgabe „nach dem Start“ sendet je nach Phase `nether close` bzw. `end close` (Phase steht in `#phase lf_phase`).
 - ~~Rechtsklick-Ernte → Right click harvester~~ → **gestrichen 24.10.** (Pascal nach dem Test: „die Mod kommt weg“). Kein Ersatz. Jar und `plugins/Harvester/` kommen nicht auf den Server
-- **Fair Play**: Das Plugin läuft auch auf Velocity. Wir setzen es aufs Backend, weil es nur einen Server gibt. Standard
+- **Fair Play**: Das Plugin läuft auch auf Velocity. Wir setzen es nur aufs SMP-Backend: Im Hub gibt es nichts zu verstecken, und weitere SMP-Server bekommen es einzeln. Standard
   (Radar und Höhlenansicht aus) passt. Ausnahme für den Nether **erlauben**, so wie es Xaeros eigener Fair-Play-Modus
   macht: Ohne Höhlenansicht zeigt die Minimap dort nur die Bedrock-Decke und ist nutzlos. Antiker Schrott bleibt trotzdem
   verborgen, weil Anti-Xray ihn im Nether versteckt (siehe `paper/anti-xray.md`).
@@ -47,6 +48,22 @@ Alle sind auf Modrinth als 26.3-kompatibel markiert (Filter `game_versions=26.3`
 - **Kein VeinMiner** (Pascal, 23.10.)
 - ~~Spawn Elytra – like in Craft Attack~~ → **gestrichen 24.10.** (Pascal, neuer Spawn im Weltenbaum: Spawn unten im Stamm, kein Gleitflug vom Spawn). Jar, Konfig und `plugins/SpawnElytra/` kommen nicht auf den Server
 - **bStats aus:** `enabled: false` in `plugins/bStats/config.yml` (gilt für alle Plugins, `plugin-konfig/`)
+
+## Paper-Instanz `MinecraftHub01` (Hub, seit 24.10.)
+
+Kleiner Server vor dem SMP: Fantasy Village (LavaBuilds, Aufbau Spawn-&-Welt-Session), Abenteuermodus, Velocity schickt jeden Beitritt hierher.
+Nur was der Hub braucht, sonst nichts:
+
+| Plugin | Version | Datei | Zweck |
+|---|---|---|---|
+| Serverwahl (eigenes) | 1.0.0 | `serverwahl-1.0.0.jar` | Rechtsklick auf die 5 Crate-Kisten öffnet das Menü, Klick auf einen Server wechselt über Velocity (`serverwahl/README.md`) |
+| WorldEdit | 7.4.6 | wie SMP | Hub-Welt einfügen, für WorldGuard nötig |
+| WorldGuard | 7.0.20 | wie SMP | ganze Welt geschützt über `__global__` (`plugin-konfig/hub/plugins/WorldGuard/worlds/world/regions.yml`): Kisten nicht plünderbar, Rahmen nicht drehbar, kein PvP, unverwundbar |
+| Simple Voice Chat (Bukkit) | bukkit-2.6.25 | wie SMP | Sprachchat auch im Hub, lokal auf UDP 24456 (Velocity leitet weiter) |
+| spark | eingebaut | – | `/spark tps` |
+
+**Nicht auf dem Hub:** DimensionControl (Nether/End gibt es im Hub nicht, `allow-nether=false`), Fair Play, Armor Poser, Chunky, Datapacks (Leitfaden, Händler-Rabatt usw.).
+Das Skript warnt, falls eins davon im Hub-Ordner liegt.
 
 ## Velocity-Instanz `MinecraftProxy01`
 
@@ -59,6 +76,8 @@ Alle sind auf Modrinth als 26.3-kompatibel markiert (Filter `game_versions=26.3`
   üblich, die Velocity-Version wird offiziell unterstützt. Falls sie hakt: Backup-Weg ist, das Plugin vom Proxy zu
   nehmen und UDP direkt auf den Backend-Voice-Port freizugeben (siehe `velocity/README.md`).
 - Konfiguration: `velocity/README.md` und `velocity/velocity.toml.auszug`
+- **bStats aus** auch auf dem Proxy: `plugins/bStats/config.txt` → `enabled=false` (Velocity nutzt eine eigene Datei, nicht die Paper-`config.yml`)
+- Neuere Velocity-Version von Simple Voice Chat: velocity-2.6.26 (Stand 24.10.). Beim Einrichten (Task 2) die aktuelle nehmen und hier mit SHA1 eintragen
 
 ## Datapacks (Task 4 Schritt 11, nach `world/datapacks/`, danach Neustart)
 
@@ -74,6 +93,6 @@ Reihenfolge nach dem Neustart mit `/datapack list` prüfen.
 
 1. Auf VM200 einen leeren Ordner anlegen (`/root/mc-downloads/<datum>/`), die Jars dort herunterladen
 2. `sha1sum *.jar` bzw. `sha256sum velocity-*.jar` mit den Werten oben vergleichen, bei Abweichung abbrechen
-3. Jars in `.../MinecraftWeihnachten01/Minecraft/plugins/` bzw. `.../MinecraftProxy01/velocity/plugins/` kopieren,
+3. Jars in `.../MinecraftWeihnachten01/Minecraft/plugins/`, `.../MinecraftHub01/Minecraft/plugins/` (nur die Hub-Liste) bzw. `.../MinecraftProxy01/velocity/plugins/` kopieren,
    Besitzer `amp:amp`
 4. Instanz in AMP neu starten (Pascal), Konsole auf Fehler prüfen, `/plugins` bzw. `/velocity plugins`

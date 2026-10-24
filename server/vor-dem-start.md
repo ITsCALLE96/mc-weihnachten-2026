@@ -19,12 +19,24 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 - [ ] `paper-global.yml`: Velocity Modern Forwarding (`paper/paper-global.yml.auszug`)
 - [ ] `paper-world-defaults.yml`: Anti-Xray Overworld (`paper/anti-xray.md`), Entity-Speicherlimits, `optimize-explosions` (`kapazitaet.md` → Paper-Einstellungen). Schlüssel gegen die von 26.3 erzeugte Datei geprüft
 - [ ] `permissions.yml` (kommt mit `plugin-konfig/einspielen.sh`): alle Spieler dürfen `/spark tps` (`spark.md`)
-- [ ] **Plugin-Konfigs per `plugin-konfig/einspielen.sh <paper-ordner> vm200` eingespielt** (Server gestoppt, nach dem ersten Start, damit die Plugin-Ordner existieren; danach Neustart).
+- [ ] **Plugin-Konfigs per `plugin-konfig/einspielen.sh <smp-ordner> smp vm200` eingespielt** (Server gestoppt, nach dem ersten Start, damit die Plugin-Ordner existieren; danach Neustart).
   Enthält Fair Play (Höhlenansicht nur im Nether), DimensionControl-Texte deutsch,
   Armor Poser, bStats aus, Voice Chat Backend 24455 auf 127.0.0.1 und `permissions.yml`. Stichprobe: `grep CaveModeInNether plugins/XaeroFairPlay/xaero-fair-play.json`
 - [ ] **Kein Right click harvester und kein Spawn Elytra** im `plugins/`-Ordner (beide gestrichen 24.10., das Skript warnt)
 - [ ] Chat mit No Chat Reports: Paper `enforce-secure-profile=false` und Velocity `force-key-authentication = false` (`velocity/README.md` → Chat-Signaturen)
-- [ ] Velocity: `velocity.toml` nach `velocity/velocity.toml.auszug` (`show-max-players = 30`, Modern Forwarding, Secret nur auf dem Server)
+- [ ] Velocity: `velocity.toml` nach `velocity/velocity.toml.auszug` (`show-max-players = 30`, Modern Forwarding, Secret nur auf dem Server, `[servers]` hub + smp, `try = ["hub"]`)
+- [ ] Velocity: `plugins/bStats/config.txt` → `enabled=false`
+
+## Hub `MinecraftHub01` (seit 24.10.)
+
+- [ ] AMP-Instanz angelegt (Pascal), Paper wie SMP, Heap 2 GB (`kapazitaet.md`), Port 25567 nur `127.0.0.1`
+- [ ] `server.properties` nach `server.properties.md` → Hub (Abenteuer, `force-gamemode`, friedlich, kein Nether, Whitelist, dasselbe Pack wie SMP), `paper-global.yml` mit **demselben** Secret
+- [ ] Nur die Hub-Plugins (`plugins.md` → Hub): Serverwahl, WorldEdit, WorldGuard, Voice Chat. Konfigs per `plugin-konfig/einspielen.sh <hub-ordner> hub vm200` (warnt bei SMP-Plugins)
+- [ ] Hub-Welt (Fantasy Village) von der Spawn-&-Welt-Session eingespielt, Spawnpunkt gesetzt, Spielregeln aus `server.properties.md` → Hub
+- [ ] Kisten-Koordinaten in `plugin-konfig/hub/plugins/Serverwahl/config.yml` mit der fertigen Hub-Welt abgeglichen, Welt-Name in `WorldGuard/worlds/<welt>/` passt
+- [ ] SMP hat ebenfalls `serverwahl-1.0.0.jar` (für `/hub`)
+- [ ] Wechsel geprüft: Beitritt → Hub, linke Kiste → SMP (Pack lädt nicht neu), `/hub` zurück, `/server smp`, Voice Chat in beiden, SMP-Neustart schiebt Spieler in den Hub
+- [ ] Whitelist auf beiden mit denselben ~25 Namen
 
 ## Welt
 

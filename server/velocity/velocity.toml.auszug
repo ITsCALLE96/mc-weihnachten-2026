@@ -3,7 +3,7 @@
 # und die Schlüssel mit der erzeugten Datei abgleichen (Velocity 4.3, config-version kann abweichen).
 
 bind = "0.0.0.0:25565"
-# Serverliste: MOTD und Bild kommen bei Velocity vom Proxy, nicht von Paper (ping-passthrough = DISABLED).
+# Serverliste: MOTD und Bild kommen bei Velocity vom Proxy, nicht von Paper ([ping-passthrough] alles false).
 # MiniMessage, zwei Zeilen. „Weihnachtsserver“ ist Platzhalter, bis der Servername feststeht.
 # Zeile 2 ab dem Start (05.12.) z. B. auf "<gray>Frohe Weihnachten! · <white>~25 Spieler</white></gray>" ändern
 motd = "<gradient:#ff5252:#ffffff:#4cd964>❄ Weihnachtsserver ❄</gradient><newline><gray>Frohe Weihnachten! · Start am <white>05.12.</white></gray>"
@@ -17,19 +17,32 @@ player-info-forwarding-mode = "modern"
 forwarding-secret-file = "forwarding.secret"
 announce-forge = false
 kick-existing-players = false
-ping-passthrough = "DISABLED"
+
+# Velocity 4.3 (config-version 2.9): ping-passthrough ist eine Tabelle, nicht mehr "DISABLED". Alles false = MOTD/Bild vom Proxy
+[ping-passthrough]
+version = false
+players = false
+description = false
+favicon = false
+modinfo = false
 
 [servers]
-# Backend nur lokal auf VM200 erreichbar
+# Backends nur lokal auf VM200 erreichbar. Namen = Ziele in Serverwahl (plugin-konfig/hub/plugins/Serverwahl/config.yml)
+hub = "127.0.0.1:25567"
 smp = "127.0.0.1:25566"
-try = ["smp"]
+# Beitritt landet im Hub (seit 24.10.), Wechsel per Kiste, /server smp oder /hub
+try = ["hub"]
 
 [forced-hosts]
-# keine – alle Spieler landen direkt auf dem SMP (Lobby erst ab einem zweiten Server)
+# keine – alle Spieler landen im Hub
 
 [advanced]
 # Standardwerte lassen; haproxy-protocol aus (keine vorgeschaltete Lastverteilung)
 haproxy-protocol = false
+# Muss true bleiben (Standard): Serverwahl schickt den Wechsel über den BungeeCord-Kanal „Connect“
+bungee-plugin-message-channel = true
+# Standard true: Stürzt das SMP ab, landen die Spieler im Hub statt getrennt zu werden
+failover-on-unexpected-server-disconnect = true
 
 [query]
 enabled = false

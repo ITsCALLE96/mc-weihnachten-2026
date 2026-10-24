@@ -1,0 +1,7 @@
+# Serverwahl – Standard ist ein Backend (SMP): nur /hub, keine Kisten.
+# Die Hub-Fassung liegt in server/plugin-konfig/hub/plugins/Serverwahl/config.yml
+ist-hub: false
+# Name des Hubs in velocity.toml [servers]
+hub-server: hub
+kisten: []
+kategorien: {}

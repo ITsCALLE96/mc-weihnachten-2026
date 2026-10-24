@@ -5,3 +5,7 @@ build/
 spawn/quellen/
 testserver/
 resourcepack/quellen/
+testnetz/proxy/
+testnetz/hub/
+testnetz/smp/
+testnetz/_downloads/

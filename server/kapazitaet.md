@@ -6,18 +6,21 @@ Grundlage: Dell Precision 7740 (Testlab-Host), i7-9850H 6 Kerne/12 Threads, 32 G
 
 ## 1. RAM
 
-| Teil | Planwert |
-|---|---|
 **Rahmen (Pascal, 24.10.):** Während des Projekts sind alle anderen AMP-Instanzen aus, **schon ab dem Lasttest und dem Testlauf**. Minecraft darf die VM ausreizen.
 
 | Teil | Planwert |
 |---|---|
 | Paper `MinecraftWeihnachten01`: Heap (`-Xms` = `-Xmx`) | **12 GB** (AMP-Einstellung „Memory“ 12288 MB), vorher 10 GB |
 | Paper: Java-Overhead außerhalb des Heaps (Metaspace, Netzwerk-Puffer, Threads) | ~2 GB → die Instanz belegt real **~14 GB** |
+| Paper `MinecraftHub01` (Hub, seit 24.10.): Heap 2 GB (AMP „Memory“ 2048 MB) | real **~2,7 GB** (Overhead ~0,7 GB). Kleine fertige Welt, Abenteuermodus, keine Mobs, Sichtweite 6 |
 | Velocity `MinecraftProxy01` | 1 GB (512 MB reichen meist, 1 GB lässt Luft für 25 gleichzeitige Logins) |
 | Debian, Docker, AMP-Controller, später Stats-Dienst | ~2–3 GB |
-| **Summe Minecraft-Betrieb** | **~17–18 GB von 28 GB** |
-| **Rest ~10 GB → Linux-Dateicache** | hält Region-Dateien der Welt im RAM, Chunks laden schneller von der Platte |
+| **Summe Minecraft-Betrieb** | **~20–21 GB von 28 GB** |
+| **Rest ~7 GB → Linux-Dateicache** | hält Region-Dateien der Welt im RAM, Chunks laden schneller von der Platte |
+
+**Hub (Kurswechsel 24.10.):** Das SMP behält 12 GB, der Hub geht vom Dateicache ab (10 → ~7 GB). Die Hub-Welt ist klein und liegt nach dem ersten Besuch
+ohnehin im Speicher, deshalb reichen 2 GB. Lokal im Testnetz liefen Hub und leeres SMP mit je 2 GB ohne Auffälligkeiten (24.10., ohne Spieler).
+Wird der Cache im Lasttest zum Engpass (Chunk-Laden langsam, `iowait` hoch), zuerst den Hub auf 1,5 GB senken, dann das SMP auf 11 GB.
 
 - **Warum nicht noch mehr Heap?** Meine erste Begründung („mehr Heap = längere Pausen“) war zu grob, das korrigiere ich hiermit. Bei G1 hängt die Pausenlänge vor allem davon ab,
   wie viel lebende Daten aufzuräumen sind, kaum von der Heap-Größe. Ein größerer Heap räumt sogar seltener auf. Was tatsächlich gegen sehr große Heaps spricht:
@@ -25,7 +28,7 @@ Grundlage: Dell Precision 7740 (Testlab-Host), i7-9850H 6 Kerne/12 Threads, 32 G
   - RAM, den der Heap belegt, fehlt dem Dateicache. Der Cache bringt bei Chunk-Laden und Speichern (Autosave, Backups) spürbar mehr als ein leerer Heap.
   - Bei G1 wachsen mit dem Heap auch die Verwaltungsdaten (Remembered Sets) ein Stück mit.
 
-  12 GB sind deshalb der Mittelweg: genug Reserve für Farmen und Spitzen, und ~10 GB bleiben für den Cache.
+  12 GB sind deshalb der Mittelweg: genug Reserve für Farmen und Spitzen, und ~7 GB bleiben für den Cache (mit Hub, vorher ~10 GB).
 - **Mehr als 28 GB** kann VM200 nicht bekommen, der Host selbst braucht 3–4 GB.
 - **JVM-Flags:** In AMP die „Aikar-Flags“ einschalten, und zwar die Variante **für Heaps ab 12 GB** (`G1NewSizePercent=40`, `G1MaxNewSizePercent=50`, `G1HeapRegionSize=16M`,
   `G1ReservePercent=15`, `InitiatingHeapOccupancyPercent=20`). Wie AMP die Variante auswählt, prüfe ich beim Anlegen, notfalls als eigene Java-Argumente.

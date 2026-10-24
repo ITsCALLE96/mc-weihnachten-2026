@@ -1,27 +1,35 @@
 #!/usr/bin/env bash
-# Spielt die Plugin-Konfigs aus server/plugin-konfig/plugins/ und server/paper/permissions.yml in einen Paper-Server ein.
-# Aufruf (Server gestoppt): einspielen.sh <server-ordner> [vm200|lokal]
-#   vm200 (Standard): alles, Voice Chat hinter Velocity (Port 24455, nur 127.0.0.1)
+# Spielt die Plugin-Konfigs und server/paper/permissions.yml in einen Paper-Server ein.
+# Aufruf (Server gestoppt): einspielen.sh <server-ordner> <smp|hub> [vm200|lokal]
+#   smp: gemeinsam/ + smp/   (MinecraftWeihnachten01)
+#   hub: gemeinsam/ + hub/   (MinecraftHub01)
+#   vm200 (Standard): alles, Voice Chat hinter Velocity (nur 127.0.0.1)
 #   lokal:            ohne voicechat/ (lokaler Testserver ohne Proxy, Voice Chat bleibt auf 24454)
+# Alter Aufruf einspielen.sh <ordner> [vm200|lokal] gilt weiter als smp.
 # Überschreibt nur die hier geführten Dateien, alles andere in plugins/ bleibt unberührt.
 set -euo pipefail
 
-ziel="${1:?Aufruf: einspielen.sh <server-ordner> [vm200|lokal]}"
+ziel="${1:?Aufruf: einspielen.sh <server-ordner> <smp|hub> [vm200|lokal]}"
 [ -d "$ziel" ] || { echo "Ordner $ziel fehlt" >&2; exit 1; }
 ziel="$(cd "$ziel" && pwd)"   # absolut, das Skript wechselt unten in den Quellordner
-modus="${2:-vm200}"
+case "${2:-}" in
+  smp|hub) rolle="$2"; modus="${3:-vm200}" ;;
+  *)       rolle=smp;  modus="${2:-vm200}" ;;
+esac
 quelle="$(cd "$(dirname "$0")" && pwd)"
 
 [ -d "$ziel/plugins" ] || { echo "Kein plugins/-Ordner in $ziel" >&2; exit 1; }
 case "$modus" in vm200|lokal) ;; *) echo "Modus muss vm200 oder lokal sein" >&2; exit 1 ;; esac
 
-cd "$quelle/plugins"
-find . -type f | sort | while read -r datei; do
-  datei="${datei#./}"
-  if [ "$modus" = lokal ] && [ "${datei%%/*}" = voicechat ]; then continue; fi
-  mkdir -p "$ziel/plugins/$(dirname "$datei")"
-  cp "$datei" "$ziel/plugins/$datei"
-  echo "plugins/$datei"
+for teil in gemeinsam "$rolle"; do
+  cd "$quelle/$teil/plugins"
+  find . -type f | sort | while read -r datei; do
+    datei="${datei#./}"
+    if [ "$modus" = lokal ] && [ "${datei%%/*}" = voicechat ]; then continue; fi
+    mkdir -p "$ziel/plugins/$(dirname "$datei")"
+    cp "$datei" "$ziel/plugins/$datei"
+    echo "$teil: plugins/$datei"
+  done
 done
 cp "$quelle/../paper/permissions.yml" "$ziel/permissions.yml"
 echo "permissions.yml"
@@ -29,4 +37,9 @@ echo "permissions.yml"
 for alt in "$ziel"/plugins/harvester-*.jar "$ziel"/plugins/SpawnElytra-*.jar; do
   [ -e "$alt" ] && echo "WARNUNG: $alt liegt noch im Server, das Plugin ist gestrichen (24.10.)" >&2
 done
+if [ "$rolle" = hub ]; then
+  for fremd in "$ziel"/plugins/dimensioncontrol-*.jar "$ziel"/plugins/xaero-fair-play-*.jar "$ziel"/plugins/ArmorPoser-*.jar "$ziel"/plugins/Chunky-*.jar; do
+    [ -e "$fremd" ] && echo "WARNUNG: $fremd gehört nur aufs SMP, nicht auf den Hub" >&2
+  done
+fi
 exit 0
