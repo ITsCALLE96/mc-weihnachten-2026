@@ -29,6 +29,10 @@ mkdir -p "$D/spawn-insel/data/spawn/structure"
 printf '{\n  "pack": {\n    "description": "Spawn-Insel (CA12) als Struktur, nur lokal",\n    "min_format": [121, 0],\n    "max_format": [121, 0]\n  }\n}\n' > "$D/spawn-insel/pack.mcmeta"
 node "$(w "$REPO/tools/schem-struktur.mjs")" "$(w "$Q/ca12-spawn-v2.schem")" "$(w "$D/spawn-insel/data/spawn/structure/ca12v2.nbt")"
 mkdir -p "$SRV/plugins/WorldGuard/worlds/world" && cp "$REPO/spawn/worldguard/regions.yml" "$SRV/plugins/WorldGuard/worlds/world/regions.yml"
+# Plugin-Konfigs der Server-Session (Spawn Elytra, DimensionControl, Fair Play, ArmorPoser, bStats aus, permissions.yml);
+# Modus „lokal“ = ohne Proxy, für VM200 „vm200“. Right click harvester ist raus (Pascal 24.10.)
+rm -rf "$SRV"/plugins/harvester-*.jar "$SRV/plugins/Harvester"
+bash "$REPO/server/plugin-konfig/einspielen.sh" "$SRV" "${MODUS:-lokal}"
 # Anti-Xray für Nether/End erst nach dem Start (Schritt 4): vorab angelegte Dimensions-Ordner lassen Paper abstürzen
 
 echo "3/4 Server ohne Fenster starten und aufbauen (dauert ein paar Minuten)"
