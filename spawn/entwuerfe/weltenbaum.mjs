@@ -180,7 +180,7 @@ for (let z = 1; z < L - 1; z++) for (let x = 1; x < W - 1; x++) {
 for (const R of RUECKEN) { const p = []; for (let s = 0; s <= 1; s += 0.01) { const r = 8 + R.len * s; p.push([CX + r * Math.cos(R.w), G + R.hoehe * (1 - (r - 8) / R.len) + 1 - 3 * s, CZ + r * Math.sin(R.w)]); } roehre(p, 3.2, 1); }
 
 // 9) Vier Wurzelgänge vom Spawn-Raum nach außen (zwischen den Rücken, nicht zum Turm), 3 breit, 4 hoch, Laternen; Ausgang am Hang
-const AUSGAENGE = [];
+const AUSGAENGE = [], GANG = [];
 const freieWinkel = []; for (let i = 0; i < 7; i++) { const a = RUECKEN[i].w, b = RUECKEN[(i + 1) % 7].w + (i === 6 ? 2 * Math.PI : 0); freieWinkel.push((a + b) / 2); }
 const kandidaten = freieWinkel.filter((w) => winkelAbstand(w, Math.PI / 2) > 0.6).sort((a, b) => a - b);
 const gewaehlt = kandidaten.length <= 4 ? kandidaten : [0, 1, 2, 3].map((i) => kandidaten[Math.round(i * kandidaten.length / 4)]);
@@ -197,6 +197,7 @@ for (const w of gewaehlt) {
   // Verschluss am äußeren Ende: außen Mangrovenwurzeln (sichtbar), dahinter Barriere (Sicherheit)
   const box = (r) => { const pts = []; for (let q = -1; q <= 1; q++) for (let y = G + 1; y <= G + 4; y++) pts.push([Math.round(CX + r * ux - q * uz), y, Math.round(CZ + r * uz + q * ux)]); const xs = pts.map((p) => p[0]), zs = pts.map((p) => p[2]); return [Math.min(...xs), G + 1, Math.min(...zs), Math.max(...xs), G + 4, Math.max(...zs)]; };
   AUSGAENGE.push({ wurzeln: box(mund - 2), barriere: box(mund - 3), aussen: [Math.round(CX + (mund + 3) * ux), G + 1, Math.round(CZ + (mund + 3) * uz)] });
+  for (let r = RR - 1; r <= mund + 4; r++) for (let q = -1; q <= 1; q++) for (let y = G + 1; y <= G + 4; y++) GANG.push([Math.round(CX + r * ux - q * uz), y, Math.round(CZ + r * uz + q * ux)]);
 }
 if (!process.env.OFFEN) for (const a of AUSGAENGE) {
   const [x1, y1, z1, x2, y2, z2] = a.wurzeln; for (let x = x1; x <= x2; x++) for (let y = y1; y <= y2; y++) for (let z = z1; z <= z2; z++) setze(m, x, y, z, 'minecraft:mangrove_roots[waterlogged=false]');
@@ -215,9 +216,19 @@ for (const s of SCHIRME) for (let j = 0; j < 14; j++) {
   for (let y = s.y; y > G; y--) if (drin(x, y, z) && hole(m, x, y, z) !== LUFT && leer(x, y - 1, z)) { for (let i = 1; i <= 4; i++) setze(m, x, y - i, z, KETTE); setze(m, x, y - 5, z, LATERNE_H); break; }
 }
 
+// Hohlräume als Höhlenluft: place template lässt normale Luft weg, Höhlenluft räumt dort natürliches Gelände (Erde, Gras, Bäume) frei.
+// Spawn-Raum, Treppenschacht, Turm innen, Wurzelgänge und 4 Blöcke vor jedem Ausgang
+const HOHL = 'minecraft:cave_air';
+const hohl = (x, y, z) => { if (drin(x, y, z) && y > G && hole(m, x, y, z) === LUFT) setze(m, x, y, z, HOHL); };
+for (let y = G + 1; y <= ST1 + 1; y++) for (let dz = -RR; dz <= RR; dz++) for (let dx = -RR; dx <= RR; dx++) {
+  if (Math.hypot(dx, dz) <= (y <= G + RH + 2 ? RR : 4.6)) hohl(CX + dx, y, CZ + dz);
+}
+for (let y = G + 1; y <= D + 4; y++) for (let dz = -TR; dz <= TR; dz++) for (let dx = -TR; dx <= TR; dx++) if (Math.hypot(dx, dz) < TR - 1.2) hohl(TX + dx, y, TZ + dz);
+for (const [x, y, z] of GANG) hohl(x, y, z);
+
 // Statistik für Leistung und Größe
 let ax0 = W, ax1 = 0, az0 = L, az1 = 0, ay1 = 0, nichtLuft = 0, nLaub = 0, kerzen = 0;
-for (let i = 0; i < m.bloecke.length; i++) { const b = m.bloecke[i]; if (b === LUFT) continue; nichtLuft++; if (b.includes('leaves')) nLaub++; if (b.startsWith('minecraft:candle')) kerzen++; const x = i % W, z = ((i / W) | 0) % L, y = (i / (W * L)) | 0; if (x < ax0) ax0 = x; if (x > ax1) ax1 = x; if (z < az0) az0 = z; if (z > az1) az1 = z; if (y > ay1) ay1 = y; }
+for (let i = 0; i < m.bloecke.length; i++) { const b = m.bloecke[i]; if (b === LUFT || b === HOHL) continue; nichtLuft++; if (b.includes('leaves')) nLaub++; if (b.startsWith('minecraft:candle')) kerzen++; const x = i % W, z = ((i / W) | 0) % L, y = (i / (W * L)) | 0; if (x < ax0) ax0 = x; if (x > ax1) ax1 = x; if (z < az0) az0 = z; if (z > az1) az1 = z; if (y > ay1) ay1 = y; }
 const krone = [0, 0, W, 0]; for (let i = 0; i < m.bloecke.length; i++) if (m.bloecke[i].includes('leaves')) { const x = i % W, z = ((i / W) | 0) % L; krone[0] = Math.min(krone[0] || x, x); }
 speichern(m, process.argv[2], {
   name: 'Weltenbaum (Spawn unten im Stamm)', spawn: SP, blick: [180, 0], boden: G, kronenplatz: D, turm: [TX, G, TZ],

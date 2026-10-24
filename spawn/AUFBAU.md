@@ -47,7 +47,19 @@ Vor dem Start sind alle im verschlossenen Spawn-Raum: Ausgänge mit Mangrovenwur
 - `function insel:schliessen`: Ausgänge wieder zu, kleine Weltgrenze, Merker zurück. Damit lässt sich das Event beliebig oft proben (Testlauf 21.11., Start 05.12.)
 - Auf Vanilla 26.3 geprüft: Aufbau geschlossen, Countdown, Öffnen, Wiederholschutz, Schließen, keine Ladefehler
 
-## Testserver (CA12-Platzhalter)
+## Testserver: Weltenbaum (seit 24.10. abends)
+
+Pascal will den Baum im Spiel sehen, deshalb steht auf dem Testserver jetzt der Weltenbaum statt der CA12-Insel. **Vorläufiger Seed `777`**
+(schnell gewählt: Gras, wenig Wasser, mittlere Höhe 71; die gründliche Seed-Suche für die echte Welt kommt später). Stamm bei −16/−40, Boden y 75,
+Struktur-Ursprung −126/63/−150, **Spawn −16/76/−33** im Spawn-Raum. Pilzland, Ausgänge geschlossen, Weltgrenze 128 bis zur Eröffnung. Konfiguration
+`spawn/standort-weltenbaum-test.json`, Reset: `SEED=777 bash spawn/neu-aufsetzen.sh testserver/server` (Weltenbaum ist der Standard).
+
+Die Hohlräume (Spawn-Raum, Treppenschacht, Turm, Gänge und 4 Blöcke vor jedem Ausgang) stehen in der Struktur als Höhlenluft. `place template` lässt
+normale Luft weg, Höhlenluft räumt dort natürliches Gelände frei.
+
+## Testserver (CA12-Platzhalter, bis 24.10.)
+
+Neu bauen mit `STANDORT=spawn/standort-testserver.json SEED=1560698989 bash spawn/neu-aufsetzen.sh testserver/server` (braucht die lokalen Quellen).
 
 Stand 2026-10-24, entschieden von Pascal: **CA12-Seed `1560698989`**, **Kandidat A**: Aufschüttung wie in CA12 (Biom Pilzland), **Insel v2** an der Originalposition,
 **Weltspawn 64/179/29**, Rückweg-Plattform mittig darunter, **Weltgrenze 10.000 um 64/37**.

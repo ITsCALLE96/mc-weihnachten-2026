@@ -1,0 +1,124 @@
+{
+  "beschreibung": "Testserver, vorläufiger Seed 777: Weltenbaum (Spawn unten im Stamm), Ursprung -126/63/-150",
+  "spawn": {
+    "x": -16,
+    "y": 76,
+    "z": -33,
+    "yaw": 180,
+    "pitch": 0
+  },
+  "spawnTeleport": true,
+  "oval": {
+    "x": -17,
+    "z": -41,
+    "a": 81,
+    "b": 69
+  },
+  "pilzland": {
+    "x": -17,
+    "z": -41,
+    "a": 111,
+    "b": 99
+  },
+  "struktur": {
+    "name": "spawn:weltenbaum",
+    "ursprung": [
+      -126,
+      63,
+      -150
+    ],
+    "groesse": [
+      220,
+      160,
+      220
+    ]
+  },
+  "weltgrenze": {
+    "x": -16,
+    "z": -40,
+    "breite": 10000
+  },
+  "lichter": null,
+  "eroeffnung": {
+    "sekunden": 10,
+    "grenzeZu": {
+      "x": -16,
+      "z": -40,
+      "breite": 128
+    },
+    "ausgaenge": [
+      {
+        "wurzeln": [
+          15,
+          76,
+          -30,
+          15,
+          79,
+          -28
+        ],
+        "barriere": [
+          14,
+          76,
+          -30,
+          14,
+          79,
+          -28
+        ]
+      },
+      {
+        "wurzeln": [
+          -51,
+          76,
+          -36,
+          -51,
+          79,
+          -34
+        ],
+        "barriere": [
+          -50,
+          76,
+          -36,
+          -50,
+          79,
+          -34
+        ]
+      },
+      {
+        "wurzeln": [
+          -12,
+          76,
+          -74,
+          -10,
+          79,
+          -73
+        ],
+        "barriere": [
+          -12,
+          76,
+          -73,
+          -10,
+          79,
+          -72
+        ]
+      },
+      {
+        "wurzeln": [
+          12,
+          76,
+          -57,
+          13,
+          79,
+          -55
+        ],
+        "barriere": [
+          12,
+          76,
+          -56,
+          13,
+          79,
+          -55
+        ]
+      }
+    ]
+  }
+}

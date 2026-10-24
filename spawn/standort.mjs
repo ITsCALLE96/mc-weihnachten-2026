@@ -41,7 +41,9 @@ export function plattformTeile(stil = 'stein') {
 
 // Kasten um Oval und Plattform, auf ganze Chunks erweitert (für forceload)
 export function ladeKasten(k) {
+  // Plattform, Ovale und – falls die Größe bekannt ist – die ganze Struktur (place template braucht alle Chunks ihres Kastens)
   const p = k.plattform ?? { x: k.spawn.x, z: k.spawn.z, radius: 0 }, ovale = [k.oval, k.pilzland].filter(Boolean);
+  const st = k.struktur?.groesse; if (st) { const [ux, , uz] = k.struktur.ursprung; ovale.push({ x: ux + (st[0] - 1) / 2, z: uz + (st[2] - 1) / 2, a: (st[0] - 1) / 2, b: (st[2] - 1) / 2 }); }
   const x1 = Math.min(p.x - p.radius, ...ovale.map((o) => o.x - o.a)), x2 = Math.max(p.x + p.radius, ...ovale.map((o) => o.x + o.a));
   const z1 = Math.min(p.z - p.radius, ...ovale.map((o) => o.z - o.b)), z2 = Math.max(p.z + p.radius, ...ovale.map((o) => o.z + o.b));
   return [Math.floor(x1 / 16) * 16 + 8, Math.floor(z1 / 16) * 16 + 8, Math.floor(x2 / 16) * 16 + 8, Math.floor(z2 / 16) * 16 + 8];
@@ -216,7 +218,7 @@ execute unless data entity @s respawn run tp @s ${s.x + 0.5} ${s.y} ${s.z + 0.5}
   const regionen = `# WorldGuard-Region der Oberwelt, erzeugt mit spawn/standort.mjs aus ${k.datei ?? 'der Standort-Konfiguration'}. Einspielen nach
 #   plugins/WorldGuard/worlds/world/regions.yml   (laufender Server: rg load -w world)
 # spawn: Oval (Mitte ${k.oval.x}/${k.oval.z}, Halbachsen ${k.oval.a} in x und ${k.oval.b} in z, 32 Punkte), volle Höhe: Spawnschutz (Nicht-Mitglieder bauen
-#   nicht, OPs umgehen das), keine Monster, kein PvP, Truhen zu, Türen/Knöpfe frei. Sättigung macht das Datapack insel. Kein großes Bauverbot.
+#   nicht, OPs umgehen das), keine Monster, kein PvP, Truhen zu, Türen/Knöpfe frei.${k.saettigung ? " Sättigung macht das Datapack insel." : ""} Kein großes Bauverbot.
 # Später weiterbauen (Pascal): Nicht-Mitglieder bauen in der Region nicht, deshalb kein build-Flag hier (build deny würde auch Mitglieder sperren).
 #   Einzelne Spawn-Bauer:   rg addmember -w world spawn <Name>      (wieder weg: rg removemember -w world spawn <Name>)
 #   Für alle freigeben:     rg flag -w world spawn build allow      (und ggf. rg flag -w world spawn chest-access allow)
@@ -273,7 +275,7 @@ if (process.argv[1]?.replace(/\\/g, '/').endsWith('spawn/standort.mjs')) {
       beschreibung: `${k.name}, Ursprung ${U.join('/')}`, spawn: { x: sp[0], y: sp[1], z: sp[2], yaw: k.blick?.[0] ?? 0, pitch: k.blick?.[1] ?? 0 },
       spawnTeleport: true, oval: { x: k.oval.x + U[0], z: k.oval.z + U[2], a: k.oval.a, b: k.oval.b },
       ...(k.pilzland && { pilzland: { x: k.pilzland.x + U[0], z: k.pilzland.z + U[2], a: k.pilzland.a, b: k.pilzland.b } }),
-      struktur: { name, ursprung: U }, weltgrenze: { x: mitte[0], z: mitte[2], breite: 10000 }, lichter: null,
+      struktur: { name, ursprung: U, ...(k.groesse && { groesse: k.groesse }) }, weltgrenze: { x: mitte[0], z: mitte[2], breite: 10000 }, lichter: null,
       ...(k.ausgaenge?.length && { eroeffnung: { sekunden: 10, grenzeZu: { x: mitte[0], z: mitte[2], breite: 128 },
         ausgaenge: k.ausgaenge.map((a) => ({ wurzeln: plus(a.wurzeln), barriere: plus(a.barriere) })) } }),
     }, null, 2));
