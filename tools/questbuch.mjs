@@ -250,8 +250,9 @@ export function baueDetails(schritte, daten, spiel) {
   return { dateien, lang };
 }
 
-// Sonderrezepte ohne festes Muster zeigt Quest-Details nicht als Raster
-const OHNE_RASTER = /^minecraft:(crafting_special_|crafting_decorated_pot$)/;
+// Rezeptarten ohne Raster in Quest-Details (Auskunft Block-Marker-Session 24.10.). Raster gibt es für
+// Werkbank (shaped, shapeless, transmute), Öfen, Lagerfeuer, Steinsäge und smithing_transform.
+const OHNE_RASTER = /^minecraft:(crafting_special_|crafting_decorated_pot$|crafting_dye$|crafting_imbue$|smithing_trim$)/;
 
 export function spielDaten(jarPfad, clientJarPfad) {
   const jar = oeffneJar(jarPfad);
