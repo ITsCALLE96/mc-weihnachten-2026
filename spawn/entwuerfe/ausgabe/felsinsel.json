@@ -1,0 +1,47 @@
+{
+  "groesse": [
+    84,
+    104,
+    84
+  ],
+  "name": "Felsinsel",
+  "spawn": [
+    42,
+    73,
+    52
+  ],
+  "blick": [
+    180,
+    0
+  ],
+  "wahrzeichen": [
+    42,
+    72,
+    42
+  ],
+  "obenBereich": {
+    "von": [
+      10,
+      66,
+      10
+    ],
+    "bis": [
+      74,
+      112,
+      82
+    ]
+  },
+  "oval": {
+    "x": 42,
+    "z": 42,
+    "a": 34,
+    "b": 38
+  },
+  "unterkante": 16,
+  "abflug": [
+    42,
+    72,
+    70
+  ],
+  "erweiterung": "Nordwest-Viertel (Grasfläche)"
+}

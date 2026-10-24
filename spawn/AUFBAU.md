@@ -26,6 +26,15 @@ Ablauf für einen neuen Standort:
 
 Die Plattform (runde Scheibe, Radius 4, von Pascal freigegeben) ist im Generator festgelegt (`plattformTeile()`); bei einem anderen Spawn-Stil dort anpassen.
 
+### Spawn später zum Weiterbauen freigeben (Pascal)
+
+Am Anfang ist der Spawn geschützt (Nicht-Mitglieder bauen in der Region `spawn` nicht). Freigabe ohne Neustart in der Konsole:
+- einzelne Spawn-Bauer: `rg addmember -w world spawn <Name>` (zurück: `rg removemember -w world spawn <Name>`)
+- für alle: `rg flag -w world spawn build allow`, bei Bedarf `rg flag -w world spawn chest-access allow`
+- wieder schützen: `rg flag -w world spawn build` (Flag löschen)
+
+Bewusst kein `build deny` in der Datei: das würde auch Mitglieder sperren.
+
 ## Testserver (CA12-Platzhalter)
 
 Stand 2026-10-24, entschieden von Pascal: **CA12-Seed `1560698989`**, **Kandidat A**: Aufschüttung wie in CA12 (Biom Pilzland), **Insel v2** an der Originalposition,

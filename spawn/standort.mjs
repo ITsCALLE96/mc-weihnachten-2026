@@ -120,6 +120,10 @@ execute unless score #geladen insel_tp matches 1 run schedule function insel:auf
 #   plugins/WorldGuard/worlds/world/regions.yml   (laufender Server: rg load -w world)
 # spawn: Oval (Mitte ${k.oval.x}/${k.oval.z}, Halbachsen ${k.oval.a} in x und ${k.oval.b} in z, 32 Punkte), volle Höhe: Spawnschutz (Nicht-Mitglieder bauen
 #   nicht, OPs umgehen das), keine Monster, kein PvP, Truhen zu, Türen/Knöpfe frei. Sättigung macht das Datapack insel. Kein großes Bauverbot.
+# Später weiterbauen (Pascal): Nicht-Mitglieder bauen in der Region nicht, deshalb kein build-Flag hier (build deny würde auch Mitglieder sperren).
+#   Einzelne Spawn-Bauer:   rg addmember -w world spawn <Name>      (wieder weg: rg removemember -w world spawn <Name>)
+#   Für alle freigeben:     rg flag -w world spawn build allow      (und ggf. rg flag -w world spawn chest-access allow)
+#   Wieder schützen:        rg flag -w world spawn build             (Flag löschen)
 regions:
     spawn:
         type: poly2d
