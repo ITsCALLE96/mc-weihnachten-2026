@@ -842,7 +842,7 @@ _Biome, Prüfungskammern, Ruinen und alte Scherben. Die Welt ist groß, los geht
 
 1. Sammle 4 Töpferscherben, auch verschiedene sind erlaubt. · _Collect 4 pottery sherds, different ones are fine._
 2. Leg sie in der Werkbank an die vier Seiten. · _Place them on the four sides in the crafting table._
-3. Fertig ist der verzierte Krug. Die Scherben bestimmen die Bilder. · _There's your decorated pot. The sherds decide the pictures._ · Rezept `minecraft:decorated_pot`
+3. Fertig ist der verzierte Krug. Die Scherben bestimmen die Bilder. · _There's your decorated pot. The sherds decide the pictures._
 
 **besatz**
 
@@ -1224,7 +1224,7 @@ _Das End ist offen! Den Drachen besiegen wir gemeinsam._ / _The End is open! We'
 1. Such eine Endsiedlung mit einem Endschiff daneben. · _Look for an End city with an End ship next to it._
 2. Klettere ins Schiff und schau dich um. · _Climb into the ship and look around._
 3. Nimm die Elytren aus dem Rahmen. · _Take the elytra from the item frame._
-4. Stell Feuerwerksraketen für den Schub her. · _Craft firework rockets for a boost._ · Rezept `minecraft:firework_rocket`
+4. Stell Feuerwerksraketen für den Schub her. · _Craft firework rockets for a boost._
 - 📍 Das Endschiff steht bei manchen Endsiedlungen, nicht bei allen. · _The End ship stands next to some End cities, not all._ · minecraft:end_highlands, minecraft:end_midlands
 
 **alle_effekte**

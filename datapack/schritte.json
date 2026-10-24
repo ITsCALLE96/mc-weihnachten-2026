@@ -3504,8 +3504,7 @@
         "en": "There's your decorated pot. The sherds decide the pictures.",
         "items": [
           "minecraft:decorated_pot"
-        ],
-        "rezept": "minecraft:decorated_pot"
+        ]
       }
     ]
   },
@@ -3621,7 +3620,8 @@
         "de": "Zünde das Innere an und geh hindurch. Merk dir die Koordinaten!",
         "en": "Light the inside and walk through. Note your coordinates!",
         "items": [
-          "minecraft:nether_portal"
+          "minecraft:obsidian",
+          "minecraft:flint_and_steel"
         ]
       }
     ]
@@ -4374,7 +4374,8 @@
         "en": "Lure the strider through the portal with the fungus on a stick.",
         "items": [
           "minecraft:warped_fungus_on_a_stick",
-          "minecraft:nether_portal"
+          "minecraft:obsidian",
+          "minecraft:flint_and_steel"
         ]
       },
       {
@@ -4419,7 +4420,8 @@
         "de": "Bau ein Portal in der Oberwelt und geh in den Nether.",
         "en": "Build a portal in the Overworld and enter the Nether.",
         "items": [
-          "minecraft:nether_portal"
+          "minecraft:obsidian",
+          "minecraft:flint_and_steel"
         ]
       },
       {
@@ -4476,7 +4478,8 @@
         "de": "Bau ein Netherportal dicht neben einem Ghast.",
         "en": "Build a Nether portal right next to a ghast.",
         "items": [
-          "minecraft:nether_portal",
+          "minecraft:obsidian",
+          "minecraft:flint_and_steel",
           "minecraft:ghast_spawn_egg"
         ]
       },
@@ -4572,7 +4575,8 @@
         "en": "Take them through the portal in a boat.",
         "items": [
           "minecraft:oak_boat",
-          "minecraft:nether_portal"
+          "minecraft:obsidian",
+          "minecraft:flint_and_steel"
         ]
       },
       {
@@ -4931,15 +4935,14 @@
         "de": "Besiege den Enderdrachen: Dann erscheinen kleine Portale am Inselrand.",
         "en": "Beat the dragon: small portals then appear at the island's edge.",
         "items": [
-          "minecraft:end_gateway"
+          "minecraft:ender_pearl"
         ]
       },
       {
         "de": "Nimm eine Enderperle mit und stell dich neben ein Transitportal.",
         "en": "Take an ender pearl and stand next to a gateway.",
         "items": [
-          "minecraft:ender_pearl",
-          "minecraft:end_gateway"
+          "minecraft:ender_pearl"
         ]
       },
       {
@@ -4957,7 +4960,7 @@
         "de": "Reise durch ein Endtransitportal zu den äußeren Inseln.",
         "en": "Travel through an End gateway to the outer islands.",
         "items": [
-          "minecraft:end_gateway"
+          "minecraft:ender_pearl"
         ]
       },
       {
@@ -5048,8 +5051,7 @@
         "en": "Craft firework rockets for a boost.",
         "items": [
           "minecraft:firework_rocket"
-        ],
-        "rezept": "minecraft:firework_rocket"
+        ]
       }
     ],
     "fundort": [

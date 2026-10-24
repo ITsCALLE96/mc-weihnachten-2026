@@ -139,7 +139,8 @@ test('echtes Questbuch: jeder Vanilla-Fortschritt von 26.3 genau einmal (Liste a
 });
 
 const spiel = {
-  rezepte: new Set(['minecraft:crafting_table', 'minecraft:oak_planks']),
+  rezepte: new Map([['minecraft:crafting_table', 'minecraft:crafting_shaped'], ['minecraft:oak_planks', 'minecraft:crafting_shapeless'], ['minecraft:firework_rocket', 'minecraft:crafting_special_firework_rocket']]),
+  items: new Set(['minecraft:crafting_table', 'minecraft:oak_log']),
   biome: new Set(['minecraft:forest']), biomTags: new Set(['minecraft:is_taiga']), itemTags: new Set(['minecraft:logs']),
 };
 
@@ -189,4 +190,9 @@ test('Vanilla-Fortschritt nur in einem ausgeblendeten Kapitel gilt als fehlend',
 test('echtes Questbuch: Server-Mission ist vorerst ausgeblendet (Pascal 24.10.)', () => {
   const echt = JSON.parse(readFileSync(join(REPO, 'datapack/questbuch.json'), 'utf8'));
   assert.equal(echt.kapitel.find((k) => k.id === 'mission').aktiv, false);
+});
+
+test('Detail-Dateien: Sonderrezept ohne Raster und Block ohne Item werden gemeldet', () => {
+  const s = { 'ankommen/stein': { schritte: [{ de: 'x', en: 'x', items: ['minecraft:end_gateway'], rezept: 'minecraft:firework_rocket' }] } };
+  assert.throws(() => baueDetails(s, daten, spiel), (e) => /end_gateway ist kein Item/.test(e.message) && /Sonderrezept/.test(e.message));
 });

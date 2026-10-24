@@ -17,7 +17,8 @@
       },
       "items": [
         "minecraft:oak_boat",
-        "minecraft:nether_portal"
+        "minecraft:obsidian",
+        "minecraft:flint_and_steel"
       ]
     },
     {

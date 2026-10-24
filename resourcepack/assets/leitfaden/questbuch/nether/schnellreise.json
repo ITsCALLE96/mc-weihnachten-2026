@@ -6,7 +6,8 @@
         "fallback": "Build a portal in the Overworld and enter the Nether."
       },
       "items": [
-        "minecraft:nether_portal"
+        "minecraft:obsidian",
+        "minecraft:flint_and_steel"
       ]
     },
     {

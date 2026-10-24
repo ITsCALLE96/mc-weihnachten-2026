@@ -192,7 +192,7 @@ export function baueQuestbuch(daten, vanilla) {
 
 // Detail-Seitenleiste (Mod „Quest-Details“, Format v1): je Quest eine Datei assets/leitfaden/questbuch/<kapitel>/<quest>.json
 // mit nummerierten Schritten (Text, Item-Symbole, Rezept) und „Wo finde ich das?“. Quelle: datapack/schritte.json.
-// `spiel` = { rezepte, biome, biomTags, itemTags } aus der Server-Jar zum Prüfen der IDs.
+// `spiel` = { rezepte (ID → Rezeptart), biome, biomTags, itemTags, items? } aus Server- bzw. Client-Jar zum Prüfen der IDs.
 export function baueDetails(schritte, daten, spiel) {
   const fehler = [];
   const aus = new Set(daten.kapitel.filter((k) => k.aktiv === false).map((k) => k.id));
@@ -215,10 +215,18 @@ export function baueDetails(schritte, daten, spiel) {
       const wo = `${q} Schritt ${i + 1}`;
       const aus = { text: text(`${basis}.schritt.${i + 1}`, s, wo) };
       if (s.items?.length) {
-        for (const it of s.items) if (it.startsWith('#')) pruefeId(it, new Set(), spiel.itemTags, wo, 'Item-Tag');
+        for (const it of s.items) {
+          if (it.startsWith('#')) pruefeId(it, new Set(), spiel.itemTags, wo, 'Item-Tag');
+          else if (spiel.items && !spiel.items.has(it)) fehler.push(`${wo}: ${it} ist kein Item (Block ohne Item?)`);
+        }
         aus.items = s.items;
       }
-      if (s.rezept) { pruefeId(s.rezept, spiel.rezepte, new Set(), wo, 'Rezept'); aus.rezept = s.rezept; }
+      if (s.rezept) {
+        const art = spiel.rezepte.get(s.rezept);
+        if (!art) fehler.push(`${wo}: Rezept ${s.rezept} gibt es nicht`);
+        else if (OHNE_RASTER.test(art)) fehler.push(`${wo}: Rezept ${s.rezept} ist ein Sonderrezept (${art}) ohne Raster`);
+        aus.rezept = s.rezept;
+      }
       return aus;
     }) };
     if (!datei.schritte.length) fehler.push(`${q}: keine Schritte`);
@@ -242,14 +250,20 @@ export function baueDetails(schritte, daten, spiel) {
   return { dateien, lang };
 }
 
-export function spielDaten(jarPfad) {
-  const namen = oeffneJar(jarPfad).namen();
+// Sonderrezepte ohne festes Muster zeigt Quest-Details nicht als Raster
+const OHNE_RASTER = /^minecraft:(crafting_special_|crafting_decorated_pot$)/;
+
+export function spielDaten(jarPfad, clientJarPfad) {
+  const jar = oeffneJar(jarPfad);
+  const namen = jar.namen();
   const ids = (prefix) => new Set(namen.filter((n) => n.startsWith(prefix) && n.endsWith('.json')).map((n) => `minecraft:${n.slice(prefix.length, -5)}`));
   return {
-    rezepte: ids('data/minecraft/recipe/'),
+    rezepte: new Map([...ids('data/minecraft/recipe/')].map((id) => [id, JSON.parse(jar.lies(`data/minecraft/recipe/${id.slice(10)}.json`)).type])),
     biome: ids('data/minecraft/worldgen/biome/'),
     biomTags: ids('data/minecraft/tags/worldgen/biome/'),
     itemTags: ids('data/minecraft/tags/item/'),
+    // Echte Items nur in der Client-Jar (assets/minecraft/items/); ohne Client-Jar entfällt die Prüfung
+    items: clientJarPfad && existsSync(clientJarPfad) ? new Set(oeffneJar(clientJarPfad).namen().filter((n) => n.startsWith('assets/minecraft/items/')).map((n) => `minecraft:${n.slice(23, -5)}`)) : undefined,
   };
 }
 
@@ -301,7 +315,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
 
   const { advancements, funktionen, lang } = baueQuestbuch(daten, vanilla);
   const schritteDatei = join(repo, 'datapack/schritte.json');
-  const details = existsSync(schritteDatei) ? baueDetails(JSON.parse(readFileSync(schritteDatei, 'utf8')), daten, spielDaten(jar)) : { dateien: new Map(), lang: { de: {}, en: {} } };
+  const details = existsSync(schritteDatei) ? baueDetails(JSON.parse(readFileSync(schritteDatei, 'utf8')), daten, spielDaten(jar, join(process.env.APPDATA ?? '', 'ModrinthApp/meta/versions/26.3-0.20.1/26.3-0.20.1.jar'))) : { dateien: new Map(), lang: { de: {}, en: {} } };
   Object.assign(lang.de, details.lang.de);
   Object.assign(lang.en, details.lang.en);
   const dp = join(repo, 'datapack/leitfaden/data', NS);

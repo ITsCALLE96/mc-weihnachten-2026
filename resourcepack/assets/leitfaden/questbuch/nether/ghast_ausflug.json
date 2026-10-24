@@ -6,7 +6,8 @@
         "fallback": "Build a Nether portal right next to a ghast."
       },
       "items": [
-        "minecraft:nether_portal",
+        "minecraft:obsidian",
+        "minecraft:flint_and_steel",
         "minecraft:ghast_spawn_egg"
       ]
     },

@@ -35,7 +35,8 @@
         "fallback": "Light the inside and walk through. Note your coordinates!"
       },
       "items": [
-        "minecraft:nether_portal"
+        "minecraft:obsidian",
+        "minecraft:flint_and_steel"
       ]
     }
   ]

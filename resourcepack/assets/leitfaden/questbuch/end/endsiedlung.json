@@ -6,7 +6,7 @@
         "fallback": "Travel through an End gateway to the outer islands."
       },
       "items": [
-        "minecraft:end_gateway"
+        "minecraft:ender_pearl"
       ]
     },
     {

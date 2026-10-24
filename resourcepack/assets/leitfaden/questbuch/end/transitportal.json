@@ -6,7 +6,7 @@
         "fallback": "Beat the dragon: small portals then appear at the island's edge."
       },
       "items": [
-        "minecraft:end_gateway"
+        "minecraft:ender_pearl"
       ]
     },
     {
@@ -15,8 +15,7 @@
         "fallback": "Take an ender pearl and stand next to a gateway."
       },
       "items": [
-        "minecraft:ender_pearl",
-        "minecraft:end_gateway"
+        "minecraft:ender_pearl"
       ]
     },
     {
