@@ -46,6 +46,7 @@ Nicht ausgelesen (Taste wird über eine Hilfsfunktion gesetzt, meist ohne Standa
 Die Voreinstellungen liegen in `modpack/overrides/` und landen beim Bau 1:1 unter `overrides/` in der `.mrpack`:
 
 - `options.txt`: nur `version`, `lang:de_de` und alle Tastenzeilen (`key_…`) aus Pascals Testinstanz, sonst nichts – Grafik, Lautstärke usw. bleiben beim Standard
+- `config/freecam.json`: „Ignore All Collision“ aus, durch transparente und öffenbare Blöcke (Türen, Falltüren) darf man fliegen – wie von Pascal eingestellt
 - `config/fancymenu/options.txt`: Bearbeitungsleiste aus, `modpack_mode` an (Spieler sehen keine FancyMenu-Leiste; einblenden mit Strg + Alt + C)
 
 Litematica und Do a Barrel Roll sind ausgeschaltet, ihre Tasten stehen deshalb noch nicht in der Datei. Neu übernehmen: Tasten in einer Testinstanz einstellen, dann die `key_`-Zeilen aus deren `options.txt` kopieren.

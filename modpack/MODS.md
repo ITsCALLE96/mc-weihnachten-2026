@@ -16,7 +16,7 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 - Geräusche: Cool Rain, Sound Physics Remastered, AmbientSounds, Presence Footsteps, Extreme Sound Muffler
 - Kamera: Zoomify, Cinematic Zoom (beide standardmäßig auf C – Anleitung sagt, eine umlegen), Ji AFK Cinematic
 - Sicht: Bobby, Distant Horizons, Gamma Utils (Fullbright), Freecam
-- Karte und Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars, Locator Heads, Peek, Entity Selection Outlines, BetterF3, Better Statistics Screen, Pickup Notifications, Jade, Enchantment Descriptions, JEI
+- Karte und Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars, Locator Heads, Peek, Entity Selection Outlines, BetterF3, Better Statistics Screen, Jade, Enchantment Descriptions, JEI
 - Chat: Here 'n' There, Chat Heads, No Chat Reports, More Chat History
 - Bedienung: Mod Menu, Mouse Tweaks, More Mouse Tweaks, Client Sort, ClickThrough Plus, Controlling, Multi Key Bindings, Bundles Beyond, Scribble, Armor Hider, Packed Packs, Borderless Fullscreen
 - Bauen: Armor Poser (Server-Plugin nötig)
@@ -31,7 +31,7 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 
 **Raus (24.10., Absturz mit FancyMenu):** Remove Reloading Screen
 
-**Raus (Pascal, 24.10.):** MiniHUD – sieht nicht gut aus und doppelt sich mit Xaero's Minimap und BetterF3
+**Raus (Pascal, 24.10.):** MiniHUD – sieht nicht gut aus und doppelt sich mit Xaero's Minimap und BetterF3; Pickup Notifications – braucht die Mod auf dem Server
 
 **Raus (Pascal, 23.10.):** Time & Weather Changer, CalcMod, Big Sign Writer, Cut Through, Screenshot Viewer, VeinMiner, VeinMiner Hotkey, Reach Behind, Vehicle Upgrade, Crops Love Rain sowie alle ➖
 
@@ -191,7 +191,7 @@ Quelle: YouTube-Video von demonjoeTV (15.08.2026) und seine Modrinth-Sammlung `m
 | [Screenshot Viewer](https://modrinth.com/mod/screenshot-viewer) | Screenshots im Spiel ansehen | ⚪ | **26.2** |
 | [Cut Through](https://modrinth.com/mod/cut-through) | durch hohes Gras hindurch Mobs schlagen | ⚪ | kein nennenswerter Vorteil, nur weniger Frust |
 | [Reach Behind](https://modrinth.com/mod/reach-behind) | durch Deko hindurch Blöcke benutzen | ➖ | **nein (Pascal, 23.10.)**; doppelt zu ClickThrough Plus (im Video „Reach Around“ genannt) |
-| [Pickup Notifications](https://modrinth.com/mod/pickup-notifications) | Einblendung beim Aufsammeln von Items | ⚪ | laut Modrinth auch auf dem Server nötig – auf Paper vorher ausprobieren |
+| [Pickup Notifications](https://modrinth.com/mod/pickup-notifications) | Einblendung beim Aufsammeln von Items | ⚪ | braucht die Mod auf dem Server (Meldungen kommen vom Server), auf Paper wirkungslos – **raus (24.10.)**, im Test auch im Einzelspieler nicht sichtbar |
 | [Speed Happy Ghast](https://modrinth.com/mod/speed-happy-ghast) | Happy Ghasts schneller | 🟠 | **26.2**; Datapack für den Server, Alternative zu Wind Boost |
 | [RightClickHarvest](https://modrinth.com/mod/rightclickharvest) | Felder per Rechtsklick ernten und neu pflanzen | 🟠 | **ja (Pascal, 23.10.)**; reine Fabric-Server-Mod, auf Paper stattdessen ein Plugin: [HarvestMaster](https://modrinth.com/plugin/harvestmaster) (26.3, meistgeladen) oder [Right click harvester](https://modrinth.com/plugin/right-click-harvester) (26.3, quelloffen); wirkt für alle, auch ohne Pack |
 | [Easy Shulker Boxes](https://modrinth.com/mod/easy-shulker-boxes) | Shulkerkisten direkt im Inventar benutzen | ⚪ | **optional (Pascal, 23.10.)**; braucht die Mod auch auf dem Server – auf unserem Paper-Server ohne Wirkung, nur im Einzelspieler. Anschauen deckt Shulker Box Tooltip ab |

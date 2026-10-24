@@ -64,7 +64,6 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/BetterF3-20.0.0-Fabric-26.3.jar | https://cdn.modrinth.com/data/8shC1gFX/versions/XB7u4eSf/BetterF3-20.0.0-Fabric-26.3.jar |
 | mods/betterstats-5.7.0+fn-26.3.jar | https://cdn.modrinth.com/data/n6PXGAoM/versions/Mefnti0P/betterstats-5.7.0%2Bfn-26.3.jar |
 | mods/tcdcommons-5.7.0+fn-26.3.jar | https://cdn.modrinth.com/data/Eldc1g37/versions/y6a97oNq/tcdcommons-5.7.0%2Bfn-26.3.jar |
-| mods/pickupnotifications-fabric-3.0.1+26.3.jar | https://cdn.modrinth.com/data/wWiJfmyy/versions/hsHgcDdb/pickupnotifications-fabric-3.0.1%2B26.3.jar |
 | mods/Jade-mc26.3-Fabric-26.3.5.jar | https://cdn.modrinth.com/data/nvQzSEkH/versions/71CTWqdE/Jade-mc26.3-Fabric-26.3.5.jar |
 | mods/EnchantmentDescriptions-fabric-MC26.3-26.3.0.2.jar | https://cdn.modrinth.com/data/UVtY3ZAC/versions/uZf2qbql/EnchantmentDescriptions-fabric-MC26.3-26.3.0.2.jar |
 | mods/PrickleMC-fabric-MC26.3-26.3.0.2.jar | https://cdn.modrinth.com/data/aaRl8GiW/versions/aPdekuq6/PrickleMC-fabric-MC26.3-26.3.0.2.jar |
