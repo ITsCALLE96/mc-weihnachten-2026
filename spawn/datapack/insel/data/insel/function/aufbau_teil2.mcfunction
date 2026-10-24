@@ -1,6 +1,5 @@
-# Plattform am Strand unter der Insel: schlicht zum Testen, Aussehen entscheidet Pascal.
-fill 72 62 20 76 62 24 minecraft:polished_andesite
-setblock 74 62 22 minecraft:sea_lantern
+# Rückweg-Plattform unter der Inselmitte, direkt unter dem zweiten Kristall-Anhänger (Entwurf im Stil der Insel)
+function insel:plattform
 # Unsichtbare Lichter unter der Insel (erzeugt mit tools/schem-licht.mjs aus der Testwelt, gleicher Seed)
 function insel:lichter
 setworldspawn 64 179 29 0 0
