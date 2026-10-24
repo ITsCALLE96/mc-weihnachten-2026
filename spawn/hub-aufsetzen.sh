@@ -36,7 +36,7 @@ warte() { local i=0; until grep -q "$1" logs/latest.log 2>/dev/null || grep -qE 
   echo "function hub:aufbau"
   warte "Hub eingerichtet" 600
   echo "save-all flush"; sleep 20; echo "stop"
-) | "$JAVA" -Xms1G -Xmx4G -jar paper-26.3-207.jar nogui > hub-aufsetzen-konsole.txt 2>&1 || true
+) | "$JAVA" -Xms1G -Xmx4G -jar paper-26.3-207.jar nogui > logs/hub-aufsetzen-konsole.txt 2>&1 || true
 
 echo "4/4 Regionen zurück, Ergebnis"
 [ -f "$R.aufbau" ] && mv "$R.aufbau" "$R"
