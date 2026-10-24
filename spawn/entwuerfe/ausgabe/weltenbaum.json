@@ -26,9 +26,12 @@
     "hoehe": 15
   },
   "treppe": {
-    "stufen": 123,
+    "stufen": 248,
     "von": 13,
-    "bis": 136
+    "bis": 136,
+    "halb": 16,
+    "startwinkel": 2.356194490192345,
+    "letzte": 247
   },
   "blasensaeule": [
     110,
@@ -216,7 +219,7 @@
     "hoeheUeberBoden": 127
   },
   "leistung": {
-    "bloecke": 379290,
+    "bloecke": 380622,
     "laub": 246304,
     "kerzen": 394,
     "laternen": 117,

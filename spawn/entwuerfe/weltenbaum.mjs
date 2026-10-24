@@ -17,19 +17,17 @@ const drin = (x, y, z) => x >= 0 && y >= 0 && z >= 0 && x < W && y < H && z < L;
 const leer = (x, y, z) => drin(x, y, z) && hole(m, x, y, z) === LUFT;
 const klemm = (v) => Math.max(0, Math.min(1, v));
 const wahl = (liste, r) => { const s = liste.reduce((a, [, g]) => a + g, 0); let x = r * s; for (const [n, g] of liste) { if ((x -= g) < 0) return n; } return liste.at(-1)[0]; };
-// Rinde mit Farbverlauf: unten dunkel (Dunkeleiche, Mangrove), oben heller (Fichte, Eiche, Tropenholz, Blasse Eiche), senkrechte Furchen, Moos
-const RINDE = [
-  [0.3, ['dark_oak_wood', 'dark_oak_wood', 'mangrove_wood', 'spruce_wood']],
-  [0.6, ['dark_oak_wood', 'spruce_wood', 'spruce_wood', 'stripped_dark_oak_wood']],
-  [0.85, ['spruce_wood', 'oak_wood', 'jungle_wood', 'stripped_spruce_wood']],
-  [1.01, ['oak_wood', 'stripped_oak_wood', 'pale_oak_wood', 'stripped_spruce_wood']],
-];
-const rinde = (x, y, z) => {
-  const t = klemm((y - G) / (D - G) + (rauschen(x * 0.4, z * 0.4, 13, 23) - 0.5) * 0.3);
-  if (rauschen(x + z * 0.7, y * 0.5, 7, 21) > 0.72 + 0.12 * t) return t > 0.6 && zufall(x, y, z, 24) > 0.6 ? 'minecraft:pale_moss_block' : 'minecraft:moss_block';
-  if (y < G + 5 && zufall(x, y, z, 25) > 0.85) return 'minecraft:muddy_mangrove_roots[axis=y]';
-  const band = RINDE.find(([g]) => t < g)[1];
-  return `minecraft:${band[Math.floor(rauschen(x * 1.1 + z * 0.3, y * 0.12, 4, 22) * 3.99)]}[axis=y]`;
+// Rinde in drei ruhigen Zonen mit je zwei verwandten Tönen (nach Pumis fast einheitlich dunklem Stamm):
+//   Fuß (bis ~G+6): Mangrovenholz, Furchen aus matschigen Mangrovenwurzeln, am Boden Mangrovenwurzeln
+//   Stamm: Dunkeleiche, Furchen aus Fichte (noch dunkler)
+//   Krone (ab ~S+10): Dunkeleiche, Streifen aus entrindeter Dunkeleiche (heller, wie Lichtkanten entlang der Äste)
+// Übergänge nur in schmalen Bändern mit geordnetem Dithering (Bayer 4×4). Furchen folgen dem Stamm bzw. dem Ast (siehe Aufrufer).
+const BAYER = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]];
+const dither = (x, y, z, t) => t > (BAYER[y & 3][(x + z) & 3] + 0.5) / 16;
+const rinde = (x, y, z, furche = false) => {
+  if (!dither(x, y, z, klemm((y - (G + 3)) / 6))) return furche ? (y <= G + 1 ? 'minecraft:mangrove_roots[waterlogged=false]' : 'minecraft:muddy_mangrove_roots[axis=y]') : 'minecraft:mangrove_wood[axis=y]';
+  if (!dither(x, y, z, klemm((y - (S + 10)) / 8))) return furche ? 'minecraft:spruce_wood[axis=y]' : 'minecraft:dark_oak_wood[axis=y]';
+  return furche ? 'minecraft:stripped_dark_oak_wood[axis=y]' : 'minecraft:dark_oak_wood[axis=y]';
 };
 // Laub in Flecken mit Verlauf: unten dunkel, oben hell und blühend, einzelne Tupfer anderer Arten, selten gelbe/orange Pappel
 const LAUB = [
@@ -58,13 +56,19 @@ function haengeLaterne(x, yOben, z, n) {
   setze(m, x, yOben - n, z, `minecraft:${lat}[hanging=true,waterlogged=false]`);
 }
 
+// Röhre entlang eines Pfads (Äste, Stränge, Wurzeln). Furchen laufen der Länge nach: Winkel um die Röhrenachse, 7 Rillen
 function roehre(pfad, r0, r1) {
   for (let i = 0; i < pfad.length; i++) {
     const [px, py, pz] = pfad[i], r = r0 + (r1 - r0) * i / Math.max(1, pfad.length - 1), R = Math.ceil(r);
+    const a = pfad[Math.max(0, i - 1)], b = pfad[Math.min(pfad.length - 1, i + 1)];
+    let t = [b[0] - a[0], b[1] - a[1], b[2] - a[2]]; const tl = Math.hypot(...t) || 1; t = t.map((v) => v / tl);
+    let u = Math.abs(t[1]) > 0.9 ? [1, 0, 0] : [t[2], 0, -t[0]]; const ul = Math.hypot(...u); u = u.map((v) => v / ul);
+    const v = [t[1] * u[2] - t[2] * u[1], t[2] * u[0] - t[0] * u[2], t[0] * u[1] - t[1] * u[0]];
     for (let dy = -R; dy <= R; dy++) for (let dz = -R; dz <= R; dz++) for (let dx = -R; dx <= R; dx++) {
       if (dx * dx + dy * dy + dz * dz > r * r) continue;
       const x = Math.round(px + dx), y = Math.round(py + dy), z = Math.round(pz + dz);
-      if (drin(x, y, z)) setze(m, x, y, z, rinde(x, y, z));
+      const phi = Math.atan2(dx * v[0] + dy * v[1] + dz * v[2], dx * u[0] + dy * u[1] + dz * u[2]);
+      if (drin(x, y, z)) setze(m, x, y, z, rinde(x, y, z, Math.sin(7 * phi + i * 0.015) < -0.55));
     }
   }
 }
@@ -81,7 +85,7 @@ for (let y = G - 6; y <= D; y++) {
   const rc = y <= S + 6 ? 13 - 3.5 * Math.min(1, t) + 11 * Math.pow(Math.max(0, 1 - t), 4) : 7.5;
   for (let dz = -26; dz <= 26; dz++) for (let dx = -26; dx <= 26; dx++) {
     const w = Math.atan2(dz, dx), r = Math.hypot(dx, dz);
-    if (r <= rc * (1 + 0.1 * Math.sin(9 * w + y * 0.08) + 0.05 * Math.sin(4 * w - y * 0.03))) setze(m, CX + dx, y, CZ + dz, rinde(CX + dx, y, CZ + dz));
+    if (r <= rc * (1 + 0.1 * Math.sin(9 * w + y * 0.08) + 0.05 * Math.sin(4 * w - y * 0.03))) setze(m, CX + dx, y, CZ + dz, rinde(CX + dx, y, CZ + dz, Math.sin(9 * w + y * 0.08) < -0.55)); // Furchen in den Tälern der Rippen
   }
 }
 for (let s = 0; s < 8; s++) {
@@ -142,35 +146,41 @@ for (let k = 0; k < 40; k++) { const w = k * 0.61, y = G + 2 + (k * 5) % 10, x =
 const SP = [CX, G + 1, CZ + 7]; // Spawnpunkt, Blick nach Norden auf Treppe und Tor
 TAFELN.forEach((t, i) => { const w = Math.PI * 0.35 + i * 0.3, x = Math.round(CX + (RR - 1) * Math.cos(w)), z = Math.round(CZ + (RR - 1) * Math.sin(w)); setze(m, x, G + 1, z, ZAUN); schild(m, x, G + 2, z, t, 8, 'dark_oak'); });
 
-// 5) Wendeltreppe aus Amethyst und Kalzit im Stamm bis ganz nach oben, Mitte: Blasensäule (Aufzug) hinter lila Glas, Tür unten
+// 5) Wendeltreppe im Stamm bis aufs Deck, aus Halbstufen (Fichtenplatte, Fichtenbretter, jede vierte volle Stufe Amethyst): je 22,5° eine halbe
+// Blockhöhe, man läuft ohne Springen hoch. Beginn im Südwesten des Kerns, damit vor den Türen unten frei ist. Kern 5 × 3: links Blasensäule
+// nach oben (Seelensand), rechts Fallschacht nach unten mit 2 Blöcke tiefem Wasserbecken (Wasser fängt den Fall ab), lila Glas, zwei Türen
 const ST0 = G + 1, ST1 = A; // vom Raumboden bis zum Aussichtsdeck
+const KERN = (dx, dz) => Math.abs(dx) <= 2 && Math.abs(dz) <= 1;
+const RING = (dx, dz) => !KERN(dx, dz) && Math.hypot(dx, dz) <= 4.6;
+const HALB = 16, W0 = Math.PI * 0.75, KMAX = 2 * (A - G) - 1; // Halbstufen je Umdrehung, Startwinkel, letzte Stufe (Oberkante = Deck)
+const stufeOben = (k) => G + 1 + (k + 1) / 2;
+const stufeY = (k) => ((k + 1) % 2 === 0 ? G + (k + 1) / 2 : G + 1 + Math.floor((k + 1) / 2));
+const stufeBlock = (k) => ((k + 1) % 2 ? 'minecraft:spruce_slab[type=bottom,waterlogged=false]' : (k + 1) % 8 === 0 ? 'minecraft:amethyst_block' : 'minecraft:spruce_planks');
+const stufeJ = (dx, dz) => Math.floor((((Math.atan2(dz, dx) - W0) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI)) / (2 * Math.PI) * HALB);
 for (let y = G + RH - 3; y <= ST1 + 1; y++) for (let dz = -6; dz <= 6; dz++) for (let dx = -6; dx <= 6; dx++) {
   const r = Math.hypot(dx, dz), x = CX + dx, z = CZ + dz;
   if (r <= 4.6) setze(m, x, y, z, LUFT);
   else if (r <= 5.8 && y > G + RH && y < ST1) setze(m, x, y, z, rauschen(x * 1.7 + y, z * 1.7, 3, 101) > 0.7 ? 'minecraft:amethyst_block' : y % 9 === 0 && Math.abs(dx) < 1 ? 'minecraft:shroomlight' : rinde(x, y, z));
 }
-let stufen = 0; const stufenWinkel = [];
-for (let s = 0; ST0 + s <= ST1 - 1; s++) {
-  const w0 = s * Math.PI / 4, y = ST0 + s; stufen++; stufenWinkel.push(w0 + Math.PI / 8);
-  for (let dz = -5; dz <= 5; dz++) for (let dx = -5; dx <= 5; dx++) {
-    const r = Math.hypot(dx, dz), w = Math.atan2(dz, dx); if (r < 2.4 || r > 4.6) continue;
-    if (winkelAbstand(w, w0 + Math.PI / 8) <= Math.PI / 8 + 0.02) setze(m, CX + dx, y, CZ + dz, s % 4 === 0 ? 'minecraft:calcite' : 'minecraft:amethyst_block');
-  }
+for (let dz = -5; dz <= 5; dz++) for (let dx = -5; dx <= 5; dx++) {
+  if (!RING(dx, dz)) continue;
+  for (let k = stufeJ(dx, dz); k <= KMAX; k += HALB) setze(m, CX + dx, stufeY(k), CZ + dz, stufeBlock(k));
 }
-for (let y = G; y <= ST1 - 1; y++) for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) {
+const stufen = KMAX + 1;
+for (let y = G; y <= ST1 - 1; y++) for (let dz = -1; dz <= 1; dz++) for (let dx = -2; dx <= 2; dx++) {
   const x = CX + dx, z = CZ + dz;
-  if (dx === 0 && dz === 0) setze(m, x, y, z, y === G ? 'minecraft:soul_sand' : 'minecraft:bubble_column[drag=false]');
+  if (dx === -1 && dz === 0) setze(m, x, y, z, y === G ? 'minecraft:soul_sand' : 'minecraft:bubble_column[drag=false]');
+  else if (dx === 1 && dz === 0) setze(m, x, y, z, y <= G + 1 ? 'minecraft:water[level=0]' : LUFT);
   else if (y > G) setze(m, x, y, z, 'minecraft:purple_stained_glass');
 }
-setze(m, CX, G + 1, CZ + 1, 'minecraft:dark_oak_door[facing=north,half=lower,hinge=left,open=false,powered=false]'); setze(m, CX, G + 2, CZ + 1, 'minecraft:dark_oak_door[facing=north,half=upper,hinge=left,open=false,powered=false]');
+for (const dx of [-1, 1]) { setze(m, CX + dx, G + 1, CZ + 1, 'minecraft:dark_oak_door[facing=north,half=lower,hinge=left,open=false,powered=false]'); setze(m, CX + dx, G + 2, CZ + 1, 'minecraft:dark_oak_door[facing=north,half=upper,hinge=left,open=false,powered=false]'); }
 
-// 6) Aussichtsdeck an der Kuppelspitze: Holzdeck um den Schacht, offen nur über den letzten beiden Stufen und über der Blasensäule, Geländer, Laternen
-const offenOben = [stufenWinkel.at(-1), stufenWinkel.at(-2)];
+// 6) Aussichtsdeck an der Kuppelspitze: Holzdeck um den Schacht, offen über den letzten Halbstufen (Kopffreiheit), über Blasensäule und Fallschacht
 for (let z = CZ - DECK - 1; z <= CZ + DECK + 1; z++) for (let x = CX - DECK - 1; x <= CX + DECK + 1; x++) {
-  const r = Math.hypot(x - CX, z - CZ), w = Math.atan2(z - CZ, x - CX); if (r > DECK + 0.5) continue;
+  const dx = x - CX, dz = z - CZ, r = Math.hypot(dx, dz); if (r > DECK + 0.5) continue;
   for (let y = A + 1; y <= A + 6; y++) setze(m, x, y, z, LUFT);
-  if (x === CX && z === CZ) { setze(m, x, A, z, LUFT); continue; }
-  if (r >= 2.4 && r <= 4.6 && offenOben.some((a) => winkelAbstand(w, a) <= Math.PI / 8 + 0.02)) { setze(m, x, A, z, LUFT); continue; }
+  if (dz === 0 && Math.abs(dx) === 1) { setze(m, x, A, z, LUFT); continue; }
+  if (RING(dx, dz)) { const j = stufeJ(dx, dz), k = j + HALB * Math.floor((KMAX - j) / HALB); if (stufeOben(k) > A - 2) { if (stufeY(k) !== A) setze(m, x, A, z, LUFT); continue; } }
   const rand = r > DECK - 0.5;
   setze(m, x, A, z, rand ? 'minecraft:stripped_dark_oak_wood[axis=y]' : Math.abs(r - 5.5) < 0.6 ? (zufall(x, A, z) > 0.5 ? 'minecraft:verdant_froglight[axis=y]' : 'minecraft:stripped_spruce_wood[axis=y]') : 'minecraft:spruce_planks');
   if (rand) { setze(m, x, A + 1, z, ZAUN); if (zufall(x, 5, z) > 0.7) setze(m, x, A + 2, z, laterne(x, A + 2, z)); }
@@ -236,6 +246,29 @@ for (const s of SCHIRME) for (let j = 0; j < 14; j++) {
   for (let y = s.y; y > G; y--) if (drin(x, y, z) && hole(m, x, y, z) !== LUFT && leer(x, y - 1, z)) { haengeLaterne(x, y - 1, z, 4); break; }
 }
 
+// Moos gezielt statt verstreut: in großen Flecken oben auf den Ästen (Holz mit Luft darüber) und in senkrechten Streifen an der Nordseite des
+// unteren Stamms (Wetterseite). Nur auf Rinde, nicht im Spawn-Raum
+const HOLZ = /^minecraft:(dark_oak_wood|spruce_wood|stripped_dark_oak_wood|mangrove_wood)/;
+for (let y = G + 2; y < H - 1; y++) for (let z = 1; z < L - 1; z++) for (let x = 1; x < W - 1; x++) {
+  const b = hole(m, x, y, z); if (!HOLZ.test(b) || Math.hypot(x - CX, z - CZ) <= 5.8) continue;
+  if (y > S + 4 && Math.hypot(x - CX, z - CZ) > 12 && hole(m, x, y + 1, z) === LUFT && rauschen(x * 0.5, z * 0.5, 9, 77) > 0.52) setze(m, x, y, z, 'minecraft:moss_block');
+  else if (y < G + 40 && hole(m, x, y, z - 1) === LUFT && rauschen(x * 0.35, y * 0.12, 6, 78) > 0.64) setze(m, x, y, z, 'minecraft:moss_block');
+}
+
+// Treppe Stufe für Stufe prüfen: jede Halbstufe liegt richtig, darüber 2 Blöcke frei, die letzte schließt bündig ans Deck an
+function pruefeTreppe(hol, ox = 0, oy = 0, oz = 0) {
+  const fehler = [], frei = (b) => b === LUFT || b === 'minecraft:cave_air' || /^minecraft:(air|light|lantern|.*_lantern)/.test(b);
+  for (let k = 0; k <= KMAX; k++) {
+    const w = W0 + ((k % HALB) + 0.5) / HALB * 2 * Math.PI, x = Math.round(CX + 3.4 * Math.cos(w)), z = Math.round(CZ + 3.4 * Math.sin(w)), y = stufeY(k);
+    const b = hol(x + ox, y + oy, z + oz), soll = stufeBlock(k).replace(/\[.*/, '');
+    if (!b.startsWith(soll)) fehler.push(`Stufe ${k}: ${x}/${y}/${z} ist ${b}, erwartet ${soll}`);
+    for (const h of [1, 2]) { const c = hol(x + ox, y + h + oy, z + oz); if (!frei(c)) fehler.push(`Stufe ${k}: kein Platz über ${x}/${y}/${z} (+${h}: ${c})`); }
+  }
+  return fehler;
+}
+const treppenFehler = pruefeTreppe((x, y, z) => hole(m, x, y, z));
+if (treppenFehler.length) { console.error(treppenFehler.slice(0, 10).join('\n')); throw new Error(`Treppe: ${treppenFehler.length} Fehler`); }
+
 // 10) Halt prüfen: Pflanzen, Kerzen, stehende und hängende Laternen, Kristalle und Leuchtbeeren ohne passenden Untergrund entfernen,
 // sonst fallen sie beim Setzen als Gegenstände ab (Pascals Test 24.10.)
 const BODEN_PFLANZE = /^minecraft:(grass_block|dirt|coarse_dirt|podzol|rooted_dirt|moss_block|pale_moss_block|mud|mycelium|muddy_mangrove_roots)/;
@@ -267,7 +300,7 @@ let ax0 = W, ax1 = 0, az0 = L, az1 = 0, ay1 = 0, nichtLuft = 0, nLaub = 0, kerze
 for (let i = 0; i < m.bloecke.length; i++) { const b = m.bloecke[i]; if (b === LUFT || b === HOHL) continue; nichtLuft++; if (b.includes('leaves')) nLaub++; if (b.startsWith('minecraft:candle')) kerzen++; if (b.includes('lantern')) laternen++; const x = i % W, z = ((i / W) | 0) % L, y = (i / (W * L)) | 0; if (x < ax0) ax0 = x; if (x > ax1) ax1 = x; if (z < az0) az0 = z; if (z > az1) az1 = z; if (y > ay1) ay1 = y; }
 speichern(m, process.argv[2], {
   name: 'Weltenbaum (Spawn unten im Stamm)', spawn: SP, blick: [180, 0], boden: G, kronenplatz: A,
-  spawnRaum: { mitte: [CX, G + 1, CZ], radius: RR, hoehe: RH }, treppe: { stufen, von: ST0, bis: ST1 }, blasensaeule: [CX, G, CZ],
+  spawnRaum: { mitte: [CX, G + 1, CZ], radius: RR, hoehe: RH }, treppe: { stufen, von: ST0, bis: ST1, halb: HALB, startwinkel: W0, letzte: KMAX }, blasensaeule: [CX, G, CZ],
   tor: { mitte: [CX, G + 1, TZ1], mund, abstand: 4 }, ausgaenge: AUSGAENGE,
   oval: { x: Math.round((ax0 + ax1) / 2), z: Math.round((az0 + az1) / 2), a: Math.ceil((ax1 - ax0) / 2), b: Math.ceil((az1 - az0) / 2) },
   pilzland: { x: Math.round((ax0 + ax1) / 2), z: Math.round((az0 + az1) / 2), a: Math.ceil((ax1 - ax0) / 2) + 30, b: Math.ceil((az1 - az0) / 2) + 30 },
