@@ -212,7 +212,7 @@ Quelle: Modrinth-Suche nach Downloads, Abruf 23.10.2026. Von den Top 50 standen 
 | 33 | [Dynamic FPS](https://modrinth.com/mod/dynamic-fps) | senkt die FPS, wenn Minecraft im Hintergrund läuft | 🔵 | weniger Last und Lüfter, wenn man nebenbei in Discord ist |
 | 36 | [FancyMenu](https://modrinth.com/mod/fancymenu) | Hauptmenü frei gestalten | 🔵 | **für uns spannend:** Weihnachts-Hauptmenü mit Knopf „Weihnachtsserver beitreten“, ganz ohne eigene Mod |
 | 47 | [Chat Heads](https://modrinth.com/mod/chat-heads) | Kopf des Spielers neben der Chatnachricht | ⚪ | |
-| 22 | [Just Enough Items (JEI)](https://modrinth.com/mod/jei) | alle Rezepte nachschlagen | ⚪ | hilfreich für Einsteiger, ersetzt das Wiki; Cheat-Modus nur mit OP |
+| 22 | [Just Enough Items (JEI)](https://modrinth.com/mod/jei) | alle Rezepte nachschlagen | ⚪ | hilfreich für Einsteiger, ersetzt das Wiki; Cheat-Modus nur mit OP. **Offen (24.10.):** Pascal fragt die Gruppe, JEI oder nur das Vanilla-Rezeptbuch; Pascal ist für JEI |
 | 29 | [Jade](https://modrinth.com/mod/jade) | zeigt, worauf man schaut (Block, Mob, Leben) | ⚪ | ohne Server-Teil nur Infos, die der Client ohnehin kennt |
 | 20 | [Not Enough Animations](https://modrinth.com/mod/not-enough-animations) | schönere Animationen in der Third-Person-Ansicht | ⚪ | |
 | 43 | [Sound Physics Remastered](https://modrinth.com/mod/sound-physics-remastered) | Hall und Echo in Höhlen und Räumen | ⚪ | kostet Rechenleistung |

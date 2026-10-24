@@ -9,7 +9,7 @@ Stand 24.10.2026, Pack `modpack-v2`. Alle Vorschläge unten sind umgesetzt und v
 | **C** | Zoomify (Zoom), Cinematic Zoom ¹, Vanilla „Hotbar laden“ | Zoomify bleibt **C**, Cinematic Zoom auf **X** (so hat es CastCrafter); die Vanilla-Hotbar-Tasten C/X **leeren** – gespeicherte Hotbars gibt es nur im Kreativmodus |
 | **H** | Gamma Utils (Nachtsicht), MiniHUD (Anzeige an/aus), Simple Voice Chat (Symbole ausblenden) | Nachtsicht bleibt **H**; Voice-Chat-Symbole ausblenden **ohne Taste** (MiniHUD ist raus) |
 | **M** | Xaero's World Map (Karte), Litematica (Hauptmenü + alle M-Kombinationen), Simple Voice Chat (Mikro stumm) | Karte bleibt **M**; Litematica-Hauptmenü auf **Ö** (die M-Kombinationen bleiben, sie brauchen gehaltenes M + zweite Taste); Mikro stumm auf **Ä** (B ist schon der Xaero-Wegpunkt) |
-| **I** | Iris (Shader-Auswahl), Litematica (Info-Overlay), Do a Barrel Roll (an/aus, nur wenn eingeschaltet) | Iris bleibt **I**; Litematica-Info-Overlay **ohne Taste**; Do a Barrel Roll: nicht **O** (Vanilla „Freunde“), Taste offen |
+| **I** | Iris (Shader-Auswahl), Litematica (Info-Overlay), Do a Barrel Roll (an/aus, nur wenn eingeschaltet) | Iris bleibt **I**; Litematica-Info-Overlay **ohne Taste**; Do a Barrel Roll bleibt aus; wer es einschaltet, legt die Taste selbst fest (Standard I stößt mit Iris zusammen; nicht O = „Freunde“, nicht R) |
 | **F9** | ClickThrough Plus (an/aus), Light Overlay (Lichtlevel an/aus) | Light Overlay bleibt **F9**; ClickThrough **ohne Taste** (ist sowieso immer an) |
 
 ## Alle Mod-Tasten (Standard)
