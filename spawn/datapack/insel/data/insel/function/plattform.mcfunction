@@ -1,4 +1,4 @@
-# Rückweg-Plattform (Mitte 64/62/29, Radius 4), Entwurf von Pascal freigegeben
+# Rückweg-Plattform (Mitte 64/62/29, Radius 4, Stil stein), Form von Pascal freigegeben
 setblock 60 62 27 minecraft:stone_bricks
 setblock 60 61 27 minecraft:stone_brick_stairs[facing=east,half=top]
 setblock 60 62 28 minecraft:mossy_stone_bricks

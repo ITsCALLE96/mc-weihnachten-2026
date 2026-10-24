@@ -1,43 +1,41 @@
 {
   "groesse": [
-    104,
-    132,
-    104
+    240,
+    262,
+    240
   ],
-  "name": "Weltenbaum",
+  "name": "Weltenbaum (groß)",
   "spawn": [
-    52,
-    101,
-    62
+    120,
+    133,
+    137
   ],
   "blick": [
-    180,
+    0,
     0
   ],
-  "wahrzeichen": [
-    52,
-    100,
-    52
-  ],
-  "boden": 8,
+  "boden": 14,
+  "plattformHoehe": 132,
   "obenBereich": {
     "von": [
-      30,
-      96,
-      30
+      88,
+      128,
+      88
     ],
     "bis": [
-      74,
-      125,
-      74
+      152,
+      162,
+      152
     ]
   },
   "oval": {
-    "x": 52,
-    "z": 52,
-    "a": 40,
-    "b": 40
+    "x": 120,
+    "z": 120,
+    "a": 95,
+    "b": 95
   },
-  "abflug": "Äste in fünf Richtungen",
-  "erweiterung": "äußerer Ring der Plattform, Äste ausbaubar"
+  "abflug": "vier begehbare Äste (Azimut 20°, 112°, 203°, 286°)",
+  "erweiterung": "äußerer Plattformring, Abflugäste, Wurzelbögen am Boden; später weitere Plattformen in der Krone",
+  "lichtbloecke": 438,
+  "spitzen": 123
 }

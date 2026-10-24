@@ -18,16 +18,35 @@ Schwebende Felsinsel, ca. 60 × 60 Blöcke Oberfläche, unten ein unregelmäßig
 - **Erweiterung:** Nordwest-Viertel bleibt freie Grasfläche
 - Rückweg-Plattform unten: die freigegebene runde Plattform (Stein und Amethyst passt zum Kristallturm)
 
-## 2. Weltenbaum (`weltenbaum.mjs`)
+## 2. Weltenbaum – gewählt (Pascal 24.10.: „finde ich geil, aber dann richtig groß“), jetzt groß und eigen gestaltet (`weltenbaum.mjs`)
 
-Riesiger Baum, ca. 100 Blöcke hoch, Wurzeln greifen 30–40 Blöcke weit in den Boden.
-- **Spawnplatz:** runde Plattform in der Krone (Radius 19, Fichtenholz, Geländer), Spawn mit Blick auf den Kern
-- **Wahrzeichen:** leuchtender Kern auf dem Stammende (Pilzlicht, Azaleen), Blätterdach im Ring mit hängenden Laternen (der Himmel über der Mitte bleibt frei)
-- **Abflug:** fünf begehbare Äste in alle Richtungen, Geländer mit Lücken zu den Ästen
-- **Infotafeln** neben dem Spawn
-- **Erweiterung:** äußerer Ring der Plattform, Äste ausbaubar
-- Braucht passendes Gelände am Boden (flache Lichtung oder Tal). Die Seed-Suche kommt nach der Wahl
-- Rückweg-Plattform unten zwischen den Wurzeln, als Holz-Variante noch zu entwerfen
+Der erste, kleine Entwurf liegt als `weltenbaum-klein.mjs` daneben.
+
+**Maße (Vorschlag):** Ausschnitt 240 × 262 × 240. Boden lokal y 14, **Spawnplattform 118 Blöcke über dem Boden** (Boden auf y 64 ergibt Plattform auf y 182). Kronenspitze etwa 100 Blöcke darüber (bis y ~300, unter der Bauhöhe 320). **Kronendurchmesser ~170, Wurzeln bis ~75 Blöcke vom Stamm.** Alles liegt im Umkreis von ~95 Blöcken um den Stamm, bei Sichtweite 8 (128 Blöcke) ist der Baum vom Spawn aus also komplett geladen.
+
+- **Stamm:** Kern mit Längsfurchen plus sieben gedrehte Stränge, unten breit ausgestellt (Durchmesser ~40), oben ~14. Rinde aus Dunkeleiche, Fichte und Eiche, mit Moosflecken
+- **Wurzeln:** neun Brettwurzeln laufen als begehbare Bögen hinaus und tauchen in den Boden, dazu Seitenwurzeln. Auf den Bögen Laternen, darunter Leuchtbeeren, Moos und Augenblüten
+- **Krone:** zwei Etagen Hauptäste (sieben breite, flache, fünf steilere) mit Unterästen und Zweigen, dazu ein Leittrieb. 123 Laubwolken mit Rauschen geformt, keine Kugeln. Eiche, Dunkeleiche und blühende Azalee gemischt, Pilzlicht im Laub
+- **Spawnplattform:** unregelmäßiger Ring um den Stamm (Radius ~25, Fichte mit Balken, Geländer). Um den Stamm ein Kranz aus Froschlicht und Moos mit Augenblüten. Spawn auf der Südseite mit Blick nach außen, rundum 14 Blöcke Kopffreiheit ohne Laub
+- **Abflug:** vier begehbare Äste (3 breit) in vier Richtungen, bis ~58 Blöcke vom Stamm, darüber frei
+- **Hängendes:** Leuchtbeeren und Ranken unter dem Laub, Laternen an Ketten unter den Ästen, Leuchtflechte am Stamm
+- **Infotafeln** auf der Plattform. **Erweiterung:** äußerer Plattformring, Abflugäste, Wurzelbögen, später weitere Plattformen in der Krone
+- **Rückweg-Plattform:** gleiche Form wie freigegeben, im Stil „wurzel“ (Dunkeleiche, Moos, Pilzlicht), unten zwischen den Wurzeln. Bild: `weltenbaum-plattform-wurzel.png`
+
+**Ausleuchtung:**
+- Sichtbare Lichtquellen: Laternen (Geländer, Wurzelbögen, Ketten), Leuchtbeeren, Pilzlicht, Froschlicht, Leuchtflechte
+- Dazu prüft der Generator die Lichtausbreitung selbst. **Jede begehbare Fläche am Baum mit Blocklicht 0 bekommt einen unsichtbaren Lichtblock**, bis keine dunkle Stelle mehr übrig ist (aktuell 438 Lichtblöcke). Der Baum ist damit monsterfrei
+- Den Boden rundherum übernimmt nach der Seed-Wahl `spawn/standort.mjs lichter` (Oval, Raster 8)
+- **Augenblüte:** gibt in Vanilla **kein echtes Licht** ab (Lichtstufe 0 laut Datenreferenz 1.21.4), sie öffnet sich nur nachts und sieht leuchtend aus. Wir setzen sie als Deko ein, das Licht kommt aus den anderen Quellen. In 26.3 beim Nacht-Rundgang gegenprüfen
+
+**Spawn unter der Krone:** 26.3 setzt Spieler beim ersten Betreten auf den obersten Block der Spalte, hier also auf die Krone. Darum teleportiert die Spawn-Technik (`spawnTeleport` in der Standort-Konfiguration) beim ersten Betreten und nach dem Tod ohne Bett auf den Spawn. Die Idee stammt aus der Nitrado-Auswertung, der Code ist eigen.
+
+**Prinzipien, die ich übernehme (Inspiration „größter Baum“):** Das Video selbst konnte ich nicht ansehen, die Seite liefert nur den Titel. Die Prinzipien stammen daher aus allgemeiner Praxis für Riesenbäume, nichts davon aus dem Video:
+1. **Silhouette zuerst:** ausgestellter Fuß mit Brettwurzeln und eine breite, unregelmäßige Krone, die weiter ausladet als der Stamm hoch ist, damit der Baum von weitem lesbar ist
+2. **Organisch statt geometrisch:** gedrehte Stränge, Furchen, Äste mit Krümmung und Verzweigung, Laub als zerfranste Wolken
+3. **Materialmix und Alter:** dunkle Rinde, Moos, Ranken, Leuchtflechte, damit der Baum alt und lebendig wirkt
+4. **Licht als Stimmung:** warme Lichtpunkte in der dunklen Krone (Pilzlicht, Leuchtbeeren, Laternen), Kontrast zum dunklen Stamm
+5. **Nutzbarkeit eingebaut:** Plattform im Baum, klare Abflugwege, Kopffreiheit, alles nah genug für Sichtweite 8
 
 ## Was wir von SparkofPhoenix übernehmen (Prinzipien, nichts kopiert)
 
@@ -42,6 +61,6 @@ Quellen: Beschreibung und FAQ der Nitrado-Seite „SparkofPhoenix’s Craft Atta
 | Entwurf | oben | Seite | Spielersicht Spawn | Abflug | von unten | Extra |
 |---|---|---|---|---|---|---|
 | Felsinsel | `felsinsel-oben.png` | `felsinsel-seite.png` | `felsinsel-spawn.png` | `felsinsel-abflug.png` | `felsinsel-unten.png` | `felsinsel-wasserfall.png` |
-| Weltenbaum | `weltenbaum-oben.png` | `weltenbaum-seite.png` | `weltenbaum-spawn.png` | `weltenbaum-abflug.png` | `weltenbaum-unten.png` | |
+| Weltenbaum (groß) | – | `weltenbaum-seite.png` | `weltenbaum-spawn.png`, `weltenbaum-stamm.png` | `weltenbaum-abflug.png` | `weltenbaum-unten.png` | Nacht: `weltenbaum-nacht-seite.png`, `-spawn`, `-abflug`, `-unten`; Plattform: `weltenbaum-plattform-wurzel.png` |
 
-Gerendert mit einem einfachen Raycaster (Blocktexturen, Wasser blau; kleine Dinge wie Zäune, Laternen, Schilder und Blumen werden weggelassen). Kulisse: Meer bzw. flache Wiese.
+Gerendert mit einem einfachen Raycaster (Nachtansicht mit Lichtausbreitung wie im Spiel; das Karomuster der Bodenlichter ist ein Effekt des Renderers) (Blocktexturen, Wasser blau; kleine Dinge wie Zäune, Laternen, Schilder und Blumen werden weggelassen). Kulisse: Meer bzw. flache Wiese.

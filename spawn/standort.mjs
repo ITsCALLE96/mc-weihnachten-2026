@@ -12,24 +12,30 @@ import { fileURLToPath } from 'node:url';
 
 const REPO = join(dirname(fileURLToPath(import.meta.url)), '..');
 
-// Rückweg-Plattform (Entwurf von Pascal freigegeben 24.10.): runde Scheibe Radius 4, relativ zur Mitte [dx, dy, dz, block]
-export function plattformTeile() {
-  const teile = [];
+// Rückweg-Plattform: runde Scheibe Radius 4, relativ zur Mitte [dx, dy, dz, block]. Form von Pascal freigegeben (24.10.), zwei Stile:
+// „stein“ (Amethyst, lila Ring, Kristallsäulen) und „wurzel“ (Dunkeleiche, Moos, Pilzlicht – passend zum Weltenbaum)
+const STILE = {
+  stein: { mitte: 'minecraft:pearlescent_froglight', kreuz: 'minecraft:amethyst_block', ring: ['minecraft:purple_concrete', 'minecraft:black_concrete'], boden: 'minecraft:polished_andesite',
+    rand: ['minecraft:mossy_stone_bricks', 'minecraft:stone_bricks'], treppe: 'minecraft:stone_brick_stairs', saeule: ['minecraft:crying_obsidian', 'minecraft:amethyst_block', 'minecraft:amethyst_block', 'minecraft:end_rod[facing=up]'], mauer: 'minecraft:mossy_stone_brick_wall' },
+  wurzel: { mitte: 'minecraft:shroomlight', kreuz: 'minecraft:moss_block', ring: ['minecraft:stripped_dark_oak_wood[axis=y]', 'minecraft:rooted_dirt'], boden: 'minecraft:dark_oak_planks',
+    rand: ['minecraft:dark_oak_wood[axis=y]', 'minecraft:mossy_cobblestone'], treppe: 'minecraft:dark_oak_stairs', saeule: ['minecraft:moss_block', 'minecraft:dark_oak_log[axis=y]', 'minecraft:dark_oak_log[axis=y]', 'minecraft:shroomlight'], mauer: 'minecraft:dark_oak_fence' },
+};
+export function plattformTeile(stil = 'stein') {
+  const S = STILE[stil] ?? STILE.stein, teile = [];
   for (let dx = -4; dx <= 4; dx++) for (let dz = -4; dz <= 4; dz++) {
     const r = Math.hypot(dx, dz);
     if (r > 4.5) continue;
     let b;
-    if (r === 0) b = 'minecraft:pearlescent_froglight';                        // leuchtende Mitte
-    else if (r <= 1) b = 'minecraft:amethyst_block';                            // Amethyst-Kreuz
-    else if (r <= 2.3) b = Math.abs(dx) === Math.abs(dz) ? 'minecraft:black_concrete' : 'minecraft:purple_concrete'; // lila Ring, schwarze Diagonalen
-    else if (r <= 3.5) b = 'minecraft:polished_andesite';                       // Boden
-    else b = (dx * 3 + dz) % 2 ? 'minecraft:mossy_stone_bricks' : 'minecraft:stone_bricks'; // Rand
+    if (r === 0) b = S.mitte;                                                   // leuchtende Mitte
+    else if (r <= 1) b = S.kreuz;                                               // Kreuz
+    else if (r <= 2.3) b = Math.abs(dx) === Math.abs(dz) ? S.ring[1] : S.ring[0]; // Ring mit betonten Diagonalen
+    else if (r <= 3.5) b = S.boden;                                             // Boden
+    else b = (dx * 3 + dz) % 2 ? S.rand[0] : S.rand[1];                         // Rand
     teile.push([dx, 0, dz, b]);
-    if (r > 3.5) teile.push([dx, -1, dz, 'minecraft:stone_brick_stairs[facing=' + (Math.abs(dx) > Math.abs(dz) ? (dx > 0 ? 'west' : 'east') : (dz > 0 ? 'north' : 'south')) + ',half=top]']);
+    if (r > 3.5) teile.push([dx, -1, dz, `${S.treppe}[facing=` + (Math.abs(dx) > Math.abs(dz) ? (dx > 0 ? 'west' : 'east') : (dz > 0 ? 'north' : 'south')) + ',half=top]']);
   }
-  for (const [dx, dz] of [[3, 3], [-3, 3], [3, -3], [-3, -3]]) // vier Kristallsäulen
-    teile.push([dx, 0, dz, 'minecraft:crying_obsidian'], [dx, 1, dz, 'minecraft:amethyst_block'], [dx, 2, dz, 'minecraft:amethyst_block'], [dx, 3, dz, 'minecraft:end_rod[facing=up]']);
-  for (const [dx, dz] of [[4, 0], [-4, 0], [0, 4], [0, -4]]) teile.push([dx, 1, dz, 'minecraft:mossy_stone_brick_wall'], [dx, 2, dz, 'minecraft:lantern']);
+  for (const [dx, dz] of [[3, 3], [-3, 3], [3, -3], [-3, -3]]) S.saeule.forEach((b, i) => teile.push([dx, i, dz, b])); // vier Säulen
+  for (const [dx, dz] of [[4, 0], [-4, 0], [0, 4], [0, -4]]) teile.push([dx, 1, dz, S.mauer], [dx, 2, dz, 'minecraft:lantern']);
   return teile;
 }
 
@@ -114,8 +120,28 @@ execute unless score #geladen insel_tp matches 1 run schedule function insel:auf
     `forceload remove ${lx1} ${lz1} ${lx2} ${lz2}`,
     `say Spawn eingerichtet: ${k.struktur ? 'Bau, ' : ''}Plattform, Lichter, Weltspawn ${s.x}/${s.y}/${s.z}, Weltgrenze (Nether/End per Konsole sperren)`,
   ].filter(Boolean).join('\n') + '\n';
-  f.plattform = `# Rückweg-Plattform (Mitte ${p.x}/${p.y}/${p.z}, Radius 4), Entwurf von Pascal freigegeben\n` +
-    plattformTeile().map(([dx, dy, dz, b]) => `setblock ${p.x + dx} ${p.y + dy} ${p.z + dz} ${b}`).join('\n') + '\n';
+  if (k.spawnTeleport) {
+    // Spawn unter einem Dach (z.B. Baumkrone): 26.3 setzt Spieler sonst auf den obersten Block der Spalte. Deshalb beim ersten Betreten
+    // der Welt und nach dem Tod ohne eigenen Respawnpunkt (Bett, Ankerstein) per Datapack auf den geplanten Spawn.
+    f.load += `# Tode zählen, um Respawns ohne eigenen Respawnpunkt zu erkennen
+scoreboard objectives add insel_tod deathCount
+`;
+    f.tick += `
+# Erstes Betreten und Respawn ohne Bett: auf den geplanten Spawn (@e wählt nur lebende Spieler, also nach dem Wiederbeleben)
+execute as @a[tag=!insel_da] run function insel:erstbesuch
+execute as @e[type=player,scores={insel_tod=1..}] run function insel:respawn
+`;
+    f.erstbesuch = `# Erstes Betreten der Welt
+tag @s add insel_da
+tp @s ${s.x + 0.5} ${s.y} ${s.z + 0.5} ${s.yaw} ${s.pitch}
+`;
+    f.respawn = `# Nach dem Tod: nur ohne eigenen Respawnpunkt zurück auf den Spawn
+scoreboard players reset @s insel_tod
+execute unless data entity @s respawn run tp @s ${s.x + 0.5} ${s.y} ${s.z + 0.5} ${s.yaw} ${s.pitch}
+`;
+  }
+  f.plattform = `# Rückweg-Plattform (Mitte ${p.x}/${p.y}/${p.z}, Radius 4, Stil ${p.stil ?? 'stein'}), Form von Pascal freigegeben\n` +
+    plattformTeile(p.stil).map(([dx, dy, dz, b]) => `setblock ${p.x + dx} ${p.y + dy} ${p.z + dz} ${b}`).join('\n') + '\n';
   const regionen = `# WorldGuard-Region der Oberwelt, erzeugt mit spawn/standort.mjs aus ${k.datei ?? 'der Standort-Konfiguration'}. Einspielen nach
 #   plugins/WorldGuard/worlds/world/regions.yml   (laufender Server: rg load -w world)
 # spawn: Oval (Mitte ${k.oval.x}/${k.oval.z}, Halbachsen ${k.oval.a} in x und ${k.oval.b} in z, 32 Punkte), volle Höhe: Spawnschutz (Nicht-Mitglieder bauen
@@ -167,5 +193,17 @@ if (process.argv[1]?.replace(/\\/g, '/').endsWith('spawn/standort.mjs')) {
   } else if (befehl === 'lichter') {
     const [welt, aus = join(REPO, 'spawn')] = rest;
     lichterAus(k, welt).then((t) => { writeFileSync(join(aus, 'datapack/insel/data/insel/function/lichter.mcfunction'), t); console.log(`${t.split('\n').length - 2} Lichter → ${aus}`); });
-  } else console.log('Aufruf: bauen <konfig> [ausgabe] | lichter <konfig> <welt> [ausgabe] – siehe Kopf der Datei');
+  } else if (befehl === 'aus-entwurf') {
+    // Standort-Konfiguration aus Entwurfs-Metadaten (spawn/entwuerfe/ausgabe/*.json) und Platzierung in der Welt
+    const [u, pl, stil = 'stein', name = 'spawn:entwurf'] = rest, U = u.split(',').map(Number), P = pl.split(',').map(Number);
+    const plus = (a) => a.map((v, i) => v + U[i]);
+    const sp = plus(k.spawn), boden = U[1] + (k.boden ?? 0);
+    console.log(JSON.stringify({
+      beschreibung: `${k.name}, Ursprung ${U.join('/')}`, spawn: { x: sp[0], y: sp[1], z: sp[2], yaw: k.blick?.[0] ?? 0, pitch: k.blick?.[1] ?? 0 },
+      spawnTeleport: true, oval: { x: k.oval.x + U[0], z: k.oval.z + U[2], a: k.oval.a, b: k.oval.b },
+      plattform: { x: P[0], y: P[1], z: P[2], radius: 4, stil }, obenBereich: { von: plus(k.obenBereich.von), bis: plus(k.obenBereich.bis) },
+      struktur: { name, ursprung: U }, weltgrenze: { x: sp[0], z: sp[2], breite: 10000 }, teleportTicks: 70,
+      saettigung: { sekunden: 2, abklingTicks: 6000 }, lichter: { raster: 8, unterkante: boden + 30 },
+    }, null, 2));
+  } else console.log('Aufruf: bauen <konfig> [ausgabe] | lichter <konfig> <welt> [ausgabe] | aus-entwurf <entwurf.json> <ursprung x,y,z> <plattform x,y,z> [stil] [struktur] – siehe Kopf der Datei');
 }

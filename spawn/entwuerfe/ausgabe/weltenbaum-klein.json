@@ -1,0 +1,43 @@
+{
+  "groesse": [
+    104,
+    132,
+    104
+  ],
+  "name": "Weltenbaum",
+  "spawn": [
+    52,
+    101,
+    62
+  ],
+  "blick": [
+    180,
+    0
+  ],
+  "wahrzeichen": [
+    52,
+    100,
+    52
+  ],
+  "boden": 8,
+  "obenBereich": {
+    "von": [
+      30,
+      96,
+      30
+    ],
+    "bis": [
+      74,
+      125,
+      74
+    ]
+  },
+  "oval": {
+    "x": 52,
+    "z": 52,
+    "a": 40,
+    "b": 40
+  },
+  "abflug": "Äste in fünf Richtungen",
+  "erweiterung": "äußerer Ring der Plattform, Äste ausbaubar"
+}

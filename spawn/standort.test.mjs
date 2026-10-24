@@ -29,3 +29,13 @@ test('Oval-Region mit 32 Punkten, Plattform mit 125 Blöcken', () => {
   assert.equal(plattformTeile().length, 125);
   assert.match(dateien(k).regionen, /type: poly2d/);
 });
+
+test('Wurzel-Stil und Spawn-Teleport (erstes Betreten, Respawn ohne Bett)', () => {
+  const { funktionen } = dateien({ ...k, spawnTeleport: true, plattform: { ...k.plattform, stil: 'wurzel' } });
+  assert.match(funktionen.plattform, /minecraft:shroomlight/);
+  assert.doesNotMatch(funktionen.plattform, /amethyst/);
+  assert.match(funktionen.load, /insel_tod deathCount/);
+  assert.match(funktionen.erstbesuch, /^tp @s 64\.5 179 29\.5 0 0$/m);
+  assert.match(funktionen.respawn, /unless data entity @s respawn run tp/);
+  assert.equal(plattformTeile('wurzel').length, plattformTeile('stein').length);
+});
