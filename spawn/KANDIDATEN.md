@@ -46,3 +46,22 @@ Bei einer CA-Welt entfällt die Seed-Wahl ggf. (CA-Seed).
   - `umriss <welt> <x> <z> <radius> <minY>` – Kasten aller Blöcke ab `minY` (findet schwebende Inseln)
   - `ausschneiden <welt> <x1> <y1> <z1> <x2> <y2> <z2> <aus.schem>` – Blöcke + Block-Entities + Entities (Villager, Rüstungsständer, Rahmen) → `//paste -e`
   - kann Welten ab 1.18 und das neue 26.x-Layout (`dimensions/minecraft/overworld/`); an einer echten 26.3-Testwelt geprüft
+
+## Analyse CraftAttack-12-Welt (2026-10-24)
+
+Quelle: `CraftAttack-12-Map.zip` (2,5 GB, über Pascals Nitrado-Miete), nur lokal in `spawn/quellen/` (git-ignoriert). Enthält **nur die Welt** (Paper-Weltordner mit `paper-world.yml`), **keinen** `plugins/`-Ordner. Spielerdaten der echten CA-Spieler (`playerdata/`, `stats/`) wurden nicht entpackt.
+
+| | Wert |
+|---|---|
+| Version | 1.21.1 (DataVersion 3955), Paper |
+| Seed | `1560698989` |
+| Weltspawn | 64 / 179 / 37 – auf der schwebenden Insel |
+| Datapacks | Vanilla Tweaks (armor statues, mini blocks, more mob heads, player head drops, unlock all recipes), `CALightblocks`, `SIT DOWN`, `enderdragon_12` (inaktiv) |
+
+**Spawn-Insel** (Drache mit „CRAFT ATTACK“-Schriftzug an einer Kette, Baum, Unterschriften-Schilder der CA-Teilnehmer): Kasten x 24…118, y 115…238, z −9…59 → `spawn/quellen/ca12-spawn.schem` (95×124×69, 29.227 Blöcke, 92 Block-Entities: 77 Schilder, Truhen, Fässer; 487 Barrier-Blöcke = unsichtbare Wände). Vorschau: `spawn/quellen/ca12-spawn.png`. Schwebt frei → passt auf jeden Seed.
+
+**Trading-Insel:** in dieser Welt **nicht vorhanden**. Die zweite schwebende Insel (x 220…254, z 145…181, Heißluftballon) ist ein Spielerbau (`ca12-insel2.schem`). Handel lief in CA12 über Spielershops am Boden.
+
+**One-Way-Elytra:** kommt aus einem Plugin, nicht aus der Welt. Original: CloudCraft „CraftAttack“ (nur Paper 1.21.1, braucht CommandAPI + CloudCore). **Ersatz für 26.3:** [Spawn Elytra – like in Craft Attack](https://modrinth.com/plugin/spawnelytra) (MIT, Paper/Purpur, 26.3 unterstützt, Doppelsprung = Gleiten, F = Boost, Bedrock/Geyser-tauglich).
+
+**Einfügen in 26.3:** WorldEdit wandelt die 1.21.1-Schematic beim Einfügen um (DataVersion steht in der Datei). Namensnennung am Spawn: „Spawn: CraftAttack 12“.
