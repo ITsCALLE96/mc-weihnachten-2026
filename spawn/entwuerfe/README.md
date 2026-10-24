@@ -18,26 +18,27 @@ Schwebende Felsinsel, ca. 60 × 60 Blöcke Oberfläche, unten ein unregelmäßig
 - **Erweiterung:** Nordwest-Viertel bleibt freie Grasfläche
 - Rückweg-Plattform unten: die freigegebene runde Plattform (Stein und Amethyst passt zum Kristallturm)
 
-## 2. Weltenbaum – gewählt (Pascal 24.10.: „finde ich geil, aber dann richtig groß“), jetzt groß und eigen gestaltet (`weltenbaum.mjs`)
+## 2. Weltenbaum – gewählt (Pascal 24.10.), dritte Fassung „Etagenkrone“ (`weltenbaum.mjs`)
 
-Der erste, kleine Entwurf liegt als `weltenbaum-klein.mjs` daneben.
+Frühere Fassungen: `weltenbaum-klein.mjs` (erster Entwurf). Die zweite Fassung (runde Krone aus Laubwolken) steht in der Git-Historie (Commit `68169a6`).
 
-**Maße (Vorschlag):** Ausschnitt 240 × 262 × 240. Boden lokal y 14, **Spawnplattform 118 Blöcke über dem Boden** (Boden auf y 64 ergibt Plattform auf y 182). Kronenspitze 94 Blöcke darüber (bei Boden y 64 auf y 276, unter der Bauhöhe 320). **Krone ~190 × 145 Blöcke (nach Osten bis ~106 vom Stamm), Wurzeln bis ~75 Blöcke vom Stamm.** Alles liegt im Umkreis von ~106 Blöcken um den Stamm, bei Sichtweite 8 (128 Blöcke) ist der Baum vom Spawn aus also komplett geladen.
+**Von Pumis CA13-Baum inspiriert** (nur Prinzipien aus drei Screenshots, die Pascal gegeben hat; die liegen git-ignoriert in `spawn/quellen/pumi/`, nichts nachgebaut oder abgepaust):
+1. **Breite Etagenkrone:** flache, wellige Laubschirme in gestaffelten Höhen, deutlich breiter als hoch, getragen von dicken, schräg auslaufenden Ästen; Unterseite zerfranst mit herabhängendem Laub
+2. **Dunkles Laub auf dunklem, mächtigem Stamm**, der sich in mehrere Hauptäste teilt
+3. **Heller, schlanker Turm am Stamm** als Blickfang, Aufstieg und Maßstab
+4. **Wurzeln als Terrassenhügel** mit Moos und Gras und **Reihen kleiner Lichter auf den Stufen**
+5. **Nachts ein Teppich aus kleinen warmen Lichtpunkten auf der Kronenoberseite** als Wahrzeichen
+6. Der Baum als **Mittelpunkt einer bebauten Fläche** (passt zu „später weiterbauen“)
 
-- **Stamm:** Kern mit Längsfurchen plus sieben gedrehte Stränge, unten breit ausgestellt (Durchmesser ~40), oben ~14. Rinde aus Dunkeleiche, Fichte und Eiche, mit Moosflecken
-- **Wurzeln:** neun Brettwurzeln laufen als begehbare Bögen hinaus und tauchen in den Boden, dazu Seitenwurzeln. Auf den Bögen Laternen, darunter Leuchtbeeren, Moos und Augenblüten
-- **Krone:** zwei Etagen Hauptäste (sieben breite, flache, fünf steilere) mit Unterästen und Zweigen, dazu ein Leittrieb. 123 Laubwolken mit Rauschen geformt, keine Kugeln. Eiche, Dunkeleiche und blühende Azalee gemischt, Pilzlicht im Laub
-- **Spawnplattform:** unregelmäßiger Ring um den Stamm (Radius ~25, Fichte mit Balken, Geländer). Um den Stamm ein Kranz aus Froschlicht und Moos mit Augenblüten. Spawn auf der Südseite mit Blick nach außen, rundum 14 Blöcke Kopffreiheit ohne Laub
-- **Abflug:** vier begehbare Äste (3 breit) in vier Richtungen, bis ~58 Blöcke vom Stamm, darüber frei
-- **Hängendes:** Leuchtbeeren und Ranken unter dem Laub, Laternen an Ketten unter den Ästen, Leuchtflechte am Stamm
-- **Infotafeln** auf der Plattform. **Erweiterung:** äußerer Plattformring, Abflugäste, Wurzelbögen, später weitere Plattformen in der Krone
-- **Rückweg-Plattform:** gleiche Form wie freigegeben, im Stil „wurzel“ (Dunkeleiche, Moos, Pilzlicht), unten zwischen den Wurzeln. Bild: `weltenbaum-plattform-wurzel.png`
-
-**Ausleuchtung:**
-- Sichtbare Lichtquellen: Laternen (Geländer, Wurzelbögen, Ketten), Leuchtbeeren, Pilzlicht, Froschlicht, Leuchtflechte
-- Dazu prüft der Generator die Lichtausbreitung selbst. **Jede begehbare Fläche am Baum mit Blocklicht 0 bekommt einen unsichtbaren Lichtblock**, bis keine dunkle Stelle mehr übrig ist (aktuell 438 Lichtblöcke). Der Baum ist damit monsterfrei
-- Den Boden rundherum übernimmt nach der Seed-Wahl `spawn/standort.mjs lichter` (Oval, Raster 8)
-- **Augenblüte:** gibt in Vanilla **kein echtes Licht** ab (Lichtstufe 0 laut Datenreferenz 1.21.4), sie öffnet sich nur nachts und sieht leuchtend aus. Wir setzen sie als Deko ein, das Licht kommt aus den anderen Quellen. In 26.3 beim Nacht-Rundgang gegenprüfen
+**Unser eigenes Design** (Formen, Maße, Materialien und Aufteilung sind eigene):
+- **Maße:** Ausschnitt 270 × 200 × 270, Boden lokal y 14. Bei Boden auf y 64 liegt die **Spawnfläche auf y 174** (110 über dem Boden), der Turm endet mit Spitze bei y ~191. **Krone ~215 × 185 Blöcke** in sieben Schirmen; alles im Umkreis von ~110 Blöcken um den Stamm, bei Sichtweite 8 also geladen
+- **Stamm:** gefurchter Kern plus acht gedrehte Stränge, unten ~46 breit ausgestellt, Teilung auf ~58 Blöcken Höhe. Rinde Dunkeleiche/Fichte mit Moosflecken
+- **Krone:** sieben Laubschirme (der höchste 140 × 112 mit dem Spawnplatz), Dicke 8–14, Oberseite wellig, Unterseite gewölbt. An den Unterseiten herabhängende Laubstränge und Leuchtbeeren, Laternen an Ketten. **Laub überwiegend Fichte** (feste dunkelgrüne Farbe, auch im Pilzland), dazu Dunkeleiche und Azalee
+- **Spawn:** Holzdeck (Radius 17) **oben auf dem höchsten Schirm unter freiem Himmel**, Ring aus Froschlicht, Infotafeln, Geländer. **Drei Abflugwege** (Südwest, Nordwest, Ost) führen über die Schirmoberseite bis über die Kante
+- **Turm** (Kalzit mit Bändern aus dunklem Prismarin, hellblaue Fenster, Leuchtkern aus Seelaternen, Amethyst-Dach mit Endstab) an der Südseite des Stamms, vom Boden bis über den Spawnplatz. Türen unten und oben
+- **Terrassenwurzeln:** sieben Rücken in Stufen von 2 Blöcken, Moos und Gras, Wurzelstränge brechen heraus. **Kerzenreihen auf den Stufenkanten**, Augenblüten dazwischen
+- **Nacht:** ~2.200 brennende Kerzen (1–4 je Block) auf der Kronenoberseite und den Terrassen, dazu Laternen, Leuchtbeeren, Seelaternen im Turm, Froschlicht am Platz
+- Rückweg-Plattform im Stil „wurzel“ zwischen den Terrassen (Ort nach der Seed-Wahl)
 
 **Pilzland um den Baum (Pascal 24.10.)** – geprüft an den Spieldaten von 26.3 (`worldgen/biome/mushroom_fields.json` und Biom-Tags im offiziellen Server-Jar):
 - **Natürliche Spawns** sind nur Fledermaus (Höhlen), Pilzkuh (nur auf Myzel, auf Gras also keine) und Leuchttintenfisch (unter Wasser). **Keine Monster in keiner Höhe**, auch keine Schleime
@@ -71,6 +72,6 @@ Quellen: Beschreibung und FAQ der Nitrado-Seite „SparkofPhoenix’s Craft Atta
 | Entwurf | oben | Seite | Spielersicht Spawn | Abflug | von unten | Extra |
 |---|---|---|---|---|---|---|
 | Felsinsel | `felsinsel-oben.png` | `felsinsel-seite.png` | `felsinsel-spawn.png` | `felsinsel-abflug.png` | `felsinsel-unten.png` | `felsinsel-wasserfall.png` |
-| Weltenbaum (groß) | – | `weltenbaum-seite.png` | `weltenbaum-spawn.png`, `weltenbaum-stamm.png` | `weltenbaum-abflug.png` | `weltenbaum-unten.png` | Nacht: `weltenbaum-nacht-seite.png`, `-spawn`, `-abflug`, `-unten`; Plattform: `weltenbaum-plattform-wurzel.png` |
+| Weltenbaum (Etagenkrone) | `weltenbaum-oben-schraeg.png` | `weltenbaum-seite.png` | `weltenbaum-spawn.png`, `weltenbaum-platz.png` | – | `weltenbaum-unten.png` | Nacht: `weltenbaum-nacht-seite.png`, `-nacht-oben.png`, `-nacht-platz.png`, `-nacht-terrassen.png`; Plattform: `weltenbaum-plattform-wurzel.png` |
 
 Gerendert mit einem einfachen Raycaster (Nachtansicht mit Lichtausbreitung wie im Spiel; das Karomuster der Bodenlichter ist ein Effekt des Renderers) (Blocktexturen, Wasser blau; kleine Dinge wie Zäune, Laternen, Schilder und Blumen werden weggelassen). Kulisse: Meer bzw. flache Wiese.

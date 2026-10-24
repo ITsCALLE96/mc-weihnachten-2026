@@ -1,237 +1,207 @@
-// Entwurf „Weltenbaum“ (groß, gewählt von Pascal 24.10.): organischer Stamm aus gedrehten Strängen mit Furchen, Brettwurzeln als Bögen,
-// verzweigte Hauptäste (Unteräste, Zweige), unregelmäßige Krone aus Laubwolken, Spawnplattform um den Stamm, begehbare Abflugäste,
-// Ausleuchtung (Laternen, Leuchtbeeren, Pilzlicht, Froschlicht, Leuchtflechte, unsichtbare Lichtblöcke), Augenblüten als Deko.
-// Aufruf: node spawn/entwuerfe/weltenbaum.mjs <ausgabe.schem>
+// Entwurf „Weltenbaum“ (gewählt von Pascal 24.10.), dritte Fassung nach Pumis Baum als Inspiration (nur Prinzipien, nichts nachgebaut):
+// breite, flache Krone aus gestaffelten Laubschirmen auf schräg auslaufenden Ästen, dunkles Laub (Fichte, festes Dunkelgrün auch im Pilzland),
+// heller Turm am Stamm als Aufstieg und Maßstab, Wurzeln als Terrassenhügel mit Kerzenreihen, Kerzenteppich auf der Krone bei Nacht.
+// Spawn oben auf dem höchsten Schirm unter freiem Himmel, Abflug über drei Wege an die Schirmkante.
+// Aufruf: node spawn/entwuerfe/weltenbaum.mjs <ausgabe.schem>   (PFLICHTLICHT=1: jede begehbare Stelle am Baum ≥ 1 Blocklicht, nur ohne Pilzland nötig)
 import { neu, setze, hole, LUFT, rauschen, zufall, schild, speichern, TAFELN } from './basis.mjs';
 
-const W = 240, L = 240, H = 262, CX = 120, CZ = 120, G = 14, D = G + 118; // G = Boden (lokal), D = Spawnplattform
+const W = 270, L = 270, H = 200, CX = 135, CZ = 135, G = 14; // G = Boden (lokal)
+const S = G + 58;  // Stamm teilt sich
+const D = G + 110; // Oberseite des höchsten Schirms = Spawnplatz
 const m = neu(W, H, L, 0);
-const leer = (x, y, z) => x >= 0 && y >= 0 && z >= 0 && x < W && y < H && z < L && hole(m, x, y, z) === LUFT;
-const RINDE = ['minecraft:dark_oak_wood[axis=y]', 'minecraft:dark_oak_wood[axis=y]', 'minecraft:spruce_wood[axis=y]', 'minecraft:oak_wood[axis=y]'];
-const rinde = (x, y, z) => { const n = rauschen(x + z * 0.7, y * 0.5, 7, 21); return n > 0.72 ? 'minecraft:moss_block' : RINDE[Math.floor(rauschen(x * 0.5 + y, z * 0.5, 5, 22) * 3.99)]; };
-const LAUB = ['minecraft:oak_leaves[distance=1,persistent=true,waterlogged=false]', 'minecraft:dark_oak_leaves[distance=1,persistent=true,waterlogged=false]', 'minecraft:oak_leaves[distance=1,persistent=true,waterlogged=false]', 'minecraft:flowering_azalea_leaves[distance=1,persistent=true,waterlogged=false]'];
-const lichter = []; // Positionen unsichtbarer Lichtblöcke
+const drin = (x, y, z) => x >= 0 && y >= 0 && z >= 0 && x < W && y < H && z < L;
+const leer = (x, y, z) => drin(x, y, z) && hole(m, x, y, z) === LUFT;
+const RINDE = ['minecraft:dark_oak_wood[axis=y]', 'minecraft:dark_oak_wood[axis=y]', 'minecraft:spruce_wood[axis=y]', 'minecraft:dark_oak_wood[axis=y]'];
+const rinde = (x, y, z) => (rauschen(x + z * 0.7, y * 0.5, 7, 21) > 0.74 ? 'minecraft:moss_block' : RINDE[Math.floor(rauschen(x * 0.5 + y, z * 0.5, 5, 22) * 3.99)]);
+const laub = (x, y, z) => { const n = rauschen(x * 0.8, z * 0.8 + y, 6, 41); return n > 0.8 ? 'minecraft:dark_oak_leaves[distance=1,persistent=true,waterlogged=false]' : n < 0.12 ? 'minecraft:azalea_leaves[distance=1,persistent=true,waterlogged=false]' : 'minecraft:spruce_leaves[distance=1,persistent=true,waterlogged=false]'; };
+const kerze = (x, y, z) => `minecraft:candle[candles=${1 + Math.floor(zufall(x, y, z, 31) * 4)},lit=true,waterlogged=false]`;
+const lichter = [];
 
-// Kugel-Sweep entlang eines Pfads (organische Röhren für Wurzeln und Äste)
 function roehre(pfad, r0, r1) {
   for (let i = 0; i < pfad.length; i++) {
     const [px, py, pz] = pfad[i], r = r0 + (r1 - r0) * i / Math.max(1, pfad.length - 1), R = Math.ceil(r);
     for (let dy = -R; dy <= R; dy++) for (let dz = -R; dz <= R; dz++) for (let dx = -R; dx <= R; dx++) {
       if (dx * dx + dy * dy + dz * dz > r * r) continue;
       const x = Math.round(px + dx), y = Math.round(py + dy), z = Math.round(pz + dz);
-      if (x < 0 || y < 0 || z < 0 || x >= W || y >= H || z >= L) continue;
-      setze(m, x, y, z, rinde(x, y, z));
+      if (drin(x, y, z)) setze(m, x, y, z, rinde(x, y, z));
     }
   }
 }
-// Pfad mit Krümmung: Start, Richtung (Azimut, Steigung), Länge, Schrittweite 0,6, sanftes Rauschen, optional Zug nach unten (Äste hängen)
-function pfad(x, y, z, az, st, len, wackeln = 0.25, saat = 1, zugNachUnten = 0) {
-  const p = []; let a = az, s = st;
-  for (let t = 0; t <= len; t += 0.6) {
-    p.push([x, y, z]);
-    a += (rauschen(t, saat * 13, 9, saat) - 0.5) * wackeln * 0.3; s += (rauschen(t, saat * 17, 9, saat + 1) - 0.5) * wackeln * 0.2 - zugNachUnten * 0.004;
-    x += Math.cos(a) * Math.cos(s) * 0.6; z += Math.sin(a) * Math.cos(s) * 0.6; y += Math.sin(s) * 0.6;
-  }
+// Gebogener Pfad von a nach b (quadratische Kurve mit Bogen nach oben/außen)
+function bogen([ax, ay, az], [bx, by, bz], hub = 0, n = 120) {
+  const mx = (ax + bx) / 2, my = (ay + by) / 2 + hub, mz = (az + bz) / 2, p = [];
+  for (let i = 0; i <= n; i++) { const t = i / n, u = 1 - t; p.push([u * u * ax + 2 * u * t * mx + t * t * bx, u * u * ay + 2 * u * t * my + t * t * by, u * u * az + 2 * u * t * mz + t * t * bz]); }
   return p;
 }
 
-// 1) Stamm: Kern mit Furchen plus sieben gedrehte Stränge
-for (let y = G - 6; y <= D + 24; y++) {
-  const t = Math.max(0, (y - G) / (D - G)), rc = 10 - 3.2 * Math.min(1, t) + 9 * Math.pow(Math.max(0, 1 - t), 5) - (y > D ? (y - D) * 0.12 : 0);
-  const ox = 3 * Math.sin(t * 2.4), oz = 2.4 * Math.sin(t * 1.7 + 1);
-  for (let dz = -24; dz <= 24; dz++) for (let dx = -24; dx <= 24; dx++) {
+// 1) Stamm: Kern mit Furchen und gedrehten Strängen, unten breit ausgestellt, bis zur Teilung
+for (let y = G - 6; y <= S + 8; y++) {
+  const t = Math.max(0, (y - G) / (S - G)), rc = 13 - 3.5 * Math.min(1, t) + 10 * Math.pow(Math.max(0, 1 - t), 4);
+  const ox = 2 * Math.sin(t * 2), oz = 1.6 * Math.sin(t * 1.4 + 1);
+  for (let dz = -26; dz <= 26; dz++) for (let dx = -26; dx <= 26; dx++) {
     const w = Math.atan2(dz - oz, dx - ox), r = Math.hypot(dx - ox, dz - oz);
-    const furche = 1 + 0.1 * Math.sin(9 * w + y * 0.07) + 0.06 * Math.sin(4 * w - y * 0.03);
-    if (r <= rc * furche) setze(m, CX + dx, y, CZ + dz, rinde(CX + dx, y, CZ + dz));
+    if (r <= rc * (1 + 0.1 * Math.sin(9 * w + y * 0.08) + 0.05 * Math.sin(4 * w - y * 0.03))) setze(m, CX + dx, y, CZ + dz, rinde(CX + dx, y, CZ + dz));
   }
 }
-for (let s = 0; s < 7; s++) {
-  const p = []; const w0 = s * 2 * Math.PI / 7;
-  for (let y = G - 2; y <= D + 18; y += 0.6) { const t = (y - G) / (D - G), w = w0 + t * 1.6, r = 8.5 - 2.5 * t + 6 * Math.pow(Math.max(0, 1 - t), 4); p.push([CX + 3 * Math.sin(t * 2.4) + r * Math.cos(w), y, CZ + 2.4 * Math.sin(t * 1.7 + 1) + r * Math.sin(w)]); }
-  roehre(p, 4.2, 2.6);
+for (let s = 0; s < 8; s++) {
+  const p = [], w0 = s * 2 * Math.PI / 8;
+  for (let y = G - 2; y <= S + 6; y += 0.6) { const t = (y - G) / (S - G), w = w0 + t * 1.4, r = 11 - 3 * t + 7 * Math.pow(Math.max(0, 1 - t), 3); p.push([CX + r * Math.cos(w), y, CZ + r * Math.sin(w)]); }
+  roehre(p, 4.5, 3.2);
 }
 
-// 2) Brettwurzeln: neun Wurzeln, laufen vom Stamm als Bögen hinaus und tauchen in den Boden
-const WURZELBOEGEN = [];
-for (let i = 0; i < 9; i++) {
-  const w = i * 2 * Math.PI / 9 + 0.3 * (zufall(i, 0, 0) - 0.5), len = 50 + 22 * zufall(i, 1, 0), p = [];
-  for (let s = 0; s <= 1; s += 0.008) {
-    const r = 9 + len * s, bogen = 6 * Math.sin(Math.PI * Math.min(1, s * 1.6)) * (s < 0.62 ? 1 : 0.3);
-    const y = G + 22 * Math.pow(1 - s, 2.2) + bogen - 4 * s;
-    p.push([CX + r * Math.cos(w + 0.3 * Math.sin(s * 5 + i)), y, CZ + r * Math.sin(w + 0.3 * Math.sin(s * 5 + i))]);
-  }
-  roehre(p, 5.5, 1.2);
-  WURZELBOEGEN.push(p[Math.floor(p.length * 0.45)]);
-  for (let k = 0; k < 2; k++) { const st = p[Math.floor(p.length * (0.35 + 0.25 * k))]; roehre(pfad(st[0], st[1], st[2], w + (k ? 0.9 : -0.9), -0.15, 18 + 10 * zufall(i, k, 3), 0.4, i * 7 + k, 6), 2.2, 0.8); }
-}
-
-// 3) Spawnplattform: unregelmäßiger Ring um den Stamm, Bretter mit Balken, Geländer, Träger
-const RP = (w) => 25 + 3 * Math.sin(3 * w + 0.5) + 2 * Math.sin(5 * w + 2);
-const ABFLUG = [0.35, 1.95, 3.55, 5.0]; // Azimute der Abflugäste
-const amAbflug = (w) => ABFLUG.some((a) => Math.abs(((w - a + 3 * Math.PI) % (2 * Math.PI)) - Math.PI) < 0.12);
-for (let dz = -32; dz <= 32; dz++) for (let dx = -32; dx <= 32; dx++) {
-  const w = Math.atan2(dz, dx), r = Math.hypot(dx, dz), x = CX + dx, z = CZ + dz;
-  if (r > RP(w)) continue;
-  if (hole(m, x, D, z) !== LUFT && r < 12) continue; // Stamm bleibt
-  const balken = Math.abs(((w * 12 / Math.PI) % 1 + 1) % 1 - 0.5) < 0.08;
-  setze(m, x, D, z, r > RP(w) - 1 ? 'minecraft:stripped_dark_oak_wood[axis=y]' : balken ? 'minecraft:stripped_oak_wood[axis=y]' : Math.round(r) === 18 && zufall(x, D, z) > 0.55 ? 'minecraft:verdant_froglight[axis=y]' : 'minecraft:spruce_planks');
-  if (hole(m, x, D - 1, z) === LUFT && (balken || r > RP(w) - 1)) setze(m, x, D - 1, z, 'minecraft:stripped_dark_oak_wood[axis=y]');
-  for (let y = D + 1; y <= D + 4; y++) if (hole(m, x, y, z) !== LUFT && r > 12) setze(m, x, y, z, LUFT); // Kopffreiheit
-  if (r > RP(w) - 1 && !amAbflug(w)) {
-    setze(m, x, D + 1, z, 'minecraft:dark_oak_fence[east=false,north=false,south=false,waterlogged=false,west=false]');
-    if (zufall(x, 3, z) > 0.86) setze(m, x, D + 2, z, 'minecraft:lantern[hanging=false,waterlogged=false]');
-  }
-}
-for (let k = 0; k < 12; k++) { const w = k * Math.PI / 6; roehre(pfad(CX + 9 * Math.cos(w), D - 18, CZ + 9 * Math.sin(w), w, 0.62, 22, 0.05, 50 + k), 1.6, 1.2); }
-
-// 4) Hauptäste mit Unterästen und Zweigen; Spitzen sammeln für die Laubwolken
-const SPITZEN = [];
-function verzweigen(p0, az, st, len, r0, tiefe, saat) {
-  const p = pfad(p0[0], p0[1], p0[2], az, st, len, 0.6, saat, tiefe === 0 ? 3 : 0);
-  roehre(p, r0, Math.max(0.8, r0 * 0.45));
-  if (tiefe >= 2) { SPITZEN.push(p[p.length - 1]); return; }
-  const n = tiefe === 0 ? 3 : 2;
-  for (let k = 0; k < n; k++) {
-    const q = p[Math.floor(p.length * (0.45 + 0.45 * (k + 1) / (n + 1)))];
-    verzweigen(q, az + (k % 2 ? 1 : -1) * (0.5 + 0.4 * zufall(saat, k, tiefe)), st + 0.15 - 0.2 * zufall(saat, k, 9), len * 0.55, Math.max(1, r0 * 0.5), tiefe + 1, saat * 3 + k);
-  }
-  SPITZEN.push(p[p.length - 1]);
-}
-// untere Etage: sieben breite, flache Hauptäste (tragen die Krone weit nach außen)
-for (let k = 0; k < 7; k++) {
-  const az = k * 2 * Math.PI / 7 + 0.25, h0 = D + 8 + 10 * zufall(k, 0, 1);
-  verzweigen([CX + 5 * Math.cos(az), h0, CZ + 5 * Math.sin(az)], az, 0.28 + 0.2 * zufall(k, 1, 1), 64 + 16 * zufall(k, 2, 1), 5.6, 0, 100 + k);
-}
-// obere Etage: fünf steilere Äste und ein Leittrieb (füllen die Krone nach oben)
-for (let k = 0; k < 5; k++) {
-  const az = k * 2 * Math.PI / 5 + 0.9, h0 = D + 26 + 10 * zufall(k, 0, 2);
-  verzweigen([CX + 3 * Math.cos(az), h0, CZ + 3 * Math.sin(az)], az, 0.65 + 0.25 * zufall(k, 1, 2), 42 + 12 * zufall(k, 2, 2), 4.2, 0, 200 + k);
-}
-verzweigen([CX + 2, D + 30, CZ + 1], 0.8, 1.3, 34, 3.8, 1, 999);
-
-// 5) Abflugäste: fast waagrecht, oben begehbar (3 breit), Spitze frei
-for (const az of ABFLUG) {
-  const p = []; for (let r = 10; r <= 58; r += 0.6) p.push([CX + r * Math.cos(az + 0.1 * Math.sin(r / 9)), D - 3 + (r > 40 ? (r - 40) * 0.12 : 0), CZ + r * Math.sin(az + 0.1 * Math.sin(r / 9))]);
-  roehre(p, 4.2, 2.2);
-  for (let i = 0; i < p.length; i++) {
-    const [px, , pz] = p[i], r = 10 + i * 0.6; if (r < RP(az) - 2) continue;
-    for (let s = -1; s <= 1; s++) {
-      const x = Math.round(px - s * Math.sin(az)), z = Math.round(pz + s * Math.cos(az));
-      for (let y = D + 6; y >= D - 8; y--) if (hole(m, x, y, z) !== LUFT) { setze(m, x, y, z, 'minecraft:stripped_spruce_wood[axis=y]'); if (i % 8 === 0 && s === 0) lichter.push([x, y + 1, z]); break; }
-    }
-  }
-  const e = p[p.length - 1]; setze(m, Math.round(e[0]), Math.round(e[1]) + 3, Math.round(e[2]), 'minecraft:lantern[hanging=false,waterlogged=false]');
-}
-
-// 6) Laubwolken an den Spitzen (geräuschgeformt), mit Pilzlicht innen; über Plattform und Abflugästen bleibt Kopffreiheit
-for (const [k, [sx, sy, sz]] of SPITZEN.entries()) {
-  const R = 7 + 5 * zufall(k, 7, 7);
-  for (let dy = -R; dy <= R; dy++) for (let dz = -R - 2; dz <= R + 2; dz++) for (let dx = -R - 2; dx <= R + 2; dx++) {
-    const x = Math.round(sx + dx), y = Math.round(sy + dy * 0.75), z = Math.round(sz + dz);
-    if (!leer(x, y, z)) continue;
-    const n = rauschen(x * 1.3 + y, z * 1.3 - y, 4, 31 + (k % 5));
-    if ((dx * dx + dy * dy + dz * dz) / (R * R) > 0.55 + 0.6 * n) continue;
-    const rr = Math.hypot(x - CX, z - CZ), ww = Math.atan2(z - CZ, x - CX);
-    if (y < D + 14 && rr < RP(ww) + 16) continue; // freie Sicht und Kopffreiheit rund um die Plattform
-    if (y < D + 12 && rr < 64 && ABFLUG.some((a) => Math.abs(((ww - a + 3 * Math.PI) % (2 * Math.PI)) - Math.PI) * rr < 7)) continue; // Abflugäste frei
-    setze(m, x, y, z, zufall(x, y, z) > 0.985 ? 'minecraft:shroomlight' : LAUB[Math.floor(rauschen(x, z, 9, 40 + k) * 3.99)]);
+// 2) Laubschirme: flach und breit, Oberseite wellig, Unterseite gewölbt und zerfranst
+const SCHIRME = [ // Mitte x/z (relativ), Oberseite y, Halbachsen, Dicke
+  { x: 4, z: -6, y: D, a: 70, b: 56, d: 14, oben: true },
+  { x: -62, z: 12, y: D - 14, a: 42, b: 34, d: 11 },
+  { x: 64, z: 24, y: D - 22, a: 44, b: 30, d: 11 },
+  { x: -20, z: 62, y: D - 32, a: 32, b: 27, d: 9 },
+  { x: 18, z: -66, y: D - 8, a: 36, b: 27, d: 10 },
+  { x: 48, z: -36, y: D - 30, a: 28, b: 22, d: 8 },
+  { x: -42, z: -40, y: D - 24, a: 30, b: 24, d: 9 },
+];
+const PLATZ = 17; // Radius des Spawnplatzes auf dem obersten Schirm
+const istPlatz = (x, z) => Math.hypot(x - (CX + SCHIRME[0].x), z - (CZ + SCHIRME[0].z)) <= PLATZ;
+const OBERSEITE = []; // [x, y, z] der Laub-Oberseite (für Kerzen)
+for (const [k, s] of SCHIRME.entries()) {
+  const sx = CX + s.x, sz = CZ + s.z;
+  for (let z = Math.floor(sz - s.b - 6); z <= sz + s.b + 6; z++) for (let x = Math.floor(sx - s.a - 6); x <= sx + s.a + 6; x++) {
+    const w = Math.atan2(z - sz, x - sx), fr = 1 + 0.16 * (rauschen(Math.cos(w) * 20 + k * 50, Math.sin(w) * 20, 6, 60 + k) - 0.5) * 2;
+    const q = Math.hypot((x - sx) / (s.a * fr), (z - sz) / (s.b * fr)); if (q > 1) continue;
+    const welle = Math.round(5 * rauschen(x, z, 11, 70 + k) + 2 * rauschen(x, z, 4, 75 + k) - 3 - 3 * q * q);
+    const top = s.oben && istPlatz(x, z) ? D - 1 : s.y + welle;
+    const unten = top - Math.round(s.d * Math.pow(1 - q * q, 0.6) + 4 * rauschen(x, z, 5, 80 + k));
+    for (let y = unten; y <= top; y++) if (drin(x, y, z) && hole(m, x, y, z) === LUFT) setze(m, x, y, z, laub(x, y, z));
+    if (!(s.oben && istPlatz(x, z))) OBERSEITE.push([x, top, z]);
+    // herabhängende Laubstränge und Leuchtbeeren an der Unterseite
+    const r = zufall(x, unten, z, 3);
+    if (r > 0.9) { const n = 1 + Math.floor(zufall(x, 1, z, 4) * (q > 0.7 ? 7 : 4)); for (let i = 1; i <= n; i++) if (leer(x, unten - i, z)) setze(m, x, unten - i, z, laub(x, unten - i, z)); }
+    else if (r > 0.87) { const n = 2 + Math.floor(zufall(x, 2, z, 5) * 6); for (let i = 1; i <= n && leer(x, unten - i, z); i++) setze(m, x, unten - i, z, i === n ? 'minecraft:cave_vines[age=0,berries=true]' : `minecraft:cave_vines_plant[berries=${zufall(x, i, z) > 0.5}]`); }
   }
 }
 
-// 7) Hängendes: Leuchtbeeren und Ranken unter dem Laub, Laternen an Ketten unter den Ästen, Leuchtflechte am Stamm
-for (let z = 1; z < L - 1; z++) for (let x = 1; x < W - 1; x++) for (let y = H - 2; y > G; y--) {
-  const b = hole(m, x, y, z); if (b === LUFT) continue;
-  if (b.includes('leaves') && hole(m, x, y - 1, z) === LUFT) {
-    const r = zufall(x, y, z, 3);
-    if (r > 0.93) { const n = 2 + Math.floor(zufall(x, y, z, 4) * 9); for (let i = 1; i <= n && hole(m, x, y - i, z) === LUFT && y - i > D + 2; i++) setze(m, x, y - i, z, i === n ? `minecraft:cave_vines[age=0,berries=${zufall(x, i, z) > 0.4}]` : `minecraft:cave_vines_plant[berries=${zufall(x, i, z) > 0.5}]`); }
-    else if (r > 0.86) { const n = 1 + Math.floor(zufall(x, y, z, 5) * 6); for (let i = 1; i <= n && hole(m, x, y - i, z) === LUFT; i++) setze(m, x, y - i, z, 'minecraft:vine[east=false,north=true,south=false,up=false,west=false]'); }
-  } else if (b.includes('_wood') && hole(m, x, y - 1, z) === LUFT && y > D + 6 && zufall(x, y, z, 6) > 0.99) {
-    for (let i = 1; i <= 3; i++) setze(m, x, y - i, z, 'minecraft:iron_chain[axis=y,waterlogged=false]'); setze(m, x, y - 4, z, 'minecraft:lantern[hanging=true,waterlogged=false]');
+// 3) Äste: von der Teilung schräg nach außen unter jeden Schirm, dort Seitenäste zur Schirmkante
+for (const [k, s] of SCHIRME.entries()) {
+  const ziel = [CX + s.x * 0.75, s.y - s.d - 1, CZ + s.z * 0.75];
+  const start = [CX + 3 * Math.sign(s.x), S - 6 + k * 2, CZ + 3 * Math.sign(s.z)];
+  roehre(bogen(start, ziel, k === 0 ? 6 : 12), k === 0 ? 8 : 6.5, k === 0 ? 5 : 3.5);
+  for (let j = 0; j < 5; j++) {
+    const w = j * 2 * Math.PI / 5 + k, rr = 0.75;
+    const end = [CX + s.x + Math.cos(w) * s.a * rr, s.y - s.d * 0.6, CZ + s.z + Math.sin(w) * s.b * rr];
+    roehre(bogen(ziel, end, 2, 80), 3, 1.2);
   }
-  break;
-}
-for (let y = G; y <= D + 20; y++) for (let dz = -26; dz <= 26; dz++) for (let dx = -26; dx <= 26; dx++) {
-  const x = CX + dx, z = CZ + dz; if (!hole(m, x, y, z).includes('_wood')) continue;
-  for (const [ax, az2, f] of [[1, 0, 'west'], [-1, 0, 'east'], [0, 1, 'north'], [0, -1, 'south']]) if (leer(x + ax, y, z + az2) && zufall(x, y, z, 8) > 0.985) setze(m, x + ax, y, z + az2, `minecraft:glow_lichen[down=false,east=${f === 'east'},north=${f === 'north'},south=${f === 'south'},up=false,waterlogged=false,west=${f === 'west'}]`);
 }
 
-// 8) Am Spawn: Froschlicht-Kranz und Moos mit Augenblüten (nachts offen, nur Deko – kein echtes Licht) um den Stamm, Infotafeln
-for (let dz = -15; dz <= 15; dz++) for (let dx = -15; dx <= 15; dx++) {
-  const r = Math.hypot(dx, dz), x = CX + dx, z = CZ + dz;
-  if (r < 11 || r > 14 || hole(m, x, D, z) === LUFT || hole(m, x, D + 1, z) !== LUFT) continue;
-  setze(m, x, D, z, r < 12 ? 'minecraft:pearlescent_froglight[axis=y]' : 'minecraft:moss_block');
-  if (r >= 12 && zufall(x, D, z) > 0.45) setze(m, x, D + 1, z, zufall(x, 1, z) > 0.5 ? 'minecraft:open_eyeblossom' : 'minecraft:moss_carpet');
+// 4) Spawnplatz oben: Holzdeck (Fichte, Balkenring, Froschlicht), Geländer mit drei Lücken für die Abflugwege, Infotafeln
+const PX = CX + SCHIRME[0].x, PZ = CZ + SCHIRME[0].z;
+const WEGE = [Math.PI * 0.78, Math.PI * 1.38, Math.PI * 1.98]; // Südwest, Nordwest, Ost (nicht über den Turm im Süden)
+const amWeg = (w) => WEGE.some((a) => Math.abs(((w - a + 3 * Math.PI) % (2 * Math.PI)) - Math.PI) < 0.16);
+for (let z = PZ - PLATZ - 1; z <= PZ + PLATZ + 1; z++) for (let x = PX - PLATZ - 1; x <= PX + PLATZ + 1; x++) {
+  const r = Math.hypot(x - PX, z - PZ), w = Math.atan2(z - PZ, x - PX); if (r > PLATZ + 0.5) continue;
+  for (let y = D; y <= D + 6; y++) if (hole(m, x, y, z) !== LUFT) setze(m, x, y, z, LUFT);
+  const ring = Math.abs(r - 11) < 0.6, rand = r > PLATZ - 0.5;
+  setze(m, x, D, z, rand ? 'minecraft:stripped_dark_oak_wood[axis=y]' : ring ? (zufall(x, D, z) > 0.5 ? 'minecraft:verdant_froglight[axis=y]' : 'minecraft:stripped_spruce_wood[axis=y]') : r < 3 ? 'minecraft:moss_block' : 'minecraft:spruce_planks');
+  if (rand && !amWeg(w)) { setze(m, x, D + 1, z, 'minecraft:dark_oak_fence[east=false,north=false,south=false,waterlogged=false,west=false]'); if (zufall(x, 5, z) > 0.8) setze(m, x, D + 2, z, 'minecraft:lantern[hanging=false,waterlogged=false]'); }
 }
-const SP = [CX, D + 1, CZ + 17];
-TAFELN.forEach((t, i) => { setze(m, CX - 6 + i * 3, D + 1, CZ + 21, 'minecraft:dark_oak_fence[east=false,north=false,south=false,waterlogged=false,west=false]'); schild(m, CX - 6 + i * 3, D + 2, CZ + 21, t, 8, 'dark_oak'); });
+for (const [dx, dz] of [[0, 0], [1, 0], [0, 1], [-1, 0], [0, -1]]) setze(m, PX + dx, D + 1, PZ + dz, dx || dz ? 'minecraft:open_eyeblossom' : 'minecraft:flowering_azalea');
+const SP = [PX, D + 1, PZ + 7];
+TAFELN.forEach((t, i) => { setze(m, PX - 4 + i * 4, D + 1, PZ - 6, 'minecraft:dark_oak_fence[east=false,north=false,south=false,waterlogged=false,west=false]'); schild(m, PX - 4 + i * 4, D + 2, PZ - 6, t, 0, 'dark_oak'); });
+// Abflugwege: 3 breit über die Schirm-Oberseite bis über die Kante hinaus
+for (const w of WEGE) for (let r = PLATZ; r <= 90; r++) {
+  let ende = false;
+  for (let s = -1; s <= 1; s++) {
+    const x = Math.round(PX + r * Math.cos(w) - s * Math.sin(w)), z = Math.round(PZ + r * Math.sin(w) + s * Math.cos(w));
+    let top = -1; for (let y = D + 6; y >= D - 12; y--) if (drin(x, y, z) && hole(m, x, y, z) !== LUFT) { top = y; break; }
+    if (top < 0) { ende = true; continue; }
+    for (let y = top; y >= D - 1; y--) setze(m, x, y, z, LUFT);
+    setze(m, x, Math.min(top, D - 1), z, 'minecraft:stripped_spruce_wood[axis=y]');
+    if (s === 0 && r % 10 === 0) lichter.push([x, Math.min(top, D - 1) + 1, z]);
+  }
+  if (ende) { const x = Math.round(PX + r * Math.cos(w)), z = Math.round(PZ + r * Math.sin(w)); setze(m, x, D - 1, z, 'minecraft:stripped_spruce_wood[axis=y]'); setze(m, x, D, z, 'minecraft:lantern[hanging=false,waterlogged=false]'); break; }
+}
 
-// 8b) Sichtbares Licht an den Wurzeln: Laterne auf jedem Wurzelbogen, Leuchtbeeren darunter, Moos und Augenblüten auf den Wurzelrücken
-for (const [i, e] of WURZELBOEGEN.entries()) {
-  const x = Math.round(e[0]), z = Math.round(e[2]); let top = -1;
-  for (let y = H - 2; y > G - 4; y--) if (hole(m, x, y, z) !== LUFT) { top = y; break; }
-  if (top < 0) continue;
-  setze(m, x, top + 1, z, 'minecraft:lantern[hanging=false,waterlogged=false]');
-  let unten = -1; for (let y = top - 1; y > G - 4; y--) if (hole(m, x, y, z) === LUFT) { unten = y; break; }
-  if (unten > G + 1) for (let k = 0; k < 3; k++) for (let j = 0; j < 2 + k; j++) { const xx = x + (k - 1) * 2; if (hole(m, xx, unten - j, z) === LUFT && hole(m, xx, unten - j + 1, z) !== LUFT || j > 0 && hole(m, xx, unten - j, z) === LUFT) setze(m, xx, unten - j, z, `minecraft:cave_vines${j === 1 + k ? '' : '_plant'}[${j === 1 + k ? 'age=0,' : ''}berries=true]`); }
+// 5) Turm am Stamm (Süden): Kalzit mit dunklen Prismarin-Bändern, Fenster, Leuchtkern, Amethyst-Dach – Aufstieg und Maßstab
+const TX = CX + 3, TZ = CZ + 21, TR = 5;
+for (let y = G - 2; y <= D + 5; y++) for (let dz = -TR - 1; dz <= TR + 1; dz++) for (let dx = -TR - 1; dx <= TR + 1; dx++) {
+  const r = Math.hypot(dx, dz), x = TX + dx, z = TZ + dz; if (r > TR + 0.4) continue;
+  if (r < TR - 1.2) { setze(m, x, y, z, y % 7 === 0 && r < 1 ? 'minecraft:sea_lantern' : LUFT); continue; }
+  const fenster = (y - G) % 8 >= 3 && (y - G) % 8 <= 5 && (Math.abs(dx) <= 1 || Math.abs(dz) <= 1);
+  setze(m, x, y, z, fenster ? 'minecraft:light_blue_stained_glass_pane[east=false,north=false,south=false,waterlogged=false,west=false]' : (y - G) % 16 === 0 ? 'minecraft:dark_prismarine' : (y - G) % 16 === 1 ? 'minecraft:prismarine_bricks' : 'minecraft:calcite');
 }
+for (let y = D + 6; y <= D + 16; y++) { const rad = TR + 0.6 - (y - D - 6) * 0.56; for (let dz = -TR - 1; dz <= TR + 1; dz++) for (let dx = -TR - 1; dx <= TR + 1; dx++) if (Math.hypot(dx, dz) <= rad) setze(m, TX + dx, y, TZ + dz, (y + dx + dz) % 3 ? 'minecraft:amethyst_block' : 'minecraft:purple_stained_glass'); }
+setze(m, TX, D + 17, TZ, 'minecraft:end_rod[facing=up]');
+for (let y = G; y <= D + 1; y++) for (const dx of [-1, 0, 1]) setze(m, TX + dx, y, TZ + TR, y <= G + 2 || y >= D && y <= D + 2 ? LUFT : hole(m, TX + dx, y, TZ + TR)); // Türen unten und oben
+
+// 6) Wurzeln als Terrassenhügel: Rücken in sieben Richtungen, in Stufen von 2 Blöcken, Moos und Gras, Kerzenreihen auf den Stufenkanten
+const RUECKEN = Array.from({ length: 7 }, (_, i) => ({ w: i * 2 * Math.PI / 7 + 0.4 * (zufall(i, 0, 1) - 0.5), len: 52 + 18 * zufall(i, 1, 1), hoehe: 16 + 6 * zufall(i, 2, 1) }));
+const hoehe = new Int16Array(W * L).fill(-1);
 for (let z = 0; z < L; z++) for (let x = 0; x < W; x++) {
-  const r = Math.hypot(x - CX, z - CZ); if (r < 14 || r > 85) continue;
-  for (let y = G + 26; y >= G - 2; y--) { const b = hole(m, x, y, z); if (b === LUFT) continue;
-    if (b.includes('_wood') && hole(m, x, y + 1, z) === LUFT && rauschen(x, z, 6, 77) > 0.62) { setze(m, x, y, z, 'minecraft:moss_block'); if (zufall(x, y, z, 12) > 0.6) setze(m, x, y + 1, z, zufall(x, y, z, 13) > 0.55 ? 'minecraft:open_eyeblossom' : 'minecraft:moss_carpet'); }
-    break; }
+  const dx = x - CX, dz = z - CZ, r = Math.hypot(dx, dz), w = Math.atan2(dz, dx); if (r > 95) continue;
+  let h = 0;
+  for (const R of RUECKEN) {
+    const dw = Math.abs(((w - R.w + 3 * Math.PI) % (2 * Math.PI)) - Math.PI), quer = dw * r, breite = 7 + 10 * (1 - r / R.len);
+    if (r > R.len) continue;
+    h = Math.max(h, R.hoehe * (1 - r / R.len) * Math.exp(-(quer * quer) / (2 * breite * breite)));
+  }
+  h = Math.max(h, 10 * Math.exp(-(r * r) / (2 * 22 * 22))); // Sockel um den Stamm
+  if (h < 1) continue;
+  hoehe[z * W + x] = Math.floor(h / 2) * 2; // Terrassen
+}
+for (let z = 1; z < L - 1; z++) for (let x = 1; x < W - 1; x++) {
+  const h = hoehe[z * W + x]; if (h < 0) continue;
+  for (let y = G - 4; y <= G + h; y++) if (hole(m, x, y, z) === LUFT) setze(m, x, y, z, y === G + h ? (rauschen(x, z, 5, 90) > 0.55 ? 'minecraft:moss_block' : 'minecraft:grass_block[snowy=false]') : y > G + h - 3 ? (zufall(x, y, z, 91) > 0.8 ? 'minecraft:rooted_dirt' : 'minecraft:dirt') : 'minecraft:stone');
+  const kante = [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([a, b]) => hoehe[(z + b) * W + x + a] < h);
+  if (kante && leer(x, G + h + 1, z) && zufall(x, h, z, 92) > 0.7) setze(m, x, G + h + 1, z, kerze(x, h, z));
+  else if (leer(x, G + h + 1, z) && zufall(x, h, z, 93) > 0.93) setze(m, x, G + h + 1, z, zufall(x, h, z, 94) > 0.5 ? 'minecraft:open_eyeblossom' : 'minecraft:short_grass');
+}
+// Wurzelstränge über die Rücken (Holz bricht aus den Terrassen)
+for (const R of RUECKEN) { const p = []; for (let s = 0; s <= 1; s += 0.01) { const r = 8 + R.len * s; const hh = R.hoehe * (1 - (r - 8) / R.len); p.push([CX + r * Math.cos(R.w), G + hh + 1 - 3 * s, CZ + r * Math.sin(R.w)]); } roehre(p, 3.2, 1); }
+
+// 7) Kerzenteppich auf der Kronenoberseite (Nachtbild), Laternen an Ketten unter den Schirmen
+for (const [x, y, z] of OBERSEITE) if (leer(x, y + 1, z) && hole(m, x, y, z) !== LUFT && zufall(x, y, z, 95) > 0.94) setze(m, x, y + 1, z, kerze(x, y, z));
+for (const s of SCHIRME) for (let j = 0; j < 10; j++) {
+  const w = j * Math.PI / 5 + s.x, x = Math.round(CX + s.x + Math.cos(w) * s.a * 0.5), z = Math.round(CZ + s.z + Math.sin(w) * s.b * 0.5);
+  for (let y = s.y; y > G; y--) if (drin(x, y, z) && hole(m, x, y, z) !== LUFT && leer(x, y - 1, z)) { for (let i = 1; i <= 4; i++) setze(m, x, y - i, z, 'minecraft:iron_chain[axis=y,waterlogged=false]'); setze(m, x, y - 5, z, 'minecraft:lantern[hanging=true,waterlogged=false]'); break; }
 }
 
-// 9) Unsichtbare Lichter: Plattform im Raster 5, Wurzelbögen, unter den Zweigspitzen
-for (let dz = -30; dz <= 30; dz += 5) for (let dx = -30; dx <= 30; dx += 5) { const x = CX + dx, z = CZ + dz; if (hole(m, x, D, z) !== LUFT && hole(m, x, D + 1, z) === LUFT) lichter.push([x, D + 1, z]); }
-for (const e of WURZELBOEGEN) lichter.push([Math.round(e[0]), Math.round(e[1]) + 6, Math.round(e[2])]);
-for (const [k, s] of SPITZEN.entries()) if (k % 2 === 0) { const x = Math.round(s[0]), z = Math.round(s[2]); for (let y = Math.round(s[1]) - 1; y > G; y--) if (hole(m, x, y, z) === LUFT) { lichter.push([x, y, z]); break; } }
+// 8) Unsichtbare Lichter für Orientierung auf dem Spawnplatz
+for (let dz = -15; dz <= 15; dz += 6) for (let dx = -15; dx <= 15; dx += 6) if (Math.hypot(dx, dz) < PLATZ - 1 && leer(PX + dx, D + 1, PZ + dz)) lichter.push([PX + dx, D + 1, PZ + dz]);
 let nL = 0; for (const [x, y, z] of lichter) if (leer(x, y, z)) { setze(m, x, y, z, 'minecraft:light[level=15,waterlogged=false]'); nL++; }
 
-// 10) Ausleuchtung prüfen und schließen: Blocklicht wie im Spiel ausbreiten; jede begehbare Fläche am Baum (fester Block, kein Laub,
-//     zwei Blöcke Luft darüber, oberhalb des Bodens) mit Blocklicht 0 bekommt einen unsichtbaren Lichtblock (Stufe 12), bis keine mehr übrig ist.
-const DURCHLAESSIG = /^minecraft:(air|light|lantern|iron_chain|vine|cave_vines|cave_vines_plant|glow_lichen|open_eyeblossom|closed_eyeblossom|moss_carpet|short_grass|.*_fence|.*_sign|flowering_azalea|azalea)(\[|$)/;
-const LICHTQ = [[/^minecraft:light\[.*level=(\d+)/, null], [/^minecraft:(lantern|shroomlight)/, 15], [/froglight/, 15], [/^minecraft:cave_vines.*berries=true/, 14], [/^minecraft:glow_lichen/, 7]];
-const WL = W * L, hell = new Uint8Array(W * H * L);
-const idx = (x, y, z) => x + z * W + y * WL;
-function ausbreiten(start) {
-  const q = start.slice();
+// 9) Ausleuchtung prüfen (Blocklicht wie im Spiel); mit PFLICHTLICHT=1 dunkle begehbare Stellen schließen (nur ohne Pilzland nötig)
+const DURCHLAESSIG = /^minecraft:(air|light|lantern|iron_chain|vine|cave_vines|cave_vines_plant|candle|open_eyeblossom|closed_eyeblossom|moss_carpet|short_grass|.*_fence|.*_sign|.*_pane|flowering_azalea|azalea)(\[|$)/;
+const LICHTQ = [[/^minecraft:light\[.*level=(\d+)/, null], [/^minecraft:(lantern|shroomlight|sea_lantern)/, 15], [/froglight/, 15], [/^minecraft:cave_vines.*berries=true/, 14], [/^minecraft:end_rod/, 14], [/^minecraft:candle\[candles=(\d).*lit=true/, 'kerze']];
+const WL = W * L, hell = new Uint8Array(W * H * L), idx = (x, y, z) => x + z * W + y * WL;
+function ausbreiten(q) {
   for (let k = 0; k < q.length; k++) {
     const i = q[k], l = hell[i]; if (l <= 1) continue;
     const x = i % W, z = ((i / W) | 0) % L, y = (i / WL) | 0;
     for (const [dx, dy, dz] of [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]]) {
-      const X = x + dx, Y = y + dy, Z = z + dz; if (X < 0 || Y < 0 || Z < 0 || X >= W || Y >= H || Z >= L) continue;
-      const b = hole(m, X, Y, Z), laub = b.includes('leaves'); if (!laub && !DURCHLAESSIG.test(b)) continue;
-      const j = idx(X, Y, Z), nl = l - (laub ? 2 : 1); if (nl > hell[j]) { hell[j] = nl; q.push(j); }
+      const X = x + dx, Y = y + dy, Z = z + dz; if (!drin(X, Y, Z)) continue;
+      const b = hole(m, X, Y, Z), lb = b.includes('leaves'); if (!lb && !DURCHLAESSIG.test(b)) continue;
+      const j = idx(X, Y, Z), nl = l - (lb ? 2 : 1); if (nl > hell[j]) { hell[j] = nl; q.push(j); }
     }
   }
 }
 const quellen = [];
-for (let y = 0; y < H; y++) for (let z = 0; z < L; z++) for (let x = 0; x < W; x++) { const b = hole(m, x, y, z); if (b === LUFT) continue; for (const [re, l] of LICHTQ) { const mm = b.match(re); if (mm) { hell[idx(x, y, z)] = l ?? +mm[1]; quellen.push(idx(x, y, z)); break; } } }
+for (let y = 0; y < H; y++) for (let z = 0; z < L; z++) for (let x = 0; x < W; x++) { const b = hole(m, x, y, z); if (b === LUFT) continue; for (const [re, l] of LICHTQ) { const mm = b.match(re); if (mm) { hell[idx(x, y, z)] = l === 'kerze' ? 3 * +mm[1] : l ?? +mm[1]; quellen.push(idx(x, y, z)); break; } } }
 ausbreiten(quellen);
-// Pflicht-Ausleuchtung nur ohne Pilzland nötig (Pascal 24.10.: Pilzland um den Baum, Licht ist dann Stimmung). Aufruf mit PFLICHTLICHT=1.
 let nachgesetzt = 0, dunkel = 0;
 for (let y = G + 1; y < H - 3; y++) for (let z = 0; z < L; z++) for (let x = 0; x < W; x++) {
   const b = hole(m, x, y, z); if (b === LUFT || b.includes('leaves') || DURCHLAESSIG.test(b)) continue;
   if (hole(m, x, y + 1, z) !== LUFT || hole(m, x, y + 2, z) !== LUFT || hell[idx(x, y + 1, z)] > 0) continue;
-  dunkel++;
-  if (!process.env.PFLICHTLICHT) continue;
+  dunkel++; if (!process.env.PFLICHTLICHT) continue;
   setze(m, x, y + 1, z, 'minecraft:light[level=12,waterlogged=false]'); hell[idx(x, y + 1, z)] = 12; ausbreiten([idx(x, y + 1, z)]); nachgesetzt++;
 }
 nL += nachgesetzt;
-console.log(`Ausleuchtung: ${dunkel} dunkle begehbare Stellen am Baum${process.env.PFLICHTLICHT ? `, ${nachgesetzt} Lichtblöcke nachgesetzt` : ' (Pilzland verhindert Monster, mit PFLICHTLICHT=1 schließen)'}`);
 
-// Ausdehnung (für Oval und Pilzland)
-let ax0 = W, ax1 = 0, az0 = L, az1 = 0;
-for (let i = 0; i < m.bloecke.length; i++) { if (m.bloecke[i] === LUFT) continue; const x = i % W, z = ((i / W) | 0) % L; if (x < ax0) ax0 = x; if (x > ax1) ax1 = x; if (z < az0) az0 = z; if (z > az1) az1 = z; }
-const RAND = 30;
-
+let ax0 = W, ax1 = 0, az0 = L, az1 = 0, kerzen = 0;
+for (let i = 0; i < m.bloecke.length; i++) { const b = m.bloecke[i]; if (b === LUFT) continue; if (b.startsWith('minecraft:candle')) kerzen++; const x = i % W, z = ((i / W) | 0) % L; if (x < ax0) ax0 = x; if (x > ax1) ax1 = x; if (z < az0) az0 = z; if (z > az1) az1 = z; }
 speichern(m, process.argv[2], {
-  name: 'Weltenbaum (groß)', spawn: SP, blick: [0, 0], boden: G, plattformHoehe: D,
-  obenBereich: { von: [CX - 32, D - 4, CZ - 32], bis: [CX + 32, D + 30, CZ + 32] },
-  oval: { x: CX, z: CZ, a: 110, b: 80 }, // Krone reicht nach Osten bis ~106, nach Norden/Süden ~72 Blöcke vom Stamm
-  pilzland: { x: Math.round((ax0 + ax1) / 2), z: Math.round((az0 + az1) / 2), a: Math.ceil((ax1 - ax0) / 2) + RAND, b: Math.ceil((az1 - az0) / 2) + RAND }, // Baum + 30 Rand
-  abflug: 'vier begehbare Äste (Azimut 20°, 112°, 203°, 286°)',
-  erweiterung: 'äußerer Plattformring, Abflugäste, Wurzelbögen am Boden; später weitere Plattformen in der Krone',
-  lichtbloecke: nL, spitzen: SPITZEN.length, dunkleStellenOhnePilzland: dunkel,
+  name: 'Weltenbaum (Etagenkrone)', spawn: SP, blick: [0, 0], boden: G, plattformHoehe: D, turm: [TX, G, TZ],
+  obenBereich: { von: [PX - PLATZ - 2, D - 3, PZ - PLATZ - 2], bis: [PX + PLATZ + 2, D + 12, PZ + PLATZ + 2] },
+  oval: { x: Math.round((ax0 + ax1) / 2), z: Math.round((az0 + az1) / 2), a: Math.ceil((ax1 - ax0) / 2), b: Math.ceil((az1 - az0) / 2) },
+  pilzland: { x: Math.round((ax0 + ax1) / 2), z: Math.round((az0 + az1) / 2), a: Math.ceil((ax1 - ax0) / 2) + 30, b: Math.ceil((az1 - az0) / 2) + 30 },
+  abflug: 'drei Wege vom Spawnplatz über die Schirmkante (Südwest, Nordwest, Ost)', erweiterung: 'weitere Schirme und Plattformen, Terrassen am Fuß, Turm innen',
+  lichtbloecke: nL, kerzen, dunkleStellenOhnePilzland: dunkel,
 });
-console.log('Weltenbaum', m.w, m.h, m.l, 'Spitzen', SPITZEN.length, 'Lichtblöcke', nL);
+console.log(`Weltenbaum ${W}×${H}×${L}, Ausdehnung x ${ax0}–${ax1}, z ${az0}–${az1}, Kerzen ${kerzen}, Lichtblöcke ${nL}, dunkle Stellen ohne Pilzland ${dunkel}`);

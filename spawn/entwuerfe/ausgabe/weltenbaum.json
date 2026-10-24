@@ -1,48 +1,53 @@
 {
   "groesse": [
-    240,
-    262,
-    240
+    270,
+    200,
+    270
   ],
-  "name": "Weltenbaum (groß)",
+  "name": "Weltenbaum (Etagenkrone)",
   "spawn": [
-    120,
-    133,
-    137
+    139,
+    125,
+    136
   ],
   "blick": [
     0,
     0
   ],
   "boden": 14,
-  "plattformHoehe": 132,
+  "plattformHoehe": 124,
+  "turm": [
+    138,
+    14,
+    156
+  ],
   "obenBereich": {
     "von": [
-      88,
-      128,
-      88
+      120,
+      121,
+      110
     ],
     "bis": [
-      152,
-      162,
-      152
+      158,
+      136,
+      148
     ]
   },
   "oval": {
-    "x": 120,
-    "z": 120,
-    "a": 110,
-    "b": 80
+    "x": 133,
+    "z": 132,
+    "a": 108,
+    "b": 92
   },
   "pilzland": {
-    "x": 131,
-    "z": 122,
-    "a": 125,
-    "b": 102
+    "x": 133,
+    "z": 132,
+    "a": 138,
+    "b": 122
   },
-  "abflug": "vier begehbare Äste (Azimut 20°, 112°, 203°, 286°)",
-  "erweiterung": "äußerer Plattformring, Abflugäste, Wurzelbögen am Boden; später weitere Plattformen in der Krone",
-  "lichtbloecke": 159,
-  "spitzen": 123,
-  "dunkleStellenOhnePilzland": 5059
+  "abflug": "drei Wege vom Spawnplatz über die Schirmkante (Südwest, Nordwest, Ost)",
+  "erweiterung": "weitere Schirme und Plattformen, Terrassen am Fuß, Turm innen",
+  "lichtbloecke": 39,
+  "kerzen": 2205,
+  "dunkleStellenOhnePilzland": 1961
 }
