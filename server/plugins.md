@@ -31,7 +31,8 @@ Alle sind auf Modrinth als 26.3-kompatibel markiert (Filter `game_versions=26.3`
     `nether_oeffnen` und `end_oeffnen` aus dem Plan, die AMP-Aufgaben in Task 9 senden also `nether open` bzw. `end open`.
   - **Achtung:** Operatoren und die Rechte `dimensioncontrol.bypass[.end|.nether]` umgehen die Sperre. Die Tests aus Task 4
     deshalb nur mit einem Account ohne OP machen (oder vorher `deop`).
-  - **Offen:** Die Beschreibung sagt nicht, ob der Zustand einen Neustart überlebt. Das prüft Task 4 Schritt 4. Falls nicht:
+  - **Neustart (lokaler Testserver, 24.10.):** `nether close`/`end close` aus der Konsole gehen. Der Zustand steht in `plugins/DimensionControl/data.yml`
+    (`closed-dimensions: [nether, end]`) und ist nach dem Neustart noch drin. Die Sperre sollte also halten. Der Test im Spiel ohne OP (Task 4 Schritt 4) steht noch aus. Falls nicht:
     AMP-Aufgabe „nach dem Start“ sendet je nach Phase `nether close` bzw. `end close` (Phase steht in `#phase lf_phase`).
 - **Rechtsklick-Ernte → Right click harvester**: HarvestMaster (Hangar `Imperialroma10/HarvestMaster`) endet bei 1.21.8
   und fällt deshalb raus. Right click harvester ist GPL, für Paper/Folia und deckt Weizen, Karotten, Kartoffeln,
@@ -44,18 +45,21 @@ Alle sind auf Modrinth als 26.3-kompatibel markiert (Filter `game_versions=26.3`
 - **Fair Play**: Das Plugin läuft auch auf Velocity. Wir setzen es aufs Backend, weil es nur einen Server gibt. Standard
   (Radar und Höhlenansicht aus) passt. Ausnahme für den Nether **erlauben**, so wie es Xaeros eigener Fair-Play-Modus
   macht: Ohne Höhlenansicht zeigt die Minimap dort nur die Bedrock-Decke und ist nutzlos. Antiker Schrott bleibt trotzdem
-  verborgen, weil Anti-Xray ihn im Nether versteckt (siehe `paper/anti-xray.md`). Den genauen Schlüssel prüfe ich in der
-  `config.yml`, die das Plugin beim ersten Start anlegt.
+  verborgen, weil Anti-Xray ihn im Nether versteckt (siehe `paper/anti-xray.md`).
+  - **Konfiguration (lokaler Testserver, 24.10.):** `plugins/XaeroFairPlay/xaero-fair-play.json`, dort `allowMinimapCaveModeInNether: true` und
+    `allowWorldMapCaveModeInNether: true` (beide standardmäßig `false`)
+  - Die Log-Meldung „Legacy plugin … does not specify an api-version“ ist harmlos, das Plugin läuft
 - **Kein VeinMiner** (Pascal, 23.10.)
 - **Spawn Elytra → „Spawn Elytra – like in Craft Attack“** (Leitung 24.10., Ersatz für die CA-Spawn-Elytra). Quelle: github.com/Knabbiii/SpawnElytra.
   Verworfen: das gleichnamige *Spawn Elytra* (Modrinth `spawn-elytra`, MPL-2.0), weil die Leitung das Craft-Attack-Plugin festgelegt hat.
   - Doppelsprung startet den Gleitflug ohne echte Elytra, F gibt einen Schub, Landen ohne Fallschaden
-  - **Flugbereich = Spawn-Insel:** im Spiel mit `/spawnelytra setup` (Rechteck pos1/pos2/save) bzw. `/spawnelytra center`, danach mit
-    `/spawnelytra visualize` prüfen. Ohne eigenen Bereich nimmt es einen Radius um den Welt-Spawn. Gespeichert in `plugins/SpawnElytra/area.yml`
-  - `config.yml`: Welt auf die Overworld, Meldungen auf Deutsch (`messages.yml`), **bStats aus**. Optional Flugzeit begrenzen, falls jemand vom Spawn
-    aus endlos fliegt
+  - **Flugbereich = Spawn-Insel:** Standard ist ein Kreis mit Radius 50 um den Weltspawn, Welt `world`. Die Insel reicht vom Spawn 64/37 aus ±47 × ±34,
+    **das passt ohne Setup** (lokaler Testserver, 24.10.). Voraussetzung: `setworldspawn 64 179 37` ist gesetzt. Mit `/spawnelytra visualize` prüfen.
+    Nur falls nötig: `/spawnelytra setup` (Rechteck, gespeichert in `plugins/SpawnElytra/area.yml`)
+  - **bStats aus:** `enableMetrics: false` in `plugins/SpawnElytra/config.yml` und zusätzlich `enabled: false` in `plugins/bStats/config.yml` (gilt für alle Plugins)
+  - `messages.yml` ist englisch → auf Deutsch übersetzen. Optional Flugzeit begrenzen, falls jemand vom Spawn aus endlos fliegt
   - Rechte: `spawnelytra.use`, `spawnelytra.useboost` (beim Einrichten prüfen, dass Spieler sie ohne Rechte-Plugin haben), `spawnelytra.admin` nur OP
-  - **Prüfen (Task 4):** Spieler ohne OP fliegt per Doppelsprung auf der Insel, außerhalb nicht. Schub mit F, kein Fallschaden. Brustpanzer bleibt erhalten.
+  - **Prüfen (Task 4, Pascal im Spiel):** Spieler ohne OP fliegt per Doppelsprung auf der Insel, außerhalb nicht. Schub mit F, kein Fallschaden. Brustpanzer bleibt erhalten.
     Verträgt sich mit WorldGuard-Spawnschutz und Fair Play
 
 ## Velocity-Instanz `MinecraftProxy01`

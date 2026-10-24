@@ -80,7 +80,8 @@ chunky start
 ```
 
 Nach „Task complete“ dasselbe für `world_nether` (Radius 1.250, Mittelpunkt 8 / 5) und `world_the_end` (Radius 2.000, Mittelpunkt 0/0, dort liegt immer die Hauptinsel).
-Die Weltnamen kommen aus der 26.3-Instanz (die Weltstruktur hat sich in 26.1 geändert), ich trage sie beim Einrichten ein. `chunky pause`/`chunky continue` übersteht einen Neustart.
+Die Weltnamen kommen aus der 26.3-Instanz: Seit der neuen Weltstruktur liegen alle Dimensionen unter `world/dimensions/minecraft/`. Welche Namen Chunky
+erwartet, zeigt `chunky world` mit Tab-Vervollständigung. `chunky pause`/`chunky continue` übersteht einen Neustart.
 
 ## Spawn nach dem Einfügen der Insel
 
@@ -89,12 +90,11 @@ offenes Meer, der natürliche Weltspawn wäre −48 / 102 / 64. Deshalb:
 
 ```text
 setworldspawn 64 179 37
-gamerule <spawn-radius-regel> 0
+gamerule respawn_radius 0
 ```
 
-**Spawn-Streuung auf 0:** Sonst landen Neulinge zufällig neben der schwebenden Insel im Meer. Die Regel hieß bis 1.21.10 `spawnRadius`, ab 1.21.11
-vermutlich `respawn_radius` (Gamerules haben dort Snake-Case-Namen bekommen). Auf dem Server mit `/gamerule` und Tab-Vervollständigung den 26.3-Namen
-prüfen, setzen, dann mit einem neuen Testspieler (oder nach Löschen seiner Spielerdaten) beitreten: Er muss auf der Insel stehen.
-Spawn Elytra nimmt ohne eigenen Bereich den Weltspawn als Mittelpunkt, der Flugbereich wird trotzdem per `/spawnelytra setup` auf die Insel gesetzt (`plugins.md`).
+**Spawn-Streuung auf 0:** Sonst landen Neulinge zufällig neben der schwebenden Insel im Meer. Die Regel heißt in 26.3 **`respawn_radius`** (lokaler Testserver,
+24.10.: `spawnRadius` und `spawn_radius` lehnt der Server ab). **Prüfen:** mit einem neuen Testspieler (oder nach Löschen seiner Spielerdaten) beitreten,
+er muss auf der Insel stehen. Spawn Elytra nimmt den Weltspawn als Mittelpunkt (Kreis, Radius 50) und deckt die Insel damit ohne Setup ab (`plugins.md`).
 
 **Prüfen:** `chunky progress` 100 %, `/spark tps` danach wieder 20 TPS, `du -sh` der Weltordner notieren (→ `kapazitaet.md` „Gemessen“).

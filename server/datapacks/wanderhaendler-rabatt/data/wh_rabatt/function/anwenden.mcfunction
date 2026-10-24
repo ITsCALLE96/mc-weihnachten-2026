@@ -6,3 +6,4 @@ data modify entity @s Offers.Recipes[].priceMultiplier set value 0.0f
 data modify entity @s Offers.Recipes[].demand set value 0
 data modify entity @s Offers.Recipes[].specialPrice set value 0
 tag @s add wh_rabatt
+tag @s add wh_neu

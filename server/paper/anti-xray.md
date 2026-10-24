@@ -58,7 +58,7 @@ anticheat:
 
 `air` in `hidden-blocks` versteckt auch Höhlen und Schluchten, die der Spieler nicht sehen kann. Genau das nimmt Freecam den Vorteil.
 
-## Nether – eigene `paper-world.yml` im Ordner der Nether-Welt
+## Nether – `world/dimensions/minecraft/the_nether/paper-world.yml`
 
 ```yaml
 anticheat:
@@ -88,7 +88,7 @@ anticheat:
       - soul_soil
 ```
 
-## End – eigene `paper-world.yml` in der End-Welt
+## End – `world/dimensions/minecraft/the_end/paper-world.yml`
 
 ```yaml
 anticheat:
@@ -98,7 +98,8 @@ anticheat:
 
 ## Offen / beim Einrichten prüfen
 
-- **Pfad der Welt-Konfiguration in 26.x:** Paper legt `paper-world.yml` beim ersten Start je Welt an. Wo genau (z. B. `world_nether/`
-  oder ein neuer Ordner seit der geänderten Weltstruktur in 26.1) sehe ich erst auf der Instanz und trage es hier nach.
-- Neue Blöcke seit 1.21 sind in den Listen nicht nötig. Prüfen, ob Paper beim Start unbekannte Block-IDs bemängelt.
+- ~~Pfad der Welt-Konfiguration in 26.x~~ → geklärt (lokaler Testserver, 24.10.): Paper legt sie seit der neuen Weltstruktur unter
+  `world/dimensions/minecraft/{overworld,the_nether,the_end}/paper-world.yml` an, nicht mehr in `world_nether/`. Die Overworld nimmt
+  `config/paper-world-defaults.yml`, Nether und End bekommen ihren Abschnitt in der jeweiligen `paper-world.yml`
+- ~~Unbekannte Block-IDs~~ → geprüft 24.10.: Paper bemängelt beim Start keine
 - Last: Modus 2 kostet etwas mehr Bandbreite und CPU. Vorher und nachher `/tps` und `/mspt` vergleichen (Prüfschritt im Plan).

@@ -26,9 +26,17 @@ für 26.3, und es wäre ein Teil mehr, der gepflegt werden muss. Paper selbst ha
 **Optional:** `/function wh_rabatt:weihnachtsmann` setzt als OP an der eigenen Position einen Händler „Weihnachtsmann“ für 40 min, z. B. am 24.12. am Spawn.
 Natürliche Wanderhändler sind selten, damit ist sicher, dass einer kommt. Lamas kommen dabei nicht mit, die bringt nur das natürliche Erscheinen.
 
-**Noch zu prüfen (Testwelt, nicht getestet):**
-- Lädt das Pack ohne Fehler (`/datapack list`, Serverlog)? Das Format `121.0` gilt für 26.3 (`VERSION.md`)
-- Kommen die Angebote eines frisch erschienenen Händlers schon ins NBT, oder erst beim ersten Öffnen? Im zweiten Fall sieht der erste Spieler kurz die normalen
-  Preise, nach spätestens 5 s und erneutem Öffnen gilt der Rabatt. Prüfen mit `/summon wandering_trader` und `/data get entity @e[type=wandering_trader,limit=1,sort=nearest] Offers`
-- Hat 26.3 die Schlüssel `buy`/`buyB`/`priceMultiplier`/`demand`/`specialPrice` umbenannt? Dann die Pfade in `anwenden.mcfunction` anpassen
-- Läuft es zusammen mit dem Leitfaden-Datapack (eigener Namensraum `wh_rabatt`, keine Überschneidung)?
+**Erster Kontakt mit einem Händler:** Das Spiel erzeugt die Angebote erst, wenn ein Spieler den Händler zum ersten Mal anspricht (lokaler Testserver,
+24.10.: ein frischer Händler hat auch nach 14 s kein `Offers`). Deshalb löst der Fortschritt `wh_rabatt:handel` beim Rechtsklick auf einen Händler sofort
+`beim_oeffnen` aus. Die Preise werden im selben Moment gesenkt, der Spieler bekommt den Hinweis „Handelsfenster einmal schließen und neu öffnen“.
+Das schon offene Fenster zeigt noch die alten Preise. Der Fortschritt ist unsichtbar und wird sofort wieder entzogen.
+
+**Geprüft (lokaler Testserver der Spawn-&-Welt-Session, Paper 26.3 Build 207, 24.10.):**
+- Pack lädt ohne Fehler, zusammen mit dem Leitfaden-Datapack (5 Packs aktiv)
+- Angebote entstehen erst beim ersten Ansprechen (siehe oben)
+
+**Noch zu prüfen (Pascal im Spiel):**
+- Nach dem Neuöffnen kostet alles 1 Smaragd, Ankäufe sind unverändert. Falls nicht: Hat 26.3 die Schlüssel `buy`/`buyB`/`priceMultiplier`/`demand`/`specialPrice`
+  umbenannt? Prüfen mit `/data get entity @e[type=wandering_trader,limit=1,sort=nearest] Offers` und die Pfade in `anwenden.mcfunction` anpassen
+- Der Hinweis erscheint nur beim ersten Ansprechen, nicht bei jedem
+- Nach dem Ausschalten (`ende`, `/datapack disable`) kein Fehler im Log

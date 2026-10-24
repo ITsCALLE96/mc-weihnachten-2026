@@ -19,9 +19,13 @@ spawn-protection=0
 require-resource-pack=false
 resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v1/weihnachten-rp.zip
 resource-pack-sha1=b9ed50d1b2e329f92d417c2de9d53cff7348a17b
+resource-pack-id=73014a80-9072-4aee-961a-5ed01a359e3f
 resource-pack-prompt={"text":"Weihnachts-Texturen für unseren Server – annehmen empfohlen, Ablehnen geht aber auch.","color":"aqua"}
 motd=§b❄ Weihnachtsserver ❄
 ```
+
+**`resource-pack-id`** (seit 24.10.): feste UUID, damit der Client das Pack über Updates hinweg als dasselbe erkennt (sonst meldet Paper „resource-pack-id missing,
+using default“). Bei neuen Pack-Versionen bleibt die ID gleich, nur URL und `resource-pack-sha1` ändern sich.
 
 **Serverliste:** Spieler verbinden sich mit Velocity. Dort stehen die sichtbare MOTD (`velocity/velocity.toml.auszug`) und das Bild
 (`icon/server-icon.png` neben `velocity.toml`). Die Paper-`motd` sieht nur, wer den Backend-Port direkt anfragt, sie bleibt nur der Ordnung halber gesetzt.
