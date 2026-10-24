@@ -6,6 +6,7 @@ Du brauchst das nicht zum Mitspielen – es macht Minecraft flüssiger und schö
 2. Die Datei **`weihnachten-modpack.mrpack`** herunterladen: https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/tag/modpack-v2
 3. In der Modrinth App oben links auf **„+“ → „Aus Datei importieren“** und die `.mrpack`-Datei auswählen. Die App lädt alles selbst herunter.
 4. **Mods einzeln sichtbar machen:** Profil öffnen → **Zahnrad (Einstellungen) → Installation → „Unlink instance“**. Danach stehen alle Mods einzeln unter **Inhalt** und lassen sich ein- und ausschalten oder aktualisieren. Ein neues Pack von uns importierst du sowieso als neue Datei, du verlierst also nichts.
+   **Arbeitsspeicher:** im selben Menü unter **Java und Speicher** **6–8 GB** einstellen. Mehr bringt nichts, eher im Gegenteil (längere Pausen beim Aufräumen des Speichers).
 5. Mit deinem Microsoft-Konto anmelden und das Profil **„Weihnachtsprojekt 2026“** mit **Play** starten.
 6. **Mehrspieler → Server hinzufügen → Adresse `mc.grahl.cloud`**. Beim Beitreten das Weihnachts-Resourcepack annehmen.
 
@@ -37,6 +38,10 @@ Die Tasten lassen sich unter **Optionen → Steuerung** ändern (mit Suchfeld).
 ## Block-Marker
 
 Unsere eigene Mod. Sie färbt Blöcke ein, die du auswählst, und lässt sie auf Wunsch leuchten, zum Beispiel alle Truhen oder die Erze in deiner Mine. Mehrere Auswahlen speicherst du als **Profile**. **Komma** schaltet zum nächsten Profil, nach dem letzten ist alles aus. **Punkt** fügt den Block hinzu, den du gerade anschaust. Das Menü mit Suche öffnest du über **Mods → Block-Marker** im Hauptmenü oder Pausenmenü. Auf dem Server erlaubt, weil es kein X-Ray ist: Blöcke hinter Wänden bleiben unsichtbar.
+
+## Wenn der Rechner laut wird
+
+Das Pack begrenzt die Bildrate auf **120 FPS** (Optionen → Grafik → Max. Bildrate). Wer einen 60-Hz-Bildschirm hat, stellt dort 60 ein, das spart viel Strom und Lüfter. Distant Horizons rechnet beim ersten Besuch einer Gegend das ferne Gelände aus, das kostet die ersten Minuten spürbar CPU und legt sich dann.
 
 ## Weite Sicht
 
