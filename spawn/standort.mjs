@@ -127,7 +127,7 @@ execute unless score @s insel_satt matches 1.. run scoreboard players set @s ins
     const fill = (b, blk) => `fill ${b.join(' ')} ${blk}`;
     f.load += 'scoreboard objectives add insel_zustand dummy\nexecute unless score #offen insel_zustand matches 0.. run scoreboard players set #offen insel_zustand 0\n';
     f.schliessen = [`# Spawn schließen (vor dem Start, auch zum Proben): Ausgänge zu, kleine Weltgrenze, Merker zurück`,
-      ...e.ausgaenge.flatMap((a) => [fill(a.wurzeln, 'minecraft:mangrove_roots'), fill(a.barriere, 'minecraft:barrier')]),
+      ...e.ausgaenge.flatMap((a) => [fill(a.wurzeln, a.block ?? 'minecraft:mangrove_roots'), fill(a.barriere, 'minecraft:barrier')]),
       `worldborder center ${e.grenzeZu.x} ${e.grenzeZu.z}`, `worldborder set ${e.grenzeZu.breite}`,
       'scoreboard players set #offen insel_zustand 0', 'scoreboard players set #countdown insel_zustand -1', 'bossbar remove insel:eroeffnung',
       'say Spawn geschlossen – bereit für die Eröffnung (function insel:eroeffnung)'].join('\n') + '\n';
@@ -154,13 +154,17 @@ scoreboard players remove #countdown insel_zustand 1
 `;
     f.oeffnen = [`# Ausgänge nacheinander öffnen, dann große Weltgrenze und Begrüßung`,
       'scoreboard players set #offen insel_zustand 1', 'bossbar remove insel:eroeffnung',
-      ...e.ausgaenge.map((_, i) => `schedule function insel:ausgang_${i} ${1 + i * 15}t`),
-      `schedule function insel:willkommen ${20 + e.ausgaenge.length * 15}t`].join('\n') + '\n';
+      ...e.ausgaenge.map((_, i) => `schedule function insel:ausgang_${i} ${1 + i * (e.abstand ?? 15)}t`),
+      `schedule function insel:willkommen ${20 + e.ausgaenge.length * (e.abstand ?? 15)}t`].join('\n') + '\n';
     e.ausgaenge.forEach((a, i) => {
-      const m = a.wurzeln.slice(0, 3).map((v, j) => (v + a.wurzeln[j + 3]) / 2);
-      f[`ausgang_${i}`] = [fill(a.barriere, 'minecraft:air'), `fill ${a.wurzeln.join(' ')} minecraft:air destroy`,
-        `particle minecraft:cherry_leaves ${m.join(' ')} 1.5 1.5 1.5 0 80 force`, `particle minecraft:happy_villager ${m.join(' ')} 1.5 1.5 1.5 0 30 force`,
-        `playsound minecraft:block.vault.open_shutter master @a ${m.join(' ')} 2 0.8`].join('\n') + '\n';
+      // ohne „destroy“, sonst fallen die Blöcke als Gegenstände heraus: Bruch-Partikel des Verschlusses, Holz-Geräusch, Tresor-Ton bei erster und letzter Reihe
+      const m = a.wurzeln.slice(0, 3).map((v, j) => (v + a.wurzeln[j + 3]) / 2), b = (a.block ?? 'minecraft:mangrove_roots').replace(/\[.*/, '');
+      const sp = a.wurzeln.slice(0, 3).map((v, j) => Math.max(0.3, (a.wurzeln[j + 3] - v + 1) / 2)).join(' ');
+      f[`ausgang_${i}`] = [fill(a.barriere, 'minecraft:air'), `fill ${a.wurzeln.join(' ')} minecraft:air`,
+        `particle minecraft:block{block_state:"${b}"} ${m.join(' ')} ${sp} 0 60 force`,
+        `particle minecraft:cherry_leaves ${m.join(' ')} ${sp} 0 30 force`, `particle minecraft:happy_villager ${m.join(' ')} ${sp} 0 12 force`,
+        `playsound minecraft:block.wood.break master @a ${m.join(' ')} 1.5 0.7`,
+        ...(i === 0 || i === e.ausgaenge.length - 1 ? [`playsound minecraft:block.vault.open_shutter master @a ${m.join(' ')} 2 0.8`] : [])].join('\n') + '\n';
     });
     f.willkommen = `worldborder center ${g.x} ${g.z}
 worldborder set ${g.breite}
@@ -189,6 +193,10 @@ execute unless score #geladen insel_tp matches 1 run schedule function insel:auf
     `setworldspawn ${s.x} ${s.y} ${s.z} ${s.yaw} ${s.pitch}`, 'gamerule respawn_radius 0',
     `# Weltgrenze (Vorgenerierung mit Chunky macht die Server-Session)\nworldborder center ${g.x} ${g.z}\nworldborder set ${g.breite}`,
     e && '# Vor dem Start geschlossen (Eröffnungs-Event)\nfunction insel:schliessen',
+    '# In 5 s aufräumen und fertig melden\nschedule function insel:aufbau_ende 100t',
+  ].filter(Boolean).join('\n') + '\n';
+  f.aufbau_ende = [
+    `# Beim Setzen abgefallene Gegenstände entfernen (Blumen des Geländes, deren Boden der Bau ersetzt hat), dann Chunks freigeben\nkill @e[type=item,x=${lx1 - 8},y=-64,z=${lz1 - 8},dx=${lx2 - lx1 + 16},dy=384,dz=${lz2 - lz1 + 16}]`,
     `forceload remove ${lx1} ${lz1} ${lx2} ${lz2}`,
     `say Spawn eingerichtet: ${k.struktur ? 'Bau, ' : ''}${p ? 'Plattform, ' : ''}${k.lichter !== null ? 'Lichter, ' : ''}Weltspawn ${s.x}/${s.y}/${s.z}, Weltgrenze${e ? ', geschlossen' : ''} (Nether/End per Konsole sperren)`,
   ].filter(Boolean).join('\n') + '\n';
@@ -276,8 +284,8 @@ if (process.argv[1]?.replace(/\\/g, '/').endsWith('spawn/standort.mjs')) {
       spawnTeleport: true, oval: { x: k.oval.x + U[0], z: k.oval.z + U[2], a: k.oval.a, b: k.oval.b },
       ...(k.pilzland && { pilzland: { x: k.pilzland.x + U[0], z: k.pilzland.z + U[2], a: k.pilzland.a, b: k.pilzland.b } }),
       struktur: { name, ursprung: U, ...(k.groesse && { groesse: k.groesse }) }, weltgrenze: { x: mitte[0], z: mitte[2], breite: 10000 }, lichter: null,
-      ...(k.ausgaenge?.length && { eroeffnung: { sekunden: 10, grenzeZu: { x: mitte[0], z: mitte[2], breite: 128 },
-        ausgaenge: k.ausgaenge.map((a) => ({ wurzeln: plus(a.wurzeln), barriere: plus(a.barriere) })) } }),
+      ...(k.ausgaenge?.length && { eroeffnung: { sekunden: 10, grenzeZu: { x: mitte[0], z: mitte[2], breite: 128 }, ...(k.tor?.abstand && { abstand: k.tor.abstand }),
+        ausgaenge: k.ausgaenge.map((a) => ({ wurzeln: plus(a.wurzeln), barriere: plus(a.barriere), ...(a.block && { block: a.block }) })) } }),
     }, null, 2));
   } else console.log('Aufruf: bauen <konfig> [ausgabe] | lichter <konfig> <welt> [ausgabe] | aus-entwurf <entwurf.json> <ursprung x,y,z> [struktur] – siehe Kopf der Datei');
 }

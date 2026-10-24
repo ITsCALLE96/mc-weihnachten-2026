@@ -1,5 +1,7 @@
-fill 14 76 -30 14 79 -28 minecraft:air
-fill 15 76 -30 15 79 -28 minecraft:air destroy
-particle minecraft:cherry_leaves 15 77.5 -29 1.5 1.5 1.5 0 80 force
-particle minecraft:happy_villager 15 77.5 -29 1.5 1.5 1.5 0 30 force
-playsound minecraft:block.vault.open_shutter master @a 15 77.5 -29 2 0.8
+fill -19 76 -53 -13 76 -53 minecraft:air
+fill -19 76 -52 -13 76 -51 minecraft:air
+particle minecraft:block{block_state:"minecraft:dark_oak_wood"} -16 76 -51.5 3.5 0.5 1 0 60 force
+particle minecraft:cherry_leaves -16 76 -51.5 3.5 0.5 1 0 30 force
+particle minecraft:happy_villager -16 76 -51.5 3.5 0.5 1 0 12 force
+playsound minecraft:block.wood.break master @a -16 76 -51.5 1.5 0.7
+playsound minecraft:block.vault.open_shutter master @a -16 76 -51.5 2 0.8

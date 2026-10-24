@@ -68,7 +68,8 @@ test('Eröffnung: schließen setzt Wurzeln, Barriere und kleine Grenze; Eröffnu
   assert.match(f.schliessen, /worldborder center 5 6\nworldborder set 128/);
   assert.match(f.eroeffnung, /if score #offen insel_zustand matches 1 run say/);
   assert.match(f.oeffnen, /schedule function insel:ausgang_0/);
-  assert.match(f.ausgang_0, /fill 1 65 1 3 68 1 minecraft:air destroy/);
+  assert.match(f.ausgang_0, /fill 1 65 1 3 68 1 minecraft:air\n/); // ohne destroy: nichts fällt als Gegenstand heraus
+  assert.doesNotMatch(f.ausgang_0, /destroy/);
   assert.match(f.willkommen, /worldborder set 10000/);
   assert.match(f.aufbau_teil2, /function insel:schliessen/);
 });

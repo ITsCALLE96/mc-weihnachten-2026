@@ -18,14 +18,24 @@ Schwebende Felsinsel, ca. 60 × 60 Blöcke Oberfläche, unten ein unregelmäßig
 - **Erweiterung:** Nordwest-Viertel bleibt freie Grasfläche
 - Rückweg-Plattform unten: die freigegebene runde Plattform (Stein und Amethyst passt zum Kristallturm)
 
-## 2. Weltenbaum – gewählt (Pascal 24.10.), vierte Fassung „Spawn unten im Baum“ (`weltenbaum.mjs`)
+## 2. Weltenbaum – gewählt (Pascal 24.10.), fünfte Fassung nach Pascals Test (`weltenbaum.mjs`)
 
-Frühere Fassungen: `weltenbaum-klein.mjs` (erster Entwurf). Die zweite Fassung (runde Krone) steht in Commit `68169a6`, die dritte (Spawn oben auf der Krone, Abflug mit Elytra) in Commit `1aaad75`.
+Frühere Fassungen: `weltenbaum-klein.mjs` (erster Entwurf). Die zweite Fassung (runde Krone) steht in Commit `68169a6`, die dritte (Spawn oben auf der Krone, Abflug mit Elytra) in Commit `1aaad75`, die vierte (Turm, vier Wurzelgänge) in Commit `8ef225f`.
+
+**Änderungen nach Pascals Test auf dem Testserver (24.10. abends):**
+- **Nichts fällt mehr ab:** Der Generator prüft am Ende jeden Pflanzen-, Kerzen-, Laternen- und Kristallblock auf passenden Untergrund (Blumen auf Gras/Moos/Erde, Kerzen und stehende Laternen auf festem Block, hängende Laternen und Leuchtbeeren unter einem Block) und entfernt, was keinen Halt hätte. Ursachen waren Wurzelstränge, die nachträglich den Boden unter Blumen ersetzten, und Amethyst-Kristalle an der Wand ohne Block darunter. Die Eröffnung bricht die Rinde ohne `destroy` auf (sonst fallen Holzblöcke heraus), und `insel:aufbau_ende` entfernt 5 s nach dem Setzen alle herumliegenden Gegenstände (Blumen des Geländes, deren Boden der Bau ersetzt hat)
+- **Turm entfernt**
+- **Krone oben geschlossen und rund:** Alle Schirme wölben sich, der oberste als Kuppel (15 Blöcke) mit einem kleinen **Aussichtsdeck** (Radius 7) obenauf, keine flache Schnittkante und keine Aussichtswege mehr
+- **Treppe durchgehend** bis aufs Deck (123 Stufen); vorher deckte der Kronenplatz den Schacht oben ab
+- **Mehr Farbe und Material:** Rinde mit Verlauf von unten nach oben (Dunkeleiche, Mangrove, matschige Mangrovenwurzeln am Fuß → Fichte, entrindet → Eiche, Tropenholz → Blasse Eiche), senkrechte Furchen, Moos und Blassmoos. Laub in Flecken mit Verlauf (unten Dunkeleiche, Fichte, Mangrove, Tropen → Mitte Eiche, Azalee, Birke → oben blühende Azalee, Blasse Eiche, Kirsche), dazu Tupfer anderer Arten und vereinzelt gelbe und orange Pappel (neu in 26.3). Terrassen mit Gras, Moos und Podsol, Farne
+- **Laternen gemischt:** Eisen, Seelen und gewachstes Kupfer in vier Oxidationsstufen (gewachst, damit sie sich nicht weiter verfärben), jeweils an passender Kette
+- **Augenblüten oben ausgedünnt:** 1.166 statt 4.472
+- **Ein großes Tor** nach Norden statt vier Gängen: innen ein Bogen aus heller Blasseiche mit Amethyst (7 breit, 8 hoch) und zwei Laternen davor, dahinter ein gerader Gang ins Freie. **Vor dem Start mit Rinde (Dunkeleichenholz, 2 dick) verschlossen**, dahinter Barriere. Die Eröffnung öffnet die Rinde Reihe für Reihe von unten (alle 4 Ticks) mit Bruch-Partikeln, Holzgeräusch, Kirschblättern und dem Tresor-Ton
 
 **Von Pumis CA13-Baum inspiriert** (nur Prinzipien aus drei Screenshots, die Pascal gegeben hat; die liegen git-ignoriert in `spawn/quellen/pumi/`, nichts nachgebaut oder abgepaust):
 1. **Breite Etagenkrone:** flache, wellige Laubschirme in gestaffelten Höhen, deutlich breiter als hoch, getragen von dicken, schräg auslaufenden Ästen; Unterseite zerfranst mit herabhängendem Laub
 2. **Dunkles Laub auf dunklem, mächtigem Stamm**, der sich in mehrere Hauptäste teilt
-3. **Heller, schlanker Turm am Stamm** als Blickfang und Maßstab
+3. ~~Heller, schlanker Turm am Stamm~~ (in der fünften Fassung entfernt, Pascal: „steht voll daneben“)
 4. **Wurzeln als Terrassenhügel** mit Moos und Gras und **Reihen kleiner Lichter auf den Stufen**
 5. **Nachts ein Teppich aus kleinen warmen Lichtpunkten auf der Kronenoberseite** als Wahrzeichen
 6. Der Baum als **Mittelpunkt einer bebauten Fläche** (passt zu „später weiterbauen“)
@@ -33,21 +43,19 @@ Frühere Fassungen: `weltenbaum-klein.mjs` (erster Entwurf). Die zweite Fassung 
 Aus dem Video-Transkript (Recherche der Leitung) zusätzlich übernommen: **Augenblüten auf der Krone** als Nachteffekt, **Laternen an den Ästen**, **Kerzen** als Lichtpunkte, **Amethyst im Stamm** offen sichtbar. Pumis Problem mit Mobs auf der Krone lösen bei uns Pilzland und WorldGuard.
 
 **Maße (Vorgabe Pascal: Krone 120–160, Gesamthöhe 100–140, mehrere Etagen)** – gegenüber der dritten Fassung auf 75 % verkleinert:
-- **Krone 162 × 138 Blöcke** in sieben Schirmen (Ost-West knapp über 160 wegen eines ausladenden Schirms), **Kronenplatz 110 über dem Boden, Turmspitze 125 über dem Boden**
+- **Krone 162 × 138 Blöcke** in sieben Schirmen (Ost-West knapp über 160 wegen eines ausladenden Schirms), **Aussichtsdeck auf der Kuppel 123, höchster Punkt 127 über dem Boden**
 - **Begründung:** Vom Stamm aus reicht der Baum höchstens ~80 Blöcke weit, bei Sichtweite 8 (128 Blöcke) ist er vom Spawn aus also ganz geladen und von außen auf 2 Chunks Abstand noch ganz zu sehen. Bei Boden auf y 64 endet die Spitze bei y ~189, weit unter der Bauhöhe 320, Wolken (y 192) und Phantom-Flughöhe bleiben frei. Mehr Höhe brächte nur längere Wege und mehr Laub, weniger würde neben Bergen nicht mehr auffallen
-- **Größenvergleich:** `bilder/groessenvergleich.png` (Spieler, Dorfhaus, Felsinsel, erster Weltenbaum, vierte Fassung im selben Maßstab)
+- **Größenvergleich:** `bilder/groessenvergleich.png` (Spieler, Dorfhaus, Felsinsel, erster Weltenbaum, fünfte Fassung im selben Maßstab)
 
 **Aufbau:**
-- **Spawn-Raum im ausgehöhlten Stammfuß:** Kuppel mit Radius 11 und 15 Blöcken Höhe, Platz für ~25 Leute. Wände aus entrindetem Dunkeleichenholz mit Amethyst-Adern, Boden aus Kalzit, Holz und Moos mit Amethyst-Ring, Pilzlicht in der Wand, Laternen an Ketten, Amethyst-Kristalle, Augenblüten, Infotafeln (Texte füllt Pascal). Spawnpunkt 7 Blöcke südlich der Mitte mit Blick auf die Treppe
-- **Wendeltreppe aus Amethyst und Kalzit** im Stamm (109 Stufen, eine je 45°) vom Raumboden bis zum Kronenplatz, Schacht mit Amethyst und Pilzlicht. **In der Mitte eine Blasensäule** (Seelensand, lila Glas, Dunkeleichentür unten) als schneller Aufzug
-- **Kronenplatz** (Holzdeck, Radius 12) um den Treppenausgang mit drei Aussichtswegen an die Kante, **ohne Abflug-Funktion** (keine Elytra)
-- **Vier Wurzelgänge** (3 breit, 4 hoch) vom Raum zwischen den Wurzelrücken nach außen, nicht zur Turmseite. **Vor dem Start mit Mangrovenwurzeln und Barriere verschlossen** (Eröffnungs-Event, `spawn/AUFBAU.md`)
-- **Turm** (Kalzit mit Bändern aus dunklem Prismarin, hellblaue Fenster, Seelaternen, Amethyst-Dach mit Endstab) an der Südseite, vom Boden bis über den Kronenplatz
+- **Spawn-Raum im ausgehöhlten Stammfuß:** Kuppel mit Radius 11 und 15 Blöcken Höhe, Platz für ~25 Leute. Wände aus entrindetem Dunkeleichenholz mit Amethyst-Adern, Boden aus Kalzit, Holz und Moos mit Amethyst-Ring, Pilzlicht in der Wand, Laternen an Ketten, Amethyst-Kristalle, Augenblüten, Infotafeln (Texte füllt Pascal). Spawnpunkt 7 Blöcke südlich der Mitte mit Blick auf Treppe und Tor
+- **Wendeltreppe aus Amethyst und Kalzit** im Stamm (123 Stufen, eine je 45°) vom Raumboden bis aufs Aussichtsdeck, Schacht mit Amethyst und Pilzlicht. **In der Mitte eine Blasensäule** (Seelensand, lila Glas, Dunkeleichentür unten) als schneller Aufzug
 - **Terrassenwurzeln:** sieben Rücken in Stufen von 2 Blöcken, Moos und Gras, Kerzenreihen auf den Kanten, Augenblüten dazwischen
-- **Laub:** Mix aus Dunkeleiche, Fichte, Azalee, blühender Azalee und Blasser Eiche, alles `persistent=true`. Kronenoberseite mit Moosflecken und offenen Augenblüten (in 26.3 gemessen: kein Blocklicht, nur Funkeln)
+- **Tor** nach Norden (siehe oben), **Aussichtsdeck** auf der Kuppel mit Geländer und Laternen
+- **Laub:** zehn Arten mit Verlauf (siehe oben), alles `persistent=true`. Kronenoberseite mit Moosflecken und offenen Augenblüten (in 26.3 gemessen: kein Blocklicht, nur Funkeln)
 - **Weggefallen:** Rückweg-Plattform, Spawn Elytra, Sättigung (Pascal 24.10.)
 
-**Leistung** (Zählung im Generator): **301.898 Blöcke**, davon **161.756 Laub**, 430 Kerzen, 4.472 Augenblüten.
+**Leistung** (Zählung im Generator): **379.290 Blöcke**, davon **246.304 Laub** (mehr als vorher, weil die Kuppel geschlossen ist), 394 Kerzen, 117 Laternen, 1.166 Augenblüten.
 - Laub ist dauerhaft (`persistent=true`) und zerfällt nicht. Laub-Zufallsticks prüfen nur, ob es zerfallen soll, das ist billig. Augenblüten reagieren nur im Zufallstick auf Tag und Nacht
 - Leuchtbeeren sind ausgewachsen (`age=25`) und wachsen nicht weiter, keine Redstone-Technik, keine Wasser- oder Lavaströme (die Blasensäule ist ein ruhender Block)
 - Fallende Blätter sind Partikel auf dem Client, ohne Last für den Server. Auf schwachen Rechnern hilft Grafik „Schnell“ (Laub ohne Transparenz) oder weniger Partikel
@@ -85,6 +93,6 @@ Quellen: Beschreibung und FAQ der Nitrado-Seite „SparkofPhoenix’s Craft Atta
 | Entwurf | oben | Seite | Spielersicht Spawn | Abflug | von unten | Extra |
 |---|---|---|---|---|---|---|
 | Felsinsel | `felsinsel-oben.png` | `felsinsel-seite.png` | `felsinsel-spawn.png` | `felsinsel-abflug.png` | `felsinsel-unten.png` | `felsinsel-wasserfall.png` |
-| Weltenbaum (4. Fassung) | `weltenbaum-oben-schraeg.png` | `weltenbaum-seite.png` | `weltenbaum-spawnraum.png` (Spawn-Raum), `weltenbaum-treppe.png` (Treppe mit Blasensäule) | – | `weltenbaum-unten.png` | Ausgang zu/offen: `weltenbaum-ausgang-zu.png`, `-ausgang-offen.png`; Nacht: `weltenbaum-nacht-oben.png`, `-nacht-seite.png`, `-nacht-spawnraum.png`, `-nacht-terrassen.png`; Größe: `groessenvergleich.png` |
+| Weltenbaum (5. Fassung) | `weltenbaum-oben-schraeg.png`, `-krone-oben.png` | `weltenbaum-seite.png` | `weltenbaum-spawnraum.png`, `-treppe.png`, `-deck.png` | – | `weltenbaum-unten.png` | Tor innen zu/offen: `weltenbaum-tor-zu.png`, `-tor-offen.png`, außen `-tor-aussen.png`; Nacht: `weltenbaum-nacht-oben.png`, `-nacht-seite.png`, `-nacht-spawnraum.png`, `-nacht-tor.png`, `-nacht-terrassen.png`; Größe: `groessenvergleich.png` |
 
 Gerendert mit einem einfachen Raycaster (Nachtansicht mit Lichtausbreitung wie im Spiel; das Karomuster der Bodenlichter ist ein Effekt des Renderers) (Blocktexturen, Wasser blau; kleine Dinge wie Zäune, Laternen, Schilder und Blumen werden weggelassen). Kulisse: Meer bzw. flache Wiese.

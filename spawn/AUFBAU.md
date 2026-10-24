@@ -17,7 +17,7 @@ Alle Ortsangaben stehen in `spawn/standort-<name>.json` (Vorlage: `standort-test
 | `weltgrenze` | Mitte x/z und Breite |
 | `teleportTicks`, `saettigung`, `lichter` | Dauer des Portal-Übergangs, Sättigung (Sekunden, Abklingzeit; weglassen = keine), Licht-Raster und Unterkante des Baus (`null` = keine Lichter, z. B. im Pilzland) |
 | `spawnTeleport` | beim ersten Betreten und nach dem Tod ohne Bett auf den Spawn setzen (nötig, wenn der Spawn unter einem Dach liegt) |
-| `eroeffnung` | optional: Eröffnungs-Event mit `sekunden` (Countdown), `grenzeZu` (Mitte, Breite der kleinen Weltgrenze) und `ausgaenge` (je Ausgang Kasten `wurzeln` und `barriere`) |
+| `eroeffnung` | optional: Eröffnungs-Event mit `sekunden` (Countdown), `grenzeZu` (Mitte, Breite der kleinen Weltgrenze) und `abstand` (Ticks zwischen den Ausgängen, Standard 15) und `ausgaenge` (je Ausgang Kasten `wurzeln` mit Verschluss-Block `block`, Standard Mangrovenwurzeln, und Kasten `barriere`; beim Weltenbaum eine Reihe des Tors je Eintrag) |
 
 Für einen Entwurf aus `spawn/entwuerfe/` erzeugt `node spawn/standort.mjs aus-entwurf <entwurf.json> <ursprung x,y,z> [struktur]` die Standort-Konfiguration (ohne Plattform und Sättigung, mit Eröffnung).
 
@@ -41,11 +41,12 @@ Bewusst kein `build deny` in der Datei: das würde auch Mitglieder sperren.
 
 ### Eröffnungs-Event (Weltenbaum, Pascal 24.10.)
 
-Vor dem Start sind alle im verschlossenen Spawn-Raum: Ausgänge mit Mangrovenwurzeln und Barriere zu, **Weltgrenze 128 um die Raummitte**. In der Konsole oder als AMP-Aufgabe:
-- `function insel:eroeffnung`: Bossbar „Der Baum öffnet sich …“, 10 s Countdown (letzte 3 Sekunden als Titel mit Glocke), dann öffnen die Ausgänge nacheinander (Wurzeln brechen, Kirschblatt- und Grün-Partikel, Tresor-Geräusch), danach **Weltgrenze 10.000** und Titel „Willkommen!“
+Vor dem Start sind alle im verschlossenen Spawn-Raum: Das große Tor im Norden ist innen als Bogen zu erkennen, aber mit **Rinde (Dunkeleichenholz, 2 dick)** verschlossen, dahinter Barriere; **Weltgrenze 128 um die Raummitte**. In der Konsole oder als AMP-Aufgabe:
+- `function insel:eroeffnung`: Bossbar „Der Baum öffnet sich …“, 10 s Countdown (letzte 3 Sekunden als Titel mit Glocke), dann bricht die Rinde Reihe für Reihe von unten auf (8 Reihen, alle 4 Ticks: Bruch-Partikel, Holzgeräusch, Kirschblätter, Tresor-Ton bei der ersten und letzten Reihe; ohne `destroy`, damit nichts als Gegenstand herausfällt), danach **Weltgrenze 10.000** und Titel „Willkommen!“
 - Doppelt auslösen schadet nicht: „Eröffnung läuft schon“ bzw. „Spawn ist schon offen“ (Merker `#offen` und `#countdown` in `insel_zustand`)
-- `function insel:schliessen`: Ausgänge wieder zu, kleine Weltgrenze, Merker zurück. Damit lässt sich das Event beliebig oft proben (Testlauf 21.11., Start 05.12.)
-- Auf Vanilla 26.3 geprüft: Aufbau geschlossen, Countdown, Öffnen, Wiederholschutz, Schließen, keine Ladefehler
+- `function insel:schliessen`: Rinde und Barriere wieder zu, kleine Weltgrenze, Merker zurück. Damit lässt sich das Event beliebig oft proben (Testlauf 21.11., Start 05.12.)
+- Der Aufbau endet mit `insel:aufbau_ende` (5 s nach dem Setzen): entfernt herumliegende Gegenstände im Ladebereich, gibt die Chunks frei, meldet „Spawn eingerichtet“
+- Auf Vanilla 26.3 geprüft: alle Funktionen laden ohne Fehler (Block-Partikel in 26.3: `block{block_state:"minecraft:…"}` als Text), Schließen, Öffnen, Aufräumen
 
 ## Testserver: Weltenbaum (seit 24.10. abends)
 

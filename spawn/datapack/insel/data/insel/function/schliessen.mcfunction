@@ -1,12 +1,20 @@
 # Spawn schließen (vor dem Start, auch zum Proben): Ausgänge zu, kleine Weltgrenze, Merker zurück
-fill 15 76 -30 15 79 -28 minecraft:mangrove_roots
-fill 14 76 -30 14 79 -28 minecraft:barrier
-fill -51 76 -36 -51 79 -34 minecraft:mangrove_roots
-fill -50 76 -36 -50 79 -34 minecraft:barrier
-fill -12 76 -74 -10 79 -73 minecraft:mangrove_roots
-fill -12 76 -73 -10 79 -72 minecraft:barrier
-fill 12 76 -57 13 79 -55 minecraft:mangrove_roots
-fill 12 76 -56 13 79 -55 minecraft:barrier
+fill -19 76 -52 -13 76 -51 minecraft:dark_oak_wood[axis=y]
+fill -19 76 -53 -13 76 -53 minecraft:barrier
+fill -19 77 -52 -13 77 -51 minecraft:dark_oak_wood[axis=y]
+fill -19 77 -53 -13 77 -53 minecraft:barrier
+fill -19 78 -52 -13 78 -51 minecraft:dark_oak_wood[axis=y]
+fill -19 78 -53 -13 78 -53 minecraft:barrier
+fill -19 79 -52 -13 79 -51 minecraft:dark_oak_wood[axis=y]
+fill -19 79 -53 -13 79 -53 minecraft:barrier
+fill -19 80 -52 -13 80 -51 minecraft:dark_oak_wood[axis=y]
+fill -19 80 -53 -13 80 -53 minecraft:barrier
+fill -19 81 -52 -13 81 -51 minecraft:dark_oak_wood[axis=y]
+fill -19 81 -53 -13 81 -53 minecraft:barrier
+fill -18 82 -52 -14 82 -51 minecraft:dark_oak_wood[axis=y]
+fill -18 82 -53 -14 82 -53 minecraft:barrier
+fill -17 83 -52 -15 83 -51 minecraft:dark_oak_wood[axis=y]
+fill -17 83 -53 -15 83 -53 minecraft:barrier
 worldborder center -16 -40
 worldborder set 128
 scoreboard players set #offen insel_zustand 0

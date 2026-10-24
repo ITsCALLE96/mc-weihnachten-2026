@@ -9,5 +9,5 @@ worldborder center -16 -40
 worldborder set 10000
 # Vor dem Start geschlossen (Eröffnungs-Event)
 function insel:schliessen
-forceload remove -120 -152 88 72
-say Spawn eingerichtet: Bau, Weltspawn -16/76/-33, Weltgrenze, geschlossen (Nether/End per Konsole sperren)
+# In 5 s aufräumen und fertig melden
+schedule function insel:aufbau_ende 100t

@@ -15,12 +15,7 @@
     0
   ],
   "boden": 12,
-  "kronenplatz": 122,
-  "turm": [
-    112,
-    12,
-    129
-  ],
+  "kronenplatz": 136,
   "spawnRaum": {
     "mitte": [
       110,
@@ -31,107 +26,176 @@
     "hoehe": 15
   },
   "treppe": {
-    "stufen": 109,
+    "stufen": 123,
     "von": 13,
-    "bis": 122
+    "bis": 136
   },
   "blasensaeule": [
     110,
     12,
     110
   ],
+  "tor": {
+    "mitte": [
+      110,
+      13,
+      99
+    ],
+    "mund": 74,
+    "abstand": 4
+  },
   "ausgaenge": [
     {
       "wurzeln": [
-        141,
+        107,
         13,
-        120,
-        141,
-        16,
-        122
+        98,
+        113,
+        13,
+        99
       ],
       "barriere": [
-        140,
+        107,
         13,
-        120,
-        140,
-        16,
-        122
+        97,
+        113,
+        13,
+        97
       ],
-      "aussen": [
-        146,
-        13,
-        123
-      ]
+      "block": "minecraft:dark_oak_wood[axis=y]"
     },
     {
       "wurzeln": [
-        75,
-        13,
-        114,
-        75,
-        16,
-        116
+        107,
+        14,
+        98,
+        113,
+        14,
+        99
       ],
       "barriere": [
-        76,
-        13,
-        114,
-        76,
-        16,
-        116
+        107,
+        14,
+        97,
+        113,
+        14,
+        97
       ],
-      "aussen": [
-        70,
-        13,
-        115
-      ]
+      "block": "minecraft:dark_oak_wood[axis=y]"
     },
     {
       "wurzeln": [
-        114,
-        13,
-        76,
-        116,
-        16,
-        77
+        107,
+        15,
+        98,
+        113,
+        15,
+        99
       ],
       "barriere": [
-        114,
-        13,
-        77,
-        116,
-        16,
-        78
+        107,
+        15,
+        97,
+        113,
+        15,
+        97
       ],
-      "aussen": [
-        116,
-        13,
-        71
-      ]
+      "block": "minecraft:dark_oak_wood[axis=y]"
     },
     {
       "wurzeln": [
-        138,
-        13,
-        93,
-        139,
+        107,
         16,
-        95
+        98,
+        113,
+        16,
+        99
       ],
       "barriere": [
-        138,
-        13,
-        94,
-        139,
+        107,
         16,
-        95
+        97,
+        113,
+        16,
+        97
       ],
-      "aussen": [
-        143,
-        13,
-        92
-      ]
+      "block": "minecraft:dark_oak_wood[axis=y]"
+    },
+    {
+      "wurzeln": [
+        107,
+        17,
+        98,
+        113,
+        17,
+        99
+      ],
+      "barriere": [
+        107,
+        17,
+        97,
+        113,
+        17,
+        97
+      ],
+      "block": "minecraft:dark_oak_wood[axis=y]"
+    },
+    {
+      "wurzeln": [
+        107,
+        18,
+        98,
+        113,
+        18,
+        99
+      ],
+      "barriere": [
+        107,
+        18,
+        97,
+        113,
+        18,
+        97
+      ],
+      "block": "minecraft:dark_oak_wood[axis=y]"
+    },
+    {
+      "wurzeln": [
+        108,
+        19,
+        98,
+        112,
+        19,
+        99
+      ],
+      "barriere": [
+        108,
+        19,
+        97,
+        112,
+        19,
+        97
+      ],
+      "block": "minecraft:dark_oak_wood[axis=y]"
+    },
+    {
+      "wurzeln": [
+        109,
+        20,
+        98,
+        111,
+        20,
+        99
+      ],
+      "barriere": [
+        109,
+        20,
+        97,
+        111,
+        20,
+        97
+      ],
+      "block": "minecraft:dark_oak_wood[axis=y]"
     }
   ],
   "oval": {
@@ -149,12 +213,13 @@
   "ausdehnung": {
     "x": 162,
     "z": 138,
-    "hoeheUeberBoden": 125
+    "hoeheUeberBoden": 127
   },
   "leistung": {
-    "bloecke": 301898,
-    "laub": 161756,
-    "kerzen": 430,
-    "augenblueten": 4472
+    "bloecke": 379290,
+    "laub": 246304,
+    "kerzen": 394,
+    "laternen": 117,
+    "augenblueten": 1166
   }
 }
