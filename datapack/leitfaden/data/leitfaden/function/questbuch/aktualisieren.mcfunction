@@ -8,7 +8,7 @@ execute if score #phase lf_phase matches 1.. unless entity @s[advancements={leit
 execute if score #phase lf_phase matches 1.. unless entity @s[advancements={leitfaden:kampf/start=true}] run function leitfaden:questbuch/neu/kampf
 execute if score #phase lf_phase matches 1.. unless entity @s[advancements={leitfaden:entdecken/start=true}] run function leitfaden:questbuch/neu/entdecken
 execute if score #phase lf_phase matches 2.. unless entity @s[advancements={leitfaden:nether/start=true}] run function leitfaden:questbuch/neu/nether
-execute if score #phase lf_phase matches 3.. unless entity @s[advancements={leitfaden:markt/start=true}] run function leitfaden:questbuch/neu/markt
+execute if score #phase lf_phase matches 3.. unless entity @s[advancements={leitfaden:mission/start=true}] run function leitfaden:questbuch/neu/mission
 execute if score #phase lf_phase matches 4.. unless entity @s[advancements={leitfaden:end/start=true}] run function leitfaden:questbuch/neu/end
 
 # Schon erreichte Vanilla-Fortschritte nachreichen (z. B. Spieler aus dem Testlauf)

@@ -1,0 +1,24 @@
+{
+  "criteria": {
+    "freigeschaltet": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "title": {
+      "translate": "questbuch.mission.titel",
+      "fallback": "Server Mission"
+    },
+    "description": {
+      "translate": "questbuch.mission.beschreibung",
+      "fallback": "One shared goal for everyone on the server. Every contribution counts!"
+    },
+    "background": "minecraft:block/stone_bricks",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": false
+  }
+}

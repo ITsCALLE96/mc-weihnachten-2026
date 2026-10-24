@@ -188,14 +188,13 @@ _Der Nether ist offen! Heiß, gefährlich und voller Schätze._ / _The Nether is
 | froschlichter | Hab alle 3 Froschlichter gleichzeitig im Inventar.<br>_3 Froscharten, kleine Magmawürfel_<br>💡 Frösche fressen kleine Magmawürfel. Fahr sie im Boot durchs Portal, jede Farbe macht ein anderes Licht. | Have all 3 froglights in your inventory.<br>_3 frog variants, small magma cubes_<br>💡 Frogs eat small magma cubes. Take them through the portal in a boat, each colour makes a different light. | `husbandry/froglights` |
 | andenken | **Andenken: Weihnachtsmütze** Schaff alle ★-Quests in diesem Kapitel.<br>💡 Eine echte Weihnachtsmütze zum Aufsetzen. Hält nicht warm, sieht aber super aus. | **Souvenir: Santa Hat** Finish every ★ quest in this chapter.<br>💡 A real Santa hat to wear. Doesn't keep you warm, but looks great. | – |
 
-## Weihnachtsmarkt / Christmas Market (ab Phase 3)
+## Server-Mission / Server Mission (ab Phase 3)
 
-_Weihnachtsmarkt-Woche! Handeln, tauschen, beisammen sein._ / _Christmas market week! Trade, swap and spend time together._
+_Ein gemeinsames Ziel für alle auf dem Server. Jeder Beitrag zählt!_ / _One shared goal for everyone on the server. Every contribution counts!_
 
 | Quest | Deutsch | English | Vanilla |
 |---|---|---|---|
-| stand | **Eigener Stand** Bau einen Marktstand, zum Beispiel vor deinem Haus oder bei deinen Nachbarn.<br>💡 Schilder und Gegenstandsrahmen zeigen, was du anbietest. Laternen machen es gemütlich. | **Your Own Stall** Build a market stall, for example outside your home or next to your neighbours.<br>💡 Signs and item frames show what you're selling. Lanterns make it cosy. | Info |
-| tauschen | **Tausch unter Freunden** Handel mit anderen Spielern: Ware gegen Ware oder gegen Smaragde.<br>💡 Verabredet euch im Chat. Bleibt fair, es ist Weihnachten! | **Swap with Friends** Trade with other players: goods for goods or for emeralds.<br>💡 Meet up via chat. Keep it fair, it's Christmas! | Info |
+| ziel | **Die Mission** Platzhalter: Hier steht bald, woran wir alle gemeinsam arbeiten.<br>💡 Schau im Chat und auf Discord vorbei. | **The Mission** Placeholder: what we all work on together goes here soon.<br>💡 Keep an eye on chat and Discord. | Info |
 
 ## Das End / The End (ab Phase 4)
 

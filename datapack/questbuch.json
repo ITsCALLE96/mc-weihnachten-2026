@@ -2092,54 +2092,33 @@
       ]
     },
     {
-      "id": "markt",
+      "id": "mission",
       "phase": 3,
-      "icon": {
-        "id": "minecraft:paper",
-        "components": {
-          "minecraft:item_model": "weihnachten:lichterkette"
-        }
-      },
-      "hintergrund": "minecraft:block/snow",
+      "icon": "minecraft:compass",
+      "hintergrund": "minecraft:block/stone_bricks",
       "de": {
-        "titel": "Weihnachtsmarkt",
-        "beschreibung": "Weihnachtsmarkt-Woche! Handeln, tauschen, beisammen sein."
+        "titel": "Server-Mission",
+        "beschreibung": "Ein gemeinsames Ziel für alle auf dem Server. Jeder Beitrag zählt!"
       },
       "en": {
-        "titel": "Christmas Market",
-        "beschreibung": "Christmas market week! Trade, swap and spend time together."
+        "titel": "Server Mission",
+        "beschreibung": "One shared goal for everyone on the server. Every contribution counts!"
       },
       "quests": [
         {
-          "id": "stand",
+          "id": "ziel",
           "parent": "start",
-          "icon": "minecraft:barrel",
+          "icon": "minecraft:compass",
           "erkennung": "info",
           "de": {
-            "titel": "Eigener Stand",
-            "tun": "Bau einen Marktstand, zum Beispiel vor deinem Haus oder bei deinen Nachbarn.",
-            "tipp": "Schilder und Gegenstandsrahmen zeigen, was du anbietest. Laternen machen es gemütlich."
+            "titel": "Die Mission",
+            "tun": "Platzhalter: Hier steht bald, woran wir alle gemeinsam arbeiten.",
+            "tipp": "Schau im Chat und auf Discord vorbei."
           },
           "en": {
-            "titel": "Your Own Stall",
-            "tun": "Build a market stall, for example outside your home or next to your neighbours.",
-            "tipp": "Signs and item frames show what you're selling. Lanterns make it cosy."
-          }
-        },
-        {
-          "id": "tauschen",
-          "parent": "start",
-          "icon": "minecraft:emerald",
-          "erkennung": "info",
-          "de": {
-            "titel": "Tausch unter Freunden",
-            "tun": "Handel mit anderen Spielern: Ware gegen Ware oder gegen Smaragde.",
-            "tipp": "Verabredet euch im Chat. Bleibt fair, es ist Weihnachten!"
-          },
-          "en": {
-            "titel": "Swap with Friends",
-            "tun": "Trade with other players: goods for goods or for emeralds.",
-            "tipp": "Meet up via chat. Keep it fair, it's Christmas!"
+            "titel": "The Mission",
+            "tun": "Placeholder: what we all work on together goes here soon.",
+            "tipp": "Keep an eye on chat and Discord."
           }
         }
       ]
@@ -2430,12 +2409,12 @@
       "en": "The Nether is open"
     },
     "leitfaden.phase.3.chat": {
-      "de": "☃ Weihnachtsmarkt-Woche! Bau einen Stand und handel mit den anderen.",
-      "en": "☃ Christmas market week! Build a stall and trade with the others."
+      "de": "✦ Die Server-Mission startet! Drück L für Details.",
+      "en": "✦ The server mission begins! Press L for details."
     },
     "leitfaden.phase.3.titel": {
-      "de": "Weihnachtsmarkt",
-      "en": "Christmas Market"
+      "de": "Server-Mission",
+      "en": "Server Mission"
     },
     "leitfaden.phase.4.chat": {
       "de": "★ Das End ist offen! Den Drachen besiegen wir gemeinsam, Termin im Chat.",

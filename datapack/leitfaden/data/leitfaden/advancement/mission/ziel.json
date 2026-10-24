@@ -1,5 +1,5 @@
 {
-  "parent": "leitfaden:markt/start",
+  "parent": "leitfaden:mission/start",
   "criteria": {
     "info": {
       "trigger": "minecraft:impossible"
@@ -7,17 +7,17 @@
   },
   "display": {
     "icon": {
-      "id": "minecraft:emerald"
+      "id": "minecraft:compass"
     },
     "title": {
-      "translate": "questbuch.markt.tauschen.titel",
-      "fallback": "Swap with Friends"
+      "translate": "questbuch.mission.ziel.titel",
+      "fallback": "The Mission"
     },
     "description": [
       "",
       {
-        "translate": "questbuch.markt.tauschen.tun",
-        "fallback": "Trade with other players: goods for goods or for emeralds."
+        "translate": "questbuch.mission.ziel.tun",
+        "fallback": "Placeholder: what we all work on together goes here soon."
       },
       "\n",
       {
@@ -26,8 +26,8 @@
         "color": "gold"
       },
       {
-        "translate": "questbuch.markt.tauschen.tipp",
-        "fallback": "Meet up via chat. Keep it fair, it's Christmas!",
+        "translate": "questbuch.mission.ziel.tipp",
+        "fallback": "Keep an eye on chat and Discord.",
         "color": "gold"
       }
     ],
