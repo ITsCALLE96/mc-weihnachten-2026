@@ -78,7 +78,7 @@
       "",
       {
         "translate": "questbuch.tiere.froesche.tun",
-        "fallback": "Have all 3 frog variants on leads at once."
+        "fallback": "Put each of the 3 frog variants on a lead once."
       },
       "\n",
       {

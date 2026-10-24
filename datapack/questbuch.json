@@ -213,8 +213,8 @@
           "kern": true,
           "de": {
             "tun": "Stell ein Rüstungsteil aus Eisen her.",
-            "brauchst": "z. B. Brustpanzer: 8 Eisenbarren",
-            "tipp": "Der Brustpanzer schützt am meisten, die Stiefel sind am billigsten."
+            "brauchst": "z. B. Eisenharnisch: 8 Eisenbarren",
+            "tipp": "Der Harnisch schützt am meisten, die Stiefel sind am billigsten."
           },
           "en": {
             "tun": "Craft a piece of iron armor.",
@@ -489,7 +489,7 @@
           "de": {
             "tun": "Schab eine angelaufene Kupferleuchte mit einer Axt ab, dann leuchtet sie heller.",
             "brauchst": "Kupferleuchte: 3 Kupferblöcke, 1 Lohenrute, 1 Redstone. Dazu eine Axt",
-            "tipp": "Die Lohenrute gibt es erst im Nether. In Prüfkammern hängen aber fertige Leuchten."
+            "tipp": "Die Lohenrute gibt es erst im Nether. In Prüfungskammern hängen aber fertige Leuchten."
           },
           "en": {
             "tun": "Scrape a weathered copper bulb with an axe to make it brighter.",
@@ -609,7 +609,7 @@
           "parent": "feld",
           "de": {
             "tun": "Iss alles, was essbar ist. Wirklich alles.",
-            "tipp": "Auch Giftkartoffel, Spinnenauge und verdorbenes Fleisch. Ein Eimer Milch hilft danach."
+            "tipp": "Auch Giftige Kartoffel, Spinnenauge und verrottetes Fleisch. Ein Eimer Milch hilft danach."
           },
           "en": {
             "tun": "Eat everything edible. And we mean everything.",
@@ -712,7 +712,7 @@
           "parent": "schnueffler_ei",
           "de": {
             "tun": "Füttere ein Schnüffler-Junges.",
-            "brauchst": "Fackellilien-Samen",
+            "brauchst": "Fackelliliensamen",
             "tipp": "Das Ei schlüpft auf Moos doppelt so schnell."
           },
           "en": {
@@ -727,7 +727,7 @@
           "parent": "schnueffler_junges",
           "de": {
             "tun": "Pflanz einen Samen, den ein Schnüffler ausgegraben hat.",
-            "tipp": "Ausgewachsene Schnüffler buddeln Fackellilien- und Kannenpflanzen-Samen aus."
+            "tipp": "Ausgewachsene Schnüffler buddeln Fackelliliensamen und Kannenpflanzenkapseln aus."
           },
           "en": {
             "tun": "Plant a seed dug up by a sniffer.",
@@ -972,12 +972,12 @@
           "vanilla": "husbandry/leash_all_frog_variants",
           "parent": "kaulquappe",
           "de": {
-            "tun": "Hab alle 3 Froscharten gleichzeitig an der Leine.",
+            "tun": "Leg jede der 3 Froscharten einmal an die Leine.",
             "brauchst": "3 Leinen",
             "tipp": "Die Farbe hängt davon ab, wo die Kaulquappe groß wird: kalt, gemäßigt oder warm."
           },
           "en": {
-            "tun": "Have all 3 frog variants on leads at once.",
+            "tun": "Put each of the 3 frog variants on a lead once.",
             "brauchst": "3 leads",
             "tipp": "The colour depends on where the tadpole grows up: cold, temperate or warm."
           }
@@ -1184,7 +1184,7 @@
           "parent": "hauptmann",
           "de": {
             "tun": "Erlege einen Plünderer mit einer Armbrust.",
-            "brauchst": "Armbrust: 3 Stöcke, 2 Faden, 1 Eisenbarren, 1 Stolperdrahthaken",
+            "brauchst": "Armbrust: 3 Stöcke, 2 Faden, 1 Eisenbarren, 1 Haken",
             "tipp": "Plündererposten erkennst du am dunklen Holzturm."
           },
           "en": {
@@ -1244,7 +1244,7 @@
           "parent": "start",
           "de": {
             "tun": "Triff die Mitte eines Zielblocks aus mindestens 30 Blöcken Entfernung.",
-            "brauchst": "Zielblock: 4 Redstone, 1 Heuballen. Dazu einen Bogen",
+            "brauchst": "Zielblock: 4 Redstone, 1 Strohballen. Dazu einen Bogen",
             "tipp": "Ziel etwas höher, Pfeile fallen auf Entfernung ab."
           },
           "en": {
@@ -1274,7 +1274,7 @@
           "parent": "start",
           "de": {
             "tun": "Schieß mit einer Armbrust.",
-            "brauchst": "Armbrust: 3 Stöcke, 2 Faden, 1 Eisenbarren, 1 Stolperdrahthaken",
+            "brauchst": "Armbrust: 3 Stöcke, 2 Faden, 1 Eisenbarren, 1 Haken",
             "tipp": "Rechtsklick halten zum Spannen, dann noch einmal klicken."
           },
           "en": {
@@ -1379,7 +1379,7 @@
           "parent": "start",
           "de": {
             "tun": "Schleuder dich mit einer Windkugel 8 Blöcke hoch.",
-            "brauchst": "Windkugeln (aus Böenruten, von Böen in Prüfkammern)",
+            "brauchst": "Windkugeln (aus Böenruten, von Böen in Prüfungskammern)",
             "tipp": "Wirf sie direkt unter dich und spring im selben Moment."
           },
           "en": {
@@ -1422,7 +1422,7 @@
           "parent": "start",
           "de": {
             "tun": "Erlege ein Wesen neben einem Sculk-Katalysator.",
-            "tipp": "Katalysatoren gibt es in der Tiefen Dunkelheit, ganz unten in der Welt."
+            "tipp": "Katalysatoren gibt es im Tiefen Dunkel, ganz unten in der Welt."
           },
           "en": {
             "tun": "Kill a mob near a sculk catalyst.",
@@ -1451,7 +1451,7 @@
       "hintergrund": "minecraft:block/sandstone_top",
       "de": {
         "titel": "Entdecken",
-        "beschreibung": "Biome, Prüfkammern, Ruinen und alte Scherben. Die Welt ist groß, los geht's!"
+        "beschreibung": "Biome, Prüfungskammern, Ruinen und alte Scherben. Die Welt ist groß, los geht's!"
       },
       "en": {
         "titel": "Exploring",
@@ -1528,8 +1528,8 @@
           "vanilla": "adventure/minecraft_trials_edition",
           "parent": "start",
           "de": {
-            "tun": "Betritt eine Prüfkammer.",
-            "tipp": "Prüfkammern liegen unter der Erde und bestehen aus Tuff und Kupfer. Die Karte zeigt sie absichtlich nicht."
+            "tun": "Betritt eine Prüfungskammer.",
+            "tipp": "Prüfungskammern liegen unter der Erde und bestehen aus Tuff und Kupfer. Die Karte zeigt sie absichtlich nicht."
           },
           "en": {
             "tun": "Enter a trial chamber.",
@@ -1542,7 +1542,7 @@
           "parent": "pruefkammer",
           "de": {
             "tun": "Öffne einen Tresor mit einem Prüfungsschlüssel.",
-            "tipp": "Schlüssel gibt es von Prüfungsspawnern. Jeder Tresor öffnet sich für jeden Spieler nur einmal."
+            "tipp": "Schlüssel gibt es von Prüfungs-Spawnern. Jeder Tresor öffnet sich für jeden Spieler nur einmal."
           },
           "en": {
             "tun": "Unlock a vault with a trial key.",
@@ -1556,7 +1556,7 @@
           "de": {
             "tun": "Öffne einen unheilvollen Tresor mit einem unheilvollen Prüfungsschlüssel.",
             "brauchst": "Unheilvolle Flasche",
-            "tipp": "Trink die Flasche vor der Prüfkammer: Die Spawner werden härter und lassen unheilvolle Schlüssel fallen."
+            "tipp": "Trink die Flasche vor der Prüfungskammer: Die Spawner werden härter und lassen unheilvolle Schlüssel fallen."
           },
           "en": {
             "tun": "Unlock an ominous vault with an ominous trial key.",
@@ -1571,12 +1571,12 @@
           "de": {
             "tun": "Pinsel seltsamen Sand oder Kies ab und finde eine Töpferscherbe.",
             "brauchst": "Pinsel: 1 Feder, 1 Kupferbarren, 1 Stock",
-            "tipp": "Seltsamer Sand liegt in Wüstentempeln und Ozeanruinen, seltsamer Kies in Pfadruinen."
+            "tipp": "Seltsamer Sand liegt in Wüstentempeln und warmen Ozeanruinen, seltsamer Kies in Pfadruinen und kalten Ozeanruinen."
           },
           "en": {
             "tun": "Brush suspicious sand or gravel to find a pottery sherd.",
             "brauchst": "Brush: 1 feather, 1 copper ingot, 1 stick",
-            "tipp": "Suspicious sand hides in desert temples and ocean ruins, suspicious gravel in trail ruins."
+            "tipp": "Suspicious sand hides in desert temples and warm ocean ruins, suspicious gravel in trail ruins and cold ocean ruins."
           }
         },
         {
@@ -1796,8 +1796,8 @@
           "vanilla": "nether/get_wither_skull",
           "parent": "festung",
           "de": {
-            "tun": "Erbeute einen Witherskelettschädel.",
-            "tipp": "Witherskelette leben in Festungen. Plünderung erhöht die Chance."
+            "tun": "Erbeute einen Wither-Skelettschädel.",
+            "tipp": "Wither-Skelette leben in Festungen. Plünderung erhöht die Chance."
           },
           "en": {
             "tun": "Get a wither skeleton skull.",
@@ -1810,7 +1810,7 @@
           "parent": "witherschaedel",
           "de": {
             "tun": "Erschaffe den Wither.",
-            "brauchst": "3 Witherskelettschädel, 4 Seelensand oder Seelenerde",
+            "brauchst": "3 Wither-Skelettschädel, 4 Seelensand oder Seelenerde",
             "tipp": "Bitte weit weg von Häusern und vom Spawn! Am besten gemeinsam und tief unter der Erde."
           },
           "en": {
@@ -1886,7 +1886,7 @@
           },
           "de": {
             "titel": "Upgrade-Plan",
-            "tun": "Finde eine Netherit-Aufwertung.",
+            "tun": "Finde eine Netheritaufwertung.",
             "tipp": "Sie liegt in Bastionstruhen. Mit 7 Diamanten und Netherrack kannst du sie kopieren."
           },
           "en": {
@@ -1916,7 +1916,7 @@
           "parent": "schrott",
           "de": {
             "tun": "Besorg dir eine komplette Netheritrüstung.",
-            "brauchst": "4 Netheritbarren, 4 Netherit-Aufwertungen, Diamantrüstung",
+            "brauchst": "4 Netheritbarren, 4 Netheritaufwertungen, Diamantrüstung",
             "tipp": "Netheritbarren = 4 Netheritplatten + 4 Goldbarren. Aufwerten am Schmiedetisch."
           },
           "en": {
@@ -2065,7 +2065,7 @@
           "parent": "ghast_fernrohr",
           "de": {
             "tun": "Setz einen ausgetrockneten Ghast in Wasser.",
-            "brauchst": "Ausgetrockneter Ghast: 8 Ghastträne, 1 Seelensand",
+            "brauchst": "Ausgetrockneter Ghast: 8 Ghast-Tränen, 1 Seelensand",
             "tipp": "Mit genug Wasser schlüpft daraus ein glücklicher Ghast. Den kannst du später reiten!"
           },
           "en": {
@@ -2346,7 +2346,7 @@
           "vanilla": "end/elytra",
           "parent": "endsiedlung",
           "de": {
-            "tun": "Finde eine Elytra.",
+            "tun": "Finde Elytren.",
             "tipp": "Sie hängt im Endschiff neben manchen Endsiedlungen. Raketen geben Schub."
           },
           "en": {

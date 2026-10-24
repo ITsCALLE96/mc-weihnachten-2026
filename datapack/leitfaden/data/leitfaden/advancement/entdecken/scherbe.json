@@ -93,7 +93,7 @@
       },
       {
         "translate": "questbuch.entdecken.scherbe.tipp",
-        "fallback": "Suspicious sand hides in desert temples and ocean ruins, suspicious gravel in trail ruins.",
+        "fallback": "Suspicious sand hides in desert temples and warm ocean ruins, suspicious gravel in trail ruins and cold ocean ruins.",
         "color": "gold"
       }
     ],
