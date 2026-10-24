@@ -5,7 +5,7 @@
 import { ausschneiden } from './schem-welt.mjs';
 import { hole } from './schem.mjs';
 
-const luft = (b) => /:(air|cave_air|void_air)$/.test(b);
+const luft = (b) => /:(air|cave_air|void_air)$/.test(b) || /^minecraft:light(\[|$)/.test(b); // schon gesetzte Lichter zählen als Luft
 const LICHT = 'minecraft:light[level=15]';
 
 export function lichter(m, ursprung, inselUnterkante, schritt = 6) {
