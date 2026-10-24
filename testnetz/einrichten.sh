@@ -120,4 +120,7 @@ bash "$repo/server/plugin-konfig/einspielen.sh" "$hier/smp" smp vm200
 sed -i 's/^port=24456$/port=24476/' "$hier/hub/plugins/voicechat/voicechat-server.properties"
 sed -i 's/^port=24455$/port=24475/' "$hier/smp/plugins/voicechat/voicechat-server.properties"
 grep -H '^port=' "$hier"/*/plugins/voicechat/*.properties
+# Eröffnungs-Merker lokal statt /opt/mc-weihnachten/status/ (VM200)
+merker="$(cygpath -m "$hier" 2>/dev/null || echo "$hier")/status/smp-offen"
+sed -i "s#/opt/mc-weihnachten/status/smp-offen#$merker#" "$hier"/hub/plugins/Serverwahl/config.yml "$hier"/smp/plugins/Serverwahl/config.yml
 echo "Testnetz bereit: $hier (start.cmd, dann localhost:25577)"

@@ -34,7 +34,9 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 - [ ] Nur die Hub-Plugins (`plugins.md` → Hub): Serverwahl, WorldEdit, WorldGuard, Voice Chat. Konfigs per `plugin-konfig/einspielen.sh <hub-ordner> hub vm200` (warnt bei SMP-Plugins)
 - [ ] Hub-Welt (Fantasy Village) von der Spawn-&-Welt-Session eingespielt, Spawnpunkt gesetzt, Spielregeln aus `server.properties.md` → Hub
 - [ ] Kisten-Koordinaten in `plugin-konfig/hub/plugins/Serverwahl/config.yml` mit der fertigen Hub-Welt abgeglichen, Welt-Name in `WorldGuard/worlds/<welt>/` passt
-- [ ] SMP hat ebenfalls `serverwahl-1.0.0.jar` (für `/hub`)
+- [ ] SMP hat ebenfalls `serverwahl-1.0.0.jar` (für `/hub` und die Eröffnungssperre)
+- [ ] Merker-Ordner `/opt/mc-weihnachten/status/` (Besitzer `amp`) angelegt, `serverwahl status` auf beiden zeigt „geschlossen“. Ohne Op wird der SMP-Beitritt abgewiesen, auch per `/server smp`
+- [ ] Nach dem Testlauf 21.11.: `serverwahl schliessen`, damit das SMP bis 05.12. wieder zu ist
 - [ ] Wechsel geprüft: Beitritt → Hub, linke Kiste → SMP (Pack lädt nicht neu), `/hub` zurück, `/server smp`, Voice Chat in beiden, SMP-Neustart schiebt Spieler in den Hub
 - [ ] Whitelist auf beiden mit denselben ~25 Namen
 

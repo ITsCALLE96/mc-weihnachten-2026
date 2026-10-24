@@ -31,8 +31,9 @@ Bis dahin ist der Hub eine leere Luftwelt. Für einen Test vorher die Kisten als
    setblock 25 236 9 minecraft:chest[facing=west]
    setworldspawn 20 236 0
    ```
-   Die SMP-Kiste ist bis zur Eröffnung gesperrt (`#offen` in `insel_zustand`), Ops kommen trotzdem durch. Zum Prüfen ohne Op:
-   `scoreboard objectives add insel_zustand dummy` und `scoreboard players set #offen insel_zustand 1` öffnet sie.
+   Das SMP ist bis zur Eröffnung gesperrt (Merker `testnetz/status/smp-offen` fehlt), Ops kommen trotzdem durch. Öffnen ohne Op:
+   im Hub `scoreboard players set #offen insel_zustand 1` (Objective legt das Hub-Datapack an) oder in einer der Konsolen `serverwahl oeffnen`.
+   Wieder zu: `serverwahl schliessen`.
 5. Stoppen: Hub und SMP `stop`, Proxy `end`
 
 ## Prüfen (Client mit Modpack, Mehrspieler → `localhost:25577`)
@@ -46,4 +47,5 @@ Bis dahin ist der Hub eine leere Luftwelt. Für einen Test vorher die Kisten als
 7. SMP-Fenster mit `stop` beenden, während man drauf ist → landet im Hub (Failover)
 8. **Voice Chat beim Wechsel** (Leitung 24.10.): Symbol im Hub verbunden, nach Wechsel aufs SMP und zurück wieder verbunden, ohne Neuverbinden von Hand.
    Mit zwei Clients (zweiter Account) gegenseitig hörbar auf beiden Servern
-9. **Sperre:** ohne Op zeigt die SMP-Kiste „Öffnet am 05.12.“, nach `#offen` = 1 geht der Beitritt
+9. **Sperre** (ohne Op): SMP-Kiste zeigt „Der Weihnachtsserver öffnet am 05.12.“, `/server smp` wird mit derselben Meldung abgewiesen, man bleibt im Hub.
+   Nach `#offen` = 1 gehen beide. Geprüft 25.10. ohne Client: Merker per Befehl und per Scoreboard angelegt/entfernt

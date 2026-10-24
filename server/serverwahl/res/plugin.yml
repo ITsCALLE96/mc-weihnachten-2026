@@ -9,8 +9,8 @@ commands:
     aliases: [lobby]
     permission: serverwahl.hub
   serverwahl:
-    description: "serverwahl reload | serverwahl menue <kategorie>"
-    usage: "/serverwahl reload | /serverwahl menue <kategorie>"
+    description: "serverwahl reload | menue <kategorie> | oeffnen | schliessen | status"
+    usage: "/serverwahl reload | menue <kategorie> | oeffnen | schliessen | status"
     permission: serverwahl.admin
 permissions:
   serverwahl.hub:
@@ -18,5 +18,5 @@ permissions:
   serverwahl.admin:
     default: op
   serverwahl.vorab:
-    description: gesperrte Server (Sperre in der Config) trotzdem betreten, z. B. Tester vor der Eröffnung
+    description: SMP vor der Eröffnung trotzdem betreten (Tester, Aufbau)
     default: op

@@ -1,6 +1,12 @@
 # Serverwahl auf dem Hub (MinecraftHub01). Nach Änderung: /serverwahl reload
 ist-hub: true
 hub-server: hub
+# Eröffnung 05.12.: Das Hub-Datapack (Spawn & Welt) setzt #offen in insel_zustand auf 1, dann legt der Hub die Datei an.
+# Dieselbe Datei prüft das SMP beim Beitritt. Liegt außerhalb beider Instanzen, Ordner gehört amp (Task 2 Schritt 6b).
+eroeffnung:
+  datei: /opt/mc-weihnachten/status/smp-offen
+  ausloeser: {objective: insel_zustand, eintrag: "#offen", ab: 1}
+  text: "<red>Der Weihnachtsserver öffnet am <white>05.12.</white>"
 # Crate-Kisten im Fantasy Village: Rechtsklick öffnet das Menü der Kategorie.
 # Koordinaten vom Testserver (Leitung 24.10.), nach dem Hub-Aufbau der Spawn-&-Welt-Session prüfen.
 kisten:
@@ -10,8 +16,7 @@ kisten:
   - {welt: world, x: 27, y: 236, z: 5, kategorie: minigames}
   - {welt: world, x: 25, y: 236, z: 9, kategorie: bald}
 # name = Servername in velocity.toml [servers]; Text in MiniMessage
-# sperre (optional): gesperrt, solange Scoreboard objective/eintrag unter ab liegt. Ops und serverwahl.vorab kommen trotzdem rein.
-#   Eröffnung 05.12.: das Hub-Datapack (Spawn-&-Welt) setzt #offen in insel_zustand auf 1
+# sperre: eroeffnung → bis zur Eröffnung Barriere mit dem Text aus eroeffnung.text (Ops und serverwahl.vorab kommen durch)
 kategorien:
   smp:
     titel: "<dark_green>SMP-Server"
@@ -19,7 +24,7 @@ kategorien:
       - name: smp
         anzeige: "<gradient:#ff5252:#ffffff:#4cd964>Weihnachtsserver 2026</gradient>"
         material: SPRUCE_SAPLING
-        sperre: {objective: insel_zustand, eintrag: "#offen", ab: 1, text: "<red>Öffnet am <white>05.12.</white>"}
+        sperre: eroeffnung
         beschreibung:
           - "<gray>Survival mit dem Weihnachts-Modpack"
           - "<gray>Start am <white>05.12.</white>"
@@ -31,7 +36,7 @@ kategorien:
       - name: smp
         anzeige: "<gradient:#ff5252:#ffffff:#4cd964>Weihnachtsserver 2026</gradient>"
         material: SPRUCE_SAPLING
-        sperre: {objective: insel_zustand, eintrag: "#offen", ab: 1, text: "<red>Öffnet am <white>05.12.</white>"}
+        sperre: eroeffnung
         beschreibung:
           - "<gray>SMP · Survival"
           - ""

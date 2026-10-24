@@ -2,5 +2,11 @@
 ist-hub: false
 # Name des Hubs in velocity.toml [servers]
 hub-server: hub
+# Eröffnungssperre: Solange die Datei fehlt, lehnt das SMP jeden Beitritt ab (auch über /server smp).
+# Ops und serverwahl.vorab dürfen rein (Tests, Testlauf). Angelegt vom Hub bei der Eröffnung oder per /serverwahl oeffnen.
+eroeffnung:
+  datei: /opt/mc-weihnachten/status/smp-offen
+  beitritt-sperren: true
+  text: "<red>Der Weihnachtsserver öffnet am <white>05.12.</white>"
 kisten: []
 kategorien: {}

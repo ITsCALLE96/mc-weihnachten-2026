@@ -20,11 +20,23 @@ Auf dem SMP stellt dasselbe Plugin `/hub` (Alias `/lobby`) bereit. `/server <nam
 | `hub-server` | Name des Hubs in `velocity.toml` `[servers]` (`hub`) |
 | `kisten` | Liste `{welt, x, y, z, kategorie}`. Blockkoordinaten der Kisten |
 | `kategorien.<name>` | `titel` (MiniMessage) und `server`: Liste `{name, anzeige, material, beschreibung, sperre}`. `name` = Server in `velocity.toml`. Leere Liste zeigt „Bald verfügbar“ |
-| `sperre` (je Server, optional) | `{objective, eintrag, ab, text}`: gesperrt, solange der Punktestand von `eintrag` im Haupt-Scoreboard unter `ab` liegt. Dann Barriere mit `text` statt Beitritt |
+| `sperre: eroeffnung` (je Server im Menü, optional) | bis zur Eröffnung Barriere mit `eroeffnung.text` statt Beitritt |
+| `eroeffnung.datei` | gemeinsamer Merker „SMP eröffnet“, auf VM200 `/opt/mc-weihnachten/status/smp-offen`. Leer = keine Sperre |
+| `eroeffnung.ausloeser` (nur Hub) | `{objective, eintrag, ab}`: erreicht der Punktestand `ab`, legt der Hub die Datei an (einmal pro Sekunde geprüft, nie gelöscht) |
+| `eroeffnung.beitritt-sperren` (nur SMP) | `true`: ohne Datei wird jeder Beitritt mit `eroeffnung.text` abgewiesen |
 
-**Sperre bis zur Eröffnung (abgestimmt mit Spawn & Welt, 24.10.):** Das SMP steht im Hub-Menü mit `sperre: {objective: insel_zustand, eintrag: "#offen", ab: 1}`.
-Das Hub-Datapack setzt `#offen` bei der Eröffnung am 05.12. auf 1, ab dann ist die Kiste offen. Fehlt das Objective, gilt das als 0 (gesperrt).
-Ops und Spieler mit `serverwahl.vorab` kommen trotzdem durch (Testlauf 21.11., Aufbau).
+## Eröffnungssperre (Leitung 24.10., Weg mit Spawn & Welt abgestimmt)
+
+Die Sperre sitzt **auf dem SMP selbst**: Solange `/opt/mc-weihnachten/status/smp-offen` fehlt, lehnt es jeden Beitritt ab („Der Weihnachtsserver öffnet am 05.12.“),
+egal ob über die Kiste oder `/server smp`. Velocity lässt den Spieler dann im Hub. Ops und `serverwahl.vorab` kommen durch (Tests, Testlauf 21.11.).
+Beide Server laufen auf VM200, deshalb reicht eine Datei als Merker. Kein Plugin-Kanal, der einen Spieler auf dem Ziel bräuchte.
+
+- **Auslösen:** Das Hub-Datapack setzt bei der Eröffnung `#offen` in `insel_zustand` auf 1, der Hub legt binnen einer Sekunde die Datei an. Von Hand: `serverwahl oeffnen` (Hub- oder SMP-Konsole)
+- **Zurücknehmen** (Proben): `serverwahl schliessen`. Der Hub löscht die Datei nie selbst, eine zurückgesetzte Hub-Welt schließt das SMP also nicht wieder.
+  Für eine weitere Probe deshalb Datapack zurücksetzen (`#offen` = 0) **und** `serverwahl schliessen`
+- **Stand:** `serverwahl status`
+- **VM200 vorbereiten** (Task 2 Schritt 6b): `mkdir -p /opt/mc-weihnachten/status && chown amp:amp /opt/mc-weihnachten/status`
+- **`/server` ausblenden:** ohne Rechte-Plugin auf Velocity nicht möglich, wegen der SMP-Sperre aber auch nicht mehr nötig
 
 Neuer Server später (z. B. zweites SMP): Zeile in `velocity.toml` `[servers]`, Eintrag unter der passenden Kategorie, `/serverwahl reload`. Kein neuer Build.
 
@@ -43,7 +55,7 @@ Die Kisten öffnen sich nicht als Kiste (Klick wird abgefangen). WorldGuard sper
 Befehle: `/hub`, `/lobby` (alle), `/serverwahl reload`, `/serverwahl menue <kategorie>` (Op, zum Testen ohne Kiste).
 Rechte: `serverwahl.hub` (alle), `serverwahl.admin` und `serverwahl.vorab` (Ops).
 
-**Lücke:** `/server smp` von Velocity umgeht die Sperre. Ohne Rechte-Plugin auf dem Proxy lässt sich das nicht abschalten (Für die Leitung im Plan).
+Weitere Befehle (Op/Konsole): `/serverwahl oeffnen`, `/serverwahl schliessen`, `/serverwahl status`.
 
 ## Bauen
 
@@ -59,4 +71,5 @@ Unter Linux `CP_TRENNER` weglassen. Ergebnis: `server/serverwahl/build/serverwah
 ## Getestet
 
 - 24.10., Testnetz (`../../testnetz/`): lädt auf Hub („Hub, 5 Kisten“) und SMP („Backend, 0 Kisten“), Paper 26.3-207, keine Fehler.
-- **Offen:** Klick-Test mit echtem Client (Kiste → Menü → Wechsel aufs SMP → `/hub` zurück). Dazu `testnetz/start.cmd`, Client auf `localhost:25577`.
+- 25.10., Testnetz-SMP ohne Client: `serverwahl status/oeffnen/schliessen` legen den Merker an und löschen ihn, Auslöser über `scoreboard players set #offen insel_zustand 1` legt ihn binnen einer Sekunde an
+- **Offen:** Beitritts-Abweisung und Klick-Test mit echtem Client (Kiste → Menü → Wechsel aufs SMP → `/hub` zurück). Dazu `testnetz/start.cmd`, Client auf `localhost:25577`.

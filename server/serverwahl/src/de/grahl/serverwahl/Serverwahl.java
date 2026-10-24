@@ -3,6 +3,9 @@ package de.grahl.serverwahl;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +29,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -39,6 +43,8 @@ import org.bukkit.scoreboard.Objective;
  * Hub: Rechtsklick auf eine eingetragene Kiste öffnet das Menü ihrer Kategorie, ein Klick auf einen Server schickt
  * den Spieler über den BungeeCord-Kanal „Connect“ dorthin (Velocity versteht den Kanal).
  * Überall: /hub bringt zum Hub zurück (auf dem Hub selbst: zum Spawn).
+ * Eröffnung: ein gemeinsamer Merker als Datei (beide Server laufen auf derselben VM). Der Hub legt sie an, sobald das
+ * Hub-Datapack das Scoreboard umstellt; das SMP lehnt jeden Beitritt ab, solange sie fehlt (außer serverwahl.vorab).
  */
 public final class Serverwahl extends JavaPlugin implements Listener {
 
@@ -49,6 +55,13 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private final Map<String, String> kisten = new HashMap<>();
     private String hubServer;
     private boolean istHub;
+    /** Merker „SMP ist eröffnet“, null = keine Eröffnungssperre */
+    private Path offenDatei;
+    private boolean beitrittSperren;
+    private String sperrText;
+    private String ausloeserObjective;
+    private String ausloeserEintrag;
+    private int ausloeserAb;
 
     @Override
     public void onEnable() {
@@ -56,6 +69,17 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         laden();
         getServer().getMessenger().registerOutgoingPluginChannel(this, KANAL);
         getServer().getPluginManager().registerEvents(this, this);
+        // Hub: einmal pro Sekunde schauen, ob das Datapack die Eröffnung ausgelöst hat. Legt die Datei nur an, löscht sie nie
+        // (eine zurückgesetzte Hub-Welt soll das SMP nicht wieder schließen; schließen nur per /serverwahl schliessen)
+        getServer().getScheduler().runTaskTimer(this, () -> {
+            if (!istHub || offenDatei == null || ausloeserObjective == null || istOffen()) {
+                return;
+            }
+            Objective obj = Bukkit.getScoreboardManager().getMainScoreboard().getObjective(ausloeserObjective);
+            if (obj != null && obj.getScore(ausloeserEintrag).getScore() >= ausloeserAb) {
+                oeffnen("Scoreboard " + ausloeserObjective + "/" + ausloeserEintrag);
+            }
+        }, 40L, 20L);
     }
 
     private void laden() {
@@ -67,7 +91,17 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             String schluessel = k.get("welt") + ":" + k.get("x") + ":" + k.get("y") + ":" + k.get("z");
             kisten.put(schluessel, String.valueOf(k.get("kategorie")));
         }
-        getLogger().info((istHub ? "Hub" : "Backend") + ", " + kisten.size() + " Kisten, Hub-Server „" + hubServer + "“");
+        ConfigurationSection er = getConfig().getConfigurationSection("eroeffnung");
+        String datei = er == null ? "" : er.getString("datei", "");
+        offenDatei = datei.isBlank() ? null : Path.of(datei);
+        beitrittSperren = er != null && er.getBoolean("beitritt-sperren", false);
+        sperrText = er == null ? "" : er.getString("text", "<red>Der Weihnachtsserver öffnet am <white>05.12.</white>");
+        ConfigurationSection al = er == null ? null : er.getConfigurationSection("ausloeser");
+        ausloeserObjective = al == null ? null : al.getString("objective");
+        ausloeserEintrag = al == null ? null : al.getString("eintrag");
+        ausloeserAb = al == null ? 1 : al.getInt("ab", 1);
+        getLogger().info((istHub ? "Hub" : "Backend") + ", " + kisten.size() + " Kisten, Hub-Server " + hubServer
+                + (offenDatei == null ? "" : ", Eröffnung " + (istOffen() ? "offen" : "geschlossen") + " (" + offenDatei + ")"));
     }
 
     @Override
@@ -76,6 +110,24 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             if (args.length == 1 && args[0].equals("reload")) {
                 laden();
                 sender.sendMessage(Component.text("serverwahl neu geladen (" + kisten.size() + " Kisten)", NamedTextColor.GREEN));
+                return true;
+            }
+            if (args.length == 1 && (args[0].equals("oeffnen") || args[0].equals("schliessen") || args[0].equals("status"))) {
+                if (offenDatei == null) {
+                    sender.sendMessage(Component.text("Keine Eröffnungssperre eingestellt (eroeffnung.datei)", NamedTextColor.YELLOW));
+                    return true;
+                }
+                if (args[0].equals("oeffnen")) {
+                    oeffnen("Befehl von " + sender.getName());
+                } else if (args[0].equals("schliessen")) {
+                    try {
+                        Files.deleteIfExists(offenDatei);
+                        getLogger().info("Eröffnung zurückgenommen (" + sender.getName() + ")");
+                    } catch (IOException ex) {
+                        sender.sendMessage(Component.text("Löschen fehlgeschlagen: " + ex.getMessage(), NamedTextColor.RED));
+                    }
+                }
+                sender.sendMessage(Component.text("SMP " + (istOffen() ? "offen" : "geschlossen") + " (" + offenDatei + ")", NamedTextColor.GREEN));
                 return true;
             }
             if (args.length == 2 && args[0].equals("menue") && sender instanceof Player p) {
@@ -114,6 +166,32 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         menueOeffnen(e.getPlayer(), kategorie);
     }
 
+    private boolean istOffen() {
+        return offenDatei == null || Files.exists(offenDatei);
+    }
+
+    private void oeffnen(String anlass) {
+        try {
+            if (offenDatei.getParent() != null) {
+                Files.createDirectories(offenDatei.getParent());
+            }
+            Files.writeString(offenDatei, "eröffnet " + LocalDateTime.now() + " durch " + anlass + System.lineSeparator());
+            getLogger().info("SMP eröffnet (" + anlass + "), Merker " + offenDatei);
+        } catch (IOException ex) {
+            getLogger().severe("Eröffnungs-Merker " + offenDatei + " nicht schreibbar: " + ex.getMessage());
+        }
+    }
+
+    /** SMP: vor der Eröffnung niemanden hereinlassen, auch nicht über /server smp */
+    @EventHandler
+    @SuppressWarnings("deprecation")
+    public void beimBeitritt(PlayerLoginEvent e) {
+        if (!beitrittSperren || istOffen() || e.getPlayer().hasPermission("serverwahl.vorab")) {
+            return;
+        }
+        e.disallow(PlayerLoginEvent.Result.KICK_OTHER, MM.deserialize(sperrText));
+    }
+
     private void menueOeffnen(Player p, String kategorie) {
         ConfigurationSection kat = getConfig().getConfigurationSection("kategorien." + kategorie);
         if (kat == null) {
@@ -135,7 +213,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                 zeilen.forEach(z -> text.add(String.valueOf(z)));
             }
             int slot = 13 - (Math.min(server.size(), 7) - 1) / 2 + i;
-            String gesperrt = sperrText(p, s.get("sperre"));
+            String gesperrt = "eroeffnung".equals(s.get("sperre")) && !istOffen() && !p.hasPermission("serverwahl.vorab") ? sperrText : null;
             if (gesperrt != null) {
                 // Text unter „Klicken zum Beitreten“ ersetzen: letzte Zeile raus, Sperrtext rein
                 if (!text.isEmpty()) {
@@ -149,21 +227,6 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             menue.ziele.put(slot, String.valueOf(s.get("name")));
         }
         p.openInventory(menue.inventar);
-    }
-
-    /**
-     * Sperre aus der Config: {objective, eintrag, ab, text}. Gesperrt, solange der Punktestand von eintrag im Haupt-Scoreboard
-     * unter ab liegt (z. B. #offen in insel_zustand vor der Eröffnung). Wer serverwahl.vorab hat (Ops, Tester), kommt trotzdem durch.
-     * @return Sperrtext oder null, wenn frei
-     */
-    private String sperrText(Player p, Object sperre) {
-        if (!(sperre instanceof Map<?, ?> sp) || p.hasPermission("serverwahl.vorab")) {
-            return null;
-        }
-        Objective obj = Bukkit.getScoreboardManager().getMainScoreboard().getObjective(String.valueOf(sp.get("objective")));
-        int ab = sp.get("ab") instanceof Number n ? n.intValue() : 1;
-        int stand = obj == null ? 0 : obj.getScore(String.valueOf(sp.get("eintrag"))).getScore();
-        return stand >= ab ? null : String.valueOf(sp.containsKey("text") ? sp.get("text") : "<red>Noch geschlossen");
     }
 
     private static ItemStack gegenstand(Material mat, String name, List<String> beschreibung) {
