@@ -30,6 +30,8 @@ Gehört zusammen mit `force-key-authentication = false` in Velocity, Begründung
 
 **`resource-pack-id`** (seit 24.10.): feste UUID, damit der Client das Pack über Updates hinweg als dasselbe erkennt (sonst meldet Paper „resource-pack-id missing,
 using default“). Bei neuen Pack-Versionen bleibt die ID gleich, nur URL und `resource-pack-sha1` ändern sich.
+**Offen: `rp-v2`** (Modpack-Session, Wintergemälde, ohne Musik). Sobald das GitHub-Release steht: `rp-v1` in der URL durch `rp-v2` ersetzen, `resource-pack-sha1` aus
+`sha1sum weihnachten-rp.zip` des Release-Downloads, ID unverändert. Dieselben Werte für den lokalen Testserver.
 
 **Serverliste:** Spieler verbinden sich mit Velocity. Dort stehen die sichtbare MOTD (`velocity/velocity.toml.auszug`) und das Bild
 (`icon/server-icon.png` neben `velocity.toml`). Die Paper-`motd` sieht nur, wer den Backend-Port direkt anfragt, sie bleibt nur der Ordnung halber gesetzt.

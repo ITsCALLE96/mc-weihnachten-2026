@@ -1,0 +1,11 @@
+messages:
+  end-closed: "&cDas End ist noch geschlossen!"
+  nether-closed: "&cDer Nether ist noch geschlossen!"
+  opened: "&a{dimension} ist jetzt offen!"
+  closed: "&a{dimension} ist jetzt geschlossen!"
+  status-line: "&e{dimension}: {state}&e."
+  no-permission: "&cDafür hast du keine Rechte!"
+  reloaded: "&aKonfiguration neu geladen!"
+  usage-end: "&eBenutzung: /end <open|close|status>"
+  usage-nether: "&eBenutzung: /nether <open|close|status>"
+  usage-dc: "&eBenutzung: /dimensioncontrol <nether-open|nether-close|end-open|end-close|status|reload>"

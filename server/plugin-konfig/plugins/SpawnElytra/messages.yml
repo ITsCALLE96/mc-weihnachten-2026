@@ -1,0 +1,13 @@
+# SpawnElytra – Texte für Spieler (deutsch). &-Farbcodes erlaubt.
+# Platzhalter: %key% Taste für den Schub (nur Java), %count% bisherige Schübe, %total% totalBoosts aus config.yml, %seconds% Sekunden
+
+javaActivation: "Drück %key% für einen Schub."
+bedrockActivation: "&aDrück SCHLEICHEN für einen Schub!"
+boostActivated: "&aSchub!"
+boostActivatedWithCount: "&aSchub! &7(%count%/%total%)"
+boostCooldown: "&7Nächster Schub in %seconds% s"
+boostReady: "&aSchub wieder bereit!"
+flightTimerBossBar: "Flugzeit: %seconds% s"
+flightTimerCountdown: "&c%seconds%"
+flightTimerTimeUpTitle: "&cFlugzeit vorbei!"
+flightTimerTimeUpActionbar: "&cDeine Flugzeit ist abgelaufen!"

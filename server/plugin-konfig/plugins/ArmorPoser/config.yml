@@ -1,0 +1,7 @@
+enableConfigGui: true
+requirePermissions: false
+restrictResizeToOP: false
+resizeWhitelist:
+- ''
+minScale: 0.0625
+maxScale: 10
