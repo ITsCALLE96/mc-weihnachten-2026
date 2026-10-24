@@ -10,7 +10,7 @@ dann in `plugins/` kopieren.
 | Plugin | Version | Quelle | Lizenz | Datei, Prüfsumme (SHA1) | Zweck |
 |---|---|---|---|---|---|
 | WorldEdit | 7.4.6 (release, 15.10.) | Modrinth `worldedit` | GPL-3.0 | `worldedit-bukkit-7.4.6.jar`, `4de34cb32f338a7727f0c1cc4a0f7ebff3fcc3a3` | Spawn einfügen, für WorldGuard nötig |
-| WorldGuard | 7.0.20 (release, 17.10.) | Modrinth `worldguard` | LGPL-3.0 | `worldguard-bukkit-7.0.20.jar`, `dd5fa9be6f5faf8a053a597491d194f2de8963ec` | Regionen aus `spawn/worldguard/regions.yml` (`vorgenerierung.md` → Spawn): Bauverbot 150 Blöcke um den Spawn |
+| WorldGuard | 7.0.20 (release, 17.10.) | Modrinth `worldguard` | LGPL-3.0 | `worldguard-bukkit-7.0.20.jar`, `dd5fa9be6f5faf8a053a597491d194f2de8963ec` | Regionen aus `spawn/worldguard/regions.yml` (`vorgenerierung.md` → Spawn-Aufbau): nur Region `spawn`, Oval um die Insel (Mitte 71/25, Halbachsen 62/46). Seit 24.10. (Pascal) kein Bauverbot-Radius mehr, die Ebene drumherum ist frei bebaubar |
 | DimensionControl | 3.0m (release, 17.09.) | Modrinth `dimension-control` | MIT | `dimensioncontrol-3.0m.jar`, `e3ed86c53229f42360b3308961607d2f3db833ee` | Nether/End zu bis zur Phase |
 | Fair Play for Xaero's Maps | 0.1.7 (release, 22.09.) | Modrinth `fair-play-for-xaeros-maps` | ARR (Nutzung frei) | `xaero-fair-play-0.1.7.jar`, `9f9f32ec7ab6fe80f7d42ffc6c262d2fd2c80b72` | Höhlenansicht und Entity-Radar in Xaero aus |
 | Armor Poser Plugin | 3.0.0 (release, 17.09.) | Modrinth `armor-poser-plugin` | MIT | `ArmorPoser-Plugin-3.0.0.jar`, `cc1f347fdef37ad3320dbba07555299d8b657a81` | Server-Teil zur Mod Armor Poser im Pack |

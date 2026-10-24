@@ -97,7 +97,7 @@ auch keine Monsterfarmen). Ablauf und Dateien: `spawn/AUFBAU.md`, Prüfliste fü
 **Vor dem ersten Start** (Server gestoppt, `level-seed=1560698989`):
 1. Datapacks nach `world/datapacks/`: `datapack/leitfaden`, `server/datapacks/wanderhaendler-rabatt`, `spawn/datapack/insel`, dazu lokal von der
    Spawn-&-Welt-Session `aufschuettung` und `spawn-insel` (CA12-Daten, nicht im Repo, kommen per Kopie auf VM200)
-2. `spawn/worldguard/regions.yml` → `plugins/WorldGuard/worlds/world/regions.yml`
+2. `spawn/worldguard/regions.yml` → `plugins/WorldGuard/worlds/world/regions.yml` (nur Region `spawn`, Oval um die Insel; kein Bauverbot-Radius mehr, Pascal 24.10.)
 3. **Keine** Ordner unter `world/dimensions/minecraft/` vorab anlegen, sonst stürzt Paper 26.3 ab. Anti-Xray für Nether/End erst nach dem ersten Start
    eintragen (`paper/anti-xray.md`), wirkt ab dem nächsten Start, also vor der Vorgenerierung einmal neu starten
 
