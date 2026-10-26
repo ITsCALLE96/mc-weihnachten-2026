@@ -17,6 +17,7 @@ white-list=true
 enforce-whitelist=true
 enable-rcon=false
 spawn-protection=0
+difficulty=normal
 require-resource-pack=true
 resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v3/weihnachten-rp.zip
 resource-pack-sha1=34a0d1971ccd9b960e5107a5510191bbb122a0cb
@@ -24,6 +25,8 @@ resource-pack-id=73014a80-9072-4aee-961a-5ed01a359e3f
 resource-pack-prompt={"text":"Pflicht: Weihnachts-Texturen und das deutsche Questbuch. Ohne Annehmen kein Beitritt.","color":"aqua"}
 motd=§b❄ Weihnachtsserver ❄
 ```
+
+**`difficulty=normal`** (seit 26.10., Leitung beim Testnetz-Test; war vorher nirgends festgelegt, Paper-Standard wäre `easy`). Pascal darf noch widersprechen.
 
 **`enforce-secure-profile=false`** (seit 24.10., lokaler Testserver): Sonst lehnt Paper Chatnachrichten von Spielern mit No Chat Reports ab („missing profile public key“).
 Gehört zusammen mit `force-key-authentication = false` in Velocity, Begründung in `velocity/README.md` → Chat-Signaturen.

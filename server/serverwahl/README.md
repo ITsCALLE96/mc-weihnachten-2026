@@ -10,6 +10,16 @@ Auf dem SMP stellt dasselbe Plugin `/hub` (Alias `/lobby`) bereit. `/server <nam
 - Der nötige Umfang ist klein (eine Java-Datei): Kistenposition → Kategorie → Menü → BungeeCord-Nachricht „Connect“. Weniger Teile, die bei einem Update brechen.
 - Rückfallweg, falls das Plugin Ärger macht: DeluxeMenus + Befehl `/server smp` über ein Schild.
 
+## Weitere Aufgaben auf dem SMP (seit 26.10., Pascals Test)
+
+- **Portale gesperrt, solange die Dimension zu ist** (`portale-sperren: true`): Ein Netherportal lässt sich nicht anzünden (`PortalCreateEvent`, Grund `FIRE`),
+  in Endportalrahmen lassen sich keine Enderaugen einsetzen (kein halber Rahmen, kein verlorenes Auge). Meldung in der Aktionsleiste
+  (`text-nether-zu`, `text-end-zu`). Der Zustand kommt aus `plugins/DimensionControl/data.yml` (`closed-dimensions`), `nether open`/`end open` bleiben der einzige Schalter.
+  Ops (Recht `dimensioncontrol.bypass.nether`/`.end`) dürfen trotzdem
+- **Eröffnungsbefehle** (`eroeffnung.befehle`): Sobald der Merker auftaucht, führt das SMP sie einmal in der Konsole aus (Phase 1 nur bei Phase 0, `time set 0`, `weather clear`),
+  damit der Server nicht nachts öffnet. Erledigt-Merker `plugins/Serverwahl/eroeffnet.txt` verhindert eine Wiederholung nach einem Neustart.
+  Verschwindet der Merker wieder (Probe, `serverwahl schliessen`), löscht das SMP `eroeffnet.txt`, die nächste Eröffnung läuft dann erneut
+
 ## Konfiguration
 
 `plugins/Serverwahl/config.yml`, die Dateien dafür liegen in `../plugin-konfig/hub/` und `../plugin-konfig/smp/`. Nach Änderungen `/serverwahl reload` (Op).
@@ -73,4 +83,7 @@ Unter Linux `CP_TRENNER` weglassen. Ergebnis: `server/serverwahl/build/serverwah
 - 24.10., Testnetz (`../../testnetz/`): lädt auf Hub („Hub, 5 Kisten“) und SMP („Backend, 0 Kisten“), Paper 26.3-207, keine Fehler.
 - 25.10., Testnetz-SMP ohne Client: `serverwahl status/oeffnen/schliessen` legen den Merker an und löschen ihn, Auslöser über `scoreboard players set #offen insel_zustand 1` legt ihn binnen einer Sekunde an
 - 25.10., Testnetz-Hub mit der echten Hub-Welt (Spawn & Welt): Eröffnung aus dem Hub-Datapack legt den Merker an, `serverwahl schliessen` in der Hub-Konsole nimmt ihn zurück
-- **Offen:** Beitritts-Abweisung und Klick-Test mit echtem Client (Kiste → Menü → Wechsel aufs SMP → `/hub` zurück). Dazu `testnetz/start.cmd`, Client auf `localhost:25577`.
+- 26.10., Testnetz: Netherportal per Konsole gezündet bleibt bei geschlossenem Nether aus, nach `nether open` entsteht es (Gegenprobe).
+  Eröffnungsbefehle liefen einmal (Phase 0 → 1, Tag, klares Wetter), nach Zurücksetzen erneut, nach SMP-Neustart nicht noch einmal
+- Pascal 26.10.: Kiste → SMP, `/hub`, Eröffnung mit Countdown, Nether-Sperre
+- **Offen:** Enderauge im Rahmen (braucht Client), Beitritts-Abweisung ohne Op mit Client (Kiste → Menü → Wechsel aufs SMP → `/hub` zurück). Dazu `testnetz/start.cmd`, Client auf `localhost:25577`.

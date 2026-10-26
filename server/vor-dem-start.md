@@ -37,6 +37,8 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 - [ ] SMP hat ebenfalls `serverwahl-1.0.0.jar` (für `/hub` und die Eröffnungssperre)
 - [ ] Merker-Ordner `/opt/mc-weihnachten/status/` (Besitzer `amp`) angelegt, `serverwahl status` auf beiden zeigt „geschlossen“. Ohne Op wird der SMP-Beitritt abgewiesen, auch per `/server smp`
 - [ ] Nach dem Testlauf 21.11.: `serverwahl schliessen`, damit das SMP bis 05.12. wieder zu ist
+- [ ] Eröffnungsbefehle in `plugin-konfig/smp/plugins/Serverwahl/config.yml` (Phase 1, `time set 0`, `weather clear`) geprüft: im Testlauf einmal ausgeführt, nach Neustart nicht wiederholt
+- [ ] Portal-Sperre ohne Op geprüft: Netherportal zündet nicht, kein Enderauge im Rahmen, solange `nether`/`end` zu sind
 - [ ] Wechsel geprüft: Beitritt → Hub, linke Kiste → SMP (Pack lädt nicht neu), `/hub` zurück, `/server smp`, Voice Chat in beiden, SMP-Neustart schiebt Spieler in den Hub
 - [ ] Whitelist auf beiden mit denselben ~25 Namen
 

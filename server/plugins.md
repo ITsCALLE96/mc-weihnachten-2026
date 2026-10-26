@@ -30,6 +30,8 @@ Alle sind auf Modrinth als 26.3-kompatibel markiert (Filter `game_versions=26.3`
   *Dimension Date Lock* (letzte Version Januar 2025).
   - Befehle (Konsole): `nether close` · `nether open` · `end close` · `end open`. Diese ersetzen die Platzhalter
     `nether_oeffnen` und `end_oeffnen` aus dem Plan, die AMP-Aufgaben in Task 9 senden also `nether open` bzw. `end open`.
+  - **Portale (seit 26.10., Pascal):** Solange eine Dimension zu ist, lässt sich kein Netherportal anzünden und kein Enderauge in einen Endportalrahmen setzen.
+    Das macht `serverwahl` auf dem SMP, es liest dafür `plugins/DimensionControl/data.yml` (`serverwahl/README.md`)
   - **Achtung:** Operatoren und die Rechte `dimensioncontrol.bypass[.end|.nether]` umgehen die Sperre. Die Tests aus Task 4
     deshalb nur mit einem Account ohne OP machen (oder vorher `deop`).
   - **Neustart (lokaler Testserver, 24.10.):** `nether close`/`end close` aus der Konsole gehen. Der Zustand steht in `plugins/DimensionControl/data.yml`

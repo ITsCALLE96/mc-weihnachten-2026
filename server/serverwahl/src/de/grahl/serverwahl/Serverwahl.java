@@ -62,6 +62,8 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private String ausloeserObjective;
     private String ausloeserEintrag;
     private int ausloeserAb;
+    private List<String> eroeffnungsBefehle = List.of();
+    private boolean portaleSperren;
 
     @Override
     public void onEnable() {
@@ -80,6 +82,27 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                 oeffnen("Scoreboard " + ausloeserObjective + "/" + ausloeserEintrag);
             }
         }, 40L, 20L);
+        // SMP: beim Wechsel geschlossen → offen einmalig die Eröffnungsbefehle (Phase 1, Tag, klares Wetter).
+        // Erledigt-Merker im Plugin-Ordner, damit ein Neustart sie nicht wiederholt; schließt der Merker wieder (Probe), wird er zurückgesetzt
+        getServer().getScheduler().runTaskTimer(this, () -> {
+            if (istHub || offenDatei == null || eroeffnungsBefehle.isEmpty()) {
+                return;
+            }
+            Path erledigt = getDataFolder().toPath().resolve("eroeffnet.txt");
+            try {
+                if (!istOffen()) {
+                    Files.deleteIfExists(erledigt);
+                } else if (!Files.exists(erledigt)) {
+                    for (String befehl : eroeffnungsBefehle) {
+                        getLogger().info("Eröffnung: " + befehl);
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), befehl);
+                    }
+                    Files.writeString(erledigt, "Eröffnungsbefehle ausgeführt " + LocalDateTime.now() + System.lineSeparator());
+                }
+            } catch (IOException ex) {
+                getLogger().warning("Eröffnungs-Merker im Plugin-Ordner: " + ex.getMessage());
+            }
+        }, 60L, 20L);
     }
 
     private void laden() {
@@ -100,6 +123,8 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         ausloeserObjective = al == null ? null : al.getString("objective");
         ausloeserEintrag = al == null ? null : al.getString("eintrag");
         ausloeserAb = al == null ? 1 : al.getInt("ab", 1);
+        eroeffnungsBefehle = er == null ? List.of() : er.getStringList("befehle");
+        portaleSperren = getConfig().getBoolean("portale-sperren", false);
         getLogger().info((istHub ? "Hub" : "Backend") + ", " + kisten.size() + " Kisten, Hub-Server " + hubServer
                 + (offenDatei == null ? "" : ", Eröffnung " + (istOffen() ? "offen" : "geschlossen") + " (" + offenDatei + ")"));
     }
@@ -147,6 +172,41 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             verbinden(p, hubServer);
         }
         return true;
+    }
+
+    /** Liest den Zustand von DimensionControl (plugins/DimensionControl/data.yml, closed-dimensions), damit nether/end open dort die einzige Stellschraube bleibt */
+    private boolean dimensionZu(String name) {
+        java.io.File daten = new java.io.File(getDataFolder().getParentFile(), "DimensionControl/data.yml");
+        return daten.exists() && org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(daten)
+                .getStringList("closed-dimensions").contains(name);
+    }
+
+    /** SMP: Netherportal lässt sich nicht anzünden, solange der Nether zu ist (Pascal, 26.10.) */
+    @EventHandler(ignoreCancelled = true)
+    public void beimPortalBau(org.bukkit.event.world.PortalCreateEvent e) {
+        if (!portaleSperren || e.getReason() != org.bukkit.event.world.PortalCreateEvent.CreateReason.FIRE || !dimensionZu("nether")) {
+            return;
+        }
+        if (e.getEntity() instanceof Player p) {
+            if (p.hasPermission("dimensioncontrol.bypass.nether")) {
+                return;
+            }
+            p.sendActionBar(MM.deserialize(getConfig().getString("text-nether-zu", "<red>Der Nether ist noch geschlossen!")));
+        }
+        e.setCancelled(true);
+    }
+
+    /** SMP: keine Enderaugen in Endportalrahmen, solange das End zu ist – so bleibt kein halber Rahmen und kein Auge geht verloren */
+    @EventHandler(ignoreCancelled = true)
+    public void beimEnderauge(PlayerInteractEvent e) {
+        if (!portaleSperren || e.getAction() != Action.RIGHT_CLICK_BLOCK || e.getClickedBlock() == null
+                || e.getClickedBlock().getType() != Material.END_PORTAL_FRAME || e.getItem() == null
+                || e.getItem().getType() != Material.ENDER_EYE || e.getPlayer().hasPermission("dimensioncontrol.bypass.end")
+                || !dimensionZu("end")) {
+            return;
+        }
+        e.setCancelled(true);
+        e.getPlayer().sendActionBar(MM.deserialize(getConfig().getString("text-end-zu", "<red>Das End ist noch geschlossen!")));
     }
 
     @EventHandler

@@ -6,7 +6,7 @@ Bildet den Aufbau von VM200 nach, nur mit anderen Ports. Läuft **neben** `../te
 |---|---|---|---|
 | Velocity 4.3.0-44 | `proxy/` | 25577 (Client verbindet hierhin) | `MinecraftProxy01`, 25565 |
 | Hub (Paper 26.3-207, Leerwelt, Abenteuer) | `hub/` | 25567 | `MinecraftHub01`, 25567 |
-| SMP (Paper 26.3-207, leere flache Welt) | `smp/` | 25568 | `MinecraftWeihnachten01`, 25566 |
+| SMP (Paper 26.3-207, echte Welt, normal, Plugins und Datapacks wie VM200) | `smp/` | 25568 | `MinecraftWeihnachten01`, 25566 |
 
 Voice Chat wie auf VM200 über den Proxy, nur auf verschobenen Ports, damit nichts mit dem Testserver (24454) streitet: Proxy UDP 24474, SMP 24475, Hub 24476
 (VM200: 24454 / 24455 / 24456). Ohne Whitelist. Das Secret wird bei jedem Einrichten neu erzeugt und liegt nur in den ignorierten Ordnern.
@@ -21,7 +21,10 @@ Bis dahin ist der Hub eine leere Luftwelt. Für einen Test vorher die Kisten als
    `velocity-4.3.0-44.jar` (fill.papermc.io, SHA256 in `../server/plugins.md`) und `voicechat-velocity-2.6.26.jar` (Modrinth, SHA1 `ed73c2f1c006f78ce1616dd7cd6c01e0f4f1b9e1`)
 2. Plugin bauen: `../server/serverwahl/README.md` → Bauen
 3. `bash testnetz/einrichten.sh` (legt `proxy/`, `hub/`, `smp/` an, spielt die Konfigs mit `einspielen.sh … hub|smp vm200` ein und verschiebt die Voice-Ports).
-   Gibt es die Ordner schon, bricht es ab. `NEU=1` löscht sie vorher, **auch die Hub-Welt der Spawn-&-Welt-Session**
+   Das SMP bekommt alle SMP-Plugins (DimensionControl mit Nether und End zu, Fair Play, Armor Poser, Voice Chat, Serverwahl) und die Datapacks `leitfaden` und `wanderhaendler-rabatt`.
+   Gibt es die Ordner schon, bricht es ab. `NEU=1` löscht alle vorher, **auch die Hub-Welt der Spawn-&-Welt-Session**.
+   **`NUR=smp`** (oder `hub`/`proxy`) baut nur diesen Teil neu und übernimmt das Secret, z. B. für eine frische SMP-Welt ohne den Hub anzufassen.
+   Nach dem ersten SMP-Start die Weltgrenze setzen: `python -I testnetz/rcon.py smp "worldborder set 10000"`
 4. `start.cmd` öffnet drei Fenster. Beim ersten Start in der Hub-Konsole die Platzhalter setzen:
    ```
    forceload add 16 -16 31 15
@@ -36,7 +39,7 @@ Bis dahin ist der Hub eine leere Luftwelt. Für einen Test vorher die Kisten als
    Das SMP ist bis zur Eröffnung gesperrt (Merker `testnetz/status/smp-offen` fehlt), Ops kommen trotzdem durch. Öffnen ohne Op:
    im Hub `scoreboard players set #offen insel_zustand 1` (Objective legt das Hub-Datapack an) oder in einer der Konsolen `serverwahl oeffnen`.
    Wieder zu: `serverwahl schliessen`.
-5. Stoppen: Hub und SMP `stop`, Proxy `end`
+5. Stoppen: Hub und SMP `stop`, Proxy `end`. Ohne Fenster: `python -I testnetz/rcon.py hub stop` bzw. `smp stop` (`rcon.py` liest Port und Passwort aus der jeweiligen `server.properties`)
 
 ## Prüfen (Client mit Modpack, Mehrspieler → `localhost:25577`)
 
@@ -51,3 +54,5 @@ Bis dahin ist der Hub eine leere Luftwelt. Für einen Test vorher die Kisten als
    Mit zwei Clients (zweiter Account) gegenseitig hörbar auf beiden Servern
 9. **Sperre** (ohne Op): SMP-Kiste zeigt „Der Weihnachtsserver öffnet am 05.12.“, `/server smp` wird mit derselben Meldung abgewiesen, man bleibt im Hub.
    Nach `#offen` = 1 gehen beide. Geprüft 25.10. ohne Client: Merker per Befehl und per Scoreboard angelegt/entfernt
+10. **Portale** (ohne Op, Nether/End zu): Netherportal lässt sich nicht anzünden, Enderauge geht nicht in den Rahmen, Meldung in der Aktionsleiste
+11. **Eröffnung auf dem SMP:** nach `#offen` = 1 im Hub ist auf dem SMP Tag, klares Wetter, Phase 1 (Leitfaden-Ansage), nach SMP-Neustart nicht noch einmal
