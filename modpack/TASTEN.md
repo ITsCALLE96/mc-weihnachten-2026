@@ -1,6 +1,6 @@
 # Tastenbelegung im Modpack
 
-Stand 24.10.2026, Pack `modpack-v2`. Alle Vorschläge unten sind umgesetzt und von Pascal im Spiel geprüft (24.10.) und liegen als Voreinstellung im Pack (`modpack/overrides/options.txt`). MiniHUD ist seit 24.10. nicht mehr im Pack. Litematica ist im Pack standardmäßig aus – seine Konflikte (M, I) betreffen nur, wer es einschaltet. Ausgelesen aus den Mod-Dateien selbst (Bytecode der Tasten-Registrierung bzw. malilib-Hotkeys). Wo eine Mod ihre Taste über eine Hilfsfunktion setzt, stammt der Wert aus der Mod-Beschreibung (markiert mit ¹). Minecraft 26.x zählt Tasten nach USB-Tastaturcodes (A=4, G=10, H=11 …), nicht mehr nach dem alten GLFW-Schema.
+Stand 24.10.2026, Pack `modpack-v2`. Alle Vorschläge unten sind umgesetzt und von Pascal im Spiel geprüft (24.10.) und liegen als Voreinstellung im Pack (`modpack/overrides/options.txt`). MiniHUD ist seit 24.10. nicht mehr im Pack. Litematica ist seit 26.10. nicht mehr im Pack; die Litematica-Zeilen unten sind nur noch Verlauf. Ausgelesen aus den Mod-Dateien selbst (Bytecode der Tasten-Registrierung bzw. malilib-Hotkeys). Wo eine Mod ihre Taste über eine Hilfsfunktion setzt, stammt der Wert aus der Mod-Beschreibung (markiert mit ¹). Minecraft 26.x zählt Tasten nach USB-Tastaturcodes (A=4, G=10, H=11 …), nicht mehr nach dem alten GLFW-Schema.
 
 ## Konflikte und Vorschlag
 
@@ -57,4 +57,4 @@ Die Voreinstellungen liegen in `modpack/overrides/` und landen beim Bau 1:1 unte
 - `config/fancymenu/customization/weihnachten_inventar.txt` + `customizablemenus.txt`: Questbuch-Knopf (Wissensbuch-Symbol) über der rechten oberen Ecke des Inventars (E), öffnet das Fortschrittsfenster wie L. Nur im Überlebens-Inventar, nicht im Kreativ-Inventar; bei aufgeklapptem Rezeptbuch rutscht das Inventar nach rechts, der Knopf bleibt stehen
 - `config/fancymenu/options.txt`: Bearbeitungsleiste aus, `modpack_mode` an (Spieler sehen keine FancyMenu-Leiste; einblenden mit Strg + Alt + C)
 
-Litematica und Do a Barrel Roll sind ausgeschaltet, ihre Tasten stehen deshalb noch nicht in der Datei. Neu übernehmen: Tasten in einer Testinstanz einstellen, dann die `key_`-Zeilen aus deren `options.txt` kopieren.
+Do a Barrel Roll ist ausgeschaltet (Litematica seit 26.10. raus), seine Tasten stehen deshalb noch nicht in der Datei. Neu übernehmen: Tasten in einer Testinstanz einstellen, dann die `key_`-Zeilen aus deren `options.txt` kopieren.

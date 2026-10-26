@@ -8,12 +8,11 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 
 ## Inhalt von `modpack-v2` (23.10.2026)
 
-**Maßgeblich ist diese Liste und `mods.json`.** Die Stufen in den Tabellen weiter unten sind die ursprüngliche Bewertung. Was tatsächlich im Pack ist, hat Pascal am 23.10. Mod für Mod festgelegt. Stand des Baus (24.10.): 110 Dateien plus die eigene Mod Block-Marker – 6 Mods deaktiviert (`.jar.disabled`, im Launcher per Schalter einschaltbar), alle übrigen aktiv, dazu Shader Complementary Reimagined und Unbound und Resourcepack Redstone Tweaks.
+**Maßgeblich ist diese Liste und `mods.json`.** Die Stufen in den Tabellen weiter unten sind die ursprüngliche Bewertung. Was tatsächlich im Pack ist, hat Pascal am 23.10. Mod für Mod festgelegt. Stand des Baus (26.10.): 106 Dateien plus die eigenen Mods Block-Marker und Quest-Details – 13 Dateien deaktiviert (optionale Mods samt Bibliotheken, die nur sie brauchen) (`.jar.disabled`, im Launcher per Schalter einschaltbar), alle übrigen aktiv, dazu Shader Complementary Reimagined und Unbound und Resourcepack Redstone Tweaks.
 
 **Aktiv** (`mods` in `mods.json`):
 - Leistung: Sodium, Sodium Extra, Reese's Sodium Options, Lithium, Entity Culling, FerriteCore, ImmediatelyFast, Better Block Entities, SmoothTextureFix, More Culling, BadOptimizations, Dynamic FPS, quick pack, Language Reload, Debugify
 - Optik: Iris, Iris & Oculus Search, Complementary Reimagined (+ Unbound), Euphoria Patches, Continuity, ETF, EMF, 3D Skin Layers, LambDynamicLights, Particle Rain, Make Bubbles Pop, Simple Fog Control, Boat Item View, Not Enough Animations, Falling Leaves, Visuality
-- Geräusche: Cool Rain, Sound Physics Remastered, AmbientSounds, Presence Footsteps, Extreme Sound Muffler
 - Kamera: Zoomify, Cinematic Zoom (beide standardmäßig auf C – Anleitung sagt, eine umlegen), Ji AFK Cinematic
 - Sicht: Bobby, Distant Horizons, Gamma Utils (Fullbright), Freecam
 - Karte und Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars, Locator Heads, Peek, Entity Selection Outlines, BetterF3, Better Statistics Screen, Better Advancements (großes Fortschrittsfenster, Taste L – Grundlage fürs Questbuch), Jade, Enchantment Descriptions, JEI
@@ -22,14 +21,16 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 - Bauen: Armor Poser (Server-Plugin nötig)
 - Sprache: Simple Voice Chat mit Animationen und Gruppennamen (Server-Plugin + UDP 24454, Plan Task 4 Schritt 9)
 - Menü: FancyMenu (Weihnachts-Hauptmenü folgt)
-- Eigene Mod: **Block-Marker** (`lokal` in `mods.json`, liegt nicht auf Modrinth; das Jar kommt beim Bau aus dem Nachbar-Repo `block-marker` als `overrides/mods/` ins Pack)
+- Eigene Mods: **Block-Marker** und **Quest-Details** (Seitenleiste fürs Questbuch) (`lokal` in `mods.json`, liegen nicht auf Modrinth; die Jars kommen beim Bau aus den Nachbar-Repos `block-marker` und `quest-details` als `overrides/mods/` ins Pack)
 - Nur im Einzelspieler wirksam (brauchen Mod auf dem Server, auf Paper ohne Wirkung): Easy Shulker Boxes, Bookshelf Inspector
 
 **Aktiv, sobald es eine Version für 26.3 gibt** (`aktivSobaldVerfuegbar`): RP Renames
 
-**Deaktiviert dabei** (`optional`): Litematica (auf dem Server vorerst nicht erlaubt, Gruppe stimmt ab – bei Nein fliegt es ganz raus), Nvidium (nur Nvidia), voxy (nicht zusammen mit Distant Horizons), uku's Armor HUD, Flashback, Do a Barrel Roll
+**Deaktiviert dabei** (`optional`): Geräusch-Mods Cool Rain, Sound Physics Remastered, AmbientSounds, Presence Footsteps, Extreme Sound Muffler (Pascal, 26.10.: im Pack aus, wer will, schaltet sie ein), Nvidium (nur Nvidia), voxy (nicht zusammen mit Distant Horizons), uku's Armor HUD, Flashback, Do a Barrel Roll
 
 **Raus (24.10., Absturz mit FancyMenu):** Remove Reloading Screen
+
+**Raus (26.10., Pascal):** Litematica – ganz aus dem Pack, auf dem Server nicht erlaubt (Gruppenabstimmung damit erledigt)
 
 **Raus (Pascal, 24.10.):** MiniHUD – sieht nicht gut aus und doppelt sich mit Xaero's Minimap und BetterF3; Pickup Notifications – braucht die Mod auf dem Server
 
@@ -86,7 +87,7 @@ Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 | [3D Skin Layers](https://modrinth.com/mod/3dskinlayers) | äußere Skin-Ebene wird dreidimensional | 🔵 | | |
 | [LambDynamicLights](https://modrinth.com/mod/lambdynamiclights) | Fackel in der Hand leuchtet | ⚪ | | kleiner Vorteil in Höhlen, auf CraftAttack üblich – geduldet |
 | [Particle Rain](https://modrinth.com/mod/particle-rain) | schönerer Regen und Schnee | ⚪ | | passt zum Winter |
-| [Cool Rain](https://modrinth.com/mod/coolrain) | Regengeräusche auf Blöcken | ⚪ | | |
+| [Cool Rain](https://modrinth.com/mod/coolrain) | Regengeräusche auf Blöcken | ⚪ | | im Pack aus (26.10.) |
 | [Make Bubbles Pop](https://modrinth.com/mod/make_bubbles_pop) | realistischere Luftblasen | ⚪ | | |
 | [Simple Fog Control](https://modrinth.com/mod/simplefog) | Nebel abschalten | ⚪ | | Unterwasser-/Nether-Nebel ganz aus wäre ein kleiner Vorteil – nur Landnebel anpassen |
 | [Time & Weather Changer](https://modrinth.com/mod/time-weather-changer) | eigene Tageszeit/Wetter, nur für sich selbst | ⚪ | | gut für Screenshots |
@@ -129,14 +130,14 @@ Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 | [Scribble](https://modrinth.com/mod/scribble) | Bücher bequem formatieren | ⚪ | | |
 | [Big Sign Writer](https://modrinth.com/mod/bigsignwriter) | große Buchstaben über mehrere Schilder | ⚪ | | |
 | [Armor Hider](https://modrinth.com/mod/zannaghs-armor-hider) | Rüstung ausblenden, damit der Skin sichtbar ist | ⚪ | | |
-| [Extreme Sound Muffler](https://modrinth.com/mod/extreme_sound_muffler) | einzelne Geräusche leiser stellen | ⚪ | | |
+| [Extreme Sound Muffler](https://modrinth.com/mod/extreme_sound_muffler) | einzelne Geräusche leiser stellen | ⚪ | | im Pack aus (26.10.) |
 | [Do a Barrel Roll](https://modrinth.com/mod/do-a-barrel-roll) | Elytra-Flug wie im Flugsimulator | ⚪ | | kein Vorteil, eher schwieriger |
 
 ## Bauen und Aufnehmen
 
 | Mod | Wofür | Stufe | v1 | Anmerkung |
 |---|---|---|---|---|
-| [Litematica](https://modrinth.com/mod/litematica) | Baupläne als Geisterbild in die Welt legen | 🔵 | | **im Pack deaktiviert (Pascal, 23.10.)**: auf dem Server erst erlaubt, wenn die Gruppe zustimmt; bei Nein ganz raus aus dem Pack. Ohne „Printer“ kein Vorteil; für Bauprojekte und im Einzelspieler sehr hilfreich (auf CraftAttack verboten) |
+| [Litematica](https://modrinth.com/mod/litematica) | Baupläne als Geisterbild in die Welt legen | ❌ | | **raus aus dem Pack (Pascal, 26.10.)**, auf dem Server nicht erlaubt. Ohne „Printer“ kein Vorteil; für Bauprojekte und im Einzelspieler sehr hilfreich (auf CraftAttack verboten) |
 | [Flashback](https://modrinth.com/mod/flashback) | Spiel aufnehmen und als Kamerafahrt abspielen | ⚪ | | schön für einen Weihnachts-Rückblick |
 | [Freecam](https://modrinth.com/mod/freecam) | Kamera vom Körper lösen | 🟢 | | **erlaubt und in v2 (Pascal, 23.10.)**; Vorteil: Blick in fremde Basen und Höhlen – alle bekommen ihn gleich. Vom Server nicht einschränkbar (anders als Xaero); fair hält es Papers Anti-Xray: verdeckte Erze schickt der Server gar nicht erst |
 | [Axiom](https://modrinth.com/mod/axiom) | Welt-Editor | ➖ | | braucht Server-Plugin und Creative, nicht für Survival |
@@ -215,7 +216,7 @@ Quelle: Modrinth-Suche nach Downloads, Abruf 23.10.2026. Von den Top 50 standen 
 | 22 | [Just Enough Items (JEI)](https://modrinth.com/mod/jei) | alle Rezepte nachschlagen | ⚪ | hilfreich für Einsteiger, ersetzt das Wiki; Cheat-Modus nur mit OP. **Offen (24.10.):** Pascal fragt die Gruppe, JEI oder nur das Vanilla-Rezeptbuch; Pascal ist für JEI |
 | 29 | [Jade](https://modrinth.com/mod/jade) | zeigt, worauf man schaut (Block, Mob, Leben) | ⚪ | ohne Server-Teil nur Infos, die der Client ohnehin kennt |
 | 20 | [Not Enough Animations](https://modrinth.com/mod/not-enough-animations) | schönere Animationen in der Third-Person-Ansicht | ⚪ | |
-| 43 | [Sound Physics Remastered](https://modrinth.com/mod/sound-physics-remastered) | Hall und Echo in Höhlen und Räumen | ⚪ | kostet Rechenleistung |
+| 43 | [Sound Physics Remastered](https://modrinth.com/mod/sound-physics-remastered) | Hall und Echo in Höhlen und Räumen | ⚪ | kostet Rechenleistung; im Pack aus (26.10.) |
 | 42 | [No Chat Reports](https://modrinth.com/mod/no-chat-reports) | Chatnachrichten nicht signieren | ⚪ | auf unserem Server egal; serverseitig regelt das `enforce-secure-profile` |
 | 18 | [VeinMiner](https://modrinth.com/plugin/veinminer) | ganze Erzader auf einmal abbauen | 🔴 | **nein (Pascal, 23.10.)**; gäbe es als Paper-Plugin, ändert aber die Spielbalance |
 | 30 | [VeinMiner Hotkey](https://modrinth.com/mod/veinminer-client) | Taste und Vorschau für VeinMiner | 🔴 | **nein**, nur mit VeinMiner |
@@ -236,10 +237,10 @@ Quelle: Modrinth-Suche nach Downloads, Abruf 23.10.2026. Von den Top 50 standen 
 | Platz | Mod | Wofür | Stufe | Anmerkung |
 |---|---|---|---|---|
 | 51 | [BadOptimizations](https://modrinth.com/mod/badoptimizations) | Leistung abseits der Grafik | 🔵 | |
-| 64 | [AmbientSounds](https://modrinth.com/mod/ambientsounds) | Umgebungsgeräusche je nach Biom | ⚪ | Wind und Stille in den Schneebergen, passt zum Winter |
+| 64 | [AmbientSounds](https://modrinth.com/mod/ambientsounds) | Umgebungsgeräusche je nach Biom | ⚪ | Wind und Stille in den Schneebergen, passt zum Winter; im Pack aus (26.10.) |
 | 98 | [Falling Leaves](https://modrinth.com/mod/fallingleaves) | Blätter fallen von Bäumen | ⚪ | |
 | 89 | [Visuality](https://modrinth.com/mod/visuality) | zusätzliche kleine Partikel | ⚪ | |
-| 63 | [Presence Footsteps](https://modrinth.com/mod/presence-footsteps) | realistische Schrittgeräusche | ⚪ | |
+| 63 | [Presence Footsteps](https://modrinth.com/mod/presence-footsteps) | realistische Schrittgeräusche | ⚪ | im Pack aus (26.10.) |
 | 66 | [Enchantment Descriptions](https://modrinth.com/mod/enchantment-descriptions) | erklärt Verzauberungen im Tooltip | ⚪ | gut für Einsteiger |
 | 92 | [More Chat History](https://modrinth.com/mod/morechathistory) | längerer Chatverlauf | ⚪ | |
 | 55 | [Language Reload](https://modrinth.com/mod/language-reload) | schnelleres Laden, Sprach-Rückfall | ⚪ | |
@@ -251,8 +252,7 @@ Nicht einzeln aufgeführt: Inhalts- und Weltgenerierungs-Mods (Create, Cobblemon
 
 ## Server-Regeln, die daraus folgen
 
-- **Offen:** Litematica – Pascal stimmt mit der Gruppe ab; bis dahin auf dem Server nicht erlaubt
-- **Nicht erlaubt:** Röntgen-/X-Ray-Packs, Litematica-Printer, Minimap-Entity-Radar und Minimap-Höhlenansicht außerhalb des Nethers (technisch gesperrt)
+- **Nicht erlaubt:** Litematica (seit 26.10. nicht mehr im Pack), Röntgen-/X-Ray-Packs, Minimap-Entity-Radar und Minimap-Höhlenansicht außerhalb des Nethers (technisch gesperrt)
 - **Erlaubt:** Minimap-Höhlenansicht im Nether (seit 23.10.); Block-Marker – kein X-Ray, verdeckte Blöcke bleiben unsichtbar
 - **Erlaubt, obwohl ein Vorteil:** Fullbright (Gamma Utils) und Freecam – bewusst freigegeben und im Pack, damit alle die gleiche Möglichkeit haben
 - **Server-Absicherung:** Xaero's Minimap und World Map ohne Entity-Radar und ohne Höhlenansicht außer im Nether (Plugin „Fair Play for Xaero's Maps“); Papers Anti-Xray (`engine-mode: 2`) versteckt Erze, die man nicht direkt sieht, und nimmt Freecam und Fullbright damit den Erz-Vorteil

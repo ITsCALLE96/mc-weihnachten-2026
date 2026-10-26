@@ -16,7 +16,7 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/cloth-config-fabric-26.3.159.jar | https://cdn.modrinth.com/data/9s6osm5g/versions/fg2uyxOW/cloth-config-fabric-26.3.159.jar |
 | mods/BadOptimizations-2.4.1-26.3-fabric.jar | https://cdn.modrinth.com/data/g96Z4WVZ/versions/Sp0ctspw/BadOptimizations-2.4.1-26.3-fabric.jar |
 | mods/dynamic-fps-3.11.10+minecraft-26.3.0-fabric.jar | https://cdn.modrinth.com/data/LQ3K71Q1/versions/Jwq069rR/dynamic-fps-3.11.10%2Bminecraft-26.3.0-fabric.jar |
-| mods/sodium-extra-fabric-0.9.4+mc26.3.jar | https://cdn.modrinth.com/data/PtjYWJkn/versions/te2y9qZn/sodium-extra-fabric-0.9.4%2Bmc26.3.jar |
+| mods/sodium-extra-fabric-0.9.5+mc26.3.jar | https://cdn.modrinth.com/data/PtjYWJkn/versions/fs5l9Q1U/sodium-extra-fabric-0.9.5%2Bmc26.3.jar |
 | mods/reeses-sodium-options-fabric-2.2.5+mc26.3.jar | https://cdn.modrinth.com/data/Bh37bMuy/versions/EfchygKx/reeses-sodium-options-fabric-2.2.5%2Bmc26.3.jar |
 | mods/quick-pack-fabric-1.5.1+26.3.jar | https://cdn.modrinth.com/data/pSISfJ4O/versions/6LPWDWD1/quick-pack-fabric-1.5.1%2B26.3.jar |
 | mods/language-reload-1.7.8+26.3.jar | https://cdn.modrinth.com/data/uLbm7CG6/versions/QVn4cccd/language-reload-1.7.8%2B26.3.jar |
@@ -36,12 +36,6 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/notenoughanimations-fabric-1.12.6-mc26.3.jar | https://cdn.modrinth.com/data/MPCX6s5C/versions/EhSk2OTD/notenoughanimations-fabric-1.12.6-mc26.3.jar |
 | mods/fallingleaves-2.0.8+26.3.jar | https://cdn.modrinth.com/data/WhbRG4iK/versions/5i0SxXxj/fallingleaves-2.0.8%2B26.3.jar |
 | mods/visuality-0.7.15+26.3.jar | https://cdn.modrinth.com/data/rI0hvYcd/versions/BNe9kpJ7/visuality-0.7.15%2B26.3.jar |
-| mods/coolrain-1.4.0-26.3.jar | https://cdn.modrinth.com/data/iDyqnQLT/versions/K9R06E1l/coolrain-1.4.0-26.3.jar |
-| mods/sound-physics-remastered-fabric-1.5.2+26.3.jar | https://cdn.modrinth.com/data/qyVF9oeo/versions/gA7nKz5g/sound-physics-remastered-fabric-1.5.2%2B26.3.jar |
-| mods/AmbientSounds_FABRIC_v6.3.11_mc26.3.jar | https://cdn.modrinth.com/data/fM515JnW/versions/LFUkYKC1/AmbientSounds_FABRIC_v6.3.11_mc26.3.jar |
-| mods/CreativeCore_FABRIC_v2.14.24_mc26.3.jar | https://cdn.modrinth.com/data/OsZiaDHq/versions/7YUEsxpw/CreativeCore_FABRIC_v2.14.24_mc26.3.jar |
-| mods/PresenceFootsteps-1.14.0+26.3.jar | https://cdn.modrinth.com/data/rcTfTZr3/versions/UUNiN7Tm/PresenceFootsteps-1.14.0%2B26.3.jar |
-| mods/ExtremeSoundMuffler-4.05_Fabric-26.3.jar | https://cdn.modrinth.com/data/5IIKsxiL/versions/REw9JB5b/ExtremeSoundMuffler-4.05_Fabric-26.3.jar |
 | mods/zoomify-2.17.0+mc26.3-universal.jar | https://cdn.modrinth.com/data/w7ThoJFB/versions/RUBpNu00/zoomify-2.17.0%2Bmc26.3-universal.jar |
 | mods/fabric-language-kotlin-1.14.2+kotlin.2.4.21.jar | https://cdn.modrinth.com/data/Ha28R6CL/versions/SKW1BTL3/fabric-language-kotlin-1.14.2%2Bkotlin.2.4.21.jar |
 | mods/yet_another_config_lib_v3-3.9.7+26.3-fabric.jar | https://cdn.modrinth.com/data/1eAoo2KR/versions/s9SjoFu1/yet_another_config_lib_v3-3.9.7%2B26.3-fabric.jar |
@@ -51,10 +45,10 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/DistantHorizons-3.3.4-26.3-fabric-neoforge.jar | https://cdn.modrinth.com/data/uCdwusMi/versions/TGgEbP9A/DistantHorizons-3.3.4-26.3-fabric-neoforge.jar |
 | mods/Gamma-Utils-Fabric-3.2.2+mc26.3.jar | https://cdn.modrinth.com/data/wdLuzzEP/versions/k6ywOirE/Gamma-Utils-Fabric-3.2.2%2Bmc26.3.jar |
 | mods/freecam-fabric-1.5.1+mc26.3.jar | https://cdn.modrinth.com/data/XeEZ3fK2/versions/lwrkvqym/freecam-fabric-1.5.1%2Bmc26.3.jar |
-| mods/xaerominimap-fabric-26.3-26.6.1.jar | https://cdn.modrinth.com/data/1bokaNcj/versions/eUEhnw8G/xaerominimap-fabric-26.3-26.6.1.jar |
-| mods/xaeroworldmap-fabric-26.3-1.47.1.jar | https://cdn.modrinth.com/data/NcUtCpym/versions/IEtfiHVq/xaeroworldmap-fabric-26.3-1.47.1.jar |
+| mods/xaerominimap-fabric-26.3-26.6.2.jar | https://cdn.modrinth.com/data/1bokaNcj/versions/MfxfgXaO/xaerominimap-fabric-26.3-26.6.2.jar |
+| mods/xaeroworldmap-fabric-26.3-1.47.2.jar | https://cdn.modrinth.com/data/NcUtCpym/versions/VM8lNSSM/xaeroworldmap-fabric-26.3-1.47.2.jar |
 | mods/appleskin-fabric-mc26.3-3.0.10.jar | https://cdn.modrinth.com/data/EsAfCjCV/versions/PHjDtQay/appleskin-fabric-mc26.3-3.0.10.jar |
-| mods/shulkerboxtooltip-fabric-5.4.2+26.3.jar | https://cdn.modrinth.com/data/2M01OLQq/versions/Cj9VEeGt/shulkerboxtooltip-fabric-5.4.2%2B26.3.jar |
+| mods/shulkerboxtooltip-fabric-5.4.3+26.3.jar | https://cdn.modrinth.com/data/2M01OLQq/versions/60krd8u8/shulkerboxtooltip-fabric-5.4.3%2B26.3.jar |
 | mods/light-overlay-2.13.0+26.3.jar | https://cdn.modrinth.com/data/8qVa1XCN/versions/AmDFFQBg/light-overlay-2.13.0%2B26.3.jar |
 | mods/overlaylib-0.12.1+26.3.jar | https://cdn.modrinth.com/data/M1B8mLoH/versions/iSTcauwL/overlaylib-0.12.1%2B26.3.jar |
 | mods/status-effect-bars-1.0.12.jar | https://cdn.modrinth.com/data/x02cBj9Y/versions/aAXJqboy/status-effect-bars-1.0.12.jar |
@@ -62,14 +56,14 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/peek-fabric-1.6.0+26.3.jar | https://cdn.modrinth.com/data/TnOXNf5e/versions/7nzkbVPa/peek-fabric-1.6.0%2B26.3.jar |
 | mods/eg_entity_outlines-1.1.0+26.3-fabric.jar | https://cdn.modrinth.com/data/OiDD7Eua/versions/lYeOSlJ9/eg_entity_outlines-1.1.0%2B26.3-fabric.jar |
 | mods/BetterF3-20.0.0-Fabric-26.3.jar | https://cdn.modrinth.com/data/8shC1gFX/versions/XB7u4eSf/BetterF3-20.0.0-Fabric-26.3.jar |
-| mods/betterstats-5.7.0+fn-26.3.jar | https://cdn.modrinth.com/data/n6PXGAoM/versions/Mefnti0P/betterstats-5.7.0%2Bfn-26.3.jar |
-| mods/tcdcommons-5.7.0+fn-26.3.jar | https://cdn.modrinth.com/data/Eldc1g37/versions/y6a97oNq/tcdcommons-5.7.0%2Bfn-26.3.jar |
+| mods/betterstats-5.8.0+fn-26.3.jar | https://cdn.modrinth.com/data/n6PXGAoM/versions/GSF3fkG9/betterstats-5.8.0%2Bfn-26.3.jar |
+| mods/tcdcommons-5.8.0+fn-26.3.jar | https://cdn.modrinth.com/data/Eldc1g37/versions/GVSkIJY4/tcdcommons-5.8.0%2Bfn-26.3.jar |
 | mods/BetterAdvancements-Fabric-26.3-0.6.0.81.jar | https://cdn.modrinth.com/data/Q2OqKxDG/versions/FQp3HIDr/BetterAdvancements-Fabric-26.3-0.6.0.81.jar |
 | mods/Jade-mc26.3-Fabric-26.3.5.jar | https://cdn.modrinth.com/data/nvQzSEkH/versions/71CTWqdE/Jade-mc26.3-Fabric-26.3.5.jar |
 | mods/EnchantmentDescriptions-fabric-MC26.3-26.3.0.2.jar | https://cdn.modrinth.com/data/UVtY3ZAC/versions/uZf2qbql/EnchantmentDescriptions-fabric-MC26.3-26.3.0.2.jar |
 | mods/PrickleMC-fabric-MC26.3-26.3.0.2.jar | https://cdn.modrinth.com/data/aaRl8GiW/versions/aPdekuq6/PrickleMC-fabric-MC26.3-26.3.0.2.jar |
 | mods/jei-26.3-fabric-31.14.0.72.jar | https://cdn.modrinth.com/data/u6dRKJwZ/versions/Zebwcvua/jei-26.3-fabric-31.14.0.72.jar |
-| mods/mezz_config-26.3-fabric-0.6.8.jar | https://cdn.modrinth.com/data/7tEfOcA7/versions/GKiA7PV4/mezz_config-26.3-fabric-0.6.8.jar |
+| mods/mezz_config-26.3-fabric-0.6.9.jar | https://cdn.modrinth.com/data/7tEfOcA7/versions/7KlSXRjC/mezz_config-26.3-fabric-0.6.9.jar |
 | mods/herenthere-fabric-3.104.0+26.3.jar | https://cdn.modrinth.com/data/CdTnUpve/versions/NSrBS40o/herenthere-fabric-3.104.0%2B26.3.jar |
 | mods/modmenu-21.0.0.jar | https://cdn.modrinth.com/data/mOgUt4GM/versions/kyy7dbrZ/modmenu-21.0.0.jar |
 | mods/placeholder-api-3.2.0+26.3.jar | https://cdn.modrinth.com/data/eXts2L7r/versions/lXytLqWj/placeholder-api-3.2.0%2B26.3.jar |
@@ -90,18 +84,16 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/packed_packs-fabric-2.3.1+26.3.jar | https://cdn.modrinth.com/data/8Pq6Exn2/versions/ifCUN8CS/packed_packs-fabric-2.3.1%2B26.3.jar |
 | mods/BorderlessFullscreen-v2.5.1-mc26.3.jar | https://cdn.modrinth.com/data/UIexcMP1/versions/gYKfCwIR/BorderlessFullscreen-v2.5.1-mc26.3.jar |
 | mods/easyshulkerboxes-v26.3.3-mc26.3.x+fabric.jar | https://cdn.modrinth.com/data/gA5euN8S/versions/DzZ9tjVr/easyshulkerboxes-v26.3.3-mc26.3.x%2Bfabric.jar |
-| mods/puzzleslib-v26.3.15-mc26.3.x+fabric.jar | https://cdn.modrinth.com/data/QAGBst4M/versions/68hLXNWE/puzzleslib-v26.3.15-mc26.3.x%2Bfabric.jar |
 | mods/ForgeConfigAPIPort-v26.3.1-mc26.3.x-Fabric.jar | https://cdn.modrinth.com/data/ohNO6lps/versions/JpKvrr9J/ForgeConfigAPIPort-v26.3.1-mc26.3.x-Fabric.jar |
+| mods/puzzleslib-v26.3.16-mc26.3.x+fabric.jar | https://cdn.modrinth.com/data/QAGBst4M/versions/vbwu116x/puzzleslib-v26.3.16-mc26.3.x%2Bfabric.jar |
 | mods/bookshelfinspector-fabric-2.4+26.3.jar | https://cdn.modrinth.com/data/rOrXjyPb/versions/ShIoLf04/bookshelfinspector-fabric-2.4%2B26.3.jar |
 | mods/ArmorPoser-fabric-26.3-16.0.1.jar | https://cdn.modrinth.com/data/PFwYNrHb/versions/qmCAgvPA/ArmorPoser-fabric-26.3-16.0.1.jar |
 | mods/fancymenu_fabric_3.9.14_MC_26.3.jar | https://cdn.modrinth.com/data/Wq5SjeWM/versions/CBLbyHzH/fancymenu_fabric_3.9.14_MC_26.3.jar |
-| mods/melody_fabric_1.0.17_MC_26.3.jar | https://cdn.modrinth.com/data/CVT4pFB2/versions/gjl2Yw81/melody_fabric_1.0.17_MC_26.3.jar |
 | mods/konkrete_fabric_1.11.1_MC_26.3.jar | https://cdn.modrinth.com/data/J81TRJWm/versions/pQLA2B54/konkrete_fabric_1.11.1_MC_26.3.jar |
+| mods/melody_fabric_1.0.17_MC_26.3.jar | https://cdn.modrinth.com/data/CVT4pFB2/versions/gjl2Yw81/melody_fabric_1.0.17_MC_26.3.jar |
 | mods/voicechat-fabric-2.6.26+26.3.jar | https://cdn.modrinth.com/data/9eGKb6K1/versions/cZm965sW/voicechat-fabric-2.6.26%2B26.3.jar |
 | mods/simplevoiceanimations-fabric-1.3.1+26.3.jar | https://cdn.modrinth.com/data/F1oVAMoc/versions/UOevvLgE/simplevoiceanimations-fabric-1.3.1%2B26.3.jar |
 | mods/voicechat-names-26.3-1.0.2.jar | https://cdn.modrinth.com/data/AcHVdC8l/versions/nCgCmgzo/voicechat-names-26.3-1.0.2.jar |
-| mods/litematica-fabric-26.3-0.29.1.jar.disabled | https://cdn.modrinth.com/data/bEpr0Arc/versions/ZqV316KY/litematica-fabric-26.3-0.29.1.jar |
-| mods/malilib-fabric-26.3-0.30.2.jar.disabled | https://cdn.modrinth.com/data/GcWjdA9I/versions/JX9bESec/malilib-fabric-26.3-0.30.2.jar |
 | mods/nvidium-0.4.4-beta7-26.3.jar.disabled | https://cdn.modrinth.com/data/SfMw2IZN/versions/8mVK1zbk/nvidium-0.4.4-beta7-26.3.jar |
 | mods/voxy-0.2.20-beta.jar.disabled | https://cdn.modrinth.com/data/fxxUqruK/versions/iIrM8ZKQ/voxy-0.2.20-beta.jar |
 | mods/ukus-armor-hud-fabric-0.14.0+mc26.3.jar.disabled | https://cdn.modrinth.com/data/wF189hn9/versions/URl1E7bP/ukus-armor-hud-fabric-0.14.0%2Bmc26.3.jar |
@@ -109,7 +101,14 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/Flashback-0.43.6-for-MC26.3.jar.disabled | https://cdn.modrinth.com/data/4das1Fjq/versions/cV1pa0YV/Flashback-0.43.6-for-MC26.3.jar |
 | mods/do_a_barrel_roll-fabric-3.8.5+26.3.jar.disabled | https://cdn.modrinth.com/data/6FtRfnLg/versions/fmAJrjVS/do_a_barrel_roll-fabric-3.8.5%2B26.3.jar |
 | mods/cicada-lib-0.15.3+26.3.jar.disabled | https://cdn.modrinth.com/data/IwCkru1D/versions/f5sDzSl6/cicada-lib-0.15.3%2B26.3.jar |
+| mods/coolrain-1.4.0-26.3.jar.disabled | https://cdn.modrinth.com/data/iDyqnQLT/versions/K9R06E1l/coolrain-1.4.0-26.3.jar |
+| mods/sound-physics-remastered-fabric-1.5.2+26.3.jar.disabled | https://cdn.modrinth.com/data/qyVF9oeo/versions/gA7nKz5g/sound-physics-remastered-fabric-1.5.2%2B26.3.jar |
+| mods/AmbientSounds_FABRIC_v6.3.11_mc26.3.jar.disabled | https://cdn.modrinth.com/data/fM515JnW/versions/LFUkYKC1/AmbientSounds_FABRIC_v6.3.11_mc26.3.jar |
+| mods/CreativeCore_FABRIC_v2.14.24_mc26.3.jar.disabled | https://cdn.modrinth.com/data/OsZiaDHq/versions/7YUEsxpw/CreativeCore_FABRIC_v2.14.24_mc26.3.jar |
+| mods/PresenceFootsteps-1.14.0+26.3.jar.disabled | https://cdn.modrinth.com/data/rcTfTZr3/versions/UUNiN7Tm/PresenceFootsteps-1.14.0%2B26.3.jar |
+| mods/ExtremeSoundMuffler-4.05_Fabric-26.3.jar.disabled | https://cdn.modrinth.com/data/5IIKsxiL/versions/REw9JB5b/ExtremeSoundMuffler-4.05_Fabric-26.3.jar |
 | shaderpacks/ComplementaryReimagined_r5.9.3.zip | https://cdn.modrinth.com/data/HVnmMxH1/versions/Bqen1mJX/ComplementaryReimagined_r5.9.3.zip |
 | shaderpacks/ComplementaryUnbound_r5.9.3.zip | https://cdn.modrinth.com/data/R6NEzAwj/versions/B1kyfoUZ/ComplementaryUnbound_r5.9.3.zip |
 | resourcepacks/Redstone Tweaks 2.5.6.zip | https://cdn.modrinth.com/data/RvfAlf4Z/versions/A19pA3wb/Redstone%20Tweaks%202.5.6.zip |
 | overrides/mods/block-marker-1.0.0.jar | eigene Mod, liegt im Pack |
+| overrides/mods/quest-details-1.0.0.jar | eigene Mod, liegt im Pack |

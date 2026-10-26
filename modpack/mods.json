@@ -33,11 +33,6 @@
     "not-enough-animations",
     "fallingleaves",
     "visuality",
-    "coolrain",
-    "sound-physics-remastered",
-    "ambientsounds",
-    "presence-footsteps",
-    "extreme_sound_muffler",
     "zoomify",
     "cinematic-zoom-fabric",
     "ji-afk-cinematic",
@@ -88,12 +83,16 @@
     "rp-renames"
   ],
   "optional": [
-    "litematica",
     "nvidium",
     "voxy",
     "ukus-armor-hud",
     "flashback",
-    "do-a-barrel-roll"
+    "do-a-barrel-roll",
+    "coolrain",
+    "sound-physics-remastered",
+    "ambientsounds",
+    "presence-footsteps",
+    "extreme_sound_muffler"
   ],
   "shader": [
     "complementary-reimagined",

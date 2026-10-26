@@ -111,7 +111,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const aktivVorher = new Set(gefunden.keys());
   const deaktiviert = new Set();
   for (const projekt of optional) await hole(projekt, false);
-  // Optionale Mods und alles, was nur sie mitbringen (z. B. malilib für Litematica), liegen deaktiviert bei.
+  // Optionale Mods und alles, was nur sie mitbringen (z. B. ukulib für uku's Armor HUD), liegen deaktiviert bei.
   for (const id of gefunden.keys()) if (!aktivVorher.has(id)) deaktiviert.add(id);
   // Was eine aktive Mod braucht, muss selbst aktiv bleiben.
   for (let geaendert = true; geaendert;) {
