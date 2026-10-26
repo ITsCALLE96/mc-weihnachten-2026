@@ -50,7 +50,7 @@ Beide Server laufen auf VM200, deshalb reicht eine Datei als Merker. Kein Plugin
 
 Neuer Server später (z. B. zweites SMP): Zeile in `velocity.toml` `[servers]`, Eintrag unter der passenden Kategorie, `/serverwahl reload`. Kein neuer Build.
 
-**Kisten-Belegung (Leitung und Spawn & Welt, 24.10.; gleich im Hub, Welt `world`, Hub-Spawn 0/235/16 Blick Norden):**
+**Kisten-Belegung (Leitung und Spawn & Welt, 24.10.; gleich im Hub, Welt `world`, Hub-Spawn 0/237/0 auf dem Brunnen, Blick Norden (seit 26.10.)):**
 
 | Kiste | Position | Kategorie |
 |---|---|---|

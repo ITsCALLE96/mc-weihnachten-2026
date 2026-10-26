@@ -95,5 +95,5 @@ motd=§b❄ Hub ❄
 - **Spielregeln** (einmal in der Hub-Konsole, bleiben in der Welt; Namen in 26.3, geprüft im Testnetz 24.10.):
   `gamerule advance_time false` · `gamerule advance_weather false` · `gamerule spawn_mobs false` · `gamerule fall_damage false` ·
   `gamerule show_advancement_messages false` · `time set noon` · `weather clear`
-- **Leerwelt** (`generator-settings` oben, Welt `world`): Die Spawn-&-Welt-Session setzt das Fantasy Village hinein (Ursprung −150/80/−158), Spawn `setworldspawn 0 235 16 180` (Blick Norden).
+- **Leerwelt** (`generator-settings` oben, Welt `world`): Die Spawn-&-Welt-Session setzt das Fantasy Village hinein (Ursprung −150/80/−158), Spawn `setworldspawn 0 237 0 180` (Brunnen, Blick Norden; Spawn & Welt 26.10.).
 - Keine Datapacks des SMP im Hub (Leitfaden, Rabatt, Statistik laufen nur auf dem SMP).
