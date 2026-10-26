@@ -19,9 +19,9 @@ enable-rcon=false
 spawn-protection=0
 difficulty=normal
 require-resource-pack=true
-resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v3/weihnachten-rp.zip
-resource-pack-sha1=34a0d1971ccd9b960e5107a5510191bbb122a0cb
-resource-pack-id=73014a80-9072-4aee-961a-5ed01a359e3f
+resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v4/weihnachten-rp.zip
+resource-pack-sha1=45e2d461d097f6ece7f5dad8aa756d527984be0b
+resource-pack-id=366d33f6-84ba-41df-8376-97e055b7d368
 resource-pack-prompt={"text":"Pflicht: Weihnachts-Texturen und das deutsche Questbuch. Ohne Annehmen kein Beitritt.","color":"aqua"}
 motd=§b❄ Weihnachtsserver ❄
 ```
@@ -32,8 +32,11 @@ motd=§b❄ Weihnachtsserver ❄
 Gehört zusammen mit `force-key-authentication = false` in Velocity, Begründung in `velocity/README.md` → Chat-Signaturen.
 
 **`resource-pack-id`** (seit 24.10.): feste UUID, damit der Client das Pack über Updates hinweg als dasselbe erkennt (sonst meldet Paper „resource-pack-id missing,
-using default“). Bei neuen Pack-Versionen bleibt die ID gleich, nur URL und `resource-pack-sha1` ändern sich.
-**Seit 24.10.: `rp-v3`** (rp-v2 mit Wintergemälden ohne Musik, dazu Questbuch-Texte DE/EN und Quest-Inhalte; 878.510 Bytes, SHA1 von der Leitung nachgerechnet).
+using default“). Bei neuen Pack-Versionen ändern sich URL und `resource-pack-sha1`; seit rp-v4 bekommt jede Version zusätzlich eine neue ID (Leitung 26.10.),
+damit Clients sicher neu laden. ID, URL und SHA1 immer auf Hub und SMP gleichzeitig ändern.
+**Seit 26.10.: `rp-v4`** (883.440 Bytes, SHA1 `45e2d461d097f6ece7f5dad8aa756d527984be0b`, von Leitung und Server-Session per Download geprüft), neue ID `366d33f6-84ba-41df-8376-97e055b7d368`.
+Umgestellt: diese Datei, `testnetz/einrichten.sh`, Testnetz Hub + SMP, lokaler Testserver.
+**Vorher (24.10.): `rp-v3`** (rp-v2 mit Wintergemälden ohne Musik, dazu Questbuch-Texte DE/EN und Quest-Inhalte; 878.510 Bytes, SHA1 von der Leitung nachgerechnet).
 ID unverändert, die neue SHA1 reicht, damit Clients das Pack neu laden. Lokaler Testserver auf dieselben Werte umgestellt.
 **Questbuch braucht das Pack:** Ohne Pack sehen Spieler die Quests nur englisch. Deshalb **`require-resource-pack=true`** (Pascal, 24.10.): Wer ablehnt, wird mit dem Hinweistext getrennt und kann beim nächsten Beitritt annehmen.
 
@@ -77,9 +80,9 @@ spawn-monsters=false
 pvp=false
 allow-nether=false
 require-resource-pack=true
-resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v3/weihnachten-rp.zip
-resource-pack-sha1=34a0d1971ccd9b960e5107a5510191bbb122a0cb
-resource-pack-id=73014a80-9072-4aee-961a-5ed01a359e3f
+resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v4/weihnachten-rp.zip
+resource-pack-sha1=45e2d461d097f6ece7f5dad8aa756d527984be0b
+resource-pack-id=366d33f6-84ba-41df-8376-97e055b7d368
 resource-pack-prompt={"text":"Pflicht: Weihnachts-Texturen und das deutsche Questbuch. Ohne Annehmen kein Beitritt.","color":"aqua"}
 motd=§b❄ Hub ❄
 ```

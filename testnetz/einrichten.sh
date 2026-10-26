@@ -34,9 +34,9 @@ else
 fi
 for t in $teile; do rm -rf "${hier:?}/$t"; done
 
-rp='resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v3/weihnachten-rp.zip
-resource-pack-sha1=34a0d1971ccd9b960e5107a5510191bbb122a0cb
-resource-pack-id=73014a80-9072-4aee-961a-5ed01a359e3f
+rp='resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v4/weihnachten-rp.zip
+resource-pack-sha1=45e2d461d097f6ece7f5dad8aa756d527984be0b
+resource-pack-id=366d33f6-84ba-41df-8376-97e055b7d368
 require-resource-pack=true
 resource-pack-prompt={"text":"Pflicht: Weihnachts-Texturen und das deutsche Questbuch. Ohne Annehmen kein Beitritt.","color":"aqua"}'
 merker="$(cygpath -m "$hier" 2>/dev/null || echo "$hier")/status/smp-offen"
