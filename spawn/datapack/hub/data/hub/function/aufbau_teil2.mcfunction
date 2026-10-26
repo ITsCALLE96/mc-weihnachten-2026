@@ -777,7 +777,7 @@ fillbiome -32 -64 80 -25 319 87 minecraft:cherry_grove
 fillbiome -24 -64 80 -17 319 87 minecraft:cherry_grove
 fillbiome -16 -64 80 -9 319 87 minecraft:cherry_grove
 fillbiome -8 -64 80 -1 319 87 minecraft:cherry_grove
-setworldspawn 0 235 16 180 0
+setworldspawn 0 237 0 180 0
 gamerule respawn_radius 0
 gamerule fall_damage false
 gamerule drowning_damage false

@@ -10,7 +10,7 @@ test('Aufbau: Kacheln, Kirschhain, Spawn mit Blick, Hub-Gamerules, Weltgrenze ü
   assert.equal(f.aufbau_teil2.match(/^place template spawn:fantasy_village_\d_\d /gm).length, 16);
   assert.match(f.aufbau_teil2, /^kill @e\[type=!player,x=-150,y=80,z=-158,dx=240,dy=215,dz=244\]$/m);
   assert.match(f.aufbau_teil2, /minecraft:cherry_grove$/m);
-  assert.match(f.aufbau_teil2, /^setworldspawn 0 235 16 180 0$/m);
+  assert.match(f.aufbau_teil2, /^setworldspawn 0 237 0 180 0$/m);
   for (const r of ['random_tick_speed 0', 'fall_damage false', 'spawn_monsters false', 'pvp false']) assert.match(f.aufbau_teil2, new RegExp(`^gamerule ${r}$`, 'm'));
   assert.match(f.aufbau_teil2, /^worldborder center -30 -36\nworldborder set 260$/m);
 });
@@ -18,7 +18,8 @@ test('Aufbau: Kacheln, Kirschhain, Spawn mit Blick, Hub-Gamerules, Weltgrenze ü
 test('Hub-Regeln: zurück zum Brunnen unter y 190 und beim Betreten, Abenteuermodus, satt', () => {
   // Kasten an der Spielerposition (at @s vor der Prüfung) und bis weit unter −64 (Pascal fiel im Test bis y −7570)
   assert.match(f.tick, /^execute as @a at @s if entity @s\[y=-2048,dy=2237\] run function hub:zurueck$/m);
-  assert.match(f.zurueck, /^tp @s 0\.5 235 16\.5 180 0$/m);
+  assert.match(f.zurueck, /^tp @s 0\.5 237 0\.5 180 0$/m);
+  assert.match(f.ankommen, /^tp @s 0\.5 237 0\.5 180 0$/m);
   assert.match(f.load, /minecraft\.custom:minecraft\.leave_game/);
   assert.match(f.sekunde, /gamemode adventure @a\[gamemode=survival\]/);
   assert.match(f.sekunde, /saturation infinite/);

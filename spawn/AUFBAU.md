@@ -11,7 +11,7 @@ Eigener Paper-Server hinter Velocity (Ordner und Plugins: Server-Session, lokal 
 - Konfiguration `spawn/hub.json`, Generator `spawn/hub.mjs` → Datapack `spawn/datapack/hub/` (Tests `spawn/hub.test.mjs`)
 - Aufbau (Hub-Server gestoppt): `bash spawn/hub-aufsetzen.sh testnetz/hub` – Kacheln + Datapack in die Welt, `function hub:aufbau`, speichern, stoppen;
   mehrfach ausführbar. Die WorldGuard-Datei des Hubs (Server-Session, `server/plugin-konfig/hub/`) wird währenddessen beiseitegelegt und zurückgelegt
-- Welt: Insel bei Ursprung −150/80/−158 (16 Kacheln), Kirschhain, **Spawn 0/235/16** Blick Nord, Weltgrenze Mitte −30/−36, Breite 260; Gamerules: kein
+- Welt: Insel bei Ursprung −150/80/−158 (16 Kacheln), Kirschhain, **Spawn 0/237/0** auf dem Brunnen, Blick Nord (Pascal 26.10.), Weltgrenze Mitte −30/−36, Breite 260; Gamerules: kein
   Zufallsticken, kein Fallschaden, keine Monster/Phantome/Patrouillen/Händler, kein PvP, Inventar bleibt
 - Hub-Regeln (Datapack): Abenteuermodus, dauerhaft satt, unter y 190 → zurück zum Brunnen, beim Betreten → Brunnen
 - **Eröffnung 05.12.:** `function hub:eroeffnung` (10 s Countdown) setzt `#offen insel_zustand` auf 1 → Plugin `serverwahl` gibt die SMP-Kiste frei;

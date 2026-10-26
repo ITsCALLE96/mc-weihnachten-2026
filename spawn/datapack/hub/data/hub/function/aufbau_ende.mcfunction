@@ -159,4 +159,4 @@ summon interaction -107.5 240 26.5 {width:0.7f,height:0.7f,response:1b,Tags:["hu
 scoreboard players set @e[tag=hub_g_24] hub_advent 24
 function hub:schliessen
 forceload remove -152 -152 88 88
-say Hub eingerichtet: Bau, Kirschhain, Spawn 0/235/16, Weltgrenze, 13 Info-Dorfbewohner, 8 Stände, Adventskalender, SMP gesperrt
+say Hub eingerichtet: Bau, Kirschhain, Spawn 0/237/0, Weltgrenze, 13 Info-Dorfbewohner, 8 Stände, Adventskalender, SMP gesperrt

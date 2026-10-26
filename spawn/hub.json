@@ -1,6 +1,6 @@
 {
-  "beschreibung": "Hub (eigener Paper-Server hinter Velocity, Leerwelt): Fantasy Village (LavaBuilds, gekauft), Ursprung -150/80/-158, Brunnen bei 0/0, Boden y 234",
-  "spawn": { "x": 0, "y": 235, "z": 16, "yaw": 180, "pitch": 0 },
+  "beschreibung": "Hub (eigener Paper-Server hinter Velocity, Leerwelt): Fantasy Village (LavaBuilds, gekauft), Ursprung -150/80/-158, Brunnen bei 0/0, Boden y 234, Spawn auf dem Brunnen (Pascal 26.10.)",
+  "spawn": { "x": 0, "y": 237, "z": 0, "yaw": 180, "pitch": 0 },
   "struktur": {
     "name": "spawn:fantasy_village",
     "ursprung": [-150, 80, -158],
