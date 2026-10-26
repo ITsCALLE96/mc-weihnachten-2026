@@ -1,5 +1,5 @@
 // Baut das Weihnachts-Resourcepack: eigene Pixel-Sprites, aufgehellte Farbkarten,
-// Vanilla-Weihnachtstruhen für alle Truhen.
+// Vanilla-Weihnachtstruhen für alle Truhen, Wanderhändler als Weihnachtsmann samt Lama-Decken.
 // Aufruf: node tools/texturen.mjs <ordner mit entpackten Vanilla-Client-assets>
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -29,6 +29,52 @@ export function aufhellen(daten, anteil) {
     for (let k = 0; k < 3; k++) daten[i + k] = Math.round(daten[i + k] + (255 - daten[i + k]) * anteil);
   }
 }
+
+export function hsv([r, g, b]) {
+  const max = Math.max(r, g, b) / 255, min = Math.min(r, g, b) / 255, d = max - min;
+  let h = 0;
+  if (d) {
+    if (max === r / 255) h = 60 * (((g - b) / 255 / d) % 6);
+    else if (max === g / 255) h = 60 * ((b - r) / 255 / d + 2);
+    else h = 60 * ((r - g) / 255 / d + 4);
+  }
+  return [(h + 360) % 360, max ? d / max : 0, max];
+}
+
+export function rgb([h, s, v]) {
+  const f = (n) => { const k = (n + h / 60) % 6; return Math.round(255 * (v - v * s * Math.max(0, Math.min(k, 4 - k, 1)))); };
+  return [f(5), f(3), f(1)];
+}
+
+// Färbt jedes Pixel nach der ersten passenden Regel um ({ wenn: (h, s, v) => bool, dann: (h, s, v) => [r, g, b] }).
+export function umfaerben(daten, regeln) {
+  for (let i = 0; i < daten.length; i += 4) {
+    if (!daten[i + 3]) continue;
+    const [h, s, v] = hsv(daten.subarray(i, i + 3));
+    const regel = regeln.find((r) => r.wenn(h, s, v));
+    if (regel) daten.set(regel.dann(h, s, v), i);
+  }
+}
+
+const hell = (v) => Math.min(1, v);
+const fell = (v) => { const w = Math.round(200 + 50 * v); return [w, w, w]; }; // weißer Pelz mit leichter Schattierung
+const blau = (h, s) => h > 200 && h < 235 && s > 0.3;
+const gold = (h, s) => h >= 25 && h <= 50 && s > 0.7;
+
+// Wanderhändler als Weihnachtsmann: Kapuze und Mantel rot, Goldborten weißer Pelz, Schal wird weißer Bart.
+const WEIHNACHTSMANN = [
+  { wenn: blau, dann: (h, s, v) => rgb([358, 0.82, hell(v * 1.5)]) },
+  { wenn: (h, s) => h > 80 && h < 110 && s > 0.3, dann: (h, s, v) => rgb([356, 0.85, hell(v * 2)]) },
+  { wenn: gold, dann: (h, s, v) => fell(v) },
+  { wenn: (h, s) => (h < 12 || h > 350) && s > 0.9, dann: (h, s, v) => fell(0.6 + v / 2) },
+];
+
+// Decke der Händler-Lamas: rot mit weißen Borten, die dunkelroten Streifen werden tannengrün.
+const LAMA_DECKE = [
+  { wenn: blau, dann: (h, s, v) => rgb([358, 0.82, hell(v * 1.5)]) },
+  { wenn: gold, dann: (h, s, v) => fell(v) },
+  { wenn: (h, s) => (h < 12 || h > 350) && s > 0.9, dann: (h, s, v) => rgb([135, 0.75, hell(v * 1.1)]) },
+];
 
 function vergroessern(png, faktor) {
   const gross = new PNG({ width: png.width * faktor, height: png.height * faktor });
@@ -175,6 +221,16 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     const png = PNG.sync.read(readFileSync(mc(`colormap/${karte}.png`)));
     aufhellen(png.data, 0.45);
     schreibePng(ziel(`minecraft/textures/colormap/${karte}.png`), png);
+  }
+
+  for (const [quelle, regeln] of [
+    ['entity/wandering_trader/wandering_trader.png', WEIHNACHTSMANN],
+    ['entity/equipment/llama_body/trader_llama.png', LAMA_DECKE],
+    ['entity/equipment/llama_body/trader_llama_baby.png', LAMA_DECKE],
+  ]) {
+    const png = PNG.sync.read(readFileSync(mc(quelle)));
+    umfaerben(png.data, regeln);
+    schreibePng(ziel(`minecraft/textures/${quelle}`), png);
   }
 
   for (const art of ['normal', 'trapped']) {
