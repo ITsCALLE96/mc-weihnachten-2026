@@ -1,5 +1,5 @@
 # Wer unter y 190 fällt (Insel verlassen), kommt zurück zum Brunnen
-execute as @a[y=-64,dy=253] at @s run function hub:zurueck
+execute as @a at @s if entity @s[y=-2048,dy=2237] run function hub:zurueck
 # Beim Betreten (nach dem Verlassen) zum Brunnen
 execute as @a[scores={hub_weg=1..}] run function hub:ankommen
 # Klicks auf Info-Stände, Voice-Ecke und Adventsgeschenke (Interaction-Entities)

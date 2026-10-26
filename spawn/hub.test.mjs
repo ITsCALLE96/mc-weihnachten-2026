@@ -16,7 +16,8 @@ test('Aufbau: Kacheln, Kirschhain, Spawn mit Blick, Hub-Gamerules, Weltgrenze ü
 });
 
 test('Hub-Regeln: zurück zum Brunnen unter y 190 und beim Betreten, Abenteuermodus, satt', () => {
-  assert.match(f.tick, /^execute as @a\[y=-64,dy=253\] at @s run function hub:zurueck$/m);
+  // Kasten an der Spielerposition (at @s vor der Prüfung) und bis weit unter −64 (Pascal fiel im Test bis y −7570)
+  assert.match(f.tick, /^execute as @a at @s if entity @s\[y=-2048,dy=2237\] run function hub:zurueck$/m);
   assert.match(f.zurueck, /^tp @s 0\.5 235 16\.5 180 0$/m);
   assert.match(f.load, /minecraft\.custom:minecraft\.leave_game/);
   assert.match(f.sekunde, /gamemode adventure @a\[gamemode=survival\]/);

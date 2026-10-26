@@ -31,8 +31,9 @@ execute unless score #tag hub_advent matches 0.. run scoreboard players set #tag
 scoreboard objectives add hub_funde dummy
 schedule function hub:sekunde 20t replace
 `;
+  // Kasten an der Position des Spielers (at @s), sonst gilt x/z des Ausführungsorts; nach unten weit über −64 hinaus (Leerwelt, freier Fall)
   f.tick = `# Wer unter y ${k.zurueckUnter} fällt (Insel verlassen), kommt zurück zum Brunnen
-execute as @a[y=-64,dy=${k.zurueckUnter + 63}] at @s run function hub:zurueck
+execute as @a at @s if entity @s[y=-2048,dy=${k.zurueckUnter + 2047}] run function hub:zurueck
 # Beim Betreten (nach dem Verlassen) zum Brunnen
 execute as @a[scores={hub_weg=1..}] run function hub:ankommen
 # Klicks auf Info-Stände, Voice-Ecke und Adventsgeschenke (Interaction-Entities)
