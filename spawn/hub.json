@@ -11,6 +11,9 @@
   "biom": { "x": -30, "z": -36, "a": 120, "b": 120, "biom": "minecraft:cherry_grove" },
   "weltgrenze": { "x": -30, "z": -36, "breite": 260 },
   "zurueckUnter": 190,
+  "korrekturen": [
+    { "x": -50, "y": 234, "z": 11, "block": "minecraft:air", "grund": "einzelner roter Wollblock auf dem Weg (Pascal: wirkt fehl am Platz)" }
+  ],
   "tafeln": [
     { "x": -3, "y": 235, "z": 15, "block": "minecraft:spruce_sign[rotation=0]", "zeilen": ["Spawn", "Fantasy Village", "gebaut von", "LavaBuilds"] }
   ],
@@ -56,19 +59,19 @@
       "text": "Dieses Dorf: „Fantasy Village“ von LavaBuilds (BuiltByBit). Danke an alle Mod-Autoren und an euch fürs Mitspielen!" }
   ],
   "dorfbewohner": [
-    { "pos": [-51.5, 235, -98.5], "text": "Psst … hier gibt es nichts zu kaufen. Im Hub ist alles Kulisse, gehandelt wird auf dem SMP." },
-    { "pos": [-54.5, 234, 0.5], "text": "Angeln ist im Hub erlaubt! Wirf deine Angel in einen der Teiche." },
-    { "pos": [-51.5, 234, 25.5], "text": "Willkommen im Blumenladen. Die Gärten des Dorfs sind zum Anschauen da." },
-    { "pos": [-39.5, 234, 25.5], "text": "Auf dem SMP baust du selbst an. Das Questbuch zeigt dir, wie es losgeht." },
-    { "pos": [-17.5, 234, -54.5], "text": "Hier im Hub bist du sicher: kein Hunger, kein Fallschaden. Wer runterfällt, landet wieder am Brunnen." },
-    { "pos": [-24.5, 234, -54.5], "text": "Kämpfe gibt es hier keine, PvP ist im Hub aus." },
-    { "pos": [-1, 234, 50.5], "text": "Du suchst den Weg zum Server? Geh zum Brunnen und dann zu den Kisten im Osten. Rechtsklick auf „SMP“." },
-    { "pos": [6.5, 235, -33.5], "text": "Die Verzauberungstische sind Kulisse. Verzaubern kannst du auf dem SMP." },
-    { "pos": [33.5, 236, 30.5], "text": "Die Bank ist Kulisse, auf unserem Server gibt es nichts zu kaufen." },
-    { "pos": [51.5, 236, -41.5], "text": "Frohe Feiertage! Ab dem 01.12. sind auf der Insel Adventsgeschenke versteckt, jeden Tag eins." },
-    { "pos": [58.5, 237, -4.5], "text": "Das Auktionshaus ist Kulisse. Schau dir lieber die Info-Stände am Markt an." },
-    { "pos": [58.5, 237, 0.5], "text": "Fragen zum Server? Die Info-Stände am Markt erklären das Wichtigste." },
-    { "pos": [58.5, 237, 5.5], "text": "Dieses Dorf hat LavaBuilds gebaut. Schön, oder?" }
+    { "titel": "Schwarzmarkt", "pos": [-51.5, 235, -98.5], "text": "Psst … hier gibt es nichts zu kaufen. Im Hub ist alles Kulisse, gehandelt wird auf dem SMP." },
+    { "titel": "Fischer", "pos": [-54.5, 234, 0.5], "text": "Angeln ist im Hub erlaubt! Wirf deine Angel in einen der Teiche." },
+    { "titel": "Blumenhändlerin", "pos": [-51.5, 234, 25.5], "text": "Willkommen im Blumenladen. Die Gärten des Dorfs sind zum Anschauen da." },
+    { "titel": "Bauer", "pos": [-39.5, 234, 25.5], "text": "Auf dem SMP baust du selbst an. Das Questbuch zeigt dir, wie es losgeht." },
+    { "titel": "Trankmeister", "pos": [-17.5, 234, -54.5], "text": "Hier im Hub bist du sicher: kein Hunger, kein Fallschaden. Wer runterfällt, landet wieder am Brunnen." },
+    { "titel": "Waffenschmied", "pos": [-24.5, 234, -54.5], "text": "Kämpfe gibt es hier keine, PvP ist im Hub aus." },
+    { "titel": "Wegweiser", "pos": [-1, 234, 50.5], "text": "Du suchst den Weg zum Server? Geh zum Brunnen und dann zu den Kisten im Osten. Rechtsklick auf „SMP“." },
+    { "titel": "Bibliothekar", "pos": [6.5, 235, -33.5], "text": "Die Verzauberungstische sind Kulisse. Verzaubern kannst du auf dem SMP." },
+    { "titel": "Bankier", "pos": [33.5, 236, 30.5], "text": "Die Bank ist Kulisse, auf unserem Server gibt es nichts zu kaufen." },
+    { "titel": "Priesterin", "pos": [51.5, 236, -41.5], "text": "Frohe Feiertage! Ab dem 01.12. sind auf der Insel Adventsgeschenke versteckt, jeden Tag eins." },
+    { "titel": "Auktionator", "pos": [58.5, 237, -4.5], "text": "Das Auktionshaus ist Kulisse. Schau dir lieber die Info-Stände am Markt an." },
+    { "titel": "Auktionator", "pos": [58.5, 237, 0.5], "text": "Fragen zum Server? Die Info-Stände am Markt erklären das Wichtigste." },
+    { "titel": "Auktionator", "pos": [58.5, 237, 5.5], "text": "Dieses Dorf hat LavaBuilds gebaut. Schön, oder?" }
   ],
   "voiceEcke": { "x": -104, "y": 239, "z": 10 },
   "advent": [

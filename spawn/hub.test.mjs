@@ -67,3 +67,14 @@ test('Adventskalender: 24 Geschenke, freigeschaltet nach #tag, je Spieler einmal
   assert.match(f.aufbau_ende, /"hub_klick","hub_advent","hub_advent_zu","hub_g_1"/);
   assert.ok(f.klick.includes('hub_f_advent_fund_24,tag=!hub_advent_zu] on target at @s run function hub:advent/fund_24'));
 });
+
+test('Sichtbare Klickpunkte: Hinweis „Titel + Rechtsklick“ an Ständen, Voice-Ecke und Dorfbewohnern, Partikel, Korrektur roter Wolle', () => {
+  const hinweise = f.aufbau_ende.split('\n').filter((z) => z.includes('"hub_hinweis"'));
+  assert.equal(hinweise.length, 8 + 1 + 13);
+  assert.ok(hinweise.every((z) => z.includes('{"text":"Rechtsklick","color":"gray"}')));
+  assert.ok(f.aufbau_ende.includes('summon text_display 42.5 236.7 -18.5 {text:[{"text":"Regeln\\n","color":"gold","bold":true}'));
+  assert.ok(f.aufbau_ende.includes('summon text_display -54.5 236.4 0.5 {text:[{"text":"Fischer\\n","color":"green","bold":true}'));
+  assert.ok(f.sekunde.includes('execute at @e[type=text_display,tag=hub_hinweis] run particle minecraft:end_rod'));
+  assert.ok(f.aufbau_ende.includes('\nsetblock -50 234 11 minecraft:air\n'));
+  assert.ok(f['npc/2'].includes('{"text":"Fischer: ","color":"green"}'));
+});

@@ -26,10 +26,13 @@ node --max-old-space-size=8000 "$(w "$REPO/tools/schem-struktur.mjs")" "$(w "$RE
 
 echo "2/4 WorldGuard-Regionen beiseite"
 R="$SRV/plugins/WorldGuard/worlds/world/regions.yml"
+# Bei jedem Ende (auch Abbruch) zurücklegen; vorher nochmal prüfen, ob inzwischen jemand den Hub gestartet hat
+trap '[ -f "$R.aufbau" ] && mv "$R.aufbau" "$R"' EXIT
+if command -v netstat >/dev/null && netstat -ano | grep -q ":$port .*LISTENING"; then echo "Port $port inzwischen belegt – abgebrochen"; exit 1; fi
 [ -f "$R" ] && mv "$R" "$R.aufbau"
 
 echo "3/4 Hub-Server ohne Fenster starten und aufbauen"
-cd "$SRV"; rm -f logs/latest.log
+cd "$SRV"; rm -f logs/latest.log || { echo "Log belegt – läuft der Hub-Server schon?"; exit 1; }
 warte() { local i=0; until grep -q "$1" logs/latest.log 2>/dev/null || grep -qE "Failed to load datapacks|Stopping server" logs/latest.log 2>/dev/null || [ $i -ge "${2:-600}" ]; do sleep 2; i=$((i+2)); done; }
 (
   warte "Done (" 900
@@ -39,5 +42,5 @@ warte() { local i=0; until grep -q "$1" logs/latest.log 2>/dev/null || grep -qE 
 ) | "$JAVA" -Xms1G -Xmx4G -jar paper-26.3-207.jar nogui > logs/hub-aufsetzen-konsole.txt 2>&1 || true
 
 echo "4/4 Regionen zurück, Ergebnis"
-[ -f "$R.aufbau" ] && mv "$R.aufbau" "$R"
+[ -f "$R.aufbau" ] && mv "$R.aufbau" "$R"; true
 grep -E "Hub eingerichtet|SMP-Kiste gesperrt|Failed to load|ERROR.*(function|template|advancement)|Couldn't" logs/latest.log | cut -c1-220

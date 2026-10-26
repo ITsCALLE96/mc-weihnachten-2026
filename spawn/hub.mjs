@@ -44,6 +44,8 @@ gamemode adventure @a[gamemode=survival]
 effect give @a[gamemode=adventure] minecraft:saturation infinite 0 true
 # Adventsgeschenke freischalten, sobald ihr Tag erreicht ist (nur in geladenen Chunks, also wo Spieler sind)
 execute as @e[tag=hub_advent_zu] if score @s hub_advent <= #tag hub_advent run function hub:advent/zeigen
+# Leichte Partikel an den Klickpunkten (Stände, Voice-Ecke, Dorfbewohner)
+execute at @e[type=text_display,tag=hub_hinweis] run particle minecraft:end_rod ~ ~-0.4 ~ 0.25 0.2 0.25 0.005 1 normal
 schedule function hub:sekunde 20t replace
 `;
   f.zurueck = `# Insel verlassen: zurück zum Brunnen, kurz Blindheit als Einblendung
@@ -59,6 +61,8 @@ ${zumSpawn}
   const klicks = [];
   const interaktion = (x, y, z, name, w = 1, h = 1.5) => { klicks.push(name); return `summon interaction ${x} ${y} ${z} {width:${w}f,height:${h}f,response:1b,Tags:["hub","hub_klick","hub_f_${name.replace(/\//g, '_')}"]}`; };
   const anzeige = (x, y, z, text, tags = []) => `summon text_display ${x} ${y} ${z} {text:${text},billboard:"center",alignment:"center",line_width:200,background:1073741824,Tags:${q(['hub', ...tags])}}`;
+  // Sichtbarer Hinweis an jedem Klickpunkt (Pascal 26.10.: sonst „unsichtbare Dinger“): Titel + „Rechtsklick“ auf Augenhöhe, dazu leichte Partikel (hub:sekunde)
+  const hinweis = (x, y, z, titel, farbe) => anzeige(x, y, z, `[${txt(titel + '\n', { color: farbe, bold: true })},${txt('Rechtsklick', { color: 'gray' })}]`, ['hub_hinweis']);
 
   // Schriften über den Kisten (Serverwahl), Bestenlisten-Platzhalter, Info-Stände, Voice-Ecke
   const kisten = k.kisten.map((c) => anzeige(c.x + 0.5, c.y + 1.2, c.z + 0.5, `[${txt(c.titel + '\n', { color: c.farbe, bold: true })},${txt('Rechtsklick', { color: 'gray' })}]`));
@@ -66,20 +70,21 @@ ${zumSpawn}
   const staende = k.stände.flatMap((st, i) => {
     const [x, y, z] = st.front;
     f[`stand/${i + 1}`] = `tellraw @s [${txt(`[${st.titel}] `, { color: 'gold', bold: true })},${txt(st.text, { color: 'white' })}]\nplaysound minecraft:item.book.page_turn master @s ~ ~ ~ 1 1\n`;
-    return [anzeige(x + 0.5, y + 2.2, z + 0.5, `[${txt(st.titel + '\n', { color: 'gold', bold: true })},${txt('Klick für Infos', { color: 'gray' })}]`), interaktion(x + 0.5, y, z + 0.5, `stand/${i + 1}`, 1.2, 2),
+    return [hinweis(x + 0.5, y + 1.7, z + 0.5, st.titel, 'gold'), interaktion(x + 0.5, y, z + 0.5, `stand/${i + 1}`, 1.2, 2),
       // Zeltschilder ohne festen Halt fallen beim Einfügen ab: dann neu setzen, danach beschriften
       ...st.schilder.flatMap(([sx, sy, sz, blick]) => [`execute unless block ${sx} ${sy} ${sz} #minecraft:wall_signs run setblock ${sx} ${sy} ${sz} minecraft:spruce_wall_sign[facing=${blick}]`,
         `data merge block ${sx} ${sy} ${sz} {is_waxed:1b,front_text:{messages:["",${q(st.titel)},"",""]}}`])];
   });
   const v = k.voiceEcke;
   f['stand/voice'] = `tellraw @s [${txt('[Voice Chat] ', { color: 'light_purple', bold: true })},${txt('Taste V öffnet die Einstellungen. Dort kannst du dein Mikrofon testen und die Lautstärke einstellen. Wer in der Nähe ist, hört dich.', { color: 'white' })}]\n`;
-  const voice = [anzeige(v.x + 0.5, v.y + 2.2, v.z + 0.5, `[${txt('Voice-Chat-Ecke\n', { color: 'light_purple', bold: true })},${txt('Taste V: Einstellungen und Mikrofontest', { color: 'gray' })}]`), interaktion(v.x + 0.5, v.y, v.z + 0.5, 'stand/voice', 1.2, 2)];
+  const voice = [hinweis(v.x + 0.5, v.y + 1.7, v.z + 0.5, 'Voice-Chat-Ecke', 'light_purple'),interaktion(v.x + 0.5, v.y, v.z + 0.5, 'stand/voice', 1.2, 2)];
 
   // Info-Dorfbewohner: Klick löst einen Fortschritt aus (player_interacted_with_entity), dessen Belohnung den Text zeigt
-  const npcTags = k.dorfbewohner.map((d, i) => `tag @e[type=villager,x=${d.pos[0]},y=${d.pos[1]},z=${d.pos[2]},distance=..1.5,limit=1] add hub_npc_${i + 1}`);
+  const npcTags = k.dorfbewohner.flatMap((d, i) => [`tag @e[type=villager,x=${d.pos[0]},y=${d.pos[1]},z=${d.pos[2]},distance=..1.5,limit=1] add hub_npc_${i + 1}`,
+    hinweis(d.pos[0], d.pos[1] + 2.4, d.pos[2], d.titel, 'green')]);
   k.dorfbewohner.forEach((d, i) => {
     adv[`npc/${i + 1}`] = { criteria: { klick: { trigger: 'minecraft:player_interacted_with_entity', conditions: { entity: { type: 'minecraft:entity_properties', entity: 'this', predicate: { 'minecraft:entity_type': 'minecraft:villager', 'minecraft:nbt': `{Tags:["hub_npc_${i + 1}"]}` } } } } }, rewards: { function: `hub:npc/${i + 1}` } };
-    f[`npc/${i + 1}`] = `advancement revoke @s only hub:npc/${i + 1}\ntellraw @s [${txt('Dorfbewohner: ', { color: 'green' })},${txt(d.text, { color: 'white' })}]\nplaysound minecraft:entity.villager.ambient neutral @s ~ ~ ~ 1 1\n`;
+    f[`npc/${i + 1}`] = `advancement revoke @s only hub:npc/${i + 1}\ntellraw @s [${txt(`${d.titel}: `, { color: 'green' })},${txt(d.text, { color: 'white' })}]\nplaysound minecraft:entity.villager.ambient neutral @s ~ ~ ~ 1 1\n`;
   });
 
   // Adventskalender: alle 24 Geschenke entstehen beim Aufbau unsichtbar und gesperrt (hub_advent_zu, Nummer im Score hub_advent).
@@ -184,6 +189,8 @@ execute unless score #geladen insel_zustand matches 1 run schedule function hub:
     '# Herausgefallene Gegenstände weg, Dorfbewohner markieren, Hub-Inhalte setzen, Chunks freigeben',
     `kill @e[type=item,${kasten}]`,
     ...npcTags,
+    // Einzelne Korrekturen am gekauften Bau (Lizenz erlaubt Änderungen), z.B. ein fehl platzierter Block
+    ...(k.korrekturen ?? []).map((b) => `setblock ${b.x} ${b.y} ${b.z} ${b.block}`),
     ...k.tafeln.map((t) => `setblock ${t.x} ${t.y} ${t.z} ${t.block}{is_waxed:1b,front_text:{messages:[${[...t.zeilen, '', '', '', ''].slice(0, 4).map(q).join(',')}]}}`),
     ...kisten, ...besten, ...staende, ...voice,
     ...advent,
