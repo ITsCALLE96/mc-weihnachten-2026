@@ -23,7 +23,7 @@ Auf dem SMP stellt dasselbe Plugin `/hub` (Alias `/lobby`) bereit. `/server <nam
 ## Spark-Insel auf dem SMP (Pascal 27.10.)
 
 **Ender-Kiste statt Portal:** Nach Pascals Insel-Test öffnet eine Ender-Kiste am Spawn das Menü wie im Hub (`kisten:` und Kategorie `spawn` in
-`../plugin-konfig/smp/`). Menü: Hub (wechseln) und Weihnachtsserver mit `hier: true` (angezeigt, nicht anklickbar). Die echte Ender-Kiste geht nicht auf.
+`../plugin-konfig/smp/`). Menü: nur der Hub (Pascal 27.10.). Für andere Fälle gibt es `hier: true` (Eintrag angezeigt, nicht anklickbar). Die echte Ender-Kiste geht nicht auf.
 Position −1/156/47 (Podestmitte, Spawn & Welt).
 
 **Spawn-Elytra** (`SpawnElytra.java`, ersetzt das frühere Plugin „Spawn Elytra“): In der Zone `spawn-elytra` (Kreis Mitte −1/47, Radius 28, ab y 150 (Standfläche) =

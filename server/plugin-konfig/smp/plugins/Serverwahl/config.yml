@@ -40,6 +40,7 @@ kisten:
   - {welt: world, x: -1, y: 156, z: 47, kategorie: spawn}
 kategorien:
   spawn:
+    # nur der Hub (Pascal 27.10.: der eigene Server gehört nicht ins Menü)
     titel: "<dark_purple>Serverwahl"
     server:
       - name: hub
@@ -49,13 +50,5 @@ kategorien:
           - "<gray>Zurück zur Lobby"
           - ""
           - "<yellow>Klicken zum Wechseln"
-      - name: smp
-        anzeige: "<gradient:#ff5252:#ffffff:#4cd964>Weihnachtsserver 2026</gradient>"
-        material: SPRUCE_SAPLING
-        hier: true
-        beschreibung:
-          - "<gray>SMP · Survival"
-          - ""
-          - "<green>Du bist hier"
 # Xaero: eigene Welt-ID, damit Minimap/Weltkarte Hub und SMP getrennt speichern (hinter Velocity sonst dieselbe „Welt“). Fest lassen, sonst neue leere Karte
 xaero-welt-id: 26120501
