@@ -907,8 +907,8 @@
     }
   },
   "saettigung": {
-    "sekunden": 1,
-    "abklingTicks": 6000
+    "heilen": true,
+    "sekunden": 1
   },
   "lichtung": {
     "grund": "Rückweg-Plattform senkrecht unter der Insel (Pascal 27.10.), Gelände darunter eingeebnet",

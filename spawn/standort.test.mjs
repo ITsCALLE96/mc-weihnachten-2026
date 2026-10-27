@@ -113,8 +113,12 @@ test('Spark-Insel 27.10.: Portal entfernt (vor dem Bau), Ender-Kiste, Schild am 
   assert.doesNotMatch(t, /nether_portal|minecraft:obsidian$/m);
   assert.ok(t.includes('\nfill -1 156 47 -1 156 47 minecraft:ender_chest[facing=south]\n'));
   assert.ok(f.tafeln.includes('setblock -9 158 39 minecraft:spruce_wall_sign[facing=south]'));
-  assert.match(f.betreten, /saturation 1 0 true/);
-  assert.ok(f.tick.includes('positioned -1 ~ 47 if entity @s[distance=..28] run function insel:betreten'));
+  assert.ok(f.heilen_spieler.includes('unless score @s insel_hunger matches 20.. run return run effect give @s minecraft:saturation 1 0 true'));
+  assert.ok(f.heilen_spieler.includes('unless score @s insel_leben matches 20..'));
+  assert.ok(f.heilen.includes('at @s positioned -1 ~ 47 if entity @s[distance=..28] run function insel:heilen_spieler'));
+  assert.ok(f.load.includes('insel_hunger food\nscoreboard objectives add insel_leben health'));
+  assert.ok(f.tick.includes('matches 20.. run function insel:heilen'));
+  assert.equal(f.betreten, undefined);
 });
 
 test('Region nur in Inselhöhe plus Kasten um die Rückweg-Plattform', () => {
@@ -139,5 +143,5 @@ test('Lichtung um die Rückweg-Plattform: Kreis frei, Löcher mit Gras, Bäume i
   const t = dateien(ks).funktionen.aufbau_teil2;
   assert.ok(t.includes('fill -4 63 80 4 63 88 minecraft:dirt replace minecraft:stone_brick_stairs'));
   assert.ok(t.indexOf('# Lichtung') < t.indexOf('function insel:plattform'));
-  assert.match(dateien(ks).funktionen.betreten, /saturation 1 0 true/);
+  assert.ok(dateien(ks).funktionen.heilen_spieler.includes('saturation 1 0 true'));
 });

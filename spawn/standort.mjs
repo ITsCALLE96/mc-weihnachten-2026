@@ -133,7 +133,25 @@ particle minecraft:reverse_portal ~ ~1 ~ 0.6 1 0.6 0.05 60 normal
 title @s actionbar {"text":"Zurück am Spawn – zweimal springen zum Fliegen","color":"aqua"}
 `;
   }
-  if (k.saettigung && o) {
+  if (k.saettigung?.heilen && o) {
+    // Heil-Ort (Pascal 27.10.): solange man oben ist, jede Sekunde kurz Sättigung I, wenn Hunger oder Leben nicht voll sind.
+    // Volle Sättigung lässt die natürliche Regeneration laufen, so heilt man oben von selbst
+    const oben = `x=${o.von[0]},y=${o.von[1]},z=${o.von[2]},dx=${o.bis[0] - o.von[0]},dy=${o.bis[1] - o.von[1]},dz=${o.bis[2] - o.von[2]}`;
+    const zone = o.kreis ? ` at @s positioned ${o.kreis.x} ~ ${o.kreis.z} if entity @s[distance=..${o.kreis.r}]` : '';
+    f.load += 'scoreboard objectives add insel_satt dummy\nscoreboard objectives add insel_hunger food\nscoreboard objectives add insel_leben health\n';
+    f.tick += `
+# Heilen oben auf der Insel (Kasten ${o.von.join('/')} bis ${o.bis.join('/')}${o.kreis ? `, Kreis um ${o.kreis.x}/${o.kreis.z} r ${o.kreis.r}` : ''}): jede Sekunde prüfen
+scoreboard players add #takt insel_satt 1
+execute if score #takt insel_satt matches 20.. run function insel:heilen
+`;
+    f.heilen = `scoreboard players set #takt insel_satt 0
+execute as @a[${oben},gamemode=!spectator]${zone} run function insel:heilen_spieler
+`;
+    f.heilen_spieler = `# Nur wenn Hunger oder Leben fehlen: kurz Sättigung I (kleinste Stufe)
+execute unless score @s insel_hunger matches 20.. run return run effect give @s minecraft:saturation ${k.saettigung.sekunden} 0 true
+execute unless score @s insel_leben matches 20.. run effect give @s minecraft:saturation ${k.saettigung.sekunden} 0 true
+`;
+  } else if (k.saettigung && o) {
     const oben = `x=${o.von[0]},y=${o.von[1]},z=${o.von[2]},dx=${o.bis[0] - o.von[0]},dy=${o.bis[1] - o.von[1]},dz=${o.bis[2] - o.von[2]}`;
     f.load += 'scoreboard objectives add insel_satt dummy\n';
     f.tick += `
