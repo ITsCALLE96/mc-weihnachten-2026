@@ -1,6 +1,6 @@
-# WorldGuard-Region der Oberwelt, erzeugt mit spawn/standort.mjs aus spawn/standort-fantasy-village-test.json. Einspielen nach
+# WorldGuard-Region der Oberwelt, erzeugt mit spawn/standort.mjs aus spawn/standort-smp-spark.json. Einspielen nach
 #   plugins/WorldGuard/worlds/world/regions.yml   (laufender Server: rg load -w world)
-# spawn: Oval (Mitte -30/-36, Halbachsen 124 in x und 123 in z, 32 Punkte), volle Höhe: Spawnschutz (Nicht-Mitglieder bauen
+# spawn: Oval (Mitte -2/47, Halbachsen 30 in x und 30 in z, 32 Punkte), volle Höhe: Spawnschutz (Nicht-Mitglieder bauen
 #   nicht, OPs umgehen das), keine Monster, kein PvP, Truhen zu, Türen/Knöpfe frei. Kein großes Bauverbot.
 # Später weiterbauen (Pascal): Nicht-Mitglieder bauen in der Region nicht, deshalb kein build-Flag hier (build deny würde auch Mitglieder sperren).
 #   Einzelne Spawn-Bauer:   rg addmember -w world spawn <Name>      (wieder weg: rg removemember -w world spawn <Name>)
@@ -13,38 +13,38 @@ regions:
         min-y: -64
         max-y: 319
         points:
-            - {x: 94, z: -36}
-            - {x: 92, z: -12}
-            - {x: 85, z: 11}
-            - {x: 73, z: 32}
-            - {x: 58, z: 51}
-            - {x: 39, z: 66}
-            - {x: 17, z: 78}
-            - {x: -6, z: 85}
-            - {x: -30, z: 87}
-            - {x: -54, z: 85}
-            - {x: -77, z: 78}
-            - {x: -99, z: 66}
-            - {x: -118, z: 51}
-            - {x: -133, z: 32}
-            - {x: -145, z: 11}
-            - {x: -152, z: -12}
-            - {x: -154, z: -36}
-            - {x: -152, z: -60}
-            - {x: -145, z: -83}
-            - {x: -133, z: -104}
-            - {x: -118, z: -123}
-            - {x: -99, z: -138}
-            - {x: -77, z: -150}
-            - {x: -54, z: -157}
-            - {x: -30, z: -159}
-            - {x: -6, z: -157}
-            - {x: 17, z: -150}
-            - {x: 39, z: -138}
-            - {x: 58, z: -123}
-            - {x: 73, z: -104}
-            - {x: 85, z: -83}
-            - {x: 92, z: -60}
+            - {x: 28, z: 47}
+            - {x: 27, z: 53}
+            - {x: 26, z: 58}
+            - {x: 23, z: 64}
+            - {x: 19, z: 68}
+            - {x: 15, z: 72}
+            - {x: 9, z: 75}
+            - {x: 4, z: 76}
+            - {x: -2, z: 77}
+            - {x: -8, z: 76}
+            - {x: -13, z: 75}
+            - {x: -19, z: 72}
+            - {x: -23, z: 68}
+            - {x: -27, z: 64}
+            - {x: -30, z: 58}
+            - {x: -31, z: 53}
+            - {x: -32, z: 47}
+            - {x: -31, z: 41}
+            - {x: -30, z: 36}
+            - {x: -27, z: 30}
+            - {x: -23, z: 26}
+            - {x: -19, z: 22}
+            - {x: -13, z: 19}
+            - {x: -8, z: 18}
+            - {x: -2, z: 17}
+            - {x: 4, z: 18}
+            - {x: 9, z: 19}
+            - {x: 15, z: 22}
+            - {x: 19, z: 26}
+            - {x: 23, z: 30}
+            - {x: 26, z: 36}
+            - {x: 27, z: 41}
         members: {}
         owners: {}
         flags:

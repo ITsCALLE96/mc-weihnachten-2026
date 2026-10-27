@@ -201,6 +201,8 @@ execute unless score #geladen insel_tp matches 1 run schedule function insel:auf
     p && '# Rückweg-Plattform\nfunction insel:plattform',
     k.lichter !== null && '# Unsichtbare Lichter im Oval (spawn/standort.mjs lichter)\nfunction insel:lichter',
     k.tafeln?.length && '# Infotafeln (Namensnennung des Erbauers)\nfunction insel:tafeln',
+    // Zusätzliche Bauteile, in Reihenfolge (z.B. Hub-Portal: erst Rahmen, dann Portalblöcke)
+    k.bloecke?.length && `# Zusätzliche Bauteile\n${k.bloecke.map((b) => `fill ${b.von.join(' ')} ${b.bis.join(' ')} ${b.block}`).join('\n')}`,
     `setworldspawn ${s.x} ${s.y} ${s.z} ${s.yaw} ${s.pitch}`, 'gamerule respawn_radius 0',
     `# Weltgrenze (Vorgenerierung mit Chunky macht die Server-Session)\nworldborder center ${g.x} ${g.z}\nworldborder set ${g.breite}`,
     e && '# Vor dem Start geschlossen (Eröffnungs-Event)\nfunction insel:schliessen',

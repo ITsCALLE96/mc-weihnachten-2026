@@ -47,3 +47,9 @@ test('Kacheln: volle Höhe, Rand kleiner, Blöcke, Block-Entities und Entities r
   assert.deepEqual(r.blockEntities[0].pos, [0, 1, 0]);
   assert.deepEqual(k.find((t) => t.i === 1 && t.j === 0).teil.entities[0].pos, [1.5, 0, 0.5]);
 });
+
+test('Struktur: DataVersion höchstens 3955 (26.3-Welten mit 5023 würden sonst als Luft eingefügt)', () => {
+  const m = neu(1, 1, 1, 5023);
+  setze(m, 0, 0, 0, 'minecraft:stone');
+  assert.equal(leseNbt(struktur(m)).value.DataVersion.value, 3955);
+});

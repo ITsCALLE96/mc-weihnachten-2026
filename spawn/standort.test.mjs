@@ -105,3 +105,10 @@ test('Spark-Insel auf dem SMP: Struktur, Plattform, Tafel, Teleport, Lichter nac
   assert.match(f.lichter_fertig2, /^function insel:lichter\n/);
   assert.equal(f.schliessen, undefined); // keine Eröffnung auf dem SMP (läuft im Hub)
 });
+
+test('Spark-Insel: Hub-Portal erst Rahmen, dann Portalblöcke', () => {
+  const ks = JSON.parse(readFileSync(new URL('./standort-smp-spark.json', import.meta.url)));
+  const t = dateien(ks).funktionen.aufbau_teil2;
+  assert.ok(t.indexOf('fill -3 154 29 1 158 29 minecraft:obsidian') < t.indexOf('fill -2 155 29 0 157 29 minecraft:nether_portal[axis=x]'));
+  assert.ok(t.indexOf('function insel:tafeln') < t.indexOf('fill -3 154 29'));
+});

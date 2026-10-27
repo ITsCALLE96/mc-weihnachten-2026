@@ -1,18 +1,705 @@
 {
   "beschreibung": "SMP (Testnetz, Zufalls-Seed): Spawn-Insel von SparkofPhoenix (Nitrado-Paket „Craft Attack Experience“, lokal in spawn/quellen/nitrado/), verschoben um +1404/-136/+102, Podest auf dem Weltspawn",
-  "spawn": { "x": 0, "y": 156, "z": 48, "yaw": 0, "pitch": 0 },
+  "spawn": {
+    "x": 0,
+    "y": 156,
+    "z": 48,
+    "yaw": 0,
+    "pitch": 0
+  },
   "spawnTeleport": true,
-  "oval": { "x": -2, "z": 47, "a": 30, "b": 30 },
-  "plattform": { "x": 0, "y": 65, "z": 48, "radius": 4, "stil": "stein" },
+  "oval": {
+    "x": -2,
+    "z": 47,
+    "a": 30,
+    "b": 30
+  },
+  "plattform": {
+    "x": 0,
+    "y": 65,
+    "z": 48,
+    "radius": 4,
+    "stil": "stein"
+  },
   "struktur": {
     "name": "spawn:spark_insel",
-    "ursprung": [-26, 89, 22],
-    "groesse": [51, 95, 51],
+    "ursprung": [
+      -26,
+      89,
+      22
+    ],
+    "groesse": [
+      51,
+      95,
+      51
+    ],
     "quelle": "spawn/quellen/nitrado/spark-insel.schem"
   },
-  "weltgrenze": { "x": 0, "z": 48, "breite": 10000 },
-  "lichter": { "raster": 8, "unterkante": 89 },
+  "weltgrenze": {
+    "x": 0,
+    "z": 48,
+    "breite": 10000
+  },
+  "lichter": {
+    "raster": 8,
+    "unterkante": 89
+  },
   "tafeln": [
-    { "x": -1, "y": 156, "z": 52, "block": "minecraft:spruce_sign[rotation=8]", "zeilen": ["Spawn-Insel:", "SparkofPhoenix", "", ""] }
+    {
+      "x": -1,
+      "y": 156,
+      "z": 52,
+      "block": "minecraft:spruce_sign[rotation=8]",
+      "zeilen": [
+        "Spawn-Insel:",
+        "SparkofPhoenix",
+        "",
+        ""
+      ]
+    },
+    {
+      "x": 1,
+      "y": 155,
+      "z": 30,
+      "block": "minecraft:spruce_sign[rotation=8]",
+      "zeilen": [
+        "",
+        "Zum Hub",
+        "(hindurchgehen)",
+        ""
+      ]
+    }
+  ],
+  "bloecke": [
+    {
+      "grund": "Hub-Portal am Ende des Nordwegs: Rahmen (serverwahl schickt Spieler im Inneren x -2..0, y 155..157, z 29 in den Hub)",
+      "von": [
+        -3,
+        154,
+        29
+      ],
+      "bis": [
+        1,
+        158,
+        29
+      ],
+      "block": "minecraft:obsidian"
+    },
+    {
+      "grund": "Hub-Portal: Inneres",
+      "von": [
+        -2,
+        155,
+        29
+      ],
+      "bis": [
+        0,
+        157,
+        29
+      ],
+      "block": "minecraft:nether_portal[axis=x]"
+    },
+    {
+      "grund": "Lichter oben auf der Insel (Raster 5, gegen Monster; der SMP hat keinen Spawnschutz-Plugin)",
+      "von": [
+        -9,
+        153,
+        29
+      ],
+      "bis": [
+        -9,
+        153,
+        29
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -4,
+        155,
+        29
+      ],
+      "bis": [
+        -4,
+        155,
+        29
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        1,
+        155,
+        29
+      ],
+      "bis": [
+        1,
+        155,
+        29
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        6,
+        154,
+        29
+      ],
+      "bis": [
+        6,
+        154,
+        29
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -4,
+        155,
+        34
+      ],
+      "bis": [
+        -4,
+        155,
+        34
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        1,
+        155,
+        34
+      ],
+      "bis": [
+        1,
+        155,
+        34
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        11,
+        155,
+        34
+      ],
+      "bis": [
+        11,
+        155,
+        34
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -19,
+        154,
+        39
+      ],
+      "bis": [
+        -19,
+        154,
+        39
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -14,
+        155,
+        39
+      ],
+      "bis": [
+        -14,
+        155,
+        39
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -4,
+        155,
+        39
+      ],
+      "bis": [
+        -4,
+        155,
+        39
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        1,
+        155,
+        39
+      ],
+      "bis": [
+        1,
+        155,
+        39
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        6,
+        155,
+        39
+      ],
+      "bis": [
+        6,
+        155,
+        39
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -19,
+        155,
+        44
+      ],
+      "bis": [
+        -19,
+        155,
+        44
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -9,
+        155,
+        44
+      ],
+      "bis": [
+        -9,
+        155,
+        44
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -4,
+        155,
+        44
+      ],
+      "bis": [
+        -4,
+        155,
+        44
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        1,
+        156,
+        44
+      ],
+      "bis": [
+        1,
+        156,
+        44
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        6,
+        155,
+        44
+      ],
+      "bis": [
+        6,
+        155,
+        44
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        11,
+        155,
+        44
+      ],
+      "bis": [
+        11,
+        155,
+        44
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        16,
+        155,
+        44
+      ],
+      "bis": [
+        16,
+        155,
+        44
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -19,
+        155,
+        49
+      ],
+      "bis": [
+        -19,
+        155,
+        49
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -14,
+        155,
+        49
+      ],
+      "bis": [
+        -14,
+        155,
+        49
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -9,
+        155,
+        49
+      ],
+      "bis": [
+        -9,
+        155,
+        49
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -4,
+        156,
+        49
+      ],
+      "bis": [
+        -4,
+        156,
+        49
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        1,
+        156,
+        49
+      ],
+      "bis": [
+        1,
+        156,
+        49
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        6,
+        155,
+        49
+      ],
+      "bis": [
+        6,
+        155,
+        49
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        11,
+        155,
+        49
+      ],
+      "bis": [
+        11,
+        155,
+        49
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        16,
+        155,
+        49
+      ],
+      "bis": [
+        16,
+        155,
+        49
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -19,
+        154,
+        54
+      ],
+      "bis": [
+        -19,
+        154,
+        54
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -14,
+        155,
+        54
+      ],
+      "bis": [
+        -14,
+        155,
+        54
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -4,
+        155,
+        54
+      ],
+      "bis": [
+        -4,
+        155,
+        54
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        1,
+        155,
+        54
+      ],
+      "bis": [
+        1,
+        155,
+        54
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        6,
+        155,
+        54
+      ],
+      "bis": [
+        6,
+        155,
+        54
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        11,
+        155,
+        54
+      ],
+      "bis": [
+        11,
+        155,
+        54
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -14,
+        155,
+        59
+      ],
+      "bis": [
+        -14,
+        155,
+        59
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -9,
+        155,
+        59
+      ],
+      "bis": [
+        -9,
+        155,
+        59
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -4,
+        155,
+        59
+      ],
+      "bis": [
+        -4,
+        155,
+        59
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        1,
+        155,
+        59
+      ],
+      "bis": [
+        1,
+        155,
+        59
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        6,
+        155,
+        59
+      ],
+      "bis": [
+        6,
+        155,
+        59
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        11,
+        175,
+        59
+      ],
+      "bis": [
+        11,
+        175,
+        59
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -9,
+        166,
+        64
+      ],
+      "bis": [
+        -9,
+        166,
+        64
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        -4,
+        155,
+        64
+      ],
+      "bis": [
+        -4,
+        155,
+        64
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        1,
+        155,
+        64
+      ],
+      "bis": [
+        1,
+        155,
+        64
+      ],
+      "block": "minecraft:light[level=15] keep"
+    },
+    {
+      "grund": "Licht oben",
+      "von": [
+        6,
+        155,
+        64
+      ],
+      "bis": [
+        6,
+        155,
+        64
+      ],
+      "block": "minecraft:light[level=15] keep"
+    }
   ]
 }

@@ -31,7 +31,9 @@ export function struktur(m) {
   }
   return schreibeNbt({
     name: '', type: 'compound', value: {
-      DataVersion: tag('int', m.dataVersion),
+      // Höchstens 3955: Mit der aktuellen 26.3-DataVersion (5023) und dieser {Name, Properties}-Palette setzt place template nur Luft
+      // (Spark-Insel 27.10.); bei 3955 wandelt Minecraft die Palette selbst um, das klappt auch mit 26.3-Blöcken
+      DataVersion: tag('int', Math.min(m.dataVersion, 3955)),
       size: tag('list', { elem: 'int', items: [m.w, m.h, m.l] }),
       palette: tag('list', { elem: 'compound', items: [...palette.keys()].map(zustand) }),
       blocks: tag('list', { elem: 'compound', items: bloecke }),
