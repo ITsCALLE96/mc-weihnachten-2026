@@ -24,5 +24,7 @@ regions:
       snow-melt: deny
       leaf-decay: deny
       crop-growth: deny
+      # keine „Hey! Sorry, but you can't …“-Meldungen im Hub (Leitung 27.10.); serverwahl fängt Kisten-Klicks ohnehin vorher ab
+      deny-message: ''
     members: {}
     owners: {}
