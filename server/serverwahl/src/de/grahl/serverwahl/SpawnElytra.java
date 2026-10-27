@@ -21,11 +21,17 @@ import org.bukkit.event.player.PlayerToggleFlightEvent;
 
 /**
  * Einmal-Elytra am Spawn (Pascal 27.10., wie das frühere Plugin „Spawn Elytra“): In der Zone (Kreis um die Insel, ab einer Höhe)
- * startet ein Doppelsprung einen Gleitflug ohne Item, F (Hand tauschen) gibt einmal Schub. Nach der Landung ist sie weg,
+ * startet ein Doppelsprung einen Gleitflug ohne Item, F (Hand tauschen) gibt einmal Schub wie eine Feuerwerksrakete (Stufe 3, Pascal 27.10.). Nach der Landung ist sie weg,
  * Fallschaden gibt es in dem Flug keinen. Nur Überleben und Abenteuer; Ops im Kreativmodus fliegen normal.
  */
 @SuppressWarnings("deprecation") // isOnGround kommt vom Client, reicht hier (nur Flugende, kein Schutz)
 final class SpawnElytra implements Listener {
+
+    private final org.bukkit.plugin.Plugin plugin;
+
+    SpawnElytra(org.bukkit.plugin.Plugin plugin) {
+        this.plugin = plugin;
+    }
 
     private static final MiniMessage MM = MiniMessage.miniMessage();
 
@@ -35,7 +41,8 @@ final class SpawnElytra implements Listener {
     private double mitteZ;
     private double radius;
     private int yAb;
-    private double schub;
+    /** Dauer des Schubs in Ticks: Rakete Stufe 1/2/3 brennt ~20/30/40–51 Ticks */
+    private int schubTicks;
     private String textStart;
     private String textSchub;
 
@@ -59,7 +66,7 @@ final class SpawnElytra implements Listener {
         mitteZ = Double.parseDouble(m[m.length - 1]) + 0.5;
         radius = c.getDouble("radius", 28);
         yAb = c.getInt("y-ab", 0);
-        schub = c.getDouble("schub", 1.5);
+        schubTicks = c.getInt("schub-ticks", 45);
         textStart = c.getString("text-start", "<gold>Gleiten! <gray>[F] für einen Schub");
         textSchub = c.getString("text-schub", "<gold>Schub!");
     }
@@ -137,8 +144,22 @@ final class SpawnElytra implements Listener {
         }
         e.setCancelled(true);
         geschoben.add(id);
-        p.setVelocity(p.getLocation().getDirection().multiply(schub));
         p.sendActionBar(MM.deserialize(textSchub));
+        // wie FireworkRocketEntity beim Gleiten: jeden Tick v += d·0,1 + (d·1,5 − v)·0,5, solange die Rakete brennt
+        new org.bukkit.scheduler.BukkitRunnable() {
+            private int rest = schubTicks;
+
+            @Override
+            public void run() {
+                if (rest-- <= 0 || !p.isOnline() || !p.isGliding() || !fliegend.contains(id)) {
+                    cancel();
+                    return;
+                }
+                org.bukkit.util.Vector d = p.getLocation().getDirection();
+                org.bukkit.util.Vector v = p.getVelocity();
+                p.setVelocity(v.add(d.clone().multiply(0.1).add(d.multiply(1.5).subtract(v).multiply(0.5))));
+            }
+        }.runTaskTimer(plugin, 0L, 1L);
     }
 
     @EventHandler(ignoreCancelled = true)

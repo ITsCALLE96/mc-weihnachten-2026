@@ -67,7 +67,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     /** Begehbare Portale (Quader), die per Velocity auf einen anderen Server schicken */
     private final List<Portal> portale = new ArrayList<>();
     private final Map<java.util.UUID, Long> portalZuletzt = new HashMap<>();
-    private final SpawnElytra spawnElytra = new SpawnElytra();
+    private final SpawnElytra spawnElytra = new SpawnElytra(this);
 
     private record Portal(String welt, int x1, int y1, int z1, int x2, int y2, int z2, String ziel, boolean sperre) {
         boolean enthaelt(org.bukkit.Location l, int rand) {

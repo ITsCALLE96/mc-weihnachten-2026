@@ -25,7 +25,8 @@ spawn-elytra:
   mitte: "-1 47"
   radius: 28
   y-ab: 150
-  schub: 1.5
+  # Schub mit [F] wie Feuerwerksrakete Stufe 3 (Pascal 27.10.): Ticks, die er wirkt (Stufe 1 ≈ 20, 2 ≈ 30, 3 ≈ 45)
+  schub-ticks: 45
   text-start: "<gold>Gleiten! <gray>[F] für einen Schub"
   text-schub: "<gold>Schub!"
 # Begehbare Portale (Quader → Velocity auf „ziel“), Beispiel:  - { welt: world, von: "10 150 -3", bis: "10 152 -1", ziel: hub }

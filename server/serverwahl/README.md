@@ -27,8 +27,8 @@ Auf dem SMP stellt dasselbe Plugin `/hub` (Alias `/lobby`) bereit. `/server <nam
 Position −1/156/47 (Podestmitte, Spawn & Welt).
 
 **Spawn-Elytra** (`SpawnElytra.java`, ersetzt das frühere Plugin „Spawn Elytra“): In der Zone `spawn-elytra` (Kreis Mitte −1/47, Radius 28, ab y 150 (Standfläche) =
-WorldGuard-Oval) startet ein Doppelsprung einen Gleitflug ohne Item, `[F]` (Hand tauschen) gibt einmal Schub. Nach der Landung oder im Wasser ist sie weg,
-kein Fallschaden in dem Flug. Nur Überleben/Abenteuer. **Prüfen:** ob GrimAC den Gleitflug ohne Elytra meldet oder zurücksetzt.
+WorldGuard-Oval) startet ein Doppelsprung einen Gleitflug ohne Item, `[F]` (Hand tauschen) gibt einmal Schub wie eine Feuerwerksrakete Stufe 3 (`schub-ticks: 45`, Pascal 27.10.). Nach der Landung oder im Wasser ist sie weg,
+kein Fallschaden in dem Flug. Nur Überleben/Abenteuer. Pascals Test 27.10.: Gleitflug läuft, GrimAC meldet nichts.
 
 **Portale** (`portale:`, begehbare Quader → Velocity, echte Portalblöcke darin teleportieren nicht) bleiben im Plugin, auf dem SMP derzeit leer.
 
