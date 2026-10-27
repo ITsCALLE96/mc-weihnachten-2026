@@ -50,3 +50,5 @@ kategorien:
   bald:
     titel: "<gray>Bald"
     server: []
+# Xaero: eigene Welt-ID, damit Minimap/Weltkarte Hub und SMP getrennt speichern (hinter Velocity sonst dieselbe „Welt“). Fest lassen, sonst neue leere Karte
+xaero-welt-id: 26120101

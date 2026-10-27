@@ -68,6 +68,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private final List<Portal> portale = new ArrayList<>();
     private final Map<java.util.UUID, Long> portalZuletzt = new HashMap<>();
     private final SpawnElytra spawnElytra = new SpawnElytra(this);
+    /** Xaero-Kanäle für die Welt-ID (Paket 0 = LevelMapProperties: ein int) */
+    private static final List<String> XAERO_KANAELE = List.of("xaeroworldmap:main", "xaerominimap:main");
+    /** eigene Welt-ID für Xaero, 0 = aus. Hinter Velocity sehen Hub und SMP sonst für Xaero gleich aus (gleiche Adresse, Dimension) */
+    private int xaeroWeltId;
 
     private record Portal(String welt, int x1, int y1, int z1, int x2, int y2, int z2, String ziel, boolean sperre) {
         boolean enthaelt(org.bukkit.Location l, int rand) {
@@ -83,6 +87,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         saveDefaultConfig();
         laden();
         getServer().getMessenger().registerOutgoingPluginChannel(this, KANAL);
+        XAERO_KANAELE.forEach(k -> getServer().getMessenger().registerOutgoingPluginChannel(this, k));
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(spawnElytra, this);
         // Hub: einmal pro Sekunde schauen, ob das Datapack die Eröffnung ausgelöst hat. Legt die Datei nur an, löscht sie nie
@@ -140,6 +145,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         eroeffnungsBefehle = er == null ? List.of() : er.getStringList("befehle");
         portaleSperren = getConfig().getBoolean("portale-sperren", false);
         spawnElytra.laden(getConfig().getConfigurationSection("spawn-elytra"));
+        xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
         portale.clear();
         for (Map<?, ?> m : getConfig().getMapList("portale")) {
             int[] a = koordinaten(m.get("von"));
@@ -300,6 +306,30 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                 return;
             }
         }
+    }
+
+    /** Xaero meldet seine Kanäle an (auch nach jedem Velocity-Wechsel neu): dann die Welt-ID dieses Servers schicken */
+    @EventHandler
+    public void beiKanalAnmeldung(org.bukkit.event.player.PlayerRegisterChannelEvent e) {
+        if (xaeroWeltId != 0 && XAERO_KANAELE.contains(e.getChannel())) {
+            weltIdSenden(e.getPlayer(), e.getChannel());
+        }
+    }
+
+    @EventHandler
+    public void beimBeitrittXaero(org.bukkit.event.player.PlayerJoinEvent e) {
+        if (xaeroWeltId == 0) {
+            return;
+        }
+        Player p = e.getPlayer();
+        getServer().getScheduler().runTaskLater(this, () -> XAERO_KANAELE.stream()
+                .filter(k -> p.isOnline() && p.getListeningPluginChannels().contains(k))
+                .forEach(k -> weltIdSenden(p, k)), 20L);
+    }
+
+    private void weltIdSenden(Player p, String kanal) {
+        byte[] daten = java.nio.ByteBuffer.allocate(5).put((byte) 0).putInt(xaeroWeltId).array();
+        p.sendPluginMessage(this, kanal, daten);
     }
 
     @EventHandler
