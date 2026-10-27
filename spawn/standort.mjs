@@ -249,6 +249,8 @@ execute unless data entity @s respawn run tp @s ${s.x + 0.5} ${s.y} ${s.z + 0.5}
   }).join('\n') + '\n';
   if (p) f.plattform = `# Rückweg-Plattform (Mitte ${p.x}/${p.y}/${p.z}, Radius 4, Stil ${p.stil ?? 'stein'}), Form von Pascal freigegeben\n` +
     plattformTeile(p.stil).map(([dx, dy, dz, b]) => `setblock ${p.x + dx} ${p.y + dy} ${p.z + dz} ${b}`).join('\n') + '\n';
+  // oval.minY/maxY: Region nur in dieser Höhe (z.B. schwebende Insel, der Boden darunter bleibt frei); dann zusätzlich ein Kasten um die Plattform
+  const flags = ['mob-spawning', 'pvp', 'chest-access', 'creeper-explosion', 'other-explosion', 'tnt', 'fire-spread', 'lava-fire', 'lighter', 'ghast-fireball', 'enderman-grief', 'ravager-grief', 'wither-damage', 'item-frame-rotation', 'vehicle-destroy', 'leaf-decay', 'ice-melt', 'snow-melt', 'vine-growth', 'mushroom-growth', 'mycelium-spread', 'coral-fade', 'copper-fade'].map((n) => `            ${n}: deny`).join('\n') + '\n            use: allow';
   const regionen = `# WorldGuard-Region der Oberwelt, erzeugt mit spawn/standort.mjs aus ${k.datei ?? 'der Standort-Konfiguration'}. Einspielen nach
 #   plugins/WorldGuard/worlds/world/regions.yml   (laufender Server: rg load -w world)
 # spawn: Oval (Mitte ${k.oval.x}/${k.oval.z}, Halbachsen ${k.oval.a} in x und ${k.oval.b} in z, 32 Punkte), volle Höhe: Spawnschutz (Nicht-Mitglieder bauen
@@ -261,16 +263,24 @@ regions:
     spawn:
         type: poly2d
         priority: 10
-        min-y: -64
-        max-y: 319
+        min-y: ${k.oval.minY ?? -64}
+        max-y: ${k.oval.maxY ?? 319}
         points:
 ${ovalPunkte(k.oval).map(([x, z]) => `            - {x: ${x}, z: ${z}}`).join('\n')}
         members: {}
         owners: {}
         flags:
-${['mob-spawning', 'pvp', 'chest-access', 'creeper-explosion', 'other-explosion', 'tnt', 'fire-spread', 'lava-fire', 'lighter', 'ghast-fireball', 'enderman-grief', 'ravager-grief', 'wither-damage', 'item-frame-rotation', 'vehicle-destroy', 'leaf-decay', 'ice-melt', 'snow-melt', 'vine-growth', 'mushroom-growth', 'mycelium-spread', 'coral-fade', 'copper-fade'].map((n) => `            ${n}: deny`).join('\n')}
-            use: allow
-`;
+${flags}
+` + (p && k.oval.minY !== undefined ? `    rueckweg:
+        type: cuboid
+        priority: 10
+        min: {x: ${p.x - 5}, y: ${p.y - 2}, z: ${p.z - 5}}
+        max: {x: ${p.x + 5}, y: ${p.y + 4}, z: ${p.z + 5}}
+        members: {}
+        owners: {}
+        flags:
+${flags}
+` : '');
   return { funktionen: f, regionen };
 }
 

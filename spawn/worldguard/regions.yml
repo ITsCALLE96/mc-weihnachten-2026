@@ -1,6 +1,6 @@
 # WorldGuard-Region der Oberwelt, erzeugt mit spawn/standort.mjs aus spawn/standort-smp-spark.json. Einspielen nach
 #   plugins/WorldGuard/worlds/world/regions.yml   (laufender Server: rg load -w world)
-# spawn: Oval (Mitte -2/47, Halbachsen 30 in x und 30 in z, 32 Punkte), volle Höhe: Spawnschutz (Nicht-Mitglieder bauen
+# spawn: Oval (Mitte -1/47, Halbachsen 28 in x und 28 in z, 32 Punkte), volle Höhe: Spawnschutz (Nicht-Mitglieder bauen
 #   nicht, OPs umgehen das), keine Monster, kein PvP, Truhen zu, Türen/Knöpfe frei. Kein großes Bauverbot.
 # Später weiterbauen (Pascal): Nicht-Mitglieder bauen in der Region nicht, deshalb kein build-Flag hier (build deny würde auch Mitglieder sperren).
 #   Einzelne Spawn-Bauer:   rg addmember -w world spawn <Name>      (wieder weg: rg removemember -w world spawn <Name>)
@@ -10,41 +10,73 @@ regions:
     spawn:
         type: poly2d
         priority: 10
-        min-y: -64
+        min-y: 89
         max-y: 319
         points:
-            - {x: 28, z: 47}
-            - {x: 27, z: 53}
-            - {x: 26, z: 58}
-            - {x: 23, z: 64}
-            - {x: 19, z: 68}
-            - {x: 15, z: 72}
-            - {x: 9, z: 75}
-            - {x: 4, z: 76}
-            - {x: -2, z: 77}
-            - {x: -8, z: 76}
-            - {x: -13, z: 75}
-            - {x: -19, z: 72}
-            - {x: -23, z: 68}
-            - {x: -27, z: 64}
-            - {x: -30, z: 58}
-            - {x: -31, z: 53}
-            - {x: -32, z: 47}
-            - {x: -31, z: 41}
-            - {x: -30, z: 36}
-            - {x: -27, z: 30}
-            - {x: -23, z: 26}
-            - {x: -19, z: 22}
-            - {x: -13, z: 19}
-            - {x: -8, z: 18}
-            - {x: -2, z: 17}
-            - {x: 4, z: 18}
-            - {x: 9, z: 19}
-            - {x: 15, z: 22}
-            - {x: 19, z: 26}
-            - {x: 23, z: 30}
-            - {x: 26, z: 36}
-            - {x: 27, z: 41}
+            - {x: 27, z: 47}
+            - {x: 26, z: 52}
+            - {x: 25, z: 58}
+            - {x: 22, z: 63}
+            - {x: 19, z: 67}
+            - {x: 15, z: 70}
+            - {x: 10, z: 73}
+            - {x: 4, z: 74}
+            - {x: -1, z: 75}
+            - {x: -6, z: 74}
+            - {x: -12, z: 73}
+            - {x: -17, z: 70}
+            - {x: -21, z: 67}
+            - {x: -24, z: 63}
+            - {x: -27, z: 58}
+            - {x: -28, z: 52}
+            - {x: -29, z: 47}
+            - {x: -28, z: 42}
+            - {x: -27, z: 36}
+            - {x: -24, z: 31}
+            - {x: -21, z: 27}
+            - {x: -17, z: 24}
+            - {x: -12, z: 21}
+            - {x: -6, z: 20}
+            - {x: -1, z: 19}
+            - {x: 4, z: 20}
+            - {x: 10, z: 21}
+            - {x: 15, z: 24}
+            - {x: 19, z: 27}
+            - {x: 22, z: 31}
+            - {x: 25, z: 36}
+            - {x: 26, z: 42}
+        members: {}
+        owners: {}
+        flags:
+            mob-spawning: deny
+            pvp: deny
+            chest-access: deny
+            creeper-explosion: deny
+            other-explosion: deny
+            tnt: deny
+            fire-spread: deny
+            lava-fire: deny
+            lighter: deny
+            ghast-fireball: deny
+            enderman-grief: deny
+            ravager-grief: deny
+            wither-damage: deny
+            item-frame-rotation: deny
+            vehicle-destroy: deny
+            leaf-decay: deny
+            ice-melt: deny
+            snow-melt: deny
+            vine-growth: deny
+            mushroom-growth: deny
+            mycelium-spread: deny
+            coral-fade: deny
+            copper-fade: deny
+            use: allow
+    rueckweg:
+        type: cuboid
+        priority: 10
+        min: {x: -5, y: 63, z: 43}
+        max: {x: 5, y: 69, z: 53}
         members: {}
         owners: {}
         flags:

@@ -112,3 +112,12 @@ test('Spark-Insel: Hub-Portal erst Rahmen, dann Portalblöcke', () => {
   assert.ok(t.indexOf('fill -3 154 29 1 158 29 minecraft:obsidian') < t.indexOf('fill -2 155 29 0 157 29 minecraft:nether_portal[axis=x]'));
   assert.ok(t.indexOf('function insel:tafeln') < t.indexOf('fill -3 154 29'));
 });
+
+test('Region nur in Inselhöhe plus Kasten um die Rückweg-Plattform', () => {
+  const ks = JSON.parse(readFileSync(new URL('./standort-smp-spark.json', import.meta.url)));
+  const { regionen } = dateien(ks);
+  assert.match(regionen, /min-y: 89\n        max-y: 319/);
+  assert.match(regionen, /rueckweg:\n        type: cuboid/);
+  assert.match(regionen, /min: \{x: -5, y: 63, z: 43\}/);
+  assert.doesNotMatch(dateien(k).regionen, /rueckweg/);
+});
