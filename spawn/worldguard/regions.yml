@@ -75,8 +75,8 @@ regions:
     rueckweg:
         type: cuboid
         priority: 10
-        min: {x: -5, y: 62, z: 79}
-        max: {x: 5, y: 68, z: 89}
+        min: {x: -5, y: 64, z: 43}
+        max: {x: 5, y: 70, z: 53}
         members: {}
         owners: {}
         flags:

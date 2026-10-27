@@ -29,3 +29,9 @@ test('Deko: Schnee nur in Luft, Laternen am Wegrand, alles wieder entfernbar', (
   assert.match(f.deko_an, /^forceload add 0 0 8 8$/m);
   assert.match(f.deko_an2, /^function insel:deko_weg$/m);
 });
+
+test('Deko: Blockanzeigen mit block_state als Text (26.3 kennt {Name:…} dort nicht)', () => {
+  const { funktionen: f } = deko(k, mini());
+  assert.doesNotMatch(f.deko_an2, /block_state:\{/);
+  assert.match(f.deko_an2, /block_state:"minecraft:/);
+});

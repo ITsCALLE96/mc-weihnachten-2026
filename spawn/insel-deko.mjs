@@ -17,7 +17,7 @@ export function deko(k, m) {
   const [ox, oy, oz] = k.struktur.ursprung, d = k.deko;
   const W = (x, y, z) => hole(m, x - ox, y - oy, z - oz) ?? LUFT;
   const luft = (b) => b === LUFT;
-  const anzeige = (x, y, z, block, gr, extra = '') => `summon block_display ${x} ${y} ${z} {block_state:{Name:"${block}"},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[${-gr / 2}f,${-gr / 2}f,${-gr / 2}f],scale:[${gr}f,${gr}f,${gr}f]},brightness:{sky:15,block:15},Tags:["insel_deko"]${extra}}`;
+  const anzeige = (x, y, z, block, gr, extra = '') => `summon block_display ${x} ${y} ${z} {block_state:"${block}",transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[${-gr / 2}f,${-gr / 2}f,${-gr / 2}f],scale:[${gr}f,${gr}f,${gr}f]},brightness:{sky:15,block:15},Tags:["insel_deko"]${extra}}`;
   const an = [], schnee = [], laternen = [], kerzen = [];
   const NB = [[1, 0, 0], [-1, 0, 0], [0, 0, 1], [0, 0, -1], [0, 1, 0]];
 
@@ -38,11 +38,13 @@ export function deko(k, m) {
       an.push(`summon item_display ${tx + 0.5} ${top + 1.6} ${tz + 0.5} {item:{id:"minecraft:nether_star",count:1},billboard:"vertical",transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[2.5f,2.5f,2.5f]},brightness:{sky:15,block:15},Tags:["insel_deko"]}`);
       // Geschenke unter dem Baum: Karton (Wolle) mit goldenem Band
       d.geschenke.forEach(([dx, dz, farbe, gr], i) => {
-        const gx = tx + dx + 0.5, gz = tz + dz + 0.5; let gy = 0; for (let y = 175; y > 140 && !gy; y--) if (!luft(W(tx + dx, y, tz + dz)) && !/leaves|log/.test(W(tx + dx, y, tz + dz))) gy = y + 1;
+        // Boden unter dem Baum (unterhalb der Krone, Äste und Wurzelholz zählen nicht); ohne Boden (Inselrand) kein Geschenk
+        const gx = tx + dx + 0.5, gz = tz + dz + 0.5; let gy = 0; for (let y = 160; y > 145 && !gy; y--) if (!luft(W(tx + dx, y, tz + dz)) && !/leaves|log|wood/.test(W(tx + dx, y, tz + dz))) gy = y + 1;
+        if (!gy) return;
         const r = (i * 37) % 90;
-        an.push(`summon block_display ${gx} ${gy} ${gz} {block_state:{Name:"${farbe}"},transformation:{left_rotation:[0f,${Math.sin(r * Math.PI / 360).toFixed(3)}f,0f,${Math.cos(r * Math.PI / 360).toFixed(3)}f],right_rotation:[0f,0f,0f,1f],translation:[${-gr / 2}f,0f,${-gr / 2}f],scale:[${gr}f,${gr}f,${gr}f]},Tags:["insel_deko"]}`,
-          `summon block_display ${gx} ${gy} ${gz} {block_state:{Name:"minecraft:gold_block"},transformation:{left_rotation:[0f,${Math.sin(r * Math.PI / 360).toFixed(3)}f,0f,${Math.cos(r * Math.PI / 360).toFixed(3)}f],right_rotation:[0f,0f,0f,1f],translation:[${-gr / 2 - 0.01}f,-0.01f,-0.06f],scale:[${gr + 0.02}f,${gr + 0.02}f,0.12f]},Tags:["insel_deko"]}`,
-          `summon block_display ${gx} ${gy} ${gz} {block_state:{Name:"minecraft:gold_block"},transformation:{left_rotation:[0f,${Math.sin(r * Math.PI / 360).toFixed(3)}f,0f,${Math.cos(r * Math.PI / 360).toFixed(3)}f],right_rotation:[0f,0f,0f,1f],translation:[-0.06f,-0.01f,${-gr / 2 - 0.01}f],scale:[0.12f,${gr + 0.02}f,${gr + 0.02}f]},Tags:["insel_deko"]}`);
+        an.push(`summon block_display ${gx} ${gy} ${gz} {block_state:"${farbe}",transformation:{left_rotation:[0f,${Math.sin(r * Math.PI / 360).toFixed(3)}f,0f,${Math.cos(r * Math.PI / 360).toFixed(3)}f],right_rotation:[0f,0f,0f,1f],translation:[${-gr / 2}f,0f,${-gr / 2}f],scale:[${gr}f,${gr}f,${gr}f]},Tags:["insel_deko"]}`,
+          `summon block_display ${gx} ${gy} ${gz} {block_state:"minecraft:gold_block",transformation:{left_rotation:[0f,${Math.sin(r * Math.PI / 360).toFixed(3)}f,0f,${Math.cos(r * Math.PI / 360).toFixed(3)}f],right_rotation:[0f,0f,0f,1f],translation:[${-gr / 2 - 0.01}f,-0.01f,-0.06f],scale:[${gr + 0.02}f,${gr + 0.02}f,0.12f]},Tags:["insel_deko"]}`,
+          `summon block_display ${gx} ${gy} ${gz} {block_state:"minecraft:gold_block",transformation:{left_rotation:[0f,${Math.sin(r * Math.PI / 360).toFixed(3)}f,0f,${Math.cos(r * Math.PI / 360).toFixed(3)}f],right_rotation:[0f,0f,0f,1f],translation:[-0.06f,-0.01f,${-gr / 2 - 0.01}f],scale:[0.12f,${gr + 0.02}f,${gr + 0.02}f]},Tags:["insel_deko"]}`);
       });
     }
   }
