@@ -1,0 +1,33 @@
+# SMP (MinecraftWeihnachten01): Schutz nur für die Spark-Insel und die Rückweg-Plattform (Spawn & Welt 27.10.), der Rest der Welt ist frei.
+# Lage: Insel-Ecke −26/89/22, Größe 51 × 95 × 51 → bis 24/183/72. Plattform am Boden 0/65/48. Mit neuer Lage hier mitziehen.
+# In Regionen ohne Mitglieder dürfen Nicht-Ops nicht bauen; Türen/Knöpfe gehen (use), Kisten nicht.
+# Ops mit /rg bypass sind ausgenommen.
+regions:
+  spawn:
+    type: cuboid
+    min: {x: -26.0, y: 89.0, z: 22.0}
+    max: {x: 24.0, y: 183.0, z: 72.0}
+    priority: 10
+    flags: &schutz
+      pvp: deny
+      use: allow
+      chest-access: deny
+      creeper-explosion: deny
+      tnt: deny
+      other-explosion: deny
+      ghast-fireball: deny
+      enderman-grief: deny
+      fire-spread: deny
+      lava-fire: deny
+      mob-spawning: deny
+      item-frame-rotation: deny
+    members: {}
+    owners: {}
+  rueckweg:
+    type: cuboid
+    min: {x: -3.0, y: 62.0, z: 45.0}
+    max: {x: 3.0, y: 70.0, z: 51.0}
+    priority: 10
+    flags: *schutz
+    members: {}
+    owners: {}

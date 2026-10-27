@@ -31,7 +31,7 @@ portale:
   - { welt: world, von: "10 150 -3", bis: "10 152 -1", ziel: hub }
 ```
 
-Spark-Insel (Spawn & Welt 27.10.): Rahmen am Ende des Nordwegs, Zone x −1…1, y 156…159, z 29…30 (eingetragen in `plugin-konfig/smp/`). **Offen:** Test mit Client.
+Spark-Insel (Spawn & Welt 27.10.): Rahmen am Ende des Nordwegs, Zone −2/155/29 bis 0/157/29, echte Netherportal-Blöcke im Obsidian-Rahmen (Nether-Teleport wird abgebrochen) (eingetragen in `plugin-konfig/smp/`). **Offen:** Test mit Client.
 
 ## Konfiguration
 

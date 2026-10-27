@@ -24,7 +24,7 @@ Werkzeug: **Chunky 1.5.3** (Modrinth `chunky`, GPL-3.0, Prüfsumme in `plugins.m
 - End: `execute in minecraft:the_end run worldborder set 10000` (Elytra-Flüge nach außen bleiben möglich, nur nicht endlos)
 - **Mittelpunkt = Spawn:** Liegt die Spawn-Insel nicht bei 0/0, kommen Weltgrenze und Chunky-Mittelpunkt auf die Spawn-Koordinaten.
   **Entschieden (Leitung 24.10.):** Seed ist der CA12-Seed `1560698989`, Weltgrenze 10.000 × 10.000 um den Spawn, vorgeneriert bis zur Grenze.
-  **Mittelpunkt x 64 / z 37** (Spawn-&-Welt-Session, 24.10.: Spawn auf der CA12-Insel, `spawn/KANDIDATEN.md`). Nether entsprechend 8 / 5 (÷ 8, gerundet)
+  ~~Mittelpunkt x 64 / z 37 (CA12-Insel, 24.10.)~~ → **seit 27.10. Spark-Insel (Pascal, Spawn & Welt): Mitte x 0 / z 48**, Weltspawn 0/156/48. Nether 0 / 6 (÷ 8). Gilt im Testnetz; für VM200, sobald die Leitung die Lage bestätigt
 - Chunky übernimmt Form und Mittelpunkt: `chunky center <x> <z>` · `chunky shape square` · `chunky radius 5000`
   (Testnetz 27.10.: Chunky erzeugt die Randchunks mit, auf +x/+z eine 16-Block-Reihe über 5.000 hinaus. Dazu legt Minecraft um den Rand halb erzeugte Chunks (Strukturstarts, Gelände ohne Abschluss) bis ~11 Chunks weiter an. Beides harmlos. Alternativ `chunky worldborder`, das übernimmt die gesetzte Grenze genau)
 
@@ -78,19 +78,19 @@ Ist nach Task 2 Schritt 1 nicht genug frei, gehe ich in dieser Reihenfolge vor: 
 Nach dem Spawn-Aufbau (unten). `insel:aufbau` setzt die Overworld-Grenze schon, die ersten beiden Zeilen schaden aber nicht.
 
 ```text
-worldborder center 64 37
+worldborder center 0 48
 worldborder set 10000
-execute in minecraft:the_nether run worldborder center 8 5
+execute in minecraft:the_nether run worldborder center 0 6
 execute in minecraft:the_nether run worldborder set 2500
 execute in minecraft:the_end run worldborder set 10000
 chunky world world
-chunky center 64 37
+chunky center 0 48
 chunky shape square
 chunky radius 5000
 chunky start
 ```
 
-Nach „Task complete“ dasselbe für `world_nether` (Radius 1.250, Mittelpunkt 8 / 5) und `world_the_end` (Radius 2.000, Mittelpunkt 0/0, dort liegt immer die Hauptinsel).
+Nach „Task complete“ dasselbe für `world_nether` (Radius 1.250, Mittelpunkt 0 / 6) und `world_the_end` (Radius 2.000, Mittelpunkt 0/0, dort liegt immer die Hauptinsel).
 Die Weltnamen kommen aus der 26.3-Instanz: Seit der neuen Weltstruktur liegen alle Dimensionen unter `world/dimensions/minecraft/`. Welche Namen Chunky
 erwartet, zeigt `chunky world` mit Tab-Vervollständigung. `chunky pause`/`chunky continue` übersteht einen Neustart.
 

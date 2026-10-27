@@ -23,6 +23,6 @@ kategorien: {}
 # (Nether/End/Gateway) darin teleportieren nicht in die Dimension. Koordinaten = Innenraum des Portals. Spark-Insel: Werte von der Spawn-Session
 # Beispiel:  - { welt: world, von: "10 150 -3", bis: "10 152 -1", ziel: hub }
 portale:
-  # Spark-Insel (Spawn & Welt 27.10.): Rahmen am Ende des Nordwegs, 3 breit × 4 hoch
-  - { welt: world, von: "-1 156 29", bis: "1 159 30", ziel: hub }
+  # Spark-Insel (Spawn & Welt 27.10.): Obsidian-Rahmen −3..1/154..158/z 29 mit nether_portal[axis=x], Zugang von Süden
+  - { welt: world, von: "-2 155 29", bis: "0 157 29", ziel: hub }
 text-portal: "<gold>Ab zum Hub …"
