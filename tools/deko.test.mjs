@@ -1,9 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { DEKO, FARBEN, palette, modell } from './deko.mjs';
+import { DEKO, KALENDER, FARBEN, palette, modell } from './deko.mjs';
+const ALLE = { ...DEKO, ...KALENDER };
 
 test('Alle Deko-Modelle bleiben im erlaubten Modellraum und nutzen gültige Drehungen', () => {
-  for (const [name, elemente] of Object.entries(DEKO)) {
+  for (const [name, elemente] of Object.entries(ALLE)) {
     for (const el of elemente) {
       for (const k of [...el.from, ...el.to]) assert.ok(k >= -16 && k <= 32, `${name}: ${k} außerhalb`);
       el.from.forEach((v, i) => assert.ok(v <= el.to[i], `${name}: from > to`));
@@ -14,11 +15,11 @@ test('Alle Deko-Modelle bleiben im erlaubten Modellraum und nutzen gültige Dreh
 
 test('Jede Fläche greift ein belegtes Palettenpixel ab', () => {
   const p = palette();
-  for (const elemente of Object.values(DEKO)) {
+  for (const elemente of Object.values(ALLE)) {
     for (const el of elemente) {
       for (const f of Object.values(el.faces)) {
         const [u, v] = f.uv;
-        assert.ok(u < Object.keys(FARBEN).length && v === 0);
+        assert.ok(v * 16 + u < Object.keys(FARBEN).length);
         assert.equal(p.data[(v * 16 + u) * 4 + 3], 255);
       }
     }
@@ -27,4 +28,8 @@ test('Jede Fläche greift ein belegtes Palettenpixel ab', () => {
 
 test('Modell verweist auf die Palette', () => {
   assert.equal(modell([]).textures.p, 'weihnachten:item/deko_palette');
+});
+
+test('Keine Deko-ID kollidiert mit den Sprite-Items (lebkuchen, lichterkette, weihnachtsmuetze)', () => {
+  for (const id of ['lebkuchen', 'lichterkette', 'weihnachtsmuetze']) assert.ok(!(id in ALLE), id);
 });
