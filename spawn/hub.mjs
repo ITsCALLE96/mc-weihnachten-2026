@@ -196,7 +196,7 @@ execute unless score #geladen insel_zustand matches 1 run schedule function hub:
     ...advent,
     'function hub:schliessen',
     `forceload remove ${lx1} ${lz1} ${lx2} ${lz2}`,
-    `say Hub eingerichtet: Bau, Kirschhain, Spawn ${s.x}/${s.y}/${s.z}, Weltgrenze, ${k.dorfbewohner.length} Info-Dorfbewohner, ${k.stände.length} Stände, Adventskalender, SMP gesperrt`,
+    `say Hub eingerichtet: Bau, Kirschhain, Spawn ${s.x}/${s.y}/${s.z}, Weltgrenze, ${k.dorfbewohner.length} Info-Dorfbewohner, ${k.stände.length} Stände, ${k.advent.length ? 'Adventskalender, ' : ''}SMP gesperrt`,
   ].join('\n') + '\n';
   // Ohne Adventsverstecke (seit 27.10. Winterkalender auf der SMP-Insel) auch keine Advents-Funktionen
   if (!k.advent.length) { delete f['advent/naechster_tag']; delete f['advent/zeigen']; }

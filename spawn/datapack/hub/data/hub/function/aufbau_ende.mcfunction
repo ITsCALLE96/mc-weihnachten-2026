@@ -101,4 +101,4 @@ summon text_display -103.5 240.7 10.5 {text:[{"text":"Voice-Chat-Ecke\n","color"
 summon interaction -103.5 239 10.5 {width:1.2f,height:2f,response:1b,Tags:["hub","hub_klick","hub_f_stand_voice"]}
 function hub:schliessen
 forceload remove -152 -152 88 88
-say Hub eingerichtet: Bau, Kirschhain, Spawn 0/237/0, Weltgrenze, 13 Info-Dorfbewohner, 8 Stände, Adventskalender, SMP gesperrt
+say Hub eingerichtet: Bau, Kirschhain, Spawn 0/237/0, Weltgrenze, 13 Info-Dorfbewohner, 8 Stände, SMP gesperrt
