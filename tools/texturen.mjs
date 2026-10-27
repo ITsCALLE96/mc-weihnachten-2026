@@ -2,7 +2,7 @@
 // Wanderhändler als Weihnachtsmann samt Lama-Decken. Der Winterteil (Reif, blasse Farbkarten,
 // Mützen und Schals) landet getrennt in resourcepack-winter/, siehe tools/winter.mjs.
 // Aufruf: node tools/texturen.mjs <ordner mit entpackten Vanilla-Client-assets>
-import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import pngjs from 'pngjs';
@@ -174,11 +174,37 @@ function muetzeAusruestung() {
 }
 
 // Winterteil als eigener Ordner: winter_assets.py legt ihn ins Pflicht-Pack (rp mit Winter)
-// oder lässt ihn weg (Variante ohne Winter nach der Saison).
-function baueWinter(wrp, mc, modell) {
+// oder lässt ihn weg (Variante ohne Winter nach der Saison). Reif und blasse Farbkarten nur mit REIF=1:
+// zurückgehalten, bis klar ist, wie die echten Winter-Biome per Datapack aussehen (Leitung 27.10.).
+function baueWinter(wrp, mc, modell, reif) {
   const ziel = (pfad) => join(wrp, 'assets', pfad);
   const lies = (pfad) => PNG.sync.read(readFileSync(mc(pfad)));
-  schreibeJson(ziel('weihnachten/winter.json'), { winter: true });
+  rmSync(wrp, { recursive: true, force: true });
+  schreibeJson(ziel('weihnachten/winter.json'), { winter: true, reif });
+  if (reif) baueReif(ziel, lies, modell);
+
+  const dorf = 'entity/villager';
+  const berufe = ['armorer', 'butcher', 'cartographer', 'cleric', 'farmer', 'fisherman', 'fletcher', 'leatherworker',
+    'librarian', 'mason', 'nitwit', 'shepherd', 'toolsmith', 'weaponsmith'];
+  const typen = ['desert', 'jungle', 'plains', 'savanna', 'snow', 'swamp', 'taiga'];
+  for (const datei of ['villager', ...typen.map((t) => `type/${t}`), ...berufe.map((b) => `profession/${b}`)]) {
+    const png = lies(`${dorf}/${datei}.png`);
+    if (datei !== 'villager') weihnachtsmuetze(png);
+    weihnachtsschal(png);
+    schreibePng(ziel(`minecraft/textures/${dorf}/${datei}.png`), png);
+  }
+
+  for (const [art, varianten] of [['kuh', ['cow/cow_cold', 'cow/cow_temperate', 'cow/cow_warm', 'cow/mooshroom_brown', 'cow/mooshroom_red']],
+    ['schwein', ['pig/pig_cold', 'pig/pig_temperate', 'pig/pig_warm']]]) {
+    for (const v of varianten) {
+      const png = lies(`entity/${v}.png`);
+      tierschal(png, TIER_SCHAL[art]);
+      schreibePng(ziel(`minecraft/textures/entity/${v}.png`), png);
+    }
+  }
+}
+
+function baueReif(ziel, lies, modell) {
   schreibePng(ziel('weihnachten/textures/block/frost_oben.png'), frostOben());
   schreibePng(ziel('weihnachten/textures/block/frost_seite.png'), frostSeite());
   schreibePng(ziel('weihnachten/textures/block/frost_laub.png'), frostOben(0.22, 3));
@@ -202,26 +228,6 @@ function baueWinter(wrp, mc, modell) {
     const png = lies(`colormap/${karte}.png`);
     winterFarbkarte(png.data);
     schreibePng(ziel(`minecraft/textures/colormap/${karte}.png`), png);
-  }
-
-  const dorf = 'entity/villager';
-  const berufe = ['armorer', 'butcher', 'cartographer', 'cleric', 'farmer', 'fisherman', 'fletcher', 'leatherworker',
-    'librarian', 'mason', 'nitwit', 'shepherd', 'toolsmith', 'weaponsmith'];
-  const typen = ['desert', 'jungle', 'plains', 'savanna', 'snow', 'swamp', 'taiga'];
-  for (const datei of ['villager', ...typen.map((t) => `type/${t}`), ...berufe.map((b) => `profession/${b}`)]) {
-    const png = lies(`${dorf}/${datei}.png`);
-    if (datei !== 'villager') weihnachtsmuetze(png);
-    weihnachtsschal(png);
-    schreibePng(ziel(`minecraft/textures/${dorf}/${datei}.png`), png);
-  }
-
-  for (const [art, varianten] of [['kuh', ['cow/cow_cold', 'cow/cow_temperate', 'cow/cow_warm', 'cow/mooshroom_brown', 'cow/mooshroom_red']],
-    ['schwein', ['pig/pig_cold', 'pig/pig_temperate', 'pig/pig_warm']]]) {
-    for (const v of varianten) {
-      const png = lies(`entity/${v}.png`);
-      tierschal(png, TIER_SCHAL[art]);
-      schreibePng(ziel(`minecraft/textures/entity/${v}.png`), png);
-    }
   }
 }
 
@@ -271,7 +277,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     layers: { humanoid: [{ texture: 'weihnachten:weihnachtsmuetze' }] },
   });
 
-  baueWinter(join(repo, 'resourcepack-winter'), mc, (pfad) => JSON.parse(readFileSync(join(vanilla, 'assets/minecraft/models/block', pfad), 'utf8')));
+  baueWinter(join(repo, 'resourcepack-winter'), mc, (pfad) => JSON.parse(readFileSync(join(vanilla, 'assets/minecraft/models/block', pfad), 'utf8')), process.env.REIF === '1');
 
   for (const [quelle, regeln] of [
     ['entity/wandering_trader/wandering_trader.png', WEIHNACHTSMANN],
