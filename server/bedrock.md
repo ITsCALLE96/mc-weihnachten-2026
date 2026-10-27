@@ -32,6 +32,10 @@ remote:
 
 Floodgate `config.yml` (Proxy): `username-prefix: "."` (Standard, bleibt), `send-floodgate-data: true`.
 
+**Java 26.3 ausdrücklich geprüft (27.10.):** Die Geyser-Download-Seite nennt für 2.12.1 „Java 26.3, Bedrock 26.30–26.52“, also passt Geyser zu unseren Servern.
+Für Floodgate 2.2.5 steht keine ausdrückliche 26.3-Freigabe dabei [?] (im Testnetz prüfen).
+**Deutsch für Bedrock** (Hinweis Questbuch-Session): eigene Texte über Geyser `locales/overrides/de_de.json`.
+
 ## Whitelist
 
 Bleibt auf beiden Backends (entschieden 24.10.). Bedrock-Spieler stehen dort mit Präfix: `.Name`.
