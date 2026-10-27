@@ -262,7 +262,20 @@ export const KALENDER = {
   schneekugel: schneekugel(), bratapfel: bratapfel(), rentiergeweih: rentiergeweih(), laterne_stern: laterneStern(),
   schal: schal(), lichterkrone: lichterkrone(),
 };
-export const AUFSETZBAR = ['strickmuetze', 'ohrenschuetzer', 'rentiergeweih', 'schal', 'lichterkrone'];
+// Gebrauchshinweise in der Lore (Spawn-Session setzt sie als translate). Eigener Namensraum fürs
+// Sprachfile, weil tools/questbuch.mjs weihnachten/lang komplett neu schreibt; Minecraft führt alle zusammen.
+export const KALENDER_TEXTE = {
+  'item.weihnachten.kalender.hinweis.kopf': ['Aufsetzen: in den Helm-Platz ziehen', 'Wear it: drag into the helmet slot'],
+  'item.weihnachten.kalender.hinweis.deko': ['Deko: in einen Rahmen hängen', 'Decoration: hang it in an item frame'],
+  'item.weihnachten.kalender.hinweis.deko2': ['oder einem Rüstungsständer aufsetzen', 'or put it on an armor stand'],
+  'item.weihnachten.kalender.hinweis.essen': ['Essbar', 'Edible'],
+  'item.weihnachten.kalender.hinweis.schokolade': ['Trinken: kurz Regeneration', 'Drink it: brief regeneration'],
+  'item.weihnachten.kalender.hinweis.werfen': ['Zum Werfen', 'Throw it'],
+  'item.weihnachten.kalender.hinweis.feuerwerk': ['Abfeuern: Rechtsklick in die Luft', 'Launch it: right-click into the air'],
+  'item.weihnachten.kalender.hinweis.andenken': ['Andenken an den Winter 2026', 'A keepsake of winter 2026'],
+};
+
+export const AUFSETZBAR =['strickmuetze', 'ohrenschuetzer', 'rentiergeweih', 'schal', 'lichterkrone'];
 
 // Ansichten: Inventar und Rahmen passen große Modelle auf einen Block ein; head bleibt 1:1 (Kopf-Maße oben).
 function display(elemente) {

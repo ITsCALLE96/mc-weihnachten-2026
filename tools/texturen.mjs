@@ -6,7 +6,7 @@ import { readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync } from 'no
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import pngjs from 'pngjs';
-import { DEKO, KALENDER, palette as dekoPalette, modell as dekoModell } from './deko.mjs';
+import { DEKO, KALENDER, KALENDER_TEXTE, palette as dekoPalette, modell as dekoModell } from './deko.mjs';
 import { frostOben, frostSeite, winterFarbkarte, weihnachtsmuetze, weihnachtsschal, tierschal, TIER_SCHAL } from './winter.mjs';
 
 const { PNG } = pngjs;
@@ -300,6 +300,9 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   }
   schreibePng(join(rp, 'pack.png'), vergroessern(sprite(SPRITES.weihnachtsmuetze.zeilen, SPRITES.weihnachtsmuetze.palette), 4));
   schreibePng(ziel('weihnachten/textures/entity/equipment/humanoid/weihnachtsmuetze.png'), muetzeAusruestung());
+  for (const [datei, i] of [['de_de', 0], ['en_us', 1]]) {
+    schreibeJson(ziel(`winterkalender/lang/${datei}.json`), Object.fromEntries(Object.entries(KALENDER_TEXTE).map(([k, t]) => [k, t[i]])));
+  }
   schreibeJson(ziel('weihnachten/equipment/weihnachtsmuetze.json'), {
     layers: { humanoid: [{ texture: 'weihnachten:weihnachtsmuetze' }] },
   });
