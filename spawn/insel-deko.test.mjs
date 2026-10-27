@@ -35,3 +35,12 @@ test('Deko: Blockanzeigen mit block_state als Text (26.3 kennt {Name:…} dort n
   assert.doesNotMatch(f.deko_an2, /block_state:\{/);
   assert.match(f.deko_an2, /block_state:"minecraft:/);
 });
+
+test('Deko: alle geschmückten Bäume mit Kugeln und Stern; Modelle aus dem Resourcepack als item_display', () => {
+  const k2 = { ...k, deko: { ...k.deko, geschmueckt: [0], modelle: { kugeln: ['weihnachten:kugel_rot'], stern: 'weihnachten:stern', licht: 'weihnachten:licht', geschenke: ['weihnachten:geschenk_blau'] } } };
+  const f = deko(k2, mini()).funktionen.deko_an2;
+  assert.match(f, /components:\{"minecraft:item_model":"weihnachten:kugel_rot"\}/);
+  assert.match(f, /"minecraft:item_model":"weihnachten:stern"\}\},billboard:"vertical"/);
+  assert.match(f, /"minecraft:item_model":"weihnachten:geschenk_blau"/);
+  assert.doesNotMatch(f, /nether_star|red_wool/);
+});

@@ -21,27 +21,39 @@ export function deko(k, m) {
   const an = [], schnee = [], laternen = [], kerzen = [];
   const NB = [[1, 0, 0], [-1, 0, 0], [0, 0, 1], [0, 0, -1], [0, 1, 0]];
 
-  // Schmuckkugeln am Weihnachtsbaum, Lichterketten an den anderen Bäumen: Laub mit Luft auf einer Seite, Anzeige knapp davor
+  // Modelle aus dem Resourcepack (Modpack-Session): item_display mit item_model; solange keine IDs da sind, einfache Blöcke als Platzhalter
+  const mo = d.modelle ?? {};
+  const modell = (x, y, z, id, gr, { leuchtet = true, drehung = 0, billboard = 'fixed' } = {}) => `summon item_display ${x} ${y} ${z} {item:{id:"minecraft:paper",count:1,components:{"minecraft:item_model":"${id}"}},billboard:"${billboard}",transformation:{left_rotation:[0f,${Math.sin(drehung / 2).toFixed(3)}f,0f,${Math.cos(drehung / 2).toFixed(3)}f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[${gr}f,${gr}f,${gr}f]},${leuchtet ? 'brightness:{sky:15,block:15},' : ''}Tags:["insel_deko"]}`;
+  const geschmueckt = new Set(d.geschmueckt ?? [d.weihnachtsbaum]);
+
+  // Alle geschmückten Bäume: Kugeln und Lichterketten auf Laub mit Luft auf einer Außenseite, Anzeige knapp davor; Stern an der Spitze
   for (const [bi, [tx, tz]] of d.baeume.entries()) {
-    const gross = bi === d.weihnachtsbaum;
+    const kugeln = geschmueckt.has(bi);
     let n = 0;
     for (let y = 160; y < oy + m.h; y++) for (let z = tz - 7; z <= tz + 7; z++) for (let x = tx - 7; x <= tx + 7; x++) {
       if (!/leaves/.test(W(x, y, z))) continue;
       const nb = NB.find(([dx, dy, dz]) => luft(W(x + dx, y + dy, z + dz)) && (dy === 0 ? Math.sign(dx) === Math.sign(x - tx) || Math.sign(dz) === Math.sign(z - tz) : false));
-      if (!nb || zufall(x, y, z) > (gross ? 0.22 : 0.09)) continue;
-      const [dx, , dz] = nb, px = x + 0.5 + dx * 0.62, pz = z + 0.5 + dz * 0.62;
-      an.push(gross ? anzeige(px, y + 0.5, pz, FARBEN[n % FARBEN.length], 0.32) : anzeige(px, y + 0.5, pz, 'minecraft:ochre_froglight', 0.16));
-      n++;
+      if (!nb) continue;
+      const [dx, , dz] = nb, px = x + 0.5 + dx * 0.62, pz = z + 0.5 + dz * 0.62, w = zufall(x, y, z);
+      if (kugeln && w < 0.16) {
+        an.push(mo.kugeln?.length ? modell(px, y + 0.5, pz, mo.kugeln[n % mo.kugeln.length], 0.45) : anzeige(px, y + 0.5, pz, FARBEN[n % FARBEN.length], 0.32));
+        n++;
+      } else if (w > (kugeln ? 0.93 : 0.91)) an.push(mo.licht ? modell(px, y + 0.5, pz, mo.licht, 0.3) : anzeige(px, y + 0.5, pz, 'minecraft:ochre_froglight', 0.16));
     }
-    if (gross) {
+    if (kugeln) {
       let top = 0; for (let y = oy + m.h - 1; y > 0 && !top; y--) if (/leaves|log/.test(W(tx, y, tz))) top = y;
-      an.push(`summon item_display ${tx + 0.5} ${top + 1.6} ${tz + 0.5} {item:{id:"minecraft:nether_star",count:1},billboard:"vertical",transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[2.5f,2.5f,2.5f]},brightness:{sky:15,block:15},Tags:["insel_deko"]}`);
-      // Geschenke unter dem Baum: Karton (Wolle) mit goldenem Band
+      const gr = bi === d.weihnachtsbaum ? 2.5 : 1.8;
+      an.push(mo.stern ? modell(tx + 0.5, top + 1.4, tz + 0.5, mo.stern, gr, { billboard: 'vertical' })
+        : `summon item_display ${tx + 0.5} ${top + 1.6} ${tz + 0.5} {item:{id:"minecraft:nether_star",count:1},billboard:"vertical",transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[${gr}f,${gr}f,${gr}f]},brightness:{sky:15,block:15},Tags:["insel_deko"]}`);
+    }
+    if (bi === d.weihnachtsbaum) {
+      // Geschenke unter dem Weihnachtsbaum: Modelle, sonst Karton (Wolle) mit goldenem Band
       d.geschenke.forEach(([dx, dz, farbe, gr], i) => {
         // Boden unter dem Baum (unterhalb der Krone, Äste und Wurzelholz zählen nicht); ohne Boden (Inselrand) kein Geschenk
         const gx = tx + dx + 0.5, gz = tz + dz + 0.5; let gy = 0; for (let y = 160; y > 145 && !gy; y--) if (!luft(W(tx + dx, y, tz + dz)) && !/leaves|log|wood/.test(W(tx + dx, y, tz + dz))) gy = y + 1;
         if (!gy) return;
         const r = (i * 37) % 90;
+        if (mo.geschenke?.length) { an.push(modell(gx, gy + gr / 2, gz, mo.geschenke[i % mo.geschenke.length], gr * 1.4, { leuchtet: false, drehung: r * Math.PI / 180 })); return; }
         an.push(`summon block_display ${gx} ${gy} ${gz} {block_state:"${farbe}",transformation:{left_rotation:[0f,${Math.sin(r * Math.PI / 360).toFixed(3)}f,0f,${Math.cos(r * Math.PI / 360).toFixed(3)}f],right_rotation:[0f,0f,0f,1f],translation:[${-gr / 2}f,0f,${-gr / 2}f],scale:[${gr}f,${gr}f,${gr}f]},Tags:["insel_deko"]}`,
           `summon block_display ${gx} ${gy} ${gz} {block_state:"minecraft:gold_block",transformation:{left_rotation:[0f,${Math.sin(r * Math.PI / 360).toFixed(3)}f,0f,${Math.cos(r * Math.PI / 360).toFixed(3)}f],right_rotation:[0f,0f,0f,1f],translation:[${-gr / 2 - 0.01}f,-0.01f,-0.06f],scale:[${gr + 0.02}f,${gr + 0.02}f,0.12f]},Tags:["insel_deko"]}`,
           `summon block_display ${gx} ${gy} ${gz} {block_state:"minecraft:gold_block",transformation:{left_rotation:[0f,${Math.sin(r * Math.PI / 360).toFixed(3)}f,0f,${Math.cos(r * Math.PI / 360).toFixed(3)}f],right_rotation:[0f,0f,0f,1f],translation:[-0.06f,-0.01f,${-gr / 2 - 0.01}f],scale:[0.12f,${gr + 0.02}f,${gr + 0.02}f]},Tags:["insel_deko"]}`);

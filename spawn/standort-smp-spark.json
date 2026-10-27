@@ -1016,6 +1016,19 @@
         48,
         "red"
       ]
-    ]
+    ],
+    "geschmueckt": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "modelle": {
+      "hinweis": "Modell-IDs aus dem Resourcepack (Modpack-Session) eintragen: kugeln (Liste), stern, licht, geschenke (Liste); leer = Block-Platzhalter",
+      "kugeln": [],
+      "stern": "",
+      "licht": "",
+      "geschenke": []
+    }
   }
 }
