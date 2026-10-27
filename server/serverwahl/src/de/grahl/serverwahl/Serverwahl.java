@@ -79,6 +79,11 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private java.time.ZoneId kalenderZone;
     /** > 0: fester Tag statt Datum (Testnetz) */
     private int kalenderFest;
+    /** Klicks auf Interaction-Entities mit diesem Tag selbst ausführen (WorldGuard sperrt sie sonst in der Spawn-Region) */
+    private String klickTag;
+    private String klickPraefix;
+    private String klickFunktion;
+    private final Map<java.util.UUID, Long> klickZuletzt = new HashMap<>();
 
     private record Portal(String welt, int x1, int y1, int z1, int x2, int y2, int z2, String ziel, boolean sperre) {
         boolean enthaelt(org.bukkit.Location l, int rand) {
@@ -177,6 +182,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         kalenderEintrag = ka == null ? "#tag" : ka.getString("eintrag", "#tag");
         kalenderZone = java.time.ZoneId.of(ka == null ? "Europe/Berlin" : ka.getString("zeitzone", "Europe/Berlin"));
         kalenderFest = ka == null ? 0 : ka.getInt("fester-tag", 0);
+        ConfigurationSection kl = ka == null ? null : ka.getConfigurationSection("klick");
+        klickTag = kl == null ? null : kl.getString("tag");
+        klickPraefix = kl == null ? null : kl.getString("nummer-praefix");
+        klickFunktion = kl == null ? null : kl.getString("funktion");
         portale.clear();
         for (Map<?, ?> m : getConfig().getMapList("portale")) {
             int[] a = koordinaten(m.get("von"));
@@ -366,6 +375,41 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     @EventHandler
     public void beimVerlassen(org.bukkit.event.player.PlayerQuitEvent e) {
         portalZuletzt.remove(e.getPlayer().getUniqueId());
+    }
+
+    /**
+     * Winterkalender: Rechtsklick auf ein Türchen (Interaction-Entity mit klick.tag) früh abfangen und abbrechen, damit WorldGuard
+     * keine Sperrmeldung zeigt, und die Türchen-Funktion des Datapacks selbst als der Spieler ausführen (wie „on target“ im Datapack)
+     */
+    @EventHandler(priority = org.bukkit.event.EventPriority.LOWEST)
+    public void beiEntityKlick(org.bukkit.event.player.PlayerInteractEntityEvent e) {
+        if (klickTag == null || !(e.getRightClicked() instanceof org.bukkit.entity.Interaction ent) || !ent.getScoreboardTags().contains(klickTag)) {
+            return;
+        }
+        e.setCancelled(true);
+        // PlayerInteractAtEntityEvent kommt zusätzlich, nur einmal und nur für die Haupthand ausführen
+        if (e instanceof org.bukkit.event.player.PlayerInteractAtEntityEvent || e.getHand() != EquipmentSlot.HAND) {
+            return;
+        }
+        Player p = e.getPlayer();
+        long jetzt = System.currentTimeMillis();
+        Long zuletzt = klickZuletzt.put(p.getUniqueId(), jetzt);
+        if (zuletzt != null && jetzt - zuletzt < 300) {
+            return;
+        }
+        for (String t : ent.getScoreboardTags()) {
+            if (t.startsWith(klickPraefix) && t.substring(klickPraefix.length()).chars().allMatch(Character::isDigit)
+                    && t.length() > klickPraefix.length()) {
+                String funktion = klickFunktion.replace("{n}", t.substring(klickPraefix.length()));
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "execute as " + p.getUniqueId() + " at @s run function " + funktion);
+                return;
+            }
+        }
+    }
+
+    @EventHandler(priority = org.bukkit.event.EventPriority.LOWEST)
+    public void beiEntityKlickAt(org.bukkit.event.player.PlayerInteractAtEntityEvent e) {
+        beiEntityKlick(e);
     }
 
     /** Früh abfangen (LOWEST) und abbrechen: WorldGuard überspringt abgebrochene Klicks, so erscheint keine „you can't open that here“-Meldung */

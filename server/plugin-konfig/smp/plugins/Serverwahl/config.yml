@@ -49,6 +49,12 @@ kalender:
   eintrag: "#tag"
   zeitzone: Europe/Berlin
   fester-tag: 0
+  # Rechtsklick auf ein Türchen (Interaction mit Tag klick.tag) führt serverwahl selbst aus, sonst sperrt WorldGuard ihn in der Spawn-Region.
+  # {n} = Zahl aus dem Tag <nummer-praefix><n>, z. B. insel_kal_7 → insel:kalender/tuer_7 (als der Spieler, wie „on target“ im Datapack)
+  klick:
+    tag: insel_kal_klick
+    nummer-praefix: insel_kal_
+    funktion: "insel:kalender/tuer_{n}"
 # Begehbare Portale (Quader → Velocity auf „ziel“), Beispiel:  - { welt: world, von: "10 150 -3", bis: "10 152 -1", ziel: hub }
 # Spark-Insel: Portal nach Pascals Test 27.10. wieder raus, stattdessen die Ender-Kiste unten
 portale: []
