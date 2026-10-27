@@ -18,8 +18,8 @@
   },
   "plattform": {
     "x": 0,
-    "y": 64,
-    "z": 84,
+    "y": 66,
+    "z": 48,
     "radius": 4,
     "stil": "stein"
   },
@@ -705,185 +705,185 @@
       ]
     },
     {
-      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "grund": "Plattform auf der Südlichtung (0/64/84) zurückbauen",
       "von": [
         -4,
-        65,
-        44
+        64,
+        80
       ],
       "bis": [
         4,
-        69,
-        52
+        68,
+        88
       ],
       "nur": "minecraft:pearlescent_froglight"
     },
     {
-      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "grund": "Plattform auf der Südlichtung (0/64/84) zurückbauen",
       "von": [
         -4,
-        65,
-        44
+        64,
+        80
       ],
       "bis": [
         4,
-        69,
-        52
+        68,
+        88
       ],
       "nur": "minecraft:amethyst_block"
     },
     {
-      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "grund": "Plattform auf der Südlichtung (0/64/84) zurückbauen",
       "von": [
         -4,
-        65,
-        44
+        64,
+        80
       ],
       "bis": [
         4,
-        69,
-        52
+        68,
+        88
       ],
       "nur": "minecraft:purple_concrete"
     },
     {
-      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "grund": "Plattform auf der Südlichtung (0/64/84) zurückbauen",
       "von": [
         -4,
-        65,
-        44
+        64,
+        80
       ],
       "bis": [
         4,
-        69,
-        52
+        68,
+        88
       ],
       "nur": "minecraft:black_concrete"
     },
     {
-      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "grund": "Plattform auf der Südlichtung (0/64/84) zurückbauen",
       "von": [
         -4,
-        65,
-        44
+        64,
+        80
       ],
       "bis": [
         4,
-        69,
-        52
+        68,
+        88
       ],
       "nur": "minecraft:polished_andesite"
     },
     {
-      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "grund": "Plattform auf der Südlichtung (0/64/84) zurückbauen",
       "von": [
         -4,
-        65,
-        44
+        64,
+        80
       ],
       "bis": [
         4,
-        69,
-        52
+        68,
+        88
       ],
       "nur": "minecraft:mossy_stone_bricks"
     },
     {
-      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "grund": "Plattform auf der Südlichtung (0/64/84) zurückbauen",
       "von": [
         -4,
-        65,
-        44
+        64,
+        80
       ],
       "bis": [
         4,
-        69,
-        52
+        68,
+        88
       ],
       "nur": "minecraft:stone_bricks"
     },
     {
-      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "grund": "Plattform auf der Südlichtung (0/64/84) zurückbauen",
       "von": [
         -4,
-        65,
-        44
+        64,
+        80
       ],
       "bis": [
         4,
-        69,
-        52
+        68,
+        88
       ],
       "nur": "minecraft:crying_obsidian"
     },
     {
-      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "grund": "Plattform auf der Südlichtung (0/64/84) zurückbauen",
       "von": [
         -4,
-        65,
-        44
+        64,
+        80
       ],
       "bis": [
         4,
-        69,
-        52
+        68,
+        88
       ],
       "nur": "minecraft:end_rod"
     },
     {
-      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "grund": "Plattform auf der Südlichtung (0/64/84) zurückbauen",
       "von": [
         -4,
-        65,
-        44
+        64,
+        80
       ],
       "bis": [
         4,
-        69,
-        52
+        68,
+        88
       ],
       "nur": "minecraft:mossy_stone_brick_wall"
     },
     {
-      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "grund": "Plattform auf der Südlichtung (0/64/84) zurückbauen",
       "von": [
         -4,
-        65,
-        44
+        64,
+        80
       ],
       "bis": [
         4,
-        69,
-        52
+        68,
+        88
       ],
       "nur": "minecraft:lantern"
     },
     {
-      "grund": "alte Plattform: Treppen darunter wieder Erde",
+      "grund": "Südplattform: Treppen darunter wieder Erde",
       "von": [
         -4,
-        64,
-        44
+        63,
+        80
       ],
       "bis": [
         4,
-        64,
-        52
+        63,
+        88
       ],
       "block": "minecraft:dirt",
       "nur": "minecraft:stone_brick_stairs"
     },
     {
-      "grund": "alte Plattform: Fläche wieder Gras",
+      "grund": "Südplattform: Fläche wieder Gras",
       "von": [
         -4,
-        65,
-        44
+        64,
+        80
       ],
       "bis": [
         4,
-        65,
-        52
+        64,
+        88
       ],
       "block": "minecraft:grass_block",
       "nur": "minecraft:air"
@@ -911,12 +911,13 @@
     "abklingTicks": 6000
   },
   "lichtung": {
-    "grund": "Rückweg-Plattform frei sichtbar und anfliegbar (Pascal 27.10.)",
+    "grund": "Rückweg-Plattform senkrecht unter der Insel (Pascal 27.10.), Gelände darunter eingeebnet",
     "x": 0,
-    "z": 84,
+    "z": 48,
     "r": 9,
-    "boden": 64,
+    "boden": 66,
     "hoehe": 20,
-    "rand": 4
+    "rand": 4,
+    "auffuellen": 3
   }
 }

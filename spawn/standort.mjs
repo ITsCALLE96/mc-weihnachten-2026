@@ -62,17 +62,22 @@ export function pilzlandBefehle({ x, z, a, b, biom = 'minecraft:mushroom_fields'
 }
 
 // Lichtung (Kreis um x/z, Boden = oberster Geländeblock): Zeilen als fill-Befehle, damit kein Befehl die Blockgrenze sprengt
-export function lichtungBefehle({ x, z, r, boden, hoehe = 20, rand = 4 }) {
+// auffuellen: so viele Lagen unter dem Boden mit Erde füllen, wo das Gelände tiefer liegt (eingeebnete Senke statt schwebender Grasdecke)
+export function lichtungBefehle({ x, z, r, boden, hoehe = 20, rand = 4, auffuellen = 0 }) {
   const out = [];
   for (let dz = -(r + rand); dz <= r + rand; dz++) {
     const w2 = Math.floor(Math.sqrt((r + rand) ** 2 - dz * dz));
     for (const tag of ['#minecraft:logs', '#minecraft:leaves']) out.push(`fill ${x - w2} ${boden + 1} ${z + dz} ${x + w2} ${boden + hoehe} ${z + dz} minecraft:air replace ${tag}`);
     if (Math.abs(dz) > r) continue;
     const w = Math.floor(Math.sqrt(r * r - dz * dz));
+    const lage = (y, block, filter) => `fill ${x - w} ${y} ${z + dz} ${x + w} ${y} ${z + dz} ${block} replace ${filter}`;
     out.push(`fill ${x - w} ${boden + 1} ${z + dz} ${x + w} ${boden + hoehe} ${z + dz} minecraft:air`,
-      `fill ${x - w} ${boden} ${z + dz} ${x + w} ${boden} ${z + dz} minecraft:grass_block replace minecraft:air`,
-      // abgetragene Hügel legen Erde frei: wieder Gras
-      `fill ${x - w} ${boden} ${z + dz} ${x + w} ${boden} ${z + dz} minecraft:grass_block replace minecraft:dirt`);
+      // Senken auffüllen: Büsche und Laub unter Bodenhöhe weg, dann Erde (replaceable = Luft, Gras, Blumen …)
+      ...Array.from({ length: auffuellen }, (_, i) => boden - auffuellen + i).flatMap((y) => [lage(y, 'minecraft:air', '#minecraft:leaves'), lage(y, 'minecraft:air', '#minecraft:logs'), lage(y, 'minecraft:dirt', '#minecraft:replaceable')]),
+      lage(boden, 'minecraft:air', '#minecraft:leaves'), lage(boden, 'minecraft:air', '#minecraft:logs'),
+      lage(boden, 'minecraft:grass_block', '#minecraft:replaceable'),
+      // abgetragene Hügel legen Erde bzw. Stein frei: wieder Gras
+      lage(boden, 'minecraft:grass_block', 'minecraft:dirt'), lage(boden, 'minecraft:grass_block', '#minecraft:base_stone_overworld'));
   }
   return out;
 }

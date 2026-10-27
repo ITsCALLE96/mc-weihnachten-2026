@@ -100,7 +100,7 @@ test('Spark-Insel auf dem SMP: Struktur, Plattform, Tafel, Teleport, Lichter nac
   assert.match(f.aufbau_teil2, /^setworldspawn 0 156 48 0 0$/m);
   assert.ok(f.tafeln.includes('SparkofPhoenix'));
   assert.match(f.erstbesuch, /^tp @s 0\.5 156 48\.5 0 0$/m);
-  assert.match(f.plattform, /^setblock 0 64 84 minecraft:pearlescent_froglight$/m);
+  assert.match(f.plattform, /^setblock 0 66 48 minecraft:pearlescent_froglight$/m);
   assert.match(f.lichter_fertig, /^forceload add /m);
   assert.match(f.lichter_fertig2, /^function insel:lichter\n/);
   assert.equal(f.schliessen, undefined); // keine Eröffnung auf dem SMP (läuft im Hub)
@@ -122,7 +122,7 @@ test('Region nur in Inselhöhe plus Kasten um die Rückweg-Plattform', () => {
   const { regionen } = dateien(ks);
   assert.match(regionen, /min-y: 89\n        max-y: 319/);
   assert.match(regionen, /rueckweg:\n        type: cuboid/);
-  assert.match(regionen, /min: \{x: -5, y: 62, z: 79\}/);
+  assert.match(regionen, /min: \{x: -5, y: 64, z: 43\}/);
   assert.doesNotMatch(dateien(k).regionen, /rueckweg/);
 });
 
@@ -130,13 +130,14 @@ test('Lichtung um die Rückweg-Plattform: Kreis frei, Löcher mit Gras, Bäume i
   const { lichtungBefehle } = await import('./standort.mjs');
   const b = lichtungBefehle({ x: 0, z: 84, r: 9, boden: 64, hoehe: 20, rand: 4 });
   assert.ok(b.includes('fill -9 65 84 9 84 84 minecraft:air'));
-  assert.ok(b.includes('fill -9 64 84 9 64 84 minecraft:grass_block replace minecraft:air'));
+  assert.ok(b.includes('fill -9 64 84 9 64 84 minecraft:grass_block replace #minecraft:replaceable'));
+  assert.ok(b.includes('fill -9 64 84 9 64 84 minecraft:grass_block replace #minecraft:base_stone_overworld'));
   assert.ok(b.includes('fill -13 65 84 13 84 84 minecraft:air replace #minecraft:logs'));
   assert.ok(!b.some((c) => c.startsWith('fill -9 65 71 ')));
   for (const c of b) { const n = c.split(' ').slice(1, 7).map(Number); assert.ok((n[3] - n[0] + 1) * (n[4] - n[1] + 1) * (n[5] - n[2] + 1) <= 32768); }
   const ks = JSON.parse(readFileSync(new URL('./standort-smp-spark.json', import.meta.url)));
   const t = dateien(ks).funktionen.aufbau_teil2;
-  assert.ok(t.includes('fill -4 64 44 4 64 52 minecraft:dirt replace minecraft:stone_brick_stairs'));
+  assert.ok(t.includes('fill -4 63 80 4 63 88 minecraft:dirt replace minecraft:stone_brick_stairs'));
   assert.ok(t.indexOf('# Lichtung') < t.indexOf('function insel:plattform'));
   assert.match(dateien(ks).funktionen.betreten, /saturation 1 0 true/);
 });
