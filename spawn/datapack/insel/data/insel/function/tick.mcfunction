@@ -6,11 +6,12 @@ execute as @a[scores={insel_tp=1}] at @s run function insel:start
 execute as @a[scores={insel_tp=2..69}] at @s run particle minecraft:portal ~ ~1 ~ 0.4 0.9 0.4 0.6 6 normal
 execute as @a[scores={insel_tp=70..}] at @s run function insel:zurueck
 
-# Sättigung: beim Betreten des Spawns oben (Kasten -26/150/22 bis 24/200/72) einmal kurz Sättigung I für 2 s,
+# Sättigung: beim Betreten des Spawns oben (Kasten -29/150/19 bis 27/319/75) einmal kurz Sättigung I für 2 s,
 # danach 5 min Abklingzeit, damit Rein- und Rausspringen nichts bringt
 scoreboard players remove @a[scores={insel_satt=1..}] insel_satt 1
-execute as @a[tag=insel_oben] unless entity @s[x=-26,y=150,z=22,dx=50,dy=50,dz=50] run tag @s remove insel_oben
-execute as @a[x=-26,y=150,z=22,dx=50,dy=50,dz=50,tag=!insel_oben] run function insel:betreten
+execute as @a[tag=insel_oben] at @s unless entity @s[x=-29,y=150,z=19,dx=56,dy=169,dz=56] run tag @s remove insel_oben
+execute as @a[tag=insel_oben] at @s positioned -1 ~ 47 unless entity @s[distance=..28] run tag @s remove insel_oben
+execute as @a[x=-29,y=150,z=19,dx=56,dy=169,dz=56,tag=!insel_oben] at @s positioned -1 ~ 47 if entity @s[distance=..28] run function insel:betreten
 
 # Erstes Betreten und Respawn ohne Bett: auf den geplanten Spawn (@e wählt nur lebende Spieler, also nach dem Wiederbeleben)
 execute as @a[tag=!insel_da] run function insel:erstbesuch

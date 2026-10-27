@@ -119,8 +119,13 @@ title @s actionbar {"text":"Zurück am Spawn – zweimal springen zum Fliegen","
 # Sättigung: beim Betreten des Spawns oben (Kasten ${o.von.join('/')} bis ${o.bis.join('/')}) einmal kurz Sättigung I für ${k.saettigung.sekunden} s,
 # danach ${k.saettigung.abklingTicks / 1200} min Abklingzeit, damit Rein- und Rausspringen nichts bringt
 scoreboard players remove @a[scores={insel_satt=1..}] insel_satt 1
-execute as @a[tag=insel_oben] unless entity @s[${oben}] run tag @s remove insel_oben
-execute as @a[${oben},tag=!insel_oben] run function insel:betreten
+${o.kreis
+    // Kreis statt Kasten (gleiche Zone wie die Spawn-Elytra): Abstand von der Mitte auf Spielerhöhe gemessen, also nur waagerecht
+    ? `execute as @a[tag=insel_oben] at @s unless entity @s[${oben}] run tag @s remove insel_oben
+execute as @a[tag=insel_oben] at @s positioned ${o.kreis.x} ~ ${o.kreis.z} unless entity @s[distance=..${o.kreis.r}] run tag @s remove insel_oben
+execute as @a[${oben},tag=!insel_oben] at @s positioned ${o.kreis.x} ~ ${o.kreis.z} if entity @s[distance=..${o.kreis.r}] run function insel:betreten`
+    : `execute as @a[tag=insel_oben] unless entity @s[${oben}] run tag @s remove insel_oben
+execute as @a[${oben},tag=!insel_oben] run function insel:betreten`}
 `;
     f.betreten = `# Spawn oben betreten: Sättigung nur, wenn die Abklingzeit abgelaufen ist
 tag @s add insel_oben

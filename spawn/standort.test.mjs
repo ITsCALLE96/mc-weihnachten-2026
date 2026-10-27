@@ -114,7 +114,7 @@ test('Spark-Insel 27.10.: Portal entfernt (vor dem Bau), Ender-Kiste, Schild am 
   assert.ok(t.includes('\nfill -1 156 47 -1 156 47 minecraft:ender_chest[facing=south]\n'));
   assert.ok(f.tafeln.includes('setblock -9 158 39 minecraft:spruce_wall_sign[facing=south]'));
   assert.match(f.betreten, /saturation 2 0 true/);
-  assert.match(f.tick, /x=-26,y=150,z=22,dx=50,dy=50,dz=50/);
+  assert.ok(f.tick.includes('positioned -1 ~ 47 if entity @s[distance=..28] run function insel:betreten'));
 });
 
 test('Region nur in Inselhöhe plus Kasten um die Rückweg-Plattform', () => {
