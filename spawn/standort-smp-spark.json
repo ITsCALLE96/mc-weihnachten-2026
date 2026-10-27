@@ -1024,11 +1024,42 @@
       3
     ],
     "modelle": {
-      "hinweis": "Modell-IDs aus dem Resourcepack (Modpack-Session) eintragen: kugeln (Liste), stern, licht, geschenke (Liste); leer = Block-Platzhalter",
-      "kugeln": [],
-      "stern": "",
-      "licht": "",
-      "geschenke": []
-    }
+      "hinweis": "Modelle aus rp-v5 (Modpack-Session 27.10.), ohne Resourcepack unsichtbar",
+      "kugeln": [
+        "weihnachten:kugel_rot",
+        "weihnachten:kugel_gold",
+        "weihnachten:kugel_blau",
+        "weihnachten:kugel_silber",
+        "weihnachten:kugel_gruen"
+      ],
+      "stern": "weihnachten:stern",
+      "licht": "weihnachten:lichterkette",
+      "geschenke": [
+        "weihnachten:geschenk_rot",
+        "weihnachten:geschenk_gruen",
+        "weihnachten:geschenk_blau",
+        "weihnachten:geschenk_gold",
+        "weihnachten:geschenk_lila",
+        "weihnachten:geschenk_weiss"
+      ],
+      "schneemann": "weihnachten:schneemann",
+      "rentier": "weihnachten:rentier"
+    },
+    "figuren": [
+      {
+        "modell": "schneemann",
+        "x": 3,
+        "z": 53,
+        "gr": 1,
+        "drehung": 0
+      },
+      {
+        "modell": "rentier",
+        "x": 8,
+        "z": 63,
+        "gr": 1,
+        "drehung": 200
+      }
+    ]
   }
 }

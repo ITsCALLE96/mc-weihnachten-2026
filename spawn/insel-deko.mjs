@@ -36,9 +36,9 @@ export function deko(k, m) {
       if (!nb) continue;
       const [dx, , dz] = nb, px = x + 0.5 + dx * 0.62, pz = z + 0.5 + dz * 0.62, w = zufall(x, y, z);
       if (kugeln && w < 0.16) {
-        an.push(mo.kugeln?.length ? modell(px, y + 0.5, pz, mo.kugeln[n % mo.kugeln.length], 0.45) : anzeige(px, y + 0.5, pz, FARBEN[n % FARBEN.length], 0.32));
+        an.push(mo.kugeln?.length ? modell(px, y + 0.35, pz, mo.kugeln[n % mo.kugeln.length], 1) : anzeige(px, y + 0.5, pz, FARBEN[n % FARBEN.length], 0.32));
         n++;
-      } else if (w > (kugeln ? 0.93 : 0.91)) an.push(mo.licht ? modell(px, y + 0.5, pz, mo.licht, 0.3) : anzeige(px, y + 0.5, pz, 'minecraft:ochre_froglight', 0.16));
+      } else if (w > (kugeln ? 0.93 : 0.91)) an.push(mo.licht ? modell(px, y + 0.4, pz, mo.licht, 1, { drehung: dx ? Math.PI / 2 : 0 }) : anzeige(px, y + 0.5, pz, 'minecraft:ochre_froglight', 0.16));
     }
     if (kugeln) {
       let top = 0; for (let y = oy + m.h - 1; y > 0 && !top; y--) if (/leaves|log/.test(W(tx, y, tz))) top = y;
@@ -53,12 +53,17 @@ export function deko(k, m) {
         const gx = tx + dx + 0.5, gz = tz + dz + 0.5; let gy = 0; for (let y = 160; y > 145 && !gy; y--) if (!luft(W(tx + dx, y, tz + dz)) && !/leaves|log|wood/.test(W(tx + dx, y, tz + dz))) gy = y + 1;
         if (!gy) return;
         const r = (i * 37) % 90;
-        if (mo.geschenke?.length) { an.push(modell(gx, gy + gr / 2, gz, mo.geschenke[i % mo.geschenke.length], gr * 1.4, { leuchtet: false, drehung: r * Math.PI / 180 })); return; }
+        if (mo.geschenke?.length) { const s = Math.min(1, gr * 1.2); an.push(modell(gx, gy + s / 2, gz, mo.geschenke[i % mo.geschenke.length], s, { leuchtet: false, drehung: r * Math.PI / 180 })); return; }
         an.push(`summon block_display ${gx} ${gy} ${gz} {block_state:"${farbe}",transformation:{left_rotation:[0f,${Math.sin(r * Math.PI / 360).toFixed(3)}f,0f,${Math.cos(r * Math.PI / 360).toFixed(3)}f],right_rotation:[0f,0f,0f,1f],translation:[${-gr / 2}f,0f,${-gr / 2}f],scale:[${gr}f,${gr}f,${gr}f]},Tags:["insel_deko"]}`,
           `summon block_display ${gx} ${gy} ${gz} {block_state:"minecraft:gold_block",transformation:{left_rotation:[0f,${Math.sin(r * Math.PI / 360).toFixed(3)}f,0f,${Math.cos(r * Math.PI / 360).toFixed(3)}f],right_rotation:[0f,0f,0f,1f],translation:[${-gr / 2 - 0.01}f,-0.01f,-0.06f],scale:[${gr + 0.02}f,${gr + 0.02}f,0.12f]},Tags:["insel_deko"]}`,
           `summon block_display ${gx} ${gy} ${gz} {block_state:"minecraft:gold_block",transformation:{left_rotation:[0f,${Math.sin(r * Math.PI / 360).toFixed(3)}f,0f,${Math.cos(r * Math.PI / 360).toFixed(3)}f],right_rotation:[0f,0f,0f,1f],translation:[-0.06f,-0.01f,${-gr / 2 - 0.01}f],scale:[0.12f,${gr + 0.02}f,${gr + 0.02}f]},Tags:["insel_deko"]}`);
       });
     }
+  }
+
+  for (const fg of d.figuren ?? []) {
+    let gy = 0; for (let y = 175; y > 145 && !gy; y--) if (!luft(W(fg.x, y, fg.z)) && !/leaves|log|wood/.test(W(fg.x, y, fg.z))) gy = y + 1;
+    if (gy && mo[fg.modell]) an.push(modell(fg.x + 0.5, gy + (fg.gr ?? 1) / 2, fg.z + 0.5, mo[fg.modell], fg.gr ?? 1, { leuchtet: false, drehung: (fg.drehung ?? 0) * Math.PI / 180 }));
   }
 
   // Schnee: eine Lage auf jeder Oberfläche (Gras, Weg, Laub, Stein), nicht auf Podest, Wasser oder Pflanzen
