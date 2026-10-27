@@ -31,6 +31,15 @@ spawn-elytra:
   text-schub: "<gold>Schub!"
   # true schreibt jeden Zustandswechsel ins Server-Log (Fehlersuche)
   debug: false
+# Winter-Season (Pascal 27.10., Vorschlag): öfter Niederschlag als Vanilla. Beginnt Regen/Schnee, dauert er dauer-min…dauer-max Minuten,
+# danach pause-min…pause-max Minuten klar. Gewitter wie Vanilla. aktiv: false = Vanilla-Wetter (nach der Season). Siehe server/winter.md
+wetter-rhythmus:
+  aktiv: true
+  welt: world
+  pause-min: 40
+  pause-max: 60
+  dauer-min: 5
+  dauer-max: 8
 # Begehbare Portale (Quader → Velocity auf „ziel“), Beispiel:  - { welt: world, von: "10 150 -3", bis: "10 152 -1", ziel: hub }
 # Spark-Insel: Portal nach Pascals Test 27.10. wieder raus, stattdessen die Ender-Kiste unten
 portale: []

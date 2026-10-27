@@ -68,6 +68,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private final List<Portal> portale = new ArrayList<>();
     private final Map<java.util.UUID, Long> portalZuletzt = new HashMap<>();
     private final SpawnElytra spawnElytra = new SpawnElytra(this);
+    private final WetterRhythmus wetter = new WetterRhythmus(this);
     /** Xaero-Kanäle für die Welt-ID (Paket 0 = LevelMapProperties: ein int) */
     private static final List<String> XAERO_KANAELE = List.of("xaeroworldmap:main", "xaerominimap:main");
     /** eigene Welt-ID für Xaero, 0 = aus. Hinter Velocity sehen Hub und SMP sonst für Xaero gleich aus (gleiche Adresse, Dimension) */
@@ -90,6 +91,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         XAERO_KANAELE.forEach(k -> getServer().getMessenger().registerOutgoingPluginChannel(this, k));
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(spawnElytra, this);
+        getServer().getPluginManager().registerEvents(wetter, this);
         // Hub: einmal pro Sekunde schauen, ob das Datapack die Eröffnung ausgelöst hat. Legt die Datei nur an, löscht sie nie
         // (eine zurückgesetzte Hub-Welt soll das SMP nicht wieder schließen; schließen nur per /serverwahl schliessen)
         getServer().getScheduler().runTaskTimer(this, () -> {
@@ -145,6 +147,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         eroeffnungsBefehle = er == null ? List.of() : er.getStringList("befehle");
         portaleSperren = getConfig().getBoolean("portale-sperren", false);
         spawnElytra.laden(getConfig().getConfigurationSection("spawn-elytra"));
+        wetter.laden(getConfig().getConfigurationSection("wetter-rhythmus"));
         xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
         portale.clear();
         for (Map<?, ?> m : getConfig().getMapList("portale")) {
