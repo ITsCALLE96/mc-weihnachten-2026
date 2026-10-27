@@ -45,6 +45,8 @@ final class SpawnElytra implements Listener {
     private int schubTicks;
     private String textStart;
     private String textSchub;
+    /** Zustandswechsel ins Server-Log (Fehlersuche) */
+    private boolean debug;
 
     /** im Gleitflug der Spawn-Elytra */
     private final Set<UUID> fliegend = new HashSet<>();
@@ -69,6 +71,15 @@ final class SpawnElytra implements Listener {
         schubTicks = c.getInt("schub-ticks", 45);
         textStart = c.getString("text-start", "<gold>Gleiten! <gray>[F] für einen Schub");
         textSchub = c.getString("text-schub", "<gold>Schub!");
+        debug = c.getBoolean("debug", false);
+    }
+
+    private void log(Player p, String was) {
+        if (debug) {
+            Location l = p.getLocation();
+            plugin.getLogger().info("[Elytra] " + p.getName() + " " + was + String.format(" bei %.1f/%.1f/%.1f, Modus %s, Boden %s, allowFlight %s",
+                    l.getX(), l.getY(), l.getZ(), p.getGameMode(), p.isOnGround(), p.getAllowFlight()));
+        }
     }
 
     private boolean inZone(Location l) {
@@ -101,19 +112,29 @@ final class SpawnElytra implements Listener {
         if (!ueberleben(p)) {
             return;
         }
-        // Doppelsprung nur, wenn der Spieler in der Zone auf dem Boden stand
+        // Doppelsprung nur, wenn der Spieler in der Zone auf dem Boden stand. Ein schon gesetztes allowFlight (z. B. aus den
+        // Spielerdaten übernommen) übernehmen wir, sonst ginge der Doppelsprung in normales Fliegen statt in den Gleitflug
         boolean darf = inZone(e.getTo());
-        if (darf && p.isOnGround() && !p.getAllowFlight()) {
+        if (darf && !erlaubt.contains(id) && (p.isOnGround() || p.getAllowFlight())) {
             p.setAllowFlight(true);
             erlaubt.add(id);
+            log(p, "darf (Zone betreten)");
+        } else if (darf && erlaubt.contains(id) && !p.getAllowFlight() && p.isOnGround()) {
+            // z. B. nach Modus-Wechsel oder Teleport hat jemand allowFlight zurückgesetzt
+            p.setAllowFlight(true);
+            log(p, "darf wieder (allowFlight war zurückgesetzt)");
         } else if (!darf && erlaubt.remove(id)) {
             p.setAllowFlight(false);
+            log(p, "Zone verlassen");
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void beimDoppelsprung(PlayerToggleFlightEvent e) {
         Player p = e.getPlayer();
+        if (aktiv && e.isFlying()) {
+            log(p, "Doppelsprung (erlaubt " + erlaubt.contains(p.getUniqueId()) + ")");
+        }
         if (!aktiv || !e.isFlying() || !erlaubt.contains(p.getUniqueId()) || !ueberleben(p)) {
             return;
         }
@@ -125,6 +146,7 @@ final class SpawnElytra implements Listener {
         p.setVelocity(p.getVelocity().setY(0.6));
         p.setGliding(true);
         p.sendActionBar(MM.deserialize(textStart));
+        log(p, "Gleitflug gestartet (gliding " + p.isGliding() + ")");
     }
 
     /** Ohne Elytra beendet der Server das Gleiten jeden Tick, das halten wir auf */
@@ -185,7 +207,20 @@ final class SpawnElytra implements Listener {
         gelandet.remove(id);
     }
 
+    /** Survival-Spieler darf außerhalb der Zone nie fliegen: beim Betreten des Servers eigenes allowFlight aus den Spielerdaten aufräumen */
+    @EventHandler
+    public void beimBeitritt(org.bukkit.event.player.PlayerJoinEvent e) {
+        Player p = e.getPlayer();
+        if (aktiv && ueberleben(p) && p.getAllowFlight() && !inZone(p.getLocation())) {
+            p.setAllowFlight(false);
+            log(p, "allowFlight aus den Spielerdaten entfernt");
+        } else if (aktiv) {
+            log(p, "beigetreten");
+        }
+    }
+
     private void beenden(Player p) {
+        log(p, "Flug beendet");
         if (fliegend.remove(p.getUniqueId())) {
             gelandet.put(p.getUniqueId(), System.currentTimeMillis());
         }

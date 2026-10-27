@@ -37,7 +37,7 @@ kein Fallschaden in dem Flug. Nur Überleben/Abenteuer. Pascals Test 27.10.: Gle
 Hinter Velocity haben Hub und SMP für Xaero dieselbe Adresse und dieselbe Dimension, Xaero hielt sie für eine Welt (im Hub die SMP-Karte).
 `xaero-welt-id` schickt beim Anmelden der Xaero-Kanäle (`xaeroworldmap:main`, `xaerominimap:main`, auch nach jedem Wechsel) Paket 0 mit dieser Zahl
 (Format aus Xaero's World Map 1.47.1 / Minimap 26.6.1 gelesen: `LevelMapProperties`, ein `int`). Xaero legt dann pro ID eigene Karten an.
-Hub 26120101, SMP 26120501. **Nicht ändern**, sonst beginnt die Karte leer. Bereits vermischte Karten liegen im Client unter `xaero/*/Multiplayer_localhost`
+Hub 26120101, SMP 26120501. **Nie ändern:** Eine neue ID heißt für jeden Bestandsspieler eine leere Karte, und LSS schickt schon gelieferte LOD-Daten nicht erneut, die Karte füllt sich dann nur durch Herumlaufen (Pascal 27.10.). Nach einem Wechsel bräuchte jeder Spieler einen Reset seines LSS-Client-Caches. Bereits vermischte Karten liegen im Client unter `xaero/*/Multiplayer_localhost`
 (bzw. der echten Adresse) und können einmal gelöscht werden. **Offen:** Client-Test.
 
 ## Konfiguration

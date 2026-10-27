@@ -29,6 +29,8 @@ spawn-elytra:
   schub-ticks: 45
   text-start: "<gold>Gleiten! <gray>[F] für einen Schub"
   text-schub: "<gold>Schub!"
+  # true schreibt jeden Zustandswechsel ins Server-Log (Fehlersuche)
+  debug: false
 # Begehbare Portale (Quader → Velocity auf „ziel“), Beispiel:  - { welt: world, von: "10 150 -3", bis: "10 152 -1", ziel: hub }
 # Spark-Insel: Portal nach Pascals Test 27.10. wieder raus, stattdessen die Ender-Kiste unten
 portale: []
