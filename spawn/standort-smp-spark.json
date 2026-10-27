@@ -1033,7 +1033,7 @@
         "weihnachten:kugel_gruen"
       ],
       "stern": "weihnachten:stern",
-      "licht": "weihnachten:lichterkette",
+      "licht": "weihnachten:lichterkette_deko",
       "geschenke": [
         "weihnachten:geschenk_rot",
         "weihnachten:geschenk_gruen",
@@ -1069,7 +1069,7 @@
     ]
   },
   "kalender": {
-    "grund": "Winterkalender (Pascal 27.10.), an/aus: function insel:kalender_an / insel:kalender_aus (spawn/insel-kalender.mjs); Belohnungen = Platzhalter bis zur Liste der Modpack-Session",
+    "grund": "Winterkalender (Pascal 27.10.), an/aus: function insel:kalender_an / insel:kalender_aus (spawn/insel-kalender.mjs); Belohnungen nach der Tabelle der Modpack-Session (6fff0ce), Essen 16 Stück (8 Schokolade), stapelbar bis 64",
     "x": 0,
     "y": 155,
     "z": 65.7,
@@ -1103,76 +1103,76 @@
     ],
     "belohnungen": [
       [
-        "minecraft:cookie 64"
+        "minecraft:cookie[minecraft:item_model=\"weihnachten:lebkuchen\",minecraft:item_name={translate:\"item.weihnachten.lebkuchen\",fallback:\"Gingerbread\"},minecraft:lore=[{translate:\"item.weihnachten.andenken\",fallback:\"Souvenir · Christmas 2026\",color:\"gold\",italic:false},{text:\"Winterkalender 2026 – Tag 1\",italic:false,color:\"aqua\"}]] 16"
       ],
       [
-        "minecraft:snowball 16"
+        "minecraft:cookie[minecraft:item_model=\"weihnachten:zuckerstange\",minecraft:item_name=\"Zuckerstange\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 2\",italic:false,color:\"aqua\"}],minecraft:food={nutrition:2,saturation:1.2}] 16"
       ],
       [
-        "minecraft:pumpkin_pie 16"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:kugel_rot\",minecraft:item_name=\"Christbaumkugel (rot)\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 3\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1] 1"
       ],
       [
-        "minecraft:candle 4"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:strickmuetze\",minecraft:item_name=\"Strickmütze\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 4\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true}] 1"
       ],
       [
-        "minecraft:sweet_berries 64"
+        "minecraft:cookie[minecraft:item_model=\"weihnachten:plaetzchen_teller\",minecraft:item_name=\"Plätzchen-Teller\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 5\",italic:false,color:\"aqua\"}],minecraft:food={nutrition:4,saturation:4.8}] 16"
       ],
       [
-        "minecraft:lantern 4"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:kerze_glas\",minecraft:item_name=\"Kerze im Glas\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 6\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1] 1"
       ],
       [
-        "minecraft:cake 1"
+        "minecraft:cookie[minecraft:item_model=\"weihnachten:heisse_schokolade\",minecraft:item_name=\"Heiße Schokolade\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 7\",italic:false,color:\"aqua\"}],minecraft:food={nutrition:2,saturation:2.4,can_always_eat:true},minecraft:consumable={consume_seconds:1.6,animation:\"drink\",sound:\"minecraft:entity.generic.drink\",has_consume_particles:false,on_consume_effects:[{type:\"minecraft:apply_effects\",effects:[{id:\"minecraft:regeneration\",duration:100,amplifier:0}]}]}] 8"
       ],
       [
-        "minecraft:firework_rocket 16"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:kugel_gold\",minecraft:item_name=\"Christbaumkugel (gold)\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 8\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1] 1"
       ],
       [
-        "minecraft:cookie 64"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:ohrenschuetzer\",minecraft:item_name=\"Ohrenschützer\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 9\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true}] 1"
       ],
       [
-        "minecraft:snowball 16"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:schneekugel\",minecraft:item_name=\"Schneekugel\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 10\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1] 1"
       ],
       [
-        "minecraft:pumpkin_pie 16"
+        "minecraft:snowball[minecraft:item_name=\"Winterkalender-Schneeball\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 11\",italic:false,color:\"aqua\"}]] 16"
       ],
       [
-        "minecraft:candle 4"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:lichterkette\",minecraft:item_name={translate:\"item.weihnachten.lichterkette\",fallback:\"Fairy Lights\"},minecraft:lore=[{translate:\"item.weihnachten.andenken\",fallback:\"Souvenir · Christmas 2026\",color:\"gold\",italic:false},{text:\"Winterkalender 2026 – Tag 12\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1] 1"
       ],
       [
-        "minecraft:sweet_berries 64"
+        "minecraft:cookie[minecraft:item_model=\"weihnachten:bratapfel\",minecraft:item_name=\"Bratapfel\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 13\",italic:false,color:\"aqua\"}],minecraft:food={nutrition:4,saturation:6.0}] 16"
       ],
       [
-        "minecraft:lantern 4"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:rentiergeweih\",minecraft:item_name=\"Rentiergeweih\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 14\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true}] 1"
       ],
       [
-        "minecraft:cake 1"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:schneemann\",minecraft:item_name=\"Mini-Schneemann\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 15\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1] 1"
       ],
       [
-        "minecraft:firework_rocket 16"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:kugel_blau\",minecraft:item_name=\"Christbaumkugel (blau)\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 16\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1] 1"
       ],
       [
-        "minecraft:cookie 64"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:laterne_stern\",minecraft:item_name=\"Laterne mit Stern\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 17\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1] 1"
       ],
       [
-        "minecraft:snowball 16"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:weihnachtsmuetze\",minecraft:item_name={translate:\"item.weihnachten.weihnachtsmuetze\",fallback:\"Santa Hat\"},minecraft:lore=[{translate:\"item.weihnachten.andenken\",fallback:\"Souvenir · Christmas 2026\",color:\"gold\",italic:false},{text:\"Winterkalender 2026 – Tag 18\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",asset_id:\"weihnachten:weihnachtsmuetze\",swappable:true}] 1"
       ],
       [
-        "minecraft:pumpkin_pie 16"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:geschenk_rot\",minecraft:item_name=\"Geschenk\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 19\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1] 1"
       ],
       [
-        "minecraft:candle 4"
+        "minecraft:firework_rocket[minecraft:item_name=\"Winterfeuerwerk\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 20\",italic:false,color:\"aqua\"}],minecraft:fireworks={flight_duration:2,explosions:[{shape:\"star\",colors:[I;16777215,12245247],fade_colors:[I;8439039],has_twinkle:true},{shape:\"large_ball\",colors:[I;11393254,16777215],has_trail:true}]}] 16"
       ],
       [
-        "minecraft:sweet_berries 64"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:rentier\",minecraft:item_name=\"Mini-Rentier\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 21\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1] 1"
       ],
       [
-        "minecraft:lantern 4"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:schal\",minecraft:item_name=\"Schal\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 22\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true}] 1"
       ],
       [
-        "minecraft:cake 1"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:stern\",minecraft:item_name=\"Weihnachtsstern\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 23\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1] 1"
       ],
       [
-        "minecraft:firework_rocket 16"
+        "minecraft:paper[minecraft:item_model=\"weihnachten:lichterkrone\",minecraft:item_name={text:\"Krone aus Lichtern · Winter 2026\",color:\"gold\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 24\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true},minecraft:enchantment_glint_override=true,minecraft:rarity=\"epic\"] 1"
       ]
     ]
   }

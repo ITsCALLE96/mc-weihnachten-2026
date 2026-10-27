@@ -31,3 +31,9 @@ test('Tag: täglich +1 bis 24, Test-Befehl setzt direkt, Zahlen werden eingefär
   assert.match(f['kalender/anzeigen'], /matches 24\.\. run data merge entity @e\[type=text_display,tag=insel_kal_n_24,limit=1\]/);
   assert.match(f['kalender/tick'], /if data entity @s interaction run function insel:kalender\/klick/);
 });
+
+test('Tageswechsel durch serverwahl: Ankündigung nur bei neuem Tag, Merker #zuletzt', () => {
+  assert.match(f['kalender/tick'], /unless score #tag insel_kalender = #zuletzt insel_kalender run function insel:kalender\/neuer_tag/);
+  assert.match(f['kalender/neuer_tag'], /if score #tag insel_kalender > #zuletzt insel_kalender if score #tag insel_kalender matches 1\.\.24 run tellraw @a/);
+  assert.match(f['kalender/load'], /#zuletzt insel_kalender = #tag insel_kalender/);
+});

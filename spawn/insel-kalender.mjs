@@ -2,8 +2,9 @@
 // (auch nachträglich), Belohnung direkt ins Inventar (give lässt bei vollem Inventar fallen).
 // Aufruf: node spawn/insel-kalender.mjs [standort.json] [ausgabeordner]   → <ausgabe>/datapack/insel-kalender/ (Namensraum insel)
 // Ganz aus Anzeige-Entities (Tag insel_kalender): kalender_an / kalender_aus bauen ihn rückstandslos auf und ab.
-// Tag: #tag insel_kalender (0 = alles zu). Täglich function insel:kalender/naechster_tag (AMP-Aufgabe der Server-Session),
-// zum Testen function insel:kalender/tag {tag:N}.
+// Tag: #tag insel_kalender (0 = alles zu), setzt das Plugin serverwahl jede Minute aus dem Datum (Europe/Berlin); ohne Plugin täglich
+// function insel:kalender/naechster_tag,
+// zum Testen function insel:kalender/tag {tag:N} (mit serverwahl stattdessen kalender.fester-tag in dessen Config).
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -43,11 +44,17 @@ export function kalender(kal) {
   f['kalender/an2'] = `kill @e[tag=insel_kalender]\n${an.join('\n')}\nfunction insel:kalender/anzeigen\nforceload remove ${fl}\nsay Winterkalender steht\n`;
   f.kalender_aus = `# Winterkalender abbauen (geöffnete Türchen der Spieler bleiben gespeichert)\nforceload add ${fl}\nschedule function insel:kalender/aus2 40t\n`;
   f['kalender/aus2'] = `kill @e[tag=insel_kalender]\nforceload remove ${fl}\nsay Winterkalender abgebaut\n`;
-  f['kalender/load'] = `scoreboard objectives add insel_kalender dummy\nexecute unless score #tag insel_kalender matches 0.. run scoreboard players set #tag insel_kalender 0\n`;
+  f['kalender/load'] = `scoreboard objectives add insel_kalender dummy\nexecute unless score #tag insel_kalender matches 0.. run scoreboard players set #tag insel_kalender 0\nexecute unless score #zuletzt insel_kalender matches 0.. run scoreboard players operation #zuletzt insel_kalender = #tag insel_kalender\n`;
   f['kalender/tick'] = `# Klicks auf Türchen; alle 5 s die Zahlen nach dem Tag einfärben (nur wenn die Wand geladen ist)
 execute as @e[type=interaction,tag=insel_kal_klick] if data entity @s interaction run function insel:kalender/klick
 scoreboard players add #takt insel_kalender 1
 execute if score #takt insel_kalender matches 100.. run function insel:kalender/anzeigen
+# Tageswechsel (serverwahl setzt #tag jede Minute aus dem Datum): neues Türchen ankündigen
+execute unless score #tag insel_kalender = #zuletzt insel_kalender run function insel:kalender/neuer_tag
+`;
+  f['kalender/neuer_tag'] = `execute if score #tag insel_kalender > #zuletzt insel_kalender if score #tag insel_kalender matches 1..24 run tellraw @a [${txt('Winterkalender: ', { color: 'gold', bold: true })},${txt('Ein neues Türchen ist offen – am Spawn!', { color: 'white' })}]
+scoreboard players operation #zuletzt insel_kalender = #tag insel_kalender
+function insel:kalender/anzeigen
 `;
   f['kalender/anzeigen'] = 'scoreboard players set #takt insel_kalender 0\n' + tueren.map(({ n }) =>
     `execute if score #tag insel_kalender matches ${n}.. run data merge entity @e[type=text_display,tag=insel_kal_n_${n},limit=1] {text:${txt(String(n), OFFEN)}}\n` +
