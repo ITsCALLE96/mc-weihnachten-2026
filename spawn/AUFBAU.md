@@ -16,8 +16,8 @@ in `spawn/quellen/nitrado/` (git-ignoriert), nie ins Repo oder in einen Welt-Dow
   Rückweg-Plattform 0/65/48, Weltgrenze 0/48 × 10.000
 - **Hub-Portal** am Nordweg: Obsidian-Rahmen −3..1/154..158/29, Inneres −2..0/155..157/29 (Portalblöcke); Auslösung und Abbruch des Nether-Teleports
   macht `serverwahl` (Server-Session)
-- **Spawnschutz:** die WorldGuard-Regionen fürs SMP pflegt die Server-Session (`server/plugin-konfig/smp/plugins/WorldGuard/…`, Quader um Insel und
-  Plattform). Die aus `standort.mjs` erzeugte `spawn/worldguard/regions.yml` ist dafür nur Vorlage, bei geänderten Inselmaßen der Server-Session die Ecken melden
+- **Spawnschutz:** einzige Quelle ist die aus `standort.mjs` erzeugte `spawn/worldguard/regions.yml` (Region `spawn` als Oval um die Insel, nur y 89–319,
+  plus Kasten `rueckweg` um die Plattform); `testnetz/einrichten.sh` der Server-Session kopiert sie nach `plugins/WorldGuard/worlds/world/`
 
 ## Hub (Fantasy Village)
 
