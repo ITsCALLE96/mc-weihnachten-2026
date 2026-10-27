@@ -39,15 +39,21 @@ function geschenk(papier, band) {
   ];
 }
 
+// Kugelmitte = Modellmitte (8, 8, 8), damit item_display sie um ihren Mittelpunkt skaliert.
 function kugel(farbe, streifen) {
   return [
-    quader([5, 3, 5], [11, 9, 11], farbe),
-    quader([4, 4, 6], [12, 8, 10], farbe), quader([6, 4, 4], [10, 8, 12], farbe),
-    quader([6, 2, 6], [10, 10, 10], farbe),
-    quader([4.9, 5.5, 4.9], [11.1, 6.5, 11.1], streifen),
-    quader([7, 10, 7], [9, 11, 9], 'gold_dunkel'), // Kappe
-    quader([7.5, 11, 7.75], [8.5, 13, 8.25], 'silber'), // Haken
+    quader([5, 5, 5], [11, 11, 11], farbe),
+    quader([4, 6, 6], [12, 10, 10], farbe), quader([6, 6, 4], [10, 10, 12], farbe),
+    quader([6, 4, 6], [10, 12, 10], farbe),
+    quader([4.9, 7.5, 4.9], [11.1, 8.5, 11.1], streifen),
+    quader([7, 12, 7], [9, 13, 9], 'gold_dunkel'), // Kappe
+    quader([7.5, 13, 7.75], [8.5, 15, 8.25], 'silber'), // Haken
   ];
+}
+
+// Einzelne Lichterkettenbirne, Mitte = Modellmitte, zum Verteilen in kleiner Größe.
+function birne(farbe) {
+  return [leuchtend([6, 4, 6], [10, 10, 10], farbe), quader([6.5, 10, 6.5], [9.5, 12, 9.5], 'gruen_dunkel')];
 }
 
 function stern() {
@@ -115,6 +121,7 @@ export const DEKO = {
   geschenk_gold: geschenk('gold', 'rot'), geschenk_lila: geschenk('lila', 'weiss'), geschenk_weiss: geschenk('weiss', 'rot'),
   kugel_rot: kugel('rot', 'gold'), kugel_gold: kugel('gold', 'weiss'), kugel_blau: kugel('blau', 'silber'),
   kugel_silber: kugel('silber', 'rot'), kugel_gruen: kugel('gruen', 'gold'),
+  birne_rot: birne('rot'), birne_gelb: birne('gelb'), birne_blau: birne('blau'), birne_gruen: birne('gruen'),
   stern: stern(), lichterkette: lichterkette(), schneemann: schneemann(), rentier: rentier(),
 };
 
