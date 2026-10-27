@@ -1,8 +1,9 @@
 # Bedrock und PlayStation (Geyser + Floodgate) – entschieden 27.10., im Testnetz vorbereitet
 
-> **Pascal 27.10. (Decision Log):** Bedrock und PlayStation kommen, wie unten beschrieben. PlayStation über MCXboxBroadcast mit eigenem Bot-Microsoft-Konto.
-> Testnetz: `bash testnetz/neue-plugins.sh einrichten` (mit `MCXBOX=1` auch MCXboxBroadcast). Die Jars liegen geprüft in `testnetz/_downloads/bedrock/`:
-> Geyser-Velocity 2.12.1 Build 1273 (SHA256 `96b7fb07…`), Floodgate 2.2.5 Build 141 (Velocity `64983502…`, Spigot `21570aff…`), MCXboxBroadcastExtension Release 159 vom 03.10. (`5220fca2…`).
+> **Pascal 27.10. (Decision Log):** Bedrock kommt, wie unten beschrieben. **Kein Bot-Konto** (endgültig), MCXboxBroadcast fällt weg.
+> PlayStation nur über BedrockConnect (DNS an der Konsole, siehe unten) – Entscheidung jedes PlayStation-Spielers selbst.
+> Testnetz: `bash testnetz/neue-plugins.sh einrichten`. Die Jars liegen geprüft in `testnetz/_downloads/bedrock/`:
+> Geyser-Velocity 2.12.1 Build 1273 (SHA256 `96b7fb07…`), Floodgate 2.2.5 Build 141 (Velocity `64983502…`, Spigot `21570aff…`).
 
 Wunsch Pascal 27.10.: Freunde mit PlayStation/Bedrock sollen mitspielen. Stand: Recherche und Entwurf, **nichts installiert**, nicht im Testnetz geprüft.
 Quellen: geysermc.org (Download, Wiki: setup, supported-versions, current-limitations, packs, floodgate/setup, faq, linking), github.com/rtm516/MCXboxBroadcast,
@@ -15,7 +16,6 @@ github.com/Pugmatt/BedrockConnect. Mit [?] markiert = nicht belegt, im Testnetz 
 | Geyser (Velocity) | `MinecraftProxy01/plugins/` | 2.12.1, laut Download-Seite Java 26.3, Bedrock 26.30–26.52 | übersetzt Bedrock ↔ Java, `auth-type: floodgate` |
 | Floodgate (Velocity) | Proxy | 2.2.5 | Pflicht: Bedrock-Spieler ohne Java-Konto, `send-floodgate-data: true` |
 | Floodgate (Paper) | Hub und SMP | 2.2.5 | für Whitelist und Plugins, die den Spieler als Bedrock erkennen müssen (GrimAC, Serverwahl). [?] 26.3-Freigabe nicht ausdrücklich genannt |
-| MCXboxBroadcast | Geyser-Erweiterung (`plugins/Geyser-Velocity/extensions/`) | ohne Versionsangabe im README | nur für PlayStation/Xbox/Switch, siehe unten |
 
 - **`key.pem`** von Floodgate (Proxy) in den Floodgate-Ordner beider Backends kopieren. **Geheim wie das Velocity-Secret:** Wer sie hat, kann sich als beliebiger Bedrock-Spieler anmelden. Nie ins Repo
 - Modern Forwarding bleibt unverändert, Geyser läuft im Proxy
@@ -70,50 +70,37 @@ Nicht übertragbar: Questbuch-Texte (gehören zur Fabric-Mod), Mod-Texturen. Pac
 | Fortschritte (Advancements) | Toast ohne zweite Zeile |
 | Server-LOD (`lod-server.md`) | fehlt, Bedrock lädt nur die normale Sichtweite |
 
-## PlayStation
+## PlayStation (ohne Bot-Konto: BedrockConnect)
 
-PlayStation (auch Xbox, Switch) kann keine eigenen Server eintragen. Zwei Wege:
+PlayStation (auch Xbox, Switch) kann keine eigenen Server eintragen, nur die „Featured Server“ von Mojang. Ohne eigenes Microsoft-Konto für einen Bot
+(MCXboxBroadcast, von Pascal abgelehnt) bleibt nur **BedrockConnect** (github.com/Pugmatt/BedrockConnect):
+Die Konsole bekommt einen anderen DNS-Server. Der leitet die Featured-Server-Adressen auf eine Serverliste um, dort trägt der Spieler `mc.grahl.cloud`, Port 19132 ein.
 
-| Weg | Wie | Aufwand | Risiko |
+| Weg | Was der PlayStation-Spieler tut | Für uns | Risiko |
 |---|---|---|---|
-| **MCXboxBroadcast** (Empfehlung) | Geyser-Erweiterung meldet einen Bot-Account (eigenes Microsoft-Konto) bei Xbox Live an. Spieler fügen den Bot als Freund hinzu, der Server erscheint im Freunde-Tab und lässt sich beitreten | ~30 min, ein eigenes Microsoft-Konto (nicht Pascals Hauptkonto) | laut README „auf eigene Gefahr“, Bot-Konto kann gesperrt werden. Hauptkonten der Spieler nicht betroffen |
-| BedrockConnect | Konsole bekommt einen fremden DNS-Server, der die „Featured Server“ auf eine Serverliste umleitet | öffentlich: DNS umstellen pro Konsole; selbst gehostet: eigener DNS-Dienst, hilft externen Freunden nicht | öffentlicher DNS eines Dritten sieht den DNS-Verkehr der Konsole – nicht empfehlenswert |
+| **Öffentlicher BedrockConnect-DNS** | PS4/PS5 → Einstellungen → Netzwerk → Verbindung einrichten → DNS manuell: primär **45.55.68.52**, sekundär 8.8.8.8 (Stand README 27.10.). Dann Minecraft → Server → beliebiger Featured Server → Liste → Server hinzufügen | nichts außer Geyser und Port 19132 | Der DNS-Server eines Dritten (USA, ehrenamtlich betrieben) sieht **alle** Namensauflösungen der Konsole, solange die Einstellung aktiv ist (welche Dienste und Spiele sie nutzt). Fällt er aus, geht auf der Konsole nichts mehr, bis man DNS zurückstellt. Für Kinderkonsolen nicht empfehlenswert |
+| Selbst gehostetes BedrockConnect | dieselbe DNS-Umstellung auf **unsere** IP | BedrockConnect + eigener DNS-Server im Internet erreichbar (UDP 53 in der FritzBox) | **nicht machbar:** Der DNS-Server müsste für die Konsolen auch alle anderen Adressen beantworten, also ein offener rekursiver Resolver im Internet sein – wird für DDoS-Verstärkung missbraucht. Nur sinnvoll für Konsolen im eigenen Heimnetz |
+| Im selben WLAN (LAN) | Konsole bei Pascal im Netz: Tab „Welten“ zeigt LAN-Spiele | BedrockConnect lokal | nur für Besuch bei Pascal, nicht für die Freunde zu Hause |
 
-Die Anmeldung des Bot-Kontos (Gerätecode) macht Pascal selbst, Zugangsdaten nie in Repo oder Vault.
-
-## Bot-Konto für PlayStation einrichten (Pascal)
-
-Einmalig, ~15 Minuten. Zugangsdaten und das Anmelde-Token bleiben nur auf dem Server (MCXboxBroadcast speichert sie in seinem Ordner unter `Geyser-Velocity/extensions/`),
-nie in Repo, Vault oder Chat.
-
-1. Neues Microsoft-Konto anlegen (outlook.com), **nicht** dein Hauptkonto. Name z. B. „Weihnachtsserver“, Passwort in den Passwortmanager
-2. Mit dem Konto einmal auf xbox.com anmelden und ein Xbox-Profil (Gamertag) anlegen, z. B. „WeihnachtsServer“. In den Datenschutz-Einstellungen
-   Freundschaftsanfragen und Multiplayer erlauben
-3. Testnetz mit `MCXBOX=1 bash testnetz/neue-plugins.sh einrichten`, dann `start.cmd`. Im Proxy-Fenster erscheint eine Zeile mit `https://www.microsoft.com/link` und einem Code
-4. Im Browser `microsoft.com/link` öffnen, mit dem **Bot-Konto** anmelden, Code eingeben. Das Proxy-Fenster meldet danach die Anmeldung
-5. PlayStation: Minecraft → Freunde → Freund hinzufügen → Gamertag des Bots. Der Bot nimmt automatisch an, danach steht der Server im Freunde-Tab unter den beitretbaren Spielen
-6. Für VM200 später dasselbe mit der dortigen Instanz (der Code kommt in der AMP-Konsole von `MinecraftProxy01`)
-
-Risiko: Microsoft kann das Bot-Konto sperren („auf eigene Gefahr“ laut MCXboxBroadcast). Die Konten der Spieler sind nicht betroffen. Fällt der Bot aus,
-treten PC- und Handy-Bedrock-Spieler weiter direkt über `mc.grahl.cloud`, Port 19132 bei.
+**Ehrliche Einschätzung:** Ein Weg für PlayStation ohne Konto existiert nur mit dem öffentlichen DNS eines Dritten. Technisch funktioniert er (BedrockConnect ist
+verbreitet und gepflegt), der Preis ist der Datenschutz auf der Konsole. Das entscheidet jeder PlayStation-Spieler (bzw. dessen Eltern) selbst; wir stellen nur
+eine Anleitung bereit und raten zur Rückstellung des DNS nach dem Projekt. Wenn niemand das will: Bedrock nur für PC und Handy, keine PlayStation.
 
 ## Test im Testnetz
 
-Nach `neue-plugins.sh einrichten` und `start.cmd`:
+Nach `neue-plugins.sh einrichten` und `start.cmd`. **Bedrock-Client auf einem Handy oder Tablet im WLAN** (Windows wird nicht umgestellt; der Windows-Bedrock-Client
+kann ohne Systemeinstellung nicht auf denselben PC verbinden). Server hinzufügen: LAN-IP von Pascals PC, Port 19132. Falls die Windows-Firewall UDP 19132 blockt,
+meldet sich Windows beim ersten Start von Velocity mit einer Freigabe-Abfrage (Pascal entscheidet).
 
-1. Bedrock-Client (Windows-Version reicht) → Server hinzufügen → `localhost`, Port 19132. **Windows sperrt Bedrock-Verbindungen zum eigenen PC** (Loopback):
-   entweder einmal in einer Administrator-Eingabeaufforderung `CheckNetIsolation LoopbackExempt -a -n="Microsoft.MinecraftUWP_8wekyb3d8bbwe"` (ändert eine Windows-Einstellung,
-   Pascals Entscheidung) oder von einem zweiten Gerät im WLAN mit der LAN-IP des PCs (dann Windows-Firewall für UDP 19132 freigeben)
-2. Beitritt landet im Hub, Name mit Präfix `.`, kein Kick wegen Resourcepack
-3. Kisten-Menü per Rechtsklick bzw. langem Tippen, SMP-Eintrag anklicken → SMP. `/hub` zurück
-4. Leitfaden-Texte (tellraw/title) lesbar, deutsch wo `de_de.json` greift
-5. Java- und Bedrock-Spieler sehen sich, Chat in beide Richtungen
-6. GrimAC meldet den Bedrock-Spieler nicht
-7. Optional MCXboxBroadcast: Bot erscheint online, Beitritt über die Freundesliste (PlayStation)
+1. Beitritt landet im Hub, Name mit Präfix `.`, kein Kick wegen Resourcepack
+2. Kisten-Menü per langem Tippen auf die Kiste, SMP-Eintrag antippen → SMP. `/hub` zurück
+3. Leitfaden-Texte (tellraw/title) lesbar, deutsch wo `de_de.json` greift
+4. Java- und Bedrock-Spieler sehen sich, Chat in beide Richtungen
+5. GrimAC meldet den Bedrock-Spieler nicht
+6. PlayStation (optional, nur wenn ein Tester das will): DNS auf 45.55.68.52, Server über die BedrockConnect-Liste mit der öffentlichen Adresse – geht erst mit Portfreigabe (Task 3), nicht im Testnetz
 
 ## Empfehlung
 
-Machbar mit überschaubarem Aufwand (Technik ~2 h, dazu Portfreigabe und Bot-Konto). Lohnt sich, wenn wirklich PlayStation-Freunde mitspielen wollen –
-sie bekommen aber ein deutlich kleineres Spiel (kein Questbuch, keine Karte, kein Voice Chat, keine Wintertexturen ohne eigenes Pack).
-Vor dem Einschalten im Testnetz mit einem Windows-Bedrock-Client prüfen: Beitritt, Whitelist, Kisten-Menü, Leitfaden-Texte, Pack-Pflicht, GrimAC-Ausnahme.
+Machbar mit überschaubarem Aufwand (Technik ~2 h, dazu Portfreigabe). PlayStation nur über BedrockConnect mit öffentlichem DNS (siehe oben). Bedrock-Spieler bekommen aber ein deutlich kleineres Spiel (kein Questbuch, keine Karte, kein Voice Chat, keine Wintertexturen ohne eigenes Pack).
+Vor dem Einschalten im Testnetz mit einem Handy/Tablet-Bedrock-Client prüfen: Beitritt, Whitelist, Kisten-Menü, Leitfaden-Texte, Pack-Pflicht, GrimAC-Ausnahme.
 Entscheidung bei der Leitung/Pascal.

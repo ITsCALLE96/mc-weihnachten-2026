@@ -39,6 +39,11 @@ Bis dahin ist der Hub eine leere Luftwelt. Für einen Test vorher die Kisten als
    Das SMP ist bis zur Eröffnung gesperrt (Merker `testnetz/status/smp-offen` fehlt), Ops kommen trotzdem durch. Öffnen ohne Op:
    im Hub `scoreboard players set #offen insel_zustand 1` (Objective legt das Hub-Datapack an) oder in einer der Konsolen `serverwahl oeffnen`.
    Wieder zu: `serverwahl schliessen`.
+**Alte Karten nach einem Zurücksetzen:** Xaero speichert Karten und Todespunkte lokal nach Serveradresse, nicht nach Welt. Nach einer neuen SMP-Welt
+(`NUR=smp`, `NEU=1`) zeigt der Client deshalb noch die alten Punkte. Von Hand löschen (wird bewusst nicht automatisch gemacht):
+`%APPDATA%\ModrinthApp\profiles\<profil>\xaero\minimap\Multiplayer_localhost` und `…\xaero\world-map\Multiplayer_localhost` (Leitung 27.10., für `weihnachten-modpack` erledigt).
+Neue Plugins vom 27.10. (LSS, GrimAC, Chunky, Geyser, Floodgate) kommen mit `bash testnetz/neue-plugins.sh einrichten` dazu, nach `NUR=smp` erneut ausführen.
+
 5. Stoppen: Hub und SMP `stop`, Proxy `end`. Ohne Fenster: `python -I testnetz/rcon.py hub stop` bzw. `smp stop` (`rcon.py` liest Port und Passwort aus der jeweiligen `server.properties`)
 
 ## Prüfen (Client mit Modpack, Mehrspieler → `localhost:25577`)

@@ -86,7 +86,7 @@ Das Skript warnt, falls eins davon im Hub-Ordner liegt.
 | Thema | Datei | Kurz |
 |---|---|---|
 | Server-LOD (Fernsicht) | `lod-server.md` | LSS 0.20.0 (SMP) + Voxy und LSS-Client im Pack, Far Players inklusive |
-| Bedrock/PlayStation | `bedrock.md` | Geyser 2.12.1 + Floodgate 2.2.5 auf Velocity, Floodgate auf Hub/SMP, MCXboxBroadcast für PlayStation |
+| Bedrock/PlayStation | `bedrock.md` | Geyser 2.12.1 + Floodgate 2.2.5 auf Velocity, Floodgate auf Hub/SMP, PlayStation nur über BedrockConnect (öffentlicher DNS, Entscheidung der Spieler), kein Bot-Konto |
 | Anti-Cheat | `anticheat.md` | GrimAC 2.3.75 nur auf dem SMP, nur Meldungen und Setbacks, keine Kicks |
 
 ## Datapacks (Task 4 Schritt 11, nach `world/datapacks/`, danach Neustart)

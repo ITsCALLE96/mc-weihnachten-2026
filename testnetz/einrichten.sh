@@ -155,3 +155,7 @@ fi
 
 grep -H '^port=' "$hier"/*/plugins/voicechat/*.properties 2>/dev/null || true
 echo "Testnetz bereit ($teile): $hier (start.cmd, dann localhost:25577)"
+case " $teile " in *" smp "*)
+  echo "Hinweis: neue SMP-Welt – alte Xaero-Karten/Todespunkte liegen noch im Client unter xaero/*/Multiplayer_localhost (README, von Hand löschen)."
+  echo "Neue Plugins (LSS, GrimAC, Geyser, Floodgate): bash testnetz/neue-plugins.sh einrichten" ;;
+esac

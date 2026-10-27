@@ -4,13 +4,13 @@
 #
 #   bash testnetz/neue-plugins.sh einrichten   – Prüfsummen, Jars verteilen, Konfigs erzeugen und unsere Werte einspielen,
 #                                               2.000 × 2.000 auf dem SMP vorgenerieren, alles wieder stoppen
-#   MCXBOX=1 bash testnetz/neue-plugins.sh einrichten   – zusätzlich MCXboxBroadcast (PlayStation), Anmeldung danach siehe server/bedrock.md
+#   VORGEN=0 bash testnetz/neue-plugins.sh einrichten   – ohne Vorgenerierung (wenn das SMP schon vorgeneriert ist)
 #   bash testnetz/neue-plugins.sh entfernen    – alle neuen Jars wieder heraus (Datenordner bleiben, key.pem bleibt git-ignoriert liegen)
 #
-# Verteilung:  Proxy  Geyser-Velocity 2.12.1, Floodgate 2.2.5 (+ MCXboxBroadcast)
+# Verteilung:  Proxy  Geyser-Velocity 2.12.1, Floodgate 2.2.5
 #              Hub    Floodgate 2.2.5
 #              SMP    Floodgate 2.2.5, LSS 0.20.0, GrimAC 2.3.75, Chunky 1.5.3
-# Danach: start.cmd; Java-Client mit Testprofil „weihnachten-voxy-test“ auf localhost:25577, Bedrock-Client auf localhost:19132
+# Danach: start.cmd; Java-Client mit Testprofil „weihnachten-voxy-test“ auf localhost:25577, Bedrock auf Handy/Tablet im WLAN: <LAN-IP des PCs>:19132
 # (Prüflisten: server/lod-server.md → Test, server/bedrock.md → Test, server/anticheat.md → Prüfen)
 set -euo pipefail
 hier="$(cd "$(dirname "$0")" && pwd)"
@@ -43,10 +43,24 @@ proxy_einmal() {  # Velocity einmal starten (erzeugt Floodgate-Schlüssel und Ge
   ps -ef 2>/dev/null | awk '/tail -f .konsole/ && !/awk/ {print $2}' | xargs -r kill 2>/dev/null || true
   rm -f "$hier/proxy/.konsole"
 }
+# Bricht das Skript ab, laufende Testnetz-Teile sauber beenden (sonst bleibt z. B. das SMP an)
+aufraeumen_bei_fehler() {
+  echo "Abbruch – stoppe laufende Testnetz-Teile …" >&2
+  frei 25567 || python -I "$hier/rcon.py" hub stop || true
+  frei 25568 || python -I "$hier/rcon.py" smp stop || true
+  if ! frei 25577; then
+    [ -f "$hier/proxy/.konsole" ] && echo end >> "$hier/proxy/.konsole"
+  fi
+  sleep 10
+  ps -ef 2>/dev/null | awk '/tail -f .konsole/ && !/awk/ {print $2}' | xargs -r kill 2>/dev/null || true
+  rm -f "$hier/proxy/.konsole"
+}
+
 log_auszug() { sed 's/\x1b\[[0-9;]*m//g' "$1" | grep -i -E "$2|error|exception" | grep -v oshi | head -30; }
 
 case "${1:-}" in
   einrichten)
+    trap 'aufraeumen_bei_fehler' ERR
     alle_frei || { echo "Testnetz läuft noch (25567/25568/25577), erst stoppen" >&2; exit 1; }
     echo "--- Prüfsummen ---"
     printf '%s\n' "e9f2f0e3027079e747363968c80b400d494cf789  $dl/lod/lss.jar" \
@@ -54,8 +68,7 @@ case "${1:-}" in
       "7ff47ee3afec89a1725e6eef393f373c549eff3b  $dl/lod/chunky.jar" | sha1sum -c -
     printf '%s\n' "96b7fb0778d608e528780d5a67a74e3ae977a6e5672ad250aaff40b8e1784a50  $dl/bedrock/Geyser-Velocity.jar" \
       "649835022de37ff09255fc626d4bfe7bc2a3b926d07b0dfaf1f51e12bf37001d  $dl/bedrock/floodgate-velocity.jar" \
-      "21570aff9ce17d6983928e8552777760e1ede5050026b04c686b0ae112e6fd7e  $dl/bedrock/floodgate-spigot.jar" \
-      "5220fca22eae06a922077274c1221c0a20dad67e2d8db5dfb4dca524a5f663c8  $dl/bedrock/MCXboxBroadcastExtension.jar" | sha256sum -c -
+      "21570aff9ce17d6983928e8552777760e1ede5050026b04c686b0ae112e6fd7e  $dl/bedrock/floodgate-spigot.jar" | sha256sum -c -
 
     echo "--- Jars verteilen ---"
     cp "$dl/bedrock/Geyser-Velocity.jar" "$hier/proxy/plugins/Geyser-Velocity-2.12.1.jar"
@@ -64,14 +77,10 @@ case "${1:-}" in
     cp "$dl/lod/lss.jar" "$hier/smp/plugins/lod-server-support-paper-0.20.0+26.3.jar"
     cp "$dl/lod/grim.jar" "$hier/smp/plugins/grimac-bukkit-2.3.75.jar"
     cp "$dl/lod/chunky.jar" "$hier/smp/plugins/Chunky-Bukkit-1.5.3.jar"
-    if [ "${MCXBOX:-0}" = 1 ]; then
-      mkdir -p "$hier/proxy/plugins/Geyser-Velocity/extensions"
-      cp "$dl/bedrock/MCXboxBroadcastExtension.jar" "$hier/proxy/plugins/Geyser-Velocity/extensions/"
-    fi
 
     echo "--- Proxy: Floodgate-Schlüssel und Geyser-Konfig erzeugen ---"
     proxy_einmal
-    log_auszug "$hier/proxy/.log" "geyser|floodgate|xbox|broadcast"
+    log_auszug "$hier/proxy/.log" "geyser|floodgate"
     [ -f "$hier/proxy/plugins/floodgate/key.pem" ] || { echo "Floodgate hat keinen key.pem erzeugt, siehe proxy/.log" >&2; exit 1; }
     setzen "$hier/proxy/plugins/floodgate/config.yml" "$repo/server/bedrock/floodgate-proxy-werte.txt"
     setzen --weich "$hier/proxy/plugins/Geyser-Velocity/config.yml" "$repo/server/bedrock/geyser-werte.txt"
@@ -90,6 +99,11 @@ case "${1:-}" in
     log_auszug "$hier/hub/.log" "floodgate"
     log_auszug "$hier/smp/.log" "floodgate|lodserver|lss|grim|chunky"
 
+    if [ "${VORGEN:-1}" = 0 ]; then
+      trap - ERR
+      echo "Vorgenerierung übersprungen (VORGEN=0). Fertig, jetzt testnetz/start.cmd."
+      exit 0
+    fi
     echo "--- SMP: Vorgenerierung 2.000 × 2.000 um 0/0 ---"
     paper_start smp
     python -I "$hier/rcon.py" smp "plugins" "lsslod stats" "chunky world world" "chunky center 0 0" "chunky radius 1000" "chunky start"
@@ -101,12 +115,12 @@ case "${1:-}" in
     done
     python -I "$hier/rcon.py" smp "lsslod stats" "save-all flush"
     paper_stopp smp 25568
-    echo "Fertig. Jetzt testnetz/start.cmd. Java: localhost:25577 (Testprofil weihnachten-voxy-test). Bedrock: localhost, Port 19132."
+    trap - ERR
+    echo "Fertig. Jetzt testnetz/start.cmd. Java: localhost:25577 (Testprofil weihnachten-voxy-test). Bedrock (Handy/Tablet im WLAN): LAN-IP des PCs, Port 19132."
     ;;
   entfernen)
     alle_frei || { echo "Testnetz läuft noch, erst stoppen" >&2; exit 1; }
     rm -f "$hier"/proxy/plugins/Geyser-Velocity-*.jar "$hier"/proxy/plugins/floodgate-velocity-*.jar \
-          "$hier"/proxy/plugins/Geyser-Velocity/extensions/MCXboxBroadcastExtension.jar \
           "$hier"/hub/plugins/floodgate-spigot-*.jar "$hier"/smp/plugins/floodgate-spigot-*.jar \
           "$hier"/smp/plugins/lod-server-support-paper-*.jar "$hier"/smp/plugins/grimac-bukkit-*.jar "$hier"/smp/plugins/Chunky-Bukkit-*.jar
     echo "Jars entfernt. Datenordner (floodgate/ mit key.pem, Geyser-Velocity/, LodServerSupport/, GrimAC/, Chunky/) bleiben, alles git-ignoriert."
