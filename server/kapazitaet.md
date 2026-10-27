@@ -97,7 +97,7 @@ Die Schlüsselnamen prüfe ich gegen die `paper-world-defaults.yml`, die Paper 2
 ### Chunk-Vorgenerierung
 
 **Pflicht vor dem Start** (Pascal, 24.10.). Ablauf, Dauer, Platz und Weltgrenze: `vorgenerierung.md`.
-**Gemessen 27.10. (Testnetz):** 10.000 × 10.000 = 393.129 Chunks in 19:37 min, **Welt 3,8 GB** (Nether r = 1.250 ~0,3 GB, End r = 2.000 ~0,2 GB dazu, geschätzt), plus LSS-LOD-Store.
+**Gemessen 27.10. (Testnetz):** 10.000 × 10.000 = 393.129 Chunks in 19:37 min, **Welt 3,8 GB** (Nether r = 1.250 ~0,3 GB, End r = 2.000 ~0,2 GB dazu, geschätzt), plus **LSS-LOD-Store `<welt>/lss-lod/`: 1,6 GB gemessen** (Momentaufnahme nach ~1 GB Auslieferung an einen Client; wächst mit den gelieferten Bereichen, für 10k × 10k vermutlich höchstens in dieser Größenordnung, Reserve ~2–3 GB). Overworld also ~5,5 GB, wächst im Spiel weiter.
 Auf VM200 geschätzt **~40–60 min** Overworld + ~10 min Nether/End.
 
 ### Profiler

@@ -38,12 +38,12 @@ Meine Entscheidung (Leitung hat sie mir überlassen):
 ## Dauer und Platz
 
 **Gemessen 27.10. im Testnetz (Pascals PC):** Overworld r = 5.000 = 393.129 Chunks in **19:37 min** (~330 Chunks/s), Welt **3,8 GB** (~9,7 KB pro Chunk), dazu der LSS-LOD-Store
-unter `<welt>/lss-lod/` (Größe beim nächsten Lauf mit `du -sh` messen). Auf VM200 (i7-9850H, weniger Kerne für die VM, Laptop drosselt unter Dauerlast) rechne ich mit
+unter `<welt>/lss-lod/` (gemessen 1,6 GB nach ~1 GB Auslieferung, Momentaufnahme, `kapazitaet.md`). Auf VM200 (i7-9850H, weniger Kerne für die VM, Laptop drosselt unter Dauerlast) rechne ich mit
 **dem 2- bis 3-Fachen, also ~40–60 min** für die Overworld, plus ~10 min für Nether und End. Ein Abend reicht, ohne Spieler auf dem Server.
 
 | Welt | Chunks | Dauer auf VM200 (geschätzt aus der Messung) | Platz |
 |---|---|---|---|
-| Overworld r = 5.000 | (10.000/16)² ≈ 390.000 | **~40–60 min** | **3,8 GB gemessen** + LOD-Store |
+| Overworld r = 5.000 | (10.000/16)² ≈ 390.000 | **~40–60 min** | **3,8 GB gemessen** + LOD-Store 1,6 GB |
 | Nether r = 1.250 | ≈ 24.000 | < 10 min | ~0,3 GB |
 | End r = 2.000 | ≈ 62.000 | < 15 min | ~0,2 GB |
 | Testwelt r = 2.500 (+ Nether 650) | ≈ 100.000 | 10–30 min | ~1–1,5 GB |
