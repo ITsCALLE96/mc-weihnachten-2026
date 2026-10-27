@@ -1,10 +1,12 @@
-// Baut das Weihnachts-Resourcepack: eigene Pixel-Sprites, aufgehellte Farbkarten,
-// Vanilla-Weihnachtstruhen für alle Truhen, Wanderhändler als Weihnachtsmann samt Lama-Decken.
+// Baut das Weihnachts-Resourcepack: eigene Pixel-Sprites, Vanilla-Weihnachtstruhen für alle Truhen,
+// Wanderhändler als Weihnachtsmann samt Lama-Decken. Der Winterteil (Reif, blasse Farbkarten,
+// Mützen und Schals) landet getrennt in resourcepack-winter/, siehe tools/winter.mjs.
 // Aufruf: node tools/texturen.mjs <ordner mit entpackten Vanilla-Client-assets>
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import pngjs from 'pngjs';
+import { frostOben, frostSeite, winterFarbkarte, weihnachtsmuetze, weihnachtsschal, tierschal, TIER_SCHAL } from './winter.mjs';
 
 const { PNG } = pngjs;
 
@@ -171,6 +173,58 @@ function muetzeAusruestung() {
   return png;
 }
 
+// Winterteil als eigener Ordner: winter_assets.py legt ihn ins Pflicht-Pack (rp mit Winter)
+// oder lässt ihn weg (Variante ohne Winter nach der Saison).
+function baueWinter(wrp, mc, modell) {
+  const ziel = (pfad) => join(wrp, 'assets', pfad);
+  const lies = (pfad) => PNG.sync.read(readFileSync(mc(pfad)));
+  schreibeJson(ziel('weihnachten/winter.json'), { winter: true });
+  schreibePng(ziel('weihnachten/textures/block/frost_oben.png'), frostOben());
+  schreibePng(ziel('weihnachten/textures/block/frost_seite.png'), frostSeite());
+  schreibePng(ziel('weihnachten/textures/block/frost_laub.png'), frostOben(0.22, 3));
+
+  // Reif als ungefärbte Zusatzfläche über den Vanilla-Flächen (wie die Seiten-Overlays beim Gras).
+  const frost = (seiten, textur) => ({
+    from: [0, 0, 0], to: [16, 16, 16],
+    faces: Object.fromEntries(seiten.map((s) => [s, { uv: [0, 0, 16, 16], texture: textur, cullface: s }])),
+  });
+  const gras = modell('grass_block.json');
+  gras.textures.frost = 'weihnachten:block/frost_oben';
+  gras.textures.frost_seite = 'weihnachten:block/frost_seite';
+  gras.elements.push(frost(['up'], '#frost'), frost(['north', 'south', 'west', 'east'], '#frost_seite'));
+  schreibeJson(ziel('minecraft/models/block/grass_block.json'), gras);
+  const laub = modell('leaves.json');
+  laub.textures.frost = 'weihnachten:block/frost_laub';
+  laub.elements.push(frost(['up'], '#frost'));
+  schreibeJson(ziel('minecraft/models/block/leaves.json'), laub);
+
+  for (const karte of ['grass', 'foliage', 'dry_foliage']) {
+    const png = lies(`colormap/${karte}.png`);
+    winterFarbkarte(png.data);
+    schreibePng(ziel(`minecraft/textures/colormap/${karte}.png`), png);
+  }
+
+  const dorf = 'entity/villager';
+  const berufe = ['armorer', 'butcher', 'cartographer', 'cleric', 'farmer', 'fisherman', 'fletcher', 'leatherworker',
+    'librarian', 'mason', 'nitwit', 'shepherd', 'toolsmith', 'weaponsmith'];
+  const typen = ['desert', 'jungle', 'plains', 'savanna', 'snow', 'swamp', 'taiga'];
+  for (const datei of ['villager', ...typen.map((t) => `type/${t}`), ...berufe.map((b) => `profession/${b}`)]) {
+    const png = lies(`${dorf}/${datei}.png`);
+    if (datei !== 'villager') weihnachtsmuetze(png);
+    weihnachtsschal(png);
+    schreibePng(ziel(`minecraft/textures/${dorf}/${datei}.png`), png);
+  }
+
+  for (const [art, varianten] of [['kuh', ['cow/cow_cold', 'cow/cow_temperate', 'cow/cow_warm', 'cow/mooshroom_brown', 'cow/mooshroom_red']],
+    ['schwein', ['pig/pig_cold', 'pig/pig_temperate', 'pig/pig_warm']]]) {
+    for (const v of varianten) {
+      const png = lies(`entity/${v}.png`);
+      tierschal(png, TIER_SCHAL[art]);
+      schreibePng(ziel(`minecraft/textures/entity/${v}.png`), png);
+    }
+  }
+}
+
 function schreibePng(datei, png) {
   mkdirSync(dirname(datei), { recursive: true });
   writeFileSync(datei, PNG.sync.write(png));
@@ -217,11 +271,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     layers: { humanoid: [{ texture: 'weihnachten:weihnachtsmuetze' }] },
   });
 
-  for (const karte of ['grass', 'foliage']) {
-    const png = PNG.sync.read(readFileSync(mc(`colormap/${karte}.png`)));
-    aufhellen(png.data, 0.45);
-    schreibePng(ziel(`minecraft/textures/colormap/${karte}.png`), png);
-  }
+  baueWinter(join(repo, 'resourcepack-winter'), mc, (pfad) => JSON.parse(readFileSync(join(vanilla, 'assets/minecraft/models/block', pfad), 'utf8')));
 
   for (const [quelle, regeln] of [
     ['entity/wandering_trader/wandering_trader.png', WEIHNACHTSMANN],

@@ -1,5 +1,6 @@
 # Holt gemeinfreie Wintergemälde von Wikimedia Commons, rechnet sie auf Minecraft-Gemälde um,
-# legt sie ins Resourcepack und packt build/weihnachten-rp.zip (ohne quellen/ und *.md).
+# legt sie ins Resourcepack und packt build/weihnachten-rp.zip (mit resourcepack-winter/) sowie
+# build/weihnachten-rp-ohne-winter.zip (ohne quellen/ und *.md).
 # Quellen landen in resourcepack/quellen/ (git-ignoriert), Ergebnisse unter resourcepack/assets/.
 # Musik war bis 24.10. dabei und ist raus: die meisten Spieler hören eigene Musik.
 # Aufruf: uv run --with pillow python tools/winter_assets.py
@@ -15,6 +16,7 @@ from PIL import Image
 
 REPO = Path(__file__).resolve().parent.parent
 RP = REPO / 'resourcepack'
+WINTER = REPO / 'resourcepack-winter'  # von tools/texturen.mjs gebaut
 QUELLEN = RP / 'quellen'
 PX = 32  # Pixel je Block (Vanilla: 16)
 
@@ -103,15 +105,22 @@ def main():
         bild = zuschneiden(bilder[motiv], b / h, RAND.get(motiv, 0.03)).resize((b * PX, h * PX), Image.LANCZOS)
         bild.save(ordner / f'{name}.png', optimize=True)
 
-    zipdatei = REPO / 'build/weihnachten-rp.zip'
-    zipdatei.parent.mkdir(exist_ok=True)
-    with zipfile.ZipFile(zipdatei, 'w', zipfile.ZIP_DEFLATED) as z:
-        for datei in sorted(RP.rglob('*')):
-            teil = datei.relative_to(RP)
-            if datei.is_file() and teil.parts[0] != 'quellen' and datei.suffix != '.md':
-                z.write(datei, teil.as_posix())
-    sha1 = hashlib.sha1(zipdatei.read_bytes()).hexdigest()
-    print(f'{len(GEMAELDE)} Gemälde, {zipdatei} ({zipdatei.stat().st_size / 1e6:.1f} MB, SHA1 {sha1})')
+    print(f'{len(GEMAELDE)} Gemälde')
+    # Pflicht-Pack mit Winterteil (Saison) und dieselbe Basis ohne Winterteil (nach der Saison).
+    for name, ordner in [('weihnachten-rp', [RP, WINTER]), ('weihnachten-rp-ohne-winter', [RP])]:
+        zipdatei = REPO / f'build/{name}.zip'
+        zipdatei.parent.mkdir(exist_ok=True)
+        dateien = {}
+        for wurzel in ordner:  # später gewinnt: Winter überschreibt gleichnamige Basisdateien
+            for datei in sorted(wurzel.rglob('*')):
+                teil = datei.relative_to(wurzel)
+                if datei.is_file() and teil.parts[0] != 'quellen' and datei.suffix != '.md':
+                    dateien[teil.as_posix()] = datei
+        with zipfile.ZipFile(zipdatei, 'w', zipfile.ZIP_DEFLATED) as z:
+            for teil, datei in sorted(dateien.items()):
+                z.write(datei, teil)
+        sha1 = hashlib.sha1(zipdatei.read_bytes()).hexdigest()
+        print(f'{zipdatei} ({zipdatei.stat().st_size / 1e6:.1f} MB, SHA1 {sha1})')
 
 if __name__ == '__main__':
     main()
