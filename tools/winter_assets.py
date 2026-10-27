@@ -1,10 +1,11 @@
 # Holt gemeinfreie Wintergemälde von Wikimedia Commons, rechnet sie auf Minecraft-Gemälde um,
 # legt sie ins Resourcepack und packt build/weihnachten-rp.zip (mit resourcepack-winter/) sowie
-# build/weihnachten-rp-ohne-winter.zip (ohne quellen/ und *.md).
+# build/weihnachten-rp-ohne-winter.zip sowie build/weihnachten-winter-freiwillig.zip (ohne quellen/ und *.md).
 # Quellen landen in resourcepack/quellen/ (git-ignoriert), Ergebnisse unter resourcepack/assets/.
 # Musik war bis 24.10. dabei und ist raus: die meisten Spieler hören eigene Musik.
 # Aufruf: uv run --with pillow python tools/winter_assets.py
 import hashlib
+import json
 import time
 import urllib.error
 import urllib.parse
@@ -99,15 +100,21 @@ def zuschneiden(bild, verhaeltnis, rand=0.03):
 def main():
     QUELLEN.mkdir(parents=True, exist_ok=True)
     bilder = {k: Image.open(hole(d, 1600)).convert('RGB') for k, d in BILDER.items()}
-    ordner = RP / 'assets/minecraft/textures/painting'
+    ordner = WINTER / 'assets/minecraft/textures/painting'  # Wintergemälde gehören zum Winterteil
     ordner.mkdir(parents=True, exist_ok=True)
     for name, (b, h, motiv) in GEMAELDE.items():
         bild = zuschneiden(bilder[motiv], b / h, RAND.get(motiv, 0.03)).resize((b * PX, h * PX), Image.LANCZOS)
         bild.save(ordner / f'{name}.png', optimize=True)
 
     print(f'{len(GEMAELDE)} Gemälde')
-    # Pflicht-Pack mit Winterteil (Saison) und dieselbe Basis ohne Winterteil (nach der Saison).
-    for name, ordner in [('weihnachten-rp', [RP, WINTER]), ('weihnachten-rp-ohne-winter', [RP])]:
+    # Pflicht-Pack mit Winterteil (Saison), dieselbe Basis ohne Winterteil (nach der Saison)
+    # und der Winterteil allein als freiwilliges Client-Pack zum Selbst-Einschalten.
+    beschreibung = {'pack': {**json.loads((RP / 'pack.mcmeta').read_text('utf8'))['pack'], 'description': '❄ Weihnachten 2026 (freiwillig)'}}
+    for name, ordner, extra in [
+        ('weihnachten-rp', [RP, WINTER], {}),
+        ('weihnachten-rp-ohne-winter', [RP], {}),
+        ('weihnachten-winter-freiwillig', [WINTER], {'pack.mcmeta': json.dumps(beschreibung, ensure_ascii=False, indent=2), 'pack.png': (RP / 'pack.png').read_bytes()}),
+    ]:
         zipdatei = REPO / f'build/{name}.zip'
         zipdatei.parent.mkdir(exist_ok=True)
         dateien = {}
@@ -117,10 +124,12 @@ def main():
                 if datei.is_file() and teil.parts[0] != 'quellen' and datei.suffix != '.md':
                     dateien[teil.as_posix()] = datei
         with zipfile.ZipFile(zipdatei, 'w', zipfile.ZIP_DEFLATED) as z:
+            for teil, inhalt in sorted(extra.items()):
+                z.writestr(teil, inhalt)
             for teil, datei in sorted(dateien.items()):
                 z.write(datei, teil)
         sha1 = hashlib.sha1(zipdatei.read_bytes()).hexdigest()
-        print(f'{zipdatei} ({zipdatei.stat().st_size / 1e6:.1f} MB, SHA1 {sha1})')
+        print(f'{zipdatei} ({zipdatei.stat().st_size:,} Bytes, SHA1 {sha1})')
 
 if __name__ == '__main__':
     main()

@@ -184,6 +184,24 @@ function baueWinter(wrp, mc, modell, reif) {
   schreibeJson(ziel('weihnachten/winter.json'), { winter: true, reif });
   if (reif) baueReif(ziel, lies, modell);
 
+  for (const [quelle, regeln] of [
+    ['entity/wandering_trader/wandering_trader.png', WEIHNACHTSMANN],
+    ['entity/equipment/llama_body/trader_llama.png', LAMA_DECKE],
+    ['entity/equipment/llama_body/trader_llama_baby.png', LAMA_DECKE],
+  ]) {
+    const png = lies(quelle);
+    umfaerben(png.data, regeln);
+    schreibePng(ziel(`minecraft/textures/${quelle}`), png);
+  }
+
+  for (const art of ['normal', 'trapped']) {
+    for (const seite of ['', '_left', '_right']) {
+      const datei = ziel(`minecraft/textures/entity/chest/${art}${seite}.png`);
+      mkdirSync(dirname(datei), { recursive: true });
+      copyFileSync(mc(`entity/chest/christmas${seite}.png`), datei);
+    }
+  }
+
   const dorf = 'entity/villager';
   const berufe = ['armorer', 'butcher', 'cartographer', 'cleric', 'farmer', 'fisherman', 'fletcher', 'leatherworker',
     'librarian', 'mason', 'nitwit', 'shepherd', 'toolsmith', 'weaponsmith'];
@@ -286,24 +304,8 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     layers: { humanoid: [{ texture: 'weihnachten:weihnachtsmuetze' }] },
   });
 
+  // Seit 27.10. (Pascal): alles Weihnachtliche, das Vanilla überschreibt, liegt im Winterteil.
+  rmSync(join(rp, 'assets/minecraft/textures/entity'), { recursive: true, force: true });
   baueWinter(join(repo, 'resourcepack-winter'), mc, (pfad) => JSON.parse(readFileSync(join(vanilla, 'assets/minecraft/models/block', pfad), 'utf8')), process.env.REIF === '1');
-
-  for (const [quelle, regeln] of [
-    ['entity/wandering_trader/wandering_trader.png', WEIHNACHTSMANN],
-    ['entity/equipment/llama_body/trader_llama.png', LAMA_DECKE],
-    ['entity/equipment/llama_body/trader_llama_baby.png', LAMA_DECKE],
-  ]) {
-    const png = PNG.sync.read(readFileSync(mc(quelle)));
-    umfaerben(png.data, regeln);
-    schreibePng(ziel(`minecraft/textures/${quelle}`), png);
-  }
-
-  for (const art of ['normal', 'trapped']) {
-    for (const seite of ['', '_left', '_right']) {
-      const datei = ziel(`minecraft/textures/entity/chest/${art}${seite}.png`);
-      mkdirSync(dirname(datei), { recursive: true });
-      copyFileSync(mc(`entity/chest/christmas${seite}.png`), datei);
-    }
-  }
   console.log('Resourcepack gebaut');
 }
