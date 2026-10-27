@@ -44,7 +44,7 @@ Hub 26120101, SMP 26120501. **Nie ändern:** Eine neue ID heißt für jeden Best
 
 `kalender:` setzt jede Minute `#tag insel_kalender` auf den Dezembertag (Zeitzone Europe/Berlin): vor dem 1.12. 0, dann 1–24, ab 24.12. bis Silvester 24, im Januar 0.
 Die Türchen-Logik liegt im Datapack `insel` (Spawn & Welt). Aus dem Datum statt `naechster_tag`-Zähler, deshalb kein AMP-Zeitplan und keine verpassten Tage.
-`fester-tag: <n>` zum Testen. `kalender.klick`: Rechtsklicks auf die Türchen (Interaction-Entities) fängt serverwahl vor WorldGuard ab und ruft `insel:kalender/tuer_<n>` als der Spieler auf (WorldGuard sperrte sie in der Spawn-Region mit Meldung, Pascals Test 27.10.). Ein Zielobjektiv, das (noch) nicht existiert, wird übersprungen.
+`fester-tag: <n>` zum Testen. `kalender.klick`: Rechtsklicks auf die Türchen (Interaction-Entities) fängt serverwahl vor WorldGuard ab und ruft `insel:kalender/tuer_<n>` als der Spieler auf (WorldGuard sperrte sie in der Spawn-Region mit Meldung, Pascals Test 27.10.). Ein Zielobjektiv, das (noch) nicht existiert, wird übersprungen. Das Log schreibt „Winterkalender: #tag insel_kalender = N“ nur, wenn sich der Wert ändert; das Scoreboard bleibt in der Welt gespeichert, nach einem Neustart mit gleichem Tag fehlt die Zeile also (kein Fehler).
 
 ## Konfiguration
 
