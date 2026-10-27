@@ -22,5 +22,7 @@ kategorien: {}
 # Begehbare Portale: wer einen Block im Quader betritt, kommt per Velocity auf „ziel“ (Standard: hub-server). Echte Portalblöcke
 # (Nether/End/Gateway) darin teleportieren nicht in die Dimension. Koordinaten = Innenraum des Portals. Spark-Insel: Werte von der Spawn-Session
 # Beispiel:  - { welt: world, von: "10 150 -3", bis: "10 152 -1", ziel: hub }
-portale: []
+portale:
+  # Spark-Insel (Spawn & Welt 27.10.): Rahmen am Ende des Nordwegs, 3 breit × 4 hoch
+  - { welt: world, von: "-1 156 29", bis: "1 159 30", ziel: hub }
 text-portal: "<gold>Ab zum Hub …"

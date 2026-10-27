@@ -31,7 +31,7 @@ portale:
   - { welt: world, von: "10 150 -3", bis: "10 152 -1", ziel: hub }
 ```
 
-Lage und Blockart kommen von der Spawn-Session (Spark-Insel, Spawn ~y 150). **Offen:** Test mit Client.
+Spark-Insel (Spawn & Welt 27.10.): Rahmen am Ende des Nordwegs, Zone x −1…1, y 156…159, z 29…30 (eingetragen in `plugin-konfig/smp/`). **Offen:** Test mit Client.
 
 ## Konfiguration
 
