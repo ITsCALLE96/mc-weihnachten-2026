@@ -123,6 +123,8 @@ fi
 if dabei smp; then
   cp "$dl/dimensioncontrol-3.0m.jar" "$dl/xaero-fair-play-0.1.7.jar" "$dl/ArmorPoser-Plugin-3.0.0.jar" \
      "$dl/worldedit-bukkit-7.4.6.jar" "$dl/worldguard-bukkit-7.0.20.jar" "$hier/smp/plugins/"  # WE/WG: Schutz der Spark-Insel (27.10.)
+  mkdir -p "$hier/smp/plugins/WorldGuard/worlds/world"
+  cp "$repo/spawn/worldguard/regions.yml" "$hier/smp/plugins/WorldGuard/worlds/world/regions.yml"  # von Spawn & Welt
   # Nether und End zu wie auf VM200 vor den Phasen (Zustand von DimensionControl, sonst wäre der Nether offen)
   mkdir -p "$hier/smp/plugins/DimensionControl"
   printf 'closed-dimensions:\n- nether\n- end\n' > "$hier/smp/plugins/DimensionControl/data.yml"
