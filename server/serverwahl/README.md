@@ -40,6 +40,12 @@ Hinter Velocity haben Hub und SMP für Xaero dieselbe Adresse und dieselbe Dimen
 Hub 26120101, SMP 26120501. **Nie ändern:** Eine neue ID heißt für jeden Bestandsspieler eine leere Karte, und LSS schickt schon gelieferte LOD-Daten nicht erneut, die Karte füllt sich dann nur durch Herumlaufen (Pascal 27.10.). Nach einem Wechsel bräuchte jeder Spieler einen Reset seines LSS-Client-Caches. Bereits vermischte Karten liegen im Client unter `xaero/*/Multiplayer_localhost`
 (bzw. der echten Adresse) und können einmal gelöscht werden. **Offen:** Client-Test.
 
+## Winterkalender (27.10.)
+
+`kalender:` setzt jede Minute `#tag insel_kalender` auf den Dezembertag (Zeitzone Europe/Berlin): vor dem 1.12. 0, dann 1–24, ab 24.12. bis Silvester 24, im Januar 0.
+Die Türchen-Logik liegt im Datapack `insel` (Spawn & Welt). Aus dem Datum statt `naechster_tag`-Zähler, deshalb kein AMP-Zeitplan und keine verpassten Tage.
+`fester-tag: <n>` zum Testen. Ein Zielobjektiv, das (noch) nicht existiert, wird übersprungen.
+
 ## Konfiguration
 
 `plugins/Serverwahl/config.yml`, die Dateien dafür liegen in `../plugin-konfig/hub/` und `../plugin-konfig/smp/`. Nach Änderungen `/serverwahl reload` (Op).

@@ -40,6 +40,15 @@ wetter-rhythmus:
   pause-max: 60
   dauer-min: 5
   dauer-max: 8
+# Winterkalender der Spawn-Insel (Datapack insel, Spawn & Welt 27.10.): serverwahl setzt jede Minute #tag in insel_kalender auf den Dezembertag
+# (vor Dezember 0, 1.–24.12. = Tag, danach bis Jahresende 24). Aus dem Datum, übersteht Neustarts; kein AMP-Zeitplan nötig.
+# fester-tag > 0 überschreibt das Datum (Testnetz). Zum Testen mit function insel:kalender/tag {tag:5} vorher aktiv: false oder fester-tag setzen
+kalender:
+  aktiv: true
+  objective: insel_kalender
+  eintrag: "#tag"
+  zeitzone: Europe/Berlin
+  fester-tag: 0
 # Begehbare Portale (Quader → Velocity auf „ziel“), Beispiel:  - { welt: world, von: "10 150 -3", bis: "10 152 -1", ziel: hub }
 # Spark-Insel: Portal nach Pascals Test 27.10. wieder raus, stattdessen die Ender-Kiste unten
 portale: []

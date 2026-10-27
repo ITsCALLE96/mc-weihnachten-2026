@@ -73,6 +73,12 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private static final List<String> XAERO_KANAELE = List.of("xaeroworldmap:main", "xaerominimap:main");
     /** eigene Welt-ID für Xaero, 0 = aus. Hinter Velocity sehen Hub und SMP sonst für Xaero gleich aus (gleiche Adresse, Dimension) */
     private int xaeroWeltId;
+    /** Winterkalender: Scoreboard-Ziel/Eintrag, das täglich auf den Dezembertag (1–24) gesetzt wird, null = aus */
+    private String kalenderObjective;
+    private String kalenderEintrag;
+    private java.time.ZoneId kalenderZone;
+    /** > 0: fester Tag statt Datum (Testnetz) */
+    private int kalenderFest;
 
     private record Portal(String welt, int x1, int y1, int z1, int x2, int y2, int z2, String ziel, boolean sperre) {
         boolean enthaelt(org.bukkit.Location l, int rand) {
@@ -124,6 +130,23 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                 getLogger().warning("Eröffnungs-Merker im Plugin-Ordner: " + ex.getMessage());
             }
         }, 60L, 20L);
+        // Winterkalender: jede Minute Dezembertag ins Scoreboard (vor Dezember 0, ab 24.12. bis Jahresende 24, danach 0).
+        // Aus dem Datum statt Zähler: übersteht Neustarts und verpasste Läufe
+        getServer().getScheduler().runTaskTimer(this, () -> {
+            if (kalenderObjective == null) {
+                return;
+            }
+            Objective obj = Bukkit.getScoreboardManager().getMainScoreboard().getObjective(kalenderObjective);
+            if (obj == null) {
+                return;
+            }
+            java.time.LocalDate heute = java.time.LocalDate.now(kalenderZone);
+            int tag = kalenderFest > 0 ? Math.min(kalenderFest, 24) : heute.getMonthValue() == 12 ? Math.min(heute.getDayOfMonth(), 24) : 0;
+            if (obj.getScore(kalenderEintrag).getScore() != tag) {
+                obj.getScore(kalenderEintrag).setScore(tag);
+                getLogger().info("Winterkalender: " + kalenderEintrag + " " + kalenderObjective + " = " + tag);
+            }
+        }, 100L, 1200L);
     }
 
     private void laden() {
@@ -149,6 +172,11 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         spawnElytra.laden(getConfig().getConfigurationSection("spawn-elytra"));
         wetter.laden(getConfig().getConfigurationSection("wetter-rhythmus"));
         xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
+        ConfigurationSection ka = getConfig().getConfigurationSection("kalender");
+        kalenderObjective = ka == null || !ka.getBoolean("aktiv", false) ? null : ka.getString("objective", "insel_kalender");
+        kalenderEintrag = ka == null ? "#tag" : ka.getString("eintrag", "#tag");
+        kalenderZone = java.time.ZoneId.of(ka == null ? "Europe/Berlin" : ka.getString("zeitzone", "Europe/Berlin"));
+        kalenderFest = ka == null ? 0 : ka.getInt("fester-tag", 0);
         portale.clear();
         for (Map<?, ?> m : getConfig().getMapList("portale")) {
             int[] a = koordinaten(m.get("von"));
