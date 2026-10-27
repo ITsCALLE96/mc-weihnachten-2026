@@ -1,0 +1,13 @@
+{
+  "pack": {
+    "description": "Weihnachtsdeko der Spawn-Insel (insel:deko_an / insel:deko_aus)",
+    "min_format": [
+      121,
+      0
+    ],
+    "max_format": [
+      121,
+      0
+    ]
+  }
+}

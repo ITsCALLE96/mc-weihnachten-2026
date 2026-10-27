@@ -919,5 +919,103 @@
     "hoehe": 20,
     "rand": 4,
     "auffuellen": 3
+  },
+  "deko": {
+    "grund": "Weihnachtsdeko (Pascal 27.10.), an/aus: function insel:deko_an / insel:deko_aus (spawn/insel-deko.mjs)",
+    "baeume": [
+      [
+        13,
+        37
+      ],
+      [
+        -9,
+        38
+      ],
+      [
+        12,
+        59
+      ],
+      [
+        -8,
+        61
+      ]
+    ],
+    "weihnachtsbaum": 2,
+    "kiste": [
+      -1,
+      156,
+      47
+    ],
+    "laternenAbstand": 4,
+    "geschenke": [
+      [
+        3,
+        0,
+        "minecraft:red_wool",
+        0.7
+      ],
+      [
+        -3,
+        1,
+        "minecraft:blue_wool",
+        0.6
+      ],
+      [
+        1,
+        -3,
+        "minecraft:lime_wool",
+        0.55
+      ],
+      [
+        -1,
+        3,
+        "minecraft:white_wool",
+        0.65
+      ],
+      [
+        3,
+        2,
+        "minecraft:purple_wool",
+        0.5
+      ],
+      [
+        -2,
+        -3,
+        "minecraft:yellow_wool",
+        0.6
+      ],
+      [
+        2,
+        -2,
+        "minecraft:red_wool",
+        0.45
+      ]
+    ],
+    "kerzen": [
+      [
+        -3,
+        156,
+        46,
+        "red"
+      ],
+      [
+        1,
+        156,
+        46,
+        "green"
+      ],
+      [
+        -3,
+        156,
+        48,
+        "green"
+      ],
+      [
+        1,
+        156,
+        48,
+        "red"
+      ]
+    ]
   }
 }
