@@ -81,6 +81,14 @@ Das Skript warnt, falls eins davon im Hub-Ordner liegt.
 - **bStats aus** auch auf dem Proxy: `plugins/bStats/config.txt` → `enabled=false` (Velocity nutzt eine eigene Datei, nicht die Paper-`config.yml`)
 - Neuere Velocity-Version von Simple Voice Chat: velocity-2.6.26 (Stand 24.10.). Beim Einrichten (Task 2) die aktuelle nehmen und hier mit SHA1 eintragen
 
+## Vorbereitet, nicht entschieden (27.10.)
+
+| Thema | Datei | Kurz |
+|---|---|---|
+| Server-LOD (Fernsicht) | `lod-server.md` | DH Support (kein 26.3-Release, Nightly testen) oder LSS 0.20.0 + Voxy im Pack |
+| Bedrock/PlayStation | `bedrock.md` | Geyser 2.12.1 + Floodgate 2.2.5 auf Velocity, Floodgate auf Hub/SMP, MCXboxBroadcast für PlayStation |
+| Anti-Cheat | `anticheat.md` | GrimAC 2.3.75 nur auf dem SMP, nur Meldungen und Setbacks, keine Kicks |
+
 ## Datapacks (Task 4 Schritt 11, nach `world/datapacks/`, danach Neustart)
 
 | Datapack | Version | Quelle | Lizenz | Ins Repo? |
