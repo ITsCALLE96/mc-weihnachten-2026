@@ -61,7 +61,7 @@ server_key: "weihnachten-smp"       # hinter Velocity: Client hält Hub/SMP-Cach
 Vor dem Start einmal `/dhs pregen start world 0 0 5000` (baut die LODs nach Chunky vor, nicht am Starttag).
 
 **LSS** (gilt): `plugins/LodServerSupport/lss-server-config.yaml` (vom Plugin erzeugt, Schema `config_version: 1`). Unsere Abweichungen stehen in
-`server/lod/lss-werte.txt` und kommen mit `python -I server/lod/konfig-setzen.py <konfig> server/lod/lss-werte.txt` in die erzeugte Datei
+`server/lod/lss-werte.txt` und kommen mit `python -I server/konfig-setzen.py <konfig> server/lod/lss-werte.txt` in die erzeugte Datei
 (Kommentare bleiben, bricht ab, falls sich ein Schlüssel ändert). Geprüft gegen die Standardkonfig im Jar 0.20.0:
 
 | Schlüssel | Standard | wir | Warum |
@@ -79,7 +79,10 @@ abgeschaltete Generierung sorgen dafür, dass außerhalb nichts kommt.
 
 ## Test im Testnetz (Plan Leitung 27.10.)
 
-Pascal führt `bash testnetz/lod-test.sh einrichten` aus (fremde Jars, in der Session blockiert): LSS, GrimAC und Chunky ins Testnetz-SMP, Konfig einspielen,
+**Lade-Test 27.10. 14:06 (Pascal, altes `lod-test.sh`):** LSS 0.20.0 lädt auf Paper 26.3-207 („LOD Server Support (Paper) enabled“), LOD-Store unter `<welt>/lss-lod/`,
+unsere Werte wurden in `lss-server-config.yaml` gesetzt. Abbruch danach am RCON-Helfer (Windows-Konsole und Unicode, behoben); die Vorgenerierung lief noch nicht.
+
+Pascal führt `bash testnetz/neue-plugins.sh einrichten` aus (alle neuen Plugins in einem Lauf, auch Geyser/Floodgate) (fremde Jars, in der Session blockiert): LSS, GrimAC und Chunky ins Testnetz-SMP, Konfig einspielen,
 2.000 × 2.000 um 0/0 vorgenerieren, stoppen. Dann `testnetz/start.cmd`, Client mit Testprofil `weihnachten-voxy-test` auf `localhost:25577`, Hub → SMP. Prüfen:
 
 1. Fernsicht: Landschaft bis zum Rand der 2.000 × 2.000 sichtbar, dahinter nichts
@@ -88,7 +91,7 @@ Pascal führt `bash testnetz/lod-test.sh einrichten` aus (fremde Jars, in der Se
 4. Bandbreite: `python -I testnetz/rcon.py smp "lsslod stats"` während des ersten Ladens, dazu Task-Manager → Netzwerk (Loopback zählt nicht immer, dann Werte aus `lsslod stats`)
 5. Hub → SMP → Hub → SMP: LODs bleiben bzw. kommen wieder (Velocity)
 6. GrimAC: keine Alerts bei Mouse Tweaks, Client Sort, Freecam, Elytra
-7. Danach `bash testnetz/lod-test.sh entfernen` oder für 10.000 × 10.000 vormerken
+7. Danach `bash testnetz/neue-plugins.sh entfernen` oder für 10.000 × 10.000 vormerken
 
 Erst nach diesem Test: 10.000 × 10.000 auf VM200 (Chunky Radius 5.000, `vorgenerierung.md`).
 

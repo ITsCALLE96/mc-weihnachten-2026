@@ -1,0 +1,8 @@
+# Geyser auf Velocity (plugins/Geyser-Velocity/config.yml). Geyser erzeugt die Datei selbst, das Schema kennen wir nicht vorab:
+# Eingespielt mit --weich, fehlende Schlüssel werden nur gemeldet. Mit Floodgate auf dem Proxy nutzt Geyser die Floodgate-Anmeldung.
+bedrock.port = 19132
+bedrock.motd1 = "Weihnachtsserver"
+bedrock.motd2 = "Frohe Weihnachten!"
+java.auth-type = floodgate
+remote.auth-type = floodgate
+metrics.enabled = false

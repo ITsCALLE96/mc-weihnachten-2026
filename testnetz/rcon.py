@@ -23,6 +23,8 @@ def paket(sock, nr, typ, text):
     return nr_antwort, rest[8:-2].decode("utf-8", "replace")
 
 def main():
+    # Windows-Konsole (cp1252) kann Zeichen wie ℹ aus Plugin-Antworten nicht ausgeben
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     if len(sys.argv) < 3:
         sys.exit(__doc__)
     port, passwort = werte(sys.argv[1])

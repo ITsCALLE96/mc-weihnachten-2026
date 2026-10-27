@@ -1,4 +1,8 @@
-# Anti-Cheat (GrimAC) – Vorbereitung, nicht eingerichtet
+# Anti-Cheat (GrimAC) – entschieden 27.10., nur im Testnetz vorbereitet
+
+> **Pascal 27.10. (Decision Log):** GrimAC nur auf dem SMP, nur Meldungen und Setbacks, keine Kicks. Grims Standard-`punishments.yml` meldet schon nur;
+> der milde Entwurf unten wird nach dem Testlauf eingespielt, wenn die Standard-Schwellen zu oft melden.
+> Lade-Test 27.10. 14:06 (Pascal, `lod-test.sh`): GrimAC 2.3.75 lädt auf Paper 26.3-207 ohne Fehler.
 
 Wunsch Pascal 27.10.: „was die meisten nutzen“. Stand: Recherche (Modrinth-API, GitHub-Wiki von Grim, 27.10.) und Konfig-Entwurf, **nichts installiert**.
 [?] = nicht belegt, im Testnetz/Testlauf prüfen.
@@ -31,7 +35,8 @@ Keine der Pack-Mods Freecam, Fullbright, Xaero, Distant Horizons, Simple Voice C
 **Abgleich mit dem Pack (Modpack-Session, 27.10.):** Von Grims Liste sind **Debugify** (behebt nur Fehler, vermutlich unkritisch) und **Mouse Tweaks**
 (+ More Mouse Tweaks) im Pack. Ähnlich wirken **Client Sort**, **ClickThrough Plus** und **Freecam** (bewusst erlaubt). Nicht im Pack: Inventory Profiles Next,
 Inventar-Bewegungs-Mods, Shoulder Surfing, Fast-XP-/No-Delay-Mods, Always Sprint.
-Im Test gezielt ausprobieren: Mouse Tweaks (Shift-Ziehen, Scrollen), Client Sort, ClickThrough, Freecam. Bei Fehlalarmen Prüfung entschärfen oder Mod raus (entscheidet die Leitung).
+Freecam ist geprüft unkritisch (Voreinstellung `allowInteract: false`, keine Block-Interaktion im Freecam-Modus, keine Bewegungspakete).
+Gamma Utils, Zoomify, Xaero, Shader, Block-Marker, Voxy/LSS sind reine Darstellung. Im Test gezielt ausprobieren: Mouse Tweaks (Shift-Ziehen, Scrollen), Client Sort, ClickThrough Plus. Bei Fehlalarmen Prüfung entschärfen oder Mod raus (entscheidet die Leitung).
 
 ## Konfig-Entwurf (mild, Freundes-Netz)
 
@@ -73,7 +78,7 @@ Alerts bekommen Ops (Recht `grim.alerts`, mit `/grim alerts` an/aus [?]).
 
 ## Prüfen (vor dem Einschalten)
 
-1. Lade-Test im Testnetz (`testnetz/lod-test.sh`, zusammen mit den LOD-Plugins): Grim lädt auf Paper 26.3-207 ohne Fehler
+1. Lade-Test im Testnetz (`testnetz/neue-plugins.sh einrichten`, zusammen mit LSS und Geyser/Floodgate): Grim lädt auf Paper 26.3-207 ohne Fehler
 2. Pascal ohne Op: normal spielen, Elytra, Dreizack mit Sog, Windkugel, Streitkolben, Boot, Pferd, Freecam, Fullbright → keine Alerts (oder nur vereinzelte)
 3. Bedrock-Spieler (falls Geyser kommt): keine Alerts
 4. Im Testlauf 21.11. mit allen Testern beobachten, danach Schwellen anpassen oder Grim weglassen

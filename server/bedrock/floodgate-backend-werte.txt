@@ -1,0 +1,2 @@
+# Floodgate auf Hub und SMP (plugins/floodgate/config.yml). key.pem muss die des Proxys sein (vor dem ersten Start kopiert)
+metrics.enabled = false

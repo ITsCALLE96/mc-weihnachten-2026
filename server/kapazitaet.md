@@ -125,10 +125,10 @@ Schätzung (Velocity-Kompression an, Sichtweite 8, Simple Voice Chat mit Opus ~2
 - Sprachchat: 5 sprechen gleichzeitig, alle hören alle → 25 × 5 × 40 kbit/s ≈ **5 Mbit/s**, bei 10 Sprechern ≈ **10 Mbit/s**
 - Dazu Beitritts-Spitzen: Kommen alle zum Start gleichzeitig, dauert das Laden der 75 MB bei 20 Mbit/s freiem Upload ~30 s
 - **Summe Dauerlast: ~10–15 Mbit/s, Spitzen 25–30 Mbit/s**
-- **Falls Server-LOD kommt (`lod-server.md`, Wunsch 27.10., nicht entschieden):** zusätzlich LOD-Daten, vor allem beim ersten Beitritt und auf Reisen. Menge unbekannt,
+- **Server-LOD (entschieden 27.10.: LSS + Voxy, `lod-server.md`):** zusätzlich LOD-Daten, vor allem beim ersten Beitritt und auf Reisen. Menge unbekannt,
   deshalb hart deckeln: global höchstens ~1/3 des gemessenen Uploads (Entwurf LSS: 2 MiB/s unkomprimiert gesamt, 0.5 pro Spieler). DH Support kann nur Anfragen begrenzen,
   keine Bandbreite. Am Starttag treten alle gleichzeitig bei, das ist der Engpass. Im Lasttest mit LOD-Plugin messen
-- **Falls Bedrock kommt (`bedrock.md`):** Geyser läuft im Velocity-Prozess, Velocity dann mit 1,5 statt 1 GB einplanen [?]. Bedrock-Spieler brauchen ungefähr gleich viel Upload wie Java-Spieler
+- **Bedrock (entschieden 27.10., `bedrock.md`):** Geyser läuft im Velocity-Prozess, Velocity deshalb mit **1,5 statt 1 GB** (RAM-Summe ~20,5–21,5 GB). Bedrock-Spieler brauchen ungefähr gleich viel Upload wie Java-Spieler
 
 **Leitung: 40 Mbit/s Upload laut Vertrag** (Pascal, 24.10., **noch nicht gemessen**). Real kommen bei DSL nach Overhead meist ~90 % an, also ~36 Mbit/s.
 Für Spiele sollte die Dauerlast höchstens ~70 % davon belegen, sonst steigen Ping und Paketverluste, sobald zu Hause jemand anderes hochlädt. **Budget ≈ 25 Mbit/s.**

@@ -1,0 +1,3 @@
+# Floodgate auf Velocity (plugins/floodgate/config.yml bzw. proxy-config). Begründung: server/bedrock.md
+send-floodgate-data = true
+metrics.enabled = false

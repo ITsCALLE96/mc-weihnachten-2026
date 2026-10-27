@@ -1,4 +1,8 @@
-# Bedrock und PlayStation (Geyser + Floodgate) – Vorbereitung, nicht eingerichtet
+# Bedrock und PlayStation (Geyser + Floodgate) – entschieden 27.10., im Testnetz vorbereitet
+
+> **Pascal 27.10. (Decision Log):** Bedrock und PlayStation kommen, wie unten beschrieben. PlayStation über MCXboxBroadcast mit eigenem Bot-Microsoft-Konto.
+> Testnetz: `bash testnetz/neue-plugins.sh einrichten` (mit `MCXBOX=1` auch MCXboxBroadcast). Die Jars liegen geprüft in `testnetz/_downloads/bedrock/`:
+> Geyser-Velocity 2.12.1 Build 1273 (SHA256 `96b7fb07…`), Floodgate 2.2.5 Build 141 (Velocity `64983502…`, Spigot `21570aff…`), MCXboxBroadcastExtension Release 159 vom 03.10. (`5220fca2…`).
 
 Wunsch Pascal 27.10.: Freunde mit PlayStation/Bedrock sollen mitspielen. Stand: Recherche und Entwurf, **nichts installiert**, nicht im Testnetz geprüft.
 Quellen: geysermc.org (Download, Wiki: setup, supported-versions, current-limitations, packs, floodgate/setup, faq, linking), github.com/rtm516/MCXboxBroadcast,
@@ -30,7 +34,10 @@ remote:
 # Geyser-Version 2.12 hat einen neuen Schlüssel transport (nethernet / both) – beim Einrichten nach den Kommentaren der erzeugten Datei setzen [?]
 ```
 
-Floodgate `config.yml` (Proxy): `username-prefix: "."` (Standard, bleibt), `send-floodgate-data: true`.
+Werte im Repo (mit `server/konfig-setzen.py` in die erzeugten Dateien): `server/bedrock/floodgate-proxy-werte.txt` (`send-floodgate-data: true`, Statistik aus),
+`floodgate-backend-werte.txt` (Statistik aus), `geyser-werte.txt` (Port 19132, MOTD, Floodgate-Anmeldung; Geyser erzeugt seine Konfig selbst,
+deshalb mit `--weich`, fehlende Schlüssel werden gemeldet). `username-prefix: "."` bleibt Standard. Deutsche Texte: `plugin-konfig/proxy/plugins/Geyser-Velocity/locales/overrides/de_de.json`
+(generiert von der Questbuch-Session, eingespielt mit `einspielen.sh <proxy> proxy`).
 
 **Java 26.3 ausdrücklich geprüft (27.10.):** Die Geyser-Download-Seite nennt für 2.12.1 „Java 26.3, Bedrock 26.30–26.52“, also passt Geyser zu unseren Servern.
 Für Floodgate 2.2.5 steht keine ausdrückliche 26.3-Freigabe dabei [?] (im Testnetz prüfen).
@@ -73,6 +80,36 @@ PlayStation (auch Xbox, Switch) kann keine eigenen Server eintragen. Zwei Wege:
 | BedrockConnect | Konsole bekommt einen fremden DNS-Server, der die „Featured Server“ auf eine Serverliste umleitet | öffentlich: DNS umstellen pro Konsole; selbst gehostet: eigener DNS-Dienst, hilft externen Freunden nicht | öffentlicher DNS eines Dritten sieht den DNS-Verkehr der Konsole – nicht empfehlenswert |
 
 Die Anmeldung des Bot-Kontos (Gerätecode) macht Pascal selbst, Zugangsdaten nie in Repo oder Vault.
+
+## Bot-Konto für PlayStation einrichten (Pascal)
+
+Einmalig, ~15 Minuten. Zugangsdaten und das Anmelde-Token bleiben nur auf dem Server (MCXboxBroadcast speichert sie in seinem Ordner unter `Geyser-Velocity/extensions/`),
+nie in Repo, Vault oder Chat.
+
+1. Neues Microsoft-Konto anlegen (outlook.com), **nicht** dein Hauptkonto. Name z. B. „Weihnachtsserver“, Passwort in den Passwortmanager
+2. Mit dem Konto einmal auf xbox.com anmelden und ein Xbox-Profil (Gamertag) anlegen, z. B. „WeihnachtsServer“. In den Datenschutz-Einstellungen
+   Freundschaftsanfragen und Multiplayer erlauben
+3. Testnetz mit `MCXBOX=1 bash testnetz/neue-plugins.sh einrichten`, dann `start.cmd`. Im Proxy-Fenster erscheint eine Zeile mit `https://www.microsoft.com/link` und einem Code
+4. Im Browser `microsoft.com/link` öffnen, mit dem **Bot-Konto** anmelden, Code eingeben. Das Proxy-Fenster meldet danach die Anmeldung
+5. PlayStation: Minecraft → Freunde → Freund hinzufügen → Gamertag des Bots. Der Bot nimmt automatisch an, danach steht der Server im Freunde-Tab unter den beitretbaren Spielen
+6. Für VM200 später dasselbe mit der dortigen Instanz (der Code kommt in der AMP-Konsole von `MinecraftProxy01`)
+
+Risiko: Microsoft kann das Bot-Konto sperren („auf eigene Gefahr“ laut MCXboxBroadcast). Die Konten der Spieler sind nicht betroffen. Fällt der Bot aus,
+treten PC- und Handy-Bedrock-Spieler weiter direkt über `mc.grahl.cloud`, Port 19132 bei.
+
+## Test im Testnetz
+
+Nach `neue-plugins.sh einrichten` und `start.cmd`:
+
+1. Bedrock-Client (Windows-Version reicht) → Server hinzufügen → `localhost`, Port 19132. **Windows sperrt Bedrock-Verbindungen zum eigenen PC** (Loopback):
+   entweder einmal in einer Administrator-Eingabeaufforderung `CheckNetIsolation LoopbackExempt -a -n="Microsoft.MinecraftUWP_8wekyb3d8bbwe"` (ändert eine Windows-Einstellung,
+   Pascals Entscheidung) oder von einem zweiten Gerät im WLAN mit der LAN-IP des PCs (dann Windows-Firewall für UDP 19132 freigeben)
+2. Beitritt landet im Hub, Name mit Präfix `.`, kein Kick wegen Resourcepack
+3. Kisten-Menü per Rechtsklick bzw. langem Tippen, SMP-Eintrag anklicken → SMP. `/hub` zurück
+4. Leitfaden-Texte (tellraw/title) lesbar, deutsch wo `de_de.json` greift
+5. Java- und Bedrock-Spieler sehen sich, Chat in beide Richtungen
+6. GrimAC meldet den Bedrock-Spieler nicht
+7. Optional MCXboxBroadcast: Bot erscheint online, Beitritt über die Freundesliste (PlayStation)
 
 ## Empfehlung
 

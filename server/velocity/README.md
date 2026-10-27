@@ -14,6 +14,7 @@ Später kommen weitere Server (zweites SMP, Testwelt, Minigames) einfach als neu
 | Paper-Backend `MinecraftHub01` (Hub) | TCP 25567 | `127.0.0.1` | nein |
 | Voice Chat Backend SMP | UDP 24455 | `127.0.0.1` | nein |
 | Voice Chat Backend Hub | UDP 24456 | `127.0.0.1` | nein |
+| Geyser (Bedrock, im Velocity-Prozess, entschieden 27.10.) | UDP 19132 (dazu TCP 19132) | `0.0.0.0` | **ja** (`../bedrock.md`) |
 | AMP-Web-UI, RCON | wie bisher | – | nein |
 
 Falls 25565 auf VM200 schon von einer anderen AMP-Instanz belegt ist: Velocity bekommt den nächsten freien Port, die FritzBox

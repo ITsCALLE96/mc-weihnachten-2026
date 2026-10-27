@@ -10,3 +10,4 @@ testnetz/hub/
 testnetz/smp/
 testnetz/_downloads/
 testnetz/status/
+testnetz/*.log

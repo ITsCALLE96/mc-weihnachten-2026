@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Setzt einzelne Schlüssel in einer von einem Plugin erzeugten YAML-Datei, ohne Kommentare und Reihenfolge zu verlieren.
-Aufruf: python -I konfig-setzen.py <datei.yaml> <werte-datei>
+Aufruf: python -I konfig-setzen.py [--weich] <datei.yaml> <werte-datei>
+--weich: fehlende Schlüssel nur melden statt abzubrechen (für Plugins, deren Schema wir nicht vorab kennen, z. B. Geyser)
 Werte-Datei: je Zeile  pfad.zum.schluessel = wert   (Kommentare mit #). Teile in "…" dürfen Punkte enthalten,
 z. B.  lod.distance.by_dimension."minecraft:overworld" = 256
 Bricht ab, wenn ein Schlüssel nicht gefunden wird (dann hat sich das Plugin-Schema geändert)."""
@@ -36,12 +37,16 @@ def setze(zeilen, teile, wert):
 
 
 def main():
-    if len(sys.argv) != 3:
+    argumente = sys.argv[1:]
+    weich = bool(argumente) and argumente[0] == "--weich"
+    if weich:
+        argumente = argumente[1:]
+    if len(argumente) != 2:
         sys.exit(__doc__)
-    datei = Path(sys.argv[1])
+    datei = Path(argumente[0])
     zeilen = datei.read_text(encoding="utf-8").splitlines()
     fehler = []
-    for roh in Path(sys.argv[2]).read_text(encoding="utf-8").splitlines():
+    for roh in Path(argumente[1]).read_text(encoding="utf-8").splitlines():
         roh = "" if roh.lstrip().startswith("#") else roh.split(" #", 1)[0].strip()
         if not roh:
             continue
@@ -52,7 +57,11 @@ def main():
             fehler.append(pfad)
     datei.write_text("\n".join(zeilen) + "\n", encoding="utf-8")
     if fehler:
-        sys.exit("nicht gefunden: " + ", ".join(fehler))
+        meldung = "nicht gefunden: " + ", ".join(fehler)
+        if weich:
+            print("WARNUNG " + meldung + " (von Hand prüfen)")
+        else:
+            sys.exit(meldung)
 
 
 if __name__ == "__main__":
