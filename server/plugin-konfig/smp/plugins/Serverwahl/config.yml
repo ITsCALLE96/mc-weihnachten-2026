@@ -19,3 +19,8 @@ text-nether-zu: "<red>Der Nether ist noch geschlossen!"
 text-end-zu: "<red>Das End ist noch geschlossen!"
 kisten: []
 kategorien: {}
+# Begehbare Portale: wer einen Block im Quader betritt, kommt per Velocity auf „ziel“ (Standard: hub-server). Echte Portalblöcke
+# (Nether/End/Gateway) darin teleportieren nicht in die Dimension. Koordinaten = Innenraum des Portals. Spark-Insel: Werte von der Spawn-Session
+# Beispiel:  - { welt: world, von: "10 150 -3", bis: "10 152 -1", ziel: hub }
+portale: []
+text-portal: "<gold>Ab zum Hub …"

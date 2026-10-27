@@ -42,7 +42,7 @@ import org.bukkit.scoreboard.Objective;
  * Server-Wahl für Hub und SMP hinter Velocity.
  * Hub: Rechtsklick auf eine eingetragene Kiste öffnet das Menü ihrer Kategorie, ein Klick auf einen Server schickt
  * den Spieler über den BungeeCord-Kanal „Connect“ dorthin (Velocity versteht den Kanal).
- * Überall: /hub bringt zum Hub zurück (auf dem Hub selbst: zum Spawn).
+ * Überall: /hub bringt zum Hub zurück (auf dem Hub selbst: zum Spawn). Portale: begehbare Quader aus der Config schicken auf einen Server.
  * Eröffnung: ein gemeinsamer Merker als Datei (beide Server laufen auf derselben VM). Der Hub legt sie an, sobald das
  * Hub-Datapack das Scoreboard umstellt; das SMP lehnt jeden Beitritt ab, solange sie fehlt (außer serverwahl.vorab).
  */
@@ -64,6 +64,18 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private int ausloeserAb;
     private List<String> eroeffnungsBefehle = List.of();
     private boolean portaleSperren;
+    /** Begehbare Portale (Quader), die per Velocity auf einen anderen Server schicken */
+    private final List<Portal> portale = new ArrayList<>();
+    private final Map<java.util.UUID, Long> portalZuletzt = new HashMap<>();
+
+    private record Portal(String welt, int x1, int y1, int z1, int x2, int y2, int z2, String ziel, boolean sperre) {
+        boolean enthaelt(org.bukkit.Location l, int rand) {
+            return l.getWorld() != null && l.getWorld().getName().equals(welt)
+                    && l.getBlockX() >= x1 - rand && l.getBlockX() <= x2 + rand
+                    && l.getBlockY() >= y1 - rand && l.getBlockY() <= y2 + rand
+                    && l.getBlockZ() >= z1 - rand && l.getBlockZ() <= z2 + rand;
+        }
+    }
 
     @Override
     public void onEnable() {
@@ -125,7 +137,20 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         ausloeserAb = al == null ? 1 : al.getInt("ab", 1);
         eroeffnungsBefehle = er == null ? List.of() : er.getStringList("befehle");
         portaleSperren = getConfig().getBoolean("portale-sperren", false);
-        getLogger().info((istHub ? "Hub" : "Backend") + ", " + kisten.size() + " Kisten, Hub-Server " + hubServer
+        portale.clear();
+        for (Map<?, ?> m : getConfig().getMapList("portale")) {
+            int[] a = koordinaten(m.get("von"));
+            int[] b = koordinaten(m.get("bis"));
+            if (a == null || b == null || m.get("welt") == null) {
+                getLogger().warning("Portal ohne welt/von/bis übersprungen: " + m);
+                continue;
+            }
+            Object ziel = m.get("ziel");
+            portale.add(new Portal(String.valueOf(m.get("welt")), Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.min(a[2], b[2]),
+                    Math.max(a[0], b[0]), Math.max(a[1], b[1]), Math.max(a[2], b[2]),
+                    ziel == null ? hubServer : String.valueOf(ziel), "eroeffnung".equals(m.get("sperre"))));
+        }
+        getLogger().info((istHub ? "Hub" : "Backend") + ", " + kisten.size() + " Kisten, " + portale.size() + " Portale, Hub-Server " + hubServer
                 + (offenDatei == null ? "" : ", Eröffnung " + (istOffen() ? "offen" : "geschlossen") + " (" + offenDatei + ")"));
     }
 
@@ -134,7 +159,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         if (command.getName().equals("serverwahl")) {
             if (args.length == 1 && args[0].equals("reload")) {
                 laden();
-                sender.sendMessage(Component.text("serverwahl neu geladen (" + kisten.size() + " Kisten)", NamedTextColor.GREEN));
+                sender.sendMessage(Component.text("serverwahl neu geladen (" + kisten.size() + " Kisten, " + portale.size() + " Portale)", NamedTextColor.GREEN));
                 return true;
             }
             if (args.length == 1 && (args[0].equals("oeffnen") || args[0].equals("schliessen") || args[0].equals("status"))) {
@@ -207,6 +232,76 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         }
         e.setCancelled(true);
         e.getPlayer().sendActionBar(MM.deserialize(getConfig().getString("text-end-zu", "<red>Das End ist noch geschlossen!")));
+    }
+
+    /** „x y z“ (Leerzeichen oder Komma) → int[3], sonst null */
+    private static int[] koordinaten(Object o) {
+        if (o == null) {
+            return null;
+        }
+        String[] t = String.valueOf(o).trim().split("[\\s,]+");
+        if (t.length != 3) {
+            return null;
+        }
+        try {
+            return new int[] {Integer.parseInt(t[0]), Integer.parseInt(t[1]), Integer.parseInt(t[2])};
+        } catch (NumberFormatException ex) {
+            return null;
+        }
+    }
+
+    /** Betritt ein Spieler einen Block eines Portals: per Velocity auf dessen Ziel (Standard: Hub). 3 s Abklingzeit */
+    @EventHandler(ignoreCancelled = true)
+    public void imPortal(org.bukkit.event.player.PlayerMoveEvent e) {
+        if (portale.isEmpty() || !e.hasChangedBlock()) {
+            return;
+        }
+        for (Portal portal : portale) {
+            if (!portal.enthaelt(e.getTo(), 0)) {
+                continue;
+            }
+            Player p = e.getPlayer();
+            long jetzt = System.currentTimeMillis();
+            Long zuletzt = portalZuletzt.get(p.getUniqueId());
+            if (zuletzt != null && jetzt - zuletzt < 3000) {
+                return;
+            }
+            portalZuletzt.put(p.getUniqueId(), jetzt);
+            if (portal.sperre() && !istOffen() && !p.hasPermission("serverwahl.vorab")) {
+                p.sendActionBar(MM.deserialize(sperrText));
+                return;
+            }
+            p.sendActionBar(MM.deserialize(getConfig().getString("text-portal", "<gold>Ab zum Hub …")));
+            verbinden(p, portal.ziel());
+            return;
+        }
+    }
+
+    /** Echte Portalblöcke (Nether, End, Gateway) in einem unserer Portale teleportieren nicht in die Dimension */
+    @EventHandler(ignoreCancelled = true)
+    public void beimDimensionsPortal(org.bukkit.event.player.PlayerPortalEvent e) {
+        portalAbfangen(e);
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void beimGateway(org.bukkit.event.player.PlayerTeleportEvent e) {
+        if (e.getCause() == org.bukkit.event.player.PlayerTeleportEvent.TeleportCause.END_GATEWAY) {
+            portalAbfangen(e);
+        }
+    }
+
+    private void portalAbfangen(org.bukkit.event.player.PlayerTeleportEvent e) {
+        for (Portal portal : portale) {
+            if (portal.enthaelt(e.getFrom(), 1)) {
+                e.setCancelled(true);
+                return;
+            }
+        }
+    }
+
+    @EventHandler
+    public void beimVerlassen(org.bukkit.event.player.PlayerQuitEvent e) {
+        portalZuletzt.remove(e.getPlayer().getUniqueId());
     }
 
     @EventHandler

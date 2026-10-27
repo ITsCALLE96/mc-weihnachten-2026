@@ -26,6 +26,7 @@ Werkzeug: **Chunky 1.5.3** (Modrinth `chunky`, GPL-3.0, Prüfsumme in `plugins.m
   **Entschieden (Leitung 24.10.):** Seed ist der CA12-Seed `1560698989`, Weltgrenze 10.000 × 10.000 um den Spawn, vorgeneriert bis zur Grenze.
   **Mittelpunkt x 64 / z 37** (Spawn-&-Welt-Session, 24.10.: Spawn auf der CA12-Insel, `spawn/KANDIDATEN.md`). Nether entsprechend 8 / 5 (÷ 8, gerundet)
 - Chunky übernimmt Form und Mittelpunkt: `chunky center <x> <z>` · `chunky shape square` · `chunky radius 5000`
+  (Testnetz 27.10.: Chunky erzeugt die Randchunks mit, auf +x/+z eine 16-Block-Reihe über 5.000 hinaus. Dazu legt Minecraft um den Rand halb erzeugte Chunks (Strukturstarts, Gelände ohne Abschluss) bis ~11 Chunks weiter an. Beides harmlos. Alternativ `chunky worldborder`, das übernimmt die gesetzte Grenze genau)
 
 ## End: ja, im Radius 2.000
 

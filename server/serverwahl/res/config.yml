@@ -5,3 +5,6 @@ ist-hub: false
 hub-server: hub
 kisten: []
 kategorien: {}
+# Begehbare Portale (Quader, Innenraum): Betreten schickt per Velocity auf „ziel“ (Standard hub-server), optional sperre: eroeffnung
+# - { welt: world, von: "10 150 -3", bis: "10 152 -1", ziel: hub }
+portale: []

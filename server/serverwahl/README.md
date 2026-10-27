@@ -20,6 +20,19 @@ Auf dem SMP stellt dasselbe Plugin `/hub` (Alias `/lobby`) bereit. `/server <nam
   damit der Server nicht nachts öffnet. Erledigt-Merker `plugins/Serverwahl/eroeffnet.txt` verhindert eine Wiederholung nach einem Neustart.
   Verschwindet der Merker wieder (Probe, `serverwahl schliessen`), löscht das SMP `eroeffnet.txt`, die nächste Eröffnung läuft dann erneut
 
+## Portale (seit 27.10., für die Spark-Insel auf dem SMP)
+
+`portale:` in der Config: begehbare Quader. Wer einen Block darin betritt, kommt per Velocity auf `ziel` (Standard `hub-server`), 3 s Abklingzeit,
+Actionbar `text-portal`. `sperre: eroeffnung` wirkt wie bei den Menü-Einträgen. Liegen echte Portalblöcke (Netherportal, Endportal, End-Gateway) im Quader
+(plus 1 Block Rand), bricht das Plugin deren Teleport in die Dimension ab. Der Spieler geht nur auf den anderen Server.
+
+```yaml
+portale:
+  - { welt: world, von: "10 150 -3", bis: "10 152 -1", ziel: hub }
+```
+
+Lage und Blockart kommen von der Spawn-Session (Spark-Insel, Spawn ~y 150). **Offen:** Test mit Client.
+
 ## Konfiguration
 
 `plugins/Serverwahl/config.yml`, die Dateien dafür liegen in `../plugin-konfig/hub/` und `../plugin-konfig/smp/`. Nach Änderungen `/serverwahl reload` (Op).
