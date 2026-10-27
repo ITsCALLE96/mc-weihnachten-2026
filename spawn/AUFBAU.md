@@ -4,6 +4,21 @@
 > ohne Bau. Für den SMP **entfallen** damit Insel, Pilzland, Rückweg-Plattform, Spawn-Regionen und die Eröffnung über die Weltgrenze; die Werkzeuge
 > (`standort.mjs`, Datapack `insel`, `neu-aufsetzen.sh`) bleiben für Testzwecke und spätere Bauten erhalten.
 
+## SMP-Spawn: Spark-Insel (27.10.)
+
+Schwebende Spawn-Insel von SparkofPhoenix (Nitrado-Paket „Craft Attack Experience“; Pascal: nutzen, Namensnennung auf dem Schild). **Inseldaten nur lokal
+in `spawn/quellen/nitrado/` (git-ignoriert), nie ins Repo oder in einen Welt-Download.** Ausschneiden aus der Paketwelt:
+`node tools/schem-welt.mjs ausschneiden "<Downloads>/Nitrado World/minecraftotherpacks/world" -1430 225 -80 -1380 319 -30 spawn/quellen/nitrado/spark-insel.schem`
+
+- Setzen in eine vorhandene SMP-Welt (Server gestoppt, Welt bleibt): `bash spawn/smp-insel-setzen.sh testnetz/smp` (Konfiguration `spawn/standort-smp-spark.json`;
+  setzt Insel, Plattform, Schilder, Hub-Portal und Lichter oben, danach Lichter am Boden aus dem Gelände)
+- Lage: verschoben um +1404/−136/+102, Ecke −26/89/22, Standfläche ~y 155, **Weltspawn auf dem Podest 0/156/48**, Teleport beim ersten Join/Respawn,
+  Rückweg-Plattform 0/65/48, Weltgrenze 0/48 × 10.000
+- **Hub-Portal** am Nordweg: Obsidian-Rahmen −3..1/154..158/29, Inneres −2..0/155..157/29 (Portalblöcke); Auslösung und Abbruch des Nether-Teleports
+  macht `serverwahl` (Server-Session)
+- **Spawnschutz:** die WorldGuard-Regionen fürs SMP pflegt die Server-Session (`server/plugin-konfig/smp/plugins/WorldGuard/…`, Quader um Insel und
+  Plattform). Die aus `standort.mjs` erzeugte `spawn/worldguard/regions.yml` ist dafür nur Vorlage, bei geänderten Inselmaßen der Server-Session die Ecken melden
+
 ## Hub (Fantasy Village)
 
 Eigener Paper-Server hinter Velocity (Ordner und Plugins: Server-Session, lokal `testnetz/hub/`, Leerwelt `world`, Port 25567). Von hier: Welt und Datapack.
