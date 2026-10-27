@@ -6,7 +6,7 @@
 //   node spawn/standort.mjs lichter <konfig.json> <welt> [ausgabeordner]
 //                                                                 → lichter.mcfunction aus dem fertig aufgebauten Gelände (Oval, nur Boden)
 // Konfig-Felder siehe spawn/standort-testserver.json und spawn/AUFBAU.md.
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -291,6 +291,8 @@ if (process.argv[1]?.replace(/\\/g, '/').endsWith('spawn/standort.mjs')) {
     const fn = join(aus, 'datapack/insel/data/insel/function'), tags = join(aus, 'datapack/insel/data/minecraft/tags/function');
     mkdirSync(fn, { recursive: true }); mkdirSync(tags, { recursive: true }); mkdirSync(join(aus, 'worldguard'), { recursive: true });
     const { funktionen, regionen } = dateien(k);
+    // Funktionen eines früheren Standorts entfernen (z.B. Eröffnung, Pilzland); lichter.mcfunction bleibt, sie entsteht getrennt aus der Welt
+    for (const d of readdirSync(fn)) if (d.endsWith('.mcfunction') && d !== 'lichter.mcfunction' && !(d.slice(0, -11) in funktionen)) rmSync(join(fn, d));
     for (const [n, t] of Object.entries(funktionen)) writeFileSync(join(fn, `${n}.mcfunction`), t);
     // Lichter entstehen erst aus dem fertigen Gelände („lichter“); bis dahin ein leerer Platzhalter, sonst lädt insel:aufbau_teil2 nicht
     if (k.lichter !== null && !existsSync(join(fn, 'lichter.mcfunction'))) writeFileSync(join(fn, 'lichter.mcfunction'), '# Lichter folgen: node spawn/standort.mjs lichter <konfig> <welt>\n');
