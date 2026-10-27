@@ -40,7 +40,7 @@ import org.bukkit.scoreboard.Objective;
 
 /**
  * Server-Wahl für Hub und SMP hinter Velocity.
- * Hub: Rechtsklick auf eine eingetragene Kiste öffnet das Menü ihrer Kategorie, ein Klick auf einen Server schickt
+ * Hub und SMP: Rechtsklick auf eine eingetragene Kiste öffnet das Menü ihrer Kategorie, ein Klick auf einen Server schickt
  * den Spieler über den BungeeCord-Kanal „Connect“ dorthin (Velocity versteht den Kanal).
  * Überall: /hub bringt zum Hub zurück (auf dem Hub selbst: zum Spawn). Portale: begehbare Quader aus der Config schicken auf einen Server.
  * Eröffnung: ein gemeinsamer Merker als Datei (beide Server laufen auf derselben VM). Der Hub legt sie an, sobald das
@@ -67,6 +67,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     /** Begehbare Portale (Quader), die per Velocity auf einen anderen Server schicken */
     private final List<Portal> portale = new ArrayList<>();
     private final Map<java.util.UUID, Long> portalZuletzt = new HashMap<>();
+    private final SpawnElytra spawnElytra = new SpawnElytra();
 
     private record Portal(String welt, int x1, int y1, int z1, int x2, int y2, int z2, String ziel, boolean sperre) {
         boolean enthaelt(org.bukkit.Location l, int rand) {
@@ -83,6 +84,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         laden();
         getServer().getMessenger().registerOutgoingPluginChannel(this, KANAL);
         getServer().getPluginManager().registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(spawnElytra, this);
         // Hub: einmal pro Sekunde schauen, ob das Datapack die Eröffnung ausgelöst hat. Legt die Datei nur an, löscht sie nie
         // (eine zurückgesetzte Hub-Welt soll das SMP nicht wieder schließen; schließen nur per /serverwahl schliessen)
         getServer().getScheduler().runTaskTimer(this, () -> {
@@ -137,6 +139,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         ausloeserAb = al == null ? 1 : al.getInt("ab", 1);
         eroeffnungsBefehle = er == null ? List.of() : er.getStringList("befehle");
         portaleSperren = getConfig().getBoolean("portale-sperren", false);
+        spawnElytra.laden(getConfig().getConfigurationSection("spawn-elytra"));
         portale.clear();
         for (Map<?, ?> m : getConfig().getMapList("portale")) {
             int[] a = koordinaten(m.get("von"));
@@ -306,7 +309,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
 
     @EventHandler
     public void beiKlick(PlayerInteractEvent e) {
-        if (!istHub || e.getAction() != Action.RIGHT_CLICK_BLOCK || e.getHand() != EquipmentSlot.HAND) {
+        if (kisten.isEmpty() || e.getAction() != Action.RIGHT_CLICK_BLOCK || e.getHand() != EquipmentSlot.HAND) {
             return;
         }
         Block b = e.getClickedBlock();
@@ -368,6 +371,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                 zeilen.forEach(z -> text.add(String.valueOf(z)));
             }
             int slot = 13 - (Math.min(server.size(), 7) - 1) / 2 + i;
+            if (Boolean.TRUE.equals(s.get("hier"))) {
+                menue.inventar.setItem(slot, gegenstand(mat == null ? Material.GRASS_BLOCK : mat, String.valueOf(s.get("anzeige")), text));
+                continue;
+            }
             String gesperrt = "eroeffnung".equals(s.get("sperre")) && !istOffen() && !p.hasPermission("serverwahl.vorab") ? sperrText : null;
             if (gesperrt != null) {
                 // Text unter „Klicken zum Beitreten“ ersetzen: letzte Zeile raus, Sperrtext rein

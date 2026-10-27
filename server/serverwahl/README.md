@@ -20,18 +20,17 @@ Auf dem SMP stellt dasselbe Plugin `/hub` (Alias `/lobby`) bereit. `/server <nam
   damit der Server nicht nachts öffnet. Erledigt-Merker `plugins/Serverwahl/eroeffnet.txt` verhindert eine Wiederholung nach einem Neustart.
   Verschwindet der Merker wieder (Probe, `serverwahl schliessen`), löscht das SMP `eroeffnet.txt`, die nächste Eröffnung läuft dann erneut
 
-## Portale (seit 27.10., für die Spark-Insel auf dem SMP)
+## Spark-Insel auf dem SMP (Pascal 27.10.)
 
-`portale:` in der Config: begehbare Quader. Wer einen Block darin betritt, kommt per Velocity auf `ziel` (Standard `hub-server`), 3 s Abklingzeit,
-Actionbar `text-portal`. `sperre: eroeffnung` wirkt wie bei den Menü-Einträgen. Liegen echte Portalblöcke (Netherportal, Endportal, End-Gateway) im Quader
-(plus 1 Block Rand), bricht das Plugin deren Teleport in die Dimension ab. Der Spieler geht nur auf den anderen Server.
+**Ender-Kiste statt Portal:** Nach Pascals Insel-Test öffnet eine Ender-Kiste am Spawn das Menü wie im Hub (`kisten:` und Kategorie `spawn` in
+`../plugin-konfig/smp/`). Menü: Hub (wechseln) und Weihnachtsserver mit `hier: true` (angezeigt, nicht anklickbar). Die echte Ender-Kiste geht nicht auf.
+Position kommt von der Spawn-Session.
 
-```yaml
-portale:
-  - { welt: world, von: "10 150 -3", bis: "10 152 -1", ziel: hub }
-```
+**Spawn-Elytra** (`SpawnElytra.java`, ersetzt das frühere Plugin „Spawn Elytra“): In der Zone `spawn-elytra` (Kreis Mitte −1/47, Radius 28, ab y 89 =
+WorldGuard-Oval) startet ein Doppelsprung einen Gleitflug ohne Item, `[F]` (Hand tauschen) gibt einmal Schub. Nach der Landung oder im Wasser ist sie weg,
+kein Fallschaden in dem Flug. Nur Überleben/Abenteuer. **Prüfen:** ob GrimAC den Gleitflug ohne Elytra meldet oder zurücksetzt.
 
-Spark-Insel (Spawn & Welt 27.10.): Rahmen am Ende des Nordwegs, Zone −2/155/29 bis 0/157/30 (Portal plus ein Block davor), echte Netherportal-Blöcke im Obsidian-Rahmen (Nether-Teleport wird abgebrochen) (eingetragen in `plugin-konfig/smp/`). **Offen:** Test mit Client.
+**Portale** (`portale:`, begehbare Quader → Velocity, echte Portalblöcke darin teleportieren nicht) bleiben im Plugin, auf dem SMP derzeit leer.
 
 ## Konfiguration
 

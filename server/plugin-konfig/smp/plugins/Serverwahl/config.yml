@@ -1,4 +1,4 @@
-# Serverwahl auf dem SMP (MinecraftWeihnachten01): nur /hub, keine Kisten.
+# Serverwahl auf dem SMP (MinecraftWeihnachten01): /hub, Ender-Kiste am Spawn mit Menü, Spawn-Elytra.
 ist-hub: false
 # Name des Hubs in velocity.toml [servers]
 hub-server: hub
@@ -17,12 +17,40 @@ eroeffnung:
 portale-sperren: true
 text-nether-zu: "<red>Der Nether ist noch geschlossen!"
 text-end-zu: "<red>Das End ist noch geschlossen!"
-kisten: []
-kategorien: {}
-# Begehbare Portale: wer einen Block im Quader betritt, kommt per Velocity auf „ziel“ (Standard: hub-server). Echte Portalblöcke
-# (Nether/End/Gateway) darin teleportieren nicht in die Dimension. Koordinaten = Innenraum des Portals. Spark-Insel: Werte von der Spawn-Session
-# Beispiel:  - { welt: world, von: "10 150 -3", bis: "10 152 -1", ziel: hub }
-portale:
-  # Spark-Insel (Spawn & Welt 27.10.): Obsidian-Rahmen −3..1/154..158/z 29 mit nether_portal[axis=x], Zugang von Süden
-  - { welt: world, von: "-2 155 29", bis: "0 157 30", ziel: hub }
+# Einmal-Elytra auf der Spark-Insel (Pascal 27.10.): Doppelsprung = Gleitflug ohne Item, [F] einmal Schub, nach der Landung weg.
+# Zone = WorldGuard-Oval der Spawn-Session (Mitte −1/47, Radius 28, ab y 89)
+spawn-elytra:
+  aktiv: true
+  welt: world
+  mitte: "-1 47"
+  radius: 28
+  y-ab: 89
+  schub: 1.5
+  text-start: "<gold>Gleiten! <gray>[F] für einen Schub"
+  text-schub: "<gold>Schub!"
+# Begehbare Portale (Quader → Velocity auf „ziel“), Beispiel:  - { welt: world, von: "10 150 -3", bis: "10 152 -1", ziel: hub }
+# Spark-Insel: Portal nach Pascals Test 27.10. wieder raus, stattdessen die Ender-Kiste unten
+portale: []
 text-portal: "<gold>Ab zum Hub …"
+# Ender-Kiste am Spawn der Spark-Insel öffnet das Menü (Pascal 27.10.). Position von der Spawn-Session, NOCH OFFEN
+kisten: []
+#  - {welt: world, x: 0, y: 156, z: 46, kategorie: spawn}
+kategorien:
+  spawn:
+    titel: "<dark_purple>Serverwahl"
+    server:
+      - name: hub
+        anzeige: "<aqua>Hub"
+        material: ENDER_PEARL
+        beschreibung:
+          - "<gray>Zurück zur Lobby"
+          - ""
+          - "<yellow>Klicken zum Wechseln"
+      - name: smp
+        anzeige: "<gradient:#ff5252:#ffffff:#4cd964>Weihnachtsserver 2026</gradient>"
+        material: SPRUCE_SAPLING
+        hier: true
+        beschreibung:
+          - "<gray>SMP · Survival"
+          - ""
+          - "<green>Du bist hier"
