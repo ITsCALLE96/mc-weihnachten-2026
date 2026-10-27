@@ -1,4 +1,5 @@
 # Früher gesetzte Bauteile entfernen
+fill -4 64 80 4 68 88 minecraft:air replace minecraft:lantern
 fill -3 154 29 1 158 29 minecraft:air
 fill 1 155 30 1 155 30 minecraft:air
 fill -1 156 52 -1 156 52 minecraft:air
@@ -12,7 +13,6 @@ fill -4 64 80 4 68 88 minecraft:air replace minecraft:stone_bricks
 fill -4 64 80 4 68 88 minecraft:air replace minecraft:crying_obsidian
 fill -4 64 80 4 68 88 minecraft:air replace minecraft:end_rod
 fill -4 64 80 4 68 88 minecraft:air replace minecraft:mossy_stone_brick_wall
-fill -4 64 80 4 68 88 minecraft:air replace minecraft:lantern
 fill -4 63 80 4 63 88 minecraft:dirt replace minecraft:stone_brick_stairs
 fill -4 64 80 4 64 88 minecraft:grass_block replace minecraft:air
 # Lichtung um die Rückweg-Plattform

@@ -72,6 +72,7 @@ regions:
             coral-fade: deny
             copper-fade: deny
             use: allow
+            deny-message: '§7Am Spawn kannst du nichts verändern.'
     rueckweg:
         type: cuboid
         priority: 10
@@ -104,3 +105,4 @@ regions:
             coral-fade: deny
             copper-fade: deny
             use: allow
+            deny-message: '§7Am Spawn kannst du nichts verändern.'

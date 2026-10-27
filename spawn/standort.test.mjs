@@ -145,3 +145,9 @@ test('Lichtung um die Rückweg-Plattform: Kreis frei, Löcher mit Gras, Bäume i
   assert.ok(t.indexOf('# Lichtung') < t.indexOf('function insel:plattform'));
   assert.ok(dateien(ks).funktionen.heilen_spieler.includes('saturation 1 0 true'));
 });
+
+test('Regionen mit deutschem Hinweis (deny-message) für spawn und rueckweg', () => {
+  const ks = JSON.parse(readFileSync(new URL('./standort-smp-spark.json', import.meta.url)));
+  const { regionen } = dateien(ks);
+  assert.equal(regionen.match(/deny-message: '§7Am Spawn kannst du nichts verändern\.'/g).length, 2);
+});

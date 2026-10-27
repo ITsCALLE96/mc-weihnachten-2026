@@ -299,7 +299,9 @@ execute unless data entity @s respawn run tp @s ${s.x + 0.5} ${s.y} ${s.z + 0.5}
   if (p) f.plattform = `# Rückweg-Plattform (Mitte ${p.x}/${p.y}/${p.z}, Radius 4, Stil ${p.stil ?? 'stein'}), Form von Pascal freigegeben\n` +
     plattformTeile(p.stil).map(([dx, dy, dz, b]) => `setblock ${p.x + dx} ${p.y + dy} ${p.z + dz} ${b}`).join('\n') + '\n';
   // oval.minY/maxY: Region nur in dieser Höhe (z.B. schwebende Insel, der Boden darunter bleibt frei); dann zusätzlich ein Kasten um die Plattform
-  const flags = ['mob-spawning', 'pvp', 'chest-access', 'creeper-explosion', 'other-explosion', 'tnt', 'fire-spread', 'lava-fire', 'lighter', 'ghast-fireball', 'enderman-grief', 'ravager-grief', 'wither-damage', 'item-frame-rotation', 'vehicle-destroy', 'leaf-decay', 'ice-melt', 'snow-melt', 'vine-growth', 'mushroom-growth', 'mycelium-spread', 'coral-fade', 'copper-fade'].map((n) => `            ${n}: deny`).join('\n') + '\n            use: allow';
+  const flags = ['mob-spawning', 'pvp', 'chest-access', 'creeper-explosion', 'other-explosion', 'tnt', 'fire-spread', 'lava-fire', 'lighter', 'ghast-fireball', 'enderman-grief', 'ravager-grief', 'wither-damage', 'item-frame-rotation', 'vehicle-destroy', 'leaf-decay', 'ice-melt', 'snow-melt', 'vine-growth', 'mushroom-growth', 'mycelium-spread', 'coral-fade', 'copper-fade'].map((n) => `            ${n}: deny`).join('\n') + '\n            use: allow'
+    // Deutscher Hinweis statt der englischen WorldGuard-Meldung (Pascal 27.10.)
+    + `\n            deny-message: '${(k.regionMeldung ?? '§7Am Spawn kannst du nichts verändern.').replace(/'/g, "''")}'`;
   const regionen = `# WorldGuard-Region der Oberwelt, erzeugt mit spawn/standort.mjs aus ${k.datei ?? 'der Standort-Konfiguration'}. Einspielen nach
 #   plugins/WorldGuard/worlds/world/regions.yml   (laufender Server: rg load -w world)
 # spawn: Oval (Mitte ${k.oval.x}/${k.oval.z}, Halbachsen ${k.oval.a} in x und ${k.oval.b} in z, 32 Punkte), volle Höhe: Spawnschutz (Nicht-Mitglieder bauen
