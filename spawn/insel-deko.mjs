@@ -36,9 +36,9 @@ export function deko(k, m) {
       if (!nb) continue;
       const [dx, , dz] = nb, px = x + 0.5 + dx * 0.62, pz = z + 0.5 + dz * 0.62, w = zufall(x, y, z);
       if (kugeln && w < 0.16) {
-        an.push(mo.kugeln?.length ? modell(px, y + 0.35, pz, mo.kugeln[n % mo.kugeln.length], 1) : anzeige(px, y + 0.5, pz, FARBEN[n % FARBEN.length], 0.32));
+        an.push(mo.kugeln?.length ? modell(px, y + 0.5, pz, mo.kugeln[n % mo.kugeln.length], 1) : anzeige(px, y + 0.5, pz, FARBEN[n % FARBEN.length], 0.32));
         n++;
-      } else if (w > (kugeln ? 0.93 : 0.91)) an.push(mo.licht ? modell(px, y + 0.4, pz, mo.licht, 1, { drehung: dx ? Math.PI / 2 : 0 }) : anzeige(px, y + 0.5, pz, 'minecraft:ochre_froglight', 0.16));
+      } else if (w > (kugeln ? 0.93 : 0.91)) an.push((mo.birnen?.length || mo.licht) ? modell(px, y + 0.45, pz, mo.birnen?.length ? mo.birnen[Math.floor(w * 1000) % mo.birnen.length] : mo.licht, 1, { drehung: dx ? Math.PI / 2 : 0 }) : anzeige(px, y + 0.5, pz, 'minecraft:ochre_froglight', 0.16));
     }
     if (kugeln) {
       let top = 0; for (let y = oy + m.h - 1; y > 0 && !top; y--) if (/leaves|log/.test(W(tx, y, tz))) top = y;

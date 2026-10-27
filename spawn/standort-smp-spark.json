@@ -1024,7 +1024,7 @@
       3
     ],
     "modelle": {
-      "hinweis": "Modelle aus rp-v5 (Modpack-Session 27.10.), ohne Resourcepack unsichtbar",
+      "hinweis": "Modelle aus rp-v5 (Modpack-Session 27.10., Commit f635d7a), 16er-Würfel um die Mitte gezeichnet; ohne Resourcepack unsichtbar",
       "kugeln": [
         "weihnachten:kugel_rot",
         "weihnachten:kugel_gold",
@@ -1043,7 +1043,13 @@
         "weihnachten:geschenk_weiss"
       ],
       "schneemann": "weihnachten:schneemann",
-      "rentier": "weihnachten:rentier"
+      "rentier": "weihnachten:rentier",
+      "birnen": [
+        "weihnachten:birne_rot",
+        "weihnachten:birne_gelb",
+        "weihnachten:birne_blau",
+        "weihnachten:birne_gruen"
+      ]
     },
     "figuren": [
       {
