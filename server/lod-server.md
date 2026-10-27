@@ -87,7 +87,7 @@ Pascal führt `bash testnetz/neue-plugins.sh einrichten` aus (alle neuen Plugins
 
 1. Fernsicht: Landschaft bis zum Rand der 2.000 × 2.000 sichtbar, dahinter nichts
 2. Höhlenkarte in Xaero (Overworld) weiter gesperrt, Fernbereich nicht in die Karte übernommen
-3. Zweiter Spieler ≥ 500 Blöcke entfernt sichtbar (mit „Extend Far Player Draw Range“)
+3. Zweiter Spieler ≥ 500 Blöcke entfernt sichtbar (mit „Extend Far Player Draw Range“) – einmal **ohne** Shaderpack (die Option wirkt laut Tooltip nicht mit Shadern) und einmal mit Complementary (dort greift dessen eigene Fern-Darstellung). Die Client-Einstellung setzt die Modpack-Session nach dem ersten Start ins Testprofil
 4. Bandbreite: `python -I testnetz/rcon.py smp "lsslod stats"` während des ersten Ladens, dazu Task-Manager → Netzwerk (Loopback zählt nicht immer, dann Werte aus `lsslod stats`)
 5. Hub → SMP → Hub → SMP: LODs bleiben bzw. kommen wieder (Velocity)
 6. GrimAC: keine Alerts bei Mouse Tweaks, Client Sort, Freecam, Elytra

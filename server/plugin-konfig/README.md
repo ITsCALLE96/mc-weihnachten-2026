@@ -17,7 +17,7 @@ Seit 24.10. (Hub-Kurswechsel) getrennt nach Server: `gemeinsam/` gilt für beide
 | `hub/plugins/voicechat/voicechat-server.properties` | Hub | `port=24456`, `bind_address=127.0.0.1` | zweiter lokaler Voice-Port, Velocity leitet weiter |
 | `hub/plugins/Serverwahl/config.yml` | Hub | Kisten und Menüs | `../serverwahl/README.md` |
 | `proxy/plugins/bStats/config.txt` | Proxy | `enabled=false` | Velocity hat eine eigene bStats-Datei |
-| `proxy/plugins/Geyser-Velocity/locales/overrides/de_de.json` | Proxy | deutsche Texte für Bedrock | generiert von der Questbuch-Session (`tools/questbuch.mjs`), nicht von Hand ändern |
+| `proxy/plugins/Geyser-Velocity/locales/overrides/de_de.json` | Proxy | deutsche Texte für Bedrock | generiert von der Questbuch-Session (`tools/questbuch.mjs`), nicht von Hand ändern (Hinweis in `proxy/GENERIERT.md`) |
 | `hub/plugins/WorldGuard/worlds/world/regions.yml` | Hub | `__global__` mit Schutzflags | ganze Hub-Welt geschützt (`../plugins.md` → Hub). Welt-Name `world` nach dem Hub-Aufbau prüfen |
 
 Dazu kommt `../paper/permissions.yml` in den Server-Hauptordner beider Server (`/spark tps` für alle, `../spark.md`).
