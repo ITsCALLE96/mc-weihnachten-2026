@@ -3,7 +3,7 @@
 // Bedingungen der gespiegelten Quests kommen 1:1 aus den Vanilla-Advancements der Server-Jar.
 // Aufruf: node tools/questbuch.mjs [server-jar]            → bauen + prüfen
 //         node tools/questbuch.mjs --pruefen [server-jar]  → nur prüfen
-import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { vanillaFortschritte, oeffneJar } from './jar.mjs';
@@ -331,7 +331,10 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const sortiert = (o) => Object.fromEntries(Object.entries(o).sort(([a], [b]) => a.localeCompare(b)));
   schreibe(join(repo, 'resourcepack/assets', LANG_NS, 'lang/de_de.json'), JSON.stringify(sortiert(lang.de), null, 2) + '\n');
   schreibe(join(repo, 'resourcepack/assets', LANG_NS, 'lang/en_us.json'), JSON.stringify(sortiert(lang.en), null, 2) + '\n');
-  schreibe(join(repo, GEYSER_DE), JSON.stringify(sortiert(lang.de), null, 2) + '\n');
+  // Geyser bekommt alle deutschen Texte des Resourcepacks (auch anderer Namespaces, z. B. winterkalender)
+  const assets = join(repo, 'resourcepack/assets');
+  const geyserDe = Object.assign({}, ...readdirSync(assets).map((ns) => join(assets, ns, 'lang/de_de.json')).filter(existsSync).map((d) => JSON.parse(readFileSync(d, 'utf8'))));
+  schreibe(join(repo, GEYSER_DE), JSON.stringify(sortiert(geyserDe), null, 2) + '\n');
   schreibe(join(repo, 'datapack/vanilla-26.3.txt'), [...vanilla.keys()].sort().join('\n') + '\n');
   writeFileSync(join(repo, 'datapack/TEXTE.md'), texteMarkdown(daten, existsSync(schritteDatei) ? JSON.parse(readFileSync(schritteDatei, 'utf8')) : {}));
   console.log(`${advancements.size} Advancements, ${funktionen.size} Funktionen, ${Object.keys(lang.de).length} Sprachschlüssel, ${details.dateien.size} Detail-Dateien und Geyser-Übersetzung geschrieben, TEXTE.md aktualisiert`);
