@@ -53,9 +53,15 @@ test('Info-Dorfbewohner: markiert, Fortschritt mit Belohnung, Fortschritt wird z
   assert.match(f['npc/2'], /^advancement revoke @s only hub:npc\/2$/m);
 });
 
-test('Adventskalender: 24 Geschenke, freigeschaltet nach #tag, je Spieler einmal, kosmetische Belohnung', () => {
-  assert.equal(k.advent.length, 24);
-  assert.equal(k.adventGeschenke.length, 24);
+test('Adventskalender im Hub entfällt (Winterkalender auf der SMP-Spawn-Insel, 27.10.)', () => {
+  assert.equal(k.advent.length, 0);
+  assert.doesNotMatch(f.aufbau_ende, /hub_advent/);
+  assert.equal(f['advent/naechster_tag'], undefined);
+});
+
+test('Adventskalender (Funktion bleibt im Generator): 24 Geschenke, freigeschaltet nach #tag, je Spieler einmal', () => {
+  const ka = { ...k, advent: Array.from({ length: 24 }, (_, i) => [i, 235, 0]), adventGeschenke: Array.from({ length: 24 }, (_, i) => (i === 2 ? 'minecraft:green_candle' : 'minecraft:cookie')) };
+  const f = dateien(ka).funktionen;
   assert.ok(f.aufbau_ende.includes('scale:[0f,0f,0f]},Tags:["hub","hub_advent","hub_advent_zu","hub_g_24"]'));
   assert.ok(f.aufbau_ende.includes('\nscoreboard players set @e[tag=hub_g_24] hub_advent 24\n'));
   assert.ok(f.sekunde.includes('\nexecute as @e[tag=hub_advent_zu] if score @s hub_advent <= #tag hub_advent run function hub:advent/zeigen\n'));

@@ -1067,5 +1067,113 @@
         "drehung": 200
       }
     ]
+  },
+  "kalender": {
+    "grund": "Winterkalender (Pascal 27.10.), an/aus: function insel:kalender_an / insel:kalender_aus (spawn/insel-kalender.mjs); Belohnungen = Platzhalter bis zur Liste der Modpack-Session",
+    "x": 0,
+    "y": 155,
+    "z": 65.7,
+    "spalten": 6,
+    "reihen": 4,
+    "reihenfolge": [
+      7,
+      19,
+      2,
+      14,
+      23,
+      10,
+      16,
+      4,
+      21,
+      12,
+      1,
+      18,
+      9,
+      24,
+      6,
+      15,
+      20,
+      3,
+      13,
+      5,
+      22,
+      11,
+      17,
+      8
+    ],
+    "belohnungen": [
+      [
+        "minecraft:cookie 64"
+      ],
+      [
+        "minecraft:snowball 16"
+      ],
+      [
+        "minecraft:pumpkin_pie 16"
+      ],
+      [
+        "minecraft:candle 4"
+      ],
+      [
+        "minecraft:sweet_berries 64"
+      ],
+      [
+        "minecraft:lantern 4"
+      ],
+      [
+        "minecraft:cake 1"
+      ],
+      [
+        "minecraft:firework_rocket 16"
+      ],
+      [
+        "minecraft:cookie 64"
+      ],
+      [
+        "minecraft:snowball 16"
+      ],
+      [
+        "minecraft:pumpkin_pie 16"
+      ],
+      [
+        "minecraft:candle 4"
+      ],
+      [
+        "minecraft:sweet_berries 64"
+      ],
+      [
+        "minecraft:lantern 4"
+      ],
+      [
+        "minecraft:cake 1"
+      ],
+      [
+        "minecraft:firework_rocket 16"
+      ],
+      [
+        "minecraft:cookie 64"
+      ],
+      [
+        "minecraft:snowball 16"
+      ],
+      [
+        "minecraft:pumpkin_pie 16"
+      ],
+      [
+        "minecraft:candle 4"
+      ],
+      [
+        "minecraft:sweet_berries 64"
+      ],
+      [
+        "minecraft:lantern 4"
+      ],
+      [
+        "minecraft:cake 1"
+      ],
+      [
+        "minecraft:firework_rocket 16"
+      ]
+    ]
   }
 }

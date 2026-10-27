@@ -1,3 +1,3 @@
 advancement revoke @s only hub:npc/10
-tellraw @s [{"text":"Priesterin: ","color":"green"},{"text":"Frohe Feiertage! Ab dem 01.12. sind auf der Insel Adventsgeschenke versteckt, jeden Tag eins.","color":"white"}]
+tellraw @s [{"text":"Priesterin: ","color":"green"},{"text":"Frohe Feiertage! Auf der Spawn-Insel des Weihnachtsservers wartet ab dem 01.12. ein Winterkalender mit 24 Türchen.","color":"white"}]
 playsound minecraft:entity.villager.ambient neutral @s ~ ~ ~ 1 1

@@ -1,0 +1,13 @@
+{
+  "pack": {
+    "description": "Winterkalender der Spawn-Insel (insel:kalender_an / kalender_aus)",
+    "min_format": [
+      121,
+      0
+    ],
+    "max_format": [
+      121,
+      0
+    ]
+  }
+}
