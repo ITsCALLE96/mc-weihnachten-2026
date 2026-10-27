@@ -4,6 +4,13 @@ Wunsch Pascal 27.10.: wie bei CraftAttack die Welt (10.000 × 10.000 per Chunky)
 statt dass jeder Client sie selbst erst beim Hinlaufen sieht. Stand: Recherche (Modrinth-, Hangar-, GitLab-, GitHub-APIs, 27.10.) und Konfig-Entwurf,
 **nichts installiert, nichts getestet** (der Lade-Test im Testnetz steht unten als Befehl für Pascal). [?] = nicht belegt.
 
+> **Entschieden 27.10. (Leitung/Pascal, Vorbild CraftAttack 14): LSS 0.20.0 + Voxy.** Kein DH-Nightly-Test. Client: Voxy 0.2.20-beta + LSS-Client 0.20.0,
+> DH und Bobby raus (Modpack-Session, Testprofil `weihnachten-voxy-test`). Die Client-Mod ist optional, wer will, schaltet sie ab.
+> **Andere Spieler auf große Entfernung sehen** gehört schon zu LSS („Far Players“, `far_players.*`, Standard an, bis 2.048 Blöcke): Spieler jenseits der Sichtweite
+> erscheinen als Modelle mit Namen und Ausrüstung in der LOD-Welt, Skins nur bis ~80 Blöcke. Clientseitig in LSS die Option „Extend Far Player Draw Range“ einschalten,
+> sonst enden sie an der Fern-Ebene. Kein Zusatz-Plugin nötig (Alternative SeeU hat eine einschränkende Lizenz). Kosten: zwei Positionsupdates pro Sekunde je
+> fernem Spieler, bei 25 Spielern vernachlässigbar [?].
+
 ## Optionen für Paper 26.3
 
 | Lösung | Client-Mod | Stand 27.10. | Lizenz | Bewertung |
@@ -37,7 +44,7 @@ Entscheidung DH-Nightly vs. LSS/Voxy: Leitung mit Pascal und Modpack-Session.
 
 ## Konfig-Entwurf
 
-**DH Support** (`plugins/DistantHorizonsSupport/config.yml`, Schlüssel laut develop-Wiki, beim Einrichten gegen die erzeugte Datei prüfen):
+~~**DH Support**~~ (verworfen 27.10., nur zur Referenz; `plugins/DistantHorizonsSupport/config.yml`, Schlüssel laut develop-Wiki, beim Einrichten gegen die erzeugte Datei prüfen):
 
 ```yaml
 distant_generation_enabled: true
@@ -53,33 +60,41 @@ server_key: "weihnachten-smp"       # hinter Velocity: Client hält Hub/SMP-Cach
 
 Vor dem Start einmal `/dhs pregen start world 0 0 5000` (baut die LODs nach Chunky vor, nicht am Starttag).
 
-**LSS** (`plugins/LodServerSupport/…`, Schlüssel laut Paper-Beispielkonfig im Repo, Dateiname beim Einrichten prüfen):
+**LSS** (gilt): `plugins/LodServerSupport/lss-server-config.yaml` (vom Plugin erzeugt, Schema `config_version: 1`). Unsere Abweichungen stehen in
+`server/lod/lss-werte.txt` und kommen mit `python -I server/lod/konfig-setzen.py <konfig> server/lod/lss-werte.txt` in die erzeugte Datei
+(Kommentare bleiben, bricht ab, falls sich ein Schlüssel ändert). Geprüft gegen die Standardkonfig im Jar 0.20.0:
 
-```yaml
-lod:
-  distance: { overworld: 256, nether: 64, end: 128 }
-generation:
-  enabled: false                    # nur vorgenerierte Chunks
-network:
-  bandwidth:
-    per_player_mib_per_second: 0.5  # Standard 25 (unkomprimiert)
-    global_mib_per_second: 2        # Standard 75; ≈ 16 Mbit/s unkomprimiert, real weniger. Nach Upload-Messung anpassen
-storage:
-  lod_store:
-    enabled: true
-privacy:
-  request_no_map_ingestion: false   # true würde Xaero-Karten aus LODs verbieten
-```
+| Schlüssel | Standard | wir | Warum |
+|---|---|---|---|
+| `privacy.request_no_map_ingestion` | false | **true** | sonst füllt der Client Xaeros Karten (auch Höhlen) aus LOD-Daten und hebelt Fair Play aus. Clients ab 0.19.0 halten sich daran (Bitte, keine Sperre). Ausnahme pro Spieler: Recht `lss.map_ingestion` |
+| `generation.enabled` | true | **false** | nur die per Chunky vorgenerierte Welt, darüber hinaus nichts |
+| `network.bandwidth.per_player_mib_per_second` | 25 | **0.5** | unkomprimiert gezählt, real weniger |
+| `network.bandwidth.global_mib_per_second` | 75 | **2** | ≈ 16 Mbit/s unkomprimiert für alle zusammen; nach Upload-Messung und Test anpassen |
+| `lod.distance.by_dimension` Overworld / Nether / End | 512 / 64 / 512 | **320 / 64 / 128** | Welt ±5.000 Blöcke ≈ 313 Chunks |
+| `far_players.mode`, `far_players.distance.max_blocks` | on, 2048 | on, 2048 | Spieler auf Entfernung sehen |
+
+Unverändert und gut so: `network.ping_backstop`, `send_pacing`, `yield_to_vanilla` (Spielverkehr hat Vorrang), `privacy.xray.mode: auto` (folgt Paper Anti-Xray, Erze tauchen in LODs nicht auf),
+`storage.lod_store.enabled: true` (Größe unbegrenzt, Platz einplanen). Der LOD-Radius gilt um jeden Spieler; eine Grenze um den Spawn gibt es nicht, die Weltgrenze plus
+abgeschaltete Generierung sorgen dafür, dass außerhalb nichts kommt.
+
+## Test im Testnetz (Plan Leitung 27.10.)
+
+Pascal führt `bash testnetz/lod-test.sh einrichten` aus (fremde Jars, in der Session blockiert): LSS, GrimAC und Chunky ins Testnetz-SMP, Konfig einspielen,
+2.000 × 2.000 um 0/0 vorgenerieren, stoppen. Dann `testnetz/start.cmd`, Client mit Testprofil `weihnachten-voxy-test` auf `localhost:25577`, Hub → SMP. Prüfen:
+
+1. Fernsicht: Landschaft bis zum Rand der 2.000 × 2.000 sichtbar, dahinter nichts
+2. Höhlenkarte in Xaero (Overworld) weiter gesperrt, Fernbereich nicht in die Karte übernommen
+3. Zweiter Spieler ≥ 500 Blöcke entfernt sichtbar (mit „Extend Far Player Draw Range“)
+4. Bandbreite: `python -I testnetz/rcon.py smp "lsslod stats"` während des ersten Ladens, dazu Task-Manager → Netzwerk (Loopback zählt nicht immer, dann Werte aus `lsslod stats`)
+5. Hub → SMP → Hub → SMP: LODs bleiben bzw. kommen wieder (Velocity)
+6. GrimAC: keine Alerts bei Mouse Tweaks, Client Sort, Freecam, Elytra
+7. Danach `bash testnetz/lod-test.sh entfernen` oder für 10.000 × 10.000 vormerken
+
+Erst nach diesem Test: 10.000 × 10.000 auf VM200 (Chunky Radius 5.000, `vorgenerierung.md`).
 
 ## Velocity
 
 Beide nutzen eigene Plugin-Kanäle, Velocity reicht die normalerweise durch. Ein eigenes Proxy-Plugin nennt keiner von beiden [?]. Testen: Hub → SMP → Hub, LODs danach noch da.
-
-## Lade-Test (vorbereitet, für Pascal)
-
-Der automatische Test wurde in der Session blockiert (fremder Code). Die geprüften Jars liegen in `testnetz/_downloads/lod/`
-(LSS SHA1 oben, GrimAC `07bd6024186d8d1d600837350c3359d9960a04d0`, DH-Support-Nightly `DistantHorizonsSupport-0.15.0-SNAPSHOT.jar` vom 26.10. aus der GitLab-Pipeline).
-Ablauf: `lod-test.sh` in `testnetz/` (startet nur das Testnetz-SMP mit den drei Plugins, zeigt die Lade-Meldungen, stoppt per RCON und räumt die Jars wieder weg).
 
 ## Für Bedrock
 

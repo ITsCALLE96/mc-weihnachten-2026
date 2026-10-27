@@ -28,8 +28,10 @@ Grim lohnt sich als Beobachter (Fly, Speed, Reach) und weil es Bewegungs-Cheats 
 
 Keine der Pack-Mods Freecam, Fullbright, Xaero, Distant Horizons, Simple Voice Chat, Armor Poser steht auf Grims Liste bekannter Konflikte
 (Wiki „Known incompatible client mods“). Das ist eine Annahme, kein Test.
-**Auf der Liste und im Pack zu prüfen (Modpack-Session):** Debugify, Inventory Profiles Next, Mouse Tweaks, Inventar-Bewegungs-Mods,
-Shoulder Surfing Reloaded, Fast-XP-/No-Delay-Mods, Always Sprint. Falls eine davon im Pack ist: entweder raus oder die betroffene Prüfung entschärfen.
+**Abgleich mit dem Pack (Modpack-Session, 27.10.):** Von Grims Liste sind **Debugify** (behebt nur Fehler, vermutlich unkritisch) und **Mouse Tweaks**
+(+ More Mouse Tweaks) im Pack. Ähnlich wirken **Client Sort**, **ClickThrough Plus** und **Freecam** (bewusst erlaubt). Nicht im Pack: Inventory Profiles Next,
+Inventar-Bewegungs-Mods, Shoulder Surfing, Fast-XP-/No-Delay-Mods, Always Sprint.
+Im Test gezielt ausprobieren: Mouse Tweaks (Shift-Ziehen, Scrollen), Client Sort, ClickThrough, Freecam. Bei Fehlalarmen Prüfung entschärfen oder Mod raus (entscheidet die Leitung).
 
 ## Konfig-Entwurf (mild, Freundes-Netz)
 

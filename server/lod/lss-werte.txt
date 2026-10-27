@@ -1,0 +1,16 @@
+# LSS 0.20.0 (Paper) – unsere Abweichungen vom Standard. Eingespielt mit konfig-setzen.py in die vom Plugin erzeugte Datei.
+# Begründung: server/lod-server.md
+# Fair Play: keine Höhlen-/Fernkarten in Xaero aus LOD-Daten (Clients ab LSS 0.19.0 halten sich daran)
+privacy.request_no_map_ingestion = true
+# nur die per Chunky vorgenerierte Welt ausliefern, keine Generierung durchs Plugin
+generation.enabled = false
+# Bandbreite deckeln (MiB/s unkomprimiert, real weniger). Nach Upload-Messung anpassen
+network.bandwidth.per_player_mib_per_second = 0.5
+network.bandwidth.global_mib_per_second = 2
+# Radius in Chunks (Welt ±5.000 Blöcke ≈ 313 Chunks)
+lod.distance.by_dimension."minecraft:overworld" = 320
+lod.distance.by_dimension."minecraft:the_nether" = 64
+lod.distance.by_dimension."minecraft:the_end" = 128
+# andere Spieler über die Sichtweite hinaus sehen (CraftAttack-Stil), Reichweite in Blöcken
+far_players.mode = "on"
+far_players.distance.max_blocks = 2048
