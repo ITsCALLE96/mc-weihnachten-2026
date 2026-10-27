@@ -1,10 +1,13 @@
 // Prüft Datapack und Resourcepack vor dem Hochladen (nur Node-Standardbibliothek).
-// Aufruf: node tools/pruefen.mjs datapack|resourcepack [pfad]
+// Aufruf: node tools/pruefen.mjs datapack|resourcepack|geyser [pfad]
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const REPO = join(fileURLToPath(import.meta.url), '..', '..');
+// Deutsche Questbuch-Texte für Bedrock-Spieler: Geyser (im Proxy) liest Java-Übersetzungen aus locales/overrides/.
+// Ohne die Datei sehen Bedrock-Spieler die englischen fallback-Texte. Wird von tools/questbuch.mjs geschrieben.
+export const GEYSER_DE = 'server/plugin-konfig/proxy/plugins/Geyser-Velocity/locales/overrides/de_de.json';
 const VERSIONEN = JSON.parse(readFileSync(join(REPO, 'versions.json'), 'utf8'));
 
 function alleDateien(dir) {
@@ -118,11 +121,27 @@ export function pruefeResourcepack(wurzel) {
   return fehler;
 }
 
+// Die Geyser-Datei muss genau die deutschen Texte des Resourcepacks enthalten (sonst veraltet nach Textänderungen).
+export function pruefeGeyser(rpWurzel, datei) {
+  const fehler = [];
+  if (!existsSync(datei)) return [`${datei} fehlt, erzeugen mit node tools/questbuch.mjs`];
+  const rp = leseJson(rpWurzel, fehler);
+  const de = Object.assign({}, ...[...rp].filter(([r]) => r.endsWith('/lang/de_de.json')).map(([, j]) => j));
+  let geyser;
+  try { geyser = JSON.parse(readFileSync(datei, 'utf8')); } catch (e) { return [`${datei}: ${e.message}`]; }
+  for (const [k, v] of Object.entries(de)) {
+    if (!(k in geyser)) fehler.push(`Geyser de_de.json: ${k} fehlt`);
+    else if (geyser[k] !== v) fehler.push(`Geyser de_de.json: ${k} weicht ab`);
+  }
+  for (const k of Object.keys(geyser)) if (!(k in de)) fehler.push(`Geyser de_de.json: ${k} steht nicht im Resourcepack`);
+  return fehler;
+}
+
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const [art, pfad] = process.argv.slice(2);
-  const pruefer = { datapack: pruefeDatapack, resourcepack: pruefeResourcepack }[art];
+  const pruefer = { datapack: pruefeDatapack, resourcepack: pruefeResourcepack, geyser: (p) => pruefeGeyser(p, join(REPO, GEYSER_DE)) }[art];
   if (!pruefer) {
-    console.error('Aufruf: node tools/pruefen.mjs datapack|resourcepack [pfad]');
+    console.error('Aufruf: node tools/pruefen.mjs datapack|resourcepack|geyser [pfad]');
     process.exit(2);
   }
   const fehler = pruefer(pfad ?? join(REPO, art === 'datapack' ? 'datapack/leitfaden' : 'resourcepack'));

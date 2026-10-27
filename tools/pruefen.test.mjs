@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
-import { pruefeDatapack, pruefeResourcepack } from './pruefen.mjs';
+import { pruefeDatapack, pruefeResourcepack, pruefeGeyser } from './pruefen.mjs';
 
 function pack(dateien) {
   const wurzel = mkdtempSync(join(tmpdir(), 'mcpack-'));
@@ -133,4 +133,17 @@ test('Detail-Datei der Seitenleiste: Schlüssel muss in beiden Sprachdateien ste
   const fehler = pruefeResourcepack(dir);
   assert.equal(fehler.length, 1);
   assert.match(fehler[0], /q\.b fehlt in de_de\/en_us/);
+});
+
+test('Geyser-Override muss genau die deutschen Texte des Resourcepacks enthalten', () => {
+  const rp = pack({ 'assets/weihnachten/lang/de_de.json': { 'a.b': 'A', 'c.d': 'C' } });
+  const gut = pack({ 'de_de.json': { 'a.b': 'A', 'c.d': 'C' } });
+  assert.deepEqual(pruefeGeyser(rp, join(gut, 'de_de.json')), []);
+  const alt = pack({ 'de_de.json': { 'a.b': 'alt', 'x.y': 'X' } });
+  const fehler = pruefeGeyser(rp, join(alt, 'de_de.json'));
+  assert.equal(fehler.length, 3);
+  assert.ok(fehler.some((f) => /c.d fehlt/.test(f)));
+  assert.ok(fehler.some((f) => /a.b weicht ab/.test(f)));
+  assert.ok(fehler.some((f) => /x.y steht nicht im Resourcepack/.test(f)));
+  assert.match(pruefeGeyser(rp, join(gut, 'fehlt.json')).join(), /fehlt.*questbuch.mjs/);
 });
