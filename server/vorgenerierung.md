@@ -62,7 +62,7 @@ Die vorgenerierte Welt macht **jedes Backup** größer. Region-Dateien sind scho
 | Welt nach Vorgenerierung, wächst im Spiel auf | ~5 GB → ~7 GB bis Januar |
 | Testwelt-Sicherung (Task 10 Schritt 4: sichern, dann verwerfen) | ~1,5 GB |
 | AMP-Backups, ursprünglich geplant (stündlich, 24 aufbewahren) | 24 × ~6 GB ≈ 145 GB |
-| **AMP-Backups, entschieden (alle 3 h, 8 aufbewahren)** | **8 × ~6 GB ≈ 50 GB** |
+| **AMP-Backups, entschieden (alle 3 h, 8 aufbewahren)** | **8 × ~6 GB ≈ 50 GB** (ohne `lss-lod/`, Leitung 27.10.) |
 | Statistik-Archiv | < 1 GB |
 
 **Das stündliche Backup mit 24 Ständen passt mit vorgenerierter Welt vermutlich nicht.** VM200 hatte im Juni ~196 GB Datenplatte, darauf liegen auch die anderen Instanzen.

@@ -40,7 +40,7 @@ Entscheidung DH-Nightly vs. LSS/Voxy: Leitung mit Pascal und Modpack-Session.
 - **Deshalb hart begrenzen und nach der Messung anpassen:** global höchstens ~1/3 des gemessenen Uploads für LOD, pro Spieler klein, damit 25 gleichzeitige Erstbeitritte (Starttag!) das Spiel nicht ausbremsen
 - LSS kann das (`network.bandwidth`, zählt unkomprimiert, die echte Last ist kleiner). **DH Support hat keine echte Bandbreitenbremse** (`max_data_transfer_speed` laut Doku „currently unsupported“), nur die Zahl gleichzeitiger Anfragen pro Spieler und insgesamt
 - **CPU/RAM:** Mit abgeschalteter Generierung liest das Plugin nur fertige Chunks und baut LODs. Für 25 Spieler keine belastbaren Zahlen [?]. DH Support empfiehlt 1–2 Threads je 4 GB RAM. Im Lasttest (`lasttest.md`) mit messen
-- **Platte:** Der LOD-Speicher (DH: `data.sqlite`, LSS: `lod_store`) kann so groß wie die Welt werden. Bei 10.000 × 10.000 vorgeneriert mehrere zehn GB [?], in `vorgenerierung.md` → Platz einrechnen. Vor dem Backup pausieren (`/dhs pause`) bzw. LSS-Store mitsichern oder ausnehmen (er lässt sich neu aufbauen)
+- **Platte:** Der LOD-Speicher (DH: `data.sqlite`, LSS: `lod_store`) kann so groß wie die Welt werden. Bei 10.000 × 10.000 vorgeneriert mehrere zehn GB [?], in `vorgenerierung.md` → Platz einrechnen. LSS-Store `<welt>/lss-lod/` **nicht sichern** (entschieden Leitung 27.10., gemessen 1,6 GB): Nach einer Rücksicherung baut LSS ihn beim Ausliefern neu auf, die Fernsicht füllt sich dann anfangs langsamer
 
 ## Konfig-Entwurf
 
