@@ -32,9 +32,10 @@ element {
   base_opacity = 1.0
   auto_sizing = false
   sticky_anchor = false
-  anchor_point = top-centered
-  x = -100
-  y = 80
+  anchor_point = element
+  anchor_point_element = mc_titlescreen_singleplayer_button
+  x = 0
+  y = -24
   width = 200
   height = 20
   stretch_x = false

@@ -12,9 +12,9 @@ Du brauchst das nicht zum Mitspielen – es macht Minecraft flüssiger und schö
 
 ## Zusätzliche Mods einschalten
 
-Fünf Mods liegen **ausgeschaltet** bei: Nvidium (nur Nvidia-Grafikkarten), voxy, uku's Armor HUD, Flashback (Aufnahmen) und Do a Barrel Roll (Elytra-Flugsteuerung). In der Modrinth App: Profil öffnen → **Inhalt** → beim gewünschten Mod den **Schalter** umlegen, dann Minecraft neu starten. Was welche Mod macht, steht in der Mod-Liste (`MODS.md`).
+Diese Mods liegen **ausgeschaltet** bei: Nvidium (nur Nvidia-Grafikkarten, wirkt nur ohne Shader), uku's Armor HUD, Flashback (Aufnahmen), Do a Barrel Roll (Elytra-Flugsteuerung) und die Geräusch-Mods Cool Rain, Sound Physics Remastered, AmbientSounds, Presence Footsteps, Extreme Sound Muffler. In der Modrinth App: Profil öffnen → **Inhalt** → beim gewünschten Mod den **Schalter** umlegen, dann Minecraft neu starten. Was welche Mod macht, steht in der Mod-Liste (`MODS.md`).
 
-Nicht zusammen einschalten: **voxy** und **Distant Horizons** (Distant Horizons ist schon an).
+Nicht zusätzlich installieren: **Distant Horizons** (verträgt sich nicht mit voxy, das schon an ist).
 
 ## Nützliche Tasten und Schalter
 
@@ -52,9 +52,10 @@ Unsere eigene Mod. Sie färbt Blöcke ein, die du auswählst, und lässt sie auf
 
 ## Wenn der Rechner laut wird
 
-Das Pack begrenzt die Bildrate auf **240 FPS** (Optionen → Grafik → Max. Bildrate). Wer einen 60-Hz-Bildschirm hat, stellt dort 60 ein, das spart viel Strom und Lüfter. Distant Horizons rechnet beim ersten Besuch einer Gegend das ferne Gelände aus, das kostet die ersten Minuten spürbar CPU und legt sich dann.
+Das Pack begrenzt die Bildrate auf **240 FPS** (Optionen → Grafik → Max. Bildrate). Wer einen 60-Hz-Bildschirm hat, stellt dort 60 ein, das spart viel Strom und Lüfter. Beim ersten Join lädt voxy die ferne Landschaft vom Server, das kostet die ersten Minuten etwas Leistung und Netz und legt sich dann.
 
 ## Weite Sicht
 
-- **Bobby** merkt sich jeden Chunk, den du gesehen hast. Du siehst also weiter, als der Server schickt. Läuft von allein.
-- **Distant Horizons** zeigt Berge und Landschaft bis zum Horizont in vereinfachter Form. Das braucht etwas Leistung. Bei einem schwachen Rechner: **Mods → Distant Horizons → Einstellungen** und das Rendern ausschalten.
+- **voxy** zeigt Landschaft bis 320 Chunks weit in vereinfachter Form. Die Landschaft kommt fertig vom Server (Mod **LOD Server Support**), du musst nicht erst hinlaufen. Auch deine Xaero-Weltkarte füllt sich damit, und andere Spieler siehst du auf große Entfernung.
+- Einstellungen: **Optionen → Video** → links **Voxy** bzw. **LOD Server Support**. Bei einem schwachen Rechner dort die Sichtweite senken oder in der Modrinth App unter **Inhalt** voxy ausschalten (dann normale Sichtweite).
+- AMD- oder Intel-Grafikkarte mit Bildfehlern oder Ruckeln: voxy ausschalten.

@@ -1,0 +1,5 @@
+# LOD Server Support – experimentelle Client-Einstellungen (Voreinstellung Weihnachtsprojekt)
+config_version: 1
+
+far_players:
+  extend_far_plane: true # Spieler hinter der normalen Sichtgrenze zeichnen (nur ohne Shader)

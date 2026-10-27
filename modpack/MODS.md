@@ -8,13 +8,13 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 
 ## Inhalt von `modpack-v2` (23.10.2026)
 
-**Maßgeblich ist diese Liste und `mods.json`.** Die Stufen in den Tabellen weiter unten sind die ursprüngliche Bewertung. Was tatsächlich im Pack ist, hat Pascal am 23.10. Mod für Mod festgelegt. Stand des Baus (26.10.): 106 Dateien plus die eigenen Mods Block-Marker und Quest-Details – 13 Dateien deaktiviert (optionale Mods samt Bibliotheken, die nur sie brauchen) (`.jar.disabled`, im Launcher per Schalter einschaltbar), alle übrigen aktiv, dazu Shader Complementary Reimagined und Unbound und Resourcepack Redstone Tweaks.
+**Maßgeblich ist diese Liste und `mods.json`.** Die Stufen in den Tabellen weiter unten sind die ursprüngliche Bewertung. Was tatsächlich im Pack ist, hat Pascal am 23.10. Mod für Mod festgelegt. Stand des Baus (27.10.): 104 Dateien plus die eigenen Mods Block-Marker und Quest-Details – 13 Dateien deaktiviert (optionale Mods samt Bibliotheken, die nur sie brauchen) (`.jar.disabled`, im Launcher per Schalter einschaltbar), alle übrigen aktiv, dazu Shader Complementary Reimagined und Unbound und Resourcepack Redstone Tweaks.
 
 **Aktiv** (`mods` in `mods.json`):
-- Leistung: Sodium, Sodium Extra, Reese's Sodium Options, Lithium, Entity Culling, FerriteCore, ImmediatelyFast, Better Block Entities, SmoothTextureFix, More Culling, BadOptimizations, Dynamic FPS, quick pack, Language Reload, Debugify
+- Leistung: Sodium, Sodium Extra, Lithium, Entity Culling, FerriteCore, ImmediatelyFast, Better Block Entities, SmoothTextureFix, More Culling, BadOptimizations, Dynamic FPS, quick pack, Language Reload, Debugify
 - Optik: Iris, Iris & Oculus Search, Complementary Reimagined (+ Unbound), Euphoria Patches, Continuity, ETF, EMF, 3D Skin Layers, LambDynamicLights, Particle Rain, Make Bubbles Pop, Simple Fog Control, Boat Item View, Not Enough Animations, Falling Leaves, Visuality
 - Kamera: Zoomify, Cinematic Zoom (beide standardmäßig auf C – Anleitung sagt, eine umlegen), Ji AFK Cinematic
-- Sicht: Bobby, Distant Horizons, Gamma Utils (Fullbright), Freecam
+- Sicht: Voxy + LOD Server Support (Fernsicht bis 320 Chunks, Landschaft und entfernte Spieler kommen vom Server, füllt die Xaero-Karte), Gamma Utils (Fullbright), Freecam
 - Karte und Anzeigen: Xaero's Minimap, Xaero's World Map, AppleSkin, Shulker Box Tooltip, Light Overlay, Status Effect Bars, Locator Heads, Peek, Entity Selection Outlines, BetterF3, Better Statistics Screen, Better Advancements (großes Fortschrittsfenster, Taste L – Grundlage fürs Questbuch), Jade, Enchantment Descriptions, JEI
 - Chat: Here 'n' There, Chat Heads, No Chat Reports, More Chat History
 - Bedienung: Mod Menu, Mouse Tweaks, More Mouse Tweaks, Client Sort, ClickThrough Plus, Controlling, Multi Key Bindings, Bundles Beyond, Scribble, Armor Hider, Packed Packs, Borderless Fullscreen
@@ -64,12 +64,12 @@ Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 | [Better Block Entities](https://modrinth.com/mod/better-block-entities) | schnellere Truhen, Schilder, Betten | 🔵 | | |
 | [SmoothTextureFix](https://modrinth.com/mod/smoothtexturefix) | behebt unscharfe Texturen seit 1.21.11 | 🔵 | | |
 | [Sodium Extra](https://modrinth.com/mod/sodium-extra) | zusätzliche Grafik-Schalter (Partikel, Animationen, FPS-Anzeige) | ⚪ | | |
-| [Reese's Sodium Options](https://modrinth.com/mod/reeses-sodium-options) | übersichtlicheres Grafik-Menü | ⚪ | | |
+| [Reese's Sodium Options](https://modrinth.com/mod/reeses-sodium-options) | übersichtlicheres Grafik-Menü | ⚪ | | **raus (27.10.)**: versteckt die Einstellungsseiten von Voxy und LSS im Sodium-Menü |
 | [Remove Reloading Screen](https://modrinth.com/mod/rrls) | Resourcepacks laden im Hintergrund | ⚪ | | angenehm beim Server-Beitritt mit unserem Pack; **raus (24.10.)**: Hauptmenü zeichnet dann vor dem Laden von FancyMenus Shadern → Absturz beim Start |
 | [quick pack](https://modrinth.com/mod/quick-pack) | lädt Resourcepacks schneller | ⚪ | | |
 | [Nvidium](https://modrinth.com/mod/nvidium) | schnellere Darstellung nur für Nvidia-Karten | ⚪ | | bei AMD/Intel wirkungslos, verträgt sich nicht mit jedem Shader |
-| [Bobby](https://modrinth.com/mod/bobby) | merkt sich geladene Chunks, größere Sichtweite als der Server liefert | 🔵 | | **in v2**; kein Vorteil: zeigt nur, was man schon gesehen hat |
-| [voxy](https://modrinth.com/mod/voxy) | Fernsicht mit vereinfachten Chunks (LOD) | ⚪ | | braucht viel Speicher, nur für starke Rechner |
+| [Bobby](https://modrinth.com/mod/bobby) | merkt sich geladene Chunks, größere Sichtweite als der Server liefert | 🔵 | | **raus (27.10.)**: überflüssig, seit LOD Server Support die Landschaft liefert |
+| [voxy](https://modrinth.com/mod/voxy) | Fernsicht mit vereinfachten Chunks (LOD) | 🟢 | | **aktiv seit 27.10. (Pascal)** mit [LOD Server Support](https://modrinth.com/mod/lod-server-support) – Server liefert 10.000×10.000 vorgeneriert, wie CraftAttack 14. Braucht OpenGL 4.6; bei Grafikfehlern (AMD) oder schwacher Leistung (Intel Arc) im Launcher abschalten. Test Pascal: ~500 FPS ohne, ~200 mit Shader |
 | [Concurrent Chunk Management Engine](https://modrinth.com/mod/c2me-fabric) | schnellere Chunk-Erzeugung | ➖ | | wirkt nur im Einzelspieler/auf Fabric-Servern |
 
 ## Optik und Shader
@@ -245,7 +245,7 @@ Quelle: Modrinth-Suche nach Downloads, Abruf 23.10.2026. Von den Top 50 standen 
 | 92 | [More Chat History](https://modrinth.com/mod/morechathistory) | längerer Chatverlauf | ⚪ | |
 | 55 | [Language Reload](https://modrinth.com/mod/language-reload) | schnelleres Laden, Sprach-Rückfall | ⚪ | |
 | 69 | [Debugify](https://modrinth.com/mod/debugify) | behebt bekannte Minecraft-Fehler | ⚪ | |
-| 72 | [Distant Horizons](https://modrinth.com/mod/distanthorizons) | riesige Sichtweite mit vereinfachten Chunks | 🔵 | **in v2**; Alternative zu voxy, nicht beide zusammen; arbeitet mit Iris + Complementary |
+| 72 | [Distant Horizons](https://modrinth.com/mod/distanthorizons) | riesige Sichtweite mit vereinfachten Chunks | 🔵 | **raus (27.10.)**: ersetzt durch voxy + LOD Server Support (für Paper 26.3 gibt es kein fertiges DH-Server-Plugin) |
 | 60 | [Inventory Profiles Next](https://modrinth.com/mod/inventory-profiles-next) | Inventar sortieren, Slots sperren | ➖ | doppelt zu Client Sort und Mouse Tweaks |
 
 Nicht einzeln aufgeführt: Inhalts- und Weltgenerierungs-Mods (Create, Cobblemon, Supplementaries, Biomes O' Plenty, TaCZ), weil sie eine Mod auf dem Server brauchen und auf Paper nicht laufen; reine Forge/NeoForge-Mods (Embeddium, Oculus); Mods ohne aktuelle Version (Indium, Memory Leak Fix, Model Gap Fix); reine Server-Mods (Krypton, Clumps, Packet Fixer) und weitere Bibliotheken.
@@ -257,4 +257,5 @@ Nicht einzeln aufgeführt: Inhalts- und Weltgenerierungs-Mods (Create, Cobblemon
 - **Erlaubt, obwohl ein Vorteil:** Fullbright (Gamma Utils) und Freecam – bewusst freigegeben und im Pack, damit alle die gleiche Möglichkeit haben
 - **Server-Absicherung:** Xaero's Minimap und World Map ohne Entity-Radar und ohne Höhlenansicht außer im Nether (Plugin „Fair Play for Xaero's Maps“); Papers Anti-Xray (`engine-mode: 2`) versteckt Erze, die man nicht direkt sieht, und nimmt Freecam und Fullbright damit den Erz-Vorteil
 - **Geduldet:** LambDynamicLights, Bobby, voxy, Distant Horizons, MiniHUD ohne Seed
+- **LOD vom Server (LOD Server Support):** Xaero-Karte wird mit Fernlandschaft gefüllt (`request_no_map_ingestion: false`), Höhlenansicht bleibt per Fair Play gesperrt, Erze maskiert der Server (Anti-Xray). Entfernte Spieler sichtbar (bis 2.048 Blöcke)
 - Alles andere aus den Tabellen ist erlaubt, auch wenn es nicht in unserem Pack steckt
