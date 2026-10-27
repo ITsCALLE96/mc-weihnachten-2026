@@ -61,6 +61,22 @@ export function pilzlandBefehle({ x, z, a, b, biom = 'minecraft:mushroom_fields'
   return out;
 }
 
+// Lichtung (Kreis um x/z, Boden = oberster Geländeblock): Zeilen als fill-Befehle, damit kein Befehl die Blockgrenze sprengt
+export function lichtungBefehle({ x, z, r, boden, hoehe = 20, rand = 4 }) {
+  const out = [];
+  for (let dz = -(r + rand); dz <= r + rand; dz++) {
+    const w2 = Math.floor(Math.sqrt((r + rand) ** 2 - dz * dz));
+    for (const tag of ['#minecraft:logs', '#minecraft:leaves']) out.push(`fill ${x - w2} ${boden + 1} ${z + dz} ${x + w2} ${boden + hoehe} ${z + dz} minecraft:air replace ${tag}`);
+    if (Math.abs(dz) > r) continue;
+    const w = Math.floor(Math.sqrt(r * r - dz * dz));
+    out.push(`fill ${x - w} ${boden + 1} ${z + dz} ${x + w} ${boden + hoehe} ${z + dz} minecraft:air`,
+      `fill ${x - w} ${boden} ${z + dz} ${x + w} ${boden} ${z + dz} minecraft:grass_block replace minecraft:air`,
+      // abgetragene Hügel legen Erde frei: wieder Gras
+      `fill ${x - w} ${boden} ${z + dz} ${x + w} ${boden} ${z + dz} minecraft:grass_block replace minecraft:dirt`);
+  }
+  return out;
+}
+
 // place template für den Bau; mit struktur.kachel in Kacheln (tools/schem-struktur.mjs … <kachel>): <name>_<i>_<j> ab Ecke + (i·k, 0, j·k)
 export function strukturBefehle({ name, ursprung: [x, y, z], groesse, kachel }) {
   if (!kachel) return [`place template ${name} ${x} ${y} ${z}`];
@@ -202,7 +218,10 @@ execute unless score #geladen insel_tp matches 1 run schedule function insel:auf
   f.aufbau_teil2 = [
     // Hinweis gekaufter Bauten: beim Einfügen kein Zufallsticken (Laub, Ranken, Gras); aufbau_ende stellt den Standard wieder her
     // Früher gesetzte Bauteile vorher entfernen (place template setzt keine Luft, stellt aber den Bau darunter wieder her)
-    k.entfernen?.length && `# Früher gesetzte Bauteile entfernen\n${k.entfernen.map((b) => `fill ${b.von.join(' ')} ${b.bis.join(' ')} minecraft:air`).join('\n')}`,
+    // (optional mit block statt Luft und nur = Ersetzfilter, z.B. alte Plattform-Treppen wieder zu Erde)
+    k.entfernen?.length && `# Früher gesetzte Bauteile entfernen\n${k.entfernen.map((b) => `fill ${b.von.join(' ')} ${b.bis.join(' ')} ${b.block ?? 'minecraft:air'}${b.nur ? ` replace ${b.nur}` : ''}`).join('\n')}`,
+    // Lichtung um die Rückweg-Plattform: im Kreis r alles über dem Boden weg, Löcher im Boden mit Gras schließen; bis r+rand nur Bäume (Stämme, Laub)
+    k.lichtung && `# Lichtung um die Rückweg-Plattform\n${lichtungBefehle(k.lichtung).join('\n')}`,
     k.struktur && `# Spawn-Bau als Struktur (untere Nordwest-Ecke ${k.struktur.ursprung.join('/')})\ngamerule random_tick_speed 0\n${strukturBefehle(k.struktur).join('\n')}`,
     k.pilzland && '# Pilzland-Biom (keine Monster) über die ganze Höhe\nfunction insel:pilzland',
     p && '# Rückweg-Plattform\nfunction insel:plattform',

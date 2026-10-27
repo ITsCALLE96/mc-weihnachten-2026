@@ -18,8 +18,8 @@
   },
   "plattform": {
     "x": 0,
-    "y": 65,
-    "z": 48,
+    "y": 64,
+    "z": 84,
     "radius": 4,
     "stil": "stein"
   },
@@ -703,6 +703,190 @@
         156,
         52
       ]
+    },
+    {
+      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "von": [
+        -4,
+        65,
+        44
+      ],
+      "bis": [
+        4,
+        69,
+        52
+      ],
+      "nur": "minecraft:pearlescent_froglight"
+    },
+    {
+      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "von": [
+        -4,
+        65,
+        44
+      ],
+      "bis": [
+        4,
+        69,
+        52
+      ],
+      "nur": "minecraft:amethyst_block"
+    },
+    {
+      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "von": [
+        -4,
+        65,
+        44
+      ],
+      "bis": [
+        4,
+        69,
+        52
+      ],
+      "nur": "minecraft:purple_concrete"
+    },
+    {
+      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "von": [
+        -4,
+        65,
+        44
+      ],
+      "bis": [
+        4,
+        69,
+        52
+      ],
+      "nur": "minecraft:black_concrete"
+    },
+    {
+      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "von": [
+        -4,
+        65,
+        44
+      ],
+      "bis": [
+        4,
+        69,
+        52
+      ],
+      "nur": "minecraft:polished_andesite"
+    },
+    {
+      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "von": [
+        -4,
+        65,
+        44
+      ],
+      "bis": [
+        4,
+        69,
+        52
+      ],
+      "nur": "minecraft:mossy_stone_bricks"
+    },
+    {
+      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "von": [
+        -4,
+        65,
+        44
+      ],
+      "bis": [
+        4,
+        69,
+        52
+      ],
+      "nur": "minecraft:stone_bricks"
+    },
+    {
+      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "von": [
+        -4,
+        65,
+        44
+      ],
+      "bis": [
+        4,
+        69,
+        52
+      ],
+      "nur": "minecraft:crying_obsidian"
+    },
+    {
+      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "von": [
+        -4,
+        65,
+        44
+      ],
+      "bis": [
+        4,
+        69,
+        52
+      ],
+      "nur": "minecraft:end_rod"
+    },
+    {
+      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "von": [
+        -4,
+        65,
+        44
+      ],
+      "bis": [
+        4,
+        69,
+        52
+      ],
+      "nur": "minecraft:mossy_stone_brick_wall"
+    },
+    {
+      "grund": "alte Rückweg-Plattform unter der Insel (0/65/48)",
+      "von": [
+        -4,
+        65,
+        44
+      ],
+      "bis": [
+        4,
+        69,
+        52
+      ],
+      "nur": "minecraft:lantern"
+    },
+    {
+      "grund": "alte Plattform: Treppen darunter wieder Erde",
+      "von": [
+        -4,
+        64,
+        44
+      ],
+      "bis": [
+        4,
+        64,
+        52
+      ],
+      "block": "minecraft:dirt",
+      "nur": "minecraft:stone_brick_stairs"
+    },
+    {
+      "grund": "alte Plattform: Fläche wieder Gras",
+      "von": [
+        -4,
+        65,
+        44
+      ],
+      "bis": [
+        4,
+        65,
+        52
+      ],
+      "block": "minecraft:grass_block",
+      "nur": "minecraft:air"
     }
   ],
   "obenBereich": {
@@ -723,7 +907,16 @@
     }
   },
   "saettigung": {
-    "sekunden": 2,
+    "sekunden": 1,
     "abklingTicks": 6000
+  },
+  "lichtung": {
+    "grund": "Rückweg-Plattform frei sichtbar und anfliegbar (Pascal 27.10.)",
+    "x": 0,
+    "z": 84,
+    "r": 9,
+    "boden": 64,
+    "hoehe": 20,
+    "rand": 4
   }
 }
