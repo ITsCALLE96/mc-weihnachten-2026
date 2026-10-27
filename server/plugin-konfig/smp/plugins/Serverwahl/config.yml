@@ -18,13 +18,13 @@ portale-sperren: true
 text-nether-zu: "<red>Der Nether ist noch geschlossen!"
 text-end-zu: "<red>Das End ist noch geschlossen!"
 # Einmal-Elytra auf der Spark-Insel (Pascal 27.10.): Doppelsprung = Gleitflug ohne Item, [F] einmal Schub, nach der Landung weg.
-# Zone = WorldGuard-Oval der Spawn-Session (Mitte −1/47, Radius 28, ab y 89)
+# Zone = WorldGuard-Oval der Spawn-Session (Mitte −1/47, Radius 28), erst ab der Standfläche y 150 (Spawn & Welt; gleicher Bereich wie die Sättigung im Datapack insel)
 spawn-elytra:
   aktiv: true
   welt: world
   mitte: "-1 47"
   radius: 28
-  y-ab: 89
+  y-ab: 150
   schub: 1.5
   text-start: "<gold>Gleiten! <gray>[F] für einen Schub"
   text-schub: "<gold>Schub!"
@@ -32,9 +32,9 @@ spawn-elytra:
 # Spark-Insel: Portal nach Pascals Test 27.10. wieder raus, stattdessen die Ender-Kiste unten
 portale: []
 text-portal: "<gold>Ab zum Hub …"
-# Ender-Kiste am Spawn der Spark-Insel öffnet das Menü (Pascal 27.10.). Position von der Spawn-Session, NOCH OFFEN
-kisten: []
-#  - {welt: world, x: 0, y: 156, z: 46, kategorie: spawn}
+# Ender-Kiste am Spawn der Spark-Insel öffnet das Menü (Pascal 27.10.): Podestmitte −1/156/47, neben dem Weltspawn 0/156/48 (Spawn & Welt)
+kisten:
+  - {welt: world, x: -1, y: 156, z: 47, kategorie: spawn}
 kategorien:
   spawn:
     titel: "<dark_purple>Serverwahl"
