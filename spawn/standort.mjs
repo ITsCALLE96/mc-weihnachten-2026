@@ -196,6 +196,8 @@ execute unless score #geladen insel_tp matches 1 run schedule function insel:auf
 `;
   f.aufbau_teil2 = [
     // Hinweis gekaufter Bauten: beim Einfügen kein Zufallsticken (Laub, Ranken, Gras); aufbau_ende stellt den Standard wieder her
+    // Früher gesetzte Bauteile vorher entfernen (place template setzt keine Luft, stellt aber den Bau darunter wieder her)
+    k.entfernen?.length && `# Früher gesetzte Bauteile entfernen\n${k.entfernen.map((b) => `fill ${b.von.join(' ')} ${b.bis.join(' ')} minecraft:air`).join('\n')}`,
     k.struktur && `# Spawn-Bau als Struktur (untere Nordwest-Ecke ${k.struktur.ursprung.join('/')})\ngamerule random_tick_speed 0\n${strukturBefehle(k.struktur).join('\n')}`,
     k.pilzland && '# Pilzland-Biom (keine Monster) über die ganze Höhe\nfunction insel:pilzland',
     p && '# Rückweg-Plattform\nfunction insel:plattform',

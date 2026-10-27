@@ -98,7 +98,7 @@ test('Spark-Insel auf dem SMP: Struktur, Plattform, Tafel, Teleport, Lichter nac
   const { funktionen: f } = dateien(ks);
   assert.match(f.aufbau_teil2, /^place template spawn:spark_insel -26 89 22$/m);
   assert.match(f.aufbau_teil2, /^setworldspawn 0 156 48 0 0$/m);
-  assert.ok(f.tafeln.includes('messages:["Spawn-Insel:","SparkofPhoenix","",""]'));
+  assert.ok(f.tafeln.includes('SparkofPhoenix'));
   assert.match(f.erstbesuch, /^tp @s 0\.5 156 48\.5 0 0$/m);
   assert.match(f.plattform, /^setblock 0 65 48 minecraft:pearlescent_froglight$/m);
   assert.match(f.lichter_fertig, /^forceload add /m);
@@ -106,11 +106,15 @@ test('Spark-Insel auf dem SMP: Struktur, Plattform, Tafel, Teleport, Lichter nac
   assert.equal(f.schliessen, undefined); // keine Eröffnung auf dem SMP (läuft im Hub)
 });
 
-test('Spark-Insel: Hub-Portal erst Rahmen, dann Portalblöcke', () => {
+test('Spark-Insel 27.10.: Portal entfernt (vor dem Bau), Ender-Kiste, Schild am Baum, Sättigung oben', () => {
   const ks = JSON.parse(readFileSync(new URL('./standort-smp-spark.json', import.meta.url)));
-  const t = dateien(ks).funktionen.aufbau_teil2;
-  assert.ok(t.indexOf('fill -3 154 29 1 158 29 minecraft:obsidian') < t.indexOf('fill -2 155 29 0 157 29 minecraft:nether_portal[axis=x]'));
-  assert.ok(t.indexOf('function insel:tafeln') < t.indexOf('fill -3 154 29'));
+  const f = dateien(ks).funktionen, t = f.aufbau_teil2;
+  assert.ok(t.indexOf('fill -3 154 29 1 158 29 minecraft:air') < t.indexOf('place template spawn:spark_insel'));
+  assert.doesNotMatch(t, /nether_portal|obsidian/);
+  assert.ok(t.includes('\nfill -1 156 47 -1 156 47 minecraft:ender_chest[facing=south]\n'));
+  assert.ok(f.tafeln.includes('setblock -9 158 39 minecraft:spruce_wall_sign[facing=south]'));
+  assert.match(f.betreten, /saturation 2 0 true/);
+  assert.match(f.tick, /x=-26,y=150,z=22,dx=50,dy=50,dz=50/);
 });
 
 test('Region nur in Inselhöhe plus Kasten um die Rückweg-Plattform', () => {

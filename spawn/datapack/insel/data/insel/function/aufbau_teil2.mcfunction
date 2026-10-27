@@ -1,3 +1,7 @@
+# Früher gesetzte Bauteile entfernen
+fill -3 154 29 1 158 29 minecraft:air
+fill 1 155 30 1 155 30 minecraft:air
+fill -1 156 52 -1 156 52 minecraft:air
 # Spawn-Bau als Struktur (untere Nordwest-Ecke -26/89/22)
 gamerule random_tick_speed 0
 place template spawn:spark_insel -26 89 22
@@ -8,11 +12,9 @@ function insel:lichter
 # Infotafeln (Namensnennung des Erbauers)
 function insel:tafeln
 # Zusätzliche Bauteile
-fill -3 154 29 1 158 29 minecraft:obsidian
-fill -2 155 29 0 157 29 minecraft:nether_portal[axis=x]
+fill -1 156 47 -1 156 47 minecraft:ender_chest[facing=south]
 fill -9 153 29 -9 153 29 minecraft:light[level=15] keep
 fill -4 155 29 -4 155 29 minecraft:light[level=15] keep
-fill 1 155 29 1 155 29 minecraft:light[level=15] keep
 fill 6 154 29 6 154 29 minecraft:light[level=15] keep
 fill -4 155 34 -4 155 34 minecraft:light[level=15] keep
 fill 1 155 34 1 155 34 minecraft:light[level=15] keep

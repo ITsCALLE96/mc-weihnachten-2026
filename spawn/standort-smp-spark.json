@@ -48,58 +48,32 @@
   },
   "tafeln": [
     {
-      "x": -1,
-      "y": 156,
-      "z": 52,
-      "block": "minecraft:spruce_sign[rotation=8]",
+      "x": -9,
+      "y": 158,
+      "z": 39,
+      "block": "minecraft:spruce_wall_sign[facing=south]",
       "zeilen": [
+        "",
         "Spawn-Insel:",
         "SparkofPhoenix",
-        "",
-        ""
-      ]
-    },
-    {
-      "x": 1,
-      "y": 155,
-      "z": 30,
-      "block": "minecraft:spruce_sign[rotation=8]",
-      "zeilen": [
-        "",
-        "Zum Hub",
-        "(hindurchgehen)",
         ""
       ]
     }
   ],
   "bloecke": [
     {
-      "grund": "Hub-Portal am Ende des Nordwegs: Rahmen (serverwahl schickt Spieler im Inneren x -2..0, y 155..157, z 29 in den Hub)",
+      "grund": "Ender-Kiste in der Podestmitte: öffnet das serverwahl-Menü (Pascal 27.10.)",
       "von": [
-        -3,
-        154,
-        29
+        -1,
+        156,
+        47
       ],
       "bis": [
-        1,
-        158,
-        29
+        -1,
+        156,
+        47
       ],
-      "block": "minecraft:obsidian"
-    },
-    {
-      "grund": "Hub-Portal: Inneres",
-      "von": [
-        -2,
-        155,
-        29
-      ],
-      "bis": [
-        0,
-        157,
-        29
-      ],
-      "block": "minecraft:nether_portal[axis=x]"
+      "block": "minecraft:ender_chest[facing=south]"
     },
     {
       "grund": "Lichter oben auf der Insel (Raster 5, gegen Monster; der SMP hat keinen Spawnschutz-Plugin)",
@@ -132,20 +106,6 @@
     {
       "grund": "Licht oben",
       "von": [
-        1,
-        155,
-        29
-      ],
-      "bis": [
-        1,
-        155,
-        29
-      ],
-      "block": "minecraft:light[level=15] keep"
-    },
-    {
-      "grund": "Licht oben",
-      "von": [
         6,
         154,
         29
@@ -703,5 +663,62 @@
       ],
       "block": "minecraft:light[level=15] keep"
     }
-  ]
+  ],
+  "entfernen": [
+    {
+      "grund": "Hub-Portal am Nordweg (Pascal 27.10.: entfällt); place template stellt danach den Weg wieder her",
+      "von": [
+        -3,
+        154,
+        29
+      ],
+      "bis": [
+        1,
+        158,
+        29
+      ]
+    },
+    {
+      "grund": "Schild „Zum Hub“",
+      "von": [
+        1,
+        155,
+        30
+      ],
+      "bis": [
+        1,
+        155,
+        30
+      ]
+    },
+    {
+      "grund": "altes Spark-Schild vor dem Podest",
+      "von": [
+        -1,
+        156,
+        52
+      ],
+      "bis": [
+        -1,
+        156,
+        52
+      ]
+    }
+  ],
+  "obenBereich": {
+    "von": [
+      -26,
+      150,
+      22
+    ],
+    "bis": [
+      24,
+      200,
+      72
+    ]
+  },
+  "saettigung": {
+    "sekunden": 2,
+    "abklingTicks": 6000
+  }
 }
