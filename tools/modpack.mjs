@@ -1,7 +1,7 @@
 // Baut das optionale Modrinth-Pack (.mrpack) aus modpack/mods.json.
 // Holt je Mod die neueste Fabric-Version für die Minecraft-Version aus versions.json,
 // löst Pflicht-Abhängigkeiten auf und schreibt build/weihnachten-modpack.mrpack.
-// Aufruf: node tools/modpack.mjs
+// Aufruf: node tools/modpack.mjs [mods.json einer Testvariante]  (Variante → build/<dateiname>.mrpack)
 import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, copyFileSync, readdirSync } from 'node:fs';
 import { join, resolve, basename, relative, dirname } from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -74,8 +74,10 @@ async function neuesteVersion(projekt, minecraft, loader = 'fabric') {
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const repo = join(fileURLToPath(import.meta.url), '..', '..');
   const { minecraft } = JSON.parse(readFileSync(join(repo, 'versions.json'), 'utf8'));
+  const modsDatei = process.argv[2] ? resolve(process.argv[2]) : join(repo, 'modpack/mods.json');
   const { name, version, mods, aktivSobaldVerfuegbar = [], optional = [], shader = [], resourcepacks = [], lokal = [] } =
-    JSON.parse(readFileSync(join(repo, 'modpack/mods.json'), 'utf8'));
+    JSON.parse(readFileSync(modsDatei, 'utf8'));
+  const variante = process.argv[2] ? basename(modsDatei, '.json') : null; // Testvarianten überschreiben weder Pack noch STAND.md
   const eigene = lokaleMods(lokal, repo); // vor allen Downloads, damit ein fehlendes Jar sofort auffällt
 
   const loader = (await holeJson(`https://meta.fabricmc.net/v2/versions/loader/${minecraft}`))
@@ -134,7 +136,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   rmSync(tmp, { recursive: true, force: true });
   mkdirSync(tmp, { recursive: true });
   writeFileSync(join(tmp, 'modrinth.index.json'), JSON.stringify(index, null, 2));
-  const packDatei = join(repo, 'build/weihnachten-modpack.mrpack');
+  const packDatei = join(repo, `build/${variante ?? 'weihnachten-modpack'}.mrpack`);
   rmSync(packDatei, { force: true });
   const voreinstellungen = overrideDateien(join(repo, 'modpack/overrides'));
   for (const { quelle, ziel: z } of [...eigene, ...voreinstellungen]) {
@@ -143,7 +145,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   }
   execFileSync('C:/Windows/System32/tar.exe', ['--format', 'zip', '-cf', packDatei, 'modrinth.index.json',
     ...(eigene.length || voreinstellungen.length ? ['overrides'] : [])], { cwd: tmp });
-  writeFileSync(join(repo, 'modpack/STAND.md'),
+  if (!variante) writeFileSync(join(repo, 'modpack/STAND.md'),
     `# Stand des Modpacks\n\nMinecraft ${minecraft}, Fabric Loader ${loader}\n\n| Datei | Download |\n|---|---|\n` +
     index.files.map((f) => `| ${f.path} | ${f.downloads[0]} |`).join('\n') + '\n' +
     eigene.map((e) => `| ${e.ziel} | eigene Mod, liegt im Pack |`).join('\n') + (eigene.length ? '\n' : ''));
