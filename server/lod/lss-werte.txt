@@ -1,10 +1,10 @@
 # LSS 0.20.0 (Paper) – unsere Abweichungen vom Standard. Eingespielt mit konfig-setzen.py in die vom Plugin erzeugte Datei.
 # Begründung: server/lod-server.md
-# Fair Play: keine Höhlen-/Fernkarten in Xaero aus LOD-Daten (Clients ab LSS 0.19.0 halten sich daran)
-privacy.request_no_map_ingestion = true
+# Xaero-Karte darf aus LOD-Daten gefüllt werden wie bei CraftAttack 14 (Entscheidung Pascal 27.10. nach dem 10k-Test)
+privacy.request_no_map_ingestion = false
 # nur die per Chunky vorgenerierte Welt ausliefern, keine Generierung durchs Plugin
 generation.enabled = false
-# Bandbreite deckeln (MiB/s unkomprimiert, real weniger). Nach Upload-Messung anpassen
+# Bandbreite deckeln (MiB/s unkomprimiert, real weniger). Bleibt für VM200 so, bis der Upload gemessen ist (Testnetz lief mit 8/16)
 network.bandwidth.per_player_mib_per_second = 0.5
 network.bandwidth.global_mib_per_second = 2
 # Radius in Chunks (Welt ±5.000 Blöcke ≈ 313 Chunks)

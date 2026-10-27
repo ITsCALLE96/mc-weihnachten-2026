@@ -66,10 +66,10 @@ Vor dem Start einmal `/dhs pregen start world 0 0 5000` (baut die LODs nach Chun
 
 | Schlüssel | Standard | wir | Warum |
 |---|---|---|---|
-| `privacy.request_no_map_ingestion` | false | **true** | sonst füllt der Client Xaeros Karten (auch Höhlen) aus LOD-Daten und hebelt Fair Play aus. Clients ab 0.19.0 halten sich daran (Bitte, keine Sperre). Ausnahme pro Spieler: Recht `lss.map_ingestion` |
+| `privacy.request_no_map_ingestion` | false | **false** (Standard) | **Entscheidung Pascal 27.10.** nach dem 10k-Test: Xaeros Karte füllt sich aus den LOD-Daten wie bei CraftAttack 14. Vorher geplant war `true` (Fair Play). Im Client-Test prüfen, ob die Höhlenkarte dadurch gefüllt wird |
 | `generation.enabled` | true | **false** | nur die per Chunky vorgenerierte Welt, darüber hinaus nichts |
 | `network.bandwidth.per_player_mib_per_second` | 25 | **0.5** | unkomprimiert gezählt, real weniger |
-| `network.bandwidth.global_mib_per_second` | 75 | **2** | ≈ 16 Mbit/s unkomprimiert für alle zusammen; nach Upload-Messung und Test anpassen |
+| `network.bandwidth.global_mib_per_second` | 75 | **2** | ≈ 16 Mbit/s unkomprimiert für alle zusammen; bleibt für VM200, Pascal erhöht nach der Upload-Messung (Testnetz lief mit 8 / 16) |
 | `lod.distance.by_dimension` Overworld / Nether / End | 512 / 64 / 512 | **320 / 64 / 128** | Welt ±5.000 Blöcke ≈ 313 Chunks |
 | `far_players.mode`, `far_players.distance.max_blocks` | on, 2048 | on, 2048 | Spieler auf Entfernung sehen |
 
@@ -79,6 +79,11 @@ abgeschaltete Generierung sorgen dafür, dass außerhalb nichts kommt.
 
 ## Test im Testnetz (Plan Leitung 27.10.)
 
+**10k-Test 27.10. (Pascal, Leitung):** Chunky Radius 5.000 = **393.129 Chunks in 19:37 min** (~330 Chunks/s auf Pascals PC), Welt **3,8 GB**.
+Fernsicht „richtig gut weit“, ~500 FPS ohne / ~200 FPS mit Shader. LSS hat dem Client **über 1 GB** geliefert. Dafür lokal (nur `testnetz/smp`) Bandbreite 8 / 16 MiB/s und
+Map Ingestion an. Folge für VM200 mit 0,5 / 2 MiB/s: 1 GB braucht für einen Spieler allein ~35 min, am Starttag teilen sich alle die 2 MiB/s
+(25 × 1 GB ≈ 3,5 h, bis jeder die volle Fernsicht hat; die Nähe kommt zuerst). Nach der Upload-Messung den globalen Wert so hoch wie das Budget erlaubt (`kapazitaet.md` → Upload).
+
 **Lade-Test 27.10. 14:06 (Pascal, altes `lod-test.sh`):** LSS 0.20.0 lädt auf Paper 26.3-207 („LOD Server Support (Paper) enabled“), LOD-Store unter `<welt>/lss-lod/`,
 unsere Werte wurden in `lss-server-config.yaml` gesetzt. Abbruch danach am RCON-Helfer (Windows-Konsole und Unicode, behoben); die Vorgenerierung lief noch nicht.
 
@@ -86,14 +91,14 @@ Pascal führt `bash testnetz/neue-plugins.sh einrichten` aus (alle neuen Plugins
 2.000 × 2.000 um 0/0 vorgenerieren, stoppen. Dann `testnetz/start.cmd`, Client mit Testprofil `weihnachten-voxy-test` auf `localhost:25577`, Hub → SMP. Prüfen:
 
 1. Fernsicht: Landschaft bis zum Rand der 2.000 × 2.000 sichtbar, dahinter nichts
-2. Höhlenkarte in Xaero (Overworld) weiter gesperrt, Fernbereich nicht in die Karte übernommen
+2. Xaero-Karte füllt sich aus dem Fernbereich (Map Ingestion an, Entscheidung 27.10.), Höhlenkarte (Overworld) bleibt gesperrt
 3. Zweiter Spieler ≥ 500 Blöcke entfernt sichtbar (mit „Extend Far Player Draw Range“) – einmal **ohne** Shaderpack (die Option wirkt laut Tooltip nicht mit Shadern) und einmal mit Complementary (dort greift dessen eigene Fern-Darstellung). Die Client-Einstellung setzt die Modpack-Session nach dem ersten Start ins Testprofil
 4. Bandbreite: `python -I testnetz/rcon.py smp "lsslod stats"` während des ersten Ladens, dazu Task-Manager → Netzwerk (Loopback zählt nicht immer, dann Werte aus `lsslod stats`)
 5. Hub → SMP → Hub → SMP: LODs bleiben bzw. kommen wieder (Velocity)
 6. GrimAC: keine Alerts bei Mouse Tweaks, Client Sort, Freecam, Elytra
 7. Danach `bash testnetz/neue-plugins.sh entfernen` oder für 10.000 × 10.000 vormerken
 
-Erst nach diesem Test: 10.000 × 10.000 auf VM200 (Chunky Radius 5.000, `vorgenerierung.md`).
+Nächster Schritt: 10.000 × 10.000 auf VM200 (Chunky Radius 5.000, `vorgenerierung.md`, Dauer dort geschätzt).
 
 ## Velocity
 

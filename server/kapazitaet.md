@@ -97,6 +97,8 @@ Die Schlüsselnamen prüfe ich gegen die `paper-world-defaults.yml`, die Paper 2
 ### Chunk-Vorgenerierung
 
 **Pflicht vor dem Start** (Pascal, 24.10.). Ablauf, Dauer, Platz und Weltgrenze: `vorgenerierung.md`.
+**Gemessen 27.10. (Testnetz):** 10.000 × 10.000 = 393.129 Chunks in 19:37 min, **Welt 3,8 GB** (Nether r = 1.250 ~0,3 GB, End r = 2.000 ~0,2 GB dazu, geschätzt), plus LSS-LOD-Store.
+Auf VM200 geschätzt **~40–60 min** Overworld + ~10 min Nether/End.
 
 ### Profiler
 
@@ -126,7 +128,8 @@ Schätzung (Velocity-Kompression an, Sichtweite 8, Simple Voice Chat mit Opus ~2
 - Dazu Beitritts-Spitzen: Kommen alle zum Start gleichzeitig, dauert das Laden der 75 MB bei 20 Mbit/s freiem Upload ~30 s
 - **Summe Dauerlast: ~10–15 Mbit/s, Spitzen 25–30 Mbit/s**
 - **Server-LOD (entschieden 27.10.: LSS + Voxy, `lod-server.md`):** zusätzlich LOD-Daten, vor allem beim ersten Beitritt und auf Reisen. Menge unbekannt,
-  deshalb hart deckeln: global höchstens ~1/3 des gemessenen Uploads (Entwurf LSS: 2 MiB/s unkomprimiert gesamt, 0.5 pro Spieler). DH Support kann nur Anfragen begrenzen,
+  deshalb hart deckeln: global höchstens ~1/3 des gemessenen Uploads (LSS: 2 MiB/s unkomprimiert gesamt, 0.5 pro Spieler, bleibt bis zur Upload-Messung).
+  **10k-Test 27.10.:** Ein Client bekam über 1 GB LOD-Daten. Bei 2 MiB/s für alle dauert die volle Fernsicht am Starttag für 25 Spieler zusammen ~3,5 h. DH Support kann nur Anfragen begrenzen,
   keine Bandbreite. Am Starttag treten alle gleichzeitig bei, das ist der Engpass. Im Lasttest mit LOD-Plugin messen
 - **Bedrock (entschieden 27.10., `bedrock.md`):** Geyser läuft im Velocity-Prozess, Velocity deshalb mit **1,5 statt 1 GB** (RAM-Summe ~20,5–21,5 GB). Bedrock-Spieler brauchen ungefähr gleich viel Upload wie Java-Spieler
 
