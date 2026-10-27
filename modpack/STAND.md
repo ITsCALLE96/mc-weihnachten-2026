@@ -88,8 +88,8 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/bookshelfinspector-fabric-2.4+26.3.jar | https://cdn.modrinth.com/data/rOrXjyPb/versions/ShIoLf04/bookshelfinspector-fabric-2.4%2B26.3.jar |
 | mods/ArmorPoser-fabric-26.3-16.0.1.jar | https://cdn.modrinth.com/data/PFwYNrHb/versions/qmCAgvPA/ArmorPoser-fabric-26.3-16.0.1.jar |
 | mods/fancymenu_fabric_3.9.14_MC_26.3.jar | https://cdn.modrinth.com/data/Wq5SjeWM/versions/CBLbyHzH/fancymenu_fabric_3.9.14_MC_26.3.jar |
-| mods/melody_fabric_1.0.17_MC_26.3.jar | https://cdn.modrinth.com/data/CVT4pFB2/versions/gjl2Yw81/melody_fabric_1.0.17_MC_26.3.jar |
 | mods/konkrete_fabric_1.11.1_MC_26.3.jar | https://cdn.modrinth.com/data/J81TRJWm/versions/pQLA2B54/konkrete_fabric_1.11.1_MC_26.3.jar |
+| mods/melody_fabric_1.0.17_MC_26.3.jar | https://cdn.modrinth.com/data/CVT4pFB2/versions/gjl2Yw81/melody_fabric_1.0.17_MC_26.3.jar |
 | mods/voicechat-fabric-2.6.26+26.3.jar | https://cdn.modrinth.com/data/9eGKb6K1/versions/cZm965sW/voicechat-fabric-2.6.26%2B26.3.jar |
 | mods/simplevoiceanimations-fabric-1.3.1+26.3.jar | https://cdn.modrinth.com/data/F1oVAMoc/versions/UOevvLgE/simplevoiceanimations-fabric-1.3.1%2B26.3.jar |
 | mods/voicechat-names-26.3-1.0.2.jar | https://cdn.modrinth.com/data/AcHVdC8l/versions/nCgCmgzo/voicechat-names-26.3-1.0.2.jar |
