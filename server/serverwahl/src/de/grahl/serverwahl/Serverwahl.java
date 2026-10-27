@@ -340,9 +340,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         portalZuletzt.remove(e.getPlayer().getUniqueId());
     }
 
-    @EventHandler
+    /** Früh abfangen (LOWEST) und abbrechen: WorldGuard überspringt abgebrochene Klicks, so erscheint keine „you can't open that here“-Meldung */
+    @EventHandler(priority = org.bukkit.event.EventPriority.LOWEST)
     public void beiKlick(PlayerInteractEvent e) {
-        if (kisten.isEmpty() || e.getAction() != Action.RIGHT_CLICK_BLOCK || e.getHand() != EquipmentSlot.HAND) {
+        if (kisten.isEmpty() || e.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
         Block b = e.getClickedBlock();
@@ -353,8 +354,11 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         if (kategorie == null) {
             return;
         }
+        // beide Hände abbrechen (sonst meldet WorldGuard beim Zweithand-Klick), Menü nur einmal für die Haupthand
         e.setCancelled(true);
-        menueOeffnen(e.getPlayer(), kategorie);
+        if (e.getHand() == EquipmentSlot.HAND) {
+            menueOeffnen(e.getPlayer(), kategorie);
+        }
     }
 
     private boolean istOffen() {
