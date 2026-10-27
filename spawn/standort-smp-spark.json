@@ -1174,6 +1174,129 @@
       [
         "minecraft:paper[minecraft:item_model=\"weihnachten:lichterkrone\",minecraft:item_name={text:\"Krone aus Lichtern · Winter 2026\",color:\"gold\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 24\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true},minecraft:enchantment_glint_override=true,minecraft:rarity=\"epic\"] 1"
       ]
+    ],
+    "hinweisTexte": {
+      "kopf": [
+        [
+          "item.weihnachten.kalender.hinweis.kopf",
+          "Aufsetzen: in den Helm-Platz ziehen"
+        ]
+      ],
+      "deko": [
+        [
+          "item.weihnachten.kalender.hinweis.deko",
+          "Deko: in einen Rahmen hängen"
+        ],
+        [
+          "item.weihnachten.kalender.hinweis.deko2",
+          "oder einem Rüstungsständer aufsetzen"
+        ]
+      ],
+      "essen": [
+        [
+          "item.weihnachten.kalender.hinweis.essen",
+          "Essbar"
+        ]
+      ],
+      "schokolade": [
+        [
+          "item.weihnachten.kalender.hinweis.schokolade",
+          "Trinken: kurz Regeneration"
+        ]
+      ],
+      "werfen": [
+        [
+          "item.weihnachten.kalender.hinweis.werfen",
+          "Zum Werfen"
+        ]
+      ],
+      "feuerwerk": [
+        [
+          "item.weihnachten.kalender.hinweis.feuerwerk",
+          "Abfeuern: Rechtsklick in die Luft"
+        ]
+      ],
+      "andenken": [
+        [
+          "item.weihnachten.kalender.hinweis.andenken",
+          "Andenken an den Winter 2026"
+        ]
+      ]
+    },
+    "hinweise": [
+      [
+        "essen"
+      ],
+      [
+        "essen"
+      ],
+      [
+        "deko"
+      ],
+      [
+        "kopf"
+      ],
+      [
+        "essen"
+      ],
+      [
+        "deko"
+      ],
+      [
+        "schokolade"
+      ],
+      [
+        "deko"
+      ],
+      [
+        "kopf"
+      ],
+      [
+        "deko"
+      ],
+      [
+        "werfen"
+      ],
+      [
+        "deko"
+      ],
+      [
+        "essen"
+      ],
+      [
+        "kopf"
+      ],
+      [
+        "deko"
+      ],
+      [
+        "deko"
+      ],
+      [
+        "deko"
+      ],
+      [
+        "kopf"
+      ],
+      [
+        "deko"
+      ],
+      [
+        "feuerwerk"
+      ],
+      [
+        "deko"
+      ],
+      [
+        "kopf"
+      ],
+      [
+        "deko"
+      ],
+      [
+        "kopf",
+        "andenken"
+      ]
     ]
   }
 }

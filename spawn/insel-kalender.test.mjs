@@ -37,3 +37,10 @@ test('Tageswechsel durch serverwahl: Ankündigung nur bei neuem Tag, Merker #zul
   assert.match(f['kalender/neuer_tag'], /if score #tag insel_kalender > #zuletzt insel_kalender if score #tag insel_kalender matches 1\.\.24 run tellraw @a/);
   assert.match(f['kalender/load'], /#zuletzt insel_kalender = #tag insel_kalender/);
 });
+
+test('Belohnungen mit Gebrauchshinweis in der Lore (Übersetzungsschlüssel, deutscher fallback, grau kursiv)', () => {
+  assert.ok(f['kalender/tuer_4'].includes('color:"aqua"},{translate:"item.weihnachten.kalender.hinweis.kopf",fallback:"Aufsetzen: in den Helm-Platz ziehen",color:"gray",italic:true}'));
+  assert.ok(f['kalender/tuer_3'].includes('hinweis.deko2'));
+  assert.ok(f['kalender/tuer_24'].includes('hinweis.andenken'));
+  for (let n = 1; n <= 24; n++) assert.match(f[`kalender/tuer_${n}`], /kalender\.hinweis\./, `Türchen ${n}`);
+});

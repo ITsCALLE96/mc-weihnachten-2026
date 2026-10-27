@@ -60,11 +60,16 @@ function insel:kalender/anzeigen
     `execute if score #tag insel_kalender matches ${n}.. run data merge entity @e[type=text_display,tag=insel_kal_n_${n},limit=1] {text:${txt(String(n), OFFEN)}}\n` +
     `execute unless score #tag insel_kalender matches ${n}.. run data merge entity @e[type=text_display,tag=insel_kal_n_${n},limit=1] {text:${txt(String(n), ZU)}}`).join('\n') + '\n';
   f['kalender/klick'] = `# Als das Interaction-Entity: Türchen nach Tag, ausgeführt als der klickende Spieler\n${tueren.map(({ n }) => `execute if entity @s[tag=insel_kal_${n}] on target at @s run function insel:kalender/tuer_${n}`).join('\n')}\ndata remove entity @s interaction\n`;
+  // Kurze Gebrauchshinweise in der Lore (Pascal 27.10.): Übersetzungsschlüssel mit deutschem fallback, grau und kursiv, hinter der Kalenderzeile
+  const hinweis = (g, n) => {
+    const zeilen = (kal.hinweise?.[n - 1] ?? []).flatMap((art) => kal.hinweisTexte[art]).map(([schl, de]) => `{translate:"${schl}",fallback:"${de}",color:"gray",italic:true}`);
+    return zeilen.length ? g.replace(/(Winterkalender 2026 – Tag \d+",italic:false,color:"aqua"\})/, `$1,${zeilen.join(',')}`) : g;
+  };
   for (const { n, cx, cy } of tueren) {
     f[`kalender/tuer_${n}`] = `execute unless score #tag insel_kalender matches ${n}.. run return run tellraw @s ${txt(`Türchen ${n} öffnet am ${n}. Dezember.`, { color: 'gray' })}
 execute if entity @s[tag=insel_kal_hat_${n}] run return run tellraw @s ${txt(`Türchen ${n} hast du schon geöffnet.`, { color: 'gray' })}
 tag @s add insel_kal_hat_${n}
-${(belohnungen[n - 1] ?? []).map((g) => `give @s ${g}`).join('\n')}
+${(belohnungen[n - 1] ?? []).map((g) => `give @s ${hinweis(g, n)}`).join('\n')}
 tellraw @s [${txt(`Türchen ${n} `, { color: 'gold', bold: true })},${txt('ist offen – frohe Weihnachtszeit!', { color: 'white' })}]
 playsound minecraft:entity.player.levelup master @s ~ ~ ~ 0.8 1.6
 particle minecraft:firework ${cx} ${cy + 0.45} ${wz - 0.3} 0.25 0.25 0.05 0.03 25 normal @s
