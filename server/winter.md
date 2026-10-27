@@ -48,7 +48,7 @@ Vanilla: Regen 0,5–1 Spieltag, dazwischen 0,5–7,5 Tage klar. Unser Vorschlag
 Wetterwechsel die Dauer (der Vanilla-Zyklus läuft weiter, `advance_weather` bleibt an), Gewitter bleibt Vanilla. `aktiv: false` = wieder Vanilla.
 Bei 25 Spielern und 5–8 min alle ~50 min ist jeder Spielabend 2–3 Mal verschneit. Mehr Schnee heißt auch mehr Schneedecke zum Aufräumen.
 
-## Aufräumen am Season-Ende (Vorschlag, noch nicht gebaut)
+## Aufräumen am Season-Ende (Leitung 27.10.: eigenes Kommando bauen, nach dem Go-Live 05.12., fertig vor Season-Ende Anfang Januar)
 
 Reihenfolge: Datapack raus + Neustart (Temperaturen wieder normal), dann aufräumen, dann LSS-Store invalidieren.
 
