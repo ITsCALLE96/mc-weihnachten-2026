@@ -92,3 +92,16 @@ test('Gekaufter Bau: eigenes Biom, Infotafel gewachst, Zufallsticken beim Einfü
   assert.match(regionen, /vine-growth: deny/);
   assert.deepEqual(ladeKasten(kf), [-152, -152, 88, 88]); // 16 × 16 = 256 Chunks, Grenze von forceload
 });
+
+test('Spark-Insel auf dem SMP: Struktur, Plattform, Tafel, Teleport, Lichter nachträglich', () => {
+  const ks = JSON.parse(readFileSync(new URL('./standort-smp-spark.json', import.meta.url)));
+  const { funktionen: f } = dateien(ks);
+  assert.match(f.aufbau_teil2, /^place template spawn:spark_insel -26 89 22$/m);
+  assert.match(f.aufbau_teil2, /^setworldspawn 0 156 48 0 0$/m);
+  assert.ok(f.tafeln.includes('messages:["Spawn-Insel:","SparkofPhoenix","",""]'));
+  assert.match(f.erstbesuch, /^tp @s 0\.5 156 48\.5 0 0$/m);
+  assert.match(f.plattform, /^setblock 0 65 48 minecraft:pearlescent_froglight$/m);
+  assert.match(f.lichter_fertig, /^forceload add /m);
+  assert.match(f.lichter_fertig2, /^function insel:lichter\n/);
+  assert.equal(f.schliessen, undefined); // keine Eröffnung auf dem SMP (läuft im Hub)
+});

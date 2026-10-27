@@ -1,0 +1,18 @@
+{
+  "beschreibung": "SMP (Testnetz, Zufalls-Seed): Spawn-Insel von SparkofPhoenix (Nitrado-Paket „Craft Attack Experience“, lokal in spawn/quellen/nitrado/), verschoben um +1404/-136/+102, Podest auf dem Weltspawn",
+  "spawn": { "x": 0, "y": 156, "z": 48, "yaw": 0, "pitch": 0 },
+  "spawnTeleport": true,
+  "oval": { "x": -2, "z": 47, "a": 30, "b": 30 },
+  "plattform": { "x": 0, "y": 65, "z": 48, "radius": 4, "stil": "stein" },
+  "struktur": {
+    "name": "spawn:spark_insel",
+    "ursprung": [-26, 89, 22],
+    "groesse": [51, 95, 51],
+    "quelle": "spawn/quellen/nitrado/spark-insel.schem"
+  },
+  "weltgrenze": { "x": 0, "z": 48, "breite": 10000 },
+  "lichter": { "raster": 8, "unterkante": 89 },
+  "tafeln": [
+    { "x": -1, "y": 156, "z": 52, "block": "minecraft:spruce_sign[rotation=8]", "zeilen": ["Spawn-Insel:", "SparkofPhoenix", "", ""] }
+  ]
+}

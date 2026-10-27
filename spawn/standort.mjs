@@ -6,7 +6,7 @@
 //   node spawn/standort.mjs lichter <konfig.json> <welt> [ausgabeordner]
 //                                                                 → lichter.mcfunction aus dem fertig aufgebauten Gelände (Oval, nur Boden)
 // Konfig-Felder siehe spawn/standort-testserver.json und spawn/AUFBAU.md.
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -212,6 +212,11 @@ execute unless score #geladen insel_tp matches 1 run schedule function insel:auf
     k.struktur && 'gamerule random_tick_speed 3',
     `say Spawn eingerichtet: ${k.struktur ? 'Bau, ' : ''}${p ? 'Plattform, ' : ''}${k.lichter !== null ? 'Lichter, ' : ''}Weltspawn ${s.x}/${s.y}/${s.z}, Weltgrenze${e ? ', geschlossen' : ''} (Nether/End per Konsole sperren)`,
   ].filter(Boolean).join('\n') + '\n';
+  if (k.lichter !== null) {
+    // Lichter nachträglich (nach „standort.mjs lichter“) in einer vorhandenen Welt setzen: Chunks laden, setzen, freigeben
+    f.lichter_fertig = `forceload add ${lx1} ${lz1} ${lx2} ${lz2}\nschedule function insel:lichter_fertig2 60t\n`;
+    f.lichter_fertig2 = `function insel:lichter\nforceload remove ${lx1} ${lz1} ${lx2} ${lz2}\nsay Lichter gesetzt\n`;
+  }
   if (k.spawnTeleport) {
     // Spawn unter einem Dach (z.B. Baumkrone): 26.3 setzt Spieler sonst auf den obersten Block der Spalte. Deshalb beim ersten Betreten
     // der Welt und nach dem Tod ohne eigenen Respawnpunkt (Bett, Ankerstein) per Datapack auf den geplanten Spawn.
@@ -285,6 +290,8 @@ if (process.argv[1]?.replace(/\\/g, '/').endsWith('spawn/standort.mjs')) {
     mkdirSync(fn, { recursive: true }); mkdirSync(tags, { recursive: true }); mkdirSync(join(aus, 'worldguard'), { recursive: true });
     const { funktionen, regionen } = dateien(k);
     for (const [n, t] of Object.entries(funktionen)) writeFileSync(join(fn, `${n}.mcfunction`), t);
+    // Lichter entstehen erst aus dem fertigen Gelände („lichter“); bis dahin ein leerer Platzhalter, sonst lädt insel:aufbau_teil2 nicht
+    if (k.lichter !== null && !existsSync(join(fn, 'lichter.mcfunction'))) writeFileSync(join(fn, 'lichter.mcfunction'), '# Lichter folgen: node spawn/standort.mjs lichter <konfig> <welt>\n');
     writeFileSync(join(tags, 'tick.json'), '{ "values": ["insel:tick"] }\n');
     writeFileSync(join(tags, 'load.json'), '{ "values": ["insel:load"] }\n');
     writeFileSync(join(aus, 'datapack/insel/pack.mcmeta'), JSON.stringify({ pack: { description: 'Spawn-Technik: Rückweg-Plattform, Sättigung, Lichter, Aufbau', min_format: [121, 0], max_format: [121, 0] } }, null, 2) + '\n');
