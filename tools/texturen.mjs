@@ -6,7 +6,7 @@ import { readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync } from 'no
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import pngjs from 'pngjs';
-import { DEKO, KALENDER, KALENDER_TEXTE, palette as dekoPalette, modell as dekoModell } from './deko.mjs';
+import { DEKO, KALENDER, KALENDER_TEXTE, FARBEN, palette as dekoPalette, modell as dekoModell } from './deko.mjs';
 import { frostOben, frostSeite, winterFarbkarte, weihnachtsmuetze, weihnachtsschal, tierschal, TIER_SCHAL } from './winter.mjs';
 
 const { PNG } = pngjs;
@@ -304,6 +304,19 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   schreibePng(ziel('weihnachten/textures/entity/equipment/humanoid/weihnachtsmuetze.png'), muetzeAusruestung());
   for (const [datei, i] of [['de_de', 0], ['en_us', 1]]) {
     schreibeJson(ziel(`winterkalender/lang/${datei}.json`), Object.fromEntries(Object.entries(KALENDER_TEXTE).map(([k, t]) => [k, t[i]])));
+  }
+  // Weihnachtsplatten: Vanilla-Platte „13“ mit eigenem Etikett. Bild im Basis-Pack, damit gepresste Platten
+  // nach der Saison nicht lila-schwarz werden; der Ton liegt im Winterteil (tools/winter_assets.py).
+  for (const { id, etikett: [haupt, akzent] } of JSON.parse(readFileSync(join(repo, 'tools/platten.json'), 'utf8'))) {
+    const png = PNG.sync.read(readFileSync(mc('item/music_disc_13.png')));
+    for (let i = 0; i < png.data.length; i += 4) {
+      const rgb = (png.data[i] << 16) | (png.data[i + 1] << 8) | png.data[i + 2];
+      if (rgb === 0xffd800) png.data.set(FARBEN[haupt], i);
+      else if (rgb === 0xffffff) png.data.set(FARBEN[akzent], i);
+    }
+    schreibePng(ziel(`weihnachten/textures/item/platte/${id}.png`), png);
+    schreibeJson(ziel(`weihnachten/models/item/platte/${id}.json`), { parent: 'minecraft:item/generated', textures: { layer0: `weihnachten:item/platte/${id}` } });
+    schreibeJson(ziel(`weihnachten/items/${id}.json`), { model: { type: 'minecraft:model', model: `weihnachten:item/platte/${id}` } });
   }
   schreibeJson(ziel('weihnachten/equipment/weihnachtsmuetze.json'), {
     layers: { humanoid: [{ texture: 'weihnachten:weihnachtsmuetze' }] },

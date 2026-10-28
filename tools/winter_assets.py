@@ -3,9 +3,14 @@
 # build/weihnachten-rp-ohne-winter.zip sowie build/weihnachten-winter-freiwillig.zip (ohne quellen/ und *.md).
 # Quellen landen in resourcepack/quellen/ (git-ignoriert), Ergebnisse unter resourcepack/assets/.
 # Musik war bis 24.10. dabei und ist raus: die meisten Spieler hören eigene Musik.
-# Aufruf: uv run --with pillow python tools/winter_assets.py
+# Seit 28.10.: Weihnachtsplatten (tools/platten.json, Kevin MacLeod, CC BY 4.0) als Ton im Winterteil,
+# jukebox_song-Einträge für das Server-Datapack landen in build/platten/.
+# Aufruf: uv run --with pillow --with imageio-ffmpeg python tools/winter_assets.py
 import hashlib
 import json
+import re
+import shutil
+import subprocess
 import time
 import urllib.error
 import urllib.parse
@@ -13,6 +18,7 @@ import urllib.request
 import zipfile
 from pathlib import Path
 
+import imageio_ffmpeg
 from PIL import Image
 
 REPO = Path(__file__).resolve().parent.parent
@@ -86,6 +92,55 @@ def hole(datei, breite=None):
 RAND = {'schloss': 0.15, 'repin': 0.08}
 
 
+def hole_platte(datei):
+    ziel = QUELLEN / 'musik' / datei
+    if not ziel.exists():
+        ziel.parent.mkdir(parents=True, exist_ok=True)
+        url = 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/' + urllib.parse.quote(datei)
+        anfrage = urllib.request.Request(url, headers={'User-Agent': 'ITsCALLE96/mc-weihnachten-2026 (Resourcepack-Bau)'})
+        with urllib.request.urlopen(anfrage) as antwort:
+            ziel.write_bytes(antwort.read())
+    return ziel
+
+
+def namensnennung(p):
+    return f'„{p["titel"]}“ – Kevin MacLeod (incompetech.com), CC BY 4.0'
+
+
+def baue_platten():
+    # Mono-Vorbis mit ~56 kbit/s: 9 Lieder ≈ 25 min ≈ 11 MB; gestreamt, damit nichts vorab im Speicher liegt.
+    ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
+    platten = json.loads((REPO / 'tools/platten.json').read_text('utf8'))
+    ordner = WINTER / 'assets/weihnachten/sounds/platte'
+    ordner.mkdir(parents=True, exist_ok=True)
+    songs = REPO / 'build/platten/data/weihnachten/jukebox_song'
+    shutil.rmtree(REPO / 'build/platten', ignore_errors=True)
+    songs.mkdir(parents=True)
+    ereignisse, credits = {}, ['Weihnachtsplatten (Winterteil des Resourcepacks)', '']
+    for nr, p in enumerate(platten, 1):
+        ogg = QUELLEN / 'musik' / f'{p["id"]}.ogg'
+        if not ogg.exists():
+            subprocess.run([ffmpeg, '-y', '-loglevel', 'error', '-i', str(hole_platte(p['datei'])), '-vn', '-ac', '1',
+                            '-ar', '44100', '-c:a', 'libvorbis', '-b:a', '56k', str(ogg)], check=True)
+        shutil.copyfile(ogg, ordner / f'{p["id"]}.ogg')
+        info = subprocess.run([ffmpeg, '-i', str(ogg)], capture_output=True, text=True).stderr
+        h, m, sek = re.search(r'Duration: (\d+):(\d+):([\d.]+)', info).groups()
+        laenge = round(int(h) * 3600 + int(m) * 60 + float(sek), 1)
+        ereignisse[p['id']] = {'sounds': [{'name': f'weihnachten:platte/{p["id"]}', 'stream': True}]}
+        (songs / f'{p["id"]}.json').write_text(json.dumps({
+            'sound_event': f'weihnachten:{p["id"]}',
+            'description': {'text': namensnennung(p)},
+            'length_in_seconds': laenge,
+            'comparator_output': nr,
+        }, ensure_ascii=False, indent=2) + '\n', 'utf8')
+        credits.append(f'{namensnennung(p)} – https://incompetech.com (ISRC {p["isrc"]})')
+    (WINTER / 'assets/weihnachten/sounds.json').write_text(json.dumps(ereignisse, indent=2) + '\n', 'utf8')
+    credits += ['', 'Lizenz: Creative Commons Attribution 4.0 – http://creativecommons.org/licenses/by/4.0/',
+                'Die Lieder selbst sind gemeinfrei; Arrangement und Aufnahme von Kevin MacLeod.']
+    (WINTER / 'CREDITS.txt').write_text('\n'.join(credits) + '\n', 'utf8')
+    print(f'{len(platten)} Platten, {sum(f.stat().st_size for f in ordner.iterdir()):,} Bytes Ton')
+
+
 def zuschneiden(bild, verhaeltnis, rand=0.03):
     b, h = bild.size
     bild = bild.crop((round(b * rand), round(h * rand), round(b * (1 - rand)), round(h * (1 - rand))))
@@ -107,6 +162,7 @@ def main():
         bild.save(ordner / f'{name}.png', optimize=True)
 
     print(f'{len(GEMAELDE)} Gemälde')
+    baue_platten()
     # Pflicht-Pack mit Winterteil (Saison), dieselbe Basis ohne Winterteil (nach der Saison)
     # und der Winterteil allein als freiwilliges Client-Pack zum Selbst-Einschalten.
     beschreibung = {'pack': {**json.loads((RP / 'pack.mcmeta').read_text('utf8'))['pack'], 'description': '❄ Weihnachten 2026 (freiwillig)'}}

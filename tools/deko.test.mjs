@@ -33,3 +33,14 @@ test('Modell verweist auf die Palette', () => {
 test('Keine Deko-ID kollidiert mit den Sprite-Items (lebkuchen, lichterkette, weihnachtsmuetze)', () => {
   for (const id of ['lebkuchen', 'lichterkette', 'weihnachtsmuetze']) assert.ok(!(id in ALLE), id);
 });
+
+test('Weihnachtsplatten: eindeutige IDs, Etikettfarben aus der Palette, höchstens 15 (Komparator)', async () => {
+  const { readFileSync } = await import('node:fs');
+  const platten = JSON.parse(readFileSync(new URL('./platten.json', import.meta.url), 'utf8'));
+  assert.ok(platten.length <= 15);
+  assert.equal(new Set(platten.map((p) => p.id)).size, platten.length);
+  for (const p of platten) {
+    assert.ok(!(p.id in ALLE), p.id);
+    for (const f of p.etikett) assert.ok(f in FARBEN, `${p.id}: ${f}`);
+  }
+});

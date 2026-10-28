@@ -1,0 +1,74 @@
+{
+  "platte_jingle_bells": {
+    "sounds": [
+      {
+        "name": "weihnachten:platte/platte_jingle_bells",
+        "stream": true
+      }
+    ]
+  },
+  "platte_we_wish": {
+    "sounds": [
+      {
+        "name": "weihnachten:platte/platte_we_wish",
+        "stream": true
+      }
+    ]
+  },
+  "platte_deck_the_halls": {
+    "sounds": [
+      {
+        "name": "weihnachten:platte/platte_deck_the_halls",
+        "stream": true
+      }
+    ]
+  },
+  "platte_stille_nacht": {
+    "sounds": [
+      {
+        "name": "weihnachten:platte/platte_stille_nacht",
+        "stream": true
+      }
+    ]
+  },
+  "platte_zuckerfee": {
+    "sounds": [
+      {
+        "name": "weihnachten:platte/platte_zuckerfee",
+        "stream": true
+      }
+    ]
+  },
+  "platte_midnight_clear": {
+    "sounds": [
+      {
+        "name": "weihnachten:platte/platte_midnight_clear",
+        "stream": true
+      }
+    ]
+  },
+  "platte_holy_night": {
+    "sounds": [
+      {
+        "name": "weihnachten:platte/platte_holy_night",
+        "stream": true
+      }
+    ]
+  },
+  "platte_adeste": {
+    "sounds": [
+      {
+        "name": "weihnachten:platte/platte_adeste",
+        "stream": true
+      }
+    ]
+  },
+  "platte_tannenbaum": {
+    "sounds": [
+      {
+        "name": "weihnachten:platte/platte_tannenbaum",
+        "stream": true
+      }
+    ]
+  }
+}

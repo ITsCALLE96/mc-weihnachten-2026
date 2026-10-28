@@ -1,0 +1,11 @@
+[
+  { "id": "platte_jingle_bells", "titel": "Jingle Bells", "datei": "Jingle Bells.mp3", "isrc": "USUAN1100889", "etikett": ["rot", "weiss"] },
+  { "id": "platte_we_wish", "titel": "We Wish you a Merry Christmas", "datei": "We Wish You.mp3", "isrc": "USUAN1100369", "etikett": ["gruen", "gold"] },
+  { "id": "platte_deck_the_halls", "titel": "Deck the Halls B", "datei": "Deck the Halls B.mp3", "isrc": "USUAN1100368", "etikett": ["gold", "rot"] },
+  { "id": "platte_stille_nacht", "titel": "Silent Night", "datei": "Silent Night.mp3", "isrc": "USUAN1100075", "etikett": ["blau", "weiss"] },
+  { "id": "platte_zuckerfee", "titel": "Dance of the Sugar Plum Fairies", "datei": "Dance Of The Sugar Plum Fairies.mp3", "isrc": "USUAN1100270", "etikett": ["rosa", "weiss"] },
+  { "id": "platte_midnight_clear", "titel": "It Came Upon a Midnight Clear", "datei": "It Came Upon a Midnight Clear.mp3", "isrc": "USUAN1100191", "etikett": ["eisblau", "blau"] },
+  { "id": "platte_holy_night", "titel": "Oh Holy Night", "datei": "Oh Holy Night.mp3", "isrc": "USUAN1100127", "etikett": ["lila", "gold"] },
+  { "id": "platte_adeste", "titel": "Adeste Fideles Waltz", "datei": "Adeste Fideles Waltz.mp3", "isrc": "USUAN2100021", "etikett": ["weiss", "rot"] },
+  { "id": "platte_tannenbaum", "titel": "Oh, Christmas Tree", "datei": "Oh Xmas.mp3", "isrc": "USUAN1100366", "etikett": ["gruen_dunkel", "weiss"] }
+]
