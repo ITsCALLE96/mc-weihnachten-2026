@@ -1,0 +1,18 @@
+{
+  "criteria": {
+    "auspacken": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "minecraft:paper",
+          "predicates": {
+            "minecraft:custom_data": "{winterkalender:\"geschenk\"}"
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "insel:kalender/geschenk"
+  }
+}

@@ -89,15 +89,22 @@ particle minecraft:firework ${cx} ${cy + 0.45} ${wz - 0.3} 0.25 0.25 0.05 0.03 2
       criteria: { auspacken: { trigger: 'minecraft:consume_item', conditions: { item: { items: 'minecraft:paper', predicates: { 'minecraft:custom_data': '{winterkalender:"geschenk"}' } } } } },
       rewards: { function: 'insel:kalender/geschenk' },
     }, null, 2) + '\n';
-    const eintrag = ([id, anzahl]) => ({
-      ...(id.startsWith('#') ? { type: 'minecraft:tag', name: id.slice(1), expand: true } : { type: 'minecraft:item', name: id }),
-      ...(anzahl > 1 ? { functions: [{ function: 'minecraft:set_count', count: anzahl }] } : {}),
-    });
-    dateien['data/insel/loot_table/kalender/geschenk.json'] = JSON.stringify({
-      type: 'minecraft:command',
-      pools: [{ rolls: 1, entries: kal.geschenk.gewinne.map((g) => (g.length === 1 ? eintrag(g[0]) : { type: 'minecraft:group', children: g.map(eintrag) })) }],
-    }, null, 2) + '\n';
-    f['kalender/geschenk'] = `# Geschenk aus Türchen 19 ausgepackt (Fortschritt insel:kalender/geschenk)\nadvancement revoke @s only insel:kalender/geschenk\nloot give @s loot insel:kalender/geschenk\nplaysound minecraft:entity.player.levelup master @s ~ ~ ~ 0.6 1.8\nparticle minecraft:happy_villager ~ ~1.2 ~ 0.4 0.4 0.4 0 15 normal @s\ntellraw @s ${txt('Frohe Weihnachten! Dein Geschenk ist ausgepackt.', { color: 'gold' })}\n`;
+    // Zufall per random statt Beutetabelle mit Gruppen (Format in 26.3 geändert); nur ein Item-Tag (z. B. Musikplatten) braucht eine Beutetabelle,
+    // Format wie die Creeper-Tabelle aus 26.3: Tag-Eintrag mit items:"#…"
+    const geben = ([id, anzahl], i) => {
+      if (!id.startsWith('#')) return `give @s ${id} ${anzahl}`;
+      dateien[`data/insel/loot_table/kalender/geschenk_${i}.json`] = JSON.stringify({ type: 'minecraft:command', pools: [{ rolls: 1, entries: [{ type: 'minecraft:tag', expand: true, items: id }] }] }, null, 2) + '\n';
+      return `loot give @s loot insel:kalender/geschenk_${i}`;
+    };
+    const gew = kal.geschenk.gewinne;
+    f['kalender/geschenk'] = `# Geschenk aus Türchen 19 ausgepackt (Fortschritt insel:kalender/geschenk): ein Zufallsgewinn
+advancement revoke @s only insel:kalender/geschenk
+execute store result score #geschenk insel_kalender run random value 1..${gew.length}
+${gew.flatMap((g, i) => g.map((e) => `execute if score #geschenk insel_kalender matches ${i + 1} run ${geben(e, i + 1)}`)).join('\n')}
+playsound minecraft:entity.player.levelup master @s ~ ~ ~ 0.6 1.8
+particle minecraft:happy_villager ~ ~1.2 ~ 0.4 0.4 0.4 0 15 normal @s
+tellraw @s ${txt('Frohe Weihnachten! Dein Geschenk ist ausgepackt.', { color: 'gold' })}
+`;
   }
   return { funktionen: f, dateien };
 }

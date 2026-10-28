@@ -65,6 +65,7 @@ test('Steigerung 28.10.: Zugaben je Woche, Essen je 64 mit stärkerer Wirkung, F
   assert.deepEqual(JSON.parse(d['data/minecraft/tags/item/freeze_immune_wearables.json']).values, ['minecraft:paper']);
   assert.match(gives(19)[0], /custom_data=\{winterkalender:"geschenk"\}.*consumable=/);
   assert.equal(JSON.parse(d['data/insel/advancement/kalender/geschenk.json']).rewards.function, 'insel:kalender/geschenk');
-  assert.equal(JSON.parse(d['data/insel/loot_table/kalender/geschenk.json']).pools[0].entries.length, 5);
-  assert.match(f['kalender/geschenk'], /^advancement revoke @s only insel:kalender\/geschenk\nloot give @s loot insel:kalender\/geschenk$/m);
+  assert.equal(JSON.parse(d['data/insel/loot_table/kalender/geschenk_5.json']).pools[0].entries[0].items, '#minecraft:creeper_drop_music_discs');
+  assert.match(f['kalender/geschenk'], /random value 1\.\.5\n.*matches 1 run give @s minecraft:golden_apple 2$/m);
+  assert.match(f['kalender/geschenk'], /matches 3 run give @s minecraft:saddle 1$/m);
 });
