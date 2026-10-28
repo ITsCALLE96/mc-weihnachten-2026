@@ -56,3 +56,26 @@ test('Paket 4: Berufs-Outfits und Zombie-Dorfbewohner laufen durch', async () =>
   assert.doesNotThrow(() => zombieDorf(leer(64, 64), 1));
   for (const teile of Object.values(DORF_EMF)) assert.ok(jem(teile).models.every((m) => m.boxes.every((b) => b.coordinates.every(Number.isFinite))));
 });
+
+// Nachbau der EMF-Rechnung (EMFPartData.prepare, EMFBoxData.prepare, EMFModelPartCustom: Kind des Vanilla-Teils mit
+// Position = translate): Ergebnis muss genau der gewollte Quader im Teil-Raum sein (y nach unten).
+function emfImTeilraum(modell) {
+  const inv = [...'xyz'].map((a) => (modell.invertAxis ?? '').includes(a));
+  const t = modell.translate.map((v, i) => (inv[i] ? -v : v));
+  return modell.boxes.map(({ coordinates: c }) => [0, 1, 2].map((i) => (inv[i] ? -c[i] - c[i + 3] : c[i]) + t[i]));
+}
+test('EMF-Kalibrierung: Quader landen nach EMF-Rechnung genau dort, wo sie gemeint sind (Mütze oben, nicht als Bart)', async () => {
+  const { BOSS_EMF } = await import('./bosse.mjs'), { MONSTER2_EMF } = await import('./monster2.mjs');
+  const { TIERE3_EMF } = await import('./tiere.mjs'), { DORF_EMF } = await import('./dorf.mjs');
+  // Gegenprobe Vanilla-Kopf: addBox(-4, -8, -4, 8, 8, 8) am Pivot 0 0 0
+  assert.deepEqual(emfImTeilraum(jem({ head: { pivot: [0, 0, 0], quader: [[[-4, -8, -4], [8, 8, 8], 'rot']] } }).models[0]), [[-4, -8, -4]]);
+  for (const teile of [EMF, BOSS_EMF, MONSTER2_EMF, TIERE3_EMF, DORF_EMF].flatMap(Object.values)) {
+    const j = jem(teile);
+    Object.values(teile).forEach(({ quader }, k) => {
+      emfImTeilraum(j.models[k]).forEach((p, n) => p.forEach((v, i) => assert.ok(Math.abs(v - quader[n][0][i]) < 1e-6, `${j.models[k].part} Quader ${n}`)));
+    });
+  }
+  // Zipfelmütze des Zombies sitzt über dem Kopf (Kopf-Oberkante y −8, y nach unten)
+  const zombie = emfImTeilraum(jem(EMF.zombie).models[0]);
+  assert.ok(zombie.slice(0, 6).every(([, y]) => y < -8));
+});

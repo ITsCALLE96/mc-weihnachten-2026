@@ -351,7 +351,9 @@ export function jem(teile) {
   return {
     credit: 'Weihnachtsprojekt 2026 – eigene Zusätze (tools/mobs.mjs)',
     models: Object.entries(teile).map(([teil, { pivot: [px, py, pz], quader }]) => ({
-      part: teil, id: `weihnachten_${teil}`, attach: true, texture: EMF_TEXTUR, textureSize: [16, 16],
+      // invertAxis „xy“ ist Pflicht: EMF spiegelt y (und x) nur mit dieser Angabe zurück in den Modellraum
+      // (EMFPartData/EMFBoxData.prepare) – ohne sie hingen alle Mützen gespiegelt unter dem Kinn (Mob-Zoo 28.10.).
+      part: teil, id: `weihnachten_${teil}`, attach: true, invertAxis: 'xy', texture: EMF_TEXTUR, textureSize: [16, 16],
       translate: [0, r(-(24 - py)), r(-pz)].map((v, i) => (i === 0 ? r(px) : v)),
       boxes: quader.map(([[x, y, z], [w, h, d], farbe]) => {
         const i = PALETTE.indexOf(farbe); if (i < 0) throw new Error(`EMF-Farbe ${farbe}`);

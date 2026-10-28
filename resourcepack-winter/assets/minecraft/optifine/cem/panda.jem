@@ -5,6 +5,7 @@
       "part": "head",
       "id": "weihnachten_head",
       "attach": true,
+      "invertAxis": "xy",
       "texture": "textures/entity/weihnachten/emf_palette.png",
       "textureSize": [
         16,
