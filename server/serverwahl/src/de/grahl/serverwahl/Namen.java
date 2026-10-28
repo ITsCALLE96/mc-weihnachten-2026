@@ -178,6 +178,15 @@ final class Namen implements Listener, CommandExecutor {
         t.addEntry(p.getName());
     }
 
+    /** Nick, sonst Kontoname (für Anzeigen wie die Spender-Tafel) */
+    String nickOderName(Player p) {
+        if (!aktiv) {
+            return p.getName();
+        }
+        String nick = lp.getPlayerAdapter(Player.class).getMetaData(p).getMetaValue(META_NICK);
+        return nick == null ? p.getName() : nick;
+    }
+
     @EventHandler
     public void beimBeitritt(PlayerJoinEvent e) {
         aktualisieren(e.getPlayer());

@@ -174,3 +174,13 @@ discord-whitelist:
   datei: /opt/mc-weihnachten/whitelist/discord.json
   floodgate-praefix: "."
   kick-text: "Du stehst nicht mehr auf der Whitelist (Discord-Anmeldung bzw. Rolle fehlt)."
+# Weihnachtsinsel-Mission (Pascal 28.10., Bau/Wunschlisten Spawn & Welt in spawn/mission.json, kopiert nach plugins/Serverwahl/mission.json).
+# Stufen ohne Datumsbindung: voll → Bau, sofort nächste Stufe; nach der letzten sofort die Feier. Ziel = Grundmenge × aktive Spieler (aktive-tage).
+# Je geschaffter Stufe bekommt jeder Spieler traenke-je-stufe Tränke (Nachlieferung beim Login, Abholen an der Kiste). Stand: mission-stand.yml
+# /mission [abholen] · /serverwahl mission status | stufe <n> | ziel <wunsch> <menge> | weiter | neu-laden | vorbereiten
+mission:
+  aktiv: true
+  datei: mission.json
+  zeitzone: Europe/Berlin
+  aktive-tage: 7
+  traenke-je-stufe: 3

@@ -11,14 +11,20 @@ commands:
     aliases: [lobby]
     permission: serverwahl.hub
   serverwahl:
-    description: "serverwahl reload | menue <kategorie> | oeffnen | schliessen | status | feuerwerk test [sek]|stopp|status | termin liste|test <name> [sek]|zuruecksetzen <name> | rabatt an|aus|auto"
-    usage: "/serverwahl reload | menue <kategorie> | oeffnen | schliessen | status | feuerwerk test [sek]|stopp|status | termin liste|test <name> [sek]|zuruecksetzen <name> | rabatt an|aus|auto"
+    description: "serverwahl reload | menue <kategorie> | oeffnen | schliessen | status | feuerwerk test [sek]|stopp|status | termin liste|test <name> [sek]|zuruecksetzen <name> | rabatt an|aus|auto | mission status|stufe <n>|ziel <wunsch> <menge>|weiter|neu-laden|vorbereiten | whitelist"
+    usage: "/serverwahl reload | menue <kategorie> | oeffnen | schliessen | status | feuerwerk test [sek]|stopp|status | termin liste|test <name> [sek]|zuruecksetzen <name> | rabatt an|aus|auto | mission status|stufe <n>|ziel <wunsch> <menge>|weiter|neu-laden|vorbereiten | whitelist"
     permission: serverwahl.admin
   nick:
     description: "Eigenen Nickname setzen: /nick <name> | /nick reset (Moderation: /nick info <name>, /nick reset <spieler>)"
     usage: "/nick <name> | /nick reset"
     permission: serverwahl.nick
+  mission:
+    description: "Weihnachtsinsel: Stand anzeigen, /mission abholen holt offene Belohnungs-Tränke"
+    usage: "/mission [abholen]"
+    permission: serverwahl.mission
 permissions:
+  serverwahl.mission:
+    default: true
   serverwahl.nick:
     default: true
   serverwahl.nick.andere:

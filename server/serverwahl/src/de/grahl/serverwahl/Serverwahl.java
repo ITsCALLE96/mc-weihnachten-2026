@@ -76,6 +76,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private final DorfRabatt dorfRabatt = new DorfRabatt();
     private Termine termine;
     private DiscordWhitelist discordWhitelist;
+    private Mission mission;
     /** Nicknames/Clan-Tags, nur mit LuckPerms (sonst null) */
     private Namen namen;
     /** täglich einmal ab dieser Uhrzeit (höchstens eine Stunde später) diese Konsolenbefehle; null = aus */
@@ -258,6 +259,11 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         }
         neujahr.laden(getConfig().getConfigurationSection("neujahr"));
         dorfRabatt.laden(getConfig().getConfigurationSection("dorf-rabatt"));
+        if (mission == null) {
+            mission = new Mission(this, p -> namen != null ? namen.nickOderName(p) : p.getName());
+            getServer().getPluginManager().registerEvents(mission, this);
+        }
+        mission.laden(getConfig().getConfigurationSection("mission"));
         if (discordWhitelist == null) {
             discordWhitelist = new DiscordWhitelist(this);
             getServer().getPluginManager().registerEvents(discordWhitelist, this);
@@ -303,12 +309,28 @@ public final class Serverwahl extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (command.getName().equals("mission")) {
+            if (sender instanceof Player p) {
+                p.sendMessage(Component.text(mission.spieler(p, args), NamedTextColor.GOLD));
+            }
+            return true;
+        }
         if (command.getName().equals("nick")) {
             // nur ohne LuckPerms hier, sonst übernimmt Namen
             sender.sendMessage(Component.text("Nicknames gibt es auf diesem Server nicht.", NamedTextColor.RED));
             return true;
         }
         if (command.getName().equals("serverwahl")) {
+            if (args.length >= 1 && args[0].equals("mission")) {
+                String antwort;
+                try {
+                    antwort = mission.admin(args);
+                } catch (NumberFormatException ex) {
+                    antwort = "Zahl erwartet";
+                }
+                sender.sendMessage(Component.text(antwort, NamedTextColor.GOLD));
+                return true;
+            }
             if (args.length >= 1 && args[0].equals("whitelist")) {
                 sender.sendMessage(Component.text(discordWhitelist.status(), NamedTextColor.GOLD));
                 return true;

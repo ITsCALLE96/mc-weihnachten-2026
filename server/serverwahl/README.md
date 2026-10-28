@@ -94,6 +94,21 @@ zuruecksetzen <name>` (Test führt die Befehle wirklich aus).
 `discord-whitelist:` Einträge aus der gemeinsamen Datei dürfen trotz Vanilla-Whitelist herein, Entfernte werden gekickt. Nur der Hub hat den Endpunkt
 für den Community-Bot (`api:`, nur LAN, IP-Sperre + Schlüssel). Spezifikation und Schnittstelle: `../discord-whitelist.md`. `/serverwahl whitelist`.
 
+## Weihnachtsinsel-Mission (28.10.)
+
+`mission:` (nur SMP) liest `plugins/Serverwahl/mission.json` (= `spawn/mission.json` von Spawn & Welt, kopiert von `plugin-konfig/einspielen.sh`):
+Kiste, Tafel-Tag, Stufen mit Wünschen (Material-ID oder Item-Tag `#…`), Bau-Funktion und Trank. Ab dem Starttag läuft Stufe 1; Ziel je Wunsch =
+Grundmenge × Spieler, die in den letzten `aktive-tage` Tagen da waren, beim Stufenstart festgezurrt. Rechtsklick auf die Kiste (vor WorldGuard) öffnet
+ein Spendenfenster; beim Schließen nimmt serverwahl nur Gewünschtes bis zum Ziel an, der Rest geht zurück (sonst vor die Füße). Stufe voll → Bau-Funktion,
+sofort nächste Stufe (Pascal: keine Datumsbindung), nach der letzten nach 20 s die Feier. Jeder Spieler bekommt je geschaffter Stufe `traenke-je-stufe`
+Tränke (auch Spätere; beim Login, bei vollem Inventar per Kiste oder `/mission abholen`). Tafel: text_display mit dem Tag, Text jede Minute (Stufe,
+Fortschritt je Wunsch, Top 3 der Stufe, Top 5 gesamt, Nicks). Stand `plugins/Serverwahl/mission-stand.yml`, nach jeder Spende gespeichert.
+Admin: `/serverwahl mission status | stufe <n> | ziel <wunsch> <menge> | weiter | neu-laden | vorbereiten`.
+
+**Test (Testnetz):** `function weihnachtsinsel:vorbereiten` bzw. `/serverwahl mission vorbereiten` → `/serverwahl mission stufe 1` → Kiste anklicken, passende und unpassende
+Sachen hineinlegen, schließen (Rest zurück, Tafel zählt) → `ziel minecraft:dirt 1` o. ä. zum schnellen Füllen → Bau läuft, Stufe 2 startet, 3 Tränke im Inventar;
+volles Inventar → Hinweis, Kiste anklicken liefert nach; zweites Konto loggt später ein → bekommt alle Tränke.
+
 ## Konfiguration
 
 `plugins/Serverwahl/config.yml`, die Dateien dafür liegen in `../plugin-konfig/hub/` und `../plugin-konfig/smp/`. Nach Änderungen `/serverwahl reload` (Op).

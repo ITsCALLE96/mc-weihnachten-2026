@@ -38,6 +38,12 @@ if [ "$rolle" != proxy ]; then
   cp "$quelle/../paper/permissions.yml" "$ziel/permissions.yml"
   echo "permissions.yml"
 fi
+# Weihnachtsinsel-Mission: Wunschlisten/Tränke von Spawn & Welt (spawn/mission.json) für serverwahl auf dem SMP
+if [ "$rolle" = smp ] && [ -f "$quelle/../../spawn/mission.json" ]; then
+  mkdir -p "$ziel/plugins/Serverwahl"
+  cp "$quelle/../../spawn/mission.json" "$ziel/plugins/Serverwahl/mission.json"
+  echo "smp: plugins/Serverwahl/mission.json (aus spawn/)"
+fi
 
 for alt in "$ziel"/plugins/harvester-*.jar "$ziel"/plugins/SpawnElytra-*.jar; do
   [ -e "$alt" ] && echo "WARNUNG: $alt liegt noch im Server, das Plugin ist gestrichen (24.10.)" >&2
