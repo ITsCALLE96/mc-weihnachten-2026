@@ -128,7 +128,7 @@ def baue_platten():
         laenge = round(int(h) * 3600 + int(m) * 60 + float(sek), 1)
         ereignisse[p['id']] = {'sounds': [{'name': f'weihnachten:platte/{p["id"]}', 'stream': True}]}
         (songs / f'{p["id"]}.json').write_text(json.dumps({
-            'sound_event': f'weihnachten:{p["id"]}',
+            'sound_event': {'sound_id': f'weihnachten:{p["id"]}'},  # direkt, nicht als Registry-Verweis (Paper startet sonst nicht)
             'description': {'text': namensnennung(p)},
             'length_in_seconds': laenge,
             'comparator_output': nr,
