@@ -7,6 +7,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import pngjs from 'pngjs';
 import { DEKO, KALENDER, KALENDER_TEXTE, FARBEN, palette as dekoPalette, modell as dekoModell } from './deko.mjs';
+import { weihnachtsmannSkin } from './weihnachtsmann.mjs';
 import { MOBS, EMF, VARIANTEN, emfPalette, jem, EMF_TEXTUR } from './mobs.mjs';
 import { frostOben, frostSeite, winterFarbkarte, weihnachtsmuetze, weihnachtsschal, tierschal, TIER_SCHAL } from './winter.mjs';
 
@@ -334,6 +335,8 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     schreibeJson(ziel(`weihnachten/models/item/platte/${id}.json`), { parent: 'minecraft:item/generated', textures: { layer0: `weihnachten:item/platte/${id}` } });
     schreibeJson(ziel(`weihnachten/items/${id}.json`), { model: { type: 'minecraft:model', model: `weihnachten:item/platte/${id}` } });
   }
+  // Insel-Weihnachtsmann (Mannequin mit profile.texture, ganzjährig): eigener Skin, Modell „wide“.
+  schreibePng(ziel('weihnachten/textures/entity/weihnachtsmann.png'), weihnachtsmannSkin());
   schreibeJson(ziel('weihnachten/equipment/weihnachtsmuetze.json'), {
     layers: { humanoid: [{ texture: 'weihnachten:weihnachtsmuetze' }] },
   });

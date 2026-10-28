@@ -18,26 +18,26 @@ const GOLD_DUNKEL = [170, 122, 30];
 const KABEL = [24, 40, 24];
 
 // Quader: texOffs [u, v] und Maße [w, h, d]; Seitenband = rechts, vorne, links, hinten nebeneinander.
-const quader = (u, v, w, h, d) => ({ u, v, w, h, d });
+export const quader = (u, v, w, h, d) => ({ u, v, w, h, d });
 export function flaechen({ u, v, w, h, d }) {
   return {
     oben: [u + d, v, w, d], unten: [u + d + w, v, w, d],
     rechts: [u, v + d, d, h], vorne: [u + d, v + d, w, h], links: [u + d + w, v + d, d, h], hinten: [u + 2 * d + w, v + d, w, h],
   };
 }
-const seiten = (q) => [q.u, q.v + q.d, 2 * q.d + 2 * q.w, q.h];
-const alles = (q) => [seiten(q), flaechen(q).oben];
+export const seiten = (q) => [q.u, q.v + q.d, 2 * q.d + 2 * q.w, q.h];
+export const alles = (q) => [seiten(q), flaechen(q).oben];
 
 const im = (png, x, y) => x >= 0 && y >= 0 && x < png.width && y < png.height;
-function setze(png, x, y, [r, g, b], a = 255) {
+export function setze(png, x, y, [r, g, b], a = 255) {
   if (!im(png, x, y)) return;
   png.data.set([r, g, b, a], (y * png.width + x) * 4);
 }
 const lies = (png, x, y) => [...png.data.slice((y * png.width + x) * 4, (y * png.width + x) * 4 + 4)];
 const alpha = (png, x, y) => (im(png, x, y) ? png.data[(y * png.width + x) * 4 + 3] : 0);
-const rausch = (farbe, r, staerke = 14) => { const z = Math.round((r() - 0.5) * staerke); return farbe.map((c) => Math.max(0, Math.min(255, c + z))); };
-const misch = (a, b, t) => a.map((c, i) => Math.round(c * (1 - t) + b[i] * t));
-const hell = (c) => (c[0] * 0.3 + c[1] * 0.59 + c[2] * 0.11) / 255;
+export const rausch = (farbe, r, staerke = 14) => { const z = Math.round((r() - 0.5) * staerke); return farbe.map((c) => Math.max(0, Math.min(255, c + z))); };
+export const misch = (a, b, t) => a.map((c, i) => Math.round(c * (1 - t) + b[i] * t));
+export const hell = (c) => (c[0] * 0.3 + c[1] * 0.59 + c[2] * 0.11) / 255;
 
 // Grundwerkzeug: fn(i, j, alt, r) für jedes Pixel eines Rechtecks → Farbe, [Farbe, alpha] oder null (bleibt).
 export function male(png, [x0, y0, w, h], fn, { saat = 1, nurDeckend = true } = {}) {
@@ -98,7 +98,7 @@ export function ring(png, q, y, reihen, farbe, saat = 2) {
   }
 }
 const schalFarbe = (rot = ROT, akzent = WEISS) => (x, i) => (i === 1 && x % 4 < 2 ? akzent : rot);
-const zerfetzterSchal = (x, i, r) => (r() < 0.15 ? null : i === 0 ? ROT_DRECKIG : r() < 0.4 ? ROT_DUNKEL : ROT_DRECKIG);
+export const zerfetzterSchal = (x, i, r) => (r() < 0.15 ? null : i === 0 ? ROT_DRECKIG : r() < 0.4 ? ROT_DUNKEL : ROT_DRECKIG);
 export function schalEnde(png, q, y, laenge, { x = 1, rot = ROT, zerfetzt = false, saat = 3 } = {}) {
   const r = zufall(saat);
   const [vx, vy] = flaechen(q).vorne;
@@ -133,7 +133,7 @@ export function lametta(png, [x0, y0, w, h], { faeden = 3, saat = 6 } = {}) {
   }
 }
 // Schneeflocke (5×5) an Stelle x, y.
-function flocke(png, x, y, farbe = WEISS) {
+export function flocke(png, x, y, farbe = WEISS) {
   for (const [dx, dy] of [[0, 0], [-1, 0], [1, 0], [0, -1], [0, 1], [-2, -2], [2, -2], [-2, 2], [2, 2], [-2, 0], [2, 0], [0, -2], [0, 2]]) if (alpha(png, x + dx, y + dy)) setze(png, x + dx, y + dy, Math.abs(dx) + Math.abs(dy) > 2 ? EIS_MITTEL : farbe);
 }
 // Kette (graue Glieder) als Schärpe schräg über ein Rechteck.

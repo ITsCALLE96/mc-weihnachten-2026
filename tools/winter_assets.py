@@ -3,7 +3,7 @@
 # build/weihnachten-rp-ohne-winter.zip sowie build/weihnachten-winter-freiwillig.zip (ohne quellen/ und *.md).
 # Quellen landen in resourcepack/quellen/ (git-ignoriert), Ergebnisse unter resourcepack/assets/.
 # Musik war bis 24.10. dabei und ist raus: die meisten Spieler hören eigene Musik.
-# Seit 28.10.: Weihnachtsplatten (tools/platten.json, Kevin MacLeod, CC BY 4.0) als Ton im Winterteil,
+# Seit 28.10.: Weihnachtsplatten (tools/platten.json, Kevin MacLeod, CC BY 4.0) als Ton im Basis-Pack (Inselhändler verkauft sie ganzjährig),
 # jukebox_song-Einträge für das Server-Datapack landen in build/platten/.
 # Aufruf: uv run --with pillow --with imageio-ffmpeg python tools/winter_assets.py
 import hashlib
@@ -111,12 +111,12 @@ def baue_platten():
     # Mono-Vorbis mit ~56 kbit/s: 9 Lieder ≈ 25 min ≈ 11 MB; gestreamt, damit nichts vorab im Speicher liegt.
     ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
     platten = json.loads((REPO / 'tools/platten.json').read_text('utf8'))
-    ordner = WINTER / 'assets/weihnachten/sounds/platte'
+    ordner = RP / 'assets/weihnachten/sounds/platte'
     ordner.mkdir(parents=True, exist_ok=True)
     songs = REPO / 'build/platten/data/weihnachten/jukebox_song'
     shutil.rmtree(REPO / 'build/platten', ignore_errors=True)
     songs.mkdir(parents=True)
-    ereignisse, credits = {}, ['Weihnachtsplatten (Winterteil des Resourcepacks)', '']
+    ereignisse, credits = {}, ['Weihnachtsplatten (Resourcepack)', '']
     for nr, p in enumerate(platten, 1):
         ogg = QUELLEN / 'musik' / f'{p["id"]}.ogg'
         if not ogg.exists():
@@ -134,10 +134,10 @@ def baue_platten():
             'comparator_output': nr,
         }, ensure_ascii=False, indent=2) + '\n', 'utf8')
         credits.append(f'{namensnennung(p)} – https://incompetech.com (ISRC {p["isrc"]})')
-    (WINTER / 'assets/weihnachten/sounds.json').write_text(json.dumps(ereignisse, indent=2) + '\n', 'utf8')
+    (RP / 'assets/weihnachten/sounds.json').write_text(json.dumps(ereignisse, indent=2) + '\n', 'utf8')
     credits += ['', 'Lizenz: Creative Commons Attribution 4.0 – http://creativecommons.org/licenses/by/4.0/',
                 'Die Lieder selbst sind gemeinfrei; Arrangement und Aufnahme von Kevin MacLeod.']
-    (WINTER / 'CREDITS.txt').write_text('\n'.join(credits) + '\n', 'utf8')
+    (RP / 'CREDITS.txt').write_text('\n'.join(credits) + '\n', 'utf8')
     print(f'{len(platten)} Platten, {sum(f.stat().st_size for f in ordner.iterdir()):,} Bytes Ton')
 
 
