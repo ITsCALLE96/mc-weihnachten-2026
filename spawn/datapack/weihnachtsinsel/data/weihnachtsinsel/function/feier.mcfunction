@@ -1,4 +1,7 @@
-# Feier am Ende von Stufe 4: Titel, Glocken, ~2 min Feuerwerk. Einzeln auslösbar (Test).
+# Feier am Ende von Stufe 4: Titel, Glocken, ~2 min Feuerwerk. Läuft nur einmal (#gefeiert), nur nach Stufe 4.
+execute unless score #stufe wi_mission matches 4 run return fail
+execute if score #gefeiert wi_mission matches 1 run return fail
+scoreboard players set #gefeiert wi_mission 1
 forceload add -24 -58 23 29
 scoreboard players set #feuer wi_mission 0
 title @a times 10 70 20

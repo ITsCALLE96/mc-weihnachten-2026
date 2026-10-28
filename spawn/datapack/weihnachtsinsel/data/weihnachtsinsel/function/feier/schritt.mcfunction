@@ -241,4 +241,4 @@ execute if score #feuer wi_mission matches 239 run summon firework_rocket -9 188
 execute if score #feuer wi_mission matches 240 run summon firework_rocket 1 201 -35 {LifeTime:20,FireworksItem:{id:"minecraft:firework_rocket",count:1,components:{"minecraft:fireworks":{flight_duration:1,explosions:[{shape:"large_ball",colors:[I;16777215,12245247],fade_colors:[I;8439039],has_twinkle:false,has_trail:true}]}}}}
 execute if score #feuer wi_mission matches 120 run playsound minecraft:block.bell.use master @a -1 154 -34 8 1.2
 execute if score #feuer wi_mission matches ..239 run schedule function weihnachtsinsel:feier/schritt 10t
-execute if score #feuer wi_mission matches 240.. run forceload remove -24 -58 23 29
+execute if score #feuer wi_mission matches 240.. run schedule function weihnachtsinsel:entladen 20t

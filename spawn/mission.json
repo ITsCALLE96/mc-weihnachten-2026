@@ -1,34 +1,189 @@
 {
-  "grund": "Server-Mission Weihnachtsinsel (Pascal 28.10., freigegeben mit Änderungen): Insel am Nordweg, Ziel je Wunsch = Grundmenge × Spieler der letzten 7 Tage, beim Stufenstart festgezurrt (per Admin-Befehl nachjustierbar). Keine Datumsbindung: die nächste Stufe startet sofort, wenn die vorige voll ist; stufe_4 enthält die Feier. Je geschaffter Stufe bekommt jeder Spieler 3 Tränke. Bau und Effekte: Datapack weihnachtsinsel (spawn/weihnachtsinsel.mjs)",
+  "grund": "Server-Mission Weihnachtsinsel (Pascal 28.10., freigegeben mit Änderungen): Insel am Nordweg, Ziel je Wunsch = Grundmenge × Spieler der letzten 7 Tage, beim Stufenstart festgezurrt (per Admin-Befehl nachjustierbar). Keine Datumsbindung: die nächste Stufe startet sofort, wenn die vorige voll ist; Je 10 % Fortschritt ruft serverwahl weihnachtsinsel:stufe_N_teil_K (K 1–10), bei 100 % die fehlenden Teile und dann weihnachtsinsel:stufe_N (Abschluss-Effekt; stufe_4 startet die Feier, ein zweiter Aufruf von feier tut nichts). Je geschaffter Stufe bekommt jeder Spieler 3 Tränke. Bau und Effekte: Datapack weihnachtsinsel (spawn/weihnachtsinsel.mjs)",
   "name": "Weihnachtsinsel",
   "start": "2026-11-27",
+  "spenden": "Ender-Kisten-Menü in der Mitte der Spark-Insel (Slot über dem Hub-Slot), keine eigene Kiste",
+  "teile": 10,
   "vorbereiten": "weihnachtsinsel:vorbereiten",
-  "kiste": { "welt": "world", "x": 2, "y": 155, "z": 31 },
-  "tafel": { "tag": "wi_tafel", "x": -3.5, "y": 158.5, "z": 31.5, "grund": "text_display, setzt weihnachtsinsel:vorbereiten (Blick nach Süden zum Spawn, Maßstab 1,2, line_width 260); Text schreibt serverwahl" },
+  "tafel": {
+    "tag": "wi_tafel",
+    "welt": "world",
+    "x": -3.5,
+    "y": 158.5,
+    "z": 31.5,
+    "grund": "text_display am Nord-Brückenkopf, setzt weihnachtsinsel:vorbereiten (Blick nach Süden zum Spawn, Maßstab 1,1, line_width 260, Hintergrund halbtransparent); Text schreibt serverwahl (9–11 Zeilen)"
+  },
+  "weihnachtsmann": "spawn/weihnachtsmann.json",
   "stufen": [
     {
       "name": "Die Insel taucht auf",
       "funktion": "weihnachtsinsel:stufe_1",
-      "wuensche": { "minecraft:cobblestone": 128, "minecraft:dirt": 64, "minecraft:spruce_log": 32, "minecraft:snow_block": 32 },
-      "trank": { "anzahl": 3, "name": "Winterpunsch", "farbe": 13382451, "effekte": [{ "id": "minecraft:speed", "sekunden": 900, "stufe": 0 }, { "id": "minecraft:jump_boost", "sekunden": 900, "stufe": 0 }, { "id": "minecraft:regeneration", "sekunden": 20, "stufe": 0 }] }
+      "teil_funktion": "weihnachtsinsel:stufe_1_teil_{k}",
+      "wuensche": {
+        "minecraft:cobblestone": 128,
+        "minecraft:dirt": 64,
+        "minecraft:spruce_log": 32,
+        "minecraft:snow_block": 32
+      },
+      "trank": {
+        "anzahl": 3,
+        "name": "Winterpunsch",
+        "farbe": 13382451,
+        "effekte": [
+          {
+            "id": "minecraft:speed",
+            "sekunden": 900,
+            "stufe": 0
+          },
+          {
+            "id": "minecraft:jump_boost",
+            "sekunden": 900,
+            "stufe": 0
+          },
+          {
+            "id": "minecraft:regeneration",
+            "sekunden": 20,
+            "stufe": 0
+          }
+        ]
+      }
     },
     {
       "name": "Der Baum wächst",
       "funktion": "weihnachtsinsel:stufe_2",
-      "wuensche": { "minecraft:spruce_log": 64, "minecraft:spruce_leaves": 64, "minecraft:spruce_sapling": 8, "minecraft:bone_meal": 16 },
-      "trank": { "anzahl": 3, "name": "Tannenduft", "farbe": 3381555, "effekte": [{ "id": "minecraft:haste", "sekunden": 1200, "stufe": 0 }, { "id": "minecraft:night_vision", "sekunden": 1200, "stufe": 0 }, { "id": "minecraft:speed", "sekunden": 900, "stufe": 0 }] }
+      "teil_funktion": "weihnachtsinsel:stufe_2_teil_{k}",
+      "wuensche": {
+        "minecraft:spruce_log": 64,
+        "minecraft:spruce_leaves": 64,
+        "minecraft:spruce_sapling": 8,
+        "minecraft:bone_meal": 16
+      },
+      "trank": {
+        "anzahl": 3,
+        "name": "Tannenduft",
+        "farbe": 3381555,
+        "effekte": [
+          {
+            "id": "minecraft:haste",
+            "sekunden": 1200,
+            "stufe": 0
+          },
+          {
+            "id": "minecraft:night_vision",
+            "sekunden": 1200,
+            "stufe": 0
+          },
+          {
+            "id": "minecraft:speed",
+            "sekunden": 900,
+            "stufe": 0
+          }
+        ]
+      }
     },
     {
       "name": "Der Baum wird geschmückt",
       "funktion": "weihnachtsinsel:stufe_3",
-      "wuensche": { "minecraft:copper_ingot": 16, "minecraft:gold_ingot": 8, "minecraft:red_wool": 16, "minecraft:white_wool": 16, "#minecraft:candles": 4 },
-      "trank": { "anzahl": 3, "name": "Goldglanz", "farbe": 16766720, "effekte": [{ "id": "minecraft:haste", "sekunden": 1200, "stufe": 1 }, { "id": "minecraft:speed", "sekunden": 1200, "stufe": 0 }, { "id": "minecraft:absorption", "sekunden": 300, "stufe": 1 }, { "id": "minecraft:regeneration", "sekunden": 30, "stufe": 0 }, { "id": "minecraft:luck", "sekunden": 1200, "stufe": 0 }] }
+      "teil_funktion": "weihnachtsinsel:stufe_3_teil_{k}",
+      "wuensche": {
+        "minecraft:copper_ingot": 16,
+        "minecraft:gold_ingot": 8,
+        "minecraft:red_wool": 16,
+        "minecraft:white_wool": 16,
+        "#minecraft:candles": 4
+      },
+      "trank": {
+        "anzahl": 3,
+        "name": "Goldglanz",
+        "farbe": 16766720,
+        "effekte": [
+          {
+            "id": "minecraft:haste",
+            "sekunden": 1200,
+            "stufe": 1
+          },
+          {
+            "id": "minecraft:speed",
+            "sekunden": 1200,
+            "stufe": 0
+          },
+          {
+            "id": "minecraft:absorption",
+            "sekunden": 300,
+            "stufe": 1
+          },
+          {
+            "id": "minecraft:regeneration",
+            "sekunden": 30,
+            "stufe": 0
+          },
+          {
+            "id": "minecraft:luck",
+            "sekunden": 1200,
+            "stufe": 0
+          }
+        ]
+      }
     },
     {
       "name": "Heiligabend",
       "funktion": "weihnachtsinsel:stufe_4",
-      "wuensche": { "minecraft:glowstone_dust": 32, "minecraft:emerald": 6, "minecraft:firework_rocket": 16, "minecraft:diamond": 2 },
-      "trank": { "anzahl": 3, "name": "Heiligabend-Elixier", "farbe": 11393254, "glanz": true, "grund": "stärker als ein verzauberter Goldener Apfel (Regeneration II 20 s, Absorption IV 2 min, Resistenz I 5 min, Feuerresistenz 5 min): alles länger bzw. stärker, dazu Nachtsicht, Schnelligkeit, Eile, Glück", "effekte": [{ "id": "minecraft:regeneration", "sekunden": 40, "stufe": 1 }, { "id": "minecraft:absorption", "sekunden": 300, "stufe": 3 }, { "id": "minecraft:resistance", "sekunden": 600, "stufe": 0 }, { "id": "minecraft:fire_resistance", "sekunden": 900, "stufe": 0 }, { "id": "minecraft:night_vision", "sekunden": 1200, "stufe": 0 }, { "id": "minecraft:speed", "sekunden": 1200, "stufe": 0 }, { "id": "minecraft:haste", "sekunden": 1200, "stufe": 1 }, { "id": "minecraft:luck", "sekunden": 1800, "stufe": 0 }] }
+      "teil_funktion": "weihnachtsinsel:stufe_4_teil_{k}",
+      "wuensche": {
+        "minecraft:glowstone_dust": 32,
+        "minecraft:emerald": 6,
+        "minecraft:firework_rocket": 16,
+        "minecraft:diamond": 2
+      },
+      "trank": {
+        "anzahl": 3,
+        "name": "Heiligabend-Elixier",
+        "farbe": 11393254,
+        "glanz": true,
+        "grund": "stärker als ein verzauberter Goldener Apfel (Regeneration II 20 s, Absorption IV 2 min, Resistenz I 5 min, Feuerresistenz 5 min): alles länger bzw. stärker, dazu Nachtsicht, Schnelligkeit, Eile, Glück",
+        "effekte": [
+          {
+            "id": "minecraft:regeneration",
+            "sekunden": 40,
+            "stufe": 1
+          },
+          {
+            "id": "minecraft:absorption",
+            "sekunden": 300,
+            "stufe": 3
+          },
+          {
+            "id": "minecraft:resistance",
+            "sekunden": 600,
+            "stufe": 0
+          },
+          {
+            "id": "minecraft:fire_resistance",
+            "sekunden": 900,
+            "stufe": 0
+          },
+          {
+            "id": "minecraft:night_vision",
+            "sekunden": 1200,
+            "stufe": 0
+          },
+          {
+            "id": "minecraft:speed",
+            "sekunden": 1200,
+            "stufe": 0
+          },
+          {
+            "id": "minecraft:haste",
+            "sekunden": 1200,
+            "stufe": 1
+          },
+          {
+            "id": "minecraft:luck",
+            "sekunden": 1800,
+            "stufe": 0
+          }
+        ]
+      }
     }
   ]
 }

@@ -1,0 +1,230 @@
+{
+  "grund": "Weihnachtsmann im Iglu der Weihnachtsinsel (Pascal 28.10.): erscheint mit Stufe 4, Mannequin mit eigenem Skin (Basis-Pack, Modpack-Session), Handel über serverwahl (Interaction mit Tag wi_weihnachtsmann_klick), ganzes Jahr; Dezember halber Preis (aufrunden, mind. 1). Preise in Smaragden je Angebot (anzahl Stück)",
+  "mannequin": {
+    "tag": "wi_weihnachtsmann",
+    "klick": "wi_weihnachtsmann_klick",
+    "welt": "world",
+    "x": -0.5,
+    "y": 155,
+    "z": -54.5,
+    "yaw": 0,
+    "name": "Weihnachtsmann",
+    "skin": "weihnachten:entity/weihnachtsmann"
+  },
+  "jukebox": {
+    "welt": "world",
+    "x": 2,
+    "y": 155,
+    "z": -45,
+    "platten": "weihnachten:platte_*",
+    "grund": "serverwahl legt die 9 Weihnachtsplatten nacheinander ein (Länge aus den jukebox_song-Dateien); hörbar nur in der Nähe"
+  },
+  "waehrung": "minecraft:emerald",
+  "dezemberFaktor": 0.5,
+  "ware": [
+    {
+      "name": "Lebkuchen",
+      "item": "minecraft:cookie[minecraft:item_model=\"weihnachten:lebkuchen\",minecraft:item_name={translate:\"item.weihnachten.lebkuchen\",fallback:\"Gingerbread\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 16,
+      "preis": 2
+    },
+    {
+      "name": "Zuckerstange",
+      "item": "minecraft:cookie[minecraft:item_model=\"weihnachten:zuckerstange\",minecraft:item_name={text:\"Zuckerstange\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}],minecraft:food={nutrition:2,saturation:1.2},minecraft:consumable={consume_seconds:1.6,animation:\"eat\",sound:\"minecraft:entity.generic.eat\",has_consume_particles:true,on_consume_effects:[{type:\"minecraft:apply_effects\",effects:[{id:\"minecraft:speed\",duration:200,amplifier:0}]}]}]",
+      "anzahl": 16,
+      "preis": 2
+    },
+    {
+      "name": "Christbaumkugel (rot)",
+      "item": "minecraft:paper[minecraft:item_model=\"weihnachten:kugel_rot\",minecraft:item_name={text:\"Christbaumkugel (rot)\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 2
+    },
+    {
+      "name": "Strickmütze",
+      "item": "minecraft:leather_helmet[minecraft:item_model=\"weihnachten:strickmuetze\",minecraft:item_name={text:\"Strickmütze\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true},minecraft:attribute_modifiers=[],!minecraft:max_damage,!minecraft:damage]",
+      "anzahl": 1,
+      "preis": 8
+    },
+    {
+      "name": "Plätzchen-Teller",
+      "item": "minecraft:cookie[minecraft:item_model=\"weihnachten:plaetzchen_teller\",minecraft:item_name={text:\"Plätzchen-Teller\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}],minecraft:food={nutrition:4,saturation:4.8}]",
+      "anzahl": 16,
+      "preis": 3
+    },
+    {
+      "name": "Kerze im Glas",
+      "item": "minecraft:paper[minecraft:item_model=\"weihnachten:kerze_glas\",minecraft:item_name={text:\"Kerze im Glas\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 3
+    },
+    {
+      "name": "Heiße Schokolade",
+      "item": "minecraft:cookie[minecraft:item_model=\"weihnachten:heisse_schokolade\",minecraft:item_name={text:\"Heiße Schokolade\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}],minecraft:food={nutrition:4,saturation:4.8},minecraft:consumable={consume_seconds:1.6,animation:\"drink\",sound:\"minecraft:entity.generic.drink\",has_consume_particles:false,on_consume_effects:[{type:\"minecraft:apply_effects\",effects:[{id:\"minecraft:regeneration\",duration:100,amplifier:0}]}]}]",
+      "anzahl": 8,
+      "preis": 4
+    },
+    {
+      "name": "Christbaumkugel (gold)",
+      "item": "minecraft:paper[minecraft:item_model=\"weihnachten:kugel_gold\",minecraft:item_name={text:\"Christbaumkugel (gold)\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 2
+    },
+    {
+      "name": "Ohrenschützer",
+      "item": "minecraft:leather_helmet[minecraft:item_model=\"weihnachten:ohrenschuetzer\",minecraft:item_name={text:\"Ohrenschützer\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true},minecraft:attribute_modifiers=[],!minecraft:max_damage,!minecraft:damage]",
+      "anzahl": 1,
+      "preis": 8
+    },
+    {
+      "name": "Schneekugel",
+      "item": "minecraft:paper[minecraft:item_model=\"weihnachten:schneekugel\",minecraft:item_name={text:\"Schneekugel\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 4
+    },
+    {
+      "name": "Winterkalender-Schneeball",
+      "item": "minecraft:snowball[minecraft:item_name={text:\"Winterkalender-Schneeball\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 16,
+      "preis": 1
+    },
+    {
+      "name": "Lichterkette",
+      "item": "minecraft:paper[minecraft:item_model=\"weihnachten:lichterkette\",minecraft:item_name={translate:\"item.weihnachten.lichterkette\",fallback:\"Fairy Lights\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 4
+    },
+    {
+      "name": "Bratapfel",
+      "item": "minecraft:cookie[minecraft:item_model=\"weihnachten:bratapfel\",minecraft:item_name={text:\"Bratapfel\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}],minecraft:food={nutrition:6,saturation:7.2},minecraft:consumable={consume_seconds:1.6,animation:\"eat\",sound:\"minecraft:entity.generic.eat\",has_consume_particles:true,on_consume_effects:[{type:\"minecraft:apply_effects\",effects:[{id:\"minecraft:absorption\",duration:600,amplifier:0}]}]}]",
+      "anzahl": 16,
+      "preis": 4
+    },
+    {
+      "name": "Rentiergeweih",
+      "item": "minecraft:leather_helmet[minecraft:item_model=\"weihnachten:rentiergeweih\",minecraft:item_name={text:\"Rentiergeweih\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true},minecraft:attribute_modifiers=[],!minecraft:max_damage,!minecraft:damage]",
+      "anzahl": 1,
+      "preis": 10
+    },
+    {
+      "name": "Mini-Schneemann",
+      "item": "minecraft:paper[minecraft:item_model=\"weihnachten:schneemann\",minecraft:item_name={text:\"Mini-Schneemann\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 4
+    },
+    {
+      "name": "Christbaumkugel (blau)",
+      "item": "minecraft:paper[minecraft:item_model=\"weihnachten:kugel_blau\",minecraft:item_name={text:\"Christbaumkugel (blau)\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 2
+    },
+    {
+      "name": "Laterne mit Stern",
+      "item": "minecraft:paper[minecraft:item_model=\"weihnachten:laterne_stern\",minecraft:item_name={text:\"Laterne mit Stern\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 4
+    },
+    {
+      "name": "Weihnachtsmütze",
+      "item": "minecraft:leather_helmet[minecraft:item_model=\"weihnachten:weihnachtsmuetze\",minecraft:item_name={translate:\"item.weihnachten.weihnachtsmuetze\",fallback:\"Santa Hat\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",asset_id:\"weihnachten:weihnachtsmuetze\",swappable:true},minecraft:attribute_modifiers=[],!minecraft:max_damage,!minecraft:damage]",
+      "anzahl": 1,
+      "preis": 12
+    },
+    {
+      "name": "Geschenk",
+      "item": "minecraft:paper[minecraft:item_model=\"weihnachten:geschenk_rot\",minecraft:item_name={text:\"Geschenk\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}],minecraft:custom_data={winterkalender:\"geschenk\"},minecraft:consumable={consume_seconds:0.8,animation:\"bundle\",sound:\"minecraft:item.bundle.drop_contents\",has_consume_particles:false}]",
+      "anzahl": 1,
+      "preis": 3
+    },
+    {
+      "name": "Winterfeuerwerk",
+      "item": "minecraft:firework_rocket[minecraft:item_name={text:\"Winterfeuerwerk\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}],minecraft:fireworks={flight_duration:2,explosions:[{shape:\"star\",colors:[I;16777215,12245247],fade_colors:[I;8439039],has_twinkle:true},{shape:\"large_ball\",colors:[I;11393254,16777215],has_trail:true}]}]",
+      "anzahl": 16,
+      "preis": 3
+    },
+    {
+      "name": "Mini-Rentier",
+      "item": "minecraft:paper[minecraft:item_model=\"weihnachten:rentier\",minecraft:item_name={text:\"Mini-Rentier\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 4
+    },
+    {
+      "name": "Schal",
+      "item": "minecraft:leather_helmet[minecraft:item_model=\"weihnachten:schal\",minecraft:item_name={text:\"Schal\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true},minecraft:attribute_modifiers=[],!minecraft:max_damage,!minecraft:damage]",
+      "anzahl": 1,
+      "preis": 8
+    },
+    {
+      "name": "Weihnachtsstern",
+      "item": "minecraft:paper[minecraft:item_model=\"weihnachten:stern\",minecraft:item_name={text:\"Weihnachtsstern\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 5
+    },
+    {
+      "name": "Krone aus Lichtern · Winter 2026",
+      "item": "minecraft:leather_helmet[minecraft:item_model=\"weihnachten:lichterkrone\",minecraft:item_name={text:\"Krone aus Lichtern · Winter 2026\",color:\"gold\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true},minecraft:enchantment_glint_override=true,minecraft:rarity=\"epic\",minecraft:attribute_modifiers=[],!minecraft:max_damage,!minecraft:damage]",
+      "anzahl": 1,
+      "preis": 32
+    },
+    {
+      "name": "Christstollen",
+      "item": "minecraft:cookie[minecraft:item_model=\"weihnachten:christstollen\",minecraft:item_name={text:\"Christstollen\"},minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}],minecraft:food={nutrition:6,saturation:14.4},minecraft:consumable={consume_seconds:1.6,animation:\"eat\",sound:\"minecraft:entity.generic.eat\",has_consume_particles:true,on_consume_effects:[{type:\"minecraft:apply_effects\",effects:[{id:\"minecraft:absorption\",duration:1200,amplifier:0},{id:\"minecraft:regeneration\",duration:100,amplifier:0}]}]}]",
+      "anzahl": 4,
+      "preis": 8
+    },
+    {
+      "name": "Weihnachtsplatte (jingle_bells)",
+      "item": "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_jingle_bells\",minecraft:item_model=\"weihnachten:platte_jingle_bells\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 6
+    },
+    {
+      "name": "Weihnachtsplatte (we_wish)",
+      "item": "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_we_wish\",minecraft:item_model=\"weihnachten:platte_we_wish\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 6
+    },
+    {
+      "name": "Weihnachtsplatte (deck_the_halls)",
+      "item": "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_deck_the_halls\",minecraft:item_model=\"weihnachten:platte_deck_the_halls\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 6
+    },
+    {
+      "name": "Weihnachtsplatte (stille_nacht)",
+      "item": "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_stille_nacht\",minecraft:item_model=\"weihnachten:platte_stille_nacht\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 6
+    },
+    {
+      "name": "Weihnachtsplatte (zuckerfee)",
+      "item": "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_zuckerfee\",minecraft:item_model=\"weihnachten:platte_zuckerfee\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 6
+    },
+    {
+      "name": "Weihnachtsplatte (midnight_clear)",
+      "item": "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_midnight_clear\",minecraft:item_model=\"weihnachten:platte_midnight_clear\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 6
+    },
+    {
+      "name": "Weihnachtsplatte (holy_night)",
+      "item": "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_holy_night\",minecraft:item_model=\"weihnachten:platte_holy_night\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 6
+    },
+    {
+      "name": "Weihnachtsplatte (adeste)",
+      "item": "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_adeste\",minecraft:item_model=\"weihnachten:platte_adeste\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 6
+    },
+    {
+      "name": "Weihnachtsplatte (tannenbaum)",
+      "item": "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_tannenbaum\",minecraft:item_model=\"weihnachten:platte_tannenbaum\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Vom Weihnachtsmann · Winter 2026\",italic:false,color:\"aqua\"}]]",
+      "anzahl": 1,
+      "preis": 6
+    }
+  ]
+}

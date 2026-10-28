@@ -1,19 +1,22 @@
-# Stufe 1 vollständig setzen (Ende des Effekts bzw. Wiederaufnahme nach Neustart), dazu unsichtbares Licht gegen Monster
-place template weihnachtsinsel:s1_insel_0 -6 100 -39
-place template weihnachtsinsel:s1_insel_1 -13 109 -43
-place template weihnachtsinsel:s1_insel_2 -17 118 -47
-place template weihnachtsinsel:s1_insel_3 -20 127 -54
-place template weihnachtsinsel:s1_insel_4 -24 136 -57
-place template weihnachtsinsel:s1_insel_5 -24 145 -58
-place template weihnachtsinsel:s1_insel_6 -24 154 -58
-place template weihnachtsinsel:s1_insel_7 -18 163 -49
-place template weihnachtsinsel:s1_bruecke_0 -4 152 25
-place template weihnachtsinsel:s1_bruecke_1 -3 154 20
-place template weihnachtsinsel:s1_bruecke_2 -3 154 15
-place template weihnachtsinsel:s1_bruecke_3 -4 155 10
-place template weihnachtsinsel:s1_bruecke_4 -4 154 5
-place template weihnachtsinsel:s1_bruecke_5 -3 154 0
-place template weihnachtsinsel:s1_bruecke_6 -3 154 -5
-place template weihnachtsinsel:s1_bruecke_7 -4 152 -11
-place template weihnachtsinsel:s1_licht -24 155 -58
+# Alle Abschnitte der Stufe 1 setzen (Abschluss bzw. Wiederaufnahme nach Neustart)
+place template weihnachtsinsel:s1_teil_1 -6 100 -40
+place template weihnachtsinsel:s1_teil_2 -15 111 -44
+place template weihnachtsinsel:s1_teil_3 -18 122 -52
+place template weihnachtsinsel:s1_teil_4 -23 133 -56
+place template weihnachtsinsel:s1_teil_5 -24 144 -58
+place template weihnachtsinsel:s1_teil_6 -24 154 -58
+place template weihnachtsinsel:s1_teil_7 -4 152 19
+place template weihnachtsinsel:s1_teil_8 -4 154 9
+place template weihnachtsinsel:s1_teil_9 -4 154 -1
+place template weihnachtsinsel:s1_teil_10 -4 152 -11
+scoreboard players set #t1_1 wi_mission 1
+scoreboard players set #t1_2 wi_mission 1
+scoreboard players set #t1_3 wi_mission 1
+scoreboard players set #t1_4 wi_mission 1
+scoreboard players set #t1_5 wi_mission 1
+scoreboard players set #t1_6 wi_mission 1
+scoreboard players set #t1_7 wi_mission 1
+scoreboard players set #t1_8 wi_mission 1
+scoreboard players set #t1_9 wi_mission 1
+scoreboard players set #t1_10 wi_mission 1
 kill @e[type=item,x=-24,y=100,z=-58,dx=47,dy=105,dz=87]
