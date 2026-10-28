@@ -1,12 +1,12 @@
 // Winterfassung Paket 3 (Pascal 28.10.): Tiere und Helfer. Ebene 1 (Textur): Mützen, Schals, Rentiernase, Glitzer;
 // Ebene 2 (EMF): Zipfelmützen mit Bommel, Rentiergeweihe, Schleifen, Heiligenschein, Zylinder. Kopf-Lage aus den 26.3-Modellklassen.
-import { quader, flaechen, seiten, male, rausch, misch, ring, muetze, geschenkband, TIERE } from './mobs.mjs';
+import { quader, flaechen, seiten, male, rausch, misch, ring, muetze, geschenkband, schneedecke, schneekante, TIERE } from './mobs.mjs';
 import { tierschal, TIER_SCHAL } from './winter.mjs';
 
 const ROT = [186, 28, 38], WEISS = [242, 244, 246], GOLD = [236, 196, 64];
 const ganz = (p) => [0, 0, p.width, p.height];
-const glitzer = (dichte) => (i, j, alt, r) => (r() < dichte ? (r() < 0.5 ? GOLD : [214, 220, 228]) : null);
-const schnee = (dichte) => (i, j, alt, r) => (r() < dichte ? misch(alt.slice(0, 3), WEISS, 0.8) : null);
+// Schnee auf dem Rücken (Oberseite + Kante) statt verstreuter Glitzer-/Schneepixel (Mob-Zoo 28.10.: wirkte wie Störbild).
+const schneeAuf = (...qs) => (p) => { for (const q of qs) { schneedecke(p, q, { saat: 600 + q.u + q.v }); schneekante(p, q, { reihen: 1, tropfen: q.h > 8 ? 2 : 1, saat: 601 + q.u + q.v }); } };
 const schal = (x, i) => (i === 1 && x % 4 < 2 ? WEISS : ROT);
 
 // Rentiernase auf der Schnauze der Kühe (Schnauze texOffs (1,33) 6×3×1 → Vorderseite (2,34)).
@@ -18,7 +18,7 @@ export const TIERE3 = {
   ...Object.fromEntries(['cow/cow_cold', 'cow/cow_temperate', 'cow/cow_warm', 'cow/mooshroom_brown', 'cow/mooshroom_red'].map((n) => [n, (p) => { tierschal(p, TIER_SCHAL.kuh); nase(p); }])),
   ...Object.fromEntries(['pig/pig_cold', 'pig/pig_temperate', 'pig/pig_warm'].map((n) => [n, (p) => tierschal(p, TIER_SCHAL.schwein)])),
   'cat/ocelot': (p) => muetze(p, quader(0, 0, 5, 4, 5), { reihen: 1, saat: 600 }),
-  ...Object.fromEntries(['bee', 'bee_angry', 'bee_nectar', 'bee_angry_nectar'].map((n) => [`bee/${n}`, (p) => male(p, [0, 0, 34, 17], (i, j) => ((i + j) % 9 === 0 ? [214, 220, 228] : null))])), // Raureif-Glitzer
+  ...Object.fromEntries(['bee', 'bee_angry', 'bee_nectar', 'bee_angry_nectar'].map((n) => [`bee/${n}`, schneeAuf(quader(0, 0, 7, 7, 10))])),
   'axolotl/axolotl_lucy': (p) => muetze(p, quader(0, 1, 8, 5, 5), { reihen: 1, saat: 601 }),
   'axolotl/axolotl_wild': (p) => muetze(p, quader(0, 1, 8, 5, 5), { reihen: 1, saat: 602 }),
   'axolotl/axolotl_gold': (p) => muetze(p, quader(0, 1, 8, 5, 5), { reihen: 1, saat: 603 }),
@@ -26,7 +26,6 @@ export const TIERE3 = {
   'axolotl/axolotl_blue': (p) => muetze(p, quader(0, 1, 8, 5, 5), { reihen: 1, saat: 605 }),
   ...Object.fromEntries(['panda', 'panda_aggressive', 'panda_brown', 'panda_lazy', 'panda_playful', 'panda_weak', 'panda_worried'].map((n, i) => [`panda/${n}`, (p) => ring(p, quader(0, 6, 13, 10, 9), 8, 2, schal, 606 + i)])),
   'bear/polarbear': (p) => ring(p, quader(0, 0, 7, 7, 7), 5, 2, schal, 607),
-  'turtle/turtle': (p) => male(p, ganz(p), glitzer(0.03), { saat: 608 }),
   'rabbit/rabbit_brown': (p) => muetze(p, quader(0, 16, 5, 5, 5), { reihen: 1, saat: 610 }),
   'rabbit/rabbit_white': (p) => muetze(p, quader(0, 16, 5, 5, 5), { reihen: 1, saat: 611 }),
   'rabbit/rabbit_black': (p) => muetze(p, quader(0, 16, 5, 5, 5), { reihen: 1, saat: 612 }),
@@ -35,24 +34,19 @@ export const TIERE3 = {
   'rabbit/rabbit_white_splotched': (p) => muetze(p, quader(0, 16, 5, 5, 5), { reihen: 1, saat: 615 }),
   'rabbit/rabbit_caerbannog': (p) => muetze(p, quader(0, 16, 5, 5, 5), { reihen: 1, saat: 616 }),
   'rabbit/rabbit_toast': (p) => muetze(p, quader(0, 16, 5, 5, 5), { reihen: 1, saat: 617 }),
-  'fish/cod': (p) => male(p, ganz(p), glitzer(0.06), { saat: 620 }),
-  'fish/salmon': (p) => male(p, ganz(p), glitzer(0.06), { saat: 621 }),
-  'fish/pufferfish': (p) => male(p, ganz(p), glitzer(0.06), { saat: 622 }),
-  'fish/tropical_a': (p) => male(p, ganz(p), glitzer(0.06), { saat: 618 }),
-  'fish/tropical_b': (p) => male(p, ganz(p), glitzer(0.06), { saat: 619 }),
+  'fish/cod': schneeAuf(quader(0, 0, 2, 4, 7)),
+  'fish/salmon': schneeAuf(quader(0, 0, 3, 5, 8), quader(0, 13, 3, 5, 8)),
+  'fish/pufferfish': schneeAuf(quader(0, 0, 8, 8, 8)),
   'squid/squid': (p) => muetze(p, quader(0, 0, 12, 16, 12), { reihen: 3, saat: 623 }),
-  'squid/glow_squid': (p) => male(p, ganz(p), glitzer(0.05), { saat: 624 }),
-  'dolphin/dolphin': (p) => male(p, ganz(p), schnee(0.05), { saat: 625 }),
-  'nautilus/nautilus': (p) => male(p, ganz(p), glitzer(0.05), { saat: 626 }),
+  'squid/glow_squid': (p) => muetze(p, quader(0, 0, 12, 16, 12), { reihen: 3, saat: 624 }),
+  'dolphin/dolphin': schneeAuf(quader(22, 0, 8, 7, 13), quader(0, 0, 8, 7, 6)),
+  'nautilus/nautilus': schneeAuf(quader(0, 0, 14, 10, 16)),
   'strider/strider': (p) => muetze(p, quader(0, 0, 16, 14, 16), { reihen: 2, saat: 627 }),
   'strider/strider_cold': (p) => muetze(p, quader(0, 0, 16, 14, 16), { reihen: 2, saat: 628 }),
-  'sniffer/sniffer': (p) => male(p, ganz(p), schnee(0.06), { saat: 629 }),
-  'armadillo/armadillo': (p) => male(p, ganz(p), glitzer(0.05), { saat: 630 }),
-  'goat/goat': (p) => male(p, ganz(p), schnee(0.05), { saat: 631 }),
-  'camel/camel': (p) => male(p, ganz(p), schnee(0.04), { saat: 632 }),
-  'camel/camel_husk': (p) => male(p, ganz(p), schnee(0.04), { saat: 635 }),
-  ...Object.fromEntries(['blue', 'green', 'grey', 'red_blue', 'yellow_blue'].map((n, i) => [`parrot/parrot_${n}`, (p) => male(p, ganz(p), glitzer(0.05), { saat: 633 + i * 7 })])),
-  'bat/bat': (p) => male(p, ganz(p), schnee(0.08), { saat: 634 }),
+  'sniffer/sniffer': schneeAuf(quader(62, 0, 25, 24, 40)),
+  'goat/goat': schneeAuf(quader(1, 1, 9, 11, 16)),
+  'camel/camel': schneeAuf(quader(0, 25, 15, 12, 27), quader(74, 0, 9, 5, 11), quader(60, 24, 7, 8, 19)),
+  'camel/camel_husk': schneeAuf(quader(0, 25, 15, 12, 27), quader(74, 0, 9, 5, 11), quader(60, 24, 7, 8, 19)),
   'allay/allay': (p) => male(p, [0, 10, 10, 12], (i, j, alt) => misch(alt.slice(0, 3), WEISS, 0.4)), // helles Engelsgewand
   // Eisengolem als Weihnachtsmann: rote Weste mit Pelzsaum und Gürtel auf dem Oberkörper, Eisen bleibt an Kopf und Gliedern.
   'iron_golem/iron_golem': (p) => {

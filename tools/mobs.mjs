@@ -118,8 +118,53 @@ export function eiszapfen(png, q, y, { laenge = 3, saat = 4 } = {}) {
     for (let i = 1; i <= l; i++) if (alpha(png, x, y0 + i)) setze(png, x, y0 + i, i === l ? EIS_DUNKEL : EIS);
   }
 }
-export function kruste(png, rect, dichte = 0.5, saat = 5) {
-  male(png, rect, (i, j, alt, r) => (r() < dichte ? rausch(EIS, r, 10) : null), { saat });
+export function kruste(png, [x0, y0, w, h], dichte = 0.5, saat = 5) {
+  // Ruhige Schneeschicht (seit Mob-Zoo 28.10.): Deckkraft nach dichte, Rand bläulich verschattet, kein Pixelrauschen.
+  const t = Math.min(1, 0.3 + dichte * 0.8);
+  male(png, [x0, y0, w, h], (i, j, alt, r) => {
+    const rand = Math.min(i, j, w - 1 - i, h - 1 - j);
+    return misch(alt.slice(0, 3), rausch(rand === 0 ? [176, 196, 220] : rand === 1 ? [222, 232, 242] : [248, 250, 252], r, 4), t);
+  }, { saat });
+}
+// Fell in Strähnen: Töne nach Spalte und Dreierblock statt Zufallspixeln.
+export const straehnen = (toene) => (i, j, alt, r) => rausch(toene[(i * 2 + Math.floor((j + (i % 3)) / 3)) % toene.length], r, 6);
+
+// Überarbeitung nach dem Mob-Zoo (28.10.): statt zufälliger Eis-Pixel (wirkt im Spiel wie Störbild) gezielte
+// Schneedecken mit drei Tonstufen, eine Schneekante mit Tropfnasen an den Seiten und weiche Frost-Verläufe.
+const SCHNEE = [248, 250, 252], SCHNEE_MITTEL = [222, 232, 242], SCHNEE_SCHATTEN = [176, 196, 220];
+// Schnee auf der Oberseite: Mitte hell, Rand bläulich verschattet, wenige Glitzerpunkte im festen Raster.
+export function schneedecke(png, q, { saat = 11 } = {}) {
+  const [ox, oy, w, h] = flaechen(q).oben;
+  male(png, [ox, oy, w, h], (i, j, alt, r) => {
+    const rand = Math.min(i, j, w - 1 - i, h - 1 - j);
+    if ((i * 5 + j * 3) % 13 === 0 && rand > 0) return [255, 255, 255];
+    return rausch(rand === 0 ? SCHNEE_SCHATTEN : rand === 1 ? SCHNEE_MITTEL : SCHNEE, r, 6);
+  }, { saat });
+}
+// Schneekante: obere Reihen des Seitenbands weiß, je Spalte 0–tropfen Pixel tiefer (gleichmäßig schwankend),
+// darunter ein Schattenpixel auf dem Original, damit der Schnee plastisch aufliegt.
+export function schneekante(png, q, { reihen = 1, tropfen = 2, saat = 12 } = {}) {
+  const r = zufall(saat);
+  const [x0, y0, bw] = seiten(q);
+  for (let i = 0; i < bw; i++) {
+    const t = reihen + Math.round((Math.sin(i * 1.7 + saat) * 0.5 + 0.5) * tropfen * (r() < 0.7 ? 1 : 0.4));
+    for (let k = 0; k < t && k < q.h; k++) if (alpha(png, x0 + i, y0 + k)) setze(png, x0 + i, y0 + k, k === t - 1 && k > 0 ? SCHNEE_MITTEL : rausch(SCHNEE, r, 6));
+    if (t < q.h && alpha(png, x0 + i, y0 + t)) setze(png, x0 + i, y0 + t, misch(lies(png, x0 + i, y0 + t).slice(0, 3), [20, 30, 60], 0.35));
+  }
+}
+// Frost-Verlauf: von oben (stark) nach unten (schwach) Richtung Eisblau getönt, Kanten des Rechtecks heller (Reif).
+export function frostverlauf(png, [x0, y0, w, h], { staerke = 0.5, farbe = EIS_MITTEL } = {}) {
+  male(png, [x0, y0, w, h], (i, j, alt) => {
+    const t = staerke * (1 - j / Math.max(1, h)) ** 1.4;
+    return t < 0.04 ? null : misch(alt.slice(0, 3), farbe, t);
+  });
+}
+// Reif an Umrissen: deckende Pixel mit durchsichtigem Nachbarn (Flügelränder) werden eisig, eine Reihe nach innen halb.
+export function reifkante(png, [x0, y0, w, h], { farbe = EIS, breite = 2 } = {}) {
+  const abstand = (x, y) => { for (let d = 1; d <= breite; d++) for (const [dx, dy] of [[d, 0], [-d, 0], [0, d], [0, -d]]) if (!alpha(png, x + dx, y + dy)) return d; return 0; };
+  const ziel = [];
+  for (let y = y0; y < y0 + h; y++) for (let x = x0; x < x0 + w; x++) if (alpha(png, x, y)) { const d = abstand(x, y); if (d) ziel.push([x, y, d]); }
+  for (const [x, y, d] of ziel) setze(png, x, y, misch(lies(png, x, y).slice(0, 3), d === 1 ? WEISS : farbe, d === 1 ? 0.8 : 0.5));
 }
 export function lametta(png, [x0, y0, w, h], { faeden = 3, saat = 6 } = {}) {
   const r = zufall(saat);
@@ -162,8 +207,8 @@ function wichtel(p, { tunika = [44, 96, 46], rot = ROT, weiss = WEISS, loch = 0.
   for (const a of arme) male(p, seiten(a), (i, j, alt, r) => (j < 6 && r() > loch ? rausch(j === 5 ? weiss : tunika, r, 16) : null), { saat: saat + 2 });
   for (const b of beine) male(p, seiten(b), (i, j, alt, r) => {
     if (j >= 10) return rausch([46, 30, 22], r, 10); // Schuhe
-    if (r() < loch) return rausch([40, 26, 22], r, 10); // Löcher im Strumpf
-    return rausch(Math.floor(j / 2) % 2 ? weiss : rot, r, 14);
+    if (r() < loch / 3) return rausch([40, 26, 22], r, 6); // Löcher im Strumpf
+    return rausch(Math.floor(j / 2) % 2 ? weiss : rot, r, 6);
   }, { saat: saat + 3 });
   muetze(p, HUT, { reihen: 3, zerfetzt: true, rot, saat: saat + 4 });
 }
@@ -173,27 +218,24 @@ export const MOBS = {
   'zombie/zombie': (p) => wichtel(p, { saat: 110 }),
   'zombie/husk': (p) => wichtel(p, { tunika: [120, 116, 70], rot: [156, 72, 52], weiss: [214, 198, 160], loch: 0.1, saat: 120 }),
   'zombie/drowned': (p) => {
-    for (const q of [KOPF, RUMPF, ARM_L, BEIN_L, ARM, BEIN]) male(p, seiten(q), (i, j, alt, r) => (r() < 0.35 ? misch(alt.slice(0, 3), r() < 0.5 ? EIS : EIS_MITTEL, 0.75) : null), { saat: 130 + q.u });
-    kruste(p, flaechen(KOPF).oben, 0.8, 131);
+    for (const q of [KOPF, RUMPF, ARM_L, BEIN_L, ARM, BEIN]) frostverlauf(p, seiten(q), { staerke: 0.55 });
+    schneedecke(p, KOPF, { saat: 131 }); schneekante(p, KOPF, { reihen: 1, tropfen: 2, saat: 136 });
     for (const q of [ARM, ARM_L]) eiszapfen(p, q, 9, { laenge: 3, saat: 132 + q.u });
     ring(p, RUMPF, 0, 2, zerfetzterSchal, 133); schalEnde(p, RUMPF, 1, 7, { x: 5, rot: ROT_DRECKIG, zerfetzt: true, saat: 134 });
   },
   'zombie/drowned_outer_layer': (p) => {
-    for (const q of [KOPF, RUMPF, ARM, BEIN, ARM_L, BEIN_L, HUT]) for (const rect of alles(q)) male(p, rect, (i, j, alt, r) => (r() < 0.45 ? misch(alt.slice(0, 3), r() < 0.3 ? WEISS : EIS, 0.8) : null), { saat: 135 + q.u + q.v });
+    for (const q of [KOPF, RUMPF, ARM, BEIN, ARM_L, BEIN_L, HUT]) frostverlauf(p, seiten(q), { staerke: 0.45, farbe: EIS });
   },
   'skeleton/skeleton': (p) => {
-    for (const [q, s] of [[RUMPF, 0.8], [quader(40, 16, 2, 12, 2), 0.7], [quader(0, 16, 2, 12, 2), 0.7]]) male(p, seiten(q), eisplatten(s), { saat: 140 });
-    male(p, flaechen(KOPF).oben, eisplatten(0.85), { saat: 141 });
-    male(p, seiten(KOPF), (i, j, alt, r) => (j < 2 ? misch(alt.slice(0, 3), EIS, 0.8) : null)); // Eishelm-Rand, Gesicht bleibt
-    eiszapfen(p, KOPF, 2, { laenge: 2, saat: 142 });
+    for (const q of [RUMPF, quader(40, 16, 2, 12, 2), quader(0, 16, 2, 12, 2)]) frostverlauf(p, seiten(q), { staerke: 0.6 });
+    schneedecke(p, KOPF, { saat: 141 }); schneekante(p, KOPF, { reihen: 1, tropfen: 2, saat: 142 });
   },
   'skeleton/stray': (p) => {
-    for (const q of [RUMPF, quader(40, 16, 2, 12, 2), quader(0, 16, 2, 12, 2)]) male(p, seiten(q), eisplatten(0.85), { saat: 150 });
-    male(p, flaechen(KOPF).oben, eisplatten(0.9), { saat: 151 });
-    eiszapfen(p, KOPF, 2, { laenge: 3, saat: 152 });
+    for (const q of [RUMPF, quader(40, 16, 2, 12, 2), quader(0, 16, 2, 12, 2)]) frostverlauf(p, seiten(q), { staerke: 0.7 });
+    schneedecke(p, KOPF, { saat: 151 }); schneekante(p, KOPF, { reihen: 1, tropfen: 3, saat: 152 });
   },
   'skeleton/stray_overlay': (p) => {
-    male(p, [0, 0, 64, 32], (i, j, alt, r) => misch(alt.slice(0, 3), r() < 0.15 ? WEISS : EIS_MITTEL, 0.55), { saat: 153 });
+    male(p, [0, 0, 64, 32], (i, j, alt) => misch(alt.slice(0, 3), EIS_MITTEL, 0.4));
     ring(p, RUMPF, 0, 2, zerfetzterSchal, 154); schalEnde(p, RUMPF, 1, 7, { x: 5, rot: ROT_DRECKIG, zerfetzt: true, saat: 155 });
   },
   'creeper/creeper': (p) => {
@@ -210,15 +252,14 @@ export const MOBS = {
   'spider/spider': (p) => spinne(p, [34, 30, 40], 170),
   'spider/cave_spider': (p) => spinne(p, [20, 40, 52], 180),
   'enderman/enderman': (p) => {
-    for (const [q, s] of [[KOPF, 190], [quader(32, 16, 8, 12, 4), 191], [quader(56, 0, 2, 30, 2), 192], [quader(0, 16, 8, 8, 8), 193]]) {
-      for (const rect of alles(q)) frostmuster(p, rect, { wege: Math.ceil(rect[2] * rect[3] / 40), laenge: 12, saat: s + rect[0] });
-    }
-    kruste(p, flaechen(KOPF).oben, 0.4, 194);
+    schneedecke(p, KOPF, { saat: 190 }); schneekante(p, KOPF, { reihen: 1, tropfen: 2, saat: 191 });
+    schneedecke(p, quader(32, 16, 8, 12, 4), { saat: 192 }); schneekante(p, quader(32, 16, 8, 12, 4), { reihen: 1, tropfen: 1, saat: 193 });
+    for (const q of [quader(32, 16, 8, 12, 4), quader(56, 0, 2, 30, 2)]) frostverlauf(p, seiten(q), { staerke: 0.35, farbe: [70, 110, 170] });
   },
   'witch/witch': (p) => {
     // Frau Holle, aber böse: nachtblauer Kittel voller Federn und Reif, dunkler Hut mit Schnee, fahle Haut.
     const kittel = [48, 26, 66];
-    for (const q of [ILL_JACKE, ILL_RUMPF, ...ILL_ARME, ILL_BEIN]) male(p, seiten(q), (i, j, alt, r) => (r() < 0.12 ? rausch(WEISS, r, 10) : r() < 0.1 ? EIS_MITTEL : rausch(kittel, r, 14)), { saat: 200 + q.v });
+    for (const q of [ILL_JACKE, ILL_RUMPF, ...ILL_ARME, ILL_BEIN]) male(p, seiten(q), (i, j, alt, r) => ((i % 6 === 2 && j % 6 === 3) || (i % 6 === 5 && j % 6 === 0) ? WEISS : rausch(misch(kittel, [20, 12, 30], (j % 4) / 8), r, 6)), { saat: 200 + q.v });
     for (const h of [quader(0, 64, 10, 2, 10), quader(0, 76, 7, 4, 7), quader(0, 87, 4, 4, 4), quader(0, 95, 1, 2, 1)]) male(p, [h.u, h.v, 2 * h.d + 2 * h.w, h.d + h.h], (i, j, alt, r) => rausch([18, 18, 30], r, 10), { saat: 210 + h.v });
     kruste(p, flaechen(quader(0, 64, 10, 2, 10)).oben, 0.7, 211); kruste(p, flaechen(quader(0, 76, 7, 4, 7)).oben, 0.6, 212);
     male(p, seiten(ILL_KOPF), (i, j, alt) => (j > 0 && hell(alt) > 0.35 ? misch(alt.slice(0, 3), [200, 214, 228], 0.35) : null));
@@ -254,7 +295,7 @@ function spinne(p, koerper, saat) {
 
 // Krampus-Look: zottiges Fell (schwarzbraun) über Jacke, Armen und Beinen, Kette als Schärpe, roter bzw. dunkler Umhangrest.
 function krampus(p, { saat, umhang, fell: toene }) {
-  const fell = (i, j, alt, r) => rausch(r() < 0.3 ? toene[0] : r() < 0.5 ? toene[1] : toene[2], r, 8);
+  const fell = straehnen(toene);
   for (const q of [ILL_JACKE, ILL_RUMPF, ...ILL_ARME, ILL_BEIN]) male(p, seiten(q), fell, { saat: saat + q.v });
   for (const q of [ILL_JACKE, ILL_RUMPF]) male(p, seiten(q), (i, j, alt, r) => (j < 2 ? rausch(umhang, r, 12) : null), { saat: saat + 1 });
   const [vx, vy] = flaechen(ILL_JACKE).vorne;

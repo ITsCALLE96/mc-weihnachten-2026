@@ -2,7 +2,7 @@
 // Wither als Knecht Ruprecht mit Geschenk-Schädeln, Guardian mit Zuckerstangen-Stacheln, Frost-Drache mit
 // Christbaumkugel-Feuerball, Shulker-Geschoss als Stern, Pfeile als Zuckerstangen. Quader aus den 26.3-Modellklassen.
 import { zufall } from './winter.mjs';
-import { quader, flaechen, seiten, alles, male, setze, rausch, misch, hell, frostmuster, kruste, eiszapfen, ring, zerfetzterSchal } from './mobs.mjs';
+import { quader, flaechen, seiten, alles, male, setze, rausch, misch, hell, frostmuster, kruste, eiszapfen, ring, zerfetzterSchal, schneedecke, schneekante, frostverlauf, reifkante } from './mobs.mjs';
 
 const ROT = [186, 28, 38], WEISS = [242, 244, 246], GOLD = [236, 196, 64], GOLD_DUNKEL = [170, 122, 30];
 const EIS = [196, 232, 248], EIS_MITTEL = [150, 204, 234], EIS_DUNKEL = [96, 150, 198];
@@ -20,12 +20,18 @@ function geschenkwuerfel(p, q, papier, band, saat) {
 
 const WARDEN = { koerper: quader(0, 0, 18, 21, 11), kopf: quader(0, 32, 16, 16, 10), arme: [quader(44, 50, 8, 28, 8), quader(0, 58, 8, 28, 8)], beine: [quader(76, 48, 6, 13, 6), quader(76, 76, 6, 13, 6)] };
 const WITHER = { schultern: quader(0, 16, 20, 3, 3), rippen: quader(0, 22, 3, 10, 3), kopf: quader(0, 0, 8, 8, 8), seitenkopf: quader(32, 0, 6, 6, 6), schaedel: quader(0, 35, 8, 8, 8) };
+const DRACHE = {
+  koerper: quader(0, 0, 24, 24, 64), kopf: quader(112, 30, 16, 16, 16), schnauze: quader(176, 44, 12, 5, 16), hals: quader(192, 104, 10, 10, 10),
+  knochen: quader(112, 88, 56, 8, 8), spitzenknochen: quader(112, 136, 56, 4, 4), fuesse: [quader(144, 104, 8, 4, 16), quader(112, 0, 18, 6, 24)],
+  zacken: [quader(220, 53, 2, 6, 12), quader(48, 0, 2, 4, 6)], haeute: [[0, 88, 112, 56], [0, 144, 112, 56]],
+};
 const GUARDIAN = { kopf: quader(0, 0, 12, 12, 16), stachel: [0, 0, 8, 11] };
 
+// Vereisung ohne Pixelrauschen (seit Mob-Zoo 28.10.): Verlauf von oben, Stärke nach dichte, wenige Frostlinien.
 function frostig(p, rects, saat, dichte = 0.18) {
   for (const rect of rects) {
-    male(p, rect, (i, j, alt, r) => (r() < dichte ? misch(alt.slice(0, 3), r() < 0.3 ? WEISS : EIS, 0.75) : null), { saat });
-    frostmuster(p, rect, { wege: Math.ceil(rect[2] * rect[3] / 90), laenge: 10, saat: saat + rect[0] + rect[1] });
+    frostverlauf(p, rect, { staerke: 0.3 + dichte * 1.5 });
+    frostmuster(p, rect, { wege: Math.ceil(rect[2] * rect[3] / 160), laenge: 8, saat: saat + rect[0] + rect[1] });
   }
 }
 
@@ -46,10 +52,14 @@ export const BOSSE = {
   'guardian/guardian': (p) => guardian(p, false, 330),
   'guardian/guardian_elder': (p) => guardian(p, true, 340),
   'enderdragon/dragon': (p) => {
-    // Reif auf den dunklen Schuppen, Eis auf den Rückenzacken; Augen (eigene Ebene) bleiben lila.
-    male(p, [0, 0, p.width, p.height], (i, j, alt, r) => (hell(alt) < 0.3 && r() < 0.14 ? misch(alt.slice(0, 3), r() < 0.25 ? WEISS : EIS, 0.55) : null), { saat: 350 });
-    male(p, [220, 53, 28, 18], (i, j, alt, r) => misch(alt.slice(0, 3), EIS, 0.7), { saat: 351 });
-    for (const flugel of [[0, 88, 112, 56], [0, 144, 112, 56]]) frostmuster(p, flugel, { wege: 12, laenge: 22, farbe: [110, 160, 210], saat: 352 + flugel[1] });
+    // Frost-Drache (überarbeitet nach dem Mob-Zoo): Schneedecke auf Rücken, Kopf, Hals, Schwanz, Flügelknochen und Füßen,
+    // Schneekante mit Tropfnasen an den Seiten, Rückenzacken aus Eis, Flügelhäute mit Reif am Rand statt Pixelrauschen.
+    for (const q of [DRACHE.koerper, DRACHE.kopf, DRACHE.schnauze, DRACHE.hals, DRACHE.knochen, DRACHE.spitzenknochen, ...DRACHE.fuesse]) {
+      schneedecke(p, q, { saat: 350 + q.u + q.v }); schneekante(p, q, { reihen: 1, tropfen: q.h > 8 ? 3 : 1, saat: 351 + q.u + q.v });
+    }
+    frostverlauf(p, seiten(DRACHE.koerper), { staerke: 0.3 });
+    for (const q of DRACHE.zacken) male(p, [q.u, q.v, 2 * q.d + 2 * q.w, q.d + q.h], (i, j, alt) => misch(alt.slice(0, 3), j < q.d + 2 ? WEISS : EIS, 0.75));
+    for (const haut of DRACHE.haeute) { reifkante(p, haut, { breite: 2 }); frostmuster(p, haut, { wege: 5, laenge: 16, farbe: [70, 110, 160], saat: 352 + haut[1] }); }
   },
 };
 

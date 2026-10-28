@@ -1,7 +1,7 @@
 // Winterfassung Paket 2 (Pascal 28.10.): alle übrigen Monster. Gleiche Regeln wie mobs.mjs (Umriss und Grundfarbe
 // bleiben erkennbar), Quader aus den 26.3-Modellklassen; wo das Layout unklar oder hochaufgelöst ist, wird die ganze Textur bemalt.
 import { zufall } from './winter.mjs';
-import { quader, flaechen, seiten, alles, male, setze, rausch, misch, hell, frostmuster, kruste, eiszapfen, ring, muetze, zerfetzterSchal, lametta, geschenkband } from './mobs.mjs';
+import { quader, flaechen, seiten, alles, male, setze, rausch, misch, hell, frostmuster, kruste, eiszapfen, ring, muetze, zerfetzterSchal, lametta, geschenkband, schneedecke, schneekante, frostverlauf, straehnen } from './mobs.mjs';
 
 const ROT = [186, 28, 38], WEISS = [242, 244, 246], GOLD = [236, 196, 64], SILBER = [214, 220, 228];
 const EIS = [196, 232, 248], EIS_MITTEL = [150, 204, 234], EIS_DUNKEL = [96, 150, 198], SCHWARZEIS = [40, 56, 80];
@@ -11,7 +11,7 @@ const ganz = (p) => [0, 0, p.width, p.height];
 // Eispanzer (wie Skelett in mobs.mjs) mit wählbarer Eisfarbe.
 const eisplatten = (staerke, kante = EIS_DUNKEL, flaeche = EIS) => (i, j, alt, r) => misch(alt.slice(0, 3), i % 3 === 0 || j % 3 === 0 ? kante : r() < 0.2 ? WEISS : flaeche, staerke);
 const zuckerstange = (i, j) => (Math.floor((i + j) / 2) % 2 ? ROT : WEISS);
-const glitzer = (dichte) => (i, j, alt, r) => (r() < dichte ? (r() < 0.5 ? GOLD : SILBER) : null);
+const glitzer = (dichte) => { const n = Math.round(1 / dichte); return (i, j) => ((i * 37 + j * 91 + ((i * j) % 5)) % n === 0 ? ((i + j) % 2 ? GOLD : SILBER) : null); }; // festes Raster statt Zufall
 // Christbaumkugeln (2×2) zufällig auf deckenden Pixeln.
 function kugeln(p, rect, anzahl, saat) {
   const r = zufall(saat);
@@ -23,7 +23,7 @@ function kugeln(p, rect, anzahl, saat) {
 // Krampus-Fell (wie Pillager) für Illager-Layouts.
 const ILL = { kopf: quader(0, 0, 8, 10, 8), rumpf: quader(16, 20, 8, 12, 6), jacke: quader(0, 38, 8, 20, 6), arme: [quader(44, 22, 4, 8, 4), quader(40, 38, 8, 4, 4), quader(40, 46, 4, 12, 4)], bein: quader(0, 22, 4, 12, 4) };
 function krampusRobe(p, toene, kragen, saat) {
-  const fell = (i, j, alt, r) => rausch(r() < 0.3 ? toene[0] : r() < 0.5 ? toene[1] : toene[2], r, 8);
+  const fell = straehnen(toene);
   for (const q of [ILL.jacke, ILL.rumpf, ...ILL.arme, ILL.bein]) male(p, seiten(q), fell, { saat: saat + q.v });
   for (const q of [ILL.jacke, ILL.rumpf]) male(p, seiten(q), (i, j, alt, r) => (j < 2 ? rausch(kragen, r, 10) : null), { saat });
   const [vx, vy] = flaechen(ILL.jacke).vorne;
@@ -35,12 +35,12 @@ const PFERD_HALS = quader(0, 35, 4, 12, 7);
 
 export const MONSTER2 = {
   'blaze/blaze': (p) => { male(p, [0, 16, 8, 10], zuckerstange); kruste(p, flaechen(MENSCH.kopf).oben, 0.25, 400); },
-  'skeleton/bogged': (p) => { for (const q of [MENSCH.rumpf, quader(40, 16, 2, 12, 2), quader(0, 16, 2, 12, 2)]) male(p, seiten(q), eisplatten(0.7, [70, 120, 90], [170, 220, 200]), { saat: 401 }); eiszapfen(p, MENSCH.kopf, 2, { laenge: 2, saat: 402 }); },
-  'skeleton/bogged_overlay': (p) => male(p, ganz(p), (i, j, alt, r) => misch(alt.slice(0, 3), r() < 0.2 ? WEISS : EIS_MITTEL, 0.5), { saat: 403 }),
-  'skeleton/parched': (p) => male(p, ganz(p), eisplatten(0.55, [150, 130, 100], [230, 236, 240]), { saat: 404 }),
-  'skeleton/wither_skeleton': (p) => { for (const q of [MENSCH.rumpf, quader(40, 16, 2, 12, 2), quader(0, 16, 2, 12, 2)]) male(p, seiten(q), eisplatten(0.6, [10, 14, 24], SCHWARZEIS), { saat: 405 }); male(p, flaechen(MENSCH.kopf).oben, eisplatten(0.7, [10, 14, 24], SCHWARZEIS), { saat: 406 }); eiszapfen(p, MENSCH.kopf, 2, { laenge: 2, saat: 407 }); },
-  'breeze/breeze': (p) => male(p, ganz(p), (i, j, alt, r) => (r() < 0.25 ? misch(alt.slice(0, 3), WEISS, 0.7) : null), { saat: 410 }),
-  'breeze/breeze_wind': (p) => male(p, ganz(p), (i, j, alt, r) => [r() < 0.12 ? WEISS : misch(EIS, WEISS, r() * 0.5), alt[3]], { saat: 411 }), // Schneesturm
+  'skeleton/bogged': (p) => { for (const q of [MENSCH.rumpf, quader(40, 16, 2, 12, 2), quader(0, 16, 2, 12, 2)]) frostverlauf(p, seiten(q), { staerke: 0.55, farbe: [150, 210, 190] }); schneedecke(p, MENSCH.kopf, { saat: 401 }); schneekante(p, MENSCH.kopf, { reihen: 1, tropfen: 2, saat: 402 }); },
+  'skeleton/bogged_overlay': (p) => male(p, ganz(p), (i, j, alt) => misch(alt.slice(0, 3), EIS_MITTEL, 0.35)),
+  'skeleton/parched': (p) => { for (const q of [MENSCH.rumpf, quader(40, 16, 2, 12, 2), quader(0, 16, 2, 12, 2)]) frostverlauf(p, seiten(q), { staerke: 0.5, farbe: [230, 236, 240] }); schneedecke(p, MENSCH.kopf, { saat: 404 }); schneekante(p, MENSCH.kopf, { reihen: 1, tropfen: 2, saat: 405 }); },
+  'skeleton/wither_skeleton': (p) => { for (const q of [MENSCH.rumpf, quader(40, 16, 2, 12, 2), quader(0, 16, 2, 12, 2)]) frostverlauf(p, seiten(q), { staerke: 0.55, farbe: SCHWARZEIS }); schneedecke(p, MENSCH.kopf, { saat: 405 }); schneekante(p, MENSCH.kopf, { reihen: 1, tropfen: 2, saat: 406 }); },
+  'breeze/breeze': (p) => { schneedecke(p, quader(0, 0, 8, 8, 8), { saat: 410 }); schneekante(p, quader(0, 0, 8, 8, 8), { reihen: 1, tropfen: 2, saat: 412 }); },
+  'breeze/breeze_wind': (p) => male(p, ganz(p), (i, j, alt) => [misch(alt.slice(0, 3), EIS, 0.35), alt[3]]), // Schneesturm
   'creaking/creaking': (p) => { kugeln(p, ganz(p), 60, 412); lametta(p, ganz(p), { faeden: 6, saat: 413 }); },
   'endermite/endermite': (p) => male(p, ganz(p), glitzer(0.15), { saat: 414 }),
   'silverfish/silverfish': (p) => male(p, ganz(p), glitzer(0.18), { saat: 415 }),
@@ -56,16 +56,16 @@ export const MONSTER2 = {
   },
   'ghast/ghast': (p) => ghast(p, 450), 'ghast/ghast_shooting': (p) => ghast(p, 450),
   'hoglin/hoglin': (p) => { const k = quader(1, 1, 16, 14, 26); ring(p, k, 3, 2, (x, i) => (i ? [120, 20, 26] : ROT), 460); kugeln(p, seiten(k), 6, 461); kruste(p, [90, 33, 38, 29], 0.3, 462); },
-  'hoglin/zoglin': (p) => male(p, ganz(p), (i, j, alt, r) => (r() < 0.3 ? misch(alt.slice(0, 3), r() < 0.3 ? WEISS : EIS, 0.7) : null), { saat: 463 }),
+  'hoglin/zoglin': (p) => { const k = quader(1, 1, 16, 14, 26), kopf = quader(61, 1, 14, 6, 19); frostverlauf(p, seiten(k), { staerke: 0.5 }); for (const q of [k, kopf]) { schneedecke(p, q, { saat: 463 + q.u }); schneekante(p, q, { reihen: 1, tropfen: 3, saat: 464 + q.u }); } },
   'slime/magmacube': (p) => male(p, ganz(p), (i, j, alt, r) => (j % 8 === 3 ? (r() < 0.8 ? GOLD : [255, 240, 160]) : null)), // glühende Christbaumkugel mit Goldringen
   'piglin/piglin': (p) => { lametta(p, seiten(MENSCH.rumpf), { faeden: 4, saat: 470 }); ring(p, MENSCH.rumpf, 0, 2, (x, i) => (i && x % 4 < 2 ? [40, 130, 60] : ROT), 471); },
   'piglin/piglin_brute': (p) => { const fell = (i, j, alt, r) => rausch(r() < 0.4 ? [40, 26, 20] : [24, 16, 14], r, 8); for (const q of [MENSCH.rumpf, quader(16, 32, 8, 12, 4)]) male(p, seiten(q), fell, { saat: 472 }); ring(p, MENSCH.rumpf, 0, 2, zerfetzterSchal, 473); },
   'piglin/zombified_piglin': (p) => { muetze(p, quader(0, 0, 10, 8, 8), { reihen: 2, zerfetzt: true, saat: 474 }); ring(p, MENSCH.rumpf, 0, 2, zerfetzterSchal, 475); kruste(p, seiten(MENSCH.rumpf), 0.15, 476); },
-  'horse/horse_skeleton': (p) => { male(p, ganz(p), eisplatten(0.5), { saat: 480 }); ring(p, PFERD_HALS, 9, 2, zerfetzterSchal, 481); },
-  'horse/horse_zombie': (p) => { ring(p, PFERD_HALS, 9, 2, zerfetzterSchal, 482); male(p, ganz(p), (i, j, alt, r) => (r() < 0.12 ? misch(alt.slice(0, 3), EIS, 0.7) : null), { saat: 483 }); },
+  'horse/horse_skeleton': (p) => { const k = quader(0, 32, 10, 10, 22); frostverlauf(p, seiten(k), { staerke: 0.5 }); schneedecke(p, k, { saat: 480 }); schneekante(p, k, { reihen: 1, tropfen: 2, saat: 484 }); ring(p, PFERD_HALS, 9, 2, zerfetzterSchal, 481); },
+  'horse/horse_zombie': (p) => { const k = quader(0, 32, 10, 10, 22); ring(p, PFERD_HALS, 9, 2, zerfetzterSchal, 482); schneedecke(p, k, { saat: 483 }); schneekante(p, k, { reihen: 1, tropfen: 2, saat: 485 }); },
   'sulfur_cube/sulfur_cube_outer': (p) => geschenkband(p, quader(0, 0, 18, 18, 18), 490),
   'sulfur_cube/sulfur_cube_outer_small': (p) => male(p, ganz(p), (i, j, alt) => ((i % 16 === 7 || i % 16 === 8 || j % 16 === 7 || j % 16 === 8) ? [[150, 20, 30], Math.max(alt[3], 200)] : null)),
-  'nautilus/zombie_nautilus': (p) => { male(p, ganz(p), (i, j, alt, r) => (r() < 0.2 ? misch(alt.slice(0, 3), EIS, 0.7) : null), { saat: 495 }); male(p, ganz(p), glitzer(0.04), { saat: 496 }); },
+  'nautilus/zombie_nautilus': (p) => { const q = quader(0, 0, 14, 10, 16); schneedecke(p, q, { saat: 495 }); schneekante(p, q, { reihen: 1, tropfen: 2, saat: 496 }); frostverlauf(p, seiten(q), { staerke: 0.35 }); },
 };
 
 function vex(p, saat) {
@@ -75,7 +75,7 @@ function vex(p, saat) {
 function ghast(p, saat) {
   // 128×64 = doppelte Auflösung des 64×32-Modells: Körper (0,0) 16×16×16 → Seiten ab y 32, Oberseite (32,0).
   kruste(p, [32, 0, 32, 32], 0.55, saat);
-  male(p, [0, 56, 128, 8], (i, j, alt, r) => (r() < 0.25 + j * 0.08 ? (j > 5 ? EIS_DUNKEL : EIS) : null), { saat: saat + 1 }); // vereiste Unterkante
+  for (let x = 0; x < 128; x++) { const l = 2 + Math.round((Math.sin(x * 1.3) * 0.5 + 0.5) * 5); for (let j = 0; j < l; j++) setze(p, x, 63 - j, j === l - 1 ? EIS_DUNKEL : j > l - 3 ? EIS_MITTEL : EIS); } // vereiste Unterkante mit Zapfen
   male(p, [0, 34, 128, 4], (i, j) => (j < 2 ? ROT : (i % 8 < 4 ? WEISS : ROT))); // rot-weißes Band um den Kopf
 }
 
