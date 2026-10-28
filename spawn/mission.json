@@ -1,0 +1,39 @@
+{
+  "grund": "Server-Mission Weihnachtsinsel (Pascal 28.10.), Entwurf Spawn & Welt – Wunschlisten, Grundmengen und Tränke noch nicht von Pascal freigegeben. Ziel je Wunsch = Grundmenge × Spieler der letzten 7 Tage, beim Stufenstart festgezurrt. Bau und Effekte: Datapack weihnachtsinsel (spawn/weihnachtsinsel.mjs)",
+  "name": "Weihnachtsinsel",
+  "start": "2026-11-27",
+  "feier": { "datum": "2026-12-24", "uhrzeit": "18:00", "funktion": "weihnachtsinsel:feier", "grund": "Stufe 4 voll: Feier an Heiligabend um 18:00; wird Stufe 4 erst danach voll, sofort" },
+  "vorbereiten": "weihnachtsinsel:vorbereiten",
+  "kiste": { "welt": "world", "x": 17, "y": 155, "z": 50 },
+  "tafel": { "tag": "wi_tafel", "x": 17.5, "y": 158.5, "z": 44.5, "grund": "text_display, setzt weihnachtsinsel:vorbereiten (Blick nach Westen zum Spawn); Text schreibt serverwahl" },
+  "stufen": [
+    {
+      "name": "Die Insel taucht auf",
+      "ab": "2026-11-27",
+      "funktion": "weihnachtsinsel:stufe_1",
+      "wuensche": { "minecraft:cobblestone": 64, "minecraft:dirt": 32, "minecraft:spruce_log": 16, "minecraft:snow_block": 16 },
+      "trank": { "name": "Winterpunsch", "farbe": 13382451, "effekte": [{ "id": "minecraft:speed", "sekunden": 180, "stufe": 0 }, { "id": "minecraft:jump_boost", "sekunden": 180, "stufe": 0 }] }
+    },
+    {
+      "name": "Der Baum wächst",
+      "ab": "2026-12-04",
+      "funktion": "weihnachtsinsel:stufe_2",
+      "wuensche": { "minecraft:spruce_log": 32, "minecraft:spruce_leaves": 32, "minecraft:spruce_sapling": 4, "minecraft:bone_meal": 8 },
+      "trank": { "name": "Tannenduft", "farbe": 3381555, "effekte": [{ "id": "minecraft:haste", "sekunden": 300, "stufe": 0 }, { "id": "minecraft:night_vision", "sekunden": 300, "stufe": 0 }] }
+    },
+    {
+      "name": "Der Baum wird geschmückt",
+      "ab": "2026-12-11",
+      "funktion": "weihnachtsinsel:stufe_3",
+      "wuensche": { "minecraft:copper_ingot": 8, "minecraft:gold_ingot": 4, "minecraft:red_wool": 8, "minecraft:white_wool": 8, "#minecraft:candles": 2 },
+      "trank": { "name": "Goldglanz", "farbe": 16766720, "effekte": [{ "id": "minecraft:haste", "sekunden": 300, "stufe": 1 }, { "id": "minecraft:speed", "sekunden": 300, "stufe": 0 }, { "id": "minecraft:absorption", "sekunden": 120, "stufe": 0 }] }
+    },
+    {
+      "name": "Heiligabend",
+      "ab": "2026-12-18",
+      "funktion": "weihnachtsinsel:stufe_4",
+      "wuensche": { "minecraft:glowstone_dust": 16, "minecraft:emerald": 3, "minecraft:firework_rocket": 8, "minecraft:diamond": 1 },
+      "trank": { "name": "Heiligabend-Elixier", "farbe": 11393254, "glanz": true, "effekte": [{ "id": "minecraft:regeneration", "sekunden": 60, "stufe": 0 }, { "id": "minecraft:resistance", "sekunden": 300, "stufe": 0 }, { "id": "minecraft:fire_resistance", "sekunden": 480, "stufe": 0 }, { "id": "minecraft:night_vision", "sekunden": 480, "stufe": 0 }, { "id": "minecraft:luck", "sekunden": 600, "stufe": 0 }] }
+    }
+  ]
+}
