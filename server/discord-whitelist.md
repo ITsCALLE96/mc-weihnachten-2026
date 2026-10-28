@@ -106,3 +106,9 @@ Namensformat: Java `^[A-Za-z0-9_]{3,16}$`; Bedrock 1–16 Zeichen, Buchstaben/Zi
 - `/serverwahl whitelist` zeigt Stand, Datei und API-Adresse
 - Testnetz: `bash testnetz/namen-test.sh einrichten` setzt Datei `testnetz/status/whitelist-discord.json` und `127.0.0.1`; Proben mit
   `bash testnetz/whitelist-test.sh [java-name] [bedrock-gamertag]` (Hub muss laufen)
+
+## Hinweis: Umzug des Bots (Bot-Session, 28.10.)
+
+Zieht der Community-Bot später von LXC 202 auf einen VPS um, erreicht er `192.168.178.78:8765` nicht mehr direkt (nur LAN, keine Portfreigabe).
+Dann braucht es Tailscale (Bot und VM200 im Tailnet, `api.adresse` auf die Tailscale-IP bzw. `0.0.0.0` mit Firewall, `api.erlaubt` = Tailscale-IP des VPS)
+oder einen Tunnel. Den Endpunkt **nicht** per FritzBox ins Internet freigeben. Jetzt nichts ändern.
