@@ -18,9 +18,9 @@ tw="$hier/testwelt"
 frei() { ! (echo > "/dev/tcp/127.0.0.1/$1") 2>/dev/null; }
 alle_frei() { frei 25567 && frei 25568 && frei 25569 && frei 25577; }
 
-# Bauarchiv (server/testwelt/archiv.py) + Mob-Zoo im Saal „zoo“ (Zoo-Ecke 1984/−140, Arena südlich davon bei z −200)
+# Bauarchiv (server/testwelt/archiv.py) + Mob-Zoo im Bereich „zoo“ (Ecke 120/−100, östlich der Insel; Arena bei 120/−160)
 bauarchiv() {
-  python -I "$repo/server/zoo/zoo.py" "$hier/smp/versions/26.3/paper-26.3.jar" "$tw/world/datapacks" 1984 -60 -140 | head -1
+  python -I "$repo/server/zoo/zoo.py" "$hier/smp/versions/26.3/paper-26.3.jar" "$tw/world/datapacks" 120 -60 -100 | head -1
   python -I "$repo/server/testwelt/archiv.py" "$tw"
   printf '{
   "values": ["zoo:aufbau"]

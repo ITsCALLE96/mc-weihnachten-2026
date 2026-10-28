@@ -13,19 +13,21 @@ python -I testnetz/rcon.py testwelt "function archiv:aufbau"
 bash testnetz/testwelt.sh archiv          # nach Änderungen an Sälen/Zoo: Datapacks und Menü neu, dann /reload
 ```
 
-- **Platz am Spawn (0/−60/0):** Quarzfläche, **Ender-Kiste** (0/−60/3) öffnet das Menü „Bauarchiv“ (serverwahl, Einträge mit `ort:` teleportieren in der Welt)
-- **Säle** in einer Reihe nach Osten, je 512 Blöcke: Ursprung = Saalmitte am Boden (y −60), Startpunkt mit Schild bei z +24, Blick nach Norden
+**Prinzip (Pascal 28.10.):** keine leeren Säle, sondern eine Welt, in der alles schon gebaut steht und man es zu Fuß bzw. im Flug abgeht – wie im SMP:
+unten die Flachwelt, darüber an den SMP-Koordinaten die schwebende Spark-Insel, daneben die Weihnachtsinsel, ringsum Hub-Ausschnitt, Deko, Mob-Zoo.
+Die Ender-Kiste am Spawn (0/−60/−3) ist nur eine Abkürzung (Teleport je Bereich).
 
-| Saal (Tag-Name) | Ursprung | Inhalt | liefert |
+| Bereich (Tag-Name) | Ursprung | Inhalt | liefert |
 |---|---|---|---|
-| `spark` | 512 / −60 / 0 | Spark-Spawn-Insel mit Deko und Kalenderwand | Spawn & Welt (fremder Bau, nur aus `spawn/quellen`) |
-| `weihnachtsinsel` | 1024 / −60 / 0 | Stufen 1–4 nebeneinander + fertige Insel mit Iglu und Weihnachtsmann | Spawn & Welt |
-| `hub` | 1536 / −60 / 0 | Hub-Ausschnitt (Fantasy Village) | Spawn & Welt (fremder Bau) |
-| `zoo` | 2048 / −60 / 0 | Mob-Zoo (Ecke 1984/−140) und Arena (1984/−200), `server/zoo/` | Server-Session |
-| `deko` | 2560 / −60 / 0 | Deko-Item-Displays, alle Kalender-Items in Rahmen / auf Rüstungsständern | Spawn & Welt |
+| `spark` | 0 / 150 / 48 (wie SMP) | Spark-Spawn-Insel mit Deko und Kalenderwand | Spawn & Welt (fremder Bau, nur aus `spawn/quellen`) |
+| `weihnachtsinsel` | −1 / 150 / −34 (wie SMP, Nordweg) | fertige Insel mit Iglu und Weihnachtsmann, daneben Stufen 1–4 | Spawn & Welt |
+| `hub` | −250 / −60 / 150 | Hub-Ausschnitt (Fantasy Village) | Spawn & Welt (fremder Bau) |
+| `zoo` | 120 / −60 / −100 (östlich) | Mob-Zoo in drei Bereichen **Friedlich · Feindlich · Bosse** mit Wegweisern, Arena bei 120/−160, `server/zoo/` | Server-Session |
+| `deko` | 0 / −60 / 150 | Deko-Item-Displays, alle Kalender-Items in Rahmen / auf Rüstungsständern | Spawn & Welt |
 
-**Neuer Saal:** Eintrag in `SAELE` in `archiv.py` anhängen (Name, Titel, Text, Menü-Item), `testwelt.sh archiv`. Das Menü zeigt zurzeit bis zu 7 Säle
-pro Seite (serverwahl-Menü); ab dem achten baue ich eine zweite Reihe.
+**Menü-Kisten generell mit der Vorderseite nach Süden** (Pascal 28.10.): wer sie öffnet, schaut nach Norden. Gilt für Testwelt, SMP-Spawn, Hub und künftige.
+**Neuer Bereich:** Eintrag in `SAELE` in `archiv.py` (Ursprung, Startpunkt), `testwelt.sh archiv`. Das Menü zeigt bis zu 7 Bereiche; ab dem achten eine zweite Reihe.
+**Umbau 28.10.:** In einer Testwelt mit dem alten Layout (Säle auf x 512…2560) einmal `function archiv:umzug_aufraeumen`, dann `function archiv:aufbau`.
 
 ## Schnittstelle für Inhalte (Funktions-Tags)
 

@@ -108,18 +108,36 @@ def name(mob):
     return mob.replace("_", " ").title()
 
 
+# Pascal 28.10.: drei Bereiche zum Abgehen, je mit Wegweiser und eigener Bodenfarbe
+BOSSE = {"ender_dragon", "wither", "warden", "elder_guardian", "giant"}
+FEINDLICH = {"blaze", "bogged", "breeze", "camel_husk", "cave_spider", "creaking", "creeper", "drowned", "enderman", "endermite", "evoker",
+             "ghast", "guardian", "hoglin", "husk", "illusioner", "magma_cube", "parched", "phantom", "piglin", "piglin_brute", "pillager",
+             "ravager", "shulker", "silverfish", "skeleton", "slime", "spider", "stray", "sulfur_cube", "vex", "vindicator", "witch",
+             "wither_skeleton", "zoglin", "zombie", "zombie_nautilus", "zombie_villager", "zombified_piglin"}
+BEREICHE = [
+    ("Friedlich", "Tiere, Helfer und Dorfbewohner", "green", "minecraft:lime_concrete", lambda m: m not in BOSSE and m not in FEINDLICH),
+    ("Feindlich", "Monster aus Oberwelt, Nether und End", "red", "minecraft:red_concrete", lambda m: m in FEINDLICH),
+    ("Bosse", "Drache, Wither, Warden, Großer Wächter, Riese", "dark_purple", "minecraft:purple_concrete", lambda m: m in BOSSE),
+]
+
 aufbau, abbau = [], []
-x, z, zeilen_tiefe = X0, Z0, 0
+z = Z0
 eintraege = []
-for mob in mobs:
-    abstand, hoehe = GROESSE.get(mob, (4, 2.6))
-    for bez, nbt in varianten(mob):
-        if x + abstand > X0 + BREITE:
-            x, z, zeilen_tiefe = X0, z + zeilen_tiefe + 4, 0
-        eintraege.append((mob, bez, nbt, x + abstand // 2, z, hoehe))
-        x += abstand
-        zeilen_tiefe = max(zeilen_tiefe, abstand)
-z_ende = z + zeilen_tiefe + 4
+wegweiser = []
+for titel, unter, farbe, boden, gehoert in BEREICHE:
+    wegweiser.append((titel, unter, farbe, X0 - 2, z))
+    z += 6
+    x, zeilen_tiefe = X0, 0
+    for mob in [m for m in mobs if gehoert(m)]:
+        abstand, hoehe = GROESSE.get(mob, (4, 2.6))
+        for bez, nbt in varianten(mob):
+            if x + abstand > X0 + BREITE:
+                x, z, zeilen_tiefe = X0, z + zeilen_tiefe + 4, 0
+            eintraege.append((mob, bez, nbt, x + abstand // 2, z, hoehe, boden))
+            x += abstand
+            zeilen_tiefe = max(zeilen_tiefe, abstand)
+    z += zeilen_tiefe + 14
+z_ende = z
 
 # Plattform in Streifen (fill höchstens 32.768 Blöcke)
 x1, x2 = X0 - 4, X0 + BREITE + 4
@@ -133,12 +151,17 @@ for zs in range(z1, z2 + 1, 60):
     abbau.append(f"fill {x1} {Y - 1} {zs} {x2} {Y - 1} {ze} minecraft:grass_block")
     abbau.append(f"forceload remove {x1} {zs} {x2} {ze}")
 gemeinsam = "Tags:[\"zoo\"],NoAI:1b,PersistenceRequired:1b,Invulnerable:1b,Rotation:[0f,0f]"
-for mob, bez, nbt, ex, ez, hoehe in eintraege:
+for titel, unter, farbe, wx, wz in wegweiser:
+    t = json.dumps({"text": titel, "color": farbe, "bold": True, "extra": [{"text": chr(10) + unter, "color": "gray", "bold": False}]}, ensure_ascii=False)
+    aufbau.append(f"fill {wx - 1} {Y - 1} {wz - 1} {wx + 1} {Y - 1} {wz + 1} minecraft:gold_block")
+    aufbau.append(f'summon minecraft:text_display {wx}.5 {Y + 3} {wz}.5 {{Tags:["zoo"],billboard:"vertical",text:{t},background:1073741824,'
+                  f'transformation:{{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[3f,3f,3f]}}}}')
+for mob, bez, nbt, ex, ez, hoehe, boden in eintraege:
     if mob in WASSER:
         aufbau.append(f"fill {ex - 1} {Y} {ez - 1} {ex + 1} {Y + 2} {ez + 1} minecraft:glass hollow")
         aufbau.append(f"fill {ex} {Y} {ez} {ex} {Y + 1} {ez} minecraft:water")
     else:
-        aufbau.append(f"setblock {ex} {Y - 1} {ez} minecraft:polished_andesite")
+        aufbau.append(f"setblock {ex} {Y - 1} {ez} {boden}")
     # ohne NBT beschwören (dann wählt Vanilla Ausrüstung und Grundwerte), danach unsere Werte setzen
     aufbau.append(f"summon minecraft:{mob} {ex}.5 {Y} {ez}.5")
     zusatz = gemeinsam + ("," + nbt if nbt else "")

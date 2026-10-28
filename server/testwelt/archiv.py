@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Bauarchiv der Testwelt (Pascal 28.10.): baut das Datapack „archiv“ – Platz am Spawn mit Menü-Kiste, „Säle“ je Thema mit Schild und Startpunkt,
-und erzeugt den Menü-Abschnitt für serverwahl (Teleport per Klick). Inhalte liefern andere Datapacks über Funktions-Tags:
+"""Bauarchiv der Testwelt (Pascal 28.10.): eine begehbare Welt, in der alles schon gebaut steht – wie im SMP: unten die Flachwelt, darüber an
+derselben Stelle wie im SMP die schwebende Spark-Insel mit Deko und Kalenderwand, daneben die Weihnachtsinsel; Hub-Ausschnitt, Deko und Mob-Zoo
+in Sichtweite. Das Datapack „archiv“ baut Platz und Schilder und ruft die Inhalte; das Menü an der Ender-Kiste teleportiert nur als Abkürzung.
+Inhalte liefern andere Datapacks über Funktions-Tags:
     data/archiv/tags/function/saal/<name>.json  → {"values": ["weihnachtsinsel:archiv"]}
-Jede eingetragene Funktion läuft beim Aufbau des Saals mit `execute positioned <Saal-Ursprung>` (relativ bauen, ~ ~ ~ = Saalmitte am Boden).
+Jede eingetragene Funktion läuft mit `execute positioned <Ursprung>`; Bauten an Original-Koordinaten (Spark, Weihnachtsinsel) dürfen absolut bauen.
 Fremde Bauten (Spark, Fantasy Village, CA12) kommen nur aus spawn/quellen in ein git-ignoriertes Datapack der Testwelt, nie ins Repo.
 NUR Testwelt (Testnetz, später ggf. Admin-Instanz auf VM200).
 
@@ -16,21 +18,17 @@ from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 TW = Path(sys.argv[1])
 BODEN = -60          # Superflat: Gras auf −61, stehen auf −60
-ABSTAND = 512        # Säle liegen in einer Reihe nach Osten, je 512 Blöcke (32 Chunks) auseinander
 
-# Neue Säle einfach anhängen (Name ist auch der Tag-Name). Reihenfolge = Position.
+# Bereiche (Name = Tag-Name): Ursprung (x, y, z) für die Inhalte und Startpunkt fürs Menü „x y z yaw pitch“ (Schild steht 2 Blöcke davor).
+# Spark und Weihnachtsinsel stehen an ihren SMP-Koordinaten (Spark um 0/48 ab y 150, Weihnachtsinsel am Nordweg um −1/−34),
+# damit dieselben Bau-Funktionen passen. Neue Bereiche anhängen und so legen, dass man alles zu Fuß bzw. im Flug sieht.
 SAELE = [
-    ("spark", "Spark-Insel (Spawn)", "Spawn-Insel mit Deko und Kalenderwand", "SPRUCE_SAPLING"),
-    ("weihnachtsinsel", "Weihnachtsinsel", "Stufen 1–4 nebeneinander und die fertige Insel mit Iglu und Weihnachtsmann", "NETHER_STAR"),
-    ("hub", "Hub-Ausschnitt", "Fantasy Village rund um die Kisten", "ENDER_CHEST"),
-    ("zoo", "Mob-Zoo und Arena", "alle Mobs mit Varianten, Arena zum Live-Schalten", "SPAWNER"),
-    ("deko", "Deko und Kalender-Items", "Deko-Modelle, Kalender-Items in Rahmen und auf Rüstungsständern", "ITEM_FRAME"),
+    ("spark", "Spark-Insel (Spawn)", "Spawn-Insel mit Deko und Kalenderwand", "SPRUCE_SAPLING", (0, 150, 48), "0 156 52 180 0"),
+    ("weihnachtsinsel", "Weihnachtsinsel", "fertige Insel am Nordweg, daneben Stufen 1–4", "NETHER_STAR", (-1, 150, -34), "-1 156 -8 180 0"),
+    ("hub", "Hub-Ausschnitt", "Fantasy Village rund um die Kisten", "ENDER_CHEST", (-250, BODEN, 150), "-250 -60 180 180 0"),
+    ("zoo", "Mob-Zoo und Arena", "Friedlich · Feindlich · Bosse, Arena zum Live-Schalten", "SPAWNER", (120, BODEN, -100), "118 -60 -108 0 0"),
+    ("deko", "Deko und Kalender-Items", "Deko-Modelle, Kalender-Items in Rahmen und auf Rüstungsständern", "ITEM_FRAME", (0, BODEN, 150), "0 -60 180 180 0"),
 ]
-
-
-def ursprung(i):
-    return (ABSTAND * (i + 1), BODEN, 0)
-
 
 pack = TW / "world" / "datapacks" / "archiv"
 f = pack / "data" / "archiv" / "function"
@@ -47,47 +45,64 @@ def schreiben(name, zeilen):
 def schild(x, y, z, text, unter=""):
     t = json.dumps({"text": text, "color": "gold", "bold": True, "extra": [{"text": ("\n" + unter) if unter else "", "color": "gray", "bold": False}]},
                    ensure_ascii=False)
-    return f'summon minecraft:text_display {x}.5 {y} {z}.5 {{Tags:["archiv"],billboard:"vertical",text:{t},background:1073741824,transformation:{{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[2f,2f,2f]}}}}'
+    return (f'summon minecraft:text_display {x}.5 {y} {z}.5 {{Tags:["archiv"],billboard:"vertical",text:{t},background:1073741824,'
+            f'transformation:{{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[2f,2f,2f]}}}}')
 
 
-# Platz am Spawn: Quarzfläche, Menü-Kiste (serverwahl), Schild
+def startpunkt(tp):
+    return tuple(int(float(v)) for v in tp.split()[:3])
+
+
+# Platz am Boden südlich unter der Insel: Quarzfläche, Menü-Kiste, Schild.
+# Menü-Kisten generell mit der Vorderseite nach SÜDEN (Pascal 28.10.): wer sie öffnet, steht davor und schaut nach Norden
 platz = ["kill @e[type=minecraft:text_display,tag=archiv]",
          f"fill -8 {BODEN - 1} -8 8 {BODEN - 1} 8 minecraft:smooth_quartz",
-         f"setblock 0 {BODEN} 3 minecraft:ender_chest[facing=north]",
-         schild(0, BODEN + 2, 3, "Bauarchiv", "Ender-Kiste: Säle · /hub zurück"),
+         f"setblock 0 {BODEN} -3 minecraft:ender_chest[facing=south]",
+         schild(0, BODEN + 2, -4, "Bauarchiv", "Ender-Kiste: Bereiche · /hub zurück"),
          f"setworldspawn 0 {BODEN} 0"]
-for i, (name, titel, unter, _) in enumerate(SAELE):
-    x, y, z = ursprung(i)
-    # Chunks um Ursprung und Startpunkt bleiben geladen (forceload in archiv:aufbau); größere Bauten laden ihre Fläche selbst
+for name, titel, unter, _, (x, y, z), tp in SAELE:
+    tx, ty, tz = startpunkt(tp)
     schreiben(f"saal/{name}", [
-        f"fill {x - 3} {y - 1} {z + 20} {x + 3} {y - 1} {z + 26} minecraft:polished_andesite",
-        schild(x, y + 3, z + 23, titel, unter),
+        schild(tx, ty + 3, tz - 2 if tp.split()[3].startswith("180") else tz + 2, titel, unter),
         f"execute positioned {x} {y} {z} run function #archiv:saal/{name}"])
     tag = pack / "data" / "archiv" / "tags" / "function" / "saal" / f"{name}.json"
     if not tag.exists():
         tag.write_text(json.dumps({"values": []}, indent=2), encoding="utf-8")
-# forceload lädt erst in den nächsten Ticks → laden, nach 5 s bauen
-schreiben("aufbau", [f"forceload add {ursprung(i)[0] - 32} {ursprung(i)[2] - 32} {ursprung(i)[0] + 32} {ursprung(i)[2] + 32}" for i in range(len(SAELE))]
-          + ["forceload add -16 -16 16 16", 'tellraw @a {"text":"Bauarchiv: Chunks werden geladen, Aufbau in 5 s …","color":"gray"}',
-             "schedule function archiv:aufbau2 100t"])
-schreiben("aufbau2", platz + [f"function archiv:saal/{n}" for n, *_ in SAELE] +
-          ['tellraw @a {"text":"Bauarchiv aufgebaut – Ender-Kiste am Spawn öffnet die Säle","color":"gold"}'])
 
-# serverwahl: Menü-Kiste am Spawn mit Teleport je Saal (ort: x y z yaw – Blick nach Norden auf den Saal)
+# forceload lädt erst in den nächsten Ticks → laden, nach 5 s bauen. Ursprung und Startpunkt bleiben geladen; große Bauten laden ihre Fläche selbst
+laden = ["forceload add -16 -16 16 16"]
+for *_, (x, y, z), tp in SAELE:
+    tx, _, tz = startpunkt(tp)
+    laden += [f"forceload add {x - 32} {z - 32} {x + 32} {z + 32}", f"forceload add {tx - 8} {tz - 8} {tx + 8} {tz + 8}"]
+schreiben("aufbau", laden + ['tellraw @a {"text":"Bauarchiv: Chunks werden geladen, Aufbau in 5 s …","color":"gray"}',
+                             "schedule function archiv:aufbau2 100t"])
+schreiben("aufbau2", platz + [f"function archiv:saal/{n}" for n, *_ in SAELE] +
+          ['tellraw @a {"text":"Bauarchiv aufgebaut – Ender-Kiste am Spawn: Abkürzungen zu den Bereichen","color":"gold"}'])
+
+# Einmalig nach dem Umbau 28.10.: altes Layout (Säle auf x 512…2560, Zoo bei 1984/−140) wegräumen. forceload all entfernen, neu laden macht aufbau
+alt = ["kill @e[tag=zoo]", "kill @e[tag=zoo_live]", "kill @e[tag=archiv]"]
+for zs in range(-146, -18, 60):
+    ze = min(zs + 59, -19)
+    alt += [f"forceload add 1980 {zs} 2108 {ze}", f"fill 1980 {BODEN} {zs} 2108 {BODEN + 2} {ze} minecraft:air",
+            f"fill 1980 {BODEN - 1} {zs} 2108 {BODEN - 1} {ze} minecraft:grass_block"]
+alt += [f"forceload add 1953 -231 2015 -169"] + [f"fill 1953 {yy} -231 2015 {min(yy + 7, BODEN + 41)} -169 minecraft:air" for yy in range(BODEN, BODEN + 42, 8)]
+alt += [f"fill 1953 {BODEN - 1} -231 2015 {BODEN - 1} -169 minecraft:grass_block"]
+alt += [f"fill {x - 3} {BODEN - 1} 20 {x + 3} {BODEN - 1} 26 minecraft:grass_block" for x in (512, 1024, 1536, 2048, 2560)]
+alt += ["forceload remove all", 'tellraw @a {"text":"Altes Archiv-Layout weggeräumt – jetzt function archiv:aufbau","color":"gray"}']
+schreiben("umzug_aufraeumen", alt)
+
+# serverwahl: Menü-Kiste am Spawn mit Teleport je Bereich (Abkürzung)
 cfg = TW / "plugins" / "Serverwahl" / "config.yml"
 text = cfg.read_text(encoding="utf-8")
 text = re.sub(r"(?ms)^# >>> archiv.*?^# <<< archiv\n", "", text)
 text = re.sub(r"(?m)^kisten: \[\]\n", "", text)
 text = re.sub(r"(?m)^kategorien: \{\}\n", "", text)
-eintraege = []
-for i, (name, titel, unter, mat) in enumerate(SAELE):
-    x, y, z = ursprung(i)
-    eintraege.append(f'      - {{name: {name}, anzeige: "<gold>{titel}", material: {mat}, ort: "{x} {y} {z + 24} 180 0", '
-                     f'beschreibung: ["<gray>{unter}", "", "<yellow>Klicken zum Hinfliegen"]}}')
+eintraege = [f'      - {{name: {name}, anzeige: "<gold>{titel}", material: {mat}, ort: "{tp}", '
+             f'beschreibung: ["<gray>{unter}", "", "<yellow>Klicken zum Hinfliegen"]}}' for name, titel, unter, mat, _, tp in SAELE]
 text += ("# >>> archiv (erzeugt von server/testwelt/archiv.py, nicht von Hand ändern)\n"
-         f"kisten:\n  - {{welt: world, x: 0, y: {BODEN}, z: 3, kategorie: archiv}}\n"
+         f"kisten:\n  - {{welt: world, x: 0, y: {BODEN}, z: -3, kategorie: archiv}}\n"
          "kategorien:\n  archiv:\n    titel: \"<gold>Bauarchiv\"\n    server:\n" + "\n".join(eintraege) + "\n# <<< archiv\n")
 cfg.write_text(text, encoding="utf-8")
-print(f"archiv: {len(SAELE)} Säle → {pack}; Menü in {cfg}")
-for i, (name, titel, *_ ) in enumerate(SAELE):
-    print(f"  {name:16} Ursprung {ursprung(i)}  Tag #archiv:saal/{name}")
+print(f"archiv: {len(SAELE)} Bereiche → {pack}; Menü in {cfg}")
+for name, titel, _, _, u, tp in SAELE:
+    print(f"  {name:16} Ursprung {u}  Startpunkt {tp}  Tag #archiv:saal/{name}")
