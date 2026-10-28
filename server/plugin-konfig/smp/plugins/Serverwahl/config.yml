@@ -17,7 +17,7 @@ eroeffnung:
 portale-sperren: true
 text-nether-zu: "<red>Der Nether ist noch geschlossen!"
 text-end-zu: "<red>Das End ist noch geschlossen!"
-# Einmal-Elytra auf der Spark-Insel (Pascal 27.10.): Doppelsprung = Gleitflug ohne Item, [F] einmal Schub, nach der Landung weg.
+# Einmal-Elytra auf der Spark-Insel (Pascal 27.10./28.10.): von der Insel springen = automatisch Gleitflug ohne Item, [F] einmal Schub, nach der Landung weg.
 # Zone = WorldGuard-Oval der Spawn-Session (Mitte −1/47, Radius 28), erst ab der Standfläche y 150 (Spawn & Welt; gleicher Bereich wie die Sättigung im Datapack insel)
 spawn-elytra:
   aktiv: true
@@ -27,6 +27,9 @@ spawn-elytra:
   y-ab: 150
   # Schub mit [F] wie Feuerwerksrakete Stufe 3 (Pascal 27.10.): Ticks, die er wirkt (Stufe 1 ≈ 20, 2 ≈ 30, 3 ≈ 45)
   schub-ticks: 45
+  # Gleitflug startet ab dieser Fallhöhe (Blöcke), wenn darunter boden-frei Blöcke Luft sind (kleine Stufen auf der Insel lösen nicht aus)
+  fall-ab: 2.5
+  boden-frei: 4
   text-start: "<gold>Gleiten! <gray>[F] für einen Schub"
   text-schub: "<gold>Schub!"
   # true schreibt jeden Zustandswechsel ins Server-Log (Fehlersuche)
