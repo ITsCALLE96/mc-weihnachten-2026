@@ -307,7 +307,18 @@ aufbau += [
     "transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[3f,3f,3f]}}",
     "tellraw @a {\"text\":\"Zoo aufgebaut: zoo:menue (Arena), zoo:galerie (Geschosse), zoo:nacht/zoo:tag, zoo:neu\",\"color\":\"gold\"}",
 ]
-abbau = ["kill @e[tag=zoo]", "kill @e[tag=zoo_live]"] + kasten_leeren(ax - 31, ax + 31, az - 31, az + 31, ay, ay + 41) + \
+# Entfernen ohne Tod-Effekte (Leitung 28.10.: kill ließ Slimes/Magmawürfel sich teilen, dazu Drops und XP): in den Void teleportieren,
+# dort sterben sie sofort; was dabei entsteht, fällt ebenfalls ins Nichts. Erst Größe 0, damit wirklich nichts mehr aufteilt
+WEG = ["execute as @e[tag={t},type=minecraft:slime] run data merge entity @s {{Size:0}}",
+       "execute as @e[tag={t},type=minecraft:magma_cube] run data merge entity @s {{Size:0}}",
+       "execute as @e[tag={t}] at @s run tp @s ~ -500 ~"]
+
+
+def weg(tag):
+    return [w.format(t=tag) for w in WEG]
+
+
+abbau = weg("zoo") + weg("zoo_live") + kasten_leeren(ax - 31, ax + 31, az - 31, az + 31, ay, ay + 41) + \
         kasten_leeren(gx1, xr, GZ - 2, GALERIE_ENDE, Y, Y + 4) + abbau + \
         [f"fill {ax - 31} {ay - 1} {az - 31} {ax + 31} {ay - 1} {az + 31} minecraft:grass_block", f"forceload remove {ax - 31} {az - 31} {ax + 31} {az + 31}"]
 
@@ -341,7 +352,7 @@ schreiben("schutz", ["gamemode survival @s", "effect give @s minecraft:resistanc
                      "tellraw @s {\"text\":\"Schutz an (Überleben, Resistenz V): Mobs greifen dich an, Schaden kommt nicht durch. zoo:schutz_aus beendet\",\"color\":\"gray\"}"])
 schreiben("schutz_aus", ["effect clear @s", "gamemode creative @s"])
 schreiben("arena", [f"execute in minecraft:overworld run tp @s {ax} {ay} {az + 20} 180 0", "function zoo:schutz"])
-schreiben("arena_leeren", ["kill @e[tag=zoo_live]", "tellraw @s {\"text\":\"Arena geleert\",\"color\":\"gray\"}"])
+schreiben("arena_leeren", weg("zoo_live") + ["tellraw @s {\"text\":\"Arena geleert\",\"color\":\"gray\"}"])
 menue = ["tellraw @s {\"text\":\"Arena – Mob anklicken zum Beschwören (Live, mit KI). zoo:arena_leeren räumt auf.\",\"color\":\"gold\"}"]
 for mob in LIVE + ["ender_dragon"]:
     if mob not in mobs:

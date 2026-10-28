@@ -98,7 +98,9 @@ schreiben("aufbau2", platz + [f"function archiv:saal/{n}" for n, *_ in SAELE] +
           ['tellraw @a {"text":"Bauarchiv aufgebaut – Ender-Kiste am Spawn: Abkürzungen zu den Bereichen","color":"gold"}'])
 
 # Einmalig nach dem Umbau 28.10.: altes Layout (Säle auf x 512…2560, Zoo bei 1984/−140) wegräumen. forceload all entfernen, neu laden macht aufbau
-alt = ["kill @e[tag=zoo]", "kill @e[tag=zoo_live]", "kill @e[tag=archiv]"]
+# ohne kill (Slimes teilen sich, Drops): in den Void teleportieren
+alt = [f"execute as @e[tag={t},type=minecraft:{m}] run data merge entity @s {{Size:0}}" for t in ("zoo", "zoo_live") for m in ("slime", "magma_cube")]
+alt += [f"execute as @e[tag={t}] at @s run tp @s ~ -500 ~" for t in ("zoo", "zoo_live", "archiv")]
 for zs in range(-146, -18, 60):
     ze = min(zs + 59, -19)
     alt += [f"forceload add 1980 {zs} 2108 {ze}", f"fill 1980 {BODEN} {zs} 2108 {BODEN + 2} {ze} minecraft:air",
