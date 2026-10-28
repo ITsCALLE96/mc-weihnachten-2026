@@ -1,12 +1,12 @@
 # Serverwahl auf dem Hub (MinecraftHub01). Nach Änderung: /serverwahl reload
 ist-hub: true
 hub-server: hub
-# Eröffnung 05.12.: Das Hub-Datapack (Spawn & Welt) setzt #offen in insel_zustand auf 1, dann legt der Hub die Datei an.
+# Eröffnung 27.11.: Das Hub-Datapack (Spawn & Welt) setzt #offen in insel_zustand auf 1, dann legt der Hub die Datei an.
 # Dieselbe Datei prüft das SMP beim Beitritt. Liegt außerhalb beider Instanzen, Ordner gehört amp (Task 2 Schritt 6b).
 eroeffnung:
   datei: /opt/mc-weihnachten/status/smp-offen
   ausloeser: {objective: insel_zustand, eintrag: "#offen", ab: 1}
-  text: "<red>Der Weihnachtsserver öffnet am <white>05.12.</white>"
+  text: "<red>Der Weihnachtsserver öffnet am <white>27.11.</white>"
 # Crate-Kisten im Fantasy Village: Rechtsklick öffnet das Menü der Kategorie.
 # Koordinaten vom Testserver (Leitung 24.10.), nach dem Hub-Aufbau der Spawn-&-Welt-Session prüfen.
 kisten:
@@ -27,7 +27,7 @@ kategorien:
         sperre: eroeffnung
         beschreibung:
           - "<gray>Survival mit dem Weihnachts-Modpack"
-          - "<gray>Start am <white>05.12.</white>"
+          - "<gray>Start am <white>27.11.</white>"
           - ""
           - "<yellow>Klicken zum Beitreten"
   alle:
@@ -86,3 +86,20 @@ neujahr:
   himmel-skala: 7
   himmel-abstand: 45
   himmel-hoehe: 22
+# Termine nach echter Uhr (Pascal 28.10.): Start Fr 27.11. Pascal öffnet von Hand (function hub:eroeffnung); 18:00 nur Ankündigungen,
+# 18:10 Rückfall, falls er ausfällt (wirkt nur, solange noch zu). Uhrzeit vorläufig 18:00. /serverwahl termin liste | test <name> [sek]
+termine:
+  zeitzone: Europe/Berlin
+  liste:
+    - name: start-ankuendigung
+      zeitpunkt: "2026-11-27T18:00"
+      ankuendigen: [1440, 60, 30, 10, 5, 1]
+      countdown: 0
+      text: "<gold>Der Weihnachtsserver öffnet!"
+      befehle: []
+    - name: start-rueckfall
+      zeitpunkt: "2026-11-27T18:10"
+      ankuendigen: []
+      countdown: 0
+      text: "Eröffnung"
+      befehle: ["execute if score #offen insel_zustand matches 0 run function hub:eroeffnung"]

@@ -36,7 +36,7 @@ Bots starten mit `-Dbot.ip=192.168.178.78 -Dbot.port=25565 -Dbot.login.delay.ms=
 | Phase | Dauer | Einstellung | Bild |
 |---|---|---|---|
 | 0 Leerlauf | 5 min | keine Bots | Grundlast messen |
-| 1 Ansturm | – | `count 25`, Login alle 0,5 s | Start 05.12.: alle kommen gleichzeitig |
+| 1 Ansturm | – | `count 25`, Login alle 0,5 s | Start 27.11.: alle kommen gleichzeitig |
 | 2 Spawn | 10 min | `radius 30`, `speed 0.05` | alle 25 stehen am Spawn (ungünstigster Fall für Entity-Updates) |
 | 3 Spawn voll | 5 min | `count 30` | Reserve über die geplante Zahl |
 | 4 Verteilt | 15 min | `count 25`, `radius 3000`, `speed 0.2` (~4 Blöcke/s, Laufen) | normales Erkunden |

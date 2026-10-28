@@ -15,7 +15,8 @@ für 26.3, und es wäre ein Teil mehr, der gepflegt werden muss. Paper selbst ha
 - Der Preis steigt danach weder durch Nachfrage noch durch Rabatt-Effekte. Die Anzahl der Käufe pro Angebot (`maxUses`) bleibt Vanilla
 - Jeder Händler wird nur einmal bearbeitet
 
-**Zeitraum (Vorschlag, Leitung entscheidet):** 24.12. bis 26.12. Pascal schaltet es per Hand:
+**Zeitraum (Pascal 28.10.): ab dem Start dauerhaft an** (sonst verpasst man den Händler leicht). Das Pack liegt von Anfang an in `world/datapacks/`
+und ist damit aktiv, es muss nichts eingeschaltet werden. Nur zum Abschalten (z. B. nach der Season):
 ```text
 /datapack enable "file/wanderhaendler-rabatt"
 /function wh_rabatt:ende

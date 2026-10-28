@@ -114,7 +114,7 @@ Schätzung (Velocity-Kompression an, Sichtweite 8, Simple Voice Chat mit Opus ~2
 
 | Situation | pro Spieler | 25 Spieler |
 |---|---|---|
-| Beitritt/Teleport: 17 × 17 = 289 Chunks à ~10 KB | ~3 MB einmalig | 75 MB, wenn alle gleichzeitig kommen (Start 05.12.) |
+| Beitritt/Teleport: 17 × 17 = 289 Chunks à ~10 KB | ~3 MB einmalig | 75 MB, wenn alle gleichzeitig kommen (Start 27.11.) |
 | Stehen/Bauen (Blöcke, Entities in der Nähe) | 0,1–0,3 Mbit/s | 3–8 Mbit/s |
 | Laufen/Sprinten (~6 neue Chunks/s) | ~0,5 Mbit/s | – |
 | Elytra-Flug (~30 neue Chunks/s) | ~2,5 Mbit/s | 5 Flieger gleichzeitig ≈ 12 Mbit/s |

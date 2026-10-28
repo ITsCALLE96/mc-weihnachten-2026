@@ -7,7 +7,7 @@ hub-server: hub
 eroeffnung:
   datei: /opt/mc-weihnachten/status/smp-offen
   beitritt-sperren: true
-  text: "<red>Der Weihnachtsserver öffnet am <white>05.12.</white>"
+  text: "<red>Der Weihnachtsserver öffnet am <white>27.11.</white>"
   # einmalig, sobald der Merker auftaucht (Konsole). Erledigt-Merker plugins/Serverwahl/eroeffnet.txt, zurückgesetzt wenn der Merker wieder fehlt
   befehle:
     - "execute if score #phase lf_phase matches 0 run function leitfaden:phase/setzen_1"
@@ -136,3 +136,35 @@ neujahr:
   himmel-skala: 7
   himmel-abstand: 45
   himmel-hoehe: 22
+# Termine nach echter Uhr (Pascal 28.10.): ersetzen die AMP-Aufgaben für die Phasen. Ankündigung im Chat (Minuten vorher), Countdown als Titel,
+# dann die Befehle. Jeder Termin läuft einmal (Merker plugins/Serverwahl/termine.txt), verpasste werden beim nächsten Start nachgeholt.
+# Uhrzeiten vorläufig 18:00 (Pascal legt sie noch fest). /serverwahl termin liste | test <name> [sek] | zuruecksetzen <name>
+termine:
+  zeitzone: Europe/Berlin
+  liste:
+    - name: nether
+      zeitpunkt: "2026-12-11T18:00"
+      ankuendigen: [1440, 60, 30, 10, 5, 1]
+      countdown: 10
+      text: "<red>Der Nether öffnet!"
+      befehle: ["nether open", "function leitfaden:phase/setzen_2"]
+    # Phase 3 (Questbuch: nur eine Meldung) – Termin zwischen Nether und End ist ein Vorschlag, Leitung entscheidet
+    - name: phase3
+      zeitpunkt: "2026-12-15T18:00"
+      ankuendigen: []
+      countdown: 0
+      text: "Phase 3"
+      befehle: ["function leitfaden:phase/setzen_3"]
+    - name: end
+      zeitpunkt: "2026-12-18T18:00"
+      ankuendigen: [1440, 60, 30, 10, 5, 1]
+      countdown: 10
+      text: "<light_purple>Das End öffnet – gemeinsamer Drachenkampf!"
+      befehle: ["end open", "function leitfaden:phase/setzen_4"]
+# Weihnachtsrabatt bei Dorfbewohnern (Pascal 28.10.): an diesen Tagen alles zum halben Preis, zusätzlich zu den Vanilla-Rabatten.
+# Gilt beim Öffnen des Handelsfensters, nichts bleibt dauerhaft gespeichert. Test: /serverwahl rabatt an | aus | auto | status
+dorf-rabatt:
+  aktiv: true
+  zeitzone: Europe/Berlin
+  prozent: 50
+  tage: ["2026-12-24", "2026-12-25", "2026-12-26"]

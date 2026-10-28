@@ -73,6 +73,8 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     /** Prüfwerkzeug (Holzspitzhacke → Prism-Abfrage), nur mit Prism (sonst null) */
     private Pruefwerkzeug pruefwerkzeug;
     private final Neujahr neujahr = new Neujahr(this);
+    private final DorfRabatt dorfRabatt = new DorfRabatt();
+    private Termine termine;
     /** Nicknames/Clan-Tags, nur mit LuckPerms (sonst null) */
     private Namen namen;
     /** täglich einmal ab dieser Uhrzeit (höchstens eine Stunde später) diese Konsolenbefehle; null = aus */
@@ -129,6 +131,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(wetter, this);
         getServer().getPluginManager().registerEvents(eisSperre, this);
         getServer().getPluginManager().registerEvents(neujahr, this);
+        getServer().getPluginManager().registerEvents(dorfRabatt, this);
         // Hub: einmal pro Sekunde schauen, ob das Datapack die Eröffnung ausgelöst hat. Legt die Datei nur an, löscht sie nie
         // (eine zurückgesetzte Hub-Welt soll das SMP nicht wieder schließen; schließen nur per /serverwahl schliessen)
         getServer().getScheduler().runTaskTimer(this, () -> {
@@ -246,6 +249,11 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             pruefwerkzeug.laden(getConfig().getConfigurationSection("pruefwerkzeug"));
         }
         neujahr.laden(getConfig().getConfigurationSection("neujahr"));
+        dorfRabatt.laden(getConfig().getConfigurationSection("dorf-rabatt"));
+        if (termine == null) {
+            termine = new Termine(this);
+        }
+        termine.laden(getConfig().getConfigurationSection("termine"));
         xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
         if (namen != null) {
             namen.laden(getConfig().getConfigurationSection("namen"));
@@ -288,6 +296,14 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             return true;
         }
         if (command.getName().equals("serverwahl")) {
+            if (args.length >= 1 && args[0].equals("termin")) {
+                sender.sendMessage(Component.text(termine.befehl(args), NamedTextColor.GOLD));
+                return true;
+            }
+            if (args.length >= 1 && args[0].equals("rabatt")) {
+                sender.sendMessage(Component.text(dorfRabatt.befehl(args), NamedTextColor.GOLD));
+                return true;
+            }
             if (args.length >= 2 && args[0].equals("feuerwerk")) {
                 String antwort = switch (args[1]) {
                     case "test" -> {

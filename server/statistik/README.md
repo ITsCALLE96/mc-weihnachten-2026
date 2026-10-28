@@ -31,7 +31,7 @@ falschen Season landet.
 | Season | ab | Welt |
 |---|---|---|
 | `testlauf` | Sa 21.11.2026 (Testlauf, Task 10 Schritt 2) | Testwelt |
-| `weihnachten-2026` | Sa 05.12.2026 (Start) | echte Welt |
+| `weihnachten-2026` | Fr 27.11.2026 (Start, vorher Sa 05.12.) | echte Welt |
 
 **Umstellen** (Wunsch der Statistikseite, 24.10.): **immer erst ein Abschluss-Schnappschuss von Hand, dann `SEASON` ändern.** Sonst fehlt der Stand
 zwischen dem letzten 04:00-Lauf und dem Wechsel.
@@ -52,8 +52,8 @@ echo weihnachten-2026 > /home/amp/mc-archiv/SEASON
 ```
 
 **Wann genau:**
-- `testlauf` → `weihnachten-2026`: **direkt vor dem Weltwechsel in Task 10 Schritt 4** (bis 28.11.), also bevor die Testwelt gesichert und verworfen wird,
-  nicht erst am 05.12. Danach gibt es keine Testwelt-Daten mehr
+- `testlauf` → `weihnachten-2026`: **direkt vor dem Weltwechsel in Task 10 Schritt 4** (zwischen Testlauf 21.11. und Start 27.11., Ziel Mi 25.11.), also bevor die Testwelt gesichert und verworfen wird,
+  nicht erst am 27.11. Danach gibt es keine Testwelt-Daten mehr
 - vor `testlauf` (21.11.): Nur nötig, wenn vorher schon eine Season lief (Pascals Solotest ab 14.11.). Ohne `SEASON` bricht das Skript ab, es gibt dann
   nichts abzuschließen. Ob der Solotest eine eigene Season bekommt, entscheiden Leitung und Statistikseite
 
@@ -62,7 +62,7 @@ Der Ordner der alten Season bleibt unverändert liegen. Hinweis der Statistiksei
 ## Datum und Zeitzone
 
 Der Dateiname `JJJJ-MM-TT` ist das **Berliner Datum (Europe/Berlin) zum Zeitpunkt des Laufs um 04:00**. Ein Schnappschuss vom
-`2026-12-06` enthält also den Stand am 06.12. um 04:00, mit allem, was am Abend des 05.12. gespielt wurde.
+`2026-11-28` enthält also den Stand am 28.11. um 04:00, mit allem, was am Abend des 27.11. gespielt wurde.
 Das Skript rechnet selbst mit `TZ=Europe/Berlin` (bricht ab, wenn die Zeitzonendaten fehlen). Damit der Cron-Job auch um 04:00 Berliner Zeit
 läuft, steht VM200 auf `Europe/Berlin`. Das Format bleibt fest, die Statistikseite verlässt sich darauf.
 

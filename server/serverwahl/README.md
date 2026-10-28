@@ -75,6 +75,20 @@ Am Himmel steht „Frohes neues Jahr 2027!“ bzw. „Happy New Year 2027!“ (C
 `himmel-abstand` Blöcke vor ihm und `himmel-hoehe` über ihm, nur für ihn sichtbar, nicht gespeichert (Neustart räumt es weg). Die Nacht kommt als
 Zeitraffer über `nacht-uebergang-sekunden` (Test 28.10.: der harte Sprung brachte Dorfbewohner kurz durcheinander). Merker `plugins/Serverwahl/neujahr.txt`: nach einem Neustart im Fenster läuft nur der Rest. Test: `/serverwahl feuerwerk test [sekunden]`, `… stopp`, `… status`.
 
+## Termine (28.10.)
+
+`termine:` ersetzt die AMP-Aufgaben für Phasen: je Termin `name`, `zeitpunkt` (echte Uhr, `zeitzone`), `ankuendigen` (Minuten vorher, Chat),
+`countdown` (letzte Sekunden als Titel), `text` (MiniMessage), `befehle` (Konsole), `nachholen` (Standard an: war der Server zum Zeitpunkt aus,
+läuft der Termin beim nächsten Start). Jeder Termin läuft einmal, Merker `plugins/Serverwahl/termine.txt`. SMP: Nether 11.12., Phase 3 15.12.
+(Vorschlag), End 18.12.; Hub: Start-Ankündigung 27.11. und Rückfall-Eröffnung 10 min später. `/serverwahl termin liste | test <name> [sek] |
+zuruecksetzen <name>` (Test führt die Befehle wirklich aus).
+
+## Dorf-Rabatt (28.10.)
+
+`dorf-rabatt:` an den `tage`n (Standard 24.–26.12.) kosten alle Angebote von Dorfbewohnern `prozent` weniger, zusätzlich zu Vanilla-Rabatten.
+Über den Sonderpreis beim Öffnen des Handelsfensters (Vanilla setzt ihn beim Schließen zurück) → nichts bleibt gespeichert, kein Neustart nötig.
+`/serverwahl rabatt an | aus | auto`.
+
 ## Konfiguration
 
 `plugins/Serverwahl/config.yml`, die Dateien dafür liegen in `../plugin-konfig/hub/` und `../plugin-konfig/smp/`. Nach Änderungen `/serverwahl reload` (Op).
@@ -92,7 +106,7 @@ Zeitraffer über `nacht-uebergang-sekunden` (Test 28.10.: der harte Sprung brach
 
 ## Eröffnungssperre (Leitung 24.10., Weg mit Spawn & Welt abgestimmt)
 
-Die Sperre sitzt **auf dem SMP selbst**: Solange `/opt/mc-weihnachten/status/smp-offen` fehlt, lehnt es jeden Beitritt ab („Der Weihnachtsserver öffnet am 05.12.“),
+Die Sperre sitzt **auf dem SMP selbst**: Solange `/opt/mc-weihnachten/status/smp-offen` fehlt, lehnt es jeden Beitritt ab („Der Weihnachtsserver öffnet am 27.11.“),
 egal ob über die Kiste oder `/server smp`. Velocity lässt den Spieler dann im Hub. Ops und `serverwahl.vorab` kommen durch (Tests, Testlauf 21.11.).
 Beide Server laufen auf VM200, deshalb reicht eine Datei als Merker. Kein Plugin-Kanal, der einen Spieler auf dem Ziel bräuchte.
 

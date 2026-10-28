@@ -14,7 +14,7 @@ Werkzeug: **Chunky 1.5.3** (Modrinth `chunky`, GPL-3.0, Prüfsumme in `plugins.m
 | Welt | Wann | Radius |
 |---|---|---|
 | **Testwelt** | vor dem Lasttest (Plan Task 2 Schritt 7), spätestens vor dem Testlauf 21.11. | mindestens **2.500** (Overworld), Nether 650. Dabei Dauer und Größe messen |
-| **Endgültige Welt** | **direkt nach dem Erzeugen in Task 10 Schritt 4 (bis 28.11.)**, auf jeden Fall vor dem ersten Spielerbeitritt. **Erst Spawn-Aufbau (Aufschüttung + Insel, unten), dann Chunky** | Overworld **5.000**, Nether **1.250**, End **2.000** |
+| **Endgültige Welt** | **direkt nach dem Erzeugen in Task 10 Schritt 4 (zwischen Testlauf 21.11. und Start 27.11., Ziel Mi 25.11.)**, auf jeden Fall vor dem ersten Spielerbeitritt. **Erst Spawn-Aufbau (Aufschüttung + Insel, unten), dann Chunky** | Overworld **5.000**, Nether **1.250**, End **2.000** |
 
 ## Weltgrenze
 
@@ -31,10 +31,10 @@ Werkzeug: **Chunky 1.5.3** (Modrinth `chunky`, GPL-3.0, Prüfsumme in `plugins.m
 ## End: ja, im Radius 2.000
 
 Meine Entscheidung (Leitung hat sie mir überlassen):
-- Das End öffnet erst am 26.12. Dann fliegen viele Spieler auf einmal zu den äußeren Inseln (Elytra, Endstädte). Das ist genau die Last, die Vorgenerierung verhindern soll
+- Das End öffnet erst am 18.12. (gemeinsamer Drachenkampf) Dann fliegen viele Spieler auf einmal zu den äußeren Inseln (Elytra, Endstädte). Das ist genau die Last, die Vorgenerierung verhindern soll
 - End-Chunks sind fast leer und schnell erzeugt. Radius 2.000 (ab ~1.000 beginnen die äußeren Inseln) kostet wenig Zeit und Platz
 - Die Dimensionssperre hält Spieler fern. Chunky erzeugt trotzdem, weil es ohne Spieler arbeitet. Die Hauptinsel mit dem Drachen wird dabei nur als Gelände erzeugt.
-  **Prüfen:** Nach der Vorgenerierung muss der Drachenkampf beim ersten Betreten am 26.12. normal starten (Testwelt: einmal mit OP ins End, Drache da, Welt danach verwerfen)
+  **Prüfen:** Nach der Vorgenerierung muss der Drachenkampf beim ersten Betreten am 18.12. normal starten (Testwelt: einmal mit OP ins End, Drache da, Welt danach verwerfen)
 
 ## Dauer und Platz
 

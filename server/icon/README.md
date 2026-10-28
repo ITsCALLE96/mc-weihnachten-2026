@@ -9,6 +9,6 @@ aus ist. Nach dem Kopieren Velocity neu starten.
 
 **MOTD:** steht in `../velocity/velocity.toml.auszug` (MiniMessage, zwei Zeilen):
 - Zeile 1: „❄ Weihnachtsserver ❄“ im Verlauf Rot → Weiß → Grün. **„Weihnachtsserver“ ist Platzhalter**, bis Pascal den Namen von den Mitspielern hat
-- Zeile 2: „Frohe Weihnachten! · Start am 05.12.“, ab dem Start ein anderer Text (Vorschlag steht im Auszug)
+- Zeile 2: „Frohe Weihnachten! · Start am 27.11.“, ab dem Start ein anderer Text (Vorschlag steht im Auszug)
 
 Nach einer Änderung: in Velocity `/velocity reload` und in der Serverliste prüfen, dass Farben, Zeilenumbruch und Bild ankommen.

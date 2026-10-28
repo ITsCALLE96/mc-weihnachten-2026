@@ -1,6 +1,6 @@
 # Checkliste „vor dem Start“ – Server-Optimierung
 
-Kurzfassung aller Leistungs- und Betriebsschritte vor dem Testlauf (21.11.) bzw. dem Start (05.12.). Details stehen in den verlinkten Dateien.
+Kurzfassung aller Leistungs- und Betriebsschritte vor dem Testlauf (21.11.) bzw. dem Start (Fr 27.11., vorher 05.12.; nur 6 Tage dazwischen). Details stehen in den verlinkten Dateien.
 Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahmedokument. Diese Liste ist der technische Teil davon.
 
 ## Host und VM
@@ -36,7 +36,7 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 - [ ] Kisten-Koordinaten in `plugin-konfig/hub/plugins/Serverwahl/config.yml` mit der fertigen Hub-Welt abgeglichen, Welt-Name in `WorldGuard/worlds/<welt>/` passt
 - [ ] SMP hat ebenfalls `serverwahl-1.0.0.jar` (für `/hub` und die Eröffnungssperre)
 - [ ] Merker-Ordner `/opt/mc-weihnachten/status/` (Besitzer `amp`) angelegt, `serverwahl status` auf beiden zeigt „geschlossen“. Ohne Op wird der SMP-Beitritt abgewiesen, auch per `/server smp`
-- [ ] Nach dem Testlauf 21.11.: `serverwahl schliessen`, damit das SMP bis 05.12. wieder zu ist
+- [ ] Nach dem Testlauf 21.11.: `serverwahl schliessen`, damit das SMP bis 27.11. wieder zu ist
 - [ ] Eröffnungsbefehle in `plugin-konfig/smp/plugins/Serverwahl/config.yml` (Phase 1, `time set 0`, `weather clear`) geprüft: im Testlauf einmal ausgeführt, nach Neustart nicht wiederholt
 - [ ] Portal-Sperre ohne Op geprüft: Netherportal zündet nicht, kein Enderauge im Rahmen, solange `nether`/`end` zu sind
 - [ ] Wechsel geprüft: Beitritt → Hub, linke Kiste → SMP (Pack lädt nicht neu), `/hub` zurück, `/server smp`, Voice Chat in beiden, SMP-Neustart schiebt Spieler in den Hub
@@ -52,7 +52,7 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 - [ ] Keine Dimensions-Ordner vor dem ersten Start anlegen (Absturz in 26.3). Anti-Xray für Nether/End erst danach eintragen und einmal neu starten (`paper/anti-xray.md`)
 - [ ] Frischer Join nach `spawn/PRUEFLISTE.md` geprüft (neuer Testspieler auf der Insel, Plattform mit Portal-Übergang ohne OP, Inselschutz, Bauen auf der Ebene erlaubt, keine Monster auf der Pilzland-Ebene)
 - [ ] **Vorgenerierung** Overworld 5.000 / Nether 1.250 / End 2.000 abgeschlossen (`vorgenerierung.md`), Drachenkampf startet weiterhin (in der Testwelt geprüft)
-- [ ] Datapacks geladen, Reihenfolge per `/datapack list` (`plugins.md`). Wanderhändler-Rabatt `datapacks/wanderhaendler-rabatt` in der Testwelt geprüft, im Spiel erst ab 24.12. eingeschaltet (`datapacks/README.md`)
+- [ ] Datapacks geladen, Reihenfolge per `/datapack list` (`plugins.md`). Wanderhändler-Rabatt `datapacks/wanderhaendler-rabatt` in der Testwelt geprüft, **ab dem Start dauerhaft an** (Pascal 28.10., `datapacks/README.md`)
 - [ ] Server-Bild und MOTD in Velocity (`icon/README.md`), Servername statt Platzhalter „Weihnachtsserver“, sobald er feststeht
 
 ## Messen und Nachweisen
@@ -70,8 +70,11 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 
 - [ ] Backups laufen: AMP alle 3 h mit 8 Ständen plus nächtliches Proxmox-Backup auf die QNAP (entschieden 24.10.), Wiederherstellung getestet (Task 9 Schritte 3/4)
 - [ ] **Season-Wechsel nur mit Abschluss-Schnappschuss:** `save-all flush`, dann `SCHNAPPSCHUSS_ERSETZEN=1 schnappschuss.sh …` von Hand, erst danach `SEASON`
-  umstellen. `testlauf` → `weihnachten-2026` direkt vor dem Weltwechsel (Task 10 Schritt 4), nicht erst am 05.12. (`statistik/README.md` → Seasons)
-- [ ] AMP-Aufgaben: Phasen (Task 9 Schritt 1), `save-all flush` 03:58, Statistik-Cron 04:00 mit Season-Datei (`statistik/README.md`)
+  umstellen. `testlauf` → `weihnachten-2026` direkt vor dem Weltwechsel (Task 10 Schritt 4), nicht erst am 27.11. (`statistik/README.md` → Seasons)
+- [ ] **Phasen ohne AMP:** serverwahl `termine:` (SMP: Nether Fr 11.12., Phase 3 Vorschlag 15.12., End Fr 18.12., je 18:00 vorläufig; Hub: Start-Ankündigung 27.11. 18:00,
+  Rückfall-Eröffnung 18:10). `/serverwahl termin liste` auf beiden zeigt alle Termine, keiner „erledigt“ (Testwelt-Merker `plugins/Serverwahl/termine.txt` vor dem Start löschen)
+- [ ] AMP-Aufgaben: `save-all flush` 03:58, Statistik-Cron 04:00 mit Season-Datei (`statistik/README.md`)
+- [ ] Dorf-Rabatt 24.–26.12. (`dorf-rabatt:`) und Neujahrsfeuerwerk (`neujahr:`) in der Config, `neujahr.txt`/`termine.txt` aus der Testwelt gelöscht
 - [ ] **Täglicher Neustart** (bestätigt Leitung 24.10.) per AMP-Aufgabe um 05:00, nach Schnappschuss und Backup. Er räumt Speicher und Chunk-Reste auf, und um 05:00 spielt fast nie jemand.
   Vorher eine Chatwarnung 5 Minuten früher. Die Phasenstände überleben Neustarts (Scoreboard/Plugin, im Test geprüft)
 - [ ] AMP-Log-Aufbewahrung so, dass das Statistik-Skript alle Logs abholt, bevor AMP sie löscht
@@ -95,7 +98,7 @@ Funktionen aus dem Datapack `insel` der Spawn-&-Welt-Session (abgestimmt 24.10.)
 
 Der Spawnpunkt bleibt vor und nach dem Öffnen derselbe (Spawn-Raum im Stammfuß). Die Phase setzt `insel:eroeffnung` bewusst nicht, das bleibt getrennt.
 
-**Vorher (Task 10 Schritt 4, bis 28.11.):** Season-Wechsel `testlauf` → `weihnachten-2026` mit Abschluss-Schnappschuss, neue Welt, `function insel:aufbau`,
+**Vorher (Task 10 Schritt 4, zwischen 21.11. und 27.11., Ziel Mi 25.11.):** Season-Wechsel `testlauf` → `weihnachten-2026` mit Abschluss-Schnappschuss, neue Welt, `function insel:aufbau`,
 Chunky-Vorgenerierung (hängt nicht an der Weltgrenze, geht also auch bei kleiner Grenze). Whitelist an, alle ~25 Namen eingetragen. Nether/End geschlossen, `#phase` = 0.
 
 **Am Starttag:**
@@ -107,9 +110,9 @@ Chunky-Vorgenerierung (hängt nicht an der Weltgrenze, geht also auch bei kleine
 | Startzeit | `function insel:eroeffnung` in der AMP-Konsole | **Pascal** (bewusst von Hand, damit er auf Nachzügler warten kann) |
 | nach „Willkommen!“ (~15 s) | `function leitfaden:phase/setzen_1` | Pascal |
 | direkt danach | Statistik-Nullpunkt: `save-all flush`, dann `SCHNAPPSCHUSS_ERSETZEN=1 /opt/mc-weihnachten/schnappschuss.sh …` (ersetzt den 04:00-Stand des Tages, der alte bleibt als `.vorher-…`). Spielzeit im Baum vor dem Start zählt dann nicht | Pascal (Befehl aus `statistik/README.md`) |
-| Start + 10 min | **Rückfall-Aufgabe in AMP**, falls Pascal ausfällt. Sendet nacheinander `function insel:eroeffnung` und `execute if score #phase lf_phase matches 0 run function leitfaden:phase/setzen_1`. Beides wirkt nur, wenn es noch nicht passiert ist (`setzen_1` allein würde die Ansage doppelt senden) | AMP |
+| Start + 10 min | **Rückfall in serverwahl (Hub, Termin `start-rueckfall`)**, falls Pascal ausfällt: `function hub:eroeffnung`, nur solange noch zu. Phase 1 setzt das SMP selbst, sobald der Merker da ist (`eroeffnung.befehle`) | serverwahl |
 
-Der Season-Wechsel hat mit der Eröffnung nichts zu tun: Er passiert schon beim Weltwechsel (bis 28.11.). Fällt Pascal aus, fehlt nur der Statistik-Nullpunkt
+Der Season-Wechsel hat mit der Eröffnung nichts zu tun: Er passiert schon beim Weltwechsel (vor dem 27.11.). Fällt Pascal aus, fehlt nur der Statistik-Nullpunkt
 (dann zählt die Wartezeit im Baum mit, das ist verschmerzbar).
 
 **Testlauf 21.11.:** dieselbe Eröffnung als Generalprobe in der Testwelt mit den 2–3 Testern (Baum in der Testwelt, Spawn-&-Welt-Session).
@@ -117,7 +120,7 @@ Prüfen: Spieler kommt vorher nicht aus dem Baum, nach `insel:eroeffnung` Grenze
 Ansage kommt einmal. Für weitere Proben `function insel:schliessen`, danach geht `insel:eroeffnung` wieder (kein Neustart nötig).
 Auf dem Testlauf-Server ist der Statistik-Nullpunkt egal (Season `testlauf`).
 
-**Start 05.12.:** wie oben. Uhrzeit legt Pascal fest (Plan Task 9 Schritt 1).
+**Start Fr 27.11.:** wie oben. Uhrzeit vorläufig 18:00, legt Pascal fest (dann in den `termine:` beider Configs anpassen).
 
 - [ ] Eröffnung im Testlauf geprobt, Funde behoben
-- [ ] Rückfall-Aufgabe für 05.12. Startzeit + 10 min in AMP angelegt
+- [ ] Hub-Termin `start-rueckfall` steht auf Startzeit + 10 min (keine AMP-Aufgabe mehr nötig)
