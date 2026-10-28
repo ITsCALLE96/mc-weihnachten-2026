@@ -7,6 +7,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import pngjs from 'pngjs';
 import { DEKO, KALENDER, KALENDER_TEXTE, FARBEN, palette as dekoPalette, modell as dekoModell } from './deko.mjs';
+import { MOBS, EMF, VARIANTEN, emfPalette, jem, EMF_TEXTUR } from './mobs.mjs';
 import { frostOben, frostSeite, winterFarbkarte, weihnachtsmuetze, weihnachtsschal, tierschal, TIER_SCHAL } from './winter.mjs';
 
 const { PNG } = pngjs;
@@ -223,6 +224,21 @@ function baueWinter(wrp, mc, modell, reif) {
       schreibePng(ziel(`minecraft/textures/entity/${v}.png`), png);
     }
   }
+  // Weihnachts-Monster (Pascal 28.10.): Ebene 1 Texturen für alle, Ebene 2 3D-Zusätze (EMF) und Zufallsvarianten (ETF) fürs Modpack.
+  for (const [datei, bemalen] of Object.entries(MOBS)) {
+    const png = lies(`entity/${datei}.png`);
+    bemalen(png);
+    schreibePng(ziel(`minecraft/textures/entity/${datei}.png`), png);
+  }
+  for (const [datei, [quelle, bemalen]] of Object.entries(VARIANTEN)) {
+    const png = lies(`entity/${quelle}.png`);
+    bemalen(png);
+    schreibePng(ziel(`minecraft/optifine/random/entity/${datei}.png`), png);
+  }
+  schreibePng(ziel(`minecraft/${EMF_TEXTUR}`), emfPalette(false, PNG));
+  schreibePng(ziel(`minecraft/${EMF_TEXTUR.replace('.png', '_e.png')}`), emfPalette(true, PNG));
+  for (const [modell, teile] of Object.entries(EMF)) schreibeJson(ziel(`minecraft/optifine/cem/${modell}.jem`), jem(teile));
+  writeFileSync(ziel('minecraft/optifine/emissive.properties'), 'suffix.emissive=_e\n');
 }
 
 function baueReif(ziel, lies, modell) {
