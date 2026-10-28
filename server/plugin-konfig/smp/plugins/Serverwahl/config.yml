@@ -21,6 +21,10 @@ text-end-zu: "<red>Das End ist noch geschlossen!"
 # Zone = WorldGuard-Oval der Spawn-Session (Mitte −1/47, Radius 28), erst ab der Standfläche y 150 (Spawn & Welt; gleicher Bereich wie die Sättigung im Datapack insel)
 spawn-elytra:
   aktiv: true
+  # Weihnachtsinsel am Nordweg und Brücke (Spawn & Welt 28.10.): sonst ~90 Blöcke Sturz. Kreis um die Insel, Kasten über der Brücke (x/z, je ab y)
+  weitere-zonen:
+    - {mitte: "-1 -34", radius: 26, y-ab: 150}
+    - {von: "-4 -11", bis: "2 29", y-ab: 150}
   welt: world
   mitte: "-1 47"
   radius: 28

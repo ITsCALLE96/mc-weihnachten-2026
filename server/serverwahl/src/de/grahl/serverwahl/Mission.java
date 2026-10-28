@@ -133,9 +133,11 @@ final class Mission implements Listener {
     private void jsonLaden() throws IOException {
         JsonObject j = JsonParser.parseString(Files.readString(jsonDatei)).getAsJsonObject();
         start = LocalDate.parse(j.get("start").getAsString());
-        feierFunktion = j.getAsJsonObject("feier").get("funktion").getAsString();
+        // Spawn & Welt 28.10.: stufe_4 macht die Feier selbst; ein eigenes "feier" in mission.json ist optional
+        feierFunktion = j.has("feier") && j.get("feier").isJsonObject() ? j.getAsJsonObject("feier").get("funktion").getAsString() : null;
         vorbereitenFunktion = j.has("vorbereiten") ? j.get("vorbereiten").getAsString() : null;
-        teile = j.has("teile") ? Math.max(1, j.get("teile").getAsInt()) : 10;
+        // Bauabschnitte nur, wenn mission.json sie nennt (Datapack liefert stufe_N_teil_K); sonst Bau erst bei voller Stufe
+        teile = j.has("teile") ? Math.max(0, j.get("teile").getAsInt()) : 0;
         mitKiste = j.has("kiste") && j.get("kiste").isJsonObject();
         if (mitKiste) {
             JsonObject k = j.getAsJsonObject("kiste");
@@ -238,6 +240,12 @@ final class Mission implements Listener {
             return;
         }
         Stufe s = stufen.get(n - 1);
+        if (teile == 0) {
+            if (fortschritt(n) >= 1) {
+                abschliessen(n);
+            }
+            return;
+        }
         int faellig = (int) Math.floor(fortschritt(n) * teile + 1e-9);
         int erledigt = stand.getInt("teile." + n, 0);
         for (int k = erledigt + 1; k <= Math.min(faellig, teile); k++) {
@@ -262,7 +270,7 @@ final class Mission implements Listener {
         plugin.getLogger().info("Mission: Stufe " + n + " geschafft");
         stufeStarten(n + 1);
         Bukkit.getOnlinePlayers().forEach(this::liefern);
-        if (n == stufen.size()) {
+        if (n == stufen.size() && feierFunktion != null) {
             // Pascal 28.10.: Feier sofort; kurz warten, damit die Lichter der letzten Stufe erst angehen
             Bukkit.getScheduler().runTaskLater(plugin, () -> {
                 if (!stand.getBoolean("feier", false)) {
@@ -460,7 +468,8 @@ final class Mission implements Listener {
     private int offeneTraenke(Player p) {
         int offen = 0;
         for (int n = 1; n <= Math.min(geschafft(), stufen.size()); n++) {
-            offen += Math.max(0, trankAnzahl - stand.getInt("traenke." + p.getUniqueId() + "." + n, 0));
+            int anzahl = stufen.get(n - 1).trank().has("anzahl") ? stufen.get(n - 1).trank().get("anzahl").getAsInt() : trankAnzahl;
+            offen += Math.max(0, anzahl - stand.getInt("traenke." + p.getUniqueId() + "." + n, 0));
         }
         return offen;
     }
@@ -484,7 +493,8 @@ final class Mission implements Listener {
         for (int n = 1; n <= Math.min(geschafft(), stufen.size()); n++) {
             String pfad = "traenke." + p.getUniqueId() + "." + n;
             int schon = stand.getInt(pfad, 0);
-            for (int i = schon; i < trankAnzahl; i++) {
+            int anzahl = stufen.get(n - 1).trank().has("anzahl") ? stufen.get(n - 1).trank().get("anzahl").getAsInt() : trankAnzahl;
+            for (int i = schon; i < anzahl; i++) {
                 if (p.getInventory().firstEmpty() < 0) {
                     voll = true;
                     break;

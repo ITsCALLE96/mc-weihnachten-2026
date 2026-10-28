@@ -40,6 +40,21 @@ final class SpawnElytra implements Listener {
     private double mitteZ;
     private double radius;
     private int yAb;
+    /** weitere Zonen (Weihnachtsinsel und Brücke, 28.10.): Kreis {mitte, radius} oder Kasten {von, bis} in x/z, je mit eigenem y-ab */
+    private record Zone(double x1, double z1, double x2, double z2, double r, int yAb) {
+        boolean enthaelt(double x, double y, double z) {
+            if (y < yAb) {
+                return false;
+            }
+            if (r > 0) {
+                double dx = x - x1;
+                double dz = z - z1;
+                return dx * dx + dz * dz <= r * r;
+            }
+            return x >= x1 && x <= x2 && z >= z1 && z <= z2;
+        }
+    }
+    private final java.util.List<Zone> weitere = new java.util.ArrayList<>();
     /** Dauer des Schubs in Ticks: Rakete Stufe 1/2/3 brennt ~20/30/40–51 Ticks */
     private int schubTicks;
     private String textStart;
@@ -71,6 +86,21 @@ final class SpawnElytra implements Listener {
         mitteZ = Double.parseDouble(m[m.length - 1]) + 0.5;
         radius = c.getDouble("radius", 28);
         yAb = c.getInt("y-ab", 0);
+        weitere.clear();
+        for (java.util.Map<?, ?> z : c.getMapList("weitere-zonen")) {
+            int y = z.get("y-ab") == null ? yAb : Integer.parseInt(String.valueOf(z.get("y-ab")));
+            if (z.get("mitte") != null) {
+                String[] mz = String.valueOf(z.get("mitte")).trim().split("[\\s,]+");
+                weitere.add(new Zone(Double.parseDouble(mz[0]) + 0.5, Double.parseDouble(mz[mz.length - 1]) + 0.5, 0, 0,
+                        Double.parseDouble(String.valueOf(z.get("radius"))), y));
+            } else {
+                String[] a = String.valueOf(z.get("von")).trim().split("[\\s,]+");
+                String[] b = String.valueOf(z.get("bis")).trim().split("[\\s,]+");
+                double ax = Double.parseDouble(a[0]), az = Double.parseDouble(a[a.length - 1]);
+                double bx = Double.parseDouble(b[0]), bz = Double.parseDouble(b[b.length - 1]);
+                weitere.add(new Zone(Math.min(ax, bx), Math.min(az, bz), Math.max(ax, bx) + 1, Math.max(az, bz) + 1, 0, y));
+            }
+        }
         schubTicks = c.getInt("schub-ticks", 45);
         fallAb = c.getDouble("fall-ab", 2.5);
         bodenFrei = c.getInt("boden-frei", 4);
@@ -88,7 +118,15 @@ final class SpawnElytra implements Listener {
     }
 
     private boolean inZone(Location l) {
-        if (l.getWorld() == null || !l.getWorld().getName().equals(welt) || l.getY() < yAb) {
+        if (l.getWorld() == null || !l.getWorld().getName().equals(welt)) {
+            return false;
+        }
+        for (Zone z : weitere) {
+            if (z.enthaelt(l.getX(), l.getY(), l.getZ())) {
+                return true;
+            }
+        }
+        if (l.getY() < yAb) {
             return false;
         }
         double dx = l.getX() - mitteX;
