@@ -8,13 +8,13 @@
           "entity": "this",
           "predicate": {
             "minecraft:entity_type": "minecraft:interaction",
-            "minecraft:nbt": "{Tags:[\"wi_abk_runter\"]}"
+            "minecraft:nbt": "{Tags:[\"wi_schalter_0\"]}"
           }
         }
       }
     }
   },
   "rewards": {
-    "function": "archiv_spawn:abk_runter"
+    "function": "archiv_spawn:klick_0"
   }
 }

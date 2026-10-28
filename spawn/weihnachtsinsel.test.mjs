@@ -95,3 +95,14 @@ test('Weihnachtsmann: Händlerliste mit allen Kalender-Items, Stollen und 9 Plat
   assert.ok(w.ware.every((x) => !x.item.includes('Tag ') && x.preis >= 1 && x.anzahl >= 1));
   assert.deepEqual([w.jukebox.x, w.jukebox.y, w.jukebox.z], d.jukebox);
 });
+
+test('Brücke ohne Springen begehbar: auf den drei Laufspuren nie mehr als eine halbe Stufe Höhenunterschied (Pascal 28.10.)', () => {
+  const st = datapack().stand[0];
+  const frei = (b) => !b || /air|light\[|lantern|chain/.test(b);
+  // Laufhöhe in halben Blöcken: oberster Block unter dem Torbogen (bis 4 über dem Deck), untere Platte zählt halb
+  const lauf = (x, z) => { for (let y = 160; y > 145; y--) { const b = st.get(`${x},${y},${z}`); if (!frei(b)) return 2 * (y + 1) - (/slab\[type=bottom/.test(b) ? 1 : 0); } return null; };
+  for (const x of [-2, -1, 0]) {
+    const h = []; for (let z = -9; z <= 29; z++) h.push(lauf(x, z));
+    for (let i = 1; i < h.length; i++) assert.ok(Math.abs(h[i] - h[i - 1]) <= 1, `x ${x}, z ${i - 10}→${i - 9}: ${h[i - 1] / 2} → ${h[i] / 2}`);
+  }
+});

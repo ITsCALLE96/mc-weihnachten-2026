@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { archivSpawn, itemNbt, verschiebeY, turm, TIEF } from './archiv.mjs';
+import { archivSpawn, itemNbt, verschiebeY, TIEF } from './archiv.mjs';
 
 test('give-Text → Item-NBT (Komponenten mit Werten, Entfernen per !)', () => {
   assert.equal(itemNbt('minecraft:paper[minecraft:item_model="weihnachten:stern",minecraft:lore=[{text:"a, b",italic:false}]]'),
@@ -10,38 +10,32 @@ test('give-Text → Item-NBT (Komponenten mit Werten, Entfernen per !)', () => {
   assert.equal(itemNbt('minecraft:emerald', 3), '{id:"minecraft:emerald",count:3}');
 });
 
-test('Archiv: eine Weihnachtsinsel TIEF tiefer, Stufen 1–4 per Schalter, Treppenturm, Galerie mit allen Items', () => {
+test('Archiv: eine Weihnachtsinsel TIEF tiefer, leer und Stufen 1–4 per Schalter auf der Spark-Insel, Galerie mit allen Items', () => {
   const { dateien: d, strukturen } = archivSpawn();
   assert.deepEqual(JSON.parse(d['data/archiv/tags/function/saal/weihnachtsinsel.json']).values, ['archiv_spawn:weihnachtsinsel']);
   assert.deepEqual(JSON.parse(d['data/archiv/tags/function/saal/deko.json']).values, ['archiv_spawn:deko']);
-  assert.deepEqual(Object.keys(strukturen).sort(), ['wi_stufe_1', 'wi_stufe_2', 'wi_stufe_3', 'wi_stufe_4']);
+  assert.deepEqual(Object.keys(strukturen).sort(), ['wi_stufe_0', 'wi_stufe_1', 'wi_stufe_2', 'wi_stufe_3', 'wi_stufe_4']);
   assert.equal(TIEF, -152);
-  for (let s = 1; s <= 4; s++) {
+  for (let s = 0; s <= 4; s++) {
     const f = d[`data/archiv_spawn/function/stufe_${s}_setzen.mcfunction`];
     assert.match(f, new RegExp(`^place template archiv_spawn:wi_stufe_${s} -24 -52 -58$`, 'm')); // SMP-Stelle, 152 tiefer
     assert.match(f, /^kill @e\[tag=wi_archiv_insel\]$/m);
     assert.equal(JSON.parse(d[`data/archiv_spawn/advancement/stufe_${s}.json`]).rewards.function, `archiv_spawn:klick_${s}`);
   }
   assert.equal((d['data/archiv_spawn/function/stufe_4_setzen.mcfunction'].match(/^summon mannequin /gm) ?? []).length, 1);
-  assert.equal((d['data/archiv_spawn/function/stufe_1_setzen.mcfunction'].match(/^summon mannequin /gm) ?? []).length, 0);
+  assert.equal((d['data/archiv_spawn/function/stufe_3_setzen.mcfunction'].match(/^summon mannequin /gm) ?? []).length, 0);
+  assert.doesNotMatch(d['data/archiv_spawn/function/stufe_0_setzen.mcfunction'], /^summon (?!text_display)/m); // leer: keine Figuren
   const w2 = d['data/archiv_spawn/function/weihnachtsinsel2.mcfunction'];
   assert.match(w2, /^fill -304 100 -58 -257 \d+ 29 minecraft:air$/m); // alte Stufen-Insel ganz im Westen wird geleert
   assert.match(w2, /^function archiv_spawn:stufe_4_setzen$/m);
-  assert.equal((w2.match(/^summon interaction /gm) ?? []).length, 6); // 4 Stufen-Schalter, 2 Abkürzungen
+  assert.equal((w2.match(/^summon interaction /gm) ?? []).length, 5); // leer + 4 Stufen
+  assert.match(w2, /^summon interaction 3.5 3.8 33.5 /m); // Spark-Insel am Brückenanfang
+  assert.match(w2, /^fill 2 -60 -3 9 9 3 minecraft:air$/m); // alter Treppenturm weg
+  assert.ok(!/spruce_stairs/.test(w2));
   const g = d['data/archiv_spawn/function/deko3.mcfunction'];
   assert.equal((g.match(/^summon glow_item_frame /gm) ?? []).length, 28);
   assert.equal((g.match(/^summon armor_stand /gm) ?? []).length, 6);
-  assert.match(d['data/archiv_spawn/function/deko.mcfunction'], /^forceload add -32 140 32 160$/m);
-});
-
-test('Treppenturm: 65 Stufen vom Boden (y −60) bis zum Brückendeck (y 4), jede einen Block höher und neben der vorigen', () => {
-  const st = turm().filter((z) => z.includes('spruce_stairs')).map((z) => z.split(' ').slice(1, 4).map(Number));
-  assert.equal(st.length, 65);
-  assert.equal(st[0][1], -60); assert.equal(st.at(-1)[1], 4);
-  for (let i = 1; i < st.length; i++) {
-    assert.equal(st[i][1] - st[i - 1][1], 1);
-    assert.equal(Math.abs(st[i][0] - st[i - 1][0]) + Math.abs(st[i][2] - st[i - 1][2]), 1);
-  }
+  assert.match(d['data/archiv_spawn/function/deko.mcfunction'], /^forceload add -62 78 2 98$/m);
 });
 
 test('verschiebeY: absolute Höhen in Befehlen, relative (~) bleiben', () => {

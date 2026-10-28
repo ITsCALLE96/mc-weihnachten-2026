@@ -22,7 +22,7 @@ in `spawn/quellen/nitrado/` (git-ignoriert), nie ins Repo oder in einen Welt-Dow
 ## Server-Mission Weihnachtsinsel (28.10.)
 
 Eigenes Design (`spawn/weihnachtsinsel.mjs`, prozedural, nichts Fremdes), dauerhaft, auch nach der Season. Am **Nordweg** der Spark-Insel: Inselmitte −1/−34,
-Laufhöhe 155, Brücke von z 29 bis zum Inselrand, drei Torbögen. Spätere Event-Inseln an den anderen Wegen: gleicher Generator, `LAGE.richtung` ändern.
+Laufhöhe 155, Brücke von z 29 bis zum Inselrand, drei Torbögen, an jedem Höhenwechsel des Decks eine halbe Stufe (ohne Springen begehbar, Test). Spätere Event-Inseln an den anderen Wegen: gleicher Generator, `LAGE.richtung` ändern.
 - **Datapack** `spawn/datapack/weihnachtsinsel` (erzeugt: `node spawn/weihnachtsinsel.mjs`, schreibt auch `spawn/weihnachtsmann.json`; kopiert das Setz-Skript mit).
   Funktionen: `weihnachtsinsel:vorbereiten` (Tafel `wi_tafel` −3.5/158.5/31.5; gespendet wird im Ender-Kisten-Menü), je Stufe **10 Bauabschnitte**
   `stufe_N_teil_K` (serverwahl je 10 % Fortschritt; Merker `#tN_K`, Doppelaufruf tut nichts) und den Abschluss `stufe_N` (setzt alles, Titel; Stufe 4
@@ -37,26 +37,21 @@ Laufhöhe 155, Brücke von z 29 bis zum Inselrand, drei Torbögen. Spätere Even
 - Geprüft 28.10. auf Paper 26.3 (Scratch-Welt): alle Stufen und Feier laufen, Blöcke stimmen mit dem Generator überein (bis auf Schnee neben
   Laternen, der im Testlauf ohne Region schmolz), keine herumliegenden Gegenstände
 
-### In der Testwelt (Bauarchiv, `spawn/archiv.mjs`, Pascal 28.10. nachmittags)
+### In der Testwelt (Bauarchiv, `spawn/archiv.mjs`, Pascal 28.10.)
 
 - **Höhe:** Spark- und Weihnachtsinsel liegen dort `TIEF` = 152 Blöcke tiefer als im SMP. Die Spitze der Spark-Insel steht auf dem Gras (y −60), die Laufhöhe
-  liegt bei y 4…5. Tiefer geht nicht, darunter endet die Welt, und beide Inseln bleiben vollständig. Alle Befehle (Deko, Kalender, Tafel, Ender-Kiste, Lichter)
-  verschiebt `verschiebeY`. Die SMP-Lichtung und die Rückweg-Plattform am SMP-Boden fallen in der Testwelt weg.
-- **Treppenturm** aus Glas östlich der Brücke (Kern 6/0): 65 Stufen von y −60 bis zum Brückendeck, oben ein Steg durch das Geländer.
-  Dazu je eine Abkürzung unten und oben (Interaction → Teleport).
-- **Eine Insel statt fünf:** Am Absatz oben stehen 4 Schalter für Stufe 1–4 (Interaction → Fortschritt → `archiv_spawn:stufe_N`). Die gewählte Stufe leuchtet
-  im Schalter, der große Titel über der Insel nennt sie. Jede Stufe ist eine Struktur über den gemeinsamen Kasten aller Stufen. Was es in einer Stufe noch nicht
-  gibt, steht darin als `cave_air`, so baut jede Stufe die andere sauber zurück. Aufbau setzt Stufe 4.
-- Alte Lage (bis 28.10. mittags: SMP-Höhe, Stufen-Inseln bei x −70…−280) räumt der Aufbau selbst leer.
-- **Zoo-Ausstellungshalle** (`spawn/zoo-halle.mjs` → `spawn/datapack/zoo-halle`, Pascal 28.10.): weihnachtliche Hülle um die drei Zoo-Flügel der
-  Server-Session (x 116…244; Friedlich, Feindlich, Bosse). Läuft über den Funktions-Tag `#zoo:halle` nach dem Zoo-Aufbau.
-  - Wände aus Fichte mit Fensterband und Pfosten, Decke mit Froschlichtern, Schneedach mit Girlande.
-  - Kupferbirnen-Lichterkette an der Traufe, Stufengiebel mit Rosette und Stern im Westen und Osten.
-  - Eingänge mit Vordach, Kranz und zwei geschmückten Bäumchen.
-  - Innen bleibt alles frei. Gesetzt wird nur unsichtbares Licht in Luft, das prüft `zoo-halle.test.mjs`.
-- Geprüft im Scratch-Server (Flachwelt): Spark 40.234 von 40.253 Blöcken (Rest = Brückenanschluss), Stufe 1 und Stufe 3 → 4 Block für Block wie der Generator,
-  der Turm vollständig, auf der alten Höhe nichts mehr. Deko (1317 Schnee, 143 Anzeigen) und Kalender laufen nacheinander mit eigenem `forceload`,
-  weil das Entladen anderer Bereiche überlappende Chunks mitnimmt.
+  liegt bei y 3…5. Tiefer geht nicht, darunter endet die Welt, und beide Inseln bleiben vollständig. Erreichbar per Flug, Pascal spielt im Kreativ.
+  Alle Befehle (Deko, Kalender, Tafel, Ender-Kiste, Lichter) verschiebt `verschiebeY`. Die SMP-Lichtung und die Rückweg-Plattform am SMP-Boden fallen weg.
+- **Eine Insel, Zustand per Schalter:** Auf der Spark-Insel am Brückenanfang (x 3,5…8,3, z 33,5, Laufhöhe 3) stehen 5 Schalter: Leer und Stufe 1–4
+  (Interaction → Fortschritt → `archiv_spawn:stufe_N`, N = 0…4). Der gewählte Zustand leuchtet, der große Titel über der Insel nennt ihn.
+  Jeder Zustand ist eine Struktur über den gemeinsamen Kasten aller Stufen. Was es darin noch nicht gibt, steht als `cave_air`, so baut jeder Zustand den anderen
+  sauber zurück. Der Aufbau setzt Stufe 4.
+- **Ganzer Hub** (`HUB`: Kasten in der Hub-Welt des Testnetzes, Ecke in der Testwelt) in 30 Kacheln, Unterkante auf dem Boden. Nur im git-ignorierten
+  `archiv-fremd`.
+- Aufgeräumt wird beim Aufbau selbst: alte Lage (SMP-Höhe, Stufen-Inseln bei x −70…−280), Treppenturm (bis 28.10. abends) und alter Hub-Ausschnitt.
+- **Zoo-Ausstellungshalle:** `spawn/zoo-halle.mjs` (am 28.10. gebaut, abends wieder verworfen, Pascal will die Mobs offen sehen). `#zoo:halle` ruft jetzt
+  `zoo_halle:abriss` auf, das jeden Kasten der Halle zu Luft macht (innen nur das Licht). `zoo_halle:bau` bleibt von Hand aufrufbar.
+- Deko und Kalender laufen nacheinander mit eigenem `forceload`, weil das Entladen anderer Bereiche überlappende Chunks mitnimmt.
 
 ## Hub (Fantasy Village)
 

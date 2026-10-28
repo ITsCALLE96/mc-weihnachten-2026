@@ -109,6 +109,11 @@ export function inselBloecke(lage = LAGE) {
       }
     }
   }
+  // Halbe Stufen an jedem Höhenwechsel des Decks (Pascal 28.10.: ohne Springen begehbar, auch über den Bogen): untere Platte auf die tiefere Seite
+  for (let x = bx0; x <= bx1; x++) for (const n of [x - 1, x + 1]) {
+    if (n < bx0 || n > bx1 || deck(n) <= deck(x)) continue;
+    for (let dz = -1; dz <= 1; dz++) bset(x, deck(x) + 1, bz + dz, b('spruce_slab[type=bottom,waterlogged=false]'));
+  }
   // Torbogen quer über die Brücke: Säulen bei dz ±3, Bogen aus Treppen, Balken, Kranz aus Laub mit roter Schleife, hängende Laterne,
   // Kupferbirnen auf den Säulen. Dieselbe Form für alle Anbindungen (Spark-Insel → Brücke → Event-Insel)
   const torbogen = (x) => {
@@ -501,6 +506,12 @@ schedule function ${NS}:vorbereiten2 20t
 summon text_display ${tx + 0.5} ${ty + 0.5} ${tz + 0.5} {Tags:["wi_tafel"],Rotation:[${blickYaw}f,0f],billboard:"fixed",alignment:"center",line_width:260,background:1140850688,text:[${JSON.stringify({ text: 'Weihnachtsinsel\n', color: 'gold', bold: true })},${JSON.stringify({ text: 'Spende an der Ender-Kiste in der Mitte –\ngemeinsam lassen wir die Insel entstehen!', color: 'white' })}],transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[1.1f,1.1f,1.1f]}}
 forceload remove ${tx} ${tz}
 `;
+  // Nachrüsten (28.10.): halbe Stufen in eine schon gebaute Brücke, nur wo das Deck darunter steht und der Platz frei ist; einmal per Konsole
+  const platten = I.bruecke.filter(([x, y, z]) => /spruce_slab\[type=bottom/.test(stand[0].get(K(x, y, z)) ?? ''));
+  const bk = (i) => [Math.min(...I.bruecke.map((p) => p[i])), Math.max(...I.bruecke.map((p) => p[i]))];
+  const bLaden = `forceload add ${bk(0)[0]} ${bk(2)[0]} ${bk(0)[1]} ${bk(2)[1]}`;
+  f.bruecke_stufen = `# Halbe Stufen in eine bereits gebaute Brücke nachrüsten (Konsole, einmalig; idempotent)\n${bLaden}\nschedule function ${NS}:bruecke_stufen2 40t\n`;
+  f.bruecke_stufen2 = platten.map(([x, y, z]) => `execute unless block ${x} ${y - 1} ${z} #minecraft:air run setblock ${x} ${y} ${z} ${stand[0].get(K(x, y, z))} keep`).join('\n') + `\nsay Brücke: ${platten.length} halbe Stufen geprüft\n${bLaden.replace('add', 'remove')}\n`;
   f.load = `scoreboard objectives add wi_mission dummy\nscoreboard players set #fuenf wi_mission 5\nexecute unless score #stufe wi_mission matches 0.. run scoreboard players set #stufe wi_mission 0\nexecute if score #laeuft wi_mission matches 1.. run schedule function ${NS}:wiederaufnahme 100t\n`;
   f.wiederaufnahme = `# Neustart mitten im Abschluss: Stufe vollständig setzen\nforceload add ${fl}\nschedule function ${NS}:wiederaufnahme2 40t\n`;
   f.wiederaufnahme2 = [1, 2, 3, 4].map((n) => `execute if score #laeuft wi_mission matches ${n} run function ${NS}:stufe_${n}/fertig`).join('\n') + `\nexecute if score #laeuft wi_mission matches 4 run function ${NS}:feier\nscoreboard players set #laeuft wi_mission 0\nschedule function ${NS}:entladen 100t\n`;

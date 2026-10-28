@@ -79,120 +79,18 @@ fill -304 184 -58 -257 190 29 minecraft:air
 fill -304 191 -58 -257 197 29 minecraft:air
 fill -304 198 -58 -257 204 29 minecraft:air
 fill -304 205 -58 -257 205 29 minecraft:air
+fill 2 -60 -3 9 9 3 minecraft:air
 kill @e[type=item,x=-304,y=100,z=-58,dx=327,dy=105,dz=87]
-fill 3 -60 -3 9 8 3 minecraft:air
-fill 3 -60 -3 9 7 -3 minecraft:glass
-fill 3 -60 3 9 7 3 minecraft:glass
-fill 3 -60 -3 3 7 3 minecraft:glass
-fill 9 -60 -3 9 7 3 minecraft:glass
-fill 3 8 -3 9 8 3 minecraft:spruce_slab[type=bottom]
-fill 3 9 -3 9 9 3 minecraft:snow[layers=2]
-fill 5 -60 -1 7 7 1 minecraft:spruce_log
-fill 5 -57 -1 7 -57 1 minecraft:ochre_froglight
-setblock 6 -57 0 minecraft:spruce_log
-fill 5 -51 -1 7 -51 1 minecraft:ochre_froglight
-setblock 6 -51 0 minecraft:spruce_log
-fill 5 -45 -1 7 -45 1 minecraft:ochre_froglight
-setblock 6 -45 0 minecraft:spruce_log
-fill 5 -39 -1 7 -39 1 minecraft:ochre_froglight
-setblock 6 -39 0 minecraft:spruce_log
-fill 5 -33 -1 7 -33 1 minecraft:ochre_froglight
-setblock 6 -33 0 minecraft:spruce_log
-fill 5 -27 -1 7 -27 1 minecraft:ochre_froglight
-setblock 6 -27 0 minecraft:spruce_log
-fill 5 -21 -1 7 -21 1 minecraft:ochre_froglight
-setblock 6 -21 0 minecraft:spruce_log
-fill 5 -15 -1 7 -15 1 minecraft:ochre_froglight
-setblock 6 -15 0 minecraft:spruce_log
-fill 5 -9 -1 7 -9 1 minecraft:ochre_froglight
-setblock 6 -9 0 minecraft:spruce_log
-fill 5 -3 -1 7 -3 1 minecraft:ochre_froglight
-setblock 6 -3 0 minecraft:spruce_log
-fill 5 3 -1 7 3 1 minecraft:ochre_froglight
-setblock 6 3 0 minecraft:spruce_log
-setblock 4 -60 2 minecraft:spruce_stairs[facing=north]
-setblock 4 -59 1 minecraft:spruce_stairs[facing=north]
-setblock 4 -58 0 minecraft:spruce_stairs[facing=north]
-setblock 4 -57 -1 minecraft:spruce_stairs[facing=north]
-setblock 4 -56 -2 minecraft:spruce_stairs[facing=east]
-setblock 5 -55 -2 minecraft:spruce_stairs[facing=east]
-setblock 6 -54 -2 minecraft:spruce_stairs[facing=east]
-setblock 7 -53 -2 minecraft:spruce_stairs[facing=east]
-setblock 8 -52 -2 minecraft:spruce_stairs[facing=south]
-setblock 8 -51 -1 minecraft:spruce_stairs[facing=south]
-setblock 8 -50 0 minecraft:spruce_stairs[facing=south]
-setblock 8 -49 1 minecraft:spruce_stairs[facing=south]
-setblock 8 -48 2 minecraft:spruce_stairs[facing=west]
-setblock 7 -47 2 minecraft:spruce_stairs[facing=west]
-setblock 6 -46 2 minecraft:spruce_stairs[facing=west]
-setblock 5 -45 2 minecraft:spruce_stairs[facing=west]
-setblock 4 -44 2 minecraft:spruce_stairs[facing=north]
-setblock 4 -43 1 minecraft:spruce_stairs[facing=north]
-setblock 4 -42 0 minecraft:spruce_stairs[facing=north]
-setblock 4 -41 -1 minecraft:spruce_stairs[facing=north]
-setblock 4 -40 -2 minecraft:spruce_stairs[facing=east]
-setblock 5 -39 -2 minecraft:spruce_stairs[facing=east]
-setblock 6 -38 -2 minecraft:spruce_stairs[facing=east]
-setblock 7 -37 -2 minecraft:spruce_stairs[facing=east]
-setblock 8 -36 -2 minecraft:spruce_stairs[facing=south]
-setblock 8 -35 -1 minecraft:spruce_stairs[facing=south]
-setblock 8 -34 0 minecraft:spruce_stairs[facing=south]
-setblock 8 -33 1 minecraft:spruce_stairs[facing=south]
-setblock 8 -32 2 minecraft:spruce_stairs[facing=west]
-setblock 7 -31 2 minecraft:spruce_stairs[facing=west]
-setblock 6 -30 2 minecraft:spruce_stairs[facing=west]
-setblock 5 -29 2 minecraft:spruce_stairs[facing=west]
-setblock 4 -28 2 minecraft:spruce_stairs[facing=north]
-setblock 4 -27 1 minecraft:spruce_stairs[facing=north]
-setblock 4 -26 0 minecraft:spruce_stairs[facing=north]
-setblock 4 -25 -1 minecraft:spruce_stairs[facing=north]
-setblock 4 -24 -2 minecraft:spruce_stairs[facing=east]
-setblock 5 -23 -2 minecraft:spruce_stairs[facing=east]
-setblock 6 -22 -2 minecraft:spruce_stairs[facing=east]
-setblock 7 -21 -2 minecraft:spruce_stairs[facing=east]
-setblock 8 -20 -2 minecraft:spruce_stairs[facing=south]
-setblock 8 -19 -1 minecraft:spruce_stairs[facing=south]
-setblock 8 -18 0 minecraft:spruce_stairs[facing=south]
-setblock 8 -17 1 minecraft:spruce_stairs[facing=south]
-setblock 8 -16 2 minecraft:spruce_stairs[facing=west]
-setblock 7 -15 2 minecraft:spruce_stairs[facing=west]
-setblock 6 -14 2 minecraft:spruce_stairs[facing=west]
-setblock 5 -13 2 minecraft:spruce_stairs[facing=west]
-setblock 4 -12 2 minecraft:spruce_stairs[facing=north]
-setblock 4 -11 1 minecraft:spruce_stairs[facing=north]
-setblock 4 -10 0 minecraft:spruce_stairs[facing=north]
-setblock 4 -9 -1 minecraft:spruce_stairs[facing=north]
-setblock 4 -8 -2 minecraft:spruce_stairs[facing=east]
-setblock 5 -7 -2 minecraft:spruce_stairs[facing=east]
-setblock 6 -6 -2 minecraft:spruce_stairs[facing=east]
-setblock 7 -5 -2 minecraft:spruce_stairs[facing=east]
-setblock 8 -4 -2 minecraft:spruce_stairs[facing=south]
-setblock 8 -3 -1 minecraft:spruce_stairs[facing=south]
-setblock 8 -2 0 minecraft:spruce_stairs[facing=south]
-setblock 8 -1 1 minecraft:spruce_stairs[facing=south]
-setblock 8 0 2 minecraft:spruce_stairs[facing=west]
-setblock 7 1 2 minecraft:spruce_stairs[facing=west]
-setblock 6 2 2 minecraft:spruce_stairs[facing=west]
-setblock 5 3 2 minecraft:spruce_stairs[facing=west]
-setblock 4 4 2 minecraft:spruce_stairs[facing=north]
-fill 4 -60 3 4 -58 3 minecraft:air
-fill 2 4 -1 4 4 1 minecraft:stripped_spruce_log[axis=x]
-fill 2 5 -1 4 6 1 minecraft:air
-fill 1 5 -1 1 6 1 minecraft:air
-setblock 4 7 0 minecraft:lantern[hanging=true]
-setblock 4 -57 2 minecraft:lantern[hanging=true]
-summon text_display 4.55 6.25 -0.05 {Tags:["wi_archiv","wi_schalter","wi_schalter_text","wi_schalter_text_1"],Rotation:[90f,0f],line_width:90,background:1073741824,text:{"text":"Stufe 1\n","color":"gold","bold":true,"extra":[{"text":"Die Insel taucht auf","color":"white","bold":false}]},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[0.45f,0.45f,0.45f]}}
-summon interaction 4.75 6.1499999999999995 -0.05 {Tags:["wi_archiv","wi_schalter","wi_schalter_1"],width:0.9f,height:0.8f,response:1b}
-summon text_display 4.55 6.25 1.05 {Tags:["wi_archiv","wi_schalter","wi_schalter_text","wi_schalter_text_2"],Rotation:[90f,0f],line_width:90,background:1073741824,text:{"text":"Stufe 2\n","color":"gold","bold":true,"extra":[{"text":"Der Baum wächst","color":"white","bold":false}]},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[0.45f,0.45f,0.45f]}}
-summon interaction 4.75 6.1499999999999995 1.05 {Tags:["wi_archiv","wi_schalter","wi_schalter_2"],width:0.9f,height:0.8f,response:1b}
-summon text_display 4.55 5.15 -0.05 {Tags:["wi_archiv","wi_schalter","wi_schalter_text","wi_schalter_text_3"],Rotation:[90f,0f],line_width:90,background:1073741824,text:{"text":"Stufe 3\n","color":"gold","bold":true,"extra":[{"text":"Der Baum wird geschmückt","color":"white","bold":false}]},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[0.45f,0.45f,0.45f]}}
-summon interaction 4.75 5.05 -0.05 {Tags:["wi_archiv","wi_schalter","wi_schalter_3"],width:0.9f,height:0.8f,response:1b}
-summon text_display 4.55 5.15 1.05 {Tags:["wi_archiv","wi_schalter","wi_schalter_text","wi_schalter_text_4"],Rotation:[90f,0f],line_width:90,background:1073741824,text:{"text":"Stufe 4\n","color":"gold","bold":true,"extra":[{"text":"Heiligabend (fertig)","color":"white","bold":false}]},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[0.45f,0.45f,0.45f]}}
-summon interaction 4.75 5.05 1.05 {Tags:["wi_archiv","wi_schalter","wi_schalter_4"],width:0.9f,height:0.8f,response:1b}
-summon text_display 4.55 7.55 0.5 {Tags:["wi_archiv","wi_schalter"],Rotation:[90f,0f],line_width:200,background:1073741824,text:{"text":"Weihnachtsinsel: Stufe wählen","color":"gold","bold":true,"extra":[{"text":"\nSo wächst sie auf dem SMP mit den Spenden","color":"gray","bold":false}]},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[0.5f,0.5f,0.5f]}}
-summon interaction 6.5 -60 4.2 {Tags:["wi_archiv","wi_schalter","wi_abk_hoch"],width:0.8f,height:1.8f,response:1b}
-summon text_display 6.5 -58 4.2 {Tags:["wi_archiv","wi_schalter"],billboard:"center",text:{"text":"Abkürzung nach oben","color":"aqua"},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[0.5f,0.5f,0.5f]}}
-summon interaction 3.5 5 -0.6 {Tags:["wi_archiv","wi_schalter","wi_abk_runter"],width:0.8f,height:1.8f,response:1b}
-summon text_display 3.5 7 -0.6 {Tags:["wi_archiv","wi_schalter"],billboard:"center",text:{"text":"Abkürzung nach unten","color":"aqua"},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[0.5f,0.5f,0.5f]}}
+summon text_display 3.5 3.9499999999999997 33.5 {Tags:["wi_archiv","wi_schalter","wi_schalter_text","wi_schalter_text_0"],billboard:"vertical",line_width:80,background:1073741824,text:{"text":"Leer\n","color":"gold","bold":true,"extra":[{"text":"vor der Mission","color":"white","bold":false}]},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[0.4f,0.4f,0.4f]}}
+summon interaction 3.5 3.8 33.5 {Tags:["wi_archiv","wi_schalter","wi_schalter_0"],width:1.0f,height:0.9f,response:1b}
+summon text_display 4.7 3.9499999999999997 33.5 {Tags:["wi_archiv","wi_schalter","wi_schalter_text","wi_schalter_text_1"],billboard:"vertical",line_width:80,background:1073741824,text:{"text":"Stufe 1\n","color":"gold","bold":true,"extra":[{"text":"Die Insel taucht auf","color":"white","bold":false}]},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[0.4f,0.4f,0.4f]}}
+summon interaction 4.7 3.8 33.5 {Tags:["wi_archiv","wi_schalter","wi_schalter_1"],width:1.0f,height:0.9f,response:1b}
+summon text_display 5.9 3.9499999999999997 33.5 {Tags:["wi_archiv","wi_schalter","wi_schalter_text","wi_schalter_text_2"],billboard:"vertical",line_width:80,background:1073741824,text:{"text":"Stufe 2\n","color":"gold","bold":true,"extra":[{"text":"Der Baum wächst","color":"white","bold":false}]},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[0.4f,0.4f,0.4f]}}
+summon interaction 5.9 3.8 33.5 {Tags:["wi_archiv","wi_schalter","wi_schalter_2"],width:1.0f,height:0.9f,response:1b}
+summon text_display 7.1 3.9499999999999997 33.5 {Tags:["wi_archiv","wi_schalter","wi_schalter_text","wi_schalter_text_3"],billboard:"vertical",line_width:80,background:1073741824,text:{"text":"Stufe 3\n","color":"gold","bold":true,"extra":[{"text":"Der Baum wird geschmückt","color":"white","bold":false}]},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[0.4f,0.4f,0.4f]}}
+summon interaction 7.1 3.8 33.5 {Tags:["wi_archiv","wi_schalter","wi_schalter_3"],width:1.0f,height:0.9f,response:1b}
+summon text_display 8.3 3.9499999999999997 33.5 {Tags:["wi_archiv","wi_schalter","wi_schalter_text","wi_schalter_text_4"],billboard:"vertical",line_width:80,background:1073741824,text:{"text":"Stufe 4\n","color":"gold","bold":true,"extra":[{"text":"Heiligabend (fertig)","color":"white","bold":false}]},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[0.4f,0.4f,0.4f]}}
+summon interaction 8.3 3.8 33.5 {Tags:["wi_archiv","wi_schalter","wi_schalter_4"],width:1.0f,height:0.9f,response:1b}
+summon text_display 5.9 5.4 33.5 {Tags:["wi_archiv","wi_schalter"],billboard:"vertical",line_width:260,background:1073741824,text:{"text":"Weihnachtsinsel (Norden): Zustand wählen","color":"gold","bold":true,"extra":[{"text":"\nSo wächst sie auf dem SMP mit den Spenden","color":"gray","bold":false}]},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[0.5f,0.5f,0.5f]}}
 function archiv_spawn:stufe_4_setzen
 forceload remove -304 -58 23 29

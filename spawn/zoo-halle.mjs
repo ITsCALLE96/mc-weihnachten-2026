@@ -1,6 +1,7 @@
 // Weihnachtliche Ausstellungshalle für den Mob-Zoo der Testwelt (Pascal 28.10., Schnittstelle der Server-Session: server/zoo/, Commit d0105d6).
 // Nur Hülle: Wände, Decke, Dach, Lichterketten, Eingänge, Deko außen. Innen bleibt frei (Mobs, Schilder, Glaswürfel der Server-Session).
-// Aufruf: node spawn/zoo-halle.mjs → spawn/datapack/zoo-halle (Funktions-Tag #zoo:halle → zoo_halle:bau, alles absolut, idempotent)
+// Aufruf: node spawn/zoo-halle.mjs → spawn/datapack/zoo-halle (alles absolut, idempotent). Seit 28.10. abends (Pascal: Zoo offen, keine Halle)
+// hängt #zoo:halle an zoo_halle:abriss, der die Halle restlos entfernt; zoo_halle:bau bleibt nur noch von Hand aufrufbar.
 import { writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -92,8 +93,13 @@ export function datapack() {
   f.bau2 = FLUEGEL.flatMap((w) => [`# Flügel ${w.name} (z ${w.z1}…${w.z2}, Decke y ${w.decke})`, ...fluegel(w)]).join('\n') + `\nschedule function ${NS}:entladen 200t\n`;
   // erst nach dem Aufbau der Server-Session entladen (forceload zählt nicht mit)
   f.entladen = laden.replace('forceload add', 'forceload remove') + '\n';
+  // Abriss (Pascal 28.10. abends: Zoo offen, keine Halle): jeden Kasten, den bau2 setzt, wieder zu Luft; Licht nur dort, wo es steht
+  const leer = (z) => (z.includes(' replace ') ? z.replace(/minecraft:light\[level=15\] replace minecraft:air$/, 'minecraft:air replace minecraft:light')
+    : z.startsWith('setblock') ? z.replace(/^(setblock \S+ \S+ \S+) .*$/, '$1 minecraft:air') : z.replace(/^(fill \S+ \S+ \S+ \S+ \S+ \S+) .*$/, '$1 minecraft:air'));
+  f.abriss = `# Testwelt: Ausstellungshalle restlos abreißen (alles, was bau setzt), von #zoo:halle nach dem Zoo-Aufbau gerufen; idempotent\n${laden}\nschedule function ${NS}:abriss2 40t\n`;
+  f.abriss2 = FLUEGEL.flatMap((w) => fluegel(w).map(leer)).join('\n') + `\nschedule function ${NS}:entladen 200t\n`;
   const dateien = Object.fromEntries(Object.entries(f).map(([n, t]) => [`data/${NS}/function/${n}.mcfunction`, t]));
-  dateien['data/zoo/tags/function/halle.json'] = JSON.stringify({ values: [`${NS}:bau`] }) + '\n';
+  dateien['data/zoo/tags/function/halle.json'] = JSON.stringify({ values: [`${NS}:abriss`] }) + '\n';
   dateien['pack.mcmeta'] = JSON.stringify({ pack: { description: 'Zoo-Ausstellungshalle (Spawn & Welt, spawn/zoo-halle.mjs) – nur Testwelt', min_format: [121, 0], max_format: [121, 0] } }, null, 2) + '\n';
   return dateien;
 }

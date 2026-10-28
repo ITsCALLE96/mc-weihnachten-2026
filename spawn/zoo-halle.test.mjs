@@ -5,10 +5,12 @@ import { datapack, fluegel, FLUEGEL } from './zoo-halle.mjs';
 const kasten = (z) => { const t = z.split(' '); const n = t[0] === 'fill' ? t.slice(1, 7).map(Number) : [...t.slice(1, 4), ...t.slice(1, 4)].map(Number);
   return { lo: [0, 1, 2].map((i) => Math.min(n[i], n[i + 3])), hi: [0, 1, 2].map((i) => Math.max(n[i], n[i + 3])), block: t[t[0] === 'fill' ? 7 : 4], ersetzt: z.includes(' replace ') }; };
 
-test('Zoo-Halle: Funktions-Tag #zoo:halle der Server-Session', () => {
+test('Zoo-Halle: #zoo:halle reißt ab (Pascal: Zoo offen), Abriss nur Luft und nur Licht im Innenraum', () => {
   const d = datapack();
-  assert.deepEqual(JSON.parse(d['data/zoo/tags/function/halle.json']).values, ['zoo_halle:bau']);
-  assert.match(d['data/zoo_halle/function/bau.mcfunction'], /^schedule function zoo_halle:bau2 40t$/m);
+  assert.deepEqual(JSON.parse(d['data/zoo/tags/function/halle.json']).values, ['zoo_halle:abriss']);
+  const a = d['data/zoo_halle/function/abriss2.mcfunction'].split('\n').filter((z) => /^(fill|setblock) /.test(z));
+  assert.equal(a.length, d['data/zoo_halle/function/bau2.mcfunction'].split('\n').filter((z) => /^(fill|setblock) /.test(z)).length);
+  for (const z of a) assert.match(z, / minecraft:air( replace minecraft:light)?$/);
 });
 
 test('Zoo-Halle: innen frei (nur Licht in Luft), Wände genau auf den Grenzen, Eingänge offen, fill unter 32768', () => {
