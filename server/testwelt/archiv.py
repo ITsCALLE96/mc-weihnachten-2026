@@ -27,7 +27,7 @@ SAELE = [
     # Spawn & Welt 28.10. (45859c8): beide Inseln 152 Blöcke tiefer als im SMP (Laufhöhe y 4…5), Glas-Treppenturm östlich der Brücke (Eingang 4/−60/3),
     # nur noch eine Weihnachtsinsel, Stufen 1–4 per Schalter oben am Turm-Absatz
     ("spark", "Spark-Insel (Spawn)", "Spawn-Insel mit Deko und Kalenderwand", "SPRUCE_SAPLING", (0, 4, 48), "0 5 48 180 0"),
-    ("weihnachtsinsel", "Weihnachtsinsel", "Insel am Nordweg, Stufen 1–4 per Schalter am Turm-Absatz", "NETHER_STAR", (-1, 4, -34), "-1 4 -24 180 0"),
+    ("weihnachtsinsel", "Weihnachtsinsel", "Insel am Nordweg, Stufen 1–4 per Schalter am Turm-Absatz", "NETHER_STAR", (-1, 4, -34), "-1 3 -20 180 0"),
     ("hub", "Hub-Ausschnitt", "Fantasy Village rund um die Kisten", "ENDER_CHEST", (-250, BODEN, 150), "-250 -60 180 180 0"),
     ("zoo", "Mob-Zoo und Arena", "Friedlich · Feindlich · Bosse, Arena zum Live-Schalten", "SPAWNER", (180, BODEN, -10), "110 -60 -99 -90 0"),  # Ursprung = Mitte des Zoos (Wegweiser), Ecke 120/−100
     ("deko", "Deko und Kalender-Items", "Deko-Modelle, Kalender-Items in Rahmen und auf Rüstungsständern", "ITEM_FRAME", (0, BODEN, 150), "0 -60 180 180 0"),
