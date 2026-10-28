@@ -30,7 +30,7 @@ SAELE = [
     ("weihnachtsinsel", "Weihnachtsinsel", "Insel am Nordweg, Stufen per Schalter am Brückenanfang", "NETHER_STAR", (-1, 4, -34), "-1 3 -20 180 0"),
     ("hub", "Server-Hub", "der ganze Hub (Fantasy Village)", "ENDER_CHEST", (-300, BODEN, -120), "-55 -60 2 90 0"),  # Ursprung = NW-Ecke (Spawn & Welt), x −300…−61, z −120…124
     ("zoo", "Mob-Zoo", "Friedlich · Feindlich · Bosse, offen, in Angriffspose; Kampf-Ecke", "SPAWNER", (90, BODEN, 25), "30 -60 -53 -90 0"),  # Ursprung = Mitte (Wegweiser), Ecke 40/−55
-    ("deko", "Deko und Kalender-Items", "Deko-Modelle, Kalender-Items in Rahmen und auf Rüstungsständern", "ITEM_FRAME", (-60, BODEN, 80), "-30 -60 74 0 0"),  # NW-Ecke, 61 × 17
+    ("deko", "Deko und Kalender-Items", "Deko-Modelle, Kalender-Items in Rahmen und auf Rüstungsständern", "ITEM_FRAME", (-30, BODEN, 88), "-30 -60 74 0 0"),  # Ursprung laut Spawn & Welt (Galerie x −60…0, z 80…96)
 ]
 
 # Wegweiser-Text am Spawn (Standard: Himmelsrichtung und Entfernung)
@@ -38,7 +38,7 @@ HINWEIS = {
     "spark": "Süden, 48 m · hinfliegen (Stufen-Schalter am Brückenanfang)",
     "weihnachtsinsel": "Norden, 34 m · hinfliegen",
     "hub": "Westen, ab 61 m (ganzer Hub)",
-    "deko": "Süden, 80 m",
+    "deko": "Süden, 90 m",
 }
 
 pack = TW / "world" / "datapacks" / "archiv"
