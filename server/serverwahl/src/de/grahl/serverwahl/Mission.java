@@ -213,7 +213,7 @@ final class Mission implements Listener {
             stufen.get(n - 1).wuensche().forEach((w, grund) -> stand.set("ziele." + schluessel(w), grund * spieler));
             stand.set("spieler-beim-start." + n, spieler);
             Bukkit.broadcast(Component.text().append(Component.text("[Weihnachtsinsel] ", NamedTextColor.GOLD, TextDecoration.BOLD))
-                    .append(Component.text("Stufe " + n + ": " + stufen.get(n - 1).name() + " – bringt eure Spenden zur Kiste am Brückenkopf!", NamedTextColor.WHITE))
+                    .append(Component.text("Stufe " + n + ": " + stufen.get(n - 1).name() + (mitKiste ? " – bringt eure Spenden zur Spendenkiste!" : " – spendet über die Ender-Kiste am Spawn (Slot Weihnachtsinsel)!"), NamedTextColor.WHITE))
                     .build());
             plugin.getLogger().info("Mission: Stufe " + n + " gestartet, " + spieler + " aktive Spieler");
         }
