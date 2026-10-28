@@ -10,4 +10,5 @@ testnetz/hub/
 testnetz/smp/
 testnetz/_downloads/
 testnetz/status/
+testnetz/luckperms-daten/
 testnetz/*.log

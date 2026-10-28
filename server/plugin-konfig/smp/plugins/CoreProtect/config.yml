@@ -1,0 +1,6 @@
+# CoreProtect CE (selbst gebaut aus PlayPro/CoreProtect, siehe server/coreprotect/bauen.sh). Nur unsere Abweichungen,
+# CoreProtect ergänzt fehlende Schlüssel mit Standardwerten. Standard protokolliert bereits Blöcke, Schilder (sign-text),
+# Container (item-transactions), Chat (player-messages) und Befehle (player-commands) – so gewollt (Pascal 28.10.).
+# Speicher: SQLite in plugins/CoreProtect/database.db (kommt mit ins AMP-Backup).
+# Aufbewahrung 90 Tage: auto-purge gibt es in der Community Edition nicht, serverwahl ruft täglich 05:00 „co purge t:90d“ auf.
+check-updates: false

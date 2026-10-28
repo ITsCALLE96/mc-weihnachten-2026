@@ -46,6 +46,19 @@ Hub 26120101, SMP 26120501. **Nie ändern:** Eine neue ID heißt für jeden Best
 Die Türchen-Logik liegt im Datapack `insel` (Spawn & Welt). Aus dem Datum statt `naechster_tag`-Zähler, deshalb kein AMP-Zeitplan und keine verpassten Tage.
 `fester-tag: <n>` zum Testen. `kalender.klick`: Rechtsklicks auf die Türchen (Interaction-Entities) fängt serverwahl vor WorldGuard ab und ruft `insel:kalender/tuer_<n>` als der Spieler auf (WorldGuard sperrte sie in der Spawn-Region mit Meldung, Pascals Test 27.10.). Ein Zielobjektiv, das (noch) nicht existiert, wird übersprungen. Das Log schreibt „Winterkalender: #tag insel_kalender = N“ nur, wenn sich der Wert ändert; das Scoreboard bleibt in der Welt gespeichert, nach einem Neustart mit gleichem Tag fehlt die Zeile also (kein Fehler).
 
+## Nicknames und Clan-Tags (28.10.)
+
+Nur mit LuckPerms (`softdepend`). `/nick <name>`, `/nick reset`, für Moderation `/nick reset <spieler>` (`serverwahl.nick.andere`). Gespeichert als LuckPerms-Meta `nick`,
+damit Hub und SMP denselben Stand haben (gemeinsamer LuckPerms-Ordner). Regeln: 3–16 Zeichen, Buchstaben/Ziffern/`_`/`-`, keine Codes, Sperrliste,
+nicht ähnlich zum Namen eines anderen bekannten Spielers oder zum Nick eines anderen (Grundform: klein, `0→o 1/l→i 3→e 4→a 5→s 7→t`).
+Clan-Tag = LuckPerms-Präfix (Gruppe `clan-<name>`, `&`-Codes oder MiniMessage). Chat `[Tag] Nick: …`, Tab `[Tag] Nick EchterName`,
+über dem Kopf `[Tag] EchterName` per Scoreboard-Team `sw_<hash>` (fremde Teams bleiben unberührt). Plan und Test: `../namen-clans-grief.md`.
+Bauen mit LuckPerms: `LUCKPERMS_JAR=<pfad zum LuckPerms-Bukkit-Jar> CP_TRENNER=';' bash build.sh …` (ohne die Variable fehlt die API und der Bau bricht ab).
+
+## Täglich (28.10.)
+
+`taeglich:` führt einmal am Tag ab `uhrzeit` (Fenster 1 h) Konsolenbefehle aus, auf dem SMP `co purge t:90d` um 05:00. Merker `plugins/Serverwahl/taeglich.txt`.
+
 ## Konfiguration
 
 `plugins/Serverwahl/config.yml`, die Dateien dafür liegen in `../plugin-konfig/hub/` und `../plugin-konfig/smp/`. Nach Änderungen `/serverwahl reload` (Op).

@@ -1,4 +1,4 @@
-# Nicknames, Clan-Tags, Grief-Tool (Auftrag Leitung/Pascal 28.10., Plan)
+# Nicknames, Clan-Tags, Grief-Tool (Auftrag Leitung/Pascal 28.10., gebaut, Test offen)
 
 Fertig im Testnetz vor dem Testlauf 21.11. Fertig-Kriterium: Pascal setzt einen Nickname, bekommt einen Test-Clan-Tag, räumt eine Kiste leer,
 setzt ein Schild, findet beides per `/co i` bzw. `/co lookup` und macht es per Rollback rückgängig.
@@ -11,11 +11,14 @@ setzt ein Schild, findet beides per `/co i` bzw. `/co lookup` und macht es per R
 | **CoreProtect CE** | Letztes Release 24.1 nur bis 26.2, lehnt 26.3 ab („Minecraft 26.3 is not supported“, Issue #1034). v25.0 mit 26.3 gibt es bisher nur für Patreon-Unterstützer. Der öffentliche Quellcode (`master`, Stand 19.10., `LATEST_VERSION = "26.3"`, paper-api 26.3) kann 26.3 → **selbst bauen** (Maven, Artistic License 2.0). Inoffizielle Fremd-Builds (vladnow, Vamp1rexe) nehmen wir nicht | nur SMP |
 | Nicknames, Chat, Tab, Namensschild | **eigener Code in serverwahl** (läuft schon auf Hub und SMP), kein weiteres Plugin | Hub + SMP |
 
-Auto-Purge ist in der Community Edition gesperrt (nur Patreon-Version). Ersatz: serverwahl ruft einmal täglich `co purge t:90d` in der Konsole auf.
+Auto-Purge ist in der Community Edition gesperrt (nur Patreon-Version). Ersatz: serverwahl ruft täglich um **05:00** `co purge t:90d` in der Konsole auf
+(Leitung 28.10.: nachts, weil der Purge die Datenbank kurz sperren kann; Config `taeglich:`).
+
+**Offen:** Sobald CoreProtect v25 öffentlich erscheint, auf das offizielle Release wechseln (Leitung 28.10.).
 
 ## Gemeinsamer LuckPerms-Speicher
 
-**Empfehlung: ein gemeinsamer YAML-Ordner, kein neuer Dienst.** `plugins/LuckPerms/yaml-storage` beider Server zeigt auf denselben Ordner
+**Entschieden (Leitung 28.10.): ein gemeinsamer YAML-Ordner, kein neuer Dienst.** Je Spieler/Gruppe eine eigene Datei (`storage-method: yaml`, nicht combined). `plugins/LuckPerms/yaml-storage` beider Server zeigt auf denselben Ordner
 (VM200: Symlink nach `/opt/mc-weihnachten/luckperms/`, wie schon der Eröffnungs-Merker; Testnetz: Verzeichnis-Verknüpfung `mklink /J`,
 ohne Admin-Rechte, keine Windows-Einstellung). `watch-files: true` lädt Änderungen des anderen Servers nach (Sekunden).
 
@@ -55,6 +58,40 @@ Bedrock (Floodgate): gleiche UUID-Logik, gleiche Gruppen.
 SQLite in `plugins/CoreProtect/database.db` (eigenes Volume nicht nötig; Größe bei 25 Spielern grob 1–3 GB in 90 Tagen, wird gemessen).
 Standard bleibt: Blöcke, Schilder (`sign-text`), Container (`item-transactions`), Chat (`player-messages`), Befehle (`player-commands`).
 Hub nicht: dort baut niemand (WorldGuard `__global__` sperrt). Backups: DB kommt mit in die AMP-Sicherung (Rollback nach Restore braucht sie).
+
+## Umsetzung (28.10.)
+
+| Was | Wo |
+|---|---|
+| Nick, Chat, Tab, Namensschild | `serverwahl/src/…/Namen.java`, Config-Abschnitt `namen:` (Hub + SMP); Build mit `LUCKPERMS_JAR=<LuckPerms-Bukkit-Jar>` (nur zum Übersetzen) |
+| täglicher Purge | `Serverwahl.java`, Config `taeglich:` (nur SMP) |
+| LuckPerms-Konfig | `plugin-konfig/gemeinsam/plugins/LuckPerms/config.yml` (yaml, watch-files, server global) |
+| Gruppen, Test-Clan | `luckperms/gruppen.txt`, `luckperms/clan-test.txt` (lp-Befehle, einmal auf einem Server) |
+| CoreProtect | `coreprotect/bauen.sh` (Pascal, fester Commit `dffa04fc`), Konfig `plugin-konfig/smp/plugins/CoreProtect/config.yml` |
+| Testnetz | `testnetz/namen-test.sh einrichten | gruppen | entfernen`, gemeinsamer Ordner `testnetz/luckperms-daten/` (git-ignoriert) |
+
+**Lizenz CoreProtect:** Artistic License 2.0, © Intelli / PlayPro (https://github.com/PlayPro/CoreProtect). Wir bauen den unveränderten Quellcode.
+
+## VM200 (Task 2 / Task 9)
+
+- `mkdir -p /opt/mc-weihnachten/luckperms` (Besitzer wie die AMP-Instanzen), in **beiden** Instanzen
+  `ln -s /opt/mc-weihnachten/luckperms <instanz>/plugins/LuckPerms/yaml-storage` **vor** dem ersten Start mit LuckPerms
+- **Backup (Task 9):** `/opt/mc-weihnachten/luckperms/` liegt außerhalb der AMP-Instanzen → eigene Sicherung nötig (Nicks, Clans, Rechte);
+  `plugins/CoreProtect/database.db` liegt im SMP und kommt mit der Instanz mit
+
+## Test (Testnetz)
+
+1. Pascal: `bash server/coreprotect/bauen.sh` (SHA-256 an die Server-Session)
+2. Testnetz gestoppt: `bash testnetz/namen-test.sh einrichten`; Leitung startet; `bash testnetz/namen-test.sh gruppen`
+3. Logs: Hub und SMP laden LuckPerms 5.5.71 (Storage YAML), SMP lädt CoreProtect ohne „not supported“, serverwahl ohne „LuckPerms nicht geladen“
+4. `/nick Weihnachtself` im Hub → Chat `[Test] Weihnachtself: …`, Tab `[Test] Weihnachtself ITsCALLE96`, über dem Kopf `[Test] ITsCALLE96` (zweiter Client/Bedrock)
+5. **Gleich danach auf den SMP wechseln** (Leitung): Nick und Tag sind dort da; `testnetz/luckperms-daten/users/<uuid>.yml` ist gültiges YAML,
+   keine `*.tmp`/leere Dateien, keine LuckPerms-Fehler in beiden Logs
+6. Regeln: `/nick &cRot`, `/nick ab`, `/nick ITsCALLE96x` (bekannter Name eines anderen → erst mit zweitem Spieler prüfbar), `/nick Adm1n` → abgelehnt; `/nick reset`
+7. Grief: Kiste füllen und leer räumen, Schild schreiben; `/co i` + Klick auf Kiste/Schild zeigt die Einträge; `/co lookup u:ITsCALLE96 t:10m`
+8. `/co rollback u:ITsCALLE96 t:10m r:20` → Kiste wieder voll, Schild weg; `/co restore …` geht nur als admin
+9. Moderator-Probe: zweites Konto in `moderator` → `/co i` geht, `/co rollback` wird abgelehnt
+10. Purge-Probe (optional): `taeglich.uhrzeit` auf die nächste Minute, `/serverwahl reload` → Log „Täglich: co purge t:90d“
 
 ## Ablauf
 

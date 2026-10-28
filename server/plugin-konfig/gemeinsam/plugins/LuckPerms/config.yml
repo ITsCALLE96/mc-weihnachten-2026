@@ -1,0 +1,10 @@
+# LuckPerms 5.5.71 auf Hub und SMP (Plan: server/namen-clans-grief.md). Nur unsere Abweichungen, alles andere ergänzt LuckPerms mit Standardwerten.
+# Gleicher Name auf beiden Servern: Rechte ohne Server-Kontext gelten überall
+server: global
+# Gemeinsamer Speicher ohne Datenbank (Leitung 28.10.): je Spieler/Gruppe eine eigene Datei (nicht „combined“).
+# plugins/LuckPerms/yaml-storage ist auf beiden Servern derselbe Ordner (VM200: Symlink nach /opt/mc-weihnachten/luckperms, Testnetz: Verzeichnis-Verknüpfung)
+storage-method: yaml
+# Änderungen des anderen Servers an den Dateien nachladen
+watch-files: true
+# kein Messaging-Dienst (keine Datenbank, kein LuckPerms auf Velocity); watch-files reicht
+messaging-service: none

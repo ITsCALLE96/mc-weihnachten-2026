@@ -2,6 +2,8 @@ name: Serverwahl
 version: '1.0.0'
 main: de.grahl.serverwahl.Serverwahl
 api-version: '26.3'
+# LuckPerms für /nick und Clan-Tags (ohne LuckPerms bleibt der Teil aus)
+softdepend: [LuckPerms]
 description: Server-Wahl über Kisten im Hub, /hub zurück (Velocity, Kanal BungeeCord)
 commands:
   hub:
@@ -12,7 +14,16 @@ commands:
     description: "serverwahl reload | menue <kategorie> | oeffnen | schliessen | status"
     usage: "/serverwahl reload | menue <kategorie> | oeffnen | schliessen | status"
     permission: serverwahl.admin
+  nick:
+    description: "Eigenen Nickname setzen: /nick <name> | /nick reset (Moderation: /nick reset <spieler>)"
+    usage: "/nick <name> | /nick reset"
+    permission: serverwahl.nick
 permissions:
+  serverwahl.nick:
+    default: true
+  serverwahl.nick.andere:
+    description: Nick anderer Spieler zurücksetzen
+    default: op
   serverwahl.hub:
     default: true
   serverwahl.admin:

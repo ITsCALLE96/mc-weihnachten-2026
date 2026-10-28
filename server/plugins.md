@@ -89,6 +89,14 @@ Das Skript warnt, falls eins davon im Hub-Ordner liegt.
 | Bedrock/PlayStation | `bedrock.md` | Geyser 2.12.1 + Floodgate 2.2.5 auf Velocity, Floodgate auf Hub/SMP, PlayStation nur über BedrockConnect (öffentlicher DNS, Entscheidung der Spieler), kein Bot-Konto |
 | Anti-Cheat | `anticheat.md` | GrimAC 2.3.75 nur auf dem SMP, nur Meldungen und Setbacks, keine Kicks |
 
+## Entschieden 28.10.: Nicknames, Clan-Tags, Grief-Tool (`namen-clans-grief.md`, Testnetz: `testnetz/namen-test.sh`)
+
+| Plugin | Version | Quelle | Lizenz | Datei, Prüfsumme | Wo |
+|---|---|---|---|---|---|
+| LuckPerms | 5.5.71 (Bukkit/Paper, 26.3) | Modrinth | MIT | `LuckPerms-Bukkit-5.5.71.jar`, SHA1 `fc8bb9919fa77c670b7ed5c284bcb66770ea71fc` | Hub + SMP, gemeinsamer YAML-Ordner |
+| CoreProtect CE | Quellcode `master` @ `dffa04fc` (19.10., kann 26.3) | github.com/PlayPro/CoreProtect, selbst gebaut (`coreprotect/bauen.sh`) | Artistic License 2.0 | SHA-256 nach dem Bau | nur SMP; auf v25-Release wechseln, sobald öffentlich |
+| Nick/Chat/Tab/Teams | in serverwahl | eigen | – | – | Hub + SMP |
+
 ## Datapacks (Task 4 Schritt 11, nach `world/datapacks/`, danach Neustart)
 
 | Datapack | Version | Quelle | Lizenz | Ins Repo? |

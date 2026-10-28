@@ -76,3 +76,19 @@ kategorien:
           - "<yellow>Klicken zum Wechseln"
 # Xaero: eigene Welt-ID, damit Minimap/Weltkarte Hub und SMP getrennt speichern (hinter Velocity sonst dieselbe „Welt“). Fest lassen, sonst neue leere Karte
 xaero-welt-id: 26120501
+# Nicknames und Clan-Tags (Pascal 28.10., Plan server/namen-clans-grief.md): /nick <name> | /nick reset, gespeichert in LuckPerms (gemeinsam mit dem
+# anderen Server). Clan-Tag = LuckPerms-Präfix der Gruppe clan-<name>, nur Pascal vergibt ihn. Ohne LuckPerms bleibt der Teil aus.
+namen:
+  aktiv: true
+  nick-min: 3
+  nick-max: 16
+  abklingzeit-sekunden: 10
+  # Grundform (klein, 0→o, 1/l→i, 3→e, 4→a, 5→s, 7→t, ohne _/-) darf keins dieser Wörter sein (ab 5 Buchstaben auch nicht enthalten)
+  sperrliste: [admin, moderator, mod, server, konsole, console, owner, staff, team, support, herobrine]
+# Täglich nachts (Leitung 28.10.): CoreProtect-Daten älter als 90 Tage löschen. 05:00, weil der Purge die Datenbank kurz sperren kann.
+# Läuft einmal pro Tag im Fenster uhrzeit … +1 h (Merker plugins/Serverwahl/taeglich.txt); ist der Server dann aus, fällt der Lauf aus
+taeglich:
+  uhrzeit: "05:00"
+  zeitzone: Europe/Berlin
+  befehle:
+    - "co purge t:90d"

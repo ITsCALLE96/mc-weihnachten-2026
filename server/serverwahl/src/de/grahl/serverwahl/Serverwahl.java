@@ -69,6 +69,12 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private final Map<java.util.UUID, Long> portalZuletzt = new HashMap<>();
     private final SpawnElytra spawnElytra = new SpawnElytra(this);
     private final WetterRhythmus wetter = new WetterRhythmus(this);
+    /** Nicknames/Clan-Tags, nur mit LuckPerms (sonst null) */
+    private Namen namen;
+    /** täglich einmal ab dieser Uhrzeit (höchstens eine Stunde später) diese Konsolenbefehle, z. B. CoreProtect-Purge; null = aus */
+    private java.time.LocalTime taeglichUm;
+    private java.time.ZoneId taeglichZone;
+    private List<String> taeglichBefehle = List.of();
     /** Xaero-Kanäle für die Welt-ID (Paket 0 = LevelMapProperties: ein int) */
     private static final List<String> XAERO_KANAELE = List.of("xaeroworldmap:main", "xaerominimap:main");
     /** eigene Welt-ID für Xaero, 0 = aus. Hinter Velocity sehen Hub und SMP sonst für Xaero gleich aus (gleiche Adresse, Dimension) */
@@ -97,6 +103,14 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        if (getServer().getPluginManager().getPlugin("LuckPerms") != null) {
+            Namen n = new Namen(this);
+            if (n.starten()) {
+                namen = n;
+                getServer().getPluginManager().registerEvents(namen, this);
+                getCommand("nick").setExecutor(namen);
+            }
+        }
         laden();
         getServer().getMessenger().registerOutgoingPluginChannel(this, KANAL);
         XAERO_KANAELE.forEach(k -> getServer().getMessenger().registerOutgoingPluginChannel(this, k));
@@ -152,6 +166,33 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                 getLogger().info("Winterkalender: " + kalenderEintrag + " " + kalenderObjective + " = " + tag);
             }
         }, 100L, 1200L);
+        // Täglich nachts (SMP: CoreProtect-Purge 05:00, Leitung 28.10.). Merker mit dem Datum im Plugin-Ordner, damit ein Neustart nicht doppelt auslöst.
+        // Lief der Server im Zeitfenster (Uhrzeit bis +1 h) nicht, fällt der Lauf an dem Tag aus
+        getServer().getScheduler().runTaskTimer(this, () -> {
+            if (taeglichUm == null || taeglichBefehle.isEmpty()) {
+                return;
+            }
+            java.time.ZonedDateTime jetzt = java.time.ZonedDateTime.now(taeglichZone);
+            java.time.LocalTime uhr = jetzt.toLocalTime();
+            if (uhr.isBefore(taeglichUm) || uhr.isAfter(taeglichUm.plusHours(1))) {
+                return;
+            }
+            Path merker = getDataFolder().toPath().resolve("taeglich.txt");
+            String heute = jetzt.toLocalDate().toString();
+            try {
+                if (Files.exists(merker) && Files.readString(merker).trim().equals(heute)) {
+                    return;
+                }
+                Files.writeString(merker, heute);
+            } catch (IOException ex) {
+                getLogger().warning("Täglich-Merker: " + ex.getMessage());
+                return;
+            }
+            for (String befehl : taeglichBefehle) {
+                getLogger().info("Täglich: " + befehl);
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), befehl);
+            }
+        }, 200L, 1200L);
     }
 
     private void laden() {
@@ -177,6 +218,13 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         spawnElytra.laden(getConfig().getConfigurationSection("spawn-elytra"));
         wetter.laden(getConfig().getConfigurationSection("wetter-rhythmus"));
         xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
+        if (namen != null) {
+            namen.laden(getConfig().getConfigurationSection("namen"));
+        }
+        ConfigurationSection tg = getConfig().getConfigurationSection("taeglich");
+        taeglichBefehle = tg == null ? List.of() : tg.getStringList("befehle");
+        taeglichUm = tg == null || taeglichBefehle.isEmpty() ? null : java.time.LocalTime.parse(tg.getString("uhrzeit", "05:00"));
+        taeglichZone = java.time.ZoneId.of(tg == null ? "Europe/Berlin" : tg.getString("zeitzone", "Europe/Berlin"));
         ConfigurationSection ka = getConfig().getConfigurationSection("kalender");
         kalenderObjective = ka == null || !ka.getBoolean("aktiv", false) ? null : ka.getString("objective", "insel_kalender");
         kalenderEintrag = ka == null ? "#tag" : ka.getString("eintrag", "#tag");
@@ -205,6 +253,11 @@ public final class Serverwahl extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (command.getName().equals("nick")) {
+            // nur ohne LuckPerms hier, sonst übernimmt Namen
+            sender.sendMessage(Component.text("Nicknames gibt es auf diesem Server nicht.", NamedTextColor.RED));
+            return true;
+        }
         if (command.getName().equals("serverwahl")) {
             if (args.length == 1 && args[0].equals("reload")) {
                 laden();

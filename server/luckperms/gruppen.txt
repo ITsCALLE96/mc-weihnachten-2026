@@ -1,0 +1,16 @@
+# LuckPerms-Gruppen fürs Weihnachtsprojekt (Plan: server/namen-clans-grief.md). Ein Befehl je Zeile, einmal auf einem Server ausführen
+# (gemeinsamer Speicher, der andere lädt per watch-files nach). Testnetz: bash testnetz/namen-test.sh gruppen. VM200: AMP-Konsole des SMP.
+# spieler = default (alle), Rechte für alle kommen aus den Plugins selbst (serverwahl.nick, serverwahl.hub, weihnachten.spieler)
+lp creategroup moderator
+lp creategroup admin
+lp group moderator parent add default
+lp group moderator permission set coreprotect.inspect true
+lp group moderator permission set coreprotect.lookup true
+lp group moderator permission set coreprotect.teleport true
+lp group moderator permission set serverwahl.nick.andere true
+# Rollback/Restore/Purge nur admin. Bewusst kein „*“: das würde auch Ausnahmen wie grim.exempt verteilen
+lp group admin parent add moderator
+lp group admin permission set coreprotect.* true
+lp group admin permission set luckperms.* true
+lp group admin permission set serverwahl.admin true
+lp user ITsCALLE96 parent add admin

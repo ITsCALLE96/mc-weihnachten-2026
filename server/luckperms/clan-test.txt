@@ -1,0 +1,5 @@
+# Test-Clan fürs Testnetz (Fertig-Kriterium). Muster für echte Clans: Gruppe clan-<name>, Präfix mit Priorität 100, Farbe per &-Code oder MiniMessage.
+# Ein Spieler gehört höchstens einem Clan an (sonst gewinnt der Präfix mit der höchsten Priorität).
+lp creategroup clan-test
+lp group clan-test meta setprefix 100 "&6[Test]"
+lp user ITsCALLE96 parent add clan-test
