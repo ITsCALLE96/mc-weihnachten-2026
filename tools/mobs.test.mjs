@@ -37,3 +37,9 @@ test('Bosse und Geschosse laufen durch, Boss-EMF gültig', async () => {
   for (const teile of Object.values(BOSS_EMF)) assert.ok(jem(teile).models.every((m) => m.boxes.every((b) => b.coordinates.every(Number.isFinite))));
   assert.equal(gluehkugel(PNG).width, 16);
 });
+
+test('Paket 2: alle übrigen Monster laufen durch, EMF gültig', async () => {
+  const { MONSTER2, MONSTER2_EMF } = await import('./monster2.mjs');
+  for (const [name, fn] of Object.entries(MONSTER2)) assert.doesNotThrow(() => fn(leer(128, 128)), name);
+  for (const teile of Object.values(MONSTER2_EMF)) assert.ok(jem(teile).models.every((m) => m.boxes.every((b) => b.coordinates.every(Number.isFinite))));
+});

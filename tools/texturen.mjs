@@ -9,6 +9,7 @@ import pngjs from 'pngjs';
 import { DEKO, KALENDER, KALENDER_TEXTE, FARBEN, palette as dekoPalette, modell as dekoModell } from './deko.mjs';
 import { weihnachtsmannSkin } from './weihnachtsmann.mjs';
 import { BOSSE, GESCHOSSE, BOSS_EMF, gluehkugel } from './bosse.mjs';
+import { MONSTER2, MONSTER2_EMF } from './monster2.mjs';
 import { MOBS, EMF, VARIANTEN, emfPalette, jem, EMF_TEXTUR } from './mobs.mjs';
 import { frostOben, frostSeite, winterFarbkarte, weihnachtsmuetze, weihnachtsschal, tierschal, TIER_SCHAL } from './winter.mjs';
 
@@ -227,7 +228,7 @@ function baueWinter(wrp, mc, modell, reif) {
     }
   }
   // Weihnachts-Monster (Pascal 28.10.): Ebene 1 Texturen für alle, Ebene 2 3D-Zusätze (EMF) und Zufallsvarianten (ETF) fürs Modpack.
-  for (const [datei, bemalen] of Object.entries({ ...MOBS, ...BOSSE, ...GESCHOSSE })) {
+  for (const [datei, bemalen] of Object.entries({ ...MOBS, ...BOSSE, ...GESCHOSSE, ...MONSTER2 })) {
     const png = lies(`entity/${datei}.png`);
     bemalen(png);
     schreibePng(ziel(`minecraft/textures/entity/${datei}.png`), png);
@@ -239,7 +240,7 @@ function baueWinter(wrp, mc, modell, reif) {
   }
   schreibePng(ziel(`minecraft/${EMF_TEXTUR}`), emfPalette(false, PNG));
   schreibePng(ziel(`minecraft/${EMF_TEXTUR.replace('.png', '_e.png')}`), emfPalette(true, PNG));
-  for (const [modell, teile] of Object.entries({ ...EMF, ...BOSS_EMF })) schreibeJson(ziel(`minecraft/optifine/cem/${modell}.jem`), jem(teile));
+  for (const [modell, teile] of Object.entries({ ...EMF, ...BOSS_EMF, ...MONSTER2_EMF })) schreibeJson(ziel(`minecraft/optifine/cem/${modell}.jem`), jem(teile));
   writeFileSync(ziel('minecraft/optifine/emissive.properties'), 'suffix.emissive=_e\n');
   // Ghast- und Blaze-Feuerball fliegen als Feuerkugel-Item (Anzeige „ground“): dort eine glühende Goldkugel, im Inventar bleibt Vanilla.
   schreibePng(ziel('weihnachten/textures/item/gluehkugel.png'), gluehkugel(PNG));
