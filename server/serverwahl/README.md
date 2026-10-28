@@ -98,8 +98,10 @@ für den Community-Bot (`api:`, nur LAN, IP-Sperre + Schlüssel). Spezifikation 
 
 `mission:` (nur SMP) liest `plugins/Serverwahl/mission.json` (= `spawn/mission.json` von Spawn & Welt, kopiert von `plugin-konfig/einspielen.sh`):
 Kiste, Tafel-Tag, Stufen mit Wünschen (Material-ID oder Item-Tag `#…`), Bau-Funktion und Trank. Ab dem Starttag läuft Stufe 1; Ziel je Wunsch =
-Grundmenge × Spieler, die in den letzten `aktive-tage` Tagen da waren, beim Stufenstart festgezurrt. Rechtsklick auf die Kiste (vor WorldGuard) öffnet
-ein Spendenfenster; beim Schließen nimmt serverwahl nur Gewünschtes bis zum Ziel an, der Rest geht zurück (sonst vor die Füße). Stufe voll → Bau-Funktion,
+Grundmenge × Spieler, die in den letzten `aktive-tage` Tagen da waren, beim Stufenstart festgezurrt. Gespendet wird über den Slot „Weihnachtsinsel“ im Ender-Kisten-Menü (`kategorien.spawn.mission-slot`, Pascal 28.10.;
+eine Spendenkiste nur, wenn `mission.json` eine `kiste` nennt). Der Slot zeigt Stufe, Fortschritt und offene Tränke, Klick öffnet
+ein Spendenfenster, Rechtsklick holt offene Tränke ab; beim Schließen nimmt serverwahl nur Gewünschtes bis zum Ziel an, der Rest geht zurück (sonst vor die Füße). Der Bau wächst mit: je 10 % Fortschritt der Stufe (über alle Wünsche) ruft serverwahl `stufe_N_teil_K` (K = 1…`teile`) auf, erledigte Abschnitte
+stehen im Stand (nach Neustart wird nachgeholt, nichts doppelt). Stufe voll → Abschluss `stufe_N`,
 sofort nächste Stufe (Pascal: keine Datumsbindung), nach der letzten nach 20 s die Feier. Jeder Spieler bekommt je geschaffter Stufe `traenke-je-stufe`
 Tränke (auch Spätere; beim Login, bei vollem Inventar per Kiste oder `/mission abholen`). Tafel: text_display mit dem Tag, Text jede Minute (Stufe,
 Fortschritt je Wunsch, Top 3 der Stufe, Top 5 gesamt, Nicks). Stand `plugins/Serverwahl/mission-stand.yml`, nach jeder Spende gespeichert.

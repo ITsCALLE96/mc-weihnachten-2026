@@ -56,16 +56,19 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 /**
- * Server-Mission „Weihnachtsinsel“ (Pascal 28.10., Bau und Wunschlisten: Spawn & Welt, spawn/mission.json). Spieler spenden an der Spendenkiste
- * nur, was die aktuelle Stufe wünscht; Ziel je Wunsch = Grundmenge × Spieler der letzten 7 Tage, beim Stufenstart festgezurrt.
- * Ist alles da, ruft serverwahl die Bau-Funktion der Stufe auf und startet sofort die nächste (Pascal: keine Datumsbindung); nach Stufe 4
- * sofort die Feier. Jeder Spieler bekommt je geschaffter Stufe trank-anzahl Tränke, auch wer später dazukommt (Nachlieferung beim Login,
- * bei vollem Inventar Abholen per Rechtsklick an der Kiste). Die Tafel (text_display mit Tag) zeigt Fortschritt und Top-Spender.
+ * Server-Mission „Weihnachtsinsel“ (Pascal 28.10., Bau und Wunschlisten: Spawn & Welt, spawn/mission.json). Gespendet wird über den Slot
+ * „Weihnachtsinsel“ im Ender-Kisten-Menü der Spark-Insel (eine eigene Spendenkiste gibt es nur, wenn mission.json eine „kiste“ nennt).
+ * Angenommen wird nur, was die aktuelle Stufe wünscht; Ziel je Wunsch = Grundmenge × Spieler der letzten 7 Tage, beim Stufenstart festgezurrt.
+ * Der Bau wächst schrittweise mit (Pascal 28.10.): je 1/teile Fortschritt der Stufe (über alle Wünsche) ruft serverwahl den nächsten Bauabschnitt
+ * auf (Standard weihnachtsinsel:stufe_N_teil_K), bei 100 % den Abschluss (stufe_N) und startet sofort die nächste Stufe; nach der letzten die Feier.
+ * Erledigte Abschnitte stehen im Stand, nichts läuft doppelt (die Funktionen im Datapack sind zusätzlich idempotent).
+ * Jeder Spieler bekommt je geschaffter Stufe traenke-je-stufe Tränke, auch wer später dazukommt (Nachlieferung beim Login,
+ * bei vollem Inventar per Rechtsklick auf den Menü-Slot oder /mission abholen). Die Tafel (text_display mit Tag) zeigt Fortschritt und Top-Spender.
  * Stand in plugins/Serverwahl/mission-stand.yml (kommt mit dem Instanz-Backup), nach jeder Änderung gespeichert.
  */
 final class Mission implements Listener {
 
-    private record Stufe(String name, String funktion, LinkedHashMap<String, Integer> wuensche, JsonObject trank) {
+    private record Stufe(String name, String funktion, String teilFunktion, LinkedHashMap<String, Integer> wuensche, JsonObject trank) {
     }
 
     private static final class Fenster implements InventoryHolder {
@@ -89,6 +92,8 @@ final class Mission implements Listener {
     private String feierFunktion;
     private String vorbereitenFunktion;
     private String kisteWelt;
+    private boolean mitKiste;
+    private int teile = 10;
     private int kx, ky, kz;
     private String tafelTag;
     private Location tafelOrt;
@@ -130,13 +135,17 @@ final class Mission implements Listener {
         start = LocalDate.parse(j.get("start").getAsString());
         feierFunktion = j.getAsJsonObject("feier").get("funktion").getAsString();
         vorbereitenFunktion = j.has("vorbereiten") ? j.get("vorbereiten").getAsString() : null;
-        JsonObject k = j.getAsJsonObject("kiste");
-        kisteWelt = k.get("welt").getAsString();
-        kx = k.get("x").getAsInt();
-        ky = k.get("y").getAsInt();
-        kz = k.get("z").getAsInt();
+        teile = j.has("teile") ? Math.max(1, j.get("teile").getAsInt()) : 10;
+        mitKiste = j.has("kiste") && j.get("kiste").isJsonObject();
+        if (mitKiste) {
+            JsonObject k = j.getAsJsonObject("kiste");
+            kx = k.get("x").getAsInt();
+            ky = k.get("y").getAsInt();
+            kz = k.get("z").getAsInt();
+        }
         JsonObject t = j.getAsJsonObject("tafel");
         tafelTag = t.get("tag").getAsString();
+        kisteWelt = t.has("welt") ? t.get("welt").getAsString() : mitKiste ? j.getAsJsonObject("kiste").get("welt").getAsString() : "world";
         World w = Bukkit.getWorld(kisteWelt);
         tafelOrt = w == null ? null : new Location(w, t.get("x").getAsDouble(), t.get("y").getAsDouble(), t.get("z").getAsDouble());
         stufen.clear();
@@ -144,7 +153,9 @@ final class Mission implements Listener {
             JsonObject s = e.getAsJsonObject();
             LinkedHashMap<String, Integer> w2 = new LinkedHashMap<>();
             s.getAsJsonObject("wuensche").entrySet().forEach(x -> w2.put(x.getKey(), x.getValue().getAsInt()));
-            stufen.add(new Stufe(s.get("name").getAsString(), s.get("funktion").getAsString(), w2, s.getAsJsonObject("trank")));
+            String f = s.get("funktion").getAsString();
+            String teil = s.has("teil_funktion") ? s.get("teil_funktion").getAsString() : f + "_teil_{k}";
+            stufen.add(new Stufe(s.get("name").getAsString(), f, teil, w2, s.getAsJsonObject("trank")));
         }
     }
 
@@ -208,22 +219,45 @@ final class Mission implements Listener {
         tafel();
     }
 
-    /** Ziel der aktuellen Stufe erreicht? Dann bauen, Tränke, nächste Stufe bzw. Feier */
+    /** Fortschritt der Stufe 0…1 über alle Wünsche (jeder Wunsch zählt höchstens bis zu seinem Ziel) */
+    private double fortschritt(int n) {
+        long summe = 0;
+        long ziele = 0;
+        for (String w : stufen.get(n - 1).wuensche().keySet()) {
+            int z = ziel(w);
+            summe += Math.min(gesamt(n, w), z);
+            ziele += z;
+        }
+        return ziele == 0 ? 1 : (double) summe / ziele;
+    }
+
+    /** fällige Bauabschnitte aufrufen (je 1/teile Fortschritt), bei 100 % abschließen. Nachholend nach Neustart/Zieländerung */
     private void pruefen() {
         int n = stufe();
         if (n < 1 || n > stufen.size()) {
             return;
         }
-        for (String w : stufen.get(n - 1).wuensche().keySet()) {
-            if (gesamt(n, w) < ziel(w)) {
-                return;
-            }
+        Stufe s = stufen.get(n - 1);
+        int faellig = (int) Math.floor(fortschritt(n) * teile + 1e-9);
+        int erledigt = stand.getInt("teile." + n, 0);
+        for (int k = erledigt + 1; k <= Math.min(faellig, teile); k++) {
+            konsole(s.teilFunktion().replace("{k}", String.valueOf(k)));
+            stand.set("teile." + n, k);
+            speichern();
+            plugin.getLogger().info("Mission: Stufe " + n + " Bauabschnitt " + k + "/" + teile);
         }
-        abschliessen(n);
+        if (faellig >= teile) {
+            abschliessen(n);
+        }
     }
 
     private void abschliessen(int n) {
         Stufe s = stufen.get(n - 1);
+        for (int k = stand.getInt("teile." + n, 0) + 1; k <= teile; k++) {
+            konsole(s.teilFunktion().replace("{k}", String.valueOf(k)));
+            stand.set("teile." + n, k);
+        }
+        speichern();
         konsole(s.funktion());
         plugin.getLogger().info("Mission: Stufe " + n + " geschafft");
         stufeStarten(n + 1);
@@ -252,13 +286,14 @@ final class Mission implements Listener {
         if (stufe() == 0 && !LocalDate.now(zone).isBefore(start)) {
             stufeStarten(1);
         }
+        pruefen();
         tafel();
     }
 
     // ---------- Spendenkiste ----------
 
     private boolean istKiste(Block b) {
-        return b != null && b.getX() == kx && b.getY() == ky && b.getZ() == kz && b.getWorld().getName().equals(kisteWelt);
+        return mitKiste && b != null && b.getX() == kx && b.getY() == ky && b.getZ() == kz && b.getWorld().getName().equals(kisteWelt);
     }
 
     /** vor WorldGuard (LOWEST): Klick auf die Kiste abbrechen und das Spendenfenster öffnen */
@@ -268,10 +303,17 @@ final class Mission implements Listener {
             return;
         }
         e.setCancelled(true);
-        if (e.getHand() != EquipmentSlot.HAND) {
+        if (e.getHand() == EquipmentSlot.HAND) {
+            spendenOeffnen(e.getPlayer());
+        }
+    }
+
+    /** Spendenfenster (aus dem Ender-Kisten-Menü bzw. einer Spendenkiste); liefert vorher offene Tränke */
+    void spendenOeffnen(Player p) {
+        if (!aktiv) {
+            p.sendMessage(Component.text("Die Weihnachtsinsel ist gerade aus.", NamedTextColor.GRAY));
             return;
         }
-        Player p = e.getPlayer();
         liefern(p);
         int n = stufe();
         if (n < 1) {
@@ -368,6 +410,61 @@ final class Mission implements Listener {
         return m == null ? Component.text(w, NamedTextColor.AQUA) : Component.translatable(m.translationKey(), NamedTextColor.AQUA);
     }
 
+    // ---------- Menü-Slot (Ender-Kisten-Menü) ----------
+
+    boolean aktiv() {
+        return aktiv;
+    }
+
+    /** Gegenstand für den Slot „Weihnachtsinsel“ mit Stufe, Fortschritt und offenen Tränken */
+    ItemStack menuePunkt(Player p) {
+        int n = stufe();
+        ItemStack it = new ItemStack(n > stufen.size() ? Material.NETHER_STAR : Material.SPRUCE_SAPLING);
+        var m = it.getItemMeta();
+        m.displayName(Component.text("Weihnachtsinsel", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+        List<Component> lore = new ArrayList<>();
+        if (n < 1) {
+            lore.add(grau("Start am " + start.getDayOfMonth() + "." + start.getMonthValue() + "."));
+        } else if (n > stufen.size()) {
+            lore.add(grau("Fertig – danke an alle Spender!"));
+        } else {
+            lore.add(grau("Stufe " + n + "/" + stufen.size() + ": " + stufen.get(n - 1).name()));
+            lore.add(grau("Fortschritt " + (int) Math.floor(fortschritt(n) * 100) + " %"));
+            lore.add(Component.empty());
+            lore.add(Component.text("Klicken zum Spenden", NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false));
+        }
+        int offen = offeneTraenke(p);
+        if (offen > 0) {
+            lore.add(Component.text("Rechtsklick: " + offen + " Tränke abholen", NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false));
+        }
+        m.lore(lore);
+        it.setItemMeta(m);
+        return it;
+    }
+
+    private static Component grau(String t) {
+        return Component.text(t, NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false);
+    }
+
+    /** Klick auf den Menü-Slot: Rechtsklick holt Tränke ab, sonst Spendenfenster */
+    void menueKlick(Player p, boolean rechts) {
+        if (rechts && offeneTraenke(p) > 0) {
+            p.closeInventory();
+            liefern(p);
+            return;
+        }
+        p.closeInventory();
+        spendenOeffnen(p);
+    }
+
+    private int offeneTraenke(Player p) {
+        int offen = 0;
+        for (int n = 1; n <= Math.min(geschafft(), stufen.size()); n++) {
+            offen += Math.max(0, trankAnzahl - stand.getInt("traenke." + p.getUniqueId() + "." + n, 0));
+        }
+        return offen;
+    }
+
     // ---------- Tränke ----------
 
     @EventHandler
@@ -402,7 +499,7 @@ final class Mission implements Listener {
             p.sendMessage(Component.text("Weihnachtsinsel: " + bekommen + " Belohnungs-Tränke ins Inventar gelegt.", NamedTextColor.GOLD));
         }
         if (voll) {
-            p.sendMessage(Component.text("Dein Inventar ist voll – weitere Tränke holst du per Rechtsklick an der Spendenkiste ab.", NamedTextColor.YELLOW));
+            p.sendMessage(Component.text("Dein Inventar ist voll – weitere Tränke holst du per Rechtsklick auf „Weihnachtsinsel“ im Ender-Kisten-Menü ab (oder /mission abholen).", NamedTextColor.YELLOW));
         }
     }
 
@@ -451,7 +548,8 @@ final class Mission implements Listener {
         } else if (n > stufen.size()) {
             b.append(Component.newline()).append(Component.text("Fertig – danke an alle!", NamedTextColor.GREEN));
         } else {
-            b.append(Component.newline()).append(Component.text("Stufe " + n + "/" + stufen.size() + ": " + stufen.get(n - 1).name(), NamedTextColor.WHITE));
+            b.append(Component.newline()).append(Component.text("Stufe " + n + "/" + stufen.size() + ": " + stufen.get(n - 1).name()
+                    + " – " + (int) Math.floor(fortschritt(n) * 100) + " %", NamedTextColor.WHITE));
             for (String w : stufen.get(n - 1).wuensche().keySet()) {
                 int g = gesamt(n, w);
                 int z = ziel(w);
@@ -494,7 +592,8 @@ final class Mission implements Listener {
             return "Offene Tränke geprüft.";
         }
         int n = stufe();
-        return n < 1 ? "Start am " + start : n > stufen.size() ? "Fertig!" : "Stufe " + n + ": " + stufen.get(n - 1).name() + " – Spendenkiste am Brückenkopf";
+        return n < 1 ? "Start am " + start : n > stufen.size() ? "Fertig!"
+                : "Stufe " + n + ": " + stufen.get(n - 1).name() + " – " + (int) Math.floor(fortschritt(n) * 100) + " %, spenden über die Ender-Kiste am Spawn";
     }
 
     /** /serverwahl mission status | stufe <n> | ziel <wunsch> <menge> | weiter | neu-laden | vorbereiten */
@@ -544,7 +643,9 @@ final class Mission implements Listener {
             }
             default -> {
                 int n = stufe();
-                StringBuilder b = new StringBuilder("Mission: Stufe " + n + " von " + stufen.size() + ", aktive Spieler jetzt " + aktiveSpieler()
+                StringBuilder b = new StringBuilder("Mission: Stufe " + n + " von " + stufen.size() + (n >= 1 && n <= stufen.size()
+                        ? ", " + (int) Math.floor(fortschritt(n) * 100) + " %, Abschnitte " + stand.getInt("teile." + n, 0) + "/" + teile : "")
+                        + ", aktive Spieler jetzt " + aktiveSpieler()
                         + ", Tränke je Stufe " + trankAnzahl);
                 if (n >= 1 && n <= stufen.size()) {
                     stufen.get(n - 1).wuensche().keySet().forEach(w -> b.append("\n  ").append(w).append(" ").append(gesamt(n, w)).append("/").append(ziel(w)));

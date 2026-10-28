@@ -69,6 +69,8 @@ kategorien:
   spawn:
     # nur der Hub (Pascal 27.10.: der eigene Server gehört nicht ins Menü)
     titel: "<dark_purple>Serverwahl"
+    # Weihnachtsinsel (Pascal 28.10.): Slot direkt über dem Hub (Hub = 13), Klick = Spenden, Rechtsklick = offene Tränke abholen
+    mission-slot: 4
     server:
       - name: hub
         anzeige: "<aqua>Hub"
