@@ -11,6 +11,7 @@ NUR Testwelt (Testnetz, später ggf. Admin-Instanz auf VM200).
 Aufruf: python -I server/testwelt/archiv.py <testwelt-ordner>
   schreibt <testwelt>/world/datapacks/archiv und ergänzt plugins/Serverwahl/config.yml um kisten/kategorien „archiv“"""
 import json
+import math
 import re
 import sys
 from pathlib import Path
@@ -26,7 +27,7 @@ SAELE = [
     ("spark", "Spark-Insel (Spawn)", "Spawn-Insel mit Deko und Kalenderwand", "SPRUCE_SAPLING", (0, 150, 48), "0 156 52 180 0"),
     ("weihnachtsinsel", "Weihnachtsinsel", "fertige Insel am Nordweg, daneben Stufen 1–4", "NETHER_STAR", (-1, 150, -34), "-1 156 -8 180 0"),
     ("hub", "Hub-Ausschnitt", "Fantasy Village rund um die Kisten", "ENDER_CHEST", (-250, BODEN, 150), "-250 -60 180 180 0"),
-    ("zoo", "Mob-Zoo und Arena", "Friedlich · Feindlich · Bosse, Arena zum Live-Schalten", "SPAWNER", (120, BODEN, -100), "118 -60 -108 0 0"),
+    ("zoo", "Mob-Zoo und Arena", "Friedlich · Feindlich · Bosse, Arena zum Live-Schalten", "SPAWNER", (180, BODEN, -10), "118 -60 -108 0 0"),  # Ursprung = Mitte des Zoos (Wegweiser), Ecke 120/−100
     ("deko", "Deko und Kalender-Items", "Deko-Modelle, Kalender-Items in Rahmen und auf Rüstungsständern", "ITEM_FRAME", (0, BODEN, 150), "0 -60 180 180 0"),
 ]
 
@@ -60,6 +61,21 @@ platz = ["kill @e[type=minecraft:text_display,tag=archiv]",
          f"setblock 0 {BODEN} -3 minecraft:ender_chest[facing=south]",
          schild(0, BODEN + 2, -4, "Bauarchiv", "Ender-Kiste: Bereiche · /hub zurück"),
          f"setworldspawn 0 {BODEN} 0"]
+# Wegweiser am Spawn (Pascal 28.10.): je Bereich ein Schild im Kreis um den Spawn, in Richtung des Bereichs, mit Himmelsrichtung, Entfernung, Höhe
+belegt = set()
+for name, titel, _, _, (tx, ty, tz), _ in SAELE:
+    dist = math.hypot(tx, tz)
+    r = 6
+    wx, wz = round(tx / dist * r), round(tz / dist * r)
+    while (wx, wz) in belegt:          # gleiche Richtung (z. B. Spark und Deko im Süden): weiter außen
+        r += 4
+        wx, wz = round(tx / dist * r), round(tz / dist * r)
+    belegt.add((wx, wz))
+    winkel = (math.degrees(math.atan2(tx, -tz)) + 360) % 360          # 0 = Norden, 90 = Osten
+    richtung = ["Norden", "Nordosten", "Osten", "Südosten", "Süden", "Südwesten", "Westen", "Nordwesten"][round(winkel / 45) % 8]
+    hoehe = " · oben in der Luft" if ty > BODEN + 20 else ""
+    platz.append(schild(wx, BODEN + 2, wz, f"{titel} →", f"{richtung}, {round(dist)} m{hoehe}"))
+
 for name, titel, unter, _, (x, y, z), tp in SAELE:
     tx, ty, tz = startpunkt(tp)
     schreiben(f"saal/{name}", [
@@ -100,6 +116,8 @@ text = re.sub(r"(?m)^kategorien: \{\}\n", "", text)
 eintraege = [f'      - {{name: {name}, anzeige: "<gold>{titel}", material: {mat}, ort: "{tp}", '
              f'beschreibung: ["<gray>{unter}", "", "<yellow>Klicken zum Hinfliegen"]}}' for name, titel, unter, mat, _, tp in SAELE]
 text += ("# >>> archiv (erzeugt von server/testwelt/archiv.py, nicht von Hand ändern)\n"
+         "# jeder Beitritt landet am Spawn vor der Ender-Kiste, Blick nach Norden (Pascal 28.10.: nicht an der letzten Position)\n"
+         f"beitritt-ort: \"0 {BODEN} 0 180 0\"\n"
          f"kisten:\n  - {{welt: world, x: 0, y: {BODEN}, z: -3, kategorie: archiv}}\n"
          "kategorien:\n  archiv:\n    titel: \"<gold>Bauarchiv\"\n    server:\n" + "\n".join(eintraege) + "\n# <<< archiv\n")
 cfg.write_text(text, encoding="utf-8")

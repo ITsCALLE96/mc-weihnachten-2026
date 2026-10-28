@@ -92,6 +92,8 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private static final List<String> XAERO_KANAELE = List.of("xaeroworldmap:main", "xaerominimap:main");
     /** eigene Welt-ID für Xaero, 0 = aus. Hinter Velocity sehen Hub und SMP sonst für Xaero gleich aus (gleiche Adresse, Dimension) */
     private int xaeroWeltId;
+    /** „x y z yaw pitch“: jeder Beitritt landet hier statt an der letzten Position (Testwelt, Pascal 28.10.); leer = aus */
+    private String beitrittOrt = "";
     /** Winterkalender: Scoreboard-Ziel/Eintrag, das täglich auf den Dezembertag (1–24) gesetzt wird, null = aus */
     private String kalenderObjective;
     private String kalenderEintrag;
@@ -284,6 +286,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         }
         termine.laden(getConfig().getConfigurationSection("termine"));
         xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
+        beitrittOrt = getConfig().getString("beitritt-ort", "").trim();
         if (namen != null) {
             namen.laden(getConfig().getConfigurationSection("namen"));
         }
@@ -524,6 +527,22 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     public void beiKanalAnmeldung(org.bukkit.event.player.PlayerRegisterChannelEvent e) {
         if (xaeroWeltId != 0 && XAERO_KANAELE.contains(e.getChannel())) {
             weltIdSenden(e.getPlayer(), e.getChannel());
+        }
+    }
+
+    @EventHandler
+    public void beimBeitrittOrt(org.bukkit.event.player.PlayerJoinEvent e) {
+        if (beitrittOrt.isEmpty()) {
+            return;
+        }
+        String[] t = beitrittOrt.split("[\\s,]+");
+        try {
+            org.bukkit.World w = Bukkit.getWorlds().get(0);
+            org.bukkit.Location l = new org.bukkit.Location(w, Double.parseDouble(t[0]) + 0.5, Double.parseDouble(t[1]), Double.parseDouble(t[2]) + 0.5,
+                    t.length > 3 ? Float.parseFloat(t[3]) : 0f, t.length > 4 ? Float.parseFloat(t[4]) : 0f);
+            Bukkit.getScheduler().runTaskLater(this, () -> e.getPlayer().teleport(l), 2L);
+        } catch (RuntimeException ex) {
+            getLogger().warning("beitritt-ort fehlerhaft: " + beitrittOrt);
         }
     }
 
