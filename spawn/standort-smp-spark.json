@@ -1531,5 +1531,21 @@
         ]
       ]
     }
-  }
+  },
+  "regionenZusatz": [
+    {
+      "name": "weihnachtsinsel",
+      "grund": "Server-Mission Weihnachtsinsel (spawn/weihnachtsinsel.mjs): Insel und Brücke am Nordweg, Bereich aus dem Generator",
+      "min": [
+        -24,
+        100,
+        -58
+      ],
+      "max": [
+        23,
+        205,
+        29
+      ]
+    }
+  ]
 }

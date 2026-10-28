@@ -1,7 +1,7 @@
 #!/bin/bash
 # Setzt die Spawn-Insel in eine vorhandene SMP-Welt (ohne die Welt zu löschen, anders als neu-aufsetzen.sh): Datapack insel + Struktur in die Welt,
 # Server ohne Fenster starten, function insel:aufbau, stoppen; danach Lichter aus dem fertigen Gelände berechnen und in einem zweiten kurzen Lauf setzen.
-# Aufruf (SMP-Server gestoppt): [DEKO=1] [KALENDER=1] bash spawn/smp-insel-setzen.sh <serverordner> [standort.json] [java]
+# Aufruf (SMP-Server gestoppt): [DEKO=1] [KALENDER=1] [MISSION=1] bash spawn/smp-insel-setzen.sh <serverordner> [standort.json] [java]
 #   Standard: spawn/standort-smp-spark.json (Spark-Insel, Quelle lokal in spawn/quellen/nitrado/, nie ins Repo)
 set -e
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
@@ -19,9 +19,11 @@ name=$(node -e "console.log(require('$(w "$STANDORT")').struktur.name.split(':')
 echo "1/3 Datapack insel und Struktur"
 node "$(w "$REPO/spawn/standort.mjs")" bauen "$(w "$STANDORT")"
 D="$SRV/world/datapacks"; mkdir -p "$D/spawn-bau/data/spawn/structure"
-rm -rf "$D/insel" "$D/insel-deko" "$D/insel-kalender" "$D/weihnachtsplatten"; cp -r "$REPO/spawn/datapack/insel" "$D/"
+rm -rf "$D/insel" "$D/insel-deko" "$D/insel-kalender" "$D/weihnachtsplatten" "$D/weihnachtsinsel"; cp -r "$REPO/spawn/datapack/insel" "$D/"
 # Weihnachtsplatten der Modpack-Session (dauerhaft, auch nach der Saison)
 cp -r "$REPO/spawn/datapack/weihnachtsplatten" "$D/"
+# Server-Mission Weihnachtsinsel (dauerhaft; Stufen startet serverwahl, Stand liegt im Scoreboard wi_mission der Welt)
+node "$(w "$REPO/spawn/weihnachtsinsel.mjs")" && cp -r "$REPO/spawn/datapack/weihnachtsinsel" "$D/"
 # Weihnachtsdeko (an/aus per Funktion), Positionen aus der lokalen Quelle
 node "$(w "$REPO/spawn/insel-deko.mjs")" "$(w "$STANDORT")" && cp -r "$REPO/spawn/datapack/insel-deko" "$D/"
 # Winterkalender (an/aus per Funktion)
@@ -50,3 +52,5 @@ lauf "function insel:lichter_fertig" "Lichter gesetzt"
 # Mit DEKO=1 gleich die Weihnachtsdeko anschalten (sonst später: function insel:deko_an)
 if [ "$KALENDER" = 1 ]; then echo "Kalender an"; lauf "function insel:kalender_an" "Winterkalender steht"; fi
 if [ "$DEKO" = 1 ]; then echo "Deko an"; lauf "function insel:deko_an" "Weihnachtsdeko an"; fi
+# Mit MISSION=1 Spendenkiste und Tafel der Weihnachtsinsel am Nordweg setzen
+if [ "$MISSION" = 1 ]; then echo "Mission vorbereiten"; lauf "function weihnachtsinsel:vorbereiten" "Running function weihnachtsinsel:vorbereiten"; fi

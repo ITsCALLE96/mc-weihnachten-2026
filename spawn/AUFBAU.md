@@ -19,6 +19,21 @@ in `spawn/quellen/nitrado/` (git-ignoriert), nie ins Repo oder in einen Welt-Dow
 - **Spawnschutz:** einzige Quelle ist die aus `standort.mjs` erzeugte `spawn/worldguard/regions.yml` (Region `spawn` als Oval um die Insel, nur y 89–319,
   plus Kasten `rueckweg` um die Plattform); `testnetz/einrichten.sh` der Server-Session kopiert sie nach `plugins/WorldGuard/worlds/world/`
 
+## Server-Mission Weihnachtsinsel (28.10.)
+
+Eigenes Design (`spawn/weihnachtsinsel.mjs`, prozedural, nichts Fremdes), dauerhaft, auch nach der Season. Am **Nordweg** der Spark-Insel: Inselmitte −1/−34,
+Laufhöhe 155, Brücke von z 29 bis zum Inselrand, drei Torbögen. Spätere Event-Inseln an den anderen Wegen: gleicher Generator, `LAGE.richtung` ändern.
+- **Datapack** `spawn/datapack/weihnachtsinsel` (erzeugt: `node spawn/weihnachtsinsel.mjs`, kopiert das Setz-Skript mit). Funktionen:
+  `weihnachtsinsel:vorbereiten` (Spendenkiste 2/155/31, Tafel `wi_tafel` −3.5/158.5/31.5), `stufe_1` … `stufe_4` (Bau mit Effekt, Stufe 4 endet mit `feier`),
+  `feier` (einzeln testbar), `zuruecksetzen` (**nur Testnetz**). Merker `#stufe wi_mission` (0–4): Doppelaufruf und falsche Reihenfolge tun nichts;
+  `#laeuft` setzt eine Stufe nach einem Neustart mitten im Effekt vollständig
+- **Logik** (Spenden, Zielmengen, Tafeltext, Tränke) macht `serverwahl` (Server-Session) aus `spawn/mission.json`
+- **Licht:** unsichtbare Lichtblöcke Stufe 9 per Lichtsimulation nur an dunklen Spawnstellen (je Stufe neu berechnet), Laternen und Kupferbirnen an
+  Brücke und Platz; Region `weihnachtsinsel` (Kasten aus dem Generator) in `regions.yml` über `regionenZusatz` in der Standort-Konfiguration
+- **Test im Testnetz:** `function weihnachtsinsel:stufe_1` … `stufe_4` nacheinander, danach `function weihnachtsinsel:zuruecksetzen`
+- Geprüft 28.10. auf Paper 26.3 (Scratch-Welt): alle Stufen und Feier laufen, Blöcke stimmen mit dem Generator überein (bis auf Schnee neben
+  Laternen, der im Testlauf ohne Region schmolz), keine herumliegenden Gegenstände
+
 ## Hub (Fantasy Village)
 
 Eigener Paper-Server hinter Velocity (Ordner und Plugins: Server-Session, lokal `testnetz/hub/`, Leerwelt `world`, Port 25567). Von hier: Welt und Datapack.

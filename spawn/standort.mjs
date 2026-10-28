@@ -331,7 +331,16 @@ ${flags}
         owners: {}
         flags:
 ${flags}
-` : '');
+` : '') + (k.regionenZusatz ?? []).map(({ name, min: [x1, y1, z1], max: [x2, y2, z2] }) => `    ${name}:
+        type: cuboid
+        priority: 10
+        min: {x: ${x1}, y: ${y1}, z: ${z1}}
+        max: {x: ${x2}, y: ${y2}, z: ${z2}}
+        members: {}
+        owners: {}
+        flags:
+${flags}
+`).join('');
   return { funktionen: f, regionen };
 }
 

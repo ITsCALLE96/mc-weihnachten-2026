@@ -106,3 +106,36 @@ regions:
             copper-fade: deny
             use: allow
             deny-message: '§7Am Spawn kannst du nichts verändern.'
+    weihnachtsinsel:
+        type: cuboid
+        priority: 10
+        min: {x: -24, y: 100, z: -58}
+        max: {x: 23, y: 205, z: 29}
+        members: {}
+        owners: {}
+        flags:
+            mob-spawning: deny
+            pvp: deny
+            chest-access: deny
+            creeper-explosion: deny
+            other-explosion: deny
+            tnt: deny
+            fire-spread: deny
+            lava-fire: deny
+            lighter: deny
+            ghast-fireball: deny
+            enderman-grief: deny
+            ravager-grief: deny
+            wither-damage: deny
+            item-frame-rotation: deny
+            vehicle-destroy: deny
+            leaf-decay: deny
+            ice-melt: deny
+            snow-melt: deny
+            vine-growth: deny
+            mushroom-growth: deny
+            mycelium-spread: deny
+            coral-fade: deny
+            copper-fade: deny
+            use: allow
+            deny-message: '§7Am Spawn kannst du nichts verändern.'
