@@ -78,6 +78,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private DiscordWhitelist discordWhitelist;
     private Mission mission;
     private Inselhaendler inselhaendler;
+    private ZooPosen zooPosen;
     /** Nicknames/Clan-Tags, nur mit LuckPerms (sonst null) */
     private Namen namen;
     /** täglich einmal ab dieser Uhrzeit (höchstens eine Stunde später) diese Konsolenbefehle; null = aus */
@@ -268,6 +269,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         }
         neujahr.laden(getConfig().getConfigurationSection("neujahr"));
         dorfRabatt.laden(getConfig().getConfigurationSection("dorf-rabatt"));
+        if (zooPosen == null) {
+            zooPosen = new ZooPosen(this);
+        }
+        zooPosen.laden(getConfig().getBoolean("zoo-posen", false));
         if (inselhaendler == null) {
             inselhaendler = new Inselhaendler(this);
             getServer().getPluginManager().registerEvents(inselhaendler, this);

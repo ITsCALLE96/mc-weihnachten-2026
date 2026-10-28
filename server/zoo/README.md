@@ -47,3 +47,15 @@ steht der Mob in der Grundform da.
   (auch Langsamkeit/Gift), Feuerwerk, Dreizack, Feuerkugeln, Ghast-Feuerball, Wither-Schädel (schwarz/blau), Drachenatem, Windladung,
   Shulker-Lenkgeschoss (auf den Rüstungsständer), Fangzähne, Wurftrank, Lama-Spucke, Schneeball, Warden-Schallschlag (Partikel + Klang).
   Wächterstrahl gibt es nur live in der Arena. `mob_griefing` ist in der Testwelt aus (Explosionen zerstören nichts)
+
+## Stand 28.10. später (zweiter Rundgang Pascal)
+
+- **Kompakt und offen:** Zoo jetzt bei 40/−55 (östlich der Inseln, x 34…143, z −58…111), keine Hallen mehr, kein Seitenbereich
+- **Kein Brennen:** Das Datapack ersetzt den Entity-Tag `minecraft:burn_in_daylight` durch eine leere Liste – in der Testwelt brennt kein Untoter
+  mehr, auch ohne Dach (26.3 steuert das Brennen über diesen Tag). Gilt nur, wo das Zoo-Datapack liegt (Testwelt), nie auf dem SMP
+- **Angriffspose:** Feindliche Mobs, Bosse und wehrhafte Tiere tragen den Tag `zoo_angriff`; serverwahl (`zoo-posen: true`, `ZooPosen.java`) hält sie
+  alle 5 s angriffslustig (Skelette mit Bogen im Anschlag, Zombies mit gehobenen Armen, Diener mit erhobener Axt), Ghast mit offenem Feuermaul,
+  Enderman schreiend, Warden brüllt (Animation alle 10 s neu). Plünderer und Piglin halten eine geladene Armbrust. Swell des Creepers ginge nur mit
+  Explosion – stattdessen gibt es den geladenen Creeper als Variante
+- **Kampf-Ecke** statt Arena und Geschoss-Galerie: 24 × 24 bei 52/−75, Schneeboden, Packeis-Rand, Schild, `function zoo:menue`
+- **Alten Zoo wegräumen** (einmalig): `function zoo:alt_weg` (Ecke 120/−100, Hallen, Galerie, Arena 120/−160)

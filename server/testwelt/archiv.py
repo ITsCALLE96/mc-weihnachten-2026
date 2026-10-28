@@ -29,7 +29,7 @@ SAELE = [
     ("spark", "Spark-Insel (Spawn)", "Spawn-Insel mit Deko und Kalenderwand", "SPRUCE_SAPLING", (0, 4, 48), "0 5 48 180 0"),
     ("weihnachtsinsel", "Weihnachtsinsel", "Insel am Nordweg, Stufen 1–4 per Schalter am Turm-Absatz", "NETHER_STAR", (-1, 4, -34), "-1 3 -20 180 0"),
     ("hub", "Hub-Ausschnitt", "Fantasy Village rund um die Kisten", "ENDER_CHEST", (-250, BODEN, 150), "-250 -60 180 180 0"),
-    ("zoo", "Mob-Zoo und Arena", "Friedlich · Feindlich · Bosse, Arena zum Live-Schalten", "SPAWNER", (180, BODEN, -10), "110 -60 -99 -90 0"),  # Ursprung = Mitte des Zoos (Wegweiser), Ecke 120/−100
+    ("zoo", "Mob-Zoo", "Friedlich · Feindlich · Bosse, offen, in Angriffspose; Kampf-Ecke", "SPAWNER", (90, BODEN, 25), "30 -60 -53 -90 0"),  # Ursprung = Mitte (Wegweiser), Ecke 40/−55
     ("deko", "Deko und Kalender-Items", "Deko-Modelle, Kalender-Items in Rahmen und auf Rüstungsständern", "ITEM_FRAME", (0, BODEN, 150), "0 -60 180 180 0"),
 ]
 
@@ -133,6 +133,8 @@ text += ("# >>> archiv (erzeugt von server/testwelt/archiv.py, nicht von Hand ä
          f"beitritt-ort: \"0 {BODEN} 0 180 0\"\n"
          "# jede Ender-Kiste (auch die auf der Spark-Insel) öffnet das Bauarchiv-Menü, nie das leere Vanilla-Ender-Inventar\n"
          "alle-enderkisten: archiv\n"
+         "# Mob-Zoo: Angriffsposen (Tag zoo_angriff) halten\n"
+         "zoo-posen: true\n"
          "# Weihnachtsmann im Iglu handelt auch hier (Ware aus weihnachtsmann.json, kopiert von testnetz/testwelt.sh)\n"
          "inselhaendler:\n  aktiv: true\n  datei: weihnachtsmann.json\n  zeitzone: Europe/Berlin\n  jukebox-radius: 48\n"
          f"kisten:\n  - {{welt: world, x: 0, y: {BODEN}, z: -3, kategorie: archiv}}\n"

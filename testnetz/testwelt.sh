@@ -6,7 +6,7 @@
 #   bash testnetz/testwelt.sh einrichten   – Testnetz gestoppt: testnetz/testwelt anlegen (Paper, serverwahl, LuckPerms, Zoo-Datapack),
 #                                           Velocity um „testwelt“ ergänzen
 #   bash testnetz/testwelt.sh archiv       – Bauarchiv- und Zoo-Datapack sowie das Säle-Menü neu erzeugen (danach /reload oder Neustart)
-#   bash testnetz/testwelt.sh rechte       – SMP läuft: serverwahl.testwelt für die Gruppe admin (gemeinsamer LuckPerms-Speicher)
+#   bash testnetz/testwelt.sh rechte       – SMP läuft: serverwahl.testwelt für admin; Pascal Op auf Testwelt/Hub/SMP (soweit sie laufen)
 #   bash testnetz/testwelt.sh entfernen    – Testnetz gestoppt: Ordner testnetz/testwelt weg, Velocity-Eintrag raus
 #
 # Danach (Server läuft): python -I testnetz/rcon.py testwelt "function archiv:aufbau" (Platz, Säle, Zoo); Säle-Menü: Ender-Kiste am Spawn
@@ -18,9 +18,9 @@ tw="$hier/testwelt"
 frei() { ! (echo > "/dev/tcp/127.0.0.1/$1") 2>/dev/null; }
 alle_frei() { frei 25567 && frei 25568 && frei 25569 && frei 25577; }
 
-# Bauarchiv (server/testwelt/archiv.py) + Mob-Zoo im Bereich „zoo“ (Ecke 120/−100, östlich der Insel; Arena bei 120/−160)
+# Bauarchiv (server/testwelt/archiv.py) + Mob-Zoo im Bereich „zoo“ (Ecke 40/−55, östlich der Inseln; Kampf-Ecke bei 52/−75)
 bauarchiv() {
-  python -I "$repo/server/zoo/zoo.py" "$hier/smp/versions/26.3/paper-26.3.jar" "$tw/world/datapacks" 120 -60 -100 | head -1
+  python -I "$repo/server/zoo/zoo.py" "$hier/smp/versions/26.3/paper-26.3.jar" "$tw/world/datapacks" 40 -60 -55 | head -1
   python -I "$repo/server/testwelt/archiv.py" "$tw"
   cp "$repo/spawn/weihnachtsmann.json" "$tw/plugins/Serverwahl/weihnachtsmann.json"
   printf '{
@@ -109,6 +109,10 @@ PY
   rechte)
     frei 25568 && { echo "SMP läuft nicht" >&2; exit 1; }
     python -I "$hier/rcon.py" smp "lp group admin permission set serverwahl.testwelt true"
+    # Pascal dauerhaft Op auf Testwelt, Hub und SMP (Leitung 28.10.: F3+F4, /time); steht danach in ops.json, übersteht Neustarts
+    for r in testwelt:25569 hub:25567 smp:25568; do
+      frei "${r#*:}" || python -I "$hier/rcon.py" "${r%%:*}" "op ITsCALLE96"
+    done
     ;;
   entfernen)
     alle_frei || { echo "Testnetz läuft noch, erst stoppen" >&2; exit 1; }
