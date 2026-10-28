@@ -331,7 +331,7 @@ ${flags}
         owners: {}
         flags:
 ${flags}
-` : '') + (k.regionenZusatz ?? []).map(({ name, min: [x1, y1, z1], max: [x2, y2, z2] }) => `    ${name}:
+` : '') + (k.regionenZusatz ?? []).map(({ name, min: [x1, y1, z1], max: [x2, y2, z2], nurMonster }) => `    ${name}:
         type: cuboid
         priority: 10
         min: {x: ${x1}, y: ${y1}, z: ${z1}}
@@ -339,7 +339,7 @@ ${flags}
         members: {}
         owners: {}
         flags:
-${flags}
+${nurMonster ? flags.replace('            mob-spawning: deny', `            deny-spawn: [${nurMonster.map((m) => `minecraft:${m}`).join(', ')}]`) : flags}
 `).join('');
   return { funktionen: f, regionen };
 }

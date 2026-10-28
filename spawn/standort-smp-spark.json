@@ -1535,7 +1535,7 @@
   "regionenZusatz": [
     {
       "name": "weihnachtsinsel",
-      "grund": "Server-Mission Weihnachtsinsel (spawn/weihnachtsinsel.mjs): Insel und Brücke am Nordweg, Bereich aus dem Generator",
+      "grund": "Server-Mission Weihnachtsinsel (spawn/weihnachtsinsel.mjs): Insel und Brücke am Nordweg, Bereich aus dem Generator; statt mob-spawning deny nur Monster sperren (deny-spawn), damit per Befehl gesetzte Allays und der Weihnachtsmann sicher bleiben",
       "min": [
         -24,
         100,
@@ -1545,6 +1545,27 @@
         23,
         205,
         29
+      ],
+      "nurMonster": [
+        "zombie",
+        "zombie_villager",
+        "husk",
+        "drowned",
+        "skeleton",
+        "stray",
+        "bogged",
+        "creeper",
+        "spider",
+        "cave_spider",
+        "enderman",
+        "witch",
+        "slime",
+        "phantom",
+        "silverfish",
+        "pillager",
+        "vindicator",
+        "evoker",
+        "ravager"
       ]
     }
   ]
