@@ -61,6 +61,7 @@ export function verschiebeY(zeile, dy) {
   if (t[0] === 'setblock') y(2);
   else if (t[0] === 'fill' || t[0] === 'clone') y(2, 5);
   else if (t[0] === 'summon' || t[0] === 'particle') y(3);
+  else if (t[0] === 'playsound') y(5);
   else if (t[0] === 'place' && t[1] === 'template') y(4);
   else if (t[0] === 'data' && t[2] === 'block') y(4);
   return sel(t.join(' '));
@@ -75,7 +76,8 @@ const TURM_ALT = [2, -60, -3, 9, 9, 3];
 
 export function archivSpawn() {
   const d = datapack(), NS = 'archiv_spawn', out = {}, strukturen = {}, adv = {};
-  const ents = (s) => (s ? d.teile.slice(0, s).flatMap((st) => st.flatMap((t) => t.ents)) : []);
+  // mit den Tags der Mission (wi_insel, wi_e_sN_K), damit deren Abschnitte sie wie eigene behandeln (kill vor dem Setzen, Abriss)
+  const ents = (s) => d.teile.slice(0, s).flatMap((st, si) => st.flatMap((t, ki) => t.ents.map((e) => ({ ...e, tags: [...e.tags, 'wi_insel', `wi_e_s${si + 1}_${ki + 1}`] }))));
   const TAGS = ['wi_archiv', 'wi_archiv_insel'];
   const summon = (e) => `summon ${e.typ} ${e.x.toFixed(2)} ${(e.y + TIEF).toFixed(2)} ${e.z.toFixed(2)} ${d.zustandNbt(e.nbt).replace(/^\{/, `{Tags:${JSON.stringify([...TAGS, ...e.tags.filter((t) => t !== 'wi_kerze')])},Rotation:[${e.yaw}f,0f],`)}`;
   const txt = (x, y, z, tags, text, s, extra = '') => `summon text_display ${x} ${y} ${z} {Tags:${JSON.stringify(tags)},billboard:"vertical",${extra}text:${JSON.stringify(text)},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[${s}f,${s}f,${s}f]}}`;
@@ -92,18 +94,47 @@ export function archivSpawn() {
     laden = `forceload add ${ecke[0]} ${ecke[2]} ${ecke[0] + groesse[0] - 1} ${ecke[2] + groesse[2] - 1}`;
     const titel = s ? `Weihnachtsinsel – Stufe ${s} von 4` : 'Weihnachtsinsel – leer';
     ausw.push(fn(NS, `stufe_${s}`, `# Testwelt: Weihnachtsinsel auf „${STUFEN[s]}“ umschalten\n${laden}\ntellraw @a[distance=..200] {"text":"Weihnachtsinsel: ${STUFEN[s]} wird gebaut …","color":"gray"}\nschedule function ${NS}:stufe_${s}_setzen 20t\n`));
+    // leer (Pascal 28.10., dritter Rundgang: es blieben Blöcke stehen): den ganzen Kasten bis vor die Spark-Insel (z < 22) zu Luft, den Anschluss
+    // z 22…29 über die cave_air-Struktur; danach die Spark-Struktur darüber (die Brücke hatte dort 18 Spark-Blöcke ersetzt, ihre Luft bleibt unberührt)
+    const zSpark = 22, leer = [];
+    if (!s) {
+      const w = groesse[0], l = zSpark - ecke[2], proY = Math.max(1, Math.floor(32768 / (w * l)));
+      for (let y = 0; y < groesse[1]; y += proY) leer.push(`fill ${ecke[0]} ${ecke[1] + y} ${ecke[2]} ${ecke[0] + w - 1} ${ecke[1] + Math.min(groesse[1] - 1, y + proY - 1)} ${zSpark - 1} minecraft:air`);
+      leer.push(`place template archiv_fremd:spark_insel -26 ${89 + TIEF} 22`);
+    }
+    // Stand der Server-Mission (Datapack archiv-mission) passend setzen, damit „Abschnitt +1“ an dieser Stelle weitermacht; Stufe 4 ohne zweite Feier
+    const stand = [`scoreboard objectives add wi_mission dummy`, `scoreboard objectives add wi_test dummy`, `scoreboard players set #stufe wi_mission ${s}`, 'scoreboard players set #laeuft wi_mission 0',
+      ...[1, 2, 3, 4].flatMap((n) => [...Array(10)].map((_, k) => n <= s ? `scoreboard players set #t${n}_${k + 1} wi_mission 1` : `scoreboard players reset #t${n}_${k + 1} wi_mission`)),
+      s === 4 ? 'scoreboard players set #gefeiert wi_mission 1' : 'scoreboard players reset #gefeiert wi_mission',
+      `scoreboard players set #pos wi_test ${s * 11}`, 'scoreboard players set #auto wi_test 0'];
     ausw.push(fn(NS, `stufe_${s}_setzen`, [
-      `place template ${NS}:wi_stufe_${s} ${ecke.join(' ')}`,
-      // leer: die Brücke hatte am Anschluss Blöcke der Spark-Insel ersetzt (18 Stück) → Spark-Struktur aus archiv-fremd darüber, ihre Luft bleibt unberührt
+      ...leer, `place template ${NS}:wi_stufe_${s} ${ecke.join(' ')}`,
       ...(s ? [] : [`place template archiv_fremd:spark_insel -26 ${89 + TIEF} 22`]),
-      'kill @e[tag=wi_archiv_insel]', ...ents(s).map(summon),
-      txt(mx + 0.5, my + TIEF + 56, mz + 0.5, TAGS, { text: titel, color: 'gold', bold: true, extra: [{ text: s ? `\n${STUFEN[s]}` : '\nSchalter auf der Spark-Insel', color: 'white', bold: false }] }, 5),
+      'kill @e[tag=wi_archiv_insel]', 'kill @e[tag=wi_insel]', ...ents(s).map(summon),
+      txt(mx + 0.5, my + TIEF + 56, mz + 0.5, [...TAGS, 'wi_archiv_titel'], { text: titel, color: 'gold', bold: true, extra: [{ text: s ? `\n${STUFEN[s]}` : '\nSchalter auf der Spark-Insel', color: 'white', bold: false }] }, 5),
       `kill @e[type=item,x=${ecke[0]},y=${ecke[1]},z=${ecke[2]},dx=${groesse[0]},dy=${groesse[1]},dz=${groesse[2]}]`,
       `execute as @e[type=text_display,tag=wi_schalter_text] run data merge entity @s {background:1073741824}`,
       `data merge entity @e[type=text_display,tag=wi_schalter_text_${s},limit=1] {background:-1064674800}`,
-      laden.replace('forceload add', 'forceload remove'),
+      ...stand,
+      // nicht sofort entladen: forceload zählt nicht mit, ein zweiter Klick oder ein Abschnitt in Arbeit verlöre sonst seine Chunks
+      `schedule function ${NS}:insel_entladen 300t`,
     ].join('\n') + '\n'));
   });
+  ausw.push(fn(NS, 'insel_entladen', laden.replace('forceload add', 'forceload remove') + '\n'));
+  // Schrittweiser Aufbau wie auf dem SMP (je Stufe 10 Abschnitte, dann der Abschluss): „Abschnitt +1“ und Automatik alle 2 s
+  const folge = [1, 2, 3, 4].flatMap((n) => [...[...Array(10)].map((_, k) => [`weihnachtsinsel:stufe_${n}_teil_${k + 1}`, `Stufe ${n}, Abschnitt ${k + 1}/10`]), [`weihnachtsinsel:stufe_${n}`, `Stufe ${n} abgeschlossen`]]);
+  ausw.push(fn(NS, 'abschnitt', [
+    '# Testwelt: nächsten Bauabschnitt der Server-Mission auslösen (Datapack archiv-mission = Mission, TIEF tiefer)',
+    'scoreboard objectives add wi_test dummy', 'execute unless score #pos wi_test matches 0.. run scoreboard players set #pos wi_test 0',
+    `execute if score #pos wi_test matches ${folge.length}.. run return run tellraw @a[distance=..200] {"text":"Weihnachtsinsel ist fertig – „Leer“ setzt zurück","color":"gray"}`,
+    'kill @e[tag=wi_archiv_titel]', 'scoreboard players add #pos wi_test 1', laden, `schedule function ${NS}:insel_entladen 300t`,
+    ...folge.map(([f, t], i) => `execute if score #pos wi_test matches ${i + 1} run function ${f}`),
+    ...folge.map(([, t], i) => `execute if score #pos wi_test matches ${i + 1} run tellraw @a[distance=..200] {"text":"Weihnachtsinsel: ${t} (${i + 1}/${folge.length})","color":"gold"}`),
+    'execute as @e[type=text_display,tag=wi_schalter_text] run data merge entity @s {background:1073741824}',
+  ].join('\n') + '\n'));
+  ausw.push(fn(NS, 'auto', `# Automatik an/aus: alle 2 s ein Abschnitt\nscoreboard objectives add wi_test dummy\nexecute if score #auto wi_test matches 1 run return run function ${NS}:auto_aus\nscoreboard players set #auto wi_test 1\ntellraw @a[distance=..200] {"text":"Weihnachtsinsel: Automatik an (alle 2 s ein Abschnitt)","color":"gold"}\nfunction ${NS}:auto_takt\n`));
+  ausw.push(fn(NS, 'auto_aus', `scoreboard players set #auto wi_test 0\nschedule clear ${NS}:auto_takt\ntellraw @a[distance=..200] {"text":"Weihnachtsinsel: Automatik aus","color":"gray"}\n`));
+  ausw.push(fn(NS, 'auto_takt', `execute unless score #auto wi_test matches 1 run return fail\nexecute if score #pos wi_test matches ${folge.length}.. run return run function ${NS}:auto_aus\nfunction ${NS}:abschnitt\nschedule function ${NS}:auto_takt 40t\n`));
   // Schalter: eine Reihe aus 5 Feldern (Text dreht sich zum Spieler), Klick → Fortschritt → Zustand bauen
   const schalter = [];
   STUFEN.forEach((name, s) => {
@@ -112,6 +143,17 @@ export function archivSpawn() {
     schalter.push(`summon interaction ${x} ${y - 0.5} ${SCHALTER.z} {Tags:["wi_archiv","wi_schalter","wi_schalter_${s}"],width:1.0f,height:0.9f,response:1b}`);
     adv[`stufe_${s}`] = { criteria: { klick: { trigger: 'minecraft:player_interacted_with_entity', conditions: { entity: { type: 'minecraft:entity_properties', entity: 'this', predicate: { 'minecraft:entity_type': 'minecraft:interaction', 'minecraft:nbt': `{Tags:["wi_schalter_${s}"]}` } } } } }, rewards: { function: `${NS}:klick_${s}` } };
     ausw.push(fn(NS, `klick_${s}`, `advancement revoke @s only ${NS}:stufe_${s}\nfunction ${NS}:stufe_${s}\n`));
+  });
+  // zweite Reihe darunter: Abschnitt +1 und Automatik
+  [['abschnitt', 'Abschnitt +1', 'wie auf dem SMP', 1.2], ['auto', 'Automatik', 'an/aus, alle 2 s', 3.6]].forEach(([n, t1, t2, dx]) => {
+    const x = +(SCHALTER.x + dx).toFixed(2), y = SCHALTER.y + 0.3;
+    schalter.push(txt(x, y - 0.3, SCHALTER.z, ['wi_archiv', 'wi_schalter'], { text: `${t1}
+`, color: 'aqua', bold: true, extra: [{ text: t2, color: 'white', bold: false }] }, 0.4, 'line_width:90,background:1073741824,'));
+    schalter.push(`summon interaction ${x} ${y - 0.3} ${SCHALTER.z} {Tags:["wi_archiv","wi_schalter","wi_knopf_${n}"],width:1.6f,height:0.7f,response:1b}`);
+    adv[`knopf_${n}`] = { criteria: { klick: { trigger: 'minecraft:player_interacted_with_entity', conditions: { entity: { type: 'minecraft:entity_properties', entity: 'this', predicate: { 'minecraft:entity_type': 'minecraft:interaction', 'minecraft:nbt': `{Tags:["wi_knopf_${n}"]}` } } } } }, rewards: { function: `${NS}:knopf_${n}` } };
+    ausw.push(fn(NS, `knopf_${n}`, `advancement revoke @s only ${NS}:knopf_${n}
+function ${NS}:${n}
+`));
   });
   schalter.push(txt(SCHALTER.x + 2.4, SCHALTER.y + 2.4, SCHALTER.z, ['wi_archiv', 'wi_schalter'], { text: 'Weihnachtsinsel (Norden): Zustand wählen', color: 'gold', bold: true, extra: [{ text: '\nSo wächst sie auf dem SMP mit den Spenden', color: 'gray', bold: false }] }, 0.5, 'line_width:260,background:1073741824,'));
   // Aufräumen: alte Lage (bis 28.10. mittags: SMP-Höhe y 100…205, Stufen-Inseln bei x −70…−280) und Treppenturm (bis 28.10. abends); idempotent
@@ -163,7 +205,13 @@ export function archivSpawn() {
     ].join('\n') + '\n'),
     fn(NS, 'deko3', `${g.join('\n')}\n`),
   ]));
-  return { dateien: { ...out, 'pack.mcmeta': mcmeta('Testwelt-Archiv: Bauten von Spawn & Welt (spawn/archiv.mjs) – nur für die Testwelt, nicht auf den SMP') }, strukturen };
+  // Server-Mission als Kopie TIEF tiefer (Datapack archiv-mission, Namensraum weihnachtsinsel wie auf dem SMP) für „Abschnitt +1“ und Automatik
+  const mission = { dateien: {
+    ...Object.fromEntries(Object.entries(d.funktionen).map(([n, f]) => [`data/weihnachtsinsel/function/${n}.mcfunction`, f.split('\n').map((z) => verschiebeY(z, TIEF)).join('\n')])),
+    'data/minecraft/tags/function/load.json': '{ "values": ["weihnachtsinsel:load"] }\n', 'data/minecraft/tags/function/tick.json': '{ "values": ["weihnachtsinsel:tick"] }\n',
+    'pack.mcmeta': mcmeta(`Testwelt: Server-Mission Weihnachtsinsel ${-TIEF} Blöcke tiefer (spawn/archiv.mjs) – nur für die Testwelt, nicht auf den SMP`),
+  }, strukturen: d.strukturen };
+  return { dateien: { ...out, 'pack.mcmeta': mcmeta('Testwelt-Archiv: Bauten von Spawn & Welt (spawn/archiv.mjs) – nur für die Testwelt, nicht auf den SMP') }, strukturen, mission };
 }
 
 // ---------- fremde Bauten: archiv-fremd (nur aus spawn/quellen, git-ignoriert) ----------
@@ -245,7 +293,11 @@ if (process.argv[1]?.replace(/\\/g, '/').endsWith('spawn/archiv.mjs')) {
   if (process.argv[2] === 'fremd') {
     archivFremd(process.argv[3]).then(({ dp, strukturen }) => console.log(`Archiv (fremd, nur lokal) → ${dp}: ${strukturen} Strukturen, dazu insel-deko und insel-kalender`));
   } else {
-    const { dateien: d, strukturen } = archivSpawn();
+    const { dateien: d, strukturen, mission } = archivSpawn();
+    const mp = join(REPO, 'spawn/datapack/archiv-mission');
+    rmSync(mp, { recursive: true, force: true });
+    schreibe(mp, mission.dateien);
+    for (const [n, t] of Object.entries(mission.strukturen)) { const p = join(mp, `data/weihnachtsinsel/structure/${n}.nbt`); mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, t); }
     const dp = join(REPO, 'spawn/datapack/archiv-spawn');
     rmSync(dp, { recursive: true, force: true });
     schreibe(dp, d);

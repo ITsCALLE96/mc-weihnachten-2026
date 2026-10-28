@@ -170,7 +170,7 @@ export function inselBloecke(lage = LAGE) {
   // Schneemann mit Kürbiskopf als Anzeige-Block (kein echter Kürbis, sonst entsteht ein Schneegolem) (Stufe 2, Abschnitt 6)
   { const [sx, sz] = kreis(19, -0.2 * Math.PI);
     setT(1, 5, sx, T + 1, sz, b('snow_block')); setT(1, 5, sx, T + 2, sz, b('snow_block'));
-    ent(1, 5, 'block_display', sx, T + 3, sz, 0, '{block_state:"minecraft:carved_pumpkin[facing=west]",transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0.1f,0f,0.1f],scale:[0.8f,0.8f,0.8f]}}'); }
+    ent(1, 5, 'block_display', sx + 0.5, T + 3, sz + 0.5, 0, '{block_state:"minecraft:carved_pumpkin[facing=west]",transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[-0.4f,0f,-0.4f],scale:[0.8f,0.8f,0.8f]}}'); }
   // Kakao-Stand mit gestreiftem Dach (Stufe 2, Abschnitt 8)
   { const [kx, kz] = kreis(18, -Math.PI / 2);
     for (let dx = -1; dx <= 1; dx++) { setT(1, 7, kx + dx, T + 1, kz + 1, b('spruce_planks')); setT(1, 7, kx + dx, T + 1, kz - 1, b('barrel[facing=up,open=false]')); }
@@ -186,11 +186,15 @@ export function inselBloecke(lage = LAGE) {
     modell(2, 1, 'weihnachten:schlitten_gross', sch, sz + 0.5, 1.6);
     for (const [i, dx] of [[0, 5.2], [1, 7.5]]) for (const dz of [-0.45, 0.45]) modell(2, 3, 'weihnachten:rentier_gross', sx + dx, sz + 0.5 + dz, 1.1);
     modell(2, 3, 'weihnachten:rentier_gross_nase', sx + 9.8, sz + 0.5, 1.1); }
-  // Geschenkberg am Stamm (Stufe 3, Abschnitt 6)
-  { const gf = ['red', 'lime', 'light_blue', 'yellow', 'white', 'purple', 'orange', 'green'];
-    for (let dx = 0; dx <= 2; dx++) for (let dz = -1; dz <= 1; dz++) { const i = (dx * 5 + dz + 9) & 7; setT(2, 5, CX + 4 + dx, T + 1, CZ + dz, b(`${gf[i]}_concrete`)); }
-    for (let dx = 0; dx <= 1; dx++) for (let dz = -1; dz <= 0; dz++) setT(2, 5, CX + 4 + dx, T + 2, CZ + dz, b(`${gf[(dx + dz + 4) & 7]}_concrete`));
-    setT(2, 5, CX + 4, T + 3, CZ, b('red_concrete')); setT(2, 5, CX + 4, T + 4, CZ, b('yellow_carpet')); setT(2, 5, CX + 6, T + 2, CZ + 1, b('white_carpet')); }
+  // Geschenke als 3D-Modelle der Modpack-Session statt Beton und Teppich (Pascal 28.10.: „einfach richtige Geschenke“).
+  // Boden des Modells bei Modell-y 0 → Entity-y = Boden + Skala/2; leicht gedreht, gemischte Größen
+  const GESCHENKE = ['rot', 'gruen', 'blau', 'gold', 'lila', 'weiss'].map((f) => `weihnachten:geschenk_${f}`);
+  const geschenk = (s, k, x, y, z, gr, yaw, i) => ent(s, k, 'item_display', x, y + gr / 2, z, yaw, `{item:{id:"minecraft:paper",count:1,components:{"minecraft:item_model":"${GESCHENKE[i % 6]}"}},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[${gr}f,${gr}f,${gr}f]}}`);
+  // Geschenkberg am Stamm (Stufe 3, Abschnitt 6): untere Lage 5, darauf 3, oben 1
+  { const g0 = T + 1;
+    [[4.4, -0.6, 1.2, 10], [5.6, 0.7, 1.1, 35], [6.6, -0.8, 1.0, 70], [4.6, 1.1, 0.9, 20], [6.9, 0.6, 0.8, 55]].forEach(([dx, dz, gr, yaw], i) => geschenk(2, 5, CX + dx, g0, CZ + dz, gr, yaw, i));
+    [[4.8, -0.3, 0.8, 40, 1.15], [6.2, -0.4, 0.7, 5, 0.95], [5.5, 0.8, 0.65, 60, 1.05]].forEach(([dx, dz, gr, yaw, h], i) => geschenk(2, 5, CX + dx, g0 + h, CZ + dz, gr, yaw, i + 3));
+    geschenk(2, 5, CX + 5.5, g0 + 1.85, CZ, 0.55, 25, 0); }
   // Jukebox-Ecke (Weihnachtsmusik: serverwahl legt die Platten nacheinander ein) (Stufe 3, Abschnitt 8)
   const JUKE = [CX + 11, T + 1, CZ + 3];
   setT(2, 7, ...JUKE, b('jukebox[has_record=false]'));
@@ -268,14 +272,13 @@ export function inselBloecke(lage = LAGE) {
     if (mitte) kern.push([CX, st + dy, CZ + dz]);
   }));
   for (let y = basis + BH; y < st - 1; y++) set(2, CX, y, CZ, b('gold_block'));
-  const farben = ['red', 'lime', 'light_blue', 'yellow', 'white', 'purple', 'orange', 'green'];
+  // 14 Geschenke rings unter dem Baum als Modelle, jedes dritte mit einem kleineren obendrauf (Stufe 3, Abschnitt 6 wie der Geschenkberg)
   for (let i = 0; i < 14; i++) {
-    const w = i * 2 * Math.PI / 14 + 0.3, gx = Math.round(CX + 6.2 * Math.cos(w)), gz = Math.round(CZ + 6.2 * Math.sin(w));
-    if (Math.abs(gz - CZ) <= 1 && gx < CX) continue;
-    const fa = farben[i % 8];
-    set(2, gx, T + 1, gz, b(`${fa}_concrete`));
-    if (i % 3 === 0) { set(2, gx, T + 2, gz, b(`${fa}_concrete`)); set(2, gx, T + 3, gz, b(`${farben[(i + 3) % 8]}_carpet`)); }
-    else set(2, gx, T + 2, gz, b(`${farben[(i + 3) % 8]}_carpet`));
+    const w = i * 2 * Math.PI / 14 + 0.3, gx = CX + 6.2 * Math.cos(w) + 0.5, gz = CZ + 6.2 * Math.sin(w) + 0.5;
+    if (Math.abs(gz - 0.5 - CZ) <= 1.5 && gx < CX) continue;
+    const gr = [0.9, 0.7, 1.05, 0.8][i % 4];
+    geschenk(2, 5, gx, T + 1, gz, gr, (i * 47) % 90, i);
+    if (i % 3 === 0) geschenk(2, 5, gx + 0.05, T + 1 + gr * 0.9, gz - 0.05, gr * 0.65, (i * 71) % 90, i + 2);
   }
   for (const [px, pz] of pfosten) set(2, px, T + 4, pz, b('red_candle[candles=3,lit=false,waterlogged=false]'));
 
@@ -292,6 +295,9 @@ export function inselBloecke(lage = LAGE) {
   // ---------- drehen ----------
   const { punkt, zustand } = dreher(lage.richtung);
   const dp = (x, y, z) => { const [X, Z] = punkt(x, z); return [X, y, Z]; };
+  // Entity-Positionen sind Punkte, Blockkoordinaten meinen die Blockmitte (+0,5): Punkte daher um die Blockmitte drehen, sonst landet alles bei
+  // Nord/West einen Block neben dem gedachten Block (Pascal 28.10.: Schneemann-Kopf schwebte neben dem Körper)
+  const mp = (x, y, z) => { const [X, Z] = punkt(x - 0.5, z - 0.5); return [X + 0.5, y, Z + 0.5]; };
   const drehMap = (m) => new Map([...m].map(([k, v]) => { const [x, y, z] = k.split(',').map(Number); return [K(...dp(x, y, z)), zustand(v)]; }));
   return {
     stufen: stufen.map(drehMap), wachstum: baumTeile.map(drehMap),
@@ -299,8 +305,8 @@ export function inselBloecke(lage = LAGE) {
     mitte: dp(CX, T, CZ), basis, hoehe: BH, baumRadius: Math.ceil(BR) + 1, stern: dp(CX, st, CZ),
     kiste: dp(bx0 - 2, T + 1, bz + 3), tafel: dp(bx0 - 2, T + 4, bz - 3),
     teilKarte: teilKarte.map((m) => new Map([...m].map(([k, v]) => { const [x, y, z] = k.split(',').map(Number); return [K(...dp(x, y, z)), v]; }))),
-    ents: ents.map((st) => st.map((liste) => liste.map((e) => { const [X, Z] = punkt(e.x, e.z); return { ...e, x: X, z: Z, yaw: (e.yaw + 90 * DREH[lage.richtung]) % 360, nbt: zustand(e.nbt) }; }))),
-    jukebox: dp(...JUKE), weihnachtsmann: { pos: dp(...WM), yaw: (90 + 90 * DREH[lage.richtung]) % 360 },
+    ents: ents.map((st) => st.map((liste) => liste.map((e) => { const [X, , Z] = mp(e.x, 0, e.z); return { ...e, x: X, z: Z, yaw: e.typ === 'block_display' ? 0 : (e.yaw + 90 * DREH[lage.richtung]) % 360, nbt: zustand(e.nbt) }; }))),
+    jukebox: dp(...JUKE), weihnachtsmann: { pos: mp(...WM), yaw: (90 + 90 * DREH[lage.richtung]) % 360 },
   };
 }
 

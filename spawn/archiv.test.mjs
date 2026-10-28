@@ -28,7 +28,7 @@ test('Archiv: eine Weihnachtsinsel TIEF tiefer, leer und Stufen 1–4 per Schalt
   const w2 = d['data/archiv_spawn/function/weihnachtsinsel2.mcfunction'];
   assert.match(w2, /^fill -304 100 -58 -257 \d+ 29 minecraft:air$/m); // alte Stufen-Insel ganz im Westen wird geleert
   assert.match(w2, /^function archiv_spawn:stufe_4_setzen$/m);
-  assert.equal((w2.match(/^summon interaction /gm) ?? []).length, 5); // leer + 4 Stufen
+  assert.equal((w2.match(/^summon interaction /gm) ?? []).length, 7); // leer + 4 Stufen, Abschnitt +1, Automatik
   assert.match(w2, /^summon interaction 3.5 3.8 33.5 /m); // Spark-Insel am Brückenanfang
   assert.match(w2, /^fill 2 -60 -3 9 9 3 minecraft:air$/m); // alter Treppenturm weg
   assert.ok(!/spruce_stairs/.test(w2));
@@ -46,4 +46,25 @@ test('verschiebeY: absolute Höhen in Befehlen, relative (~) bleiben', () => {
   assert.equal(verschiebeY('particle minecraft:happy_villager ~ ~1.2 ~ 0.4 0.4 0.4 0 15 normal @s', -152), 'particle minecraft:happy_villager ~ ~1.2 ~ 0.4 0.4 0.4 0 15 normal @s');
   assert.equal(verschiebeY('execute if entity @a[x=1,y=150,z=2,dx=3] positioned 1 155 2 run setblock 1 160 3 stone', -152), 'execute if entity @a[x=1,y=-2,z=2,dx=3] positioned 1 3 2 run setblock 1 8 3 stone');
   assert.equal(verschiebeY('give @s minecraft:paper[minecraft:max_stack_size=1] 1', -152), 'give @s minecraft:paper[minecraft:max_stack_size=1] 1');
+});
+
+test('Testwelt: leer räumt den ganzen Kasten bis vor die Spark-Insel, Abschnitt +1 folgt der Mission (44 Schritte), Mission-Kopie ohne SMP-Höhen', () => {
+  const { dateien: d, mission } = archivSpawn();
+  const l = d['data/archiv_spawn/function/stufe_0_setzen.mcfunction'];
+  assert.match(l, /^fill -24 -52 -58 23 \S+ 21 minecraft:air$/m);
+  assert.match(l, /^fill -24 \S+ -58 23 53 21 minecraft:air$/m);
+  assert.match(l, /^kill @e\[tag=wi_insel\]$/m);
+  assert.match(l, /^scoreboard players reset #t4_10 wi_mission$/m);
+  assert.match(d['data/archiv_spawn/function/stufe_2_setzen.mcfunction'], /^scoreboard players set #pos wi_test 22$/m);
+  const a = d['data/archiv_spawn/function/abschnitt.mcfunction'];
+  assert.match(a, /^execute if score #pos wi_test matches 1 run function weihnachtsinsel:stufe_1_teil_1$/m);
+  assert.match(a, /^execute if score #pos wi_test matches 11 run function weihnachtsinsel:stufe_1$/m);
+  assert.match(a, /^execute if score #pos wi_test matches 44 run function weihnachtsinsel:stufe_4$/m);
+  for (const [n, f] of Object.entries(mission.dateien)) {
+    if (!n.endsWith('.mcfunction')) continue;
+    for (const z of f.split('\n')) {
+      const t = z.split(' '), y = { setblock: 2, fill: 2, summon: 3, particle: 3, playsound: 5, place: 4 }[t[0]];
+      if (y !== undefined && /^-?\d/.test(t[y] ?? '')) assert.ok(+t[y] < 60, `${n}: ${z.slice(0, 80)}`);
+    }
+  }
 });

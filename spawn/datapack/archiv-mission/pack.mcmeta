@@ -1,0 +1,13 @@
+{
+  "pack": {
+    "description": "Testwelt: Server-Mission Weihnachtsinsel 152 Blöcke tiefer (spawn/archiv.mjs) – nur für die Testwelt, nicht auf den SMP",
+    "min_format": [
+      121,
+      0
+    ],
+    "max_format": [
+      121,
+      0
+    ]
+  }
+}

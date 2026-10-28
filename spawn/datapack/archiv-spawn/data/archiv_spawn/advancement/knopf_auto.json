@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "klick": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:interaction",
+            "minecraft:nbt": "{Tags:[\"wi_knopf_auto\"]}"
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "archiv_spawn:knopf_auto"
+  }
+}

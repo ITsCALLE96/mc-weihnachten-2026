@@ -42,7 +42,7 @@ test('Stufen: je 10 Bauabschnitte mit Merker, Abschluss setzt alles, Stufe 4 end
   assert.match(f['stufe_4_teil_1/setzen'], /minecraft:waxed_copper_bulb\[lit=true\] replace minecraft:waxed_copper_bulb\[lit=false\]/);
   // Entities je Abschnitt erst weg, dann neu (kein Doppel nach Neustart)
   assert.match(f['stufe_3_teil_10/setzen'], /^kill @e\[tag=wi_e_s3_10\]\nsummon allay /m);
-  assert.match(f['stufe_4_teil_10/setzen'], /summon mannequin -0\.50 155\.00 -54\.50 \{Tags:\["wi_insel","wi_e_s4_10","wi_weihnachtsmann"\],Rotation:\[0f,0f\]/);
+  assert.match(f['stufe_4_teil_10/setzen'], /summon mannequin -0\.50 155\.00 -53\.50 \{Tags:\["wi_insel","wi_e_s4_10","wi_weihnachtsmann"\],Rotation:\[0f,0f\]/);
   assert.match(f['stufe_2_teil_6/setzen'], /block_state:\{id:"minecraft:carved_pumpkin",properties:\{facing:"south"\}\}/);
   assert.match(f['feier/schritt'], /matches 240 run summon firework_rocket/);
   assert.match(f.load, /#laeuft wi_mission matches 1\.\. run schedule function weihnachtsinsel:wiederaufnahme/);

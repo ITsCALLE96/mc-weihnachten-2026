@@ -1,0 +1,7 @@
+execute if score #t2_9 wi_mission matches 1 run return fail
+place template weihnachtsinsel:s2_teil_9 -9 3 -43
+particle minecraft:happy_villager 0 21 -34 4 2 4 0.02 120 force @a
+playsound minecraft:item.bone_meal.use master @a 0 21 -34 3 1
+kill @e[type=item,x=-24,y=-52,z=-58,dx=47,dy=105,dz=87]
+scoreboard players set #t2_9 wi_mission 1
+schedule function weihnachtsinsel:entladen 200t
