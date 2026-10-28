@@ -122,7 +122,7 @@ BEREICHE = [
 
 
 # Eigene schlichte Hallen (Wände, Fenster, Schneedach). Baut Spawn & Welt die weihnachtliche Hülle über den Tag #zoo:halle, hier auf False setzen
-EIGENE_HALLEN = True
+EIGENE_HALLEN = False      # seit 28.10.: Hülle von Spawn & Welt (Datapack zoo-halle, 3ea9385)
 # Hallenhöhe je Bereich (Innenraum bis zur Decke): Bosse brauchen Platz für Riese (12) und Drache
 HALLENHOEHE = {"Friedlich": 7, "Feindlich": 8, "Bosse": 16}
 
@@ -264,7 +264,10 @@ for titel, farbe, za, zb, h in (hallen if EIGENE_HALLEN else []):
     for lx in range(x1 + 3, x2 - 1, 6):
         for lz in range(za + 3, zb - 1, 6):
             aufbau.append(f"setblock {lx} {oben + 1} {lz} minecraft:sea_lantern")
-    abbau += kasten_leeren(x1, x2, za, zb, Y, oben + 2)
+
+# Abbau räumt den Hallenraum immer (auch die Hülle von Spawn & Welt bzw. Reste der alten eigenen Hallen); #zoo:halle baut sie danach neu
+for titel, farbe, za, zb, h in hallen:
+    abbau += kasten_leeren(x1, x2, za, zb, Y, Y + h + 2)
 
 for titel, unter, farbe, wx, wz in wegweiser:
     t = json.dumps({"text": titel, "color": farbe, "bold": True, "extra": [{"text": chr(10) + unter, "color": "gray", "bold": False}]}, ensure_ascii=False)
