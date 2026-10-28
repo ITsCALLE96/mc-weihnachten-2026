@@ -5,10 +5,11 @@
 #
 #   bash testnetz/testwelt.sh einrichten   – Testnetz gestoppt: testnetz/testwelt anlegen (Paper, serverwahl, LuckPerms, Zoo-Datapack),
 #                                           Velocity um „testwelt“ ergänzen
+#   bash testnetz/testwelt.sh archiv       – Bauarchiv- und Zoo-Datapack sowie das Säle-Menü neu erzeugen (danach /reload oder Neustart)
 #   bash testnetz/testwelt.sh rechte       – SMP läuft: serverwahl.testwelt für die Gruppe admin (gemeinsamer LuckPerms-Speicher)
 #   bash testnetz/testwelt.sh entfernen    – Testnetz gestoppt: Ordner testnetz/testwelt weg, Velocity-Eintrag raus
 #
-# Danach (Server läuft): /function zoo:aufbau in der Testwelt (z. B. python -I testnetz/rcon.py testwelt "function zoo:aufbau")
+# Danach (Server läuft): python -I testnetz/rcon.py testwelt "function archiv:aufbau" (Platz, Säle, Zoo); Säle-Menü: Ender-Kiste am Spawn
 set -euo pipefail
 hier="$(cd "$(dirname "$0")" && pwd)"
 repo="$(cd "$hier/.." && pwd)"
@@ -17,7 +18,21 @@ tw="$hier/testwelt"
 frei() { ! (echo > "/dev/tcp/127.0.0.1/$1") 2>/dev/null; }
 alle_frei() { frei 25567 && frei 25568 && frei 25569 && frei 25577; }
 
+# Bauarchiv (server/testwelt/archiv.py) + Mob-Zoo im Saal „zoo“ (Zoo-Ecke 1984/−140, Arena südlich davon bei z −200)
+bauarchiv() {
+  python -I "$repo/server/zoo/zoo.py" "$hier/smp/versions/26.3/paper-26.3.jar" "$tw/world/datapacks" 1984 -60 -140 | head -1
+  python -I "$repo/server/testwelt/archiv.py" "$tw"
+  printf '{
+  "values": ["zoo:aufbau"]
+}
+' > "$tw/world/datapacks/archiv/data/archiv/tags/function/saal/zoo.json"
+}
+
 case "${1:-}" in
+  archiv)
+    # nur Datapacks und Menü neu erzeugen (Testwelt gestoppt oder danach /reload)
+    bauarchiv
+    ;;
   einrichten)
     alle_frei || { echo "Testnetz läuft noch, erst stoppen" >&2; exit 1; }
     [ -f "$hier/proxy/forwarding.secret" ] || { echo "proxy/forwarding.secret fehlt (erst einrichten.sh)" >&2; exit 1; }
@@ -76,7 +91,8 @@ spielregeln:
   mob_griefing: true
 xaero-welt-id: 26120901
 YML
-    python -I "$repo/server/zoo/zoo.py" "$dl/../smp/versions/26.3/paper-26.3.jar" "$tw/world/datapacks" | head -1
+    bauarchiv
+
     # Velocity: Server „testwelt“ ergänzen
     python -I - "$hier/proxy/velocity.toml" <<'PY'
 import re, sys
@@ -87,7 +103,7 @@ if 'testwelt = ' not in s:
     assert n == 1, "smp-Eintrag in velocity.toml nicht gefunden"
 open(p, "w", encoding="utf-8", newline="\n").write(s)
 PY
-    echo "Testwelt eingerichtet: $tw (Port 25569, RCON 25587). start.cmd startet sie mit. Danach: bash testnetz/testwelt.sh rechte, dann function zoo:aufbau"
+    echo "Testwelt eingerichtet: $tw (Port 25569, RCON 25587). start.cmd startet sie mit. Danach: bash testnetz/testwelt.sh rechte, dann function archiv:aufbau"
     ;;
   rechte)
     frei 25568 && { echo "SMP läuft nicht" >&2; exit 1; }

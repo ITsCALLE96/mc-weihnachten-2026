@@ -86,6 +86,8 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     /** Xaero-Kanäle für die Welt-ID (Paket 0 = LevelMapProperties: ein int) */
     /** Platzhalter im Menü für den Weihnachtsinsel-Slot (kein Servername) */
     private static final String MISSION_ZIEL = "#mission";
+    /** Präfix im Menü für Teleport-Einträge (kein Servername) */
+    private static final String ORT_ZIEL = "#ort:";
     private static final List<String> XAERO_KANAELE = List.of("xaeroworldmap:main", "xaerominimap:main");
     /** eigene Welt-ID für Xaero, 0 = aus. Hinter Velocity sehen Hub und SMP sonst für Xaero gleich aus (gleiche Adresse, Dimension) */
     private int xaeroWeltId;
@@ -683,7 +685,8 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                 continue;
             }
             menue.inventar.setItem(slot, gegenstand(mat == null ? Material.GRASS_BLOCK : mat, String.valueOf(s.get("anzeige")), text));
-            menue.ziele.put(slot, String.valueOf(s.get("name")));
+            // „ort“ statt Server: Teleport in dieser Welt (Bauarchiv der Testwelt, Pascal 28.10.), sonst Serverwechsel über Velocity
+            menue.ziele.put(slot, s.get("ort") != null ? ORT_ZIEL + s.get("ort") : String.valueOf(s.get("name")));
         }
         // Weihnachtsinsel (Pascal 28.10.): eigener Slot zum Spenden, z. B. direkt über dem Hub
         if (kat.contains("mission-slot") && mission != null && mission.aktiv()) {
@@ -715,6 +718,18 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             return;
         }
         String ziel = menue.ziele.get(e.getSlot());
+        if (ziel != null && ziel.startsWith(ORT_ZIEL)) {
+            p.closeInventory();
+            String[] t = ziel.substring(ORT_ZIEL.length()).trim().split("[\\s,]+");
+            try {
+                org.bukkit.Location l = new org.bukkit.Location(p.getWorld(), Double.parseDouble(t[0]) + 0.5, Double.parseDouble(t[1]),
+                        Double.parseDouble(t[2]) + 0.5, t.length > 3 ? Float.parseFloat(t[3]) : 0f, t.length > 4 ? Float.parseFloat(t[4]) : 0f);
+                p.teleport(l);
+            } catch (RuntimeException ex) {
+                p.sendMessage(Component.text("Ort in der Config fehlerhaft: " + ziel.substring(ORT_ZIEL.length()), NamedTextColor.RED));
+            }
+            return;
+        }
         if (MISSION_ZIEL.equals(ziel)) {
             mission.menueKlick(p, e.isRightClick());
             return;
