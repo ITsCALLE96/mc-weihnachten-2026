@@ -1,4 +1,4 @@
-# Inselhändler „Weihnachtsmann“ (Vorprüfung 28.10., noch nicht gebaut)
+# Inselhändler „Weihnachtsmann“ und Jukebox (28.10., gebaut in serverwahl, Test offen)
 
 Entschieden (Leitung 28.10.): sichtbar als `minecraft:mannequin` mit eigenem Skin aus dem Basis-Pack (Modpack-Session), Handel über serverwahl
 (eigenes Händlerfenster per Merchant-API, Waren aus der Liste von Spawn & Welt). Preise: **jeden Dezember halber Preis, ab 01.01. Normalpreis**
@@ -28,3 +28,12 @@ Wegräumen: `/kill @e[type=minecraft:mannequin,tag=wi_haendler,distance=..5]`
   (Steve/Alex) oder, falls Geyser 2.12 die Mannequin noch nicht übersetzt, **unsichtbar**. Im Bedrock-Test (Handy) einmal ansehen
 - Handeln geht trotzdem, sobald die Figur anklickbar ist: Das Händlerfenster kommt vom Server, Geyser übersetzt Händlerfenster für Bedrock.
   Falls die Figur unsichtbar bleibt: zusätzlich ein Schild/Text-Display „Weihnachtsmann – Rechtsklick“ und eine Interaction davor (für Bedrock klickbar)
+
+## Umsetzung (28.10., `Inselhaendler.java`, Config `inselhaendler:` nur SMP)
+
+- Daten aus `spawn/weihnachtsmann.json` (Spawn & Welt, kopiert von `plugin-konfig/einspielen.sh`): Mannequin und Klickfläche (Interaction, Tag
+  `wi_weihnachtsmann_klick`, erscheinen mit `stufe_4_teil_10`), 34 Angebote als Item-Text mit Komponenten (`ItemFactory.createItemStack`), Preise in Smaragden
+- Rechts- oder Linksklick auf die Klickfläche öffnet ein eigenes Händlerfenster (Merchant-API), Angebote unbegrenzt, keine Erfahrung.
+  **Jeden Dezember** (Europe/Berlin) Preis × `dezemberFaktor` (0,5, aufgerundet, mindestens 1), ab 01.01. Normalpreis – bei jedem Öffnen neu, kein Neustart
+- **Jukebox** (2/155/−45, steht ab `stufe_3_teil_8`): legt die Platten `weihnachten:platte_*` nacheinander ein (Länge aus `jukebox_song/*.json` der Welt-Datapacks),
+  nur solange ein Spieler im `jukebox-radius` (48) ist, sonst wird sie geleert. `/serverwahl jukebox weiter | neu | status`

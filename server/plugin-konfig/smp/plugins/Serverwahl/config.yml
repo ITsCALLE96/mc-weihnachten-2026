@@ -190,3 +190,11 @@ mission:
   zeitzone: Europe/Berlin
   aktive-tage: 7
   traenke-je-stufe: 3
+# Weihnachtsmann im Iglu der Weihnachtsinsel + Jukebox (Pascal 28.10., Ware/Orte: spawn/weihnachtsmann.json, kopiert nach plugins/Serverwahl/).
+# Klick auf die Klickfläche (Interaction aus dem Datapack, ab Stufe 4) öffnet das Händlerfenster; jeden Dezember halber Preis (echte Uhr).
+# Jukebox spielt die Weihnachtsplatten im Wechsel, nur wenn jemand im jukebox-radius ist. /serverwahl jukebox weiter | neu | status
+inselhaendler:
+  aktiv: true
+  datei: weihnachtsmann.json
+  zeitzone: Europe/Berlin
+  jukebox-radius: 48

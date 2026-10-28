@@ -77,6 +77,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private Termine termine;
     private DiscordWhitelist discordWhitelist;
     private Mission mission;
+    private Inselhaendler inselhaendler;
     /** Nicknames/Clan-Tags, nur mit LuckPerms (sonst null) */
     private Namen namen;
     /** täglich einmal ab dieser Uhrzeit (höchstens eine Stunde später) diese Konsolenbefehle; null = aus */
@@ -263,6 +264,11 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         }
         neujahr.laden(getConfig().getConfigurationSection("neujahr"));
         dorfRabatt.laden(getConfig().getConfigurationSection("dorf-rabatt"));
+        if (inselhaendler == null) {
+            inselhaendler = new Inselhaendler(this);
+            getServer().getPluginManager().registerEvents(inselhaendler, this);
+        }
+        inselhaendler.laden(getConfig().getConfigurationSection("inselhaendler"));
         if (mission == null) {
             mission = new Mission(this, p -> namen != null ? namen.nickOderName(p) : p.getName());
             getServer().getPluginManager().registerEvents(mission, this);
@@ -325,6 +331,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             return true;
         }
         if (command.getName().equals("serverwahl")) {
+            if (args.length >= 1 && args[0].equals("jukebox")) {
+                sender.sendMessage(Component.text(inselhaendler.befehl(args), NamedTextColor.GOLD));
+                return true;
+            }
             if (args.length >= 1 && args[0].equals("mission")) {
                 String antwort;
                 try {
