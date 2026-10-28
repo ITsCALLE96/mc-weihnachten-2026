@@ -1,2 +1,3 @@
-tellraw @s [{"text":"[Termine] ","color":"gold","bold":true},{"text":"Testlauf: 21.11. · Eröffnung: 05.12. Danach läuft der Server dauerhaft weiter. Phasen und Freischaltungen stehen im Discord.","color":"white"}]
-playsound minecraft:item.book.page_turn master @s ~ ~ ~ 1 1
+advancement revoke @s only hub:stand/5
+tellraw @s [{"text":"Kartograf Kasimir ","color":"gold","bold":true},{"text":"(Termine)\n","color":"yellow"},{"text":"Testlauf 21.11. · Start 27.11. · Kalender ab 01.12. · Nether ab 11.12. · End und Drachenkampf 18.12. · Halber Preis bei Dorfbewohnern 24.–26.12. · Silvester Feuerwerk. Jeweils abends, genaue Zeiten im Discord.\n","color":"white"},{"text":"Test run 21 Nov · start 27 Nov · calendar from 1 Dec · Nether 11 Dec · End 18 Dec · New Year fireworks.","color":"gray","italic":true},{"text":"\n"},{"text":"[Discord: Link folgt]","color":"gray"}]
+playsound minecraft:entity.villager.celebrate neutral @s ~ ~ ~ 0.8 1.1

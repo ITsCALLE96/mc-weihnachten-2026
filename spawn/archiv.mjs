@@ -11,6 +11,7 @@ import { neu, setze, lade } from '../tools/schem.mjs';
 import { struktur, kacheln } from '../tools/schem-struktur.mjs';
 import { datapack } from './weihnachtsinsel.mjs';
 import { dateien } from './standort.mjs';
+import { infoStaende } from './hub.mjs';
 
 const REPO = join(dirname(fileURLToPath(import.meta.url)), '..');
 // Deko-Galerie (61 × 17 um den Ursprung): seit 28.10. abends südlich der Spark-Insel an der Hub-Kante (Layout der Server-Session), vorher 0/−60/150
@@ -254,7 +255,8 @@ export function archivFremd(ziel) {
     // Strukturen haben DataVersion 3955: Schildtexte dann als JSON-Text (sonst bricht die Umwandlung ab); hängende Entities (Rahmen, Bilder)
     // tragen ihre Weltposition in block_pos und landen beim Einsetzen ungültig → weglassen
     for (const be of m.blockEntities) for (const s of ['front_text', 'back_text']) { const l = be.daten[s]?.value?.messages?.value; if (l?.elem === 'string') l.items = l.items.map((t) => (/^["{[]/.test(t) ? t : JSON.stringify(t))); }
-    m.entities = m.entities.filter((e) => !/item_frame|painting/.test(e.id));
+    // Standbetreiber der Info-Stände kommen nicht aus der Hub-Welt (dort evtl. noch nicht gesetzt), sondern frisch aus spawn/hub.json (staende)
+    m.entities = m.entities.filter((e) => !/item_frame|painting/.test(e.id) && !JSON.stringify(e.daten ?? {}, (_, v) => (typeof v === 'bigint' ? String(v) : v)).includes('hub_stand'));
     const O = HUB.ecke, zeilen = [];
     // Kasten leeren: fill in Stücken unter 32768 Blöcken (eine Lage ist größer, daher zusätzlich in z-Streifen)
     const leeren = (o, w, h, l) => { const r = [], dz = Math.min(l, Math.floor(32768 / w)), proY = Math.max(1, Math.floor(32768 / (w * dz)));
@@ -263,16 +265,20 @@ export function archivFremd(ziel) {
     zeilen.push(...leeren(O, m.w, m.h, m.l), `kill @e[type=!player,x=${O[0]},y=${O[1]},z=${O[2]},dx=${m.w},dy=${m.h},dz=${m.l}]`);
     for (const { i, j, teil } of kacheln(m, 48)) { strukturen[`hub_${i}_${j}`] = struktur(teil); zeilen.push(`place template ${NS}:hub_${i}_${j} ${O[0] + i * 48} ${O[1]} ${O[2] + j * 48}`); }
     const fl = `${O[0]} ${O[2]} ${O[0] + m.w - 1} ${O[2] + m.l - 1}`;
+    const st = infoStaende(JSON.parse(readFileSync(join(REPO, 'spawn/hub.json'), 'utf8')), { ns: NS, versatz: O.map((v, i) => v - HUB.von[i]) });
     // alter Ausschnitt (bis 28.10. abends: 81 × 160 × 81 bei −290/−60/110) – eigener forceload, da außerhalb des neuen Kastens möglich
     const ALT = [-290, -60, 110], altFl = `${ALT[0]} ${ALT[2]} ${ALT[0] + 80} ${ALT[2] + 80}`;
     Object.assign(out, Object.fromEntries([
       fn(NS, 'hub', `# Testwelt: ganzer Hub (Fantasy Village, ${m.w} × ${m.l}, ${m.h} hoch) ab Ecke ${O.join('/')}, Unterkante auf dem Boden; idempotent\nforceload add ${altFl}\nschedule function ${NS}:hub_alt 40t\n`),
       fn(NS, 'hub_alt', `${leeren(ALT, 81, 160, 81).join('\n')}\nkill @e[type=!player,x=${ALT[0]},y=${ALT[1]},z=${ALT[2]},dx=81,dy=160,dz=81]\nforceload remove ${altFl}\nforceload add ${fl}\nschedule function ${NS}:hub2 40t\n`),
       fn(NS, 'hub2', `${zeilen.join('\n')}\nkill @e[type=item,x=${O[0]},y=${O[1]},z=${O[2]},dx=${m.w},dy=${m.h},dz=${m.l}]\nschedule function ${NS}:hub3 100t\n`),
-      fn(NS, 'hub3', `forceload remove ${fl}\n`),
+      fn(NS, 'hub3', `function ${NS}:staende\nforceload remove ${fl}\n`),
+      // Info-Stände des Hubs (spawn/hub.json) an der Hub-Lage der Testwelt, Klick-Fortschritte im eigenen Namensraum
+      ...Object.entries(st.funktionen).map(([n, t]) => fn(NS, n, t)),
     ]));
     const dp = join(ziel, 'archiv-fremd');
     rmSync(dp, { recursive: true, force: true });
+    for (const [n, a] of Object.entries(st.fortschritte)) out[`data/${NS}/advancement/${n}.json`] = JSON.stringify(a, null, 2) + '\n';
     schreibe(dp, { ...out, 'pack.mcmeta': mcmeta('Testwelt-Archiv: fremde Bauten (Spark-Insel, Fantasy Village) – nur lokal, nie ins Repo oder auf einen Download') });
     for (const [n, t] of Object.entries(strukturen)) { const p = join(dp, `data/${NS}/structure/${n}.nbt`); mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, t); }
     // Deko und Kalender der Spark-Insel als Kopie mit allen Koordinaten TIEF tiefer (nur für die Testwelt)

@@ -146,6 +146,10 @@
   "stände": [
     {
       "titel": "Regeln",
+      "symbol": "⚖",
+      "name": "Ratsherrin Holla",
+      "beruf": "cleric",
+      "kopf": "weihnachtsmuetze",
       "front": [
         42,
         235,
@@ -171,10 +175,21 @@
           "east"
         ]
       ],
-      "text": "Sei fair und freundlich. Kein Griefing, kein Stehlen, keine Cheats oder X-Ray. Die ausführlichen Regeln stehen im Discord."
+      "text": "",
+      "en": "",
+      "links": [
+        [
+          "Ganze Regeln im Discord",
+          "discord"
+        ]
+      ]
     },
     {
       "titel": "Modpack",
+      "symbol": "⚙",
+      "name": "Tüftler Tobi",
+      "beruf": "toolsmith",
+      "kopf": "strickmuetze",
       "front": [
         39,
         235,
@@ -194,10 +209,25 @@
           "west"
         ]
       ],
-      "text": "Wir spielen mit unserem eigenen Modpack in der Modrinth-App. Die Anleitung steht im Discord. Wichtig: immer die aktuelle Pack-Version nehmen."
+      "text": "Wir spielen mit unserem Modpack in der Modrinth-App: Pack herunterladen, in der App „Aus Datei importieren“. Shader: Optionen → Videoeinstellungen → Shader-Pakete → Complementary Reimagined (bei schwachen PCs aus).",
+      "en": "We play with our own modpack in the Modrinth app. Shaders: Options → Video Settings → Shader Packs.",
+      "links": [
+        [
+          "Modpack",
+          "modpack"
+        ],
+        [
+          "Modrinth-App",
+          "modrinthApp"
+        ]
+      ]
     },
     {
-      "titel": "Voice Chat",
+      "titel": "Voice-Chat",
+      "symbol": "♪",
+      "name": "Glöckner Gustav",
+      "beruf": "shepherd",
+      "kopf": "ohrenschuetzer",
       "front": [
         42,
         235,
@@ -217,10 +247,16 @@
           "west"
         ]
       ],
-      "text": "Simple Voice Chat ist im Pack. Taste V öffnet die Einstellungen. Mikrofon testen: an der Voice-Chat-Ecke beim Kirschblütenhaus."
+      "text": "Simple Voice Chat ist im Pack. Taste V öffnet die Einstellungen, Mikrofon testen an der Voice-Chat-Ecke. Wer in der Nähe ist, hört dich; Gruppen legst du im Menü über das Gruppen-Symbol an.",
+      "en": "Simple Voice Chat is included. Press V for settings; groups via the group icon.",
+      "links": []
     },
     {
-      "titel": "Questbuch",
+      "titel": "Questbuch & Leitfaden",
+      "symbol": "✎",
+      "name": "Bibliothekarin Liesel",
+      "beruf": "librarian",
+      "kopf": "lichterkrone",
       "front": [
         46,
         235,
@@ -246,10 +282,16 @@
           "north"
         ]
       ],
-      "text": "Das Questbuch begleitet dich auf dem SMP: Kapitel für Kapitel durch Minecraft, mit Tipps und kleinen Andenken."
+      "text": "Das Questbuch begleitet dich auf dem SMP Kapitel für Kapitel durch Minecraft, mit Tipps und kleinen Andenken. Den Leitfaden für den Einstieg bekommst du beim ersten Betreten.",
+      "en": "The quest book guides you chapter by chapter, with tips and small rewards.",
+      "links": []
     },
     {
       "titel": "Termine",
+      "symbol": "⌛",
+      "name": "Kartograf Kasimir",
+      "beruf": "cartographer",
+      "kopf": "rentiergeweih",
       "front": [
         46,
         235,
@@ -275,10 +317,21 @@
           "south"
         ]
       ],
-      "text": "Testlauf: 21.11. · Eröffnung: 05.12. Danach läuft der Server dauerhaft weiter. Phasen und Freischaltungen stehen im Discord."
+      "text": "Testlauf 21.11. · Start 27.11. · Kalender ab 01.12. · Nether ab 11.12. · End und Drachenkampf 18.12. · Halber Preis bei Dorfbewohnern 24.–26.12. · Silvester Feuerwerk. Jeweils abends, genaue Zeiten im Discord.",
+      "en": "Test run 21 Nov · start 27 Nov · calendar from 1 Dec · Nether 11 Dec · End 18 Dec · New Year fireworks.",
+      "links": [
+        [
+          "Discord",
+          "discord"
+        ]
+      ]
     },
     {
-      "titel": "Discord",
+      "titel": "Discord & Anmeldung",
+      "symbol": "✉",
+      "name": "Postbotin Paula",
+      "beruf": "fletcher",
+      "kopf": "strickmuetze",
       "front": [
         42,
         235,
@@ -298,10 +351,21 @@
           "north"
         ]
       ],
-      "text": "Ankündigungen, Hilfe und alle Links gibt es auf unserem Discord. Link: folgt."
+      "text": "Ankündigungen, Hilfe, Anmeldung und alle Links findest du auf unserem Discord.",
+      "en": "Announcements, help, sign-up and all links are on our Discord.",
+      "links": [
+        [
+          "Discord beitreten",
+          "discord"
+        ]
+      ]
     },
     {
-      "titel": "Statistik",
+      "titel": "Bedrock & Hilfe",
+      "symbol": "⚑",
+      "name": "Wegweiser Willi",
+      "beruf": "mason",
+      "kopf": "ohrenschuetzer",
       "front": [
         39,
         235,
@@ -321,10 +385,21 @@
           "west"
         ]
       ],
-      "text": "Auf der Statistikseite siehst du Spielzeit, Bestenlisten und mehr. Link: folgt. Die Bestenlisten am Brunnen zeigen einen Auszug."
+      "text": "Bedrock: Adresse mc.grahl.cloud, Port 19132, ohne Modpack, ohne Voice-Chat und Questbuch-Seitenleiste. PlayStation nur über BedrockConnect-DNS, Details im Discord. Bei Problemen hilft Pascal, im Discord oder direkt im Spiel.",
+      "en": "Bedrock: mc.grahl.cloud, port 19132 (no modpack). PlayStation via BedrockConnect DNS. Ask Pascal for help.",
+      "links": [
+        [
+          "Discord",
+          "discord"
+        ]
+      ]
     },
     {
-      "titel": "Danke",
+      "titel": "Winterkalender & Weihnachtsinsel",
+      "symbol": "❄",
+      "name": "Plätzchenbäckerin Frieda",
+      "beruf": "farmer",
+      "kopf": "weihnachtsmuetze",
       "front": [
         42,
         235,
@@ -350,7 +425,9 @@
           "east"
         ]
       ],
-      "text": "Dieses Dorf: „Fantasy Village“ von LavaBuilds (BuiltByBit). Danke an alle Mod-Autoren und an euch fürs Mitspielen!"
+      "text": "Ab 01.12. öffnet täglich ein Türchen am Kalender auf der Spawn-Insel. Im Norden wächst die Weihnachtsinsel mit euren Spenden: Ender-Kiste in der Mitte der Spark-Insel, Feld „Weihnachtsinsel“. Jede Stufe bringt Tränke für alle, 3 Stück je Stufe.",
+      "en": "From 1 Dec a calendar door opens daily. Donate via the ender chest (field \"Weihnachtsinsel\") – each stage gives everyone 3 potions.",
+      "links": []
     }
   ],
   "dorfbewohner": [
@@ -478,5 +555,39 @@
     "z": 10
   },
   "advent": [],
-  "adventGeschenke": []
+  "adventGeschenke": [],
+  "links": {
+    "hinweis": "Zentrale Links der Info-Stände (Pascal/Leitung tauschen sie hier). Leer = „Link folgt“.",
+    "discord": "",
+    "modpack": "https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/tag/modpack-v2",
+    "modrinthApp": "https://modrinth.com/app"
+  },
+  "regeln": {
+    "hinweis": "Vorläufige Regeln (Pascal 28.10.), hier zentral anpassen; Stand 1 zeigt sie Zeile für Zeile",
+    "de": [
+      "Sei fair und freundlich zu allen.",
+      "Kein Griefing, kein Stehlen, keine Fallen für andere.",
+      "Keine Cheats, kein X-Ray, keine Hack-Clients.",
+      "Bauten anderer nur mit Erlaubnis betreten."
+    ],
+    "en": "Be fair and friendly – no griefing, stealing or cheats. Full rules on Discord."
+  },
+  "hologramme": [
+    {
+      "hinweis": "Statistik (früher Stand 7) über dem Brunnen",
+      "x": 0.5,
+      "y": 241,
+      "z": 0.5,
+      "titel": "Statistik",
+      "text": "Spielzeit, Bestenlisten und mehr auf der Statistikseite – Link folgt"
+    },
+    {
+      "hinweis": "Danke (früher Stand 8) am Dorfschild",
+      "x": -2.5,
+      "y": 237.3,
+      "z": 15.5,
+      "titel": "Danke!",
+      "text": "„Fantasy Village“ von LavaBuilds (BuiltByBit) · Danke an alle Mod-Autoren und an euch fürs Mitspielen"
+    }
+  ]
 }

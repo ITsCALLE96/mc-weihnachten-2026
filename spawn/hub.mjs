@@ -13,6 +13,41 @@ const REPO = join(dirname(fileURLToPath(import.meta.url)), '..');
 const q = (t) => JSON.stringify(t); // Text als SNBT-Zeichenkette (JSON-Schreibweise ist gültiges SNBT)
 const txt = (text, extra = {}) => JSON.stringify({ text, ...extra });
 
+// Info-Stände in den 8 Marktzelten (Pascal/Leitung 28.10.): je ein Standbetreiber (Dorfbewohner Typ Schnee, NoAI, unverwundbar, ohne Handel, Deko
+// aus dem Pack auf dem Kopf), Klick → Fortschritt → Info im Chat (Deutsch, eine Zeile Englisch, klickbare Links aus k.links), Zeltschilder,
+// großes Hologramm über dem Zelt; dazu Hologramme (Statistik am Brunnen, Danke am Dorfschild). Regeln zentral in k.regeln.
+// versatz/ns: dieselben Stände im Bauarchiv der Testwelt (Hub dort verschoben, eigener Namensraum)
+export function infoStaende(k, { ns = 'hub', versatz = [0, 0, 0] } = {}) {
+  const [vx, vy, vz] = versatz, P = (x, y, z) => [x + vx, y + vy, z + vz].map((v) => Math.round(v * 100) / 100).join(' ');
+  const befehle = ['kill @e[tag=hub_stand]'], funktionen = {}, fortschritte = {};
+  const link = (t, schluessel) => { const url = k.links?.[schluessel];
+    return url ? { text: `[${t}]`, color: 'aqua', underlined: true, click_event: { action: 'open_url', url }, hover_event: { action: 'show_text', value: url } } : { text: `[${t}: Link folgt]`, color: 'gray' }; };
+  const zeilen = (t) => { const w = t.split(' '), z = ['']; for (const x of w) { if ((z.at(-1) + ' ' + x).trim().length > 15) z.push(x); else z[z.length - 1] = (z.at(-1) + ' ' + x).trim(); } return z; };
+  const holo = (x, y, z, inhalt, s, tags = []) => `summon text_display ${P(x, y, z)} {Tags:${q(['hub', 'hub_stand', ...tags])},billboard:"center",alignment:"center",line_width:240,background:1073741824,text:${JSON.stringify(inhalt)},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[${s}f,${s}f,${s}f]}}`;
+  k.stände.forEach((st, i) => {
+    const n = i + 1, [x, y, z] = st.front, mx = st.schilder.reduce((a, s) => a + s[0], 0) / st.schilder.length, mz = st.schilder.reduce((a, s) => a + s[2], 0) / st.schilder.length;
+    // Blick vom Zelt weg zum Markt (Minecraft-Yaw: 0 = Süden, 90 = Westen)
+    const yaw = Math.round((Math.atan2(-(x + 0.5 - mx), z + 0.5 - mz) * 180) / Math.PI);
+    const text = st.titel === 'Regeln' ? k.regeln.de.map((r) => `• ${r}`).join('\n') : st.text, en = st.titel === 'Regeln' ? k.regeln.en : st.en;
+    befehle.push(`summon villager ${P(x + 0.5, y, z + 0.5)} {Tags:["hub","hub_stand","hub_stand_${n}"],NoAI:1b,Invulnerable:1b,PersistenceRequired:1b,Silent:1b,Rotation:[${yaw}f,0f],`
+      + `CustomName:${JSON.stringify({ text: st.name, color: 'gold' })},CustomNameVisible:1b,VillagerData:{type:"minecraft:snow",profession:"minecraft:${st.beruf}",level:5},Offers:{Recipes:[]},`
+      + `equipment:{head:{id:"minecraft:paper",count:1,components:{"minecraft:item_model":"weihnachten:${st.kopf}"}}},drop_chances:{head:0f}}`);
+    befehle.push(holo(x + 0.5, y + 2.75, z + 0.5, [{ text: `${st.titel}\n`, color: 'yellow', bold: true }, { text: 'Rechtsklick', color: 'gray' }], 0.6, ['hub_hinweis']));
+    befehle.push(holo(mx + 0.5, y + 4.6, mz + 0.5, [{ text: `${st.symbol} ${st.titel}`, color: 'gold', bold: true }], 1.6));
+    // Zeltschilder ohne festen Halt fallen beim Einfügen ab: dann neu setzen, danach beschriften (lange Titel auf zwei Zeilen)
+    const zl = [...zeilen(st.titel), '', '', ''].slice(0, 3);
+    for (const [sx, sy, sz, blick] of st.schilder) befehle.push(`execute unless block ${P(sx, sy, sz)} #minecraft:wall_signs run setblock ${P(sx, sy, sz)} minecraft:spruce_wall_sign[facing=${blick}]`,
+      `data merge block ${P(sx, sy, sz)} {is_waxed:1b,front_text:{messages:["",${zl.map(q).join(',')}]}}`);
+    fortschritte[`stand/${n}`] = { criteria: { klick: { trigger: 'minecraft:player_interacted_with_entity', conditions: { entity: { type: 'minecraft:entity_properties', entity: 'this', predicate: { 'minecraft:entity_type': 'minecraft:villager', 'minecraft:nbt': `{Tags:["hub_stand_${n}"]}` } } } } }, rewards: { function: `${ns}:stand/${n}` } };
+    const teile = [{ text: `${st.name} `, color: 'gold', bold: true }, { text: `(${st.titel})\n`, color: 'yellow' }, { text: `${text}\n`, color: 'white' }, { text: en, color: 'gray', italic: true }];
+    for (const [t, s] of st.links ?? []) teile.push({ text: '\n' }, link(t, s));
+    funktionen[`stand/${n}`] = `advancement revoke @s only ${ns}:stand/${n}\ntellraw @s ${JSON.stringify(teile)}\nplaysound minecraft:entity.villager.celebrate neutral @s ~ ~ ~ 0.8 1.1\n`;
+  });
+  for (const h of k.hologramme ?? []) befehle.push(holo(h.x, h.y, h.z, [{ text: `${h.titel}\n`, color: 'gold', bold: true }, { text: h.text, color: 'white' }], 0.9));
+  funktionen.staende = `# Info-Stände neu setzen (idempotent; Konsole: function ${ns}:staende)\n${befehle.join('\n')}\n`;
+  return { befehle, funktionen, fortschritte };
+}
+
 export function dateien(k) {
   const s = k.spawn, g = k.weltgrenze, e = k.eroeffnung;
   const [lx1, lz1, lx2, lz2] = ladeKasten({ spawn: s, oval: k.biom, struktur: k.struktur });
@@ -67,14 +102,9 @@ ${zumSpawn}
   // Schriften über den Kisten (Serverwahl), Bestenlisten-Platzhalter, Info-Stände, Voice-Ecke
   const kisten = k.kisten.map((c) => anzeige(c.x + 0.5, c.y + 1.2, c.z + 0.5, `[${txt(c.titel + '\n', { color: c.farbe, bold: true })},${txt('Rechtsklick', { color: 'gray' })}]`));
   const besten = k.bestenlisten.map((b, i) => anzeige(b.x, b.y + 1.5, b.z, `[${txt(`Bestenliste ${i + 1}\n`, { color: 'gold', bold: true })},${txt('folgt', { color: 'gray', italic: true })}]`, ['hub_bestenliste', `hub_bestenliste_${i + 1}`]));
-  const staende = k.stände.flatMap((st, i) => {
-    const [x, y, z] = st.front;
-    f[`stand/${i + 1}`] = `tellraw @s [${txt(`[${st.titel}] `, { color: 'gold', bold: true })},${txt(st.text, { color: 'white' })}]\nplaysound minecraft:item.book.page_turn master @s ~ ~ ~ 1 1\n`;
-    return [hinweis(x + 0.5, y + 1.7, z + 0.5, st.titel, 'gold'), interaktion(x + 0.5, y, z + 0.5, `stand/${i + 1}`, 1.2, 2),
-      // Zeltschilder ohne festen Halt fallen beim Einfügen ab: dann neu setzen, danach beschriften
-      ...st.schilder.flatMap(([sx, sy, sz, blick]) => [`execute unless block ${sx} ${sy} ${sz} #minecraft:wall_signs run setblock ${sx} ${sy} ${sz} minecraft:spruce_wall_sign[facing=${blick}]`,
-        `data merge block ${sx} ${sy} ${sz} {is_waxed:1b,front_text:{messages:["",${q(st.titel)},"",""]}}`])];
-  });
+  const st8 = infoStaende(k);
+  Object.assign(f, st8.funktionen); Object.assign(adv, st8.fortschritte);
+  const staende = st8.befehle;
   const v = k.voiceEcke;
   f['stand/voice'] = `tellraw @s [${txt('[Voice Chat] ', { color: 'light_purple', bold: true })},${txt('Taste V öffnet die Einstellungen. Dort kannst du dein Mikrofon testen und die Lautstärke einstellen. Wer in der Nähe ist, hört dich.', { color: 'white' })}]\n`;
   const voice = [hinweis(v.x + 0.5, v.y + 1.7, v.z + 0.5, 'Voice-Chat-Ecke', 'light_purple'),interaktion(v.x + 0.5, v.y, v.z + 0.5, 'stand/voice', 1.2, 2)];

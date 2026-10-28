@@ -33,15 +33,23 @@ test('Eröffnung schaltet die SMP-Kiste frei (#offen in insel_zustand), schließ
   assert.doesNotMatch(f.oeffnen, /worldborder/);
 });
 
-test('Schriften über den 5 Kisten, 8 Bestenlisten, 8 Stände mit Klick und Schildern', () => {
-  assert.match(f.aufbau_ende, /summon text_display 25\.5 237\.2 -8\.5 \{text:\[\{"text":"SMP\\n","color":"gold","bold":true\},\{"text":"Rechtsklick"/);
+test('Schriften über den 5 Kisten, 8 Bestenlisten, 8 Info-Stände mit Standbetreiber, Schildern, Hologramm und Links', () => {
+  assert.ok(f.aufbau_ende.includes('summon text_display 25.5 237.2 -8.5 {text:[{"text":"SMP\\n","color":"gold","bold":true},{"text":"Rechtsklick"'));
   assert.equal(f.aufbau_ende.match(/hub_bestenliste_\d/g).length, 8);
-  assert.equal(f.aufbau_ende.match(/hub_f_stand_\d/g).length, 8);
-  assert.match(f.aufbau_ende, /^execute unless block 41 237 -18 #minecraft:wall_signs run setblock 41 237 -18 minecraft:spruce_wall_sign\[facing=west\]$/m);
-  assert.match(f.aufbau_ende, /^data merge block 41 237 -18 \{is_waxed:1b,front_text:\{messages:\["","Modpack","",""\]\}\}$/m);
-  assert.match(f['stand/8'], /LavaBuilds/);
-  assert.match(f.klick, /^execute if entity @s\[tag=hub_f_stand_1,tag=!hub_advent_zu\] on target at @s run function hub:stand\/1$/m);
-  assert.match(f.klick, /^data remove entity @s interaction$/m);
+  assert.equal((f.staende.match(/^summon villager /gm) ?? []).length, 8);
+  assert.ok(f.staende.includes('summon villager 42.5 235 -18.5 {Tags:["hub","hub_stand","hub_stand_1"],NoAI:1b,Invulnerable:1b,PersistenceRequired:1b,'));
+  assert.ok(f.staende.includes('VillagerData:{type:"minecraft:snow",profession:"minecraft:cleric",level:5},Offers:{Recipes:[]}'));
+  assert.ok(f.aufbau_ende.split('\n').includes('kill @e[tag=hub_stand]'));
+  assert.ok(f.staende.split('\n').includes('execute unless block 41 237 -18 #minecraft:wall_signs run setblock 41 237 -18 minecraft:spruce_wall_sign[facing=west]'));
+  assert.ok(f.staende.split('\n').includes('data merge block 41 237 -18 {is_waxed:1b,front_text:{messages:["","Modpack","",""]}}'));
+  assert.ok(f.staende.includes('messages:["","Winterkalender","&","Weihnachtsinsel"]'));
+  assert.equal(a['stand/3'].rewards.function, 'hub:stand/3');
+  assert.ok(f['stand/1'].includes('Kein Griefing')); // Regeln aus k.regeln
+  assert.ok(f['stand/2'].includes('"click_event":{"action":"open_url","url":"https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/tag/modpack-v2"}'));
+  assert.ok(f['stand/6'].includes('Discord beitreten: Link folgt')); // leerer Link → Platzhalter
+  assert.ok(f['stand/5'].includes('Start 27.11.'));
+  assert.ok(f.staende.includes('LavaBuilds')); // Danke als Hologramm am Dorfschild
+  assert.ok(!/hub_f_stand_\d/.test(f.aufbau_ende)); // keine Klickfläche mehr, der Dorfbewohner ist der Klick
 });
 
 test('Info-Dorfbewohner: markiert, Fortschritt mit Belohnung, Fortschritt wird zurückgenommen', () => {
@@ -78,7 +86,7 @@ test('Sichtbare Klickpunkte: Hinweis „Titel + Rechtsklick“ an Ständen, Voic
   const hinweise = f.aufbau_ende.split('\n').filter((z) => z.includes('"hub_hinweis"'));
   assert.equal(hinweise.length, 8 + 1 + 13);
   assert.ok(hinweise.every((z) => z.includes('{"text":"Rechtsklick","color":"gray"}')));
-  assert.ok(f.aufbau_ende.includes('summon text_display 42.5 236.7 -18.5 {text:[{"text":"Regeln\\n","color":"gold","bold":true}'));
+  assert.ok(f.aufbau_ende.includes('summon text_display 42.5 237.75 -18.5 {Tags:["hub","hub_stand","hub_hinweis"],billboard:"center"')); // über dem Standbetreiber
   assert.ok(f.aufbau_ende.includes('summon text_display -54.5 236.4 0.5 {text:[{"text":"Fischer\\n","color":"green","bold":true}'));
   assert.ok(f.sekunde.includes('execute at @e[type=text_display,tag=hub_hinweis] run particle minecraft:end_rod'));
   assert.ok(f.aufbau_ende.includes('\nsetblock -50 234 11 minecraft:air\n'));

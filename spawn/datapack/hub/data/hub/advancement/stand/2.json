@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "klick": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:villager",
+            "minecraft:nbt": "{Tags:[\"hub_stand_2\"]}"
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "hub:stand/2"
+  }
+}

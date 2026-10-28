@@ -1,2 +1,3 @@
-tellraw @s [{"text":"[Regeln] ","color":"gold","bold":true},{"text":"Sei fair und freundlich. Kein Griefing, kein Stehlen, keine Cheats oder X-Ray. Die ausführlichen Regeln stehen im Discord.","color":"white"}]
-playsound minecraft:item.book.page_turn master @s ~ ~ ~ 1 1
+advancement revoke @s only hub:stand/1
+tellraw @s [{"text":"Ratsherrin Holla ","color":"gold","bold":true},{"text":"(Regeln)\n","color":"yellow"},{"text":"• Sei fair und freundlich zu allen.\n• Kein Griefing, kein Stehlen, keine Fallen für andere.\n• Keine Cheats, kein X-Ray, keine Hack-Clients.\n• Bauten anderer nur mit Erlaubnis betreten.\n","color":"white"},{"text":"Be fair and friendly – no griefing, stealing or cheats. Full rules on Discord.","color":"gray","italic":true},{"text":"\n"},{"text":"[Ganze Regeln im Discord: Link folgt]","color":"gray"}]
+playsound minecraft:entity.villager.celebrate neutral @s ~ ~ ~ 0.8 1.1

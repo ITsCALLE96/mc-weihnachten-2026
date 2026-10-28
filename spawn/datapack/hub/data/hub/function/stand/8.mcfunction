@@ -1,2 +1,3 @@
-tellraw @s [{"text":"[Danke] ","color":"gold","bold":true},{"text":"Dieses Dorf: „Fantasy Village“ von LavaBuilds (BuiltByBit). Danke an alle Mod-Autoren und an euch fürs Mitspielen!","color":"white"}]
-playsound minecraft:item.book.page_turn master @s ~ ~ ~ 1 1
+advancement revoke @s only hub:stand/8
+tellraw @s [{"text":"Plätzchenbäckerin Frieda ","color":"gold","bold":true},{"text":"(Winterkalender & Weihnachtsinsel)\n","color":"yellow"},{"text":"Ab 01.12. öffnet täglich ein Türchen am Kalender auf der Spawn-Insel. Im Norden wächst die Weihnachtsinsel mit euren Spenden: Ender-Kiste in der Mitte der Spark-Insel, Feld „Weihnachtsinsel“. Jede Stufe bringt Tränke für alle, 3 Stück je Stufe.\n","color":"white"},{"text":"From 1 Dec a calendar door opens daily. Donate via the ender chest (field \"Weihnachtsinsel\") – each stage gives everyone 3 potions.","color":"gray","italic":true}]
+playsound minecraft:entity.villager.celebrate neutral @s ~ ~ ~ 0.8 1.1
