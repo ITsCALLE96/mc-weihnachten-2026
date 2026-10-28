@@ -12,6 +12,10 @@ export const FARBEN = {
   braun: [112, 72, 40], braun_hell: [160, 112, 70], gelb: [255, 226, 90], tuerkis: [60, 200, 200],
   eisblau: [186, 222, 240], creme: [242, 224, 186], schoko: [78, 46, 26], karamell: [196, 128, 48],
   apfelrot: [160, 26, 30], grau: [120, 124, 130], rosa: [236, 150, 170], wolle_rot: [176, 36, 44],
+  // Rentier und Schlitten (28.10.): Fell in drei Tönen, Geweih, Hufe, Schlittenholz, Sack
+  fell_dunkel: [82, 52, 32], fell: [122, 82, 52], fell_hell: [168, 126, 88], fell_bauch: [222, 204, 170],
+  geweih: [186, 160, 120], geweih_hell: [222, 204, 168], huf: [40, 32, 28], holz_rot: [150, 22, 30], polster: [96, 18, 30],
+  sack: [150, 110, 66], sack_dunkel: [110, 78, 46],
 };
 const NAMEN = Object.keys(FARBEN);
 
@@ -93,22 +97,90 @@ function schneemann() {
   ];
 }
 
-function rentier() {
+// Rentier (überarbeitet 28.10., vorher klotzig): schlanker Rumpf mit Brustfell und hellem Spiegel, zweigliedrige Beine
+// mit Hufen, schräg nach vorn gereckter Hals, Kopf mit Schnauze, verzweigtes Geweih (Stange, Augspross, Mittelspross,
+// Schaufel hinten), Geschirr mit Glöckchen. Vorne = −z, Boden y 0, Mitte x 8. Drehungen nur in 22,5°-Schritten.
+const dreh = (q, achse, winkel, origin) => ({ ...q, rotation: { angle: winkel, axis: achse, origin } });
+function rentier(nase = 'rudolph') {
+  const bein = (x, z, hinten) => [
+    quader([x - (hinten ? 0.3 : 0), 6.5, z - (hinten ? 0.4 : 0)], [x + 2 + (hinten ? 0.3 : 0), 11, z + 2 + (hinten ? 0.4 : 0)], 'fell'), // Oberschenkel
+    quader([x + 0.25, 1, z + 0.25], [x + 1.75, 6.5, z + 1.75], 'fell_dunkel'), // Lauf
+    quader([x + 0.1, 0, z - 0.2], [x + 1.9, 1, z + 1.9], 'huf'),
+    quader([x + 0.15, 1, z + 0.15], [x + 1.85, 1.6, z + 1.85], 'fell_bauch'), // Fesselhaar
+  ];
+  const stange = (s) => { // s = −1 linke Stange (x klein), +1 rechte (gespiegelt)
+    const x = (v) => (s < 0 ? v : 16 - v);
+    const box = (x0, y0, z0, x1, y1, z1, f = 'geweih') => quader([Math.min(x(x0), x(x1)), y0, z0], [Math.max(x(x0), x(x1)), y1, z1], f);
+    return [
+      box(6.2, 24, -3.2, 7.2, 26.5, -2.2), // Rose / Ansatz
+      box(4.2, 26, -3.2, 7.2, 27, -2.2), // Stange nach außen
+      box(4.2, 27, -3.2, 5.1, 30.5, -2.2), // nach oben
+      box(4.2, 29.5, -2.2, 5.1, 30.5, 0.8), // nach hinten geschwungen
+      box(3.4, 30.5, -0.2, 4.6, 32, 1.2, 'geweih_hell'), box(4.6, 30.5, -0.2, 5.6, 31.5, 1.2, 'geweih_hell'), // Schaufel hinten
+      box(6.2, 25.6, -5.4, 7.0, 26.4, -3.2), box(6.2, 26.4, -5.4, 7.0, 27.4, -4.6, 'geweih_hell'), // Augspross nach vorn
+      box(2.2, 28.4, -3.0, 4.2, 29.2, -2.4), box(2.2, 29.2, -3.0, 2.9, 31, -2.4, 'geweih_hell'), // Mittelspross außen
+      box(4.3, 30.5, -3.1, 5.0, 32, -2.3, 'geweih_hell'), // Spitze der Stange
+    ];
+  };
   return [
-    quader([4, 8, 2], [12, 14, 15], 'braun'), // Rumpf
-    ...[[4.5, 2.5], [9.5, 2.5], [4.5, 12.5], [9.5, 12.5]].map(([x, z]) => quader([x, 0, z], [x + 2, 8, z + 2], 'braun_hell')),
-    quader([6, 12, 0], [10, 18, 3.5], 'braun'), // Hals
-    quader([5.5, 17, -3.5], [10.5, 21, 2], 'braun'), // Kopf
-    leuchtend([7, 17.5, -4.5], [9, 19.5, -3.5], 'rot'), // Nase
-    quader([6, 19.5, -3.6], [7, 20.5, -3.5], 'schwarz'), quader([9, 19.5, -3.6], [10, 20.5, -3.5], 'schwarz'),
-    ...[[5.5, 4], [9.5, 12]].flatMap(([x, xo]) => [
-      quader([x, 21, -0.5], [x + 1, 25, 0.5], 'braun_hell'),
-      quader([Math.min(x, xo), 24, -0.5], [Math.max(x + 1, xo), 25, 0.5], 'braun_hell'),
-      quader([x, 23, -2.5], [x + 1, 24, -0.5], 'braun_hell'),
-    ]),
-    quader([7, 12, 14.5], [9, 14, 16], 'weiss'), // Schwanz
-    quader([3.9, 12, 1.9], [12.1, 13, 15.1], 'rot'), // Geschirr
-    quader([7.25, 10.5, -0.6], [8.75, 12, 0.4], 'gold'), // Glöckchen
+    quader([4, 10, 1], [12, 17, 18], 'fell'), // Rumpf
+    quader([4.6, 17, 2], [11.4, 17.6, 17], 'fell_dunkel'), // Rückenlinie (rundet die Kante ab)
+    quader([4.6, 9.4, 3], [11.4, 10, 16], 'fell_bauch'), // Bauch
+    quader([4.4, 10.5, 17.9], [11.6, 16, 18.2], 'fell_bauch'), // heller Spiegel
+    dreh(quader([7, 14.5, 18], [9, 16.5, 20], 'fell_bauch'), 'x', 22.5, [8, 15.5, 18]), // Stummelschwanz
+    quader([4.5, 10, -0.2], [11.5, 14.5, 2.2], 'fell_hell'), quader([5.2, 8.8, 0.1], [10.8, 10.5, 2], 'fell_bauch'), // Brustfell, unten zottig
+    ...bein(4.5, 2, false), ...bein(9.5, 2, false), ...bein(4.5, 15, true), ...bein(9.5, 15, true),
+    dreh(quader([6, 14, -2], [10, 22, 2.5], 'fell'), 'x', -22.5, [8, 14, 1]), // Hals, nach vorn gereckt
+    dreh(quader([6.4, 14, -2.6], [9.6, 20, -1.5], 'fell_bauch'), 'x', -22.5, [8, 14, 1]), // Kehlfell
+    quader([5.6, 20.5, -6.5], [10.4, 24.6, -1], 'fell'), // Kopf
+    quader([6.2, 20.3, -9.4], [9.8, 23.2, -6], 'fell_hell'), // Schnauze
+    quader([6.6, 20, -9], [9.4, 20.6, -6.5], 'fell_dunkel'), // Unterkiefer
+    nase === 'rudolph' ? leuchtend([7, 21.6, -10], [9, 23.2, -9.2], 'rot') : quader([7.1, 21.8, -9.8], [8.9, 23, -9.3], 'schwarz'),
+    quader([5.5, 22.8, -5.4], [5.7, 23.8, -4.2], 'schwarz'), quader([10.3, 22.8, -5.4], [10.5, 23.8, -4.2], 'schwarz'), // Augen
+    dreh(quader([3.2, 23.4, -2.6], [5.6, 24.4, -1.4], 'fell_hell'), 'z', 22.5, [5.6, 23.9, -2]), // Ohren
+    dreh(quader([10.4, 23.4, -2.6], [12.8, 24.4, -1.4], 'fell_hell'), 'z', -22.5, [10.4, 23.9, -2]),
+    ...stange(-1), ...stange(1),
+    dreh(quader([5.7, 15.2, -1.3], [10.3, 16.4, 2.7], 'rot'), 'x', -22.5, [8, 14, 1]), // Halsband
+    quader([7.3, 13.8, -1.6], [8.7, 15.2, -0.6], 'gold'), // Glöckchen
+    quader([3.8, 9.8, 6], [12.2, 17.3, 7.4], 'rot'), quader([5, 17.1, 5.2], [11, 17.8, 8.2], 'rot_dunkel'), // Bauchgurt, Polster
+    ...[3.7, 12.3].map((x) => quader([x - 0.5, 12, 6.2], [x + 0.5, 13, 7.2], 'gold')), // Schellen am Gurt
+  ];
+}
+
+// Schlitten (28.10.): geschwungene Goldkufen mit Locke vorne, roter Kasten mit hoher Lehne und Goldkante,
+// Polstersitz, Geschenkesack und drei Päckchen. Vorne = −z, Boden y 0.
+function schlitten() {
+  const kufe = (x) => [
+    quader([x, 0, -1], [x + 1, 1, 27], 'gold'),
+    quader([x, 1, -3], [x + 1, 2, -1], 'gold'), quader([x, 2, -4.5], [x + 1, 4.5, -3], 'gold'),
+    quader([x, 4.5, -4], [x + 1, 6, -2.5], 'gold'), quader([x, 5, -2.5], [x + 1, 6, -1], 'gold_dunkel'), // Locke vorne
+    quader([x, 1, 27], [x + 1, 2.5, 28], 'gold'), // hinten leicht hochgezogen
+    ...[2, 12, 22].map((z) => quader([x + 0.1, 1, z], [x + 0.9, 5, z + 1], 'gold_dunkel')), // Streben
+  ];
+  const seite = (x) => [
+    quader([x, 5, 0], [x + 1, 10, 13], 'holz_rot'), quader([x, 5, 13], [x + 1, 14, 26], 'holz_rot'),
+    quader([x, 10, 6], [x + 1, 11.5, 13], 'holz_rot'), // Schwung zur Lehne hin
+    quader([x - 0.2, 10, 0], [x + 1.2, 10.6, 6], 'gold'), quader([x - 0.2, 11.5, 6], [x + 1.2, 12.1, 13], 'gold'), quader([x - 0.2, 14, 13], [x + 1.2, 14.6, 26.2], 'gold'),
+    quader([x - 0.1, 7, 4], [x + 1.1, 8, 22], 'gold_dunkel'), // Zierleiste
+  ];
+  const paeckchen = (x, z, g, papier, band) => [
+    quader([x, 6, z], [x + g, 6 + g, z + g], papier),
+    quader([x + g / 2 - 0.4, 6, z - 0.05], [x + g / 2 + 0.4, 6.1 + g, z + g + 0.05], band),
+    quader([x - 0.05, 6, z + g / 2 - 0.4], [x + g + 0.05, 6.1 + g, z + g / 2 + 0.4], band),
+    quader([x + g / 2 - 1, 6 + g, z + g / 2 - 0.5], [x + g / 2 + 1, 6.8 + g, z + g / 2 + 0.5], band), // Schleife
+  ];
+  return [
+    ...kufe(2), ...kufe(13),
+    quader([1.5, 5, 0], [14.5, 6, 26], 'holz_rot'), // Boden
+    ...seite(1), ...seite(14),
+    quader([1, 5, -1.5], [15, 9, 0.5], 'holz_rot'), quader([2, 9, -1], [14, 10.5, 0.5], 'holz_rot'), // Bug
+    quader([0.8, 10.5, -1.2], [15.2, 11.1, 0.7], 'gold'), leuchtend([7, 8, -1.9], [9, 10, -1.4], 'gelb'), // Laterne vorne
+    quader([1, 5, 25], [15, 17, 26.5], 'holz_rot'), quader([0.8, 17, 24.8], [15.2, 17.6, 26.7], 'gold'), // Lehne
+    quader([2, 6, 15], [14, 9.5, 24], 'polster'), quader([2, 9.5, 23], [14, 16, 25], 'polster'), // Sitz und Rückenpolster
+    quader([3.6, 6, 3.6], [12.4, 11, 12.4], 'sack'), quader([3, 7, 5], [13, 10, 11], 'sack'), quader([5, 7, 3], [11, 10, 13], 'sack'), // bauchiger Sack
+    quader([4.4, 11, 4.4], [11.6, 13, 11.6], 'sack'), quader([5.8, 13, 5.8], [10.2, 14.2, 10.2], 'sack_dunkel'),
+    quader([5.6, 14.2, 5.6], [10.4, 14.8, 10.4], 'gold'), quader([6.2, 14.8, 6.2], [9.8, 16.2, 9.8], 'sack'), quader([5.6, 16.2, 6.6], [7, 16.8, 9.4], 'sack_dunkel'), quader([9, 16.2, 6.6], [10.4, 16.8, 9.4], 'sack_dunkel'), // Kordel, offener Zipfel
+    ...paeckchen(10.6, 12.2, 2.6, 'gruen', 'rot'), ...paeckchen(2.4, 0.8, 2.8, 'blau', 'silber'), ...paeckchen(10.8, 0.8, 2.4, 'gold', 'rot'),
   ];
 }
 
@@ -313,7 +385,7 @@ export const DEKO = {
   kugel_rot: kugel('rot', 'gold'), kugel_gold: kugel('gold', 'weiss'), kugel_blau: kugel('blau', 'silber'),
   kugel_silber: kugel('silber', 'rot'), kugel_gruen: kugel('gruen', 'gold'),
   birne_rot: birne('rot'), birne_gelb: birne('gelb'), birne_blau: birne('blau'), birne_gruen: birne('gruen'),
-  stern: stern(), lichterkette_deko: lichterkette(), schneemann: schneemann(), rentier: rentier(),
+  stern: stern(), lichterkette_deko: lichterkette(), schneemann: schneemann(), rentier: rentier(), rentier_braun: rentier('braun'), schlitten: schlitten(),
 };
 
 export function modell(elemente) {
