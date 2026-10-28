@@ -9,11 +9,11 @@ from pathlib import Path
 
 # (Suchmuster, Ersatz, schon-gesetzt-Muster) – zweiter Lauf ändert nichts
 WERTE = [
-    (r"(?m)^(\s*player-chat=)false", r"true", r"(?m)^\s*player-chat=true"),
-    (r"(?m)^(\s*player-command=)false", r"true", r"(?m)^\s*player-command=true"),
-    (r'(?m)^(\s*command="prism purge start before:)6w( --nodefaults")', r"\g<1>90d", r"before:90d --nodefaults"),
-    (r'(?m)^(\s*cron=")0 0 0 \? \* \* \*(")', r"\g<1>0 0 5 ? * * *", r'cron="0 0 5 \? \* \* \*"'),
-    (r'(?m)^(\s*default-locale=")en_US(")', r"\g<1>de_DE", r'default-locale="de_DE"'),
+    (r"(?m)^(\s*player-chat=)false", r"\g<1>true", r"(?m)^\s*player-chat=true"),
+    (r"(?m)^(\s*player-command=)false", r"\g<1>true", r"(?m)^\s*player-command=true"),
+    (r'(?m)^(\s*command="prism purge start before:)6w( --nodefaults")', r"\g<1>90d\g<2>", r"before:90d --nodefaults"),
+    (r'(?m)^(\s*cron=")0 0 0 \? \* \* \*(")', r"\g<1>0 0 5 ? * * *\g<2>", r'cron="0 0 5 \? \* \* \*"'),
+    (r'(?m)^(\s*default-locale=")en_US(")', r"\g<1>de_DE\g<2>", r'default-locale="de_DE"'),
 ]
 
 datei = Path(sys.argv[1])

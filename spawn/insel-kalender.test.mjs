@@ -50,7 +50,7 @@ test('Steigerung 28.10.: Zugaben je Woche, Essen je 64 mit stärkerer Wirkung, F
   assert.match(gives(3)[1], /^give @s minecraft:experience_bottle 4$/);
   assert.match(gives(12)[1], /^give @s minecraft:experience_bottle 8$/);
   assert.match(gives(15)[1], /weihnachten:bratapfel.*absorption.* 8$/);
-  assert.match(gives(21)[1], /weihnachten:christstollen.*nutrition:6,saturation:14\.4.*hinweis\.stollen.* 4$/);
+  assert.match(gives(21)[1], /weihnachten:christstollen.*hinweis\.stollen.*nutrition:6,saturation:14\.4.* 4$/);
   assert.equal(gives(23).length, 3);
   assert.match(gives(24)[1], /christstollen.* 8$/);
   assert.match(gives(24)[2], /firework_rocket.* 16$/);
