@@ -71,6 +71,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private final WetterRhythmus wetter = new WetterRhythmus(this);
     private final EisSperre eisSperre = new EisSperre();
     private final Pruefwerkzeug pruefwerkzeug = new Pruefwerkzeug(this);
+    private final Neujahr neujahr = new Neujahr(this);
     /** Nicknames/Clan-Tags, nur mit LuckPerms (sonst null) */
     private Namen namen;
     /** täglich einmal ab dieser Uhrzeit (höchstens eine Stunde später) diese Konsolenbefehle, z. B. CoreProtect-Purge; null = aus */
@@ -121,6 +122,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(wetter, this);
         getServer().getPluginManager().registerEvents(eisSperre, this);
         getServer().getPluginManager().registerEvents(pruefwerkzeug, this);
+        getServer().getPluginManager().registerEvents(neujahr, this);
         // Hub: einmal pro Sekunde schauen, ob das Datapack die Eröffnung ausgelöst hat. Legt die Datei nur an, löscht sie nie
         // (eine zurückgesetzte Hub-Welt soll das SMP nicht wieder schließen; schließen nur per /serverwahl schliessen)
         getServer().getScheduler().runTaskTimer(this, () -> {
@@ -235,6 +237,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             }
         }
         pruefwerkzeug.laden(getConfig().getConfigurationSection("pruefwerkzeug"));
+        neujahr.laden(getConfig().getConfigurationSection("neujahr"));
         xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
         if (namen != null) {
             namen.laden(getConfig().getConfigurationSection("namen"));
@@ -277,6 +280,26 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             return true;
         }
         if (command.getName().equals("serverwahl")) {
+            if (args.length >= 2 && args[0].equals("feuerwerk")) {
+                String antwort = switch (args[1]) {
+                    case "test" -> {
+                        Integer sek = null;
+                        if (args.length >= 3) {
+                            try {
+                                sek = Integer.parseInt(args[2]);
+                            } catch (NumberFormatException ex) {
+                                yield "Sekunden als Zahl, z. B. /serverwahl feuerwerk test 30";
+                            }
+                        }
+                        yield neujahr.test(sek);
+                    }
+                    case "stopp" -> neujahr.stopp();
+                    case "status" -> neujahr.status();
+                    default -> "/serverwahl feuerwerk test [sekunden] | stopp | status";
+                };
+                sender.sendMessage(Component.text(antwort, NamedTextColor.GOLD));
+                return true;
+            }
             if (args.length == 1 && args[0].equals("reload")) {
                 laden();
                 sender.sendMessage(Component.text("serverwahl neu geladen (" + kisten.size() + " Kisten, " + portale.size() + " Portale)", NamedTextColor.GREEN));

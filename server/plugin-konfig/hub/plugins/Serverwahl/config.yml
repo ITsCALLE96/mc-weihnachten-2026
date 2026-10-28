@@ -61,3 +61,20 @@ namen:
   abklingzeit-sekunden: 10
   # Grundform (klein, 0→o, 1/l→i, 3→e, 4→a, 5→s, 7→t, ohne _/-) darf keins dieser Wörter sein (ab 5 Buchstaben auch nicht enthalten)
   sperrliste: [admin, moderator, mod, server, konsole, console, owner, staff, team, support, herobrine]
+# Neujahrsfeuerwerk (Pascal 28.10.): echte Uhr, für alle online Spieler, wo sie gerade sind. Vorher Nacht + klares Wetter, Countdown als Titel.
+# Gegen Lag teilen sich Spieler in gruppen-radius die Raketen; je runde-ticks je Gruppe raketen-je-runde Raketen (Standard ≈ 1,3/s je Gruppe).
+# Raketen ohne Schaden, nicht im Nether. Test: /serverwahl feuerwerk test [sekunden] | stopp | status
+neujahr:
+  aktiv: true
+  zeitpunkt: "2027-01-01T00:00"
+  zeitzone: Europe/Berlin
+  nacht-vorher-sekunden: 120
+  countdown-sekunden: 10
+  dauer-sekunden: 120
+  runde-ticks: 30
+  raketen-je-runde: 2
+  gruppen-radius: 32
+  abstand-min: 8
+  abstand-max: 22
+  titel: "<gold><bold>Frohes neues Jahr 2027!"
+  untertitel: ""

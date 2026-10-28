@@ -11,8 +11,8 @@ commands:
     aliases: [lobby]
     permission: serverwahl.hub
   serverwahl:
-    description: "serverwahl reload | menue <kategorie> | oeffnen | schliessen | status"
-    usage: "/serverwahl reload | menue <kategorie> | oeffnen | schliessen | status"
+    description: "serverwahl reload | menue <kategorie> | oeffnen | schliessen | status | feuerwerk test [sek]|stopp|status"
+    usage: "/serverwahl reload | menue <kategorie> | oeffnen | schliessen | status | feuerwerk test [sek]|stopp|status"
     permission: serverwahl.admin
   nick:
     description: "Eigenen Nickname setzen: /nick <name> | /nick reset (Moderation: /nick info <name>, /nick reset <spieler>)"

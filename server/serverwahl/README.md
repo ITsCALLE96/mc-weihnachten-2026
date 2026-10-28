@@ -59,6 +59,14 @@ Bauen mit LuckPerms: `LUCKPERMS_JAR=<pfad zum LuckPerms-Bukkit-Jar> CP_TRENNER='
 
 `taeglich:` führt einmal am Tag ab `uhrzeit` (Fenster 1 h) Konsolenbefehle aus, auf dem SMP `co purge t:90d` um 05:00. Merker `plugins/Serverwahl/taeglich.txt`.
 
+## Neujahrsfeuerwerk (28.10.)
+
+`neujahr:` (Hub + SMP): zum `zeitpunkt` (echte Uhr, Standard 01.01.2027 00:00 Europe/Berlin) Countdown 10…1 als Titel, dann Titel „Frohes neues Jahr 2027!“
+und `dauer-sekunden` lang Feuerwerk um alle online Spieler (nicht im Nether). `nacht-vorher-sekunden` vorher Nacht (`time 18000`) und klares Wetter,
+danach normaler Tageszyklus. Gegen Lag teilen sich Spieler innerhalb `gruppen-radius` die Raketen: je `runde-ticks` je Gruppe `raketen-je-runde`
+(Standard 2 je 1,5 s ≈ 160 Raketen je Gruppe in 2 min), Abstand `abstand-min`…`abstand-max` Blöcke, bunt und zufällig. Raketen machen keinen Schaden.
+Merker `plugins/Serverwahl/neujahr.txt`: nach einem Neustart im Fenster läuft nur der Rest. Test: `/serverwahl feuerwerk test [sekunden]`, `… stopp`, `… status`.
+
 ## Konfiguration
 
 `plugins/Serverwahl/config.yml`, die Dateien dafür liegen in `../plugin-konfig/hub/` und `../plugin-konfig/smp/`. Nach Änderungen `/serverwahl reload` (Op).
