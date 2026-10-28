@@ -222,6 +222,18 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         spawnElytra.laden(getConfig().getConfigurationSection("spawn-elytra"));
         wetter.laden(getConfig().getConfigurationSection("wetter-rhythmus"));
         eisSperre.laden(getConfig().getConfigurationSection("eis-sperre"));
+        // Spielregeln bei jedem Start/Reload setzen (Winter: max_snow_accumulation_height), damit sie nicht nur per Hand in einer Welt stehen
+        ConfigurationSection gr = getConfig().getConfigurationSection("spielregeln");
+        if (gr != null) {
+            for (String regel : gr.getKeys(false)) {
+                String befehl = "execute in minecraft:overworld run gamerule " + regel + " " + gr.get(regel);
+                Bukkit.getScheduler().runTask(this, () -> {
+                    if (!Bukkit.dispatchCommand(Bukkit.getConsoleSender(), befehl)) {
+                        getLogger().warning("Spielregel nicht gesetzt: " + befehl);
+                    }
+                });
+            }
+        }
         pruefwerkzeug.laden(getConfig().getConfigurationSection("pruefwerkzeug"));
         xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
         if (namen != null) {

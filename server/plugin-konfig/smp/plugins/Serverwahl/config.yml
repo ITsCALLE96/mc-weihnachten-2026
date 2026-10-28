@@ -104,4 +104,9 @@ pruefwerkzeug:
 # Nur natürliche Eisbildung; Frostläufer, gesetztes Eis und die von Natur aus gefrorenen Biome bleiben. Nach der Season mit dem Datapack aus
 eis-sperre:
   aktiv: true
-  biome: [ocean, deep_ocean, cold_ocean, deep_cold_ocean, lukewarm_ocean, deep_lukewarm_ocean, warm_ocean, river]
+  # beach/stony_shore: Wasser an der Küste gehört dort zum Strand-Biom (Stichprobe 28.10.: Eis nur in beach, plains, forest)
+  biome: [ocean, deep_ocean, cold_ocean, deep_cold_ocean, lukewarm_ocean, deep_lukewarm_ocean, warm_ocean, river, beach, stony_shore]
+# Spielregeln der Overworld, bei jedem Start und /serverwahl reload gesetzt (Pascal 28.10.: Schnee höchstens ein halber Block = 4 Lagen).
+# Nach der Season: max_snow_accumulation_height wieder 1 (Vanilla)
+spielregeln:
+  max_snow_accumulation_height: 4

@@ -10,7 +10,7 @@ Pascal 27.10.: echter Winter auf dem SMP mit **Kinda Winter Mode**, nach der Sea
 | Autor, Lizenz | asapacey2, **CC-BY-4.0**: Namensnennung Pflicht (Autor, Link, Lizenz, Hinweis auf Änderung). Steht in `NAMENSNENNUNG.txt` im Pack; zusätzlich in der Ankündigung/Wiki nennen |
 | Format | `pack_format` 121 = Datenformat von 26.3 (aus dem Server-Jar geprüft) |
 | Inhalt (geprüft gegen Vanilla 26.3) | 45 Biom-Dateien. **Nur** `temperature` auf 0.0, bei 7 Trockenbiomen (Wüste, Savanne, Badlands) `has_precipitation` auf true. Spawns, Features, Farben sonst identisch mit Vanilla 26.3 → Mob-Spawns und Generierung unverändert |
-| Unsere Fassung | `server/winter/pack-bauen.sh`: **alle 45 Biome**, auch Ozeane und Fluss (Pascal 28.10.: nirgends Regen; vorher ohne Meer → über dem Wasser Regen neben Schnee, Test 28.10.). Das Zufrieren von Ozeanen/Fluss verhindert serverwahl (`eis-sperre`). `OHNE_MEER=1` baut die alte Fassung (37 Biome) |
+| Unsere Fassung | `server/winter/pack-bauen.sh`: **alle 45 Biome**, auch Ozeane und Fluss (Pascal 28.10.: nirgends Regen; vorher ohne Meer → über dem Wasser Regen neben Schnee, Test 28.10.). Das Zufrieren von Ozeanen/Fluss und Küste (beach, stony_shore) verhindert serverwahl (`eis-sperre`; Stichprobe 28.10.: Eis nur noch an Seen in plains/forest und am Strand → Strand ergänzt). `OHNE_MEER=1` baut die alte Fassung (37 Biome) |
 
 **Wirkungsweise:** Chunks speichern nur die Biom-ID, die Temperatur kommt aus der Registry. Server **und** Client rechnen mit dem kalten Wert
 (Registry geht beim Login an den Client): Niederschlag ist überall Schnee, und der Server legt echte Schneeschichten und friert Wasser.
@@ -22,7 +22,7 @@ Schnee und Eis entstehen nur in **Chunks, die gerade getickt werden**, also in S
 
 | Was | Während der Season | Nach dem Deaktivieren |
 |---|---|---|
-| Schneeschicht (1 Lage, Gamerule `max_snow_accumulation_height` Standard 1) | bei Niederschlag auf allen Oberflächen mit Himmel, nicht auf Farmland, Glas, Treppen u. ä. | **bleibt liegen.** Schnee schmilzt in Vanilla nur durch Blocklicht > 11 (Fackel daneben), nicht durch Sonne oder warmes Biom |
+| Schneeschicht (bis **4 Lagen = halber Block**, Gamerule `max_snow_accumulation_height` 4, Pascal 28.10., setzt serverwahl `spielregeln:` bei jedem Start; Vanilla 1) | bei Niederschlag auf allen Oberflächen mit Himmel, nicht auf Farmland, Glas, Treppen u. ä. | **bleibt liegen.** Schnee schmilzt in Vanilla nur durch Blocklicht > 11 (Fackel daneben), nicht durch Sonne oder warmes Biom |
 | Eis auf Seen/Teichen (Wasserquelle an der Oberfläche, Himmel, Blocklicht < 10) | friert nach und nach zu, auch ohne Niederschlag | **bleibt.** Schmilzt ebenfalls nur durch Blocklicht |
 | Ozeane und Fluss | Schnee statt Regen, **kein Zufrieren**: serverwahl bricht dort die natürliche Eisbildung ab (`BlockFormEvent`, Wasser → Eis, nur in den 8 Biomen). Seen in anderen Biomen frieren weiter zu. Kein Schnee auf dem Wasser (Schnee braucht festen Boden) | – |
 | Felder | Farmland bekommt keinen Schnee; offene Bewässerungsrinnen ohne Licht **frieren zu → Farmland trocknet aus, Pflanzen fallen ab** | bleibt so, bis Eis weg |
