@@ -58,4 +58,5 @@ steht der Mob in der Grundform da.
   Enderman schreiend, Warden brüllt (Animation alle 10 s neu). Plünderer und Piglin halten eine geladene Armbrust. Swell des Creepers ginge nur mit
   Explosion – stattdessen gibt es den geladenen Creeper als Variante
 - **Kampf-Ecke** statt Arena und Geschoss-Galerie: 24 × 24 bei 52/−75, Schneeboden, Packeis-Rand, Schild, `function zoo:menue`
-- **Alten Zoo wegräumen** (einmalig): `function zoo:alt_weg` (Ecke 120/−100, Hallen, Galerie, Arena 120/−160)
+- **Alten Zoo wegräumen** (einmalig): `function zoo:alt_weg` (Ecke 1984/−140 samt Arena und Ecke 120/−100 samt Hallen, Galerie, Arena 120/−160). Läuft in drei Schritten: Chunks laden → nach 5 s Mobs in den Void und `kill`, Flächen leeren → nach weiteren 5 s entladen. Erst nach ~15 s (Meldung „Alte Zoo-Lagen geräumt“) `function archiv:aufbau`, sonst nimmt `alt_weg3` dem Neuaufbau die Forceloads weg. Die großen `fill`s lösen einmal den Watchdog-Hinweis „not responded for 10 seconds“ aus – harmlos
+- Warum so: Ein Teleport im selben Tick wie `forceload add` erreicht nichts (Chunks noch nicht geladen), und Mobs mit viel Leben (Drache, Warden, Wither) überleben den Void einige Sekunden und bleiben beim Entladen bei y −500 gespeichert. `zoo:aufbau2` räumt deshalb zuerst alle geladenen `zoo`-Mobs ab

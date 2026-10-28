@@ -225,7 +225,10 @@ aufbau += [
 # Entfernen ohne Tod-Effekte (kill ließ Slimes/Magmawürfel sich teilen, dazu Drops und XP): Größe 0, dann in den Void
 WEG = ["execute as @e[tag={t},type=minecraft:slime] run data merge entity @s {{Size:0}}",
        "execute as @e[tag={t},type=minecraft:magma_cube] run data merge entity @s {{Size:0}}",
-       "execute as @e[tag={t}] at @s run tp @s ~ -500 ~"]
+       "execute as @e[tag={t}] at @s run tp @s ~ -500 ~",
+       # kill gleich hinterher: Drache, Warden, Wither … überleben den Void sonst Sekunden lang und bleiben beim Entladen bei y −500 gespeichert
+       # (Offline-Scan 28.10.: 14 Stück). Beute und Erfahrung fallen dort ins Nichts
+       "kill @e[tag={t}]"]
 
 
 def weg(tag):
@@ -237,20 +240,25 @@ abbau = weg("zoo") + weg("zoo_live") + kasten_leeren(ax - R, ax + R, az - R, az 
 for zs in range(min(z1, az - R - 1), z2 + 1, 60):
     abbau.append(f"forceload remove {x1} {zs} {x2} {min(zs + 59, z2)}")
 
-# Einmalig: alter Zoo (28.10. vormittags: Ecke 120/−100, Hallen bis y −40, Galerie bis z 112, Arena 120/−160) und die Hallen-Hülle von Spawn & Welt
-alt = weg("zoo") + weg("zoo_live")
-for zs in range(-110, 117, 60):
-    ze = min(zs + 59, 116)
-    alt.append(f"forceload add 106 {zs} 270 {ze}")
-alt.append("forceload add 88 -192 152 -128")
-alt.append("schedule function zoo:alt_weg2 60t")
-alt2 = kasten_leeren(106, 270, -110, 116, Y, Y + 26) + kasten_leeren(88, 152, -192, -128, Y, Y + 42)
-alt2 += [f"fill 106 {Y - 1} {zs} 270 {Y - 1} {min(zs + 59, 116)} minecraft:grass_block" for zs in range(-110, 117, 60)]
-alt2 += [f"fill 88 {Y - 1} -192 152 {Y - 1} -128 minecraft:grass_block"]
+# Einmalig: alte Zoo-Lagen wegräumen (Leitung 28.10.: 104 Ausreißer). Die Entities dort müssen erst GELADEN sein – ein tp im selben Tick wie
+# forceload add erwischt nichts (so blieben die alten Mobs stehen). Deshalb: laden, nach 5 s Mobs in den Void und Flächen leeren, nach weiteren 5 s entladen.
+#  - Fassung 1 (vormittags): Zoo-Ecke 1984/−140 (x 1980…2108, z −146…−19), Arena 1984/−200 (±31)
+#  - Fassung 2 (mittags): Ecke 120/−100 (x 106…270, z −110…116, Hallen bis y −34), Arena 120/−160 (±31)
+ALT = [(1950, 2110, -235, -15, 42), (88, 270, -195, 116, 42)]
+alt, alt2 = [], weg("zoo") + weg("zoo_live")
+for xa, xb, za, zb, hoehe in ALT:
+    for zs in range(za, zb + 1, 60):
+        ze = min(zs + 59, zb)
+        alt.append(f"forceload add {xa} {zs} {xb} {ze}")
+        alt2.append(f"fill {xa} {Y - 1} {zs} {xb} {Y - 1} {ze} minecraft:grass_block")
+    alt2 += kasten_leeren(xa, xb, za, zb, Y, Y + hoehe)
+alt += ["tellraw @a {\"text\":\"Alte Zoo-Lagen werden geladen, Räumen in 5 s …\",\"color\":\"gray\"}", "schedule function zoo:alt_weg2 100t"]
 # Reste der Hallen-Hülle von Spawn & Welt räumt ihr eigener Tag-Eintrag ab (einmalig, solange ihr Datapack zoo-halle noch liegt)
 alt2.append("function #zoo:halle")
-alt2 += [f"forceload remove 106 {zs} 270 {min(zs + 59, 116)}" for zs in range(-110, 117, 60)] + ["forceload remove 88 -192 152 -128",
-         "tellraw @a {\"text\":\"Alter Zoo weggeräumt – jetzt function archiv:aufbau\",\"color\":\"gray\"}"]
+# Entladen erst 5 s später: in den Void geschickte Mobs sterben nur in geladenen Chunks (sonst bleiben sie bei y −500 gespeichert)
+alt2.append("schedule function zoo:alt_weg3 100t")
+alt3 = [f"forceload remove {xa} {zs} {xb} {min(zs + 59, zb)}" for xa, xb, za, zb, _ in ALT for zs in range(za, zb + 1, 60)]
+alt3 += ["tellraw @a {\"text\":\"Alte Zoo-Lagen geräumt – jetzt function archiv:aufbau\",\"color\":\"gray\"}"]
 
 pack = ZIEL / "zoo"
 if pack.exists():
@@ -274,10 +282,11 @@ def schreiben(name, zeilen):
 # forceload lädt die Chunks erst in den nächsten Ticks → erst laden, dann nach 5 s bauen (sonst „Position nicht geladen“)
 laden = [b for b in aufbau if b.startswith("forceload")]
 schreiben("aufbau", laden + ["tellraw @a {\"text\":\"Zoo: Chunks werden geladen, Aufbau in 5 s …\",\"color\":\"gray\"}", "schedule function zoo:aufbau2 100t"])
-schreiben("aufbau2", ["gamerule mob_griefing false"] + [b for b in aufbau if not b.startswith("forceload")])
+schreiben("aufbau2", ["gamerule mob_griefing false"] + weg("zoo") + weg("zoo_live") + [b for b in aufbau if not b.startswith("forceload")])
 schreiben("abbau", abbau)
 schreiben("alt_weg", alt)
 schreiben("alt_weg2", alt2)
+schreiben("alt_weg3", alt3)
 schreiben("neu", ["function zoo:abbau", "function zoo:aufbau"])
 schreiben("hin", [f"execute in minecraft:overworld run tp @s {X0 - 8} {Y} {mitte(Z0 + 2)} -90 0", "gamemode creative @s"])
 schreiben("nacht", ["time set 18000", "gamerule advance_time false", "tellraw @s {\"text\":\"Zoo: Nacht, Zeit angehalten (zoo:tag hebt das auf)\",\"color\":\"gray\"}"])
