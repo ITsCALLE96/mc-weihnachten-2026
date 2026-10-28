@@ -247,6 +247,8 @@ alt.append("schedule function zoo:alt_weg2 60t")
 alt2 = kasten_leeren(106, 270, -110, 116, Y, Y + 26) + kasten_leeren(88, 152, -192, -128, Y, Y + 42)
 alt2 += [f"fill 106 {Y - 1} {zs} 270 {Y - 1} {min(zs + 59, 116)} minecraft:grass_block" for zs in range(-110, 117, 60)]
 alt2 += [f"fill 88 {Y - 1} -192 152 {Y - 1} -128 minecraft:grass_block"]
+# Reste der Hallen-Hülle von Spawn & Welt räumt ihr eigener Tag-Eintrag ab (einmalig, solange ihr Datapack zoo-halle noch liegt)
+alt2.append("function #zoo:halle")
 alt2 += [f"forceload remove 106 {zs} 270 {min(zs + 59, 116)}" for zs in range(-110, 117, 60)] + ["forceload remove 88 -192 152 -128",
          "tellraw @a {\"text\":\"Alter Zoo weggeräumt – jetzt function archiv:aufbau\",\"color\":\"gray\"}"]
 
@@ -260,6 +262,8 @@ f = pack / "data" / "zoo" / "function"
 # Untote brennen in der Testwelt nicht (Pascal 28.10.: offen, ohne Dach, ohne Feuer): Entity-Tag burn_in_daylight leer ersetzen.
 # Gilt nur in Welten mit diesem Datapack (Testwelt), nie auf dem SMP
 (pack / "data" / "minecraft" / "tags" / "entity_type").mkdir(parents=True)
+(pack / "data" / "zoo" / "tags" / "function").mkdir(parents=True)
+(pack / "data" / "zoo" / "tags" / "function" / "halle.json").write_text('{"values": []}' + chr(10), encoding="utf-8")
 (pack / "data" / "minecraft" / "tags" / "entity_type" / "burn_in_daylight.json").write_text('{"replace": true, "values": []}' + chr(10), encoding="utf-8")
 
 

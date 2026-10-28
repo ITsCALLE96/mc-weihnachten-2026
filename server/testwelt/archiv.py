@@ -27,16 +27,18 @@ SAELE = [
     # Spawn & Welt 28.10. (45859c8): beide Inseln 152 Blöcke tiefer als im SMP (Laufhöhe y 4…5), Glas-Treppenturm östlich der Brücke (Eingang 4/−60/3),
     # nur noch eine Weihnachtsinsel, Stufen 1–4 per Schalter oben am Turm-Absatz
     ("spark", "Spark-Insel (Spawn)", "Spawn-Insel mit Deko und Kalenderwand", "SPRUCE_SAPLING", (0, 4, 48), "0 5 48 180 0"),
-    ("weihnachtsinsel", "Weihnachtsinsel", "Insel am Nordweg, Stufen 1–4 per Schalter am Turm-Absatz", "NETHER_STAR", (-1, 4, -34), "-1 3 -20 180 0"),
-    ("hub", "Hub-Ausschnitt", "Fantasy Village rund um die Kisten", "ENDER_CHEST", (-250, BODEN, 150), "-250 -60 180 180 0"),
+    ("weihnachtsinsel", "Weihnachtsinsel", "Insel am Nordweg, Stufen per Schalter am Brückenanfang", "NETHER_STAR", (-1, 4, -34), "-1 3 -20 180 0"),
+    ("hub", "Server-Hub", "der ganze Hub (Fantasy Village)", "ENDER_CHEST", (-300, BODEN, -120), "-55 -60 2 90 0"),  # Ursprung = NW-Ecke (Spawn & Welt), x −300…−61, z −120…124
     ("zoo", "Mob-Zoo", "Friedlich · Feindlich · Bosse, offen, in Angriffspose; Kampf-Ecke", "SPAWNER", (90, BODEN, 25), "30 -60 -53 -90 0"),  # Ursprung = Mitte (Wegweiser), Ecke 40/−55
-    ("deko", "Deko und Kalender-Items", "Deko-Modelle, Kalender-Items in Rahmen und auf Rüstungsständern", "ITEM_FRAME", (0, BODEN, 150), "0 -60 180 180 0"),
+    ("deko", "Deko und Kalender-Items", "Deko-Modelle, Kalender-Items in Rahmen und auf Rüstungsständern", "ITEM_FRAME", (-60, BODEN, 80), "-30 -60 74 0 0"),  # NW-Ecke, 61 × 17
 ]
 
 # Wegweiser-Text am Spawn (Standard: Himmelsrichtung und Entfernung)
 HINWEIS = {
-    "spark": "Süden, 48 m · Treppenturm 6 m östlich",
-    "weihnachtsinsel": "Norden · über den Treppenturm",
+    "spark": "Süden, 48 m · hinfliegen (Stufen-Schalter am Brückenanfang)",
+    "weihnachtsinsel": "Norden, 34 m · hinfliegen",
+    "hub": "Westen, ab 61 m (ganzer Hub)",
+    "deko": "Süden, 80 m",
 }
 
 pack = TW / "world" / "datapacks" / "archiv"
@@ -75,8 +77,8 @@ for name, titel, _, _, (tx, ty, tz), _ in SAELE:
     dist = math.hypot(tx, tz)
     r = 6
     wx, wz = round(tx / dist * r), round(tz / dist * r)
-    # gleiche Richtung (z. B. Spark und Deko im Süden) oder im Glas-Treppenturm (Kern 6/0, Spawn & Welt): weiter außen
-    while (wx, wz) in belegt or (1 <= wx <= 11 and -5 <= wz <= 5):
+    # gleiche Richtung (z. B. Spark und Deko im Süden): weiter außen
+    while (wx, wz) in belegt:
         r += 4
         wx, wz = round(tx / dist * r), round(tz / dist * r)
     belegt.add((wx, wz))
