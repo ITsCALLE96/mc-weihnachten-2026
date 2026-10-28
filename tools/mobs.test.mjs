@@ -49,3 +49,10 @@ test('Paket 3: Tiere und Helfer laufen durch, EMF gültig', async () => {
   for (const [name, fn] of Object.entries(TIERE3)) assert.doesNotThrow(() => fn(leer(128, 128)), name);
   for (const teile of Object.values(TIERE3_EMF)) assert.ok(jem(teile).models.every((m) => m.boxes.every((b) => b.coordinates.every(Number.isFinite))));
 });
+
+test('Paket 4: Berufs-Outfits und Zombie-Dorfbewohner laufen durch', async () => {
+  const { BERUFE, ZOMBIE_BERUFE, zombieDorf, DORF_EMF } = await import('./dorf.mjs');
+  for (const [name, fn] of [...Object.entries(BERUFE), ...Object.entries(ZOMBIE_BERUFE)]) assert.doesNotThrow(() => fn(leer(64, 64)), name);
+  assert.doesNotThrow(() => zombieDorf(leer(64, 64), 1));
+  for (const teile of Object.values(DORF_EMF)) assert.ok(jem(teile).models.every((m) => m.boxes.every((b) => b.coordinates.every(Number.isFinite))));
+});

@@ -2,7 +2,7 @@
 // Wanderhändler als Weihnachtsmann samt Lama-Decken. Der Winterteil (Reif, blasse Farbkarten,
 // Mützen und Schals) landet getrennt in resourcepack-winter/, siehe tools/winter.mjs.
 // Aufruf: node tools/texturen.mjs <ordner mit entpackten Vanilla-Client-assets>
-import { readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import pngjs from 'pngjs';
@@ -11,6 +11,7 @@ import { weihnachtsmannSkin } from './weihnachtsmann.mjs';
 import { BOSSE, GESCHOSSE, BOSS_EMF, gluehkugel } from './bosse.mjs';
 import { MONSTER2, MONSTER2_EMF } from './monster2.mjs';
 import { TIERE3, TIERE3_EMF } from './tiere.mjs';
+import { BERUFE, ZOMBIE_BERUFE, zombieDorf, DORF_EMF } from './dorf.mjs';
 import { MOBS, EMF, VARIANTEN, emfPalette, jem, EMF_TEXTUR } from './mobs.mjs';
 import { frostOben, frostSeite, winterFarbkarte, weihnachtsmuetze, weihnachtsschal } from './winter.mjs';
 
@@ -217,7 +218,15 @@ function baueWinter(wrp, mc, modell, reif) {
     const png = lies(`${dorf}/${datei}.png`);
     if (datei !== 'villager') weihnachtsmuetze(png);
     weihnachtsschal(png);
+    BERUFE[datei.replace('profession/', '')]?.(png); // Berufs-Outfit (Paket 4)
     schreibePng(ziel(`minecraft/textures/${dorf}/${datei}.png`), png);
+  }
+  // Zombie-Dorfbewohner: böse Fassung (zerfetzte Mütze, zerrissener Schal, verdreckte Berufs-Outfits).
+  const zdorf = 'entity/zombie_villager';
+  for (const datei of ['zombie_villager', ...typen.map((t) => `type/${t}`), ...berufe.filter((b) => existsSync(mc(`${zdorf}/profession/${b}.png`))).map((b) => `profession/${b}`)]) {
+    const png = lies(`${zdorf}/${datei}.png`);
+    if (datei.startsWith('profession/')) ZOMBIE_BERUFE[datei.slice(11)]?.(png); else zombieDorf(png, 850 + datei.length);
+    schreibePng(ziel(`minecraft/textures/${zdorf}/${datei}.png`), png);
   }
 
   // Weihnachts-Mobs (Pascal 28.10.): Ebene 1 Texturen für alle, Ebene 2 3D-Zusätze (EMF) und Zufallsvarianten (ETF) fürs Modpack.
@@ -234,7 +243,7 @@ function baueWinter(wrp, mc, modell, reif) {
   }
   schreibePng(ziel(`minecraft/${EMF_TEXTUR}`), emfPalette(false, PNG));
   schreibePng(ziel(`minecraft/${EMF_TEXTUR.replace('.png', '_e.png')}`), emfPalette(true, PNG));
-  for (const [modell, teile] of Object.entries({ ...EMF, ...BOSS_EMF, ...MONSTER2_EMF, ...TIERE3_EMF })) schreibeJson(ziel(`minecraft/optifine/cem/${modell}.jem`), jem(teile));
+  for (const [modell, teile] of Object.entries({ ...EMF, ...BOSS_EMF, ...MONSTER2_EMF, ...TIERE3_EMF, ...DORF_EMF })) schreibeJson(ziel(`minecraft/optifine/cem/${modell}.jem`), jem(teile));
   writeFileSync(ziel('minecraft/optifine/emissive.properties'), 'suffix.emissive=_e\n');
   // Ghast- und Blaze-Feuerball fliegen als Feuerkugel-Item (Anzeige „ground“): dort eine glühende Goldkugel, im Inventar bleibt Vanilla.
   schreibePng(ziel('weihnachten/textures/item/gluehkugel.png'), gluehkugel(PNG));
