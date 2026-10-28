@@ -24,12 +24,20 @@ BODEN = -60          # Superflat: Gras auf −61, stehen auf −60
 # Spark und Weihnachtsinsel stehen an ihren SMP-Koordinaten (Spark um 0/48 ab y 150, Weihnachtsinsel am Nordweg um −1/−34),
 # damit dieselben Bau-Funktionen passen. Neue Bereiche anhängen und so legen, dass man alles zu Fuß bzw. im Flug sieht.
 SAELE = [
-    ("spark", "Spark-Insel (Spawn)", "Spawn-Insel mit Deko und Kalenderwand", "SPRUCE_SAPLING", (0, 150, 48), "0 156 52 180 0"),
-    ("weihnachtsinsel", "Weihnachtsinsel", "fertige Insel am Nordweg, daneben Stufen 1–4", "NETHER_STAR", (-1, 150, -34), "-1 156 -8 180 0"),
+    # Spawn & Welt 28.10. (45859c8): beide Inseln 152 Blöcke tiefer als im SMP (Laufhöhe y 4…5), Glas-Treppenturm östlich der Brücke (Eingang 4/−60/3),
+    # nur noch eine Weihnachtsinsel, Stufen 1–4 per Schalter oben am Turm-Absatz
+    ("spark", "Spark-Insel (Spawn)", "Spawn-Insel mit Deko und Kalenderwand", "SPRUCE_SAPLING", (0, 4, 48), "0 5 48 180 0"),
+    ("weihnachtsinsel", "Weihnachtsinsel", "Insel am Nordweg, Stufen 1–4 per Schalter am Turm-Absatz", "NETHER_STAR", (-1, 4, -34), "-1 4 -24 180 0"),
     ("hub", "Hub-Ausschnitt", "Fantasy Village rund um die Kisten", "ENDER_CHEST", (-250, BODEN, 150), "-250 -60 180 180 0"),
     ("zoo", "Mob-Zoo und Arena", "Friedlich · Feindlich · Bosse, Arena zum Live-Schalten", "SPAWNER", (180, BODEN, -10), "110 -60 -99 -90 0"),  # Ursprung = Mitte des Zoos (Wegweiser), Ecke 120/−100
     ("deko", "Deko und Kalender-Items", "Deko-Modelle, Kalender-Items in Rahmen und auf Rüstungsständern", "ITEM_FRAME", (0, BODEN, 150), "0 -60 180 180 0"),
 ]
+
+# Wegweiser-Text am Spawn (Standard: Himmelsrichtung und Entfernung)
+HINWEIS = {
+    "spark": "Süden, 48 m · Treppenturm 6 m östlich",
+    "weihnachtsinsel": "Norden · über den Treppenturm",
+}
 
 pack = TW / "world" / "datapacks" / "archiv"
 f = pack / "data" / "archiv" / "function"
@@ -67,14 +75,15 @@ for name, titel, _, _, (tx, ty, tz), _ in SAELE:
     dist = math.hypot(tx, tz)
     r = 6
     wx, wz = round(tx / dist * r), round(tz / dist * r)
-    while (wx, wz) in belegt:          # gleiche Richtung (z. B. Spark und Deko im Süden): weiter außen
+    # gleiche Richtung (z. B. Spark und Deko im Süden) oder im Glas-Treppenturm (Kern 6/0, Spawn & Welt): weiter außen
+    while (wx, wz) in belegt or (1 <= wx <= 11 and -5 <= wz <= 5):
         r += 4
         wx, wz = round(tx / dist * r), round(tz / dist * r)
     belegt.add((wx, wz))
     winkel = (math.degrees(math.atan2(tx, -tz)) + 360) % 360          # 0 = Norden, 90 = Osten
     richtung = ["Norden", "Nordosten", "Osten", "Südosten", "Süden", "Südwesten", "Westen", "Nordwesten"][round(winkel / 45) % 8]
-    hoehe = " · oben in der Luft" if ty > BODEN + 20 else ""
-    platz.append(schild(wx, BODEN + 2, wz, f"{titel} →", f"{richtung}, {round(dist)} m{hoehe}"))
+    zusatz = HINWEIS.get(name, f"{richtung}, {round(dist)} m")
+    platz.append(schild(wx, BODEN + 2, wz, f"{titel} →", zusatz))
 
 for name, titel, unter, _, (x, y, z), tp in SAELE:
     tx, ty, tz = startpunkt(tp)
