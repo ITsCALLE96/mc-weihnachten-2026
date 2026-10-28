@@ -94,6 +94,8 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private int xaeroWeltId;
     /** „x y z yaw pitch“: jeder Beitritt landet hier statt an der letzten Position (Testwelt, Pascal 28.10.); leer = aus */
     private String beitrittOrt = "";
+    /** jede Ender-Kiste öffnet diese Kategorie (Testwelt); null = nur die Kisten aus „kisten“ */
+    private String enderkistenKategorie;
     /** Winterkalender: Scoreboard-Ziel/Eintrag, das täglich auf den Dezembertag (1–24) gesetzt wird, null = aus */
     private String kalenderObjective;
     private String kalenderEintrag;
@@ -287,6 +289,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         termine.laden(getConfig().getConfigurationSection("termine"));
         xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
         beitrittOrt = getConfig().getString("beitritt-ort", "").trim();
+        enderkistenKategorie = getConfig().getString("alle-enderkisten", null);
         if (namen != null) {
             namen.laden(getConfig().getConfigurationSection("namen"));
         }
@@ -632,7 +635,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     /** Früh abfangen (LOWEST) und abbrechen: WorldGuard überspringt abgebrochene Klicks, so erscheint keine „you can't open that here“-Meldung */
     @EventHandler(priority = org.bukkit.event.EventPriority.LOWEST)
     public void beiKlick(PlayerInteractEvent e) {
-        if (kisten.isEmpty() || e.getAction() != Action.RIGHT_CLICK_BLOCK) {
+        if ((kisten.isEmpty() && enderkistenKategorie == null) || e.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
         Block b = e.getClickedBlock();
@@ -640,6 +643,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             return;
         }
         String kategorie = kisten.get(b.getWorld().getName() + ":" + b.getX() + ":" + b.getY() + ":" + b.getZ());
+        // Testwelt (Pascal 28.10.: „eine leere Enderchest“): jede Ender-Kiste öffnet das Menü statt des Vanilla-Ender-Inventars
+        if (kategorie == null && enderkistenKategorie != null && b.getType() == Material.ENDER_CHEST) {
+            kategorie = enderkistenKategorie;
+        }
         if (kategorie == null) {
             return;
         }

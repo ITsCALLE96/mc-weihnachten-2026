@@ -27,7 +27,7 @@ SAELE = [
     ("spark", "Spark-Insel (Spawn)", "Spawn-Insel mit Deko und Kalenderwand", "SPRUCE_SAPLING", (0, 150, 48), "0 156 52 180 0"),
     ("weihnachtsinsel", "Weihnachtsinsel", "fertige Insel am Nordweg, daneben Stufen 1–4", "NETHER_STAR", (-1, 150, -34), "-1 156 -8 180 0"),
     ("hub", "Hub-Ausschnitt", "Fantasy Village rund um die Kisten", "ENDER_CHEST", (-250, BODEN, 150), "-250 -60 180 180 0"),
-    ("zoo", "Mob-Zoo und Arena", "Friedlich · Feindlich · Bosse, Arena zum Live-Schalten", "SPAWNER", (180, BODEN, -10), "118 -60 -108 0 0"),  # Ursprung = Mitte des Zoos (Wegweiser), Ecke 120/−100
+    ("zoo", "Mob-Zoo und Arena", "Friedlich · Feindlich · Bosse, Arena zum Live-Schalten", "SPAWNER", (180, BODEN, -10), "110 -60 -99 -90 0"),  # Ursprung = Mitte des Zoos (Wegweiser), Ecke 120/−100
     ("deko", "Deko und Kalender-Items", "Deko-Modelle, Kalender-Items in Rahmen und auf Rüstungsständern", "ITEM_FRAME", (0, BODEN, 150), "0 -60 180 180 0"),
 ]
 
@@ -46,7 +46,7 @@ def schreiben(name, zeilen):
 def schild(x, y, z, text, unter=""):
     t = json.dumps({"text": text, "color": "gold", "bold": True, "extra": [{"text": ("\n" + unter) if unter else "", "color": "gray", "bold": False}]},
                    ensure_ascii=False)
-    return (f'summon minecraft:text_display {x}.5 {y} {z}.5 {{Tags:["archiv"],billboard:"vertical",text:{t},background:1073741824,'
+    return (f'summon minecraft:text_display {x + 0.5} {y} {z + 0.5} {{Tags:["archiv"],billboard:"vertical",text:{t},background:1073741824,'
             f'transformation:{{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[2f,2f,2f]}}}}')
 
 
@@ -79,7 +79,9 @@ for name, titel, _, _, (tx, ty, tz), _ in SAELE:
 for name, titel, unter, _, (x, y, z), tp in SAELE:
     tx, ty, tz = startpunkt(tp)
     schreiben(f"saal/{name}", [
-        schild(tx, ty + 3, tz - 2 if tp.split()[3].startswith("180") else tz + 2, titel, unter),
+        # Schild 3 Blöcke vor dem Startpunkt in Blickrichtung (yaw 0 = Süden, 180 = Norden, −90 = Osten)
+        schild(tx + round(-math.sin(math.radians(float(tp.split()[3]))) * 3), ty + 3,
+               tz + round(math.cos(math.radians(float(tp.split()[3]))) * 3), titel, unter),
         f"execute positioned {x} {y} {z} run function #archiv:saal/{name}"])
     tag = pack / "data" / "archiv" / "tags" / "function" / "saal" / f"{name}.json"
     if not tag.exists():
@@ -118,6 +120,10 @@ eintraege = [f'      - {{name: {name}, anzeige: "<gold>{titel}", material: {mat}
 text += ("# >>> archiv (erzeugt von server/testwelt/archiv.py, nicht von Hand ändern)\n"
          "# jeder Beitritt landet am Spawn vor der Ender-Kiste, Blick nach Norden (Pascal 28.10.: nicht an der letzten Position)\n"
          f"beitritt-ort: \"0 {BODEN} 0 180 0\"\n"
+         "# jede Ender-Kiste (auch die auf der Spark-Insel) öffnet das Bauarchiv-Menü, nie das leere Vanilla-Ender-Inventar\n"
+         "alle-enderkisten: archiv\n"
+         "# Weihnachtsmann im Iglu handelt auch hier (Ware aus weihnachtsmann.json, kopiert von testnetz/testwelt.sh)\n"
+         "inselhaendler:\n  aktiv: true\n  datei: weihnachtsmann.json\n  zeitzone: Europe/Berlin\n  jukebox-radius: 48\n"
          f"kisten:\n  - {{welt: world, x: 0, y: {BODEN}, z: -3, kategorie: archiv}}\n"
          "kategorien:\n  archiv:\n    titel: \"<gold>Bauarchiv\"\n    server:\n" + "\n".join(eintraege) + "\n# <<< archiv\n")
 cfg.write_text(text, encoding="utf-8")

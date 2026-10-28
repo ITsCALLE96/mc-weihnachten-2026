@@ -22,6 +22,7 @@ alle_frei() { frei 25567 && frei 25568 && frei 25569 && frei 25577; }
 bauarchiv() {
   python -I "$repo/server/zoo/zoo.py" "$hier/smp/versions/26.3/paper-26.3.jar" "$tw/world/datapacks" 120 -60 -100 | head -1
   python -I "$repo/server/testwelt/archiv.py" "$tw"
+  cp "$repo/spawn/weihnachtsmann.json" "$tw/plugins/Serverwahl/weihnachtsmann.json"
   printf '{
   "values": ["zoo:aufbau"]
 }
