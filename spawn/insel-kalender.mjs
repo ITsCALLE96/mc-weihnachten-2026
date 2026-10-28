@@ -61,15 +61,20 @@ function insel:kalender/anzeigen
     `execute unless score #tag insel_kalender matches ${n}.. run data merge entity @e[type=text_display,tag=insel_kal_n_${n},limit=1] {text:${txt(String(n), ZU)}}`).join('\n') + '\n';
   f['kalender/klick'] = `# Als das Interaction-Entity: Türchen nach Tag, ausgeführt als der klickende Spieler\n${tueren.map(({ n }) => `execute if entity @s[tag=insel_kal_${n}] on target at @s run function insel:kalender/tuer_${n}`).join('\n')}\ndata remove entity @s interaction\n`;
   // Kurze Gebrauchshinweise in der Lore (Pascal 27.10.): Übersetzungsschlüssel mit deutschem fallback, grau und kursiv, hinter der Kalenderzeile
-  const hinweis = (g, n) => {
-    const zeilen = (kal.hinweise?.[n - 1] ?? []).flatMap((art) => kal.hinweisTexte[art]).map(([schl, de]) => `{translate:"${schl}",fallback:"${de}",color:"gray",italic:true}`);
-    return zeilen.length ? g.replace(/(Winterkalender 2026 – Tag \d+",italic:false,color:"aqua"\})/, `$1,${zeilen.join(',')}`) : g;
+  const hinweis = (g, arten = []) => {
+    const zeilen = arten.flatMap((art) => kal.hinweisTexte[art]).map(([schl, de]) => `{translate:"${schl}",fallback:"${de}",color:"gray",italic:true}`);
+    return zeilen.length ? g.replace(/(Winterkalender 2026(?: – Tag \d+)?",italic:false,color:"aqua"\})/, `$1,${zeilen.join(',')}`) : g;
   };
+  // Steigerung (Pascal 28.10.): Zugabe je Woche, gemeinsame Lore ohne Tag, damit sie über die Tage stapelt
+  const gaben = (n) => [
+    ...(belohnungen[n - 1] ?? []).map((g) => hinweis(g, kal.hinweise?.[n - 1])),
+    ...(kal.zugaben?.[n - 1] ?? []).map(([name, anzahl]) => `${hinweis(kal.zugabeItems[name].item, kal.zugabeItems[name].hinweise)} ${anzahl}`),
+  ];
   for (const { n, cx, cy } of tueren) {
     f[`kalender/tuer_${n}`] = `execute unless score #tag insel_kalender matches ${n}.. run return run tellraw @s ${txt(`Türchen ${n} öffnet am ${n}. Dezember.`, { color: 'gray' })}
 execute if entity @s[tag=insel_kal_hat_${n}] run return run tellraw @s ${txt(`Türchen ${n} hast du schon geöffnet.`, { color: 'gray' })}
 tag @s add insel_kal_hat_${n}
-${(belohnungen[n - 1] ?? []).map((g) => `give @s ${hinweis(g, n)}`).join('\n')}
+${gaben(n).map((g) => `give @s ${g}`).join('\n')}
 tellraw @s [${txt(`Türchen ${n} `, { color: 'gold', bold: true })},${txt('ist offen – frohe Weihnachtszeit!', { color: 'white' })}]
 playsound minecraft:entity.player.levelup master @s ~ ~ ~ 0.8 1.6
 particle minecraft:firework ${cx} ${cy + 0.45} ${wz - 0.3} 0.25 0.25 0.05 0.03 25 normal @s
@@ -77,16 +82,34 @@ particle minecraft:firework ${cx} ${cy + 0.45} ${wz - 0.3} 0.25 0.25 0.05 0.03 2
   }
   f['kalender/naechster_tag'] = `# Täglich 00:00 ab 01.12. (AMP-Aufgabe): nächstes Türchen freigeben\nscoreboard players add #tag insel_kalender 1\nexecute if score #tag insel_kalender matches 25.. run scoreboard players set #tag insel_kalender 24\nfunction insel:kalender/anzeigen\ntellraw @a [${txt('Winterkalender: ', { color: 'gold', bold: true })},${txt('Ein neues Türchen ist offen – am Spawn!', { color: 'white' })}]\n`;
   f['kalender/tag'] = `# Zum Testen bzw. Nachstellen: function insel:kalender/tag {tag:N}\n$scoreboard players set #tag insel_kalender $(tag)\nfunction insel:kalender/anzeigen\n`;
-  return { funktionen: f };
+  // Weitere Datapack-Dateien: Frierschutz für alle Kopfteile (Papier mit equippable, Pascal 28.10.), auspackbares Geschenk
+  const dateien = { 'data/minecraft/tags/item/freeze_immune_wearables.json': JSON.stringify({ values: ['minecraft:paper'] }, null, 2) + '\n' };
+  if (kal.geschenk) {
+    dateien['data/insel/advancement/kalender/geschenk.json'] = JSON.stringify({
+      criteria: { auspacken: { trigger: 'minecraft:consume_item', conditions: { item: { items: 'minecraft:paper', predicates: { 'minecraft:custom_data': '{winterkalender:"geschenk"}' } } } } },
+      rewards: { function: 'insel:kalender/geschenk' },
+    }, null, 2) + '\n';
+    const eintrag = ([id, anzahl]) => ({
+      ...(id.startsWith('#') ? { type: 'minecraft:tag', name: id.slice(1), expand: true } : { type: 'minecraft:item', name: id }),
+      ...(anzahl > 1 ? { functions: [{ function: 'minecraft:set_count', count: anzahl }] } : {}),
+    });
+    dateien['data/insel/loot_table/kalender/geschenk.json'] = JSON.stringify({
+      type: 'minecraft:command',
+      pools: [{ rolls: 1, entries: kal.geschenk.gewinne.map((g) => (g.length === 1 ? eintrag(g[0]) : { type: 'minecraft:group', children: g.map(eintrag) })) }],
+    }, null, 2) + '\n';
+    f['kalender/geschenk'] = `# Geschenk aus Türchen 19 ausgepackt (Fortschritt insel:kalender/geschenk)\nadvancement revoke @s only insel:kalender/geschenk\nloot give @s loot insel:kalender/geschenk\nplaysound minecraft:entity.player.levelup master @s ~ ~ ~ 0.6 1.8\nparticle minecraft:happy_villager ~ ~1.2 ~ 0.4 0.4 0.4 0 15 normal @s\ntellraw @s ${txt('Frohe Weihnachten! Dein Geschenk ist ausgepackt.', { color: 'gold' })}\n`;
+  }
+  return { funktionen: f, dateien };
 }
 
 if (process.argv[1]?.replace(/\\/g, '/').endsWith('spawn/insel-kalender.mjs')) {
   const [konfig = join(REPO, 'spawn/standort-smp-spark.json'), aus = join(REPO, 'spawn')] = process.argv.slice(2);
   const k = JSON.parse(readFileSync(konfig, 'utf8'));
-  const { funktionen } = kalender(k.kalender);
+  const { funktionen, dateien } = kalender(k.kalender);
   const dp = join(aus, 'datapack/insel-kalender');
   rmSync(dp, { recursive: true, force: true });
   for (const [n, t] of Object.entries(funktionen)) { const p = join(dp, 'data/insel/function', `${n}.mcfunction`); mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, t); }
+  for (const [n, t] of Object.entries(dateien)) { const p = join(dp, n); mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, t); }
   // eigene load/tick-Funktionen, über die Funktions-Tags mit denen von insel zusammengeführt
   const ft = join(dp, 'data/minecraft/tags/function'); mkdirSync(ft, { recursive: true });
   for (const [n, t] of [['load', 'kalender/load'], ['tick', 'kalender/tick']]) writeFileSync(join(ft, `${n}.json`), `{ "values": ["insel:${t}"] }\n`);
