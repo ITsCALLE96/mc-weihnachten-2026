@@ -15,7 +15,7 @@ commands:
     usage: "/serverwahl reload | menue <kategorie> | oeffnen | schliessen | status"
     permission: serverwahl.admin
   nick:
-    description: "Eigenen Nickname setzen: /nick <name> | /nick reset (Moderation: /nick reset <spieler>)"
+    description: "Eigenen Nickname setzen: /nick <name> | /nick reset (Moderation: /nick info <name>, /nick reset <spieler>)"
     usage: "/nick <name> | /nick reset"
     permission: serverwahl.nick
 permissions:

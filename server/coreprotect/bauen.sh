@@ -5,6 +5,8 @@
 # In der Claude-Session blockiert (fremder Code), Pascal führt es aus:  bash server/coreprotect/bauen.sh
 # Ergebnis: testnetz/_downloads/namen/coreprotect.jar, SHA-256 wird ausgegeben (bitte an die Server-Session melden)
 set -euo pipefail
+# Ohne gesetzten Branch startet CoreProtect nicht („branch has not been set“, Test 28.10.). „development“ nur fürs Testnetz (Leitung 28.10.);
+# für die echte Welt entscheidet Pascal (Optionen in server/namen-clans-grief.md)
 COMMIT=dffa04fc4cb6fe847b5df10db03cec230a505242   # 19.10.2026 „Recover DuckDB entity UUID conflicts …“, ConfigHandler.LATEST_VERSION = 26.3
 repo="$(cd "$(dirname "$0")/../.." && pwd)"
 dl="$repo/testnetz/_downloads"
@@ -15,7 +17,7 @@ export JAVA_HOME="/c/Program Files/Eclipse Adoptium/jdk-25.0.4.101-hotspot"
 [ -d "$quelle/.git" ] || git clone -q https://github.com/PlayPro/CoreProtect.git "$quelle"
 git -C "$quelle" fetch -q --depth 50 origin master || true
 git -C "$quelle" checkout -q "$COMMIT"
-(cd "$quelle" && "$mvn" -q -B -DskipTests package)
+(cd "$quelle" && "$mvn" -q -B -DskipTests -Dproject.branch="${BRANCH:-development}" package)
 jar="$(ls "$quelle"/target/CoreProtect-*.jar | grep -v -E 'original|sources' | head -1)"
 mkdir -p "$dl/namen"
 cp "$jar" "$dl/namen/coreprotect.jar"

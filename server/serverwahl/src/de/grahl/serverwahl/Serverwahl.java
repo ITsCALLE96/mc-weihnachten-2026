@@ -69,6 +69,8 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private final Map<java.util.UUID, Long> portalZuletzt = new HashMap<>();
     private final SpawnElytra spawnElytra = new SpawnElytra(this);
     private final WetterRhythmus wetter = new WetterRhythmus(this);
+    private final EisSperre eisSperre = new EisSperre();
+    private final Pruefwerkzeug pruefwerkzeug = new Pruefwerkzeug(this);
     /** Nicknames/Clan-Tags, nur mit LuckPerms (sonst null) */
     private Namen namen;
     /** täglich einmal ab dieser Uhrzeit (höchstens eine Stunde später) diese Konsolenbefehle, z. B. CoreProtect-Purge; null = aus */
@@ -117,6 +119,8 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(spawnElytra, this);
         getServer().getPluginManager().registerEvents(wetter, this);
+        getServer().getPluginManager().registerEvents(eisSperre, this);
+        getServer().getPluginManager().registerEvents(pruefwerkzeug, this);
         // Hub: einmal pro Sekunde schauen, ob das Datapack die Eröffnung ausgelöst hat. Legt die Datei nur an, löscht sie nie
         // (eine zurückgesetzte Hub-Welt soll das SMP nicht wieder schließen; schließen nur per /serverwahl schliessen)
         getServer().getScheduler().runTaskTimer(this, () -> {
@@ -217,6 +221,8 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         portaleSperren = getConfig().getBoolean("portale-sperren", false);
         spawnElytra.laden(getConfig().getConfigurationSection("spawn-elytra"));
         wetter.laden(getConfig().getConfigurationSection("wetter-rhythmus"));
+        eisSperre.laden(getConfig().getConfigurationSection("eis-sperre"));
+        pruefwerkzeug.laden(getConfig().getConfigurationSection("pruefwerkzeug"));
         xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
         if (namen != null) {
             namen.laden(getConfig().getConfigurationSection("namen"));
@@ -431,38 +437,65 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     }
 
     /**
-     * Winterkalender: Rechtsklick auf ein Türchen (Interaction-Entity mit klick.tag) früh abfangen und abbrechen, damit WorldGuard
-     * keine Sperrmeldung zeigt, und die Türchen-Funktion des Datapacks selbst als der Spieler ausführen (wie „on target“ im Datapack)
+     * Winterkalender: Klick auf ein Türchen (Interaction-Entity mit klick.tag) früh abfangen und abbrechen, damit WorldGuard keine Sperrmeldung
+     * zeigt, und die Türchen-Funktion des Datapacks selbst als der Spieler ausführen (wie „on target“ im Datapack).
+     * Paper 26.3 meldet Rechtsklicks auf Entities nur noch als PlayerInteractAtEntityEvent (ein Paket mit Trefferpunkt), Linksklicks als Schaden
+     * an der Interaction. Beides öffnet das Türchen; doppelte Meldungen fängt die Sperre von 300 ms ab
      */
     @EventHandler(priority = org.bukkit.event.EventPriority.LOWEST)
     public void beiEntityKlick(org.bukkit.event.player.PlayerInteractEntityEvent e) {
-        if (klickTag == null || !(e.getRightClicked() instanceof org.bukkit.entity.Interaction ent) || !ent.getScoreboardTags().contains(klickTag)) {
-            return;
-        }
-        e.setCancelled(true);
-        // PlayerInteractAtEntityEvent kommt zusätzlich, nur einmal und nur für die Haupthand ausführen
-        if (e instanceof org.bukkit.event.player.PlayerInteractAtEntityEvent || e.getHand() != EquipmentSlot.HAND) {
-            return;
-        }
-        Player p = e.getPlayer();
-        long jetzt = System.currentTimeMillis();
-        Long zuletzt = klickZuletzt.put(p.getUniqueId(), jetzt);
-        if (zuletzt != null && jetzt - zuletzt < 300) {
-            return;
-        }
-        for (String t : ent.getScoreboardTags()) {
-            if (t.startsWith(klickPraefix) && t.substring(klickPraefix.length()).chars().allMatch(Character::isDigit)
-                    && t.length() > klickPraefix.length()) {
-                String funktion = klickFunktion.replace("{n}", t.substring(klickPraefix.length()));
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "execute as " + p.getUniqueId() + " at @s run function " + funktion);
-                return;
-            }
+        if (tuerKlick(e.getPlayer(), e.getRightClicked(), e.getHand() == EquipmentSlot.HAND)) {
+            e.setCancelled(true);
         }
     }
 
     @EventHandler(priority = org.bukkit.event.EventPriority.LOWEST)
     public void beiEntityKlickAt(org.bukkit.event.player.PlayerInteractAtEntityEvent e) {
-        beiEntityKlick(e);
+        if (tuerKlick(e.getPlayer(), e.getRightClicked(), e.getHand() == EquipmentSlot.HAND)) {
+            e.setCancelled(true);
+        }
+    }
+
+    /** Linksklick (Angriff) auf ein Türchen: still abbrechen und ebenfalls öffnen */
+    @EventHandler(priority = org.bukkit.event.EventPriority.LOWEST)
+    public void beiTuerAngriff(io.papermc.paper.event.player.PrePlayerAttackEntityEvent e) {
+        if (tuerKlick(e.getPlayer(), e.getAttacked(), true)) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = org.bukkit.event.EventPriority.LOWEST)
+    public void beiTuerSchaden(org.bukkit.event.entity.EntityDamageByEntityEvent e) {
+        if (e.getDamager() instanceof Player p && tuerKlick(p, e.getEntity(), true)) {
+            e.setCancelled(true);
+        }
+    }
+
+    /** true = ist ein Türchen (Ereignis abbrechen); ausgeführt wird nur bei ausfuehren und höchstens alle 300 ms je Spieler */
+    private boolean tuerKlick(Player p, org.bukkit.entity.Entity ent, boolean ausfuehren) {
+        if (klickTag == null || !(ent instanceof org.bukkit.entity.Interaction) || !ent.getScoreboardTags().contains(klickTag)) {
+            return false;
+        }
+        if (!ausfuehren) {
+            return true;
+        }
+        long jetzt = System.currentTimeMillis();
+        Long zuletzt = klickZuletzt.get(p.getUniqueId());
+        if (zuletzt != null && jetzt - zuletzt < 300) {
+            return true;
+        }
+        klickZuletzt.put(p.getUniqueId(), jetzt);
+        for (String t : ent.getScoreboardTags()) {
+            if (t.startsWith(klickPraefix) && t.length() > klickPraefix.length()
+                    && t.substring(klickPraefix.length()).chars().allMatch(Character::isDigit)) {
+                String befehl = "execute as " + p.getUniqueId() + " at @s run function " + klickFunktion.replace("{n}", t.substring(klickPraefix.length()));
+                boolean ok = Bukkit.dispatchCommand(Bukkit.getConsoleSender(), befehl);
+                getLogger().info("Kalender: " + p.getName() + " → " + t + (ok ? "" : " (Befehl fehlgeschlagen: " + befehl + ")"));
+                return true;
+            }
+        }
+        getLogger().warning("Kalender: Türchen ohne Nummern-Tag " + klickPraefix + "<n> bei " + ent.getLocation().toVector());
+        return true;
     }
 
     /** Früh abfangen (LOWEST) und abbrechen: WorldGuard überspringt abgebrochene Klicks, so erscheint keine „you can't open that here“-Meldung */

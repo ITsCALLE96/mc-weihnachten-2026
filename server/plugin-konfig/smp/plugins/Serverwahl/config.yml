@@ -95,3 +95,13 @@ taeglich:
   zeitzone: Europe/Berlin
   befehle:
     - "co purge t:90d"
+# Prüfwerkzeug (Pascal 28.10.): Holzspitzhacke in der Hand = CoreProtect-Inspektor für alle mit coreprotect.inspect, ohne /co i.
+# Links = Block, Rechts = Kiste/Platziertes; Schleichen = normal abbauen. Siehe server/namen-clans-grief.md
+pruefwerkzeug:
+  aktiv: true
+  werkzeug: WOODEN_PICKAXE
+# Winter-Season (Pascal 28.10.): Ozeane und Fluss sind im Datapack jetzt auch kalt (Schnee statt Regen), Wasser dort friert aber nicht zu.
+# Nur natürliche Eisbildung; Frostläufer, gesetztes Eis und die von Natur aus gefrorenen Biome bleiben. Nach der Season mit dem Datapack aus
+eis-sperre:
+  aktiv: true
+  biome: [ocean, deep_ocean, cold_ocean, deep_cold_ocean, lukewarm_ocean, deep_lukewarm_ocean, warm_ocean, river]

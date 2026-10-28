@@ -42,12 +42,15 @@ import org.bukkit.scoreboard.Team;
 /**
  * Nicknames und Clan-Tags (Pascal 28.10.): /nick setzt den eigenen Nick, gespeichert als LuckPerms-Meta „nick“, damit Hub und SMP
  * denselben Stand haben (gemeinsamer LuckPerms-Speicher). Der Clan-Tag ist der LuckPerms-Präfix der Clan-Gruppe, nur Pascal vergibt ihn.
- * Chat und Tab zeigen „[Tag] Nick“, die Tab-Liste dazu den echten Namen grau; über dem Kopf „[Tag] EchterName“ per Scoreboard-Team.
- * Xaero, Voice Chat und LSS nehmen weiter den Kontonamen. Nur aktiv, wenn LuckPerms läuft.
+ * Chat und Tab zeigen nur „[Tag] Nick“ (Pascal 28.10.: der echte Name ist nicht sichtbar); Moderatoren sehen ihn per Hover im Chat und mit
+ * /nick info. Über dem Kopf bleibt „[Tag] EchterName“ per Scoreboard-Team: den Namen dort ersetzt nur ein Paket-Plugin (eine mitreitende
+ * Text-Anzeige ginge per API, sperrt aber in Paper Teleports von Spielern mit Passagier). Xaero, Voice Chat und LSS nehmen weiter den Kontonamen.
+ * Nur aktiv, wenn LuckPerms läuft.
  */
 final class Namen implements Listener, CommandExecutor {
 
     private static final String META_NICK = "nick";
+    private static final String RECHT_ANDERE = "serverwahl.nick.andere";
     private static final String TEAM_PRAEFIX = "sw_";
     private static final Pattern ERLAUBT = Pattern.compile("[A-Za-zÄÖÜäöüß0-9_-]+");
     private static final MiniMessage MM = MiniMessage.miniMessage();
@@ -147,7 +150,7 @@ final class Namen implements Listener, CommandExecutor {
         Component voll = tag.append(name);
         anzeige.put(p.getUniqueId(), voll);
         p.displayName(voll);
-        p.playerListName(nick == null || nick.equals(p.getName()) ? voll : voll.append(Component.text(" " + p.getName(), NamedTextColor.DARK_GRAY)));
+        p.playerListName(voll);
         teamSetzen(p, praefix, tag);
     }
 
@@ -203,7 +206,11 @@ final class Namen implements Listener, CommandExecutor {
         if (name == null) {
             return;
         }
-        e.renderer((quelle, anzeigeName, nachricht, empfaenger) -> Component.text().append(name)
+        String echt = e.getPlayer().getName();
+        Component mitHover = name.hoverEvent(net.kyori.adventure.text.event.HoverEvent.showText(Component.text("Echter Name: " + echt, NamedTextColor.GRAY)));
+        // echter Name nur für Moderatoren (und Konsole) per Hover
+        e.renderer((quelle, anzeigeName, nachricht, empfaenger) -> Component.text()
+                .append(empfaenger instanceof Player v && !v.hasPermission(RECHT_ANDERE) ? name : mitHover)
                 .append(Component.text(": ", NamedTextColor.GRAY)).append(nachricht).build());
     }
 
@@ -213,9 +220,18 @@ final class Namen implements Listener, CommandExecutor {
             sender.sendMessage(Component.text("Nicknames sind gerade aus.", NamedTextColor.RED));
             return true;
         }
+        // /nick info <nick oder name> (Moderation): echter Name ↔ Nick
+        if (args.length == 2 && args[0].equalsIgnoreCase("info")) {
+            if (!sender.hasPermission(RECHT_ANDERE)) {
+                sender.sendMessage(Component.text("Dazu fehlt dir die Berechtigung.", NamedTextColor.RED));
+                return true;
+            }
+            info(sender, args[1]);
+            return true;
+        }
         // /nick reset <spieler> (Moderation)
         if (args.length == 2 && args[0].equalsIgnoreCase("reset")) {
-            if (!sender.hasPermission("serverwahl.nick.andere")) {
+            if (!sender.hasPermission(RECHT_ANDERE)) {
                 sender.sendMessage(Component.text("Dazu fehlt dir die Berechtigung.", NamedTextColor.RED));
                 return true;
             }
@@ -235,6 +251,7 @@ final class Namen implements Listener, CommandExecutor {
             String nick = lp.getPlayerAdapter(Player.class).getMetaData(p).getMetaValue(META_NICK);
             p.sendMessage(Component.text(nick == null ? "Du hast keinen Nick. /nick <name> setzt einen." : "Dein Nick: " + nick + " (/nick reset entfernt ihn)",
                     NamedTextColor.GRAY));
+            p.sendMessage(Component.text("Das [Tag] davor ist dein Clan-Tag, den vergibt das Server-Team.", NamedTextColor.DARK_GRAY));
             return true;
         }
         if (args.length != 1) {
@@ -313,13 +330,44 @@ final class Namen implements Listener, CommandExecutor {
         return null;
     }
 
+    /** sucht nach Nick (Grundform) oder echtem Namen, auch Spieler, die nicht online sind */
+    private void info(CommandSender an, String suche) {
+        String form = grundform(suche);
+        lp.getUserManager().searchAll(NodeMatcher.metaKey(META_NICK)).thenAccept(alle -> Bukkit.getScheduler().runTask(plugin, () -> {
+            List<String> treffer = new ArrayList<>();
+            for (Map.Entry<UUID, ? extends Collection<MetaNode>> e : alle.entrySet()) {
+                OfflinePlayer o = Bukkit.getOfflinePlayer(e.getKey());
+                for (MetaNode n : e.getValue()) {
+                    if (grundform(n.getMetaValue()).equals(form) || (o.getName() != null && o.getName().equalsIgnoreCase(suche))) {
+                        treffer.add("Nick " + n.getMetaValue() + " = " + (o.getName() == null ? e.getKey() : o.getName()));
+                    }
+                }
+            }
+            if (treffer.isEmpty()) {
+                OfflinePlayer o = Bukkit.getOfflinePlayerIfCached(suche);
+                treffer.add(o == null ? "Keinen Spieler oder Nick „" + suche + "“ gefunden." : o.getName() + " hat keinen Nick.");
+            }
+            treffer.forEach(t -> an.sendMessage(Component.text(t, NamedTextColor.GRAY)));
+        }));
+    }
+
     private void nickSpeichern(UUID id, String nick, CommandSender an, String meldung) {
-        lp.getUserManager().modifyUser(id, u -> {
+        java.util.function.Consumer<net.luckperms.api.model.user.User> aendern = u -> {
             u.data().clear(NodeType.META.predicate(n -> n.getMetaKey().equals(META_NICK)));
             if (nick != null) {
                 u.data().add(MetaNode.builder(META_NICK, nick).build());
             }
-        }).whenComplete((ok, ex) -> Bukkit.getScheduler().runTask(plugin, () -> {
+        };
+        // Online: das geladene Objekt direkt ändern und speichern (modifyUser lädt neu, die Anzeige las danach noch den alten Stand, Test 28.10.)
+        net.luckperms.api.model.user.User geladen = lp.getUserManager().getUser(id);
+        java.util.concurrent.CompletableFuture<Void> fertig;
+        if (geladen != null) {
+            aendern.accept(geladen);
+            fertig = lp.getUserManager().saveUser(geladen);
+        } else {
+            fertig = lp.getUserManager().modifyUser(id, aendern);
+        }
+        fertig.whenComplete((ok, ex) -> Bukkit.getScheduler().runTask(plugin, () -> {
             if (ex != null) {
                 plugin.getLogger().warning("Nick speichern: " + ex);
                 an.sendMessage(Component.text("Speichern ging schief, bitte später nochmal.", NamedTextColor.RED));
@@ -328,6 +376,10 @@ final class Namen implements Listener, CommandExecutor {
             plugin.getLogger().info("Nick " + id + " = " + (nick == null ? "(keiner)" : nick) + " (von " + an.getName() + ")");
             an.sendMessage(Component.text(meldung, NamedTextColor.GREEN));
             Player p = Bukkit.getPlayer(id);
+            net.luckperms.api.model.user.User u = lp.getUserManager().getUser(id);
+            if (u != null) {
+                u.getCachedData().invalidate();
+            }
             if (p != null) {
                 aktualisieren(p);
             }

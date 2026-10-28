@@ -39,8 +39,11 @@ Bedrock (Floodgate): gleiche UUID-Logik, gleiche Gruppen.
 - Keine Nachahmung: verglichen wird eine Grundform (klein, ohne `_`/`-`, `0→o 1→i l→i 3→e 4→a 5→s 7→t`) gegen alle bekannten echten Namen
   (Spieler, die je auf dem Server waren) **und** alle vergebenen Nicks; dazu eine Sperrliste in der Config (admin, moderator, server, …).
   Der eigene echte Name ist erlaubt
-- Anzeige: Chat `[Tag] Nickname: Text`; Tab-Liste `[Tag] Nickname` + echter Name klein/grau; über dem Kopf `[Tag] EchterName` per
-  Scoreboard-Team `clan-<name>` mit Präfix (kein Paket-Plugin). Ohne Clan kein Präfix, ohne Nick der echte Name
+- Anzeige (**geändert Pascal 28.10.:** der Nick ersetzt den echten Namen): Chat `[Tag] Nickname: Text`, Tab-Liste `[Tag] Nickname`, echter Name
+  nicht sichtbar. Moderatoren (`serverwahl.nick.andere`) sehen ihn per **Hover im Chat** und mit **`/nick info <nick oder name>`**.
+  Über dem Kopf bleibt `[Tag] EchterName` (Scoreboard-Team mit Präfix): Den Namen dort ersetzt nur ein Paket-Plugin. Eine mitreitende
+  Text-Anzeige (Text Display als Passagier) ginge per API, aber Paper lehnt Teleports von Spielern mit Passagier ab (in `CraftPlayer.teleport0`
+  geprüft: Weltwechsel → `false`) → zu riskant. Ohne Clan kein Präfix, ohne Nick der echte Name
 - Xaero, Voice Chat, LSS-Far-Players benutzen den Kontonamen (GameProfile), Nick/Präfix wirken dort nicht → echter Name, wie gewollt
 
 ## Verträglichkeit (geprüft im Code bzw. Doku)
@@ -84,14 +87,41 @@ Hub nicht: dort baut niemand (WorldGuard `__global__` sperrt). Backups: DB kommt
 1. Pascal: `bash server/coreprotect/bauen.sh` (SHA-256 an die Server-Session; gebaut 28.10.: `488fddf4ec5ec011b5d6433d4a43d41f7bbc878263f54c4a0b1362575a5a4533`)
 2. Testnetz gestoppt: `bash testnetz/namen-test.sh einrichten`; Leitung startet; `bash testnetz/namen-test.sh gruppen`
 3. Logs: Hub und SMP laden LuckPerms 5.5.71 (Storage YAML), SMP lädt CoreProtect ohne „not supported“, serverwahl ohne „LuckPerms nicht geladen“
-4. `/nick Weihnachtself` im Hub → Chat `[Test] Weihnachtself: …`, Tab `[Test] Weihnachtself ITsCALLE96`, über dem Kopf `[Test] ITsCALLE96` (zweiter Client/Bedrock)
+4. `/nick Weihnachtself` im Hub → Rückmeldung „Dein Nick ist jetzt …“, Chat `[Test] Weihnachtself: …` (Hover zeigt den echten Namen), Tab `[Test] Weihnachtself`,
+   über dem Kopf `[Test] ITsCALLE96` (zweiter Client/Bedrock). `[Test]` ist der Clan-Tag, nicht der Nick. `/nick info Weihnachtself` zeigt den echten Namen
 5. **Gleich danach auf den SMP wechseln** (Leitung): Nick und Tag sind dort da; `testnetz/luckperms-daten/users/<uuid>.yml` ist gültiges YAML,
    keine `*.tmp`/leere Dateien, keine LuckPerms-Fehler in beiden Logs
 6. Regeln: `/nick &cRot`, `/nick ab`, `/nick ITsCALLE96x` (bekannter Name eines anderen → erst mit zweitem Spieler prüfbar), `/nick Adm1n` → abgelehnt; `/nick reset`
-7. Grief: Kiste füllen und leer räumen, Schild schreiben; `/co i` + Klick auf Kiste/Schild zeigt die Einträge; `/co lookup u:ITsCALLE96 t:10m`
+7. Grief: Kiste füllen und leer räumen, Schild schreiben; **Holzspitzhacke** nehmen: Rechtsklick auf die Kiste, Linksklick auf das Schild zeigen die Einträge,
+   Schild bleibt stehen; mit Schleichen baut die Spitzhacke normal ab
 8. `/co rollback u:ITsCALLE96 t:10m r:20` → Kiste wieder voll, Schild weg; `/co restore …` geht nur als admin
 9. Moderator-Probe: zweites Konto in `moderator` → `/co i` geht, `/co rollback` wird abgelehnt
 10. Purge-Probe (optional): `taeglich.uhrzeit` auf die nächste Minute, `/serverwahl reload` → Log „Täglich: co purge t:90d“
+
+## Prüfwerkzeug statt Befehlen (Pascal 28.10.)
+
+Holzspitzhacke in der Haupthand = CoreProtect-Inspektor, für alle mit `coreprotect.inspect` (moderator, admin). serverwahl schaltet dafür
+CoreProtects eigenen Inspektor still ein und aus (ohne `/co i`, ohne Chatmeldung), nur solange die Spitzhacke in der Hand ist.
+- **Linksklick auf einen Block:** was an dieser Stelle passiert ist (gesetzt, abgebaut, von wem, wann). Der Block geht dabei nicht kaputt
+- **Rechtsklick auf eine Kiste/einen Container:** wer was herausgenommen oder hineingelegt hat; auf andere Blöcke: Benutzung (Türen, Hebel …)
+- **Rechtsklick an eine Blockseite:** was an der leeren Stelle davor abgebaut wurde (für „hier war mal etwas“)
+- **Schleichen** schaltet das Werkzeug ab → Moderatoren bauen mit der Holzspitzhacke ganz normal ab
+- Werkzeug in der Config `pruefwerkzeug.werkzeug` (Standard `WOODEN_PICKAXE`). Ein von Hand gesetztes `/co i` bleibt unberührt
+- Zurücksetzen bleibt ein Befehl (nur admin), z. B. `/co rollback u:<spieler> t:2h r:30`
+
+## CoreProtect für die echte Welt (Entscheidung Pascal offen)
+
+Test 28.10.: Der Bau aus `master` startet ohne gesetzten Branch nicht („branch has not been set“). Fürs Testnetz bauen wir mit
+`-Dproject.branch=development` (Leitung 28.10.). CoreProtect selbst warnt dabei: „Running development code may result in data corruption.“
+
+| Option | Was | Für | Gegen |
+|---|---|---|---|
+| A | **CoreProtect v25** über Patreon (Pascal kauft) | offizieller Stand für 26.3, bekanntes Werkzeug, Auto-Purge eingebaut | kostet, Updates hängen am Patreon |
+| B | development-Build aus `master` (wie im Testnetz) | kostenlos, sofort | vom Autor ausdrücklich nicht für echte Welten gedacht, keine Release-Prüfung |
+| C | **Prism 4.5** (Paper/Purpur, 24.10.2026, offiziell für 26.3, MIT, https://github.com/prism/prism) | offizielles Release, quelloffen, Inspektor-/Rollback-Zauberstäbe, geplanter Purge eingebaut (`command-schedules`), Speicher SQLite/H2/MariaDB | Chat und Befehle müssen erst eingeschaltet werden (`player-chat`, `player-command`), andere Bedienung (`/pr …`), unser Prüfwerkzeug müsste neu angebunden werden |
+| D | warten, bis v25 öffentlich ist | kostenlos, offiziell | Zeitpunkt unbekannt, evtl. nach dem 05.12. |
+
+**Empfehlung Server-Session:** C (Prism 4.5) im Testnetz gegenprüfen, sonst A. B nicht für die Forever-World.
 
 ## Ablauf
 
