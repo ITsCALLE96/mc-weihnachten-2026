@@ -89,6 +89,11 @@ zuruecksetzen <name>` (Test führt die Befehle wirklich aus).
 Über den Sonderpreis beim Öffnen des Handelsfensters (Vanilla setzt ihn beim Schließen zurück) → nichts bleibt gespeichert, kein Neustart nötig.
 `/serverwahl rabatt an | aus | auto`.
 
+## Discord-Whitelist (28.10.)
+
+`discord-whitelist:` Einträge aus der gemeinsamen Datei dürfen trotz Vanilla-Whitelist herein, Entfernte werden gekickt. Nur der Hub hat den Endpunkt
+für den Community-Bot (`api:`, nur LAN, IP-Sperre + Schlüssel). Spezifikation und Schnittstelle: `../discord-whitelist.md`. `/serverwahl whitelist`.
+
 ## Konfiguration
 
 `plugins/Serverwahl/config.yml`, die Dateien dafür liegen in `../plugin-konfig/hub/` und `../plugin-konfig/smp/`. Nach Änderungen `/serverwahl reload` (Op).

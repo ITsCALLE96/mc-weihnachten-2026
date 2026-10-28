@@ -75,6 +75,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private final Neujahr neujahr = new Neujahr(this);
     private final DorfRabatt dorfRabatt = new DorfRabatt();
     private Termine termine;
+    private DiscordWhitelist discordWhitelist;
     /** Nicknames/Clan-Tags, nur mit LuckPerms (sonst null) */
     private Namen namen;
     /** täglich einmal ab dieser Uhrzeit (höchstens eine Stunde später) diese Konsolenbefehle; null = aus */
@@ -210,6 +211,13 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         }, 200L, 1200L);
     }
 
+    @Override
+    public void onDisable() {
+        if (discordWhitelist != null) {
+            discordWhitelist.apiStoppen();
+        }
+    }
+
     private void laden() {
         reloadConfig();
         hubServer = getConfig().getString("hub-server", "hub");
@@ -250,6 +258,11 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         }
         neujahr.laden(getConfig().getConfigurationSection("neujahr"));
         dorfRabatt.laden(getConfig().getConfigurationSection("dorf-rabatt"));
+        if (discordWhitelist == null) {
+            discordWhitelist = new DiscordWhitelist(this);
+            getServer().getPluginManager().registerEvents(discordWhitelist, this);
+        }
+        discordWhitelist.laden(getConfig().getConfigurationSection("discord-whitelist"));
         if (termine == null) {
             termine = new Termine(this);
         }
@@ -296,6 +309,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             return true;
         }
         if (command.getName().equals("serverwahl")) {
+            if (args.length >= 1 && args[0].equals("whitelist")) {
+                sender.sendMessage(Component.text(discordWhitelist.status(), NamedTextColor.GOLD));
+                return true;
+            }
             if (args.length >= 1 && args[0].equals("termin")) {
                 sender.sendMessage(Component.text(termine.befehl(args), NamedTextColor.GOLD));
                 return true;

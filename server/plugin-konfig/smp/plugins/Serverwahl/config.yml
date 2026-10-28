@@ -168,3 +168,9 @@ dorf-rabatt:
   zeitzone: Europe/Berlin
   prozent: 50
   tage: ["2026-12-24", "2026-12-25", "2026-12-26"]
+# Discord-Whitelist (Pascal 28.10.): liest dieselbe Datei wie der Hub (der Hub schreibt sie), kein eigener Endpunkt
+discord-whitelist:
+  aktiv: true
+  datei: /opt/mc-weihnachten/whitelist/discord.json
+  floodgate-praefix: "."
+  kick-text: "Du stehst nicht mehr auf der Whitelist (Discord-Anmeldung bzw. Rolle fehlt)."

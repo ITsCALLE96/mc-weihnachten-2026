@@ -103,3 +103,18 @@ termine:
       countdown: 0
       text: "Eröffnung"
       befehle: ["execute if score #offen insel_zustand matches 0 run function hub:eroeffnung"]
+# Discord-Whitelist (Pascal 28.10., Spezifikation server/discord-whitelist.md): Einträge aus der gemeinsamen Datei dürfen trotz Vanilla-Whitelist herein,
+# Pascal und Tester bleiben von Hand auf der Vanilla-Whitelist. Nur der Hub hat den Endpunkt für den Community-Bot (nur LAN, IP-Sperre + Schlüssel
+# plugins/Serverwahl/whitelist-api.key, wird beim ersten Start erzeugt, nie ins Repo). /serverwahl whitelist zeigt den Stand
+discord-whitelist:
+  aktiv: true
+  datei: /opt/mc-weihnachten/whitelist/discord.json
+  floodgate-praefix: "."
+  kick-text: "Du stehst nicht mehr auf der Whitelist (Discord-Anmeldung bzw. Rolle fehlt)."
+  api:
+    aktiv: true
+    adresse: 192.168.178.78
+    port: 8765
+    # IP von LXC 202 (Community-Bot) beim Einrichten eintragen; zusätzlich nft/ufw-Regel auf VM200
+    erlaubt: []
+    schluessel-datei: whitelist-api.key

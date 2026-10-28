@@ -95,3 +95,14 @@ Namensformat: Java `^[A-Za-z0-9_]{3,16}$`; Bedrock 1–16 Zeichen, Buchstaben/Zi
   eintragen (Java/Bedrock), unbekannter Name, doppelter Name, entfernen (Spieler online → Kick), Abgleich, falscher Schlüssel → `401`, fremde IP → `403`,
   SMP übernimmt binnen 10 s, Hub-Neustart verliert nichts
 - Offen: Fragen im Formular (Pascal), Firewall-Regel auf VM200 beim Einrichten (Task 2)
+
+## Umsetzung Server-Seite (28.10., serverwahl)
+
+- `serverwahl/src/…/DiscordWhitelist.java`, Config `discord-whitelist:` (Hub mit `api:`, SMP ohne). Login: Vanilla lehnt mit „nicht auf der Whitelist“ ab →
+  steht die UUID in der Datei, hebt serverwahl genau diese Ablehnung auf (`PlayerConnectionValidateLoginEvent`); Bann, volle Server und die Eröffnungssperre
+  bleiben unberührt. Die Vanilla-Whitelist selbst wird nicht verändert (Pascal/Tester von Hand)
+- Abgleich alle 10 s nach Änderungszeit der Datei; Entfernte werden gekickt, außer sie stehen von Hand auf der Whitelist oder sind Op
+- Datei wird atomar geschrieben (`.tmp` + Umbenennen); der Schlüssel wird beim ersten Start erzeugt (`plugins/Serverwahl/whitelist-api.key`), nie geloggt
+- `/serverwahl whitelist` zeigt Stand, Datei und API-Adresse
+- Testnetz: `bash testnetz/namen-test.sh einrichten` setzt Datei `testnetz/status/whitelist-discord.json` und `127.0.0.1`; Proben mit
+  `bash testnetz/whitelist-test.sh [java-name] [bedrock-gamertag]` (Hub muss laufen)
