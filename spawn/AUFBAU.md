@@ -23,10 +23,13 @@ in `spawn/quellen/nitrado/` (git-ignoriert), nie ins Repo oder in einen Welt-Dow
 
 Eigenes Design (`spawn/weihnachtsinsel.mjs`, prozedural, nichts Fremdes), dauerhaft, auch nach der Season. Am **Nordweg** der Spark-Insel: Inselmitte −1/−34,
 Laufhöhe 155, Brücke von z 29 bis zum Inselrand, drei Torbögen. Spätere Event-Inseln an den anderen Wegen: gleicher Generator, `LAGE.richtung` ändern.
-- **Datapack** `spawn/datapack/weihnachtsinsel` (erzeugt: `node spawn/weihnachtsinsel.mjs`, kopiert das Setz-Skript mit). Funktionen:
-  `weihnachtsinsel:vorbereiten` (Spendenkiste 2/155/31, Tafel `wi_tafel` −3.5/158.5/31.5), `stufe_1` … `stufe_4` (Bau mit Effekt, Stufe 4 endet mit `feier`),
-  `feier` (einzeln testbar), `zuruecksetzen` (**nur Testnetz**). Merker `#stufe wi_mission` (0–4): Doppelaufruf und falsche Reihenfolge tun nichts;
-  `#laeuft` setzt eine Stufe nach einem Neustart mitten im Effekt vollständig
+- **Datapack** `spawn/datapack/weihnachtsinsel` (erzeugt: `node spawn/weihnachtsinsel.mjs`, schreibt auch `spawn/weihnachtsmann.json`; kopiert das Setz-Skript mit).
+  Funktionen: `weihnachtsinsel:vorbereiten` (Tafel `wi_tafel` −3.5/158.5/31.5; gespendet wird im Ender-Kisten-Menü), je Stufe **10 Bauabschnitte**
+  `stufe_N_teil_K` (serverwahl je 10 % Fortschritt; Merker `#tN_K`, Doppelaufruf tut nichts) und den Abschluss `stufe_N` (setzt alles, Titel; Stufe 4
+  startet `feier`, die nur einmal läuft), `feier_nochmal` und `zuruecksetzen` (**nur Testnetz**). `#laeuft` setzt eine Stufe nach einem Neustart vollständig
+- **Details:** Iglu mit Weihnachtsmann (Mannequin, Skin aus dem Basis-Pack, ab Stufe 4, Handel per serverwahl über die Interaction `wi_weihnachtsmann_klick`,
+  Ware und Grundpreise in `spawn/weihnachtsmann.json`), Laternenweg, Holzstapel mit Axt, Futterkrippe, Schneemann, Kakao-Stand, Schlitten mit zwei Rentieren,
+  Geschenkberg, Jukebox-Ecke (Platten wechselt serverwahl), 12 schwebende, wippende Kerzen (Flammen ab Stufe 4), 5 Allays ohne KI
 - **Logik** (Spenden, Zielmengen, Tafeltext, Tränke) macht `serverwahl` (Server-Session) aus `spawn/mission.json`
 - **Licht:** unsichtbare Lichtblöcke Stufe 9 per Lichtsimulation nur an dunklen Spawnstellen (je Stufe neu berechnet), Laternen und Kupferbirnen an
   Brücke und Platz; Region `weihnachtsinsel` (Kasten aus dem Generator) in `regions.yml` über `regionenZusatz` in der Standort-Konfiguration
