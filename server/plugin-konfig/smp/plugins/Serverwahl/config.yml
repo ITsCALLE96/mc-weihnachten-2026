@@ -154,6 +154,7 @@ termine:
       countdown: 10
       text: "<red>Der Nether öffnet!"
       befehle: ["nether open", "function leitfaden:phase/setzen_2"]
+      event: nether
     # Phase 3 (Questbuch: nur eine Meldung) – Termin zwischen Nether und End ist ein Vorschlag, Leitung entscheidet
     - name: phase3
       zeitpunkt: "2026-12-15T18:00"
@@ -167,6 +168,21 @@ termine:
       countdown: 10
       text: "<light_purple>Das End öffnet – gemeinsamer Drachenkampf!"
       befehle: ["end open", "function leitfaden:phase/setzen_4"]
+      event: end
+# Event beim Öffnen von Nether/End (Pascal 28.10.): vorlauf s vor bis nachlauf s nach dem Termin, nur Spieler in der Oberwelt, nur Anzeige
+# (Spieler-eigene Nacht/Regen/roter Rand, Blitz-Effekte ohne Schaden/Feuer, Partikel, Klänge, Bossbar). Kein Schaden, kein Feuer, keine Blöcke.
+# Am Termin: event: nether|end. Test: /serverwahl termin test nether|end [sek] · Stand/Abbruch: /serverwahl termin event [stopp]
+termin-event:
+  vorlauf: 75
+  nachlauf: 12
+  dezent: false
+  blitze: true
+  rand: true
+  nacht: true
+  titel-nether: "<red><bold>Der Nether ist offen!"
+  titel-end: "<light_purple><bold>Das End ist offen – Drachenkampf!"
+  bossbar-nether: "<red>Der Nether öffnet …"
+  bossbar-end: "<light_purple>Das End öffnet …"
 # Weihnachtsrabatt bei Dorfbewohnern (Pascal 28.10.): an diesen Tagen alles zum halben Preis, zusätzlich zu den Vanilla-Rabatten.
 # Gilt beim Öffnen des Handelsfensters, nichts bleibt dauerhaft gespeichert. Test: /serverwahl rabatt an | aus | auto | status
 dorf-rabatt:

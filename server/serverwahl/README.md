@@ -83,6 +83,20 @@ läuft der Termin beim nächsten Start). Jeder Termin läuft einmal, Merker `plu
 (Vorschlag), End 18.12.; Hub: Start-Ankündigung 27.11. und Rückfall-Eröffnung 10 min später. `/serverwahl termin liste | test <name> [sek] |
 zuruecksetzen <name>` (Test führt die Befehle wirklich aus).
 
+**Öffnung zur Laufzeit, ohne Neustart:** `nether open`/`end open` sind DimensionControl-Konsolenbefehle, die den Zustand sofort umstellen und in
+`plugins/DimensionControl/data.yml` schreiben. Die Portal-Sperre von serverwahl hält nichts zwischen: Sie liest `data.yml` bei jedem Anzündversuch
+bzw. Enderauge neu (`dimensionZu`), fällt also mit dem nächsten Versuch. `function leitfaden:phase/setzen_2|4` läuft im selben Tick als Konsolenbefehl.
+
+**Event beim Öffnen (Pascal 28.10., `DimensionsEvent.java`):** Am Termin `event: nether|end`, Einstellungen unter `termin-event:`
+(`vorlauf` 75 s, `nachlauf` 12 s, `dezent`, `blitze`, `rand`, `nacht`, Titel- und Bossbar-Texte). Nur für Spieler in der Oberwelt und nur als Anzeige:
+- Nacht als Zeitraffer und Regen über Spieler-eigene Werte (`setPlayerTime`/`setPlayerWeather`), Welt-Zeit und -Wetter bleiben unberührt
+- roter Bildschirmrand über eine nur für den Spieler gesetzte Weltgrenze mit großer Warn-Distanz (wirkt nur auf die Anzeige; braucht die Vignette im Client)
+- Blitze nur als Effekt (`strikeLightningEffect`: kein Schaden, kein Feuer), um die Spieler verteilt, von alle 4 s auf alle 0,5 s dichter; beim End mit lila/blauen Staubsäulen
+- Partikel nur an den jeweiligen Spieler geschickt (Nether: Lava-Tropfen, Flammen, Asche; End: Portal, Reverse-Portal, Endstab), Klänge, Bossbar rot bzw. lila, beim End kurze Dunkelheits-Pulse
+- bei 0: Knall und Titel; danach Zeitraffer zurück zur Welt-Zeit, Wetter, Grenze und Bossbar zurückgesetzt. Wer in Nether/End wechselt, bekommt sofort seinen Normalstand
+- Hub: dieselben Zeitpunkte ohne Befehle, `dezent: true` (weniger Partikel, seltene, weite Blitze, keine Dunkelheit, leiser)
+- `/serverwahl termin test nether|end [sek]` spielt das Event mit (bei weniger Sekunden als `vorlauf` entsprechend kürzer), `/serverwahl termin event [stopp]` zeigt bzw. bricht ab
+
 ## Dorf-Rabatt (28.10.)
 
 `dorf-rabatt:` an den `tage`n (Standard 24.–26.12.) kosten alle Angebote von Dorfbewohnern `prozent` weniger, zusätzlich zu Vanilla-Rabatten.

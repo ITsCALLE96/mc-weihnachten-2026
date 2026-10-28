@@ -227,6 +227,9 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         if (discordWhitelist != null) {
             discordWhitelist.apiStoppen();
         }
+        if (termine != null) {
+            termine.event.stopp();
+        }
     }
 
     private void laden() {
@@ -292,6 +295,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             termine = new Termine(this);
         }
         termine.laden(getConfig().getConfigurationSection("termine"));
+        termine.event.laden(getConfig().getConfigurationSection("termin-event"));
         xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
         beitrittOrt = getConfig().getString("beitritt-ort", "").trim();
         enderkistenKategorie = getConfig().getString("alle-enderkisten", null);

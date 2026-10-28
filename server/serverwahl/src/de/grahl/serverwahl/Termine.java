@@ -29,17 +29,21 @@ import org.bukkit.plugin.Plugin;
  * vorher Ankündigungen im Chat (Minuten vorher) und ein Countdown als Titel (letzte Sekunden), wie bei der Eröffnung.
  * Jeder Termin läuft genau einmal: Merker plugins/Serverwahl/termine.txt (ein Name je Zeile). War der Server zum Zeitpunkt aus,
  * wird der Termin beim nächsten Start nachgeholt (nachholen: true, Standard), Ankündigungen und Countdown dann nicht.
- * /serverwahl termin liste | test <name> [sekunden] | zuruecksetzen <name>. Ein Test führt die Befehle wirklich aus (nur im Testnetz).
+ * /serverwahl termin liste | test <name> [sekunden] | zuruecksetzen <name> | event [stopp]. Ein Test führt die Befehle wirklich aus (nur im Testnetz)
+ * und spielt das Event mit (bei weniger Sekunden als vorlauf entsprechend kürzer).
  */
 final class Termine {
 
     private static final MiniMessage MM = MiniMessage.miniMessage();
     private static final DateTimeFormatter ANZEIGE = DateTimeFormatter.ofPattern("dd.MM. HH:mm");
 
-    private record Termin(String name, ZonedDateTime zeit, List<Integer> ankuendigen, int countdown, String text, List<String> befehle, boolean nachholen) {
+    private record Termin(String name, ZonedDateTime zeit, List<Integer> ankuendigen, int countdown, String text, List<String> befehle, boolean nachholen,
+            String event) {
     }
 
     private final Plugin plugin;
+    /** Nether-/End-Event beim Öffnen (Feld „event“ am Termin, Einstellungen termin-event) */
+    final DimensionsEvent event;
     private final List<Termin> termine = new ArrayList<>();
     /** schon gezeigte Ankündigungen/Countdown-Sekunden („name:minuten“ bzw. „name:s<sek>“), damit nichts doppelt kommt */
     private final Set<String> gezeigt = new HashSet<>();
@@ -48,6 +52,7 @@ final class Termine {
 
     Termine(Plugin plugin) {
         this.plugin = plugin;
+        this.event = new DimensionsEvent(plugin);
         Bukkit.getScheduler().runTaskTimer(plugin, this::ticken, 60L, 5L);
     }
 
@@ -71,7 +76,8 @@ final class Termine {
                     l.forEach(x -> bef.add(String.valueOf(x)));
                 }
                 boolean nach = m.get("nachholen") == null || Boolean.parseBoolean(String.valueOf(m.get("nachholen")));
-                termine.add(new Termin(name, zeit, ank, cd, m.get("text") == null ? name : String.valueOf(m.get("text")), bef, nach));
+                String ev = m.get("event") == null ? null : String.valueOf(m.get("event"));
+                termine.add(new Termin(name, zeit, ank, cd, m.get("text") == null ? name : String.valueOf(m.get("text")), bef, nach, ev));
             } catch (RuntimeException e) {
                 plugin.getLogger().warning("Termin übersprungen (" + m + "): " + e.getMessage());
             }
@@ -119,6 +125,10 @@ final class Termine {
             long ms = Duration.between(ZonedDateTime.now(zeit.getZone()), zeit).toMillis();
             if (ms > 0) {
                 ankuendigen(t, ms);
+                // Event: vorlauf Sekunden vorher starten (beim Test mit kürzerer Frist sofort, entsprechend kürzer)
+                if (t.event() != null && ms <= event.vorlauf() * 1000L && !event.laeuft(t.event()) && gezeigt.add(t.name() + ":event")) {
+                    event.starten(t.event(), System.currentTimeMillis() + ms);
+                }
                 continue;
             }
             // fällig: einmal ausführen; verpasste Termine (Server war aus) nur mit nachholen
@@ -155,6 +165,9 @@ final class Termine {
         }
         gezeigt.removeIf(s -> s.startsWith(t.name() + ":"));
         plugin.getLogger().info("Termin " + t.name() + (istTest ? " (Test)" : "") + ": " + t.befehle());
+        if (t.event() != null) {
+            event.oeffnen(t.event());
+        }
         for (String befehl : t.befehle()) {
             if (!Bukkit.dispatchCommand(Bukkit.getConsoleSender(), befehl)) {
                 plugin.getLogger().warning("Termin " + t.name() + ": Befehl fehlgeschlagen: " + befehl);
@@ -163,18 +176,21 @@ final class Termine {
     }
 
     String befehl(String[] args) {
+        if (args.length >= 2 && args[1].equals("event")) {
+            return args.length >= 3 && args[2].equals("stopp") ? event.stopp() : event.status();
+        }
         if (args.length < 2 || args[1].equals("liste")) {
             Set<String> fertig = erledigt();
             StringBuilder b = new StringBuilder("Termine (" + termine.size() + "):");
             for (Termin t : termine) {
                 b.append("\n- ").append(t.name()).append(" ").append(ANZEIGE.format(t.zeit())).append(fertig.contains(t.name()) ? " ✔ erledigt" : "")
-                        .append(" → ").append(String.join(" ; ", t.befehle()));
+                        .append(" → ").append(String.join(" ; ", t.befehle())).append(t.event() != null ? " · Event " + t.event() : "");
             }
             return b.toString();
         }
         Termin t = args.length >= 3 ? termine.stream().filter(x -> x.name().equals(args[2])).findFirst().orElse(null) : null;
         if (t == null) {
-            return "Termin nicht gefunden. /serverwahl termin liste | test <name> [sekunden] | zuruecksetzen <name>";
+            return "Termin nicht gefunden. /serverwahl termin liste | test <name> [sekunden] | zuruecksetzen <name> | event [stopp]";
         }
         switch (args[1]) {
             case "test" -> {

@@ -113,6 +113,35 @@ termine:
       countdown: 0
       text: "Eröffnung"
       befehle: ["execute if score #offen insel_zustand matches 0 run function hub:eroeffnung"]
+    # Nether/End: im Hub nur Countdown und dezente Stimmung (geöffnet wird auf dem SMP), gleiche Zeitpunkte wie dort
+    - name: nether
+      zeitpunkt: "2026-12-11T18:00"
+      ankuendigen: [60, 10, 1]
+      countdown: 10
+      text: "<red>Der Nether öffnet auf dem SMP!"
+      befehle: []
+      event: nether
+    - name: end
+      zeitpunkt: "2026-12-18T18:00"
+      ankuendigen: [60, 10, 1]
+      countdown: 10
+      text: "<light_purple>Das End öffnet auf dem SMP – Drachenkampf!"
+      befehle: []
+      event: end
+# Event beim Öffnen von Nether/End (Pascal 28.10.): vorlauf s vor bis nachlauf s nach dem Termin, nur Spieler in der Oberwelt, nur Anzeige
+# (Spieler-eigene Nacht/Regen/roter Rand, Blitz-Effekte ohne Schaden/Feuer, Partikel, Klänge, Bossbar). Kein Schaden, kein Feuer, keine Blöcke.
+# Am Termin: event: nether|end. Test: /serverwahl termin test nether|end [sek] · Stand/Abbruch: /serverwahl termin event [stopp]
+termin-event:
+  vorlauf: 75
+  nachlauf: 12
+  dezent: true
+  blitze: true
+  rand: true
+  nacht: true
+  titel-nether: "<red><bold>Der Nether ist offen!"
+  titel-end: "<light_purple><bold>Das End ist offen – Drachenkampf!"
+  bossbar-nether: "<red>Der Nether öffnet …"
+  bossbar-end: "<light_purple>Das End öffnet …"
 # Discord-Whitelist (Pascal 28.10., Spezifikation server/discord-whitelist.md): Einträge aus der gemeinsamen Datei dürfen trotz Vanilla-Whitelist herein,
 # Pascal und Tester bleiben von Hand auf der Vanilla-Whitelist. Nur der Hub hat den Endpunkt für den Community-Bot (nur LAN, IP-Sperre + Schlüssel
 # plugins/Serverwahl/whitelist-api.key, wird beim ersten Start erzeugt, nie ins Repo). /serverwahl whitelist zeigt den Stand
