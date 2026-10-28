@@ -151,4 +151,7 @@ test('Regionen mit deutschem Hinweis (deny-message) für spawn, rueckweg und wei
   const { regionen } = dateien(ks);
   assert.equal(regionen.match(/deny-message: '§7Am Spawn kannst du nichts verändern\.'/g).length, 3);
   assert.match(regionen, /weihnachtsinsel:\n        type: cuboid/);
+  const wi = regionen.slice(regionen.indexOf('    weihnachtsinsel:'));
+  assert.match(wi, /deny-spawn: \[minecraft:zombie, /);
+  assert.doesNotMatch(wi, /mob-spawning/);
 });
