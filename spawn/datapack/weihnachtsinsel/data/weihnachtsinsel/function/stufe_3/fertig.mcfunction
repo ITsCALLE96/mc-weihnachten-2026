@@ -1,8 +1,14 @@
 # Alle Abschnitte der Stufe 3 setzen (Abschluss bzw. Wiederaufnahme nach Neustart)
 place template weihnachtsinsel:s3_teil_1 -11 155 -49
-place template weihnachtsinsel:s3_teil_2 14 155 -33
+kill @e[tag=wi_e_s3_2]
+summon item_display 15.50 155.80 -27.63 {Tags:["wi_insel","wi_e_s3_2"],Rotation:[90f,0f],item:{id:"minecraft:paper",count:1,components:{"minecraft:item_model":"weihnachten:schlitten_gross"}},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[1.6f,1.6f,1.6f]}}
 place template weihnachtsinsel:s3_teil_3 -8 168 -43
-place template weihnachtsinsel:s3_teil_4 15 155 -44
+kill @e[tag=wi_e_s3_4]
+summon item_display 15.05 155.55 -31.20 {Tags:["wi_insel","wi_e_s3_4"],Rotation:[90f,0f],item:{id:"minecraft:paper",count:1,components:{"minecraft:item_model":"weihnachten:rentier_gross"}},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[1.1f,1.1f,1.1f]}}
+summon item_display 15.95 155.55 -31.20 {Tags:["wi_insel","wi_e_s3_4"],Rotation:[90f,0f],item:{id:"minecraft:paper",count:1,components:{"minecraft:item_model":"weihnachten:rentier_gross"}},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[1.1f,1.1f,1.1f]}}
+summon item_display 15.05 155.55 -33.50 {Tags:["wi_insel","wi_e_s3_4"],Rotation:[90f,0f],item:{id:"minecraft:paper",count:1,components:{"minecraft:item_model":"weihnachten:rentier_gross"}},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[1.1f,1.1f,1.1f]}}
+summon item_display 15.95 155.55 -33.50 {Tags:["wi_insel","wi_e_s3_4"],Rotation:[90f,0f],item:{id:"minecraft:paper",count:1,components:{"minecraft:item_model":"weihnachten:rentier_gross"}},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[1.1f,1.1f,1.1f]}}
+summon item_display 15.50 155.55 -35.80 {Tags:["wi_insel","wi_e_s3_4"],Rotation:[90f,0f],item:{id:"minecraft:paper",count:1,components:{"minecraft:item_model":"weihnachten:rentier_gross_nase"}},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[1.1f,1.1f,1.1f]}}
 place template weihnachtsinsel:s3_teil_5 -5 180 -38
 place template weihnachtsinsel:s3_teil_6 -2 155 -40
 place template weihnachtsinsel:s3_teil_7 -5 194 -35

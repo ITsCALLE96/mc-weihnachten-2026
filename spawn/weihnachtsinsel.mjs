@@ -172,21 +172,15 @@ export function inselBloecke(lage = LAGE) {
     setT(1, 7, kx - 1, T + 2, kz + 1, b('cake[bites=0]')); setT(1, 7, kx, T + 2, kz + 1, b('lantern[hanging=false,waterlogged=false]')); setT(1, 7, kx + 1, T + 2, kz + 1, b('decorated_pot[cracked=false,facing=north,waterlogged=false]'));
     for (const dx of [-2, 2]) for (const dz of [-1, 1]) for (const dy of [1, 2, 3]) setT(1, 7, kx + dx, T + dy, kz + dz, b('spruce_fence'));
     for (let dx = -2; dx <= 2; dx++) for (let dz = -2; dz <= 2; dz++) setT(1, 7, kx + dx, T + 4, kz + dz, (dx & 1) ? b('white_wool') : b('red_wool')); }
-  // Schlitten voller Geschenke mit zwei Rentieren aus Blöcken (Stufe 3, Abschnitte 2 und 4)
-  { const sx = CX - 8, sz = CZ + 16;
-    for (let x = sx; x <= sx + 6; x++) for (const dz of [-1, 1]) setT(2, 1, x, T + 1, sz + dz, b('dark_oak_slab[type=bottom,waterlogged=false]'));
-    for (const dz of [-1, 1]) setT(2, 1, sx + 7, T + 1, sz + dz, b('dark_oak_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]'));
-    for (let x = sx + 1; x <= sx + 5; x++) for (let dz = -1; dz <= 1; dz++) setT(2, 1, x, T + 2, sz + dz, b('red_concrete'));
-    for (let dz = -1; dz <= 1; dz++) { setT(2, 1, sx + 6, T + 2, sz + dz, b('gold_block')); setT(2, 1, sx + 1, T + 3, sz + dz, b('red_concrete')); setT(2, 1, sx + 1, T + 4, sz + dz, b('gold_block')); }
-    const gf = ['lime', 'light_blue', 'yellow', 'white', 'purple', 'orange'];
-    for (let x = sx + 2; x <= sx + 5; x++) for (let dz = -1; dz <= 1; dz++) { const i = (x * 3 + dz) & 7; setT(2, 1, x, T + 3, sz + dz, b(`${gf[i % 6]}_concrete`)); if (i % 3 === 0) setT(2, 1, x, T + 4, sz + dz, b(`${gf[(i + 2) % 6]}_carpet`)); }
-    for (const [x0, nase] of [[sx + 9, false], [sx + 14, true]]) {
-      for (const x of [x0, x0 + 2]) setT(2, 3, x, T + 1, sz, b('dark_oak_fence'));
-      for (let x = x0; x <= x0 + 2; x++) setT(2, 3, x, T + 2, sz, b('brown_terracotta'));
-      setT(2, 3, x0 + 3, T + 3, sz, b('brown_terracotta')); setT(2, 3, x0 + 3, T + 4, sz, b('dead_bush'));
-      setT(2, 3, x0 - 1, T + 2, sz, b('white_wool'));
-      if (nase) setT(2, 3, x0 + 4, T + 3, sz, b('redstone_block'));
-    } }
+  // Schlitten mit Rentier-Gespann als 3D-Modelle der Modpack-Session (Stufe 3, Abschnitte 2 und 4; Pascal 28.10.: keine Block-Rentiere mehr).
+  // Die Modelle schauen nach +X, Boden bei Modell-y 0 (= Entity-y − 0,5 × Skala), 16 px je Block. Ein item_display zeigt das Modell um 180° gedreht,
+  // Yaw 180 lässt das Gespann daher nach +X ziehen. Schlitten Skala 1,6 (ca. 4 lang inkl. Deichsel), Rentiere Skala 1,1 (ca. 2,2 hoch).
+  { const sx = CX - 8, sz = CZ + 16, boden = T + 1;
+    const modell = (s, k, id, x, z, gr) => ent(s, k, 'item_display', x, boden + gr / 2, z, 180, `{item:{id:"minecraft:paper",count:1,components:{"minecraft:item_model":"${id}"}},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[${gr}f,${gr}f,${gr}f]}}`);
+    const sch = sx + 1.625; // Heck bei sx, Deichselspitze bei sx + 4
+    modell(2, 1, 'weihnachten:schlitten_gross', sch, sz + 0.5, 1.6);
+    for (const [i, dx] of [[0, 5.2], [1, 7.5]]) for (const dz of [-0.45, 0.45]) modell(2, 3, 'weihnachten:rentier_gross', sx + dx, sz + 0.5 + dz, 1.1);
+    modell(2, 3, 'weihnachten:rentier_gross_nase', sx + 9.8, sz + 0.5, 1.1); }
   // Geschenkberg am Stamm (Stufe 3, Abschnitt 6)
   { const gf = ['red', 'lime', 'light_blue', 'yellow', 'white', 'purple', 'orange', 'green'];
     for (let dx = 0; dx <= 2; dx++) for (let dz = -1; dz <= 1; dz++) { const i = (dx * 5 + dz + 9) & 7; setT(2, 5, CX + 4 + dx, T + 1, CZ + dz, b(`${gf[i]}_concrete`)); }

@@ -28,7 +28,7 @@ Laufhöhe 155, Brücke von z 29 bis zum Inselrand, drei Torbögen. Spätere Even
   `stufe_N_teil_K` (serverwahl je 10 % Fortschritt; Merker `#tN_K`, Doppelaufruf tut nichts) und den Abschluss `stufe_N` (setzt alles, Titel; Stufe 4
   startet `feier`, die nur einmal läuft), `feier_nochmal` und `zuruecksetzen` (**nur Testnetz**). `#laeuft` setzt eine Stufe nach einem Neustart vollständig
 - **Details:** Iglu mit Weihnachtsmann (Mannequin, Skin aus dem Basis-Pack, ab Stufe 4, Handel per serverwahl über die Interaction `wi_weihnachtsmann_klick`,
-  Ware und Grundpreise in `spawn/weihnachtsmann.json`), Laternenweg, Holzstapel mit Axt, Futterkrippe, Schneemann, Kakao-Stand, Schlitten mit zwei Rentieren,
+  Ware und Grundpreise in `spawn/weihnachtsmann.json`), Laternenweg, Holzstapel mit Axt, Futterkrippe, Schneemann, Kakao-Stand, Schlitten mit Rentier-Gespann (3D-Modelle der Modpack-Session: schlitten_gross, 4 × rentier_gross, vorn rentier_gross_nase),
   Geschenkberg, Jukebox-Ecke (Platten wechselt serverwahl), 12 schwebende, wippende Kerzen (Flammen ab Stufe 4), 5 Allays ohne KI
 - **Logik** (Spenden, Zielmengen, Tafeltext, Tränke) macht `serverwahl` (Server-Session) aus `spawn/mission.json`
 - **Licht:** unsichtbare Lichtblöcke Stufe 9 per Lichtsimulation nur an dunklen Spawnstellen (je Stufe neu berechnet), Laternen und Kupferbirnen an
