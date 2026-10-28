@@ -26,6 +26,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
@@ -56,6 +57,8 @@ import org.bukkit.plugin.Plugin;
  * alle paar Sekunden lesen. Wer dort steht, darf trotz Vanilla-Whitelist herein (die Vanilla-Whitelist bleibt für Pascal und Tester von Hand).
  * Fällt jemand aus der Datei, wird er gekickt, sofern er nicht von Hand auf der Whitelist steht oder Op ist. Spielerdaten und Bauten bleiben.
  * Namensprüfung auf dem Server: Java über die Mojang-API, Bedrock über die GeyserMC-API (Gamertag → XUID → Floodgate-UUID).
+ * Mehrere Discord-Server (Pascal 28.10.): Jeder Eintrag merkt sich die Guilds, die ihn freigeben; er fällt erst weg, wenn keine mehr übrig ist.
+ * Nur Guilds aus api.gilden werden angenommen.
  */
 final class DiscordWhitelist implements Listener {
 
@@ -70,6 +73,8 @@ final class DiscordWhitelist implements Listener {
         String name;
         String uuid;
         String edition;
+        /** Guild-IDs, über die der Eintrag freigegeben ist */
+        List<String> gilden = new ArrayList<>();
     }
 
     static final class Datei {
@@ -101,6 +106,7 @@ final class DiscordWhitelist implements Listener {
     private long zuletztGeaendert = -1;
     private HttpServer server;
     private Set<String> erlaubteIps = Set.of();
+    private Set<String> erlaubteGilden = Set.of();
     private byte[] schluessel;
     private final Object schreibSperre = new Object();
     private final Map<String, Konto> zwischenspeicher = new ConcurrentHashMap<>();
@@ -143,6 +149,11 @@ final class DiscordWhitelist implements Listener {
         }
         if (d.eintraege == null) {
             d.eintraege = new ArrayList<>();
+        }
+        for (Eintrag e : d.eintraege) {
+            if (e.gilden == null) {
+                e.gilden = new ArrayList<>();
+            }
         }
         return d;
     }
@@ -228,6 +239,10 @@ final class DiscordWhitelist implements Listener {
             }
             schluessel = Files.readString(keyDatei).trim().getBytes(StandardCharsets.UTF_8);
             erlaubteIps = Set.copyOf(api.getStringList("erlaubt"));
+            erlaubteGilden = Set.copyOf(api.getStringList("gilden"));
+            if (erlaubteGilden.isEmpty()) {
+                plugin.getLogger().warning("Discord-Whitelist: keine Guild in api.gilden – alle Anmeldungen werden abgelehnt");
+            }
             server = HttpServer.create(new InetSocketAddress(api.getString("adresse", "127.0.0.1"), api.getInt("port", 8765)), 8);
             server.createContext("/", this::anfrage);
             server.setExecutor(Executors.newSingleThreadExecutor(r -> {
@@ -275,35 +290,46 @@ final class DiscordWhitelist implements Listener {
             String pfad = x.getRequestURI().getPath();
             String methode = x.getRequestMethod();
             try {
+                Map<String, String> q = query(x.getRequestURI().getRawQuery());
                 if (methode.equals("GET") && pfad.equals("/pruefen")) {
-                    Map<String, String> q = query(x.getRequestURI().getRawQuery());
                     Konto k = konto(q.getOrDefault("name", ""), q.getOrDefault("edition", "java"));
+                    // mit discord=<id>: das eigene, schon eingetragene Konto zählt nicht als belegt (Anmeldung über die zweite Guild)
+                    String eigene = q.containsKey("discord") ? discordId(q.get("discord")) : null;
                     JsonObject o = kontoJson(k);
-                    o.addProperty("belegt", belegtVonAnderem(k.uuid(), null));
+                    o.addProperty("belegt", belegtVonAnderem(k.uuid(), eigene));
                     antwort(x, 200, o);
                 } else if (methode.equals("GET") && pfad.equals("/whitelist")) {
+                    // mit guild=<id> nur die Einträge dieser Guild
+                    String gilde = q.containsKey("guild") ? gilde(q.get("guild")) : null;
                     synchronized (schreibSperre) {
-                        antwort(x, 200, JsonParser.parseString(GSON.toJson(lesen())).getAsJsonObject());
+                        Datei d = lesen();
+                        if (gilde != null) {
+                            d.eintraege.removeIf(e -> !e.gilden.contains(gilde));
+                        }
+                        antwort(x, 200, JsonParser.parseString(GSON.toJson(d)).getAsJsonObject());
                     }
                 } else if (methode.equals("PUT") && pfad.startsWith("/whitelist/")) {
                     String discord = discordId(pfad.substring("/whitelist/".length()));
                     JsonObject rumpf = rumpf(x);
+                    String gilde = gilde(text(rumpf, "guild"));
                     Konto k = konto(text(rumpf, "name"), text(rumpf, "edition"));
-                    antwort(x, 200, eintragen(discord, k));
+                    antwort(x, 200, eintragen(discord, k, gilde));
                 } else if (methode.equals("DELETE") && pfad.startsWith("/whitelist/")) {
                     String discord = discordId(pfad.substring("/whitelist/".length()));
+                    String gilde = gilde(q.get("guild"));
                     JsonObject o = new JsonObject();
-                    o.addProperty("entfernt", austragen(Set.of(discord), false).size());
+                    o.add("entfernt", GSON.toJsonTree(austragen(gilde, e -> e.discord.equals(discord))));
                     antwort(x, 200, o);
                 } else if (methode.equals("PUT") && pfad.equals("/whitelist")) {
                     JsonObject rumpf = rumpf(x);
+                    String gilde = gilde(text(rumpf, "guild"));
                     Set<String> behalten = new HashSet<>();
                     if (!rumpf.has("discord") || !rumpf.get("discord").isJsonArray()) {
                         throw new ApiFehler(400, "discord");
                     }
                     rumpf.getAsJsonArray("discord").forEach(el -> behalten.add(el.getAsString()));
                     JsonObject o = new JsonObject();
-                    o.add("entfernt", GSON.toJsonTree(austragen(behalten, true)));
+                    o.add("entfernt", GSON.toJsonTree(austragen(gilde, e -> !behalten.contains(e.discord))));
                     antwort(x, 200, o);
                 } else {
                     antwort(x, 404, fehler("pfad"));
@@ -316,43 +342,65 @@ final class DiscordWhitelist implements Listener {
         }
     }
 
-    private JsonObject eintragen(String discord, Konto k) throws ApiFehler, IOException {
+    /**
+     * Ein Discord-Konto hat genau ein MC-Konto, egal über welche Guild: Der letzte PUT gilt (anderer Name ersetzt den alten, die Freigaben der
+     * übrigen Guilds bleiben). Gehört das MC-Konto schon einem anderen Discord-Konto → 409.
+     */
+    private JsonObject eintragen(String discord, Konto k, String gilde) throws ApiFehler, IOException {
         synchronized (schreibSperre) {
             Datei d = lesen();
             if (belegtVonAnderem(k.uuid(), discord, d)) {
                 throw new ApiFehler(409, "belegt");
             }
-            boolean neu = d.eintraege.stream().noneMatch(e -> e.discord.equals(discord));
-            d.eintraege.removeIf(e -> e.discord.equals(discord));
-            Eintrag e = new Eintrag();
-            e.discord = discord;
+            Eintrag e = d.eintraege.stream().filter(a -> a.discord.equals(discord)).findFirst().orElse(null);
+            boolean neu = e == null;
+            if (neu) {
+                e = new Eintrag();
+                e.discord = discord;
+                d.eintraege.add(e);
+            } else if (!e.uuid.equals(k.uuid().toString())) {
+                plugin.getLogger().info("Discord-Whitelist: Discord " + discord + " wechselt von " + e.name + " zu " + k.name());
+            }
             e.name = k.name();
             e.uuid = k.uuid().toString();
             e.edition = k.edition();
-            d.eintraege.add(e);
+            if (!e.gilden.contains(gilde)) {
+                e.gilden.add(gilde);
+            }
             schreiben(d);
-            plugin.getLogger().info("Discord-Whitelist: +" + k.name() + " (" + k.edition() + ", Discord " + discord + ")");
+            plugin.getLogger().info("Discord-Whitelist: +" + k.name() + " (" + k.edition() + ", Discord " + discord + ", Guild " + gilde + ")");
             JsonObject o = kontoJson(k);
             o.addProperty("neu", neu);
+            o.add("gilden", GSON.toJsonTree(e.gilden));
             return o;
         }
     }
 
-    /** behaltenListe: true = alle entfernen, deren Discord-ID NICHT in ids steht (Abgleich); false = genau diese entfernen */
-    private List<String> austragen(Set<String> ids, boolean behaltenListe) throws IOException {
+    /**
+     * Freigabe der Guild bei allen betroffenen Einträgen entfernen (DELETE: genau eine Discord-ID; Abgleich: alle nicht mehr gemeldeten dieser
+     * Guild). Andere Guilds bleiben unberührt; ein Eintrag fällt erst weg, wenn keine Guild ihn mehr freigibt. Rückgabe: ganz entfernte Namen.
+     */
+    private List<String> austragen(String gilde, Predicate<Eintrag> betroffen) throws IOException {
         synchronized (schreibSperre) {
             Datei d = lesen();
             List<String> weg = new ArrayList<>();
-            d.eintraege.removeIf(e -> {
-                boolean raus = behaltenListe != ids.contains(e.discord);
-                if (raus) {
-                    weg.add(e.name);
+            Set<Eintrag> leer = new HashSet<>();
+            boolean geaendert = false;
+            for (Eintrag e : d.eintraege) {
+                // Alt-Einträge ohne gilden (vor dem 28.10. abends, nur Testnetz) gelten als von jeder Guild freigegeben
+                boolean alt = e.gilden.isEmpty();
+                if (betroffen.test(e) && (e.gilden.remove(gilde) || alt)) {
+                    geaendert = true;
+                    if (e.gilden.isEmpty()) {
+                        weg.add(e.name);
+                        leer.add(e);
+                    }
                 }
-                return raus;
-            });
-            if (!weg.isEmpty()) {
+            }
+            if (geaendert) {
+                d.eintraege.removeIf(leer::contains);
                 schreiben(d);
-                plugin.getLogger().info("Discord-Whitelist: −" + weg);
+                plugin.getLogger().info("Discord-Whitelist: Guild " + gilde + " zieht Freigaben zurück, ganz entfernt: " + weg);
             }
             return weg;
         }
@@ -442,6 +490,17 @@ final class DiscordWhitelist implements Listener {
 
     // ---------- Hilfen ----------
 
+    /** Guild-ID prüfen: Format → 400, nicht in api.gilden → 403 */
+    private String gilde(String s) throws ApiFehler {
+        if (s == null || !DISCORD_ID.matcher(s).matches()) {
+            throw new ApiFehler(400, "guild");
+        }
+        if (!erlaubteGilden.contains(s)) {
+            throw new ApiFehler(403, "guild");
+        }
+        return s;
+    }
+
     private static String discordId(String s) throws ApiFehler {
         if (!DISCORD_ID.matcher(s).matches()) {
             throw new ApiFehler(400, "discord");
@@ -510,6 +569,6 @@ final class DiscordWhitelist implements Listener {
     /** für /serverwahl whitelist: Stand anzeigen */
     String status() {
         return "Discord-Whitelist " + (aktiv ? "an" : "aus") + ", " + erlaubt.size() + " Einträge, Datei " + datei
-                + (server != null ? ", API " + server.getAddress() : ", ohne API");
+                + (server != null ? ", API " + server.getAddress() + ", Guilds " + erlaubteGilden : ", ohne API");
     }
 }

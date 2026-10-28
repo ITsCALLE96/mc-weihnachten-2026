@@ -7,6 +7,10 @@ oder die Rolle verliert, fliegt automatisch von der Whitelist; seine Bauten blei
 Java und Bedrock (Floodgate). Der Bot-Teil kommt in den Community-Bot (`C:\dev\discord-bots\community-bot`, LXC 202), den baut eine eigene Session.
 Dieser Text beschreibt die Server-Seite und die Schnittstelle dazwischen.
 
+**Mehrere Discord-Server (Pascal 28.10.):** Die Anmeldung geht von mehreren Discord-Servern (Guilds) aus, z. B. dem Server der Jungs und einem
+Community-Server, jeder mit eigener Rolle, eigenem Kanal und eigenen Fragen (Bot-Config je Guild). Jede Freigabe hängt an ihrer Guild: Ein Spieler
+fliegt erst von der Whitelist, wenn **keine** Guild ihn mehr freigibt. Erlaubte Guild-IDs stehen in der Server-Config (`api.gilden`), andere werden abgelehnt.
+
 ## Kurzfassung der Entscheidungen (Vorschlag Server-Session)
 
 | Frage | Vorschlag | Warum |
@@ -15,6 +19,7 @@ Dieser Text beschreibt die Server-Seite und die Schnittstelle dazwischen.
 | Zugang Bot → VM200 | **kleiner HTTP-Endpunkt in serverwahl auf dem Hub**, nur LAN, nur von LXC 202, mit eigenem Schlüssel, darf **nur** die Whitelist ändern | RCON hieße: volles Konsolenrecht für den Bot, Passwort im Klartext über das Netz. Der Endpunkt kann nichts außer Whitelist |
 | Namensprüfung | **auf dem Server** (serverwahl): Java über die Mojang-API, Bedrock über die GeyserMC-API (XUID) | eine Stelle, die die UUIDs kennt; der Bot zeigt nur das Ergebnis an |
 | Quelle der Wahrheit | **Discord** (Rolle „Minecraft“ + Anmeldung im Bot). Der Bot gleicht regelmäßig den vollständigen Stand ab | übersteht verpasste Ereignisse, Bot-Neustarts und Server-Neustarts |
+| Mehrere Guilds (Pascal 28.10.) | Jeder Eintrag trägt die Liste `gilden`; Anlegen, Entfernen und Abgleich laufen je Guild. **Ein Discord-Konto = genau ein MC-Konto**, über alle Guilds: der **letzte** `PUT` gilt (Namenswechsel ersetzt das alte Konto, die Freigaben bleiben). Ist das MC-Konto schon an ein **anderes** Discord-Konto vergeben → `409 belegt` | Der Bot kennt keine anderen Guilds; der Server führt die Freigaben zusammen. 409 statt Übernahme, damit niemand fremde Konten kapert |
 | Entschieden (Leitung 28.10.) | Rolle „Minecraft“, Kanal `#minecraft-anmeldung` (beides per Bot-Config umbenennbar); alle Spieler über Discord, nur Pascal und Tester von Hand; Firewall per `nft`/`ufw` auf VM200 (Proxmox-Firewall bleibt unberührt); kein TLS im LAN | |
 
 ## 1. Server-Seite (serverwahl, Hub und SMP)
@@ -22,8 +27,8 @@ Dieser Text beschreibt die Server-Seite und die Schnittstelle dazwischen.
 - Gemeinsame Datei `/opt/mc-weihnachten/whitelist/discord.json` (Testnetz: `testnetz/status/whitelist-discord.json`), Besitzer `amp`, nicht im Repo:
   ```json
   { "stand": "2026-11-20T18:00:00Z",
-    "eintraege": [ { "discord": "123456789012345678", "name": "Steve", "uuid": "…", "edition": "java" },
-                   { "discord": "234567890123456789", "name": ".Gamertag", "uuid": "00000000-0000-0000-0009-…", "edition": "bedrock" } ] }
+    "eintraege": [ { "discord": "123456789012345678", "name": "Steve", "uuid": "…", "edition": "java", "gilden": ["<guild-jungs>", "<guild-community>"] },
+                   { "discord": "234567890123456789", "name": ".Gamertag", "uuid": "00000000-0000-0000-0009-…", "edition": "bedrock", "gilden": ["<guild-community>"] } ] }
   ```
 - Der **Hub** schreibt die Datei (nur er hat den Endpunkt). Hub **und** SMP lesen sie alle 10 s (Änderungszeit) und gleichen die Vanilla-Whitelist ab:
   - neu → `OfflinePlayer(uuid).setWhitelisted(true)`
@@ -33,7 +38,9 @@ Dieser Text beschreibt die Server-Seite und die Schnittstelle dazwischen.
   - Spielerdaten, Bauten, LuckPerms-Daten bleiben beim Entfernen erhalten (nur die Whitelist ändert sich)
 - Bedrock: Floodgate-UUID aus der XUID: `00000000-0000-0000-` + XUID als 16-stellige Hex-Zahl (`0009…`), Name mit Floodgate-Präfix `.` (Standard,
   `username-prefix` unverändert). Vanilla `whitelist add` geht für Bedrock nicht (sucht bei Mojang), deshalb über die UUID
-- Ein Discord-Konto hat **höchstens ein** Minecraft-Konto. Ein neuer Eintrag ersetzt den alten (alter Name fliegt von der Whitelist)
+- Ein Discord-Konto hat **höchstens ein** Minecraft-Konto, egal über welche Guild. Ein neuer `PUT` ersetzt Name/UUID (alter Name fliegt von der Whitelist),
+  die Freigaben der übrigen Guilds bleiben am Eintrag
+- Ein Eintrag fällt erst weg, wenn seine Liste `gilden` leer ist (letzte Guild hat `DELETE` geschickt oder ihn beim Abgleich nicht mehr gemeldet)
 - Ein Minecraft-Konto gehört höchstens einem Discord-Konto: Ist die UUID schon vergeben, lehnt der Server ab (`belegt`)
 
 ## 2. Endpunkt (serverwahl, nur Hub)
@@ -45,15 +52,17 @@ Dieser Text beschreibt die Server-Seite und die Schnittstelle dazwischen.
   und im Bot in dessen `.env`/Secret-Speicher. **Nie im Repo, nie im Vault, nie im Chat.** Wechsel: Datei ersetzen + `/serverwahl reload`
 - Klartext-HTTP im LAN (entschieden 28.10., kein TLS): kein Zertifikat zu pflegen; der Schlüssel könnte im LAN mitgelesen werden, er erlaubt aber nur
   Whitelist-Änderungen, und die IP-Sperre gilt zusätzlich
+- **Guilds:** `api.gilden` = erlaubte Guild-IDs (als Text in Anführungszeichen). Jede ändernde Anfrage nennt ihre Guild; fehlt sie oder hat sie ein
+  falsches Format → `400 {"fehler":"guild"}`, steht sie nicht in der Liste → `403 {"fehler":"guild"}`. Leere Liste = alles abgelehnt
 - Grenzen: höchstens 10 Anfragen/s, Rumpf höchstens 64 KB, jede Änderung ins Server-Log („Whitelist: +Steve (Discord …)“)
 
 | Methode, Pfad | Rumpf | Antwort |
 |---|---|---|
-| `GET /pruefen?name=<name>&edition=java\|bedrock` | – | `200` `{ "name", "uuid", "edition", "kopf": "<Bild-URL Skin-Kopf>", "belegt": true/false }` für den Bestätigungsschritt; Fehler wie bei `PUT` (`404`, `400`, `503`). Ändert nichts |
-| `GET /whitelist` | – | `200` `{ "eintraege": [ … ] }` (wie die Datei) |
-| `PUT /whitelist/<discordId>` | `{ "name": "Steve", "edition": "java" }` oder `{ "name": "Gamertag", "edition": "bedrock" }` | `200` `{ "name", "uuid", "edition", "neu": true/false }` · `404 {"fehler":"unbekannt"}` (Name gibt es nicht) · `409 {"fehler":"belegt"}` · `400 {"fehler":"name"}` (Format) · `503 {"fehler":"mojang"}` (API nicht erreichbar, später erneut) |
-| `DELETE /whitelist/<discordId>` | – | `200` (auch wenn nicht vorhanden, idempotent) |
-| `PUT /whitelist` (Abgleich) | `{ "discord": ["<id>", …] }` = alle Discord-IDs, die **jetzt** die Rolle haben | `200` `{ "entfernt": [ … ] }`. Entfernt jeden Eintrag, dessen Discord-ID fehlt. Legt nichts an |
+| `GET /pruefen?name=<name>&edition=java\|bedrock[&discord=<id>]` | – | `200` `{ "name", "uuid", "edition", "kopf": "<Bild-URL Skin-Kopf>", "belegt": true/false }` für den Bestätigungsschritt; mit `discord=` zählt das eigene, schon eingetragene Konto nicht als belegt (Anmeldung über die zweite Guild). Fehler wie bei `PUT` (`404`, `400`, `503`). Ändert nichts |
+| `GET /whitelist[?guild=<id>]` | – | `200` `{ "eintraege": [ … ] }` (wie die Datei; mit `guild` nur die Einträge, die diese Guild freigibt) |
+| `PUT /whitelist/<discordId>` | `{ "name": "Steve", "edition": "java", "guild": "<id>" }` oder `{ "name": "Gamertag", "edition": "bedrock", "guild": "<id>" }` | `200` `{ "name", "uuid", "edition", "neu": true/false, "gilden": [ … ] }` (Guild wird zum Eintrag hinzugefügt) · `404 {"fehler":"unbekannt"}` (Name gibt es nicht) · `409 {"fehler":"belegt"}` · `400 {"fehler":"name"}` (Format) · `400/403 {"fehler":"guild"}` · `503 {"fehler":"mojang"}` (API nicht erreichbar, später erneut) |
+| `DELETE /whitelist/<discordId>?guild=<id>` | – | `200` `{ "entfernt": [ <Namen, die ganz von der Whitelist flogen> ] }`. Nimmt nur die Freigabe dieser Guild weg; leer, solange eine andere Guild den Spieler noch freigibt. Idempotent. Ohne `guild` → `400` |
+| `PUT /whitelist` (Abgleich je Guild) | `{ "guild": "<id>", "discord": ["<id>", …] }` = alle Discord-IDs, die in **dieser** Guild **jetzt** die Rolle haben | `200` `{ "entfernt": [ … ] }`. Nimmt dieser Guild die Freigabe bei allen Einträgen, deren Discord-ID fehlt; Einträge anderer Guilds bleiben unberührt. Legt nichts an |
 
 Namensformat: Java `^[A-Za-z0-9_]{3,16}$`; Bedrock 1–16 Zeichen, Buchstaben/Ziffern/Leerzeichen (Leerzeichen → `_` wie Floodgate), ohne Präfix übergeben.
 
@@ -70,19 +79,24 @@ Namensformat: Java `^[A-Za-z0-9_]{3,16}$`; Bedrock 1–16 Zeichen, Buchstaben/Zi
 
 ## 4. Bot-Seite (für die Bot-Session, Community-Bot)
 
-- Konfiguration (Bot-Config/Secrets): `MC_WHITELIST_URL=http://192.168.178.78:8765`, `MC_WHITELIST_KEY=<schluessel>`, Rollen-ID „Minecraft“, Kanal-ID
-  `#minecraft-anmeldung`, Fragen des Formulars (legt Pascal später fest) – alles umbenennbar ohne Code-Änderung
+- Konfiguration (Bot-Config/Secrets): `MC_WHITELIST_URL=http://192.168.178.78:8765`, `MC_WHITELIST_KEY=<schluessel>` (ein Schlüssel für alle Guilds),
+  **je Guild:** Guild-ID, Rollen-ID „Minecraft“, Kanal-ID der Anmeldung, Fragen des Formulars (legt Pascal später fest) – alles umbenennbar ohne
+  Code-Änderung. Jede neue Guild-ID muss zusätzlich in `api.gilden` der Hub-Config stehen (sonst `403 guild`)
+- **Jede Anfrage nennt die Guild,** aus der das Ereignis kommt (`guild` im Rumpf bzw. `?guild=`)
 - **Einstieg:** Im Kanal steht eine feste Bot-Nachricht mit Knopf „Für Minecraft anmelden“ (alternativ Discords Onboarding). **Keine Slash-Befehle**
 - **Formular (Modal):** Pascals Fragen, Edition (Java/Bedrock, z. B. Auswahl oder zwei Knöpfe vor dem Modal), Minecraft-Name
-- **Bestätigung:** Bot ruft `GET /pruefen`, zeigt nur dem Spieler (ephemer) den gefundenen Kontonamen in richtiger Schreibweise mit Skin-Kopf
+- **Bestätigung:** Bot ruft `GET /pruefen?…&discord=<id>`, zeigt nur dem Spieler (ephemer) den gefundenen Kontonamen in richtiger Schreibweise mit Skin-Kopf
   (`kopf`) und zwei Knöpfe „Ja, das bin ich“ / „Nein, nochmal“. Bei `unbekannt`, `belegt` oder `mojang` eine verständliche Meldung, bei Bedrock-`unbekannt`
   der Hinweis „einmal kurz mit dem Server verbinden, dann erneut“
 - **Erst nach „Ja“:** `PUT /whitelist/<discordId>`; bei `200` vergibt der Bot die **Rolle „Minecraft“** und bestätigt („Du stehst auf der Whitelist,
   Adresse mc.grahl.cloud“). Scheitert der `PUT` (Server aus), **keine** Rolle vergeben, Meldung „gerade nicht erreichbar, bitte später erneut“
 - **Erneut anmelden** (anderer Name, Wechsel Java ↔ Bedrock): derselbe Knopf, der neue Eintrag ersetzt den alten
-- **Rolle weg / Discord verlassen:** `DELETE /whitelist/<discordId>` (Ereignisse Mitglied geändert / entfernt). Entfernt jemand nur die Rolle von Hand,
-  gilt das genauso
-- **Abgleich alle 10 min und beim Bot-Start:** `PUT /whitelist` mit allen IDs, die die Rolle haben → fängt verpasste Ereignisse ab
+- **Schon über eine andere Guild eingetragen:** Der Spieler meldet sich in der zweiten Guild trotzdem an (eigene Rolle dort); der `PUT` mit dieser Guild
+  ergänzt nur die Freigabe. Anderer MC-Name als bisher = Kontowechsel für alle Guilds (letzter Stand gilt)
+- **Rolle weg / Discord verlassen:** `DELETE /whitelist/<discordId>?guild=<id>` (Ereignisse Mitglied geändert / entfernt). Entfernt jemand nur die Rolle von
+  Hand, gilt das genauso. Von der Whitelist fliegt er erst, wenn ihn keine Guild mehr freigibt (`entfernt` in der Antwort nicht leer)
+- **Abgleich alle 10 min und beim Bot-Start, je Guild:** `PUT /whitelist` mit `guild` und allen IDs, die in dieser Guild die Rolle haben → fängt verpasste
+  Ereignisse ab, ohne die Freigaben anderer Guilds anzufassen
 - Die Formular-Antworten (Pascals Fragen) speichert der Bot selbst; an den Server gehen nur Discord-ID, Name, Edition
 - Dashboard (optional, Pascals Vorliebe): Liste Discord-Mitglied ↔ MC-Name, Knopf „entfernen“
 - Keine Schreibrechte auf VM200 außer diesem Endpunkt; kein RCON, kein SSH
@@ -94,7 +108,9 @@ Namensformat: Java `^[A-Za-z0-9_]{3,16}$`; Bedrock 1–16 Zeichen, Buchstaben/Zi
 - Testnetz: Endpunkt auf `127.0.0.1:8765`, Testschlüssel in `testnetz/hub/plugins/Serverwahl/whitelist-api.key` (git-ignoriert); Proben mit `curl`:
   eintragen (Java/Bedrock), unbekannter Name, doppelter Name, entfernen (Spieler online → Kick), Abgleich, falscher Schlüssel → `401`, fremde IP → `403`,
   SMP übernimmt binnen 10 s, Hub-Neustart verliert nichts
-- Offen: Fragen im Formular (Pascal), Firewall-Regel auf VM200 beim Einrichten (Task 2)
+- Mehrere Guilds: unbekannte Guild → `403`, fehlende → `400`; Spieler über zwei Guilds, Abgleich einer Guild lässt ihn stehen, `DELETE` der zweiten
+  entfernt ihn; zweites Discord-Konto mit demselben MC-Namen → `409`; Kontowechsel behält die Freigaben
+- Offen: Fragen im Formular (Pascal), Guild-IDs in `api.gilden` und Firewall-Regel auf VM200 beim Einrichten (Task 2)
 
 ## Umsetzung Server-Seite (28.10., serverwahl)
 
@@ -103,9 +119,11 @@ Namensformat: Java `^[A-Za-z0-9_]{3,16}$`; Bedrock 1–16 Zeichen, Buchstaben/Zi
   bleiben unberührt. Die Vanilla-Whitelist selbst wird nicht verändert (Pascal/Tester von Hand)
 - Abgleich alle 10 s nach Änderungszeit der Datei; Entfernte werden gekickt, außer sie stehen von Hand auf der Whitelist oder sind Op
 - Datei wird atomar geschrieben (`.tmp` + Umbenennen); der Schlüssel wird beim ersten Start erzeugt (`plugins/Serverwahl/whitelist-api.key`), nie geloggt
-- `/serverwahl whitelist` zeigt Stand, Datei und API-Adresse
+- `/serverwahl whitelist` zeigt Stand, Datei, API-Adresse und erlaubte Guilds
+- Mehrere Guilds (28.10. abends): Feld `gilden` je Eintrag, `api.gilden` in der Hub-Config; Einträge aus der Zeit davor (ohne `gilden`) gelten als von jeder
+  Guild freigegeben: `DELETE` oder ein Abgleich irgendeiner erlaubten Guild ohne sie entfernt sie – betrifft nur das Testnetz, live gab es noch keine
 - Testnetz: `bash testnetz/namen-test.sh einrichten` setzt Datei `testnetz/status/whitelist-discord.json` und `127.0.0.1`; Proben mit
-  `bash testnetz/whitelist-test.sh [java-name] [bedrock-gamertag]` (Hub muss laufen)
+  `bash testnetz/whitelist-test.sh [java-name] [bedrock-gamertag]` (Hub muss laufen; Probe-Guilds `111…`/`222…`, andere Instanz per `WL_URL`/`WL_KEY_DATEI`)
 
 ## Hinweis: Umzug des Bots (Bot-Session, 28.10.)
 

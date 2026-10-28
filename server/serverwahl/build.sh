@@ -6,11 +6,13 @@ paper="${1:?Aufruf: build.sh <paper-ordner> [javac]}"
 javac="${2:-javac}"
 hier="$(cd "$(dirname "$0")" && pwd)"
 cp_datei="$(mktemp)"
-find "$paper/libraries" -name '*.jar' | tr '\n' "${CP_TRENNER:-:}" > "$cp_datei"
+# APIs zuerst: hinter den Bibliotheken eines gestarteten SMP findet javac die Prism-API sonst nicht (28.10.)
+: > "$cp_datei"
 # LuckPerms-API (für /nick, Clan-Tags): Pfad zum LuckPerms-Bukkit-Jar, nur zum Übersetzen, kommt nicht ins Jar
-if [ -n "${LUCKPERMS_JAR:-}" ]; then printf '%s' "$LUCKPERMS_JAR" >> "$cp_datei"; fi
+if [ -n "${LUCKPERMS_JAR:-}" ]; then printf '%s%s' "$LUCKPERMS_JAR" "${CP_TRENNER:-:}" >> "$cp_datei"; fi
 # Prism-API (Prüfwerkzeug): Pfad zum prism-paper-Jar, ebenfalls nur zum Übersetzen
-if [ -n "${PRISM_JAR:-}" ]; then printf '%s%s' "${CP_TRENNER:-:}" "$PRISM_JAR" >> "$cp_datei"; fi
+if [ -n "${PRISM_JAR:-}" ]; then printf '%s%s' "$PRISM_JAR" "${CP_TRENNER:-:}" >> "$cp_datei"; fi
+find "$paper/libraries" -name '*.jar' | tr '\n' "${CP_TRENNER:-:}" >> "$cp_datei"
 rm -rf "$hier/build" && mkdir -p "$hier/build/klassen"
 "$javac" --release 25 -encoding UTF-8 -cp "$(cat "$cp_datei")" -d "$hier/build/klassen" $(find "$hier/src" -name '*.java')
 cp "$hier"/res/* "$hier/build/klassen/"

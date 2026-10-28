@@ -128,3 +128,6 @@ discord-whitelist:
     # LXC 202 (Community-Bot, feste FRITZ!Box-Reservierung); zusätzlich nft/ufw-Regel auf VM200
     erlaubt: [192.168.178.22]
     schluessel-datei: whitelist-api.key
+    # Erlaubte Discord-Server (Guild-IDs, in Anführungszeichen); andere werden mit 403 abgelehnt. Beim Einrichten eintragen (Leitung/Bot-Session):
+    # Server der Jungs, Community-Server … Leer = alle Anmeldungen abgelehnt
+    gilden: []
