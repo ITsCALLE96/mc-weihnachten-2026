@@ -43,7 +43,17 @@ kategorien:
           - "<yellow>Klicken zum Beitreten"
   testwelt:
     titel: "<aqua>Testwelt"
-    server: []
+    # Admin-Testwelt mit Mob-Zoo (Pascal 28.10.): nur mit serverwahl.testwelt sichtbar (Standard aus, im Testnetz für admin), alle anderen sehen „Bald“.
+    # Gibt es im Netz keinen Server „testwelt“ (VM200 vorerst nicht), das Recht einfach nicht vergeben
+    server:
+      - name: testwelt
+        anzeige: "<aqua>Testwelt"
+        material: SPAWNER
+        recht: serverwahl.testwelt
+        beschreibung:
+          - "<gray>Mob-Zoo und Proben (nur Admins)"
+          - ""
+          - "<yellow>Klicken zum Beitreten"
   minigames:
     titel: "<gold>Minigames"
     server: []

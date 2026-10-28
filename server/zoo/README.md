@@ -1,10 +1,14 @@
 # Mob-Zoo (NUR Testnetz, Pascal 28.10.)
 
 Jeder lebende Mob der 26.3-Jar zum Ansehen, mit Varianten und Babys, plus Arena zum Live-Schalten. **Nie auf VM200** – das Datapack gehört nur in
-`testnetz/smp/world/datapacks/`.
+die **eigene Testwelt** des Testnetzes (Pascal 28.10.: nicht in den SMP), erreichbar über die zweite Hub-Kiste „Testwelt“ (nur mit `serverwahl.testwelt`).
+
+Testwelt einrichten (Testnetz gestoppt, legt Server + Zoo-Datapack an, Velocity bekommt `testwelt`): `bash testnetz/testwelt.sh einrichten`;
+nach dem Start (Leitung, `start.cmd` startet sie mit): `bash testnetz/testwelt.sh rechte`, dann `python -I testnetz/rcon.py testwelt "function zoo:aufbau"`.
+Nur das Datapack neu erzeugen:
 
 ```
-python -I server/zoo/zoo.py testnetz/smp/versions/26.3/paper-26.3.jar testnetz/smp/world/datapacks
+python -I server/zoo/zoo.py testnetz/smp/versions/26.3/paper-26.3.jar testnetz/testwelt/world/datapacks
 ```
 
 Liest die Mob-Liste aus dem Jar (`loot_table/entities` ohne Spieler, Rüstungsständer, Mannequin → 90 Mobs) und die Varianten aus den Registries
@@ -15,7 +19,7 @@ Babys aller Tiere bzw. IsBaby bei Zombies & Co. Zusammen ~288 Podeste.
 
 | Funktion | Was |
 |---|---|
-| `zoo:aufbau` | lädt die Fläche (forceload) und baut nach 5 s: Quarzplattform bei x 3000…3124, z −6…121, y 200; jeder Mob auf einem Podest (Wassermobs im Glaswürfel mit Wasser), still (NoAI, unverwundbar, bleibt), Namensschild darüber; Arena 60 × 60 bei 3000/−120 (Grundgestein, Barrieren) |
+| `zoo:aufbau` | lädt die Fläche (forceload) und baut nach 5 s: Quarzplattform auf dem Superflat-Boden bei x 12…140, z 10…137 (stehen auf y −60); jeder Mob auf einem Podest (Wassermobs im Glaswürfel mit Wasser), still (NoAI, unverwundbar, bleibt), Namensschild darüber; Arena 60 × 60 bei 16/−44 (Grundgestein, Barrieren) |
 | `zoo:hin` | Teleport zum Zoo, Kreativ |
 | `zoo:nacht` / `zoo:tag` | Nacht und Zeit anhalten (Leuchteffekte; Untote brennen nachts nicht) / normaler Tag |
 | `zoo:menue` | Klickliste im Chat: Mob live in der Arena beschwören (mit KI); setzt dich in die Arena, Überleben mit Resistenz V usw., damit Mobs angreifen |

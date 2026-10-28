@@ -34,6 +34,9 @@ permissions:
     default: true
   serverwahl.admin:
     default: op
+  serverwahl.testwelt:
+    description: Testwelt (Mob-Zoo, nur Testnetz) im Hub-Menü sehen und betreten
+    default: false
   serverwahl.vorab:
     description: SMP vor der Eröffnung trotzdem betreten (Tester, Aufbau)
     default: op

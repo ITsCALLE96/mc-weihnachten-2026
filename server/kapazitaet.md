@@ -180,3 +180,11 @@ Gemessen wird **direkt auf VM200**, nicht am PC, weil dazwischen der neue Router
   Community-Bot), entscheidet die Leitung (Statistik-Session, Punkt 6)
 - Login-Ansturm beim Start: Velocity prüft jeden Login bei Mojang. 25 Logins in einer Minute sind kein Problem, `login-ratelimit` im Standard (3 s pro IP) lassen.
   Mehrere Spieler hinter derselben IP (z. B. Geschwister) können sich deshalb nur im Abstand von 3 s verbinden, das ist kein Fehler
+
+## Option: Admin-Testwelt auf VM200 (Frage Leitung 28.10., nicht entschieden)
+
+Im Testnetz läuft seit 28.10. eine dritte Paper-Instanz „testwelt“ (Superflat, Kreativ, Mob-Zoo, 1,5 GB). Auf VM200 (28 GB) wären es grob:
+SMP 12 GB Heap (~14 GB real) + Hub 2 GB (~2,5) + Velocity 1,5 GB (~2) + System ~1,5 GB ≈ 20–21,5 GB, Rest ~6,5–8 GB Dateicache.
+Eine Testwelt mit 2 GB Heap (~2,5 GB real) **passt**, nimmt aber gut ein Drittel des Caches weg (→ ~4–5,5 GB). Empfehlung: nur als **normalerweise gestoppte**
+AMP-Instanz anlegen und bei Bedarf starten (dann kostet sie nichts), nicht dauerhaft neben dem Spielbetrieb. Live-Messung (`free -m`) steht aus: VM200 war am
+28.10. nicht erreichbar (Netzumbau).

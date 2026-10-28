@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Mob-Zoo fürs TESTNETZ (Pascal 28.10.): baut ein Datapack „zoo“, das jeden lebenden Mob der 26.3-Jar zeigt – mit Varianten und Babys –
 still (NoAI, unverwundbar) auf Podesten mit Namensschild, dazu eine Arena, in der Pascal einzelne Mobs „live“ schaltet.
-NIE auf VM200: das Datapack gehört nur in testnetz/smp/world/datapacks.
+NIE auf VM200: das Datapack gehört nur in die Testwelt des Testnetzes (testnetz/testwelt/world/datapacks).
 
 Aufruf: python -I server/zoo/zoo.py <paper-jar> <ziel: …/world/datapacks>
 Die Mob-Liste kommt aus dem Jar (data/minecraft/loot_table/entities/*.json = alle Mobs, die sterben können), Varianten aus den
@@ -15,9 +15,11 @@ from pathlib import Path
 
 JAR, ZIEL = Path(sys.argv[1]), Path(sys.argv[2])
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-X0, Y, Z0 = 3000, 200, 0          # Zoo-Ecke (Podeste auf y 200, in der Luft)
+# Zoo-Ecke und Arena: Standard für die eigene Testwelt (Superflat, Boden y −61 → stehen auf y −60), Pascal 28.10.
+# Andere Lage: python zoo.py <jar> <ziel> <x> <y> <z>
+X0, Y, Z0 = (int(v) for v in sys.argv[3:6]) if len(sys.argv) >= 6 else (16, -60, 16)
 BREITE = 120                      # Zeilenumbruch in x
-ARENA = (3000, 200, -120)         # Arena-Mitte (60 × 60, Barrieren, Grundgestein-Boden)
+ARENA = (X0, Y, Z0 - 60)          # Arena-Mitte (60 × 60, Barrieren, Grundgestein-Boden), nördlich vom Zoo
 
 KEIN_MOB = {"player", "armor_stand", "mannequin"}
 WASSER = {"cod", "salmon", "pufferfish", "tropical_fish", "squid", "glow_squid", "dolphin", "axolotl", "tadpole",
@@ -127,7 +129,8 @@ for zs in range(z1, z2 + 1, 60):
     ze = min(zs + 59, z2)
     aufbau.append(f"forceload add {x1} {zs} {x2} {ze}")
     aufbau.append(f"fill {x1} {Y - 1} {zs} {x2} {Y - 1} {ze} minecraft:smooth_quartz")
-    abbau.append(f"fill {x1} {Y - 1} {zs} {x2} {Y + 2} {ze} minecraft:air")
+    abbau.append(f"fill {x1} {Y} {zs} {x2} {Y + 2} {ze} minecraft:air")
+    abbau.append(f"fill {x1} {Y - 1} {zs} {x2} {Y - 1} {ze} minecraft:grass_block")
     abbau.append(f"forceload remove {x1} {zs} {x2} {ze}")
 gemeinsam = "Tags:[\"zoo\"],NoAI:1b,PersistenceRequired:1b,Invulnerable:1b,Rotation:[0f,0f]"
 for mob, bez, nbt, ex, ez, hoehe in eintraege:
@@ -156,8 +159,8 @@ aufbau += [
     "tellraw @a {\"text\":\"Zoo aufgebaut: function zoo:hin, zoo:menue (Arena), zoo:nacht/zoo:tag, zoo:neu\",\"color\":\"gold\"}",
 ]
 abbau = ["kill @e[tag=zoo]", "kill @e[tag=zoo_live]"] + abbau + [
-    f"fill {ax - 31} {yy} {az - 31} {ax + 31} {min(yy + 7, ay + 41)} {az + 31} minecraft:air" for yy in range(ay - 1, ay + 42, 8)
-] + [f"forceload remove {ax - 31} {az - 31} {ax + 31} {az + 31}"]
+    f"fill {ax - 31} {yy} {az - 31} {ax + 31} {min(yy + 7, ay + 41)} {az + 31} minecraft:air" for yy in range(ay, ay + 42, 8)
+] + [f"fill {ax - 31} {ay - 1} {az - 31} {ax + 31} {ay - 1} {az + 31} minecraft:grass_block"] + [f"forceload remove {ax - 31} {az - 31} {ax + 31} {az + 31}"]
 
 pack = ZIEL / "zoo"
 if pack.exists():
