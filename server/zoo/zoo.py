@@ -121,6 +121,8 @@ BEREICHE = [
 ]
 
 
+# Eigene schlichte Hallen (Wände, Fenster, Schneedach). Baut Spawn & Welt die weihnachtliche Hülle über den Tag #zoo:halle, hier auf False setzen
+EIGENE_HALLEN = True
 # Hallenhöhe je Bereich (Innenraum bis zur Decke): Bosse brauchen Platz für Riese (12) und Drache
 HALLENHOEHE = {"Friedlich": 7, "Feindlich": 8, "Bosse": 16}
 
@@ -240,7 +242,7 @@ def kasten_leeren(xa, xb, za, zb, ya, yb):
 
 
 # ---------- Ausstellungshallen (Pascal 28.10.): je Bereich ein Flügel mit Dach (Untote brennen nicht mehr), weihnachtlich ----------
-for titel, farbe, za, zb, h in hallen:
+for titel, farbe, za, zb, h in (hallen if EIGENE_HALLEN else []):
     oben = Y + h
     aufbau += [
         # Wände: Fichtenholz, Fensterband aus Glasscheiben, rotes Band (Weihnachten) unter dem Dach
@@ -339,7 +341,11 @@ def schreiben(name, zeilen):
 # forceload lädt die Chunks erst in den nächsten Ticks → erst laden, dann nach 5 s bauen (sonst „Position nicht geladen“)
 laden = [b for b in aufbau if b.startswith("forceload")]
 schreiben("aufbau", laden + ["tellraw @a {\"text\":\"Zoo: Chunks werden geladen, Aufbau in 5 s …\",\"color\":\"gray\"}", "schedule function zoo:aufbau2 100t"])
-schreiben("aufbau2", ["gamerule mob_griefing false"] + [b for b in aufbau if not b.startswith("forceload")])
+# Hülle von außen (Spawn & Welt): Funktions-Tag #zoo:halle läuft nach dem Aufbau; Maße stehen in README → Ausstellungshallen
+schreiben("aufbau2", ["gamerule mob_griefing false"] + [b for b in aufbau if not b.startswith("forceload")] + ["function #zoo:halle"])
+(pack / "data" / "zoo" / "tags" / "function").mkdir(parents=True, exist_ok=True)
+(pack / "data" / "zoo" / "tags" / "function" / "halle.json").write_text('{"values": []}
+', encoding="utf-8")
 schreiben("abbau", abbau)
 schreiben("neu", ["function zoo:abbau", "function zoo:aufbau"])
 schreiben("hin", [f"execute in minecraft:overworld run tp @s {X0 - 8} {Y} {mitte(Z0 + 4)} -90 0", "gamemode creative @s"])
