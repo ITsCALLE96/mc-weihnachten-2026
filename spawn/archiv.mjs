@@ -1,10 +1,10 @@
 // Testwelt-Archiv (Pascal 28.10.): die Bauten von Spawn & Welt für Pascals begehbares Bauarchiv der Server-Session (server/testwelt/README.md).
 // Schnittstelle: Funktions-Tags #archiv:saal/<name> (die Testwelt ruft sie beim Aufbau positioned am Ursprung auf), jede Funktion idempotent.
 //   node spawn/archiv.mjs                              → spawn/datapack/archiv-spawn (eigene Bauten, ins Repo):
-//        weihnachtsinsel: fertige Insel an den SMP-Koordinaten (Nordweg) + Stufen 1–4 schwebend nebeneinander im Westen; deko: Galerie aller Items
+//        weihnachtsinsel: eine Insel an der SMP-Stelle (Nordweg, TIEF tiefer) mit Treppenturm und Schaltern für Stufe 1–4; deko: Galerie aller Items
 //   node spawn/archiv.mjs fremd <datapacks-ordner>     → <ordner>/archiv-fremd, insel-deko, insel-kalender (fremde Bauten nur aus spawn/quellen,
 //        NIE ins Repo; Ziel z. B. testnetz/testwelt/world/datapacks): spark (Spark-Insel mit Plattform, Deko, Kalenderwand), hub (Hub-Ausschnitt)
-import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { neu, setze, lade } from '../tools/schem.mjs';
@@ -40,28 +40,114 @@ export function itemNbt(give, anzahl = 1) {
   return `{id:"${m[1]}",count:${anzahl}${komp.length ? `,components:{${komp.join(',')}}` : ''}}`;
 }
 
+// ---------- Höhe in der Testwelt (Pascal 28.10.: Inseln sollen bequem erreichbar sein) ----------
+// Alles von Spark- und Weihnachtsinsel liegt in der Testwelt TIEF Blöcke tiefer als im SMP: die Spitze der Spark-Insel (SMP y 92) steht auf dem
+// Gras der Flachwelt (y −60), Laufhöhe auf Insel und Brücke y 3…5. Tiefer geht nicht, darunter endet die Welt (−64); so bleiben beide Inseln vollständig.
+export const TIEF = -152;
+const zahl = (t, dy) => (/^-?\d+(\.\d+)?$/.test(t) ? String(Math.round((+t + dy) * 1e6) / 1e6) : t);
+// Ein Befehl mit absoluten Koordinaten → derselbe Befehl dy Blöcke höher/tiefer (setblock, fill, summon, place template, particle, positioned, y= in Selektoren)
+export function verschiebeY(zeile, dy) {
+  if (/^\s*(#|$)/.test(zeile)) return zeile;
+  const sel = (s) => s.replace(/([[,]y=)(-?\d+(?:\.\d+)?)/g, (_, a, n) => a + zahl(n, dy));
+  if (zeile.startsWith('execute ')) {
+    const i = zeile.indexOf(' run ');
+    const kopf = sel(i < 0 ? zeile : zeile.slice(0, i)).replace(/positioned (\S+) (\S+) (\S+)/g, (_, x, y, z) => `positioned ${x} ${zahl(y, dy)} ${z}`);
+    return i < 0 ? kopf : `${kopf} run ${verschiebeY(zeile.slice(i + 5), dy)}`;
+  }
+  const t = zeile.split(' '), y = (...pos) => { for (const p of pos) if (t[p] !== undefined) t[p] = zahl(t[p], dy); };
+  if (t[0] === 'setblock') y(2);
+  else if (t[0] === 'fill' || t[0] === 'clone') y(2, 5);
+  else if (t[0] === 'summon' || t[0] === 'particle') y(3);
+  else if (t[0] === 'place' && t[1] === 'template') y(4);
+  else if (t[0] === 'data' && t[2] === 'block') y(4);
+  return sel(t.join(' '));
+}
+
 // ---------- eigene Bauten: archiv-spawn ----------
+export const STUFEN = ['Die Insel taucht auf', 'Der Baum wächst', 'Der Baum wird geschmückt', 'Heiligabend (fertig)'];
+// Treppenturm von der Flachwelt zur Brücke (östlich daneben, Brücke x −3…1, Deck y 156 → TIEF): Wendeltreppe um einen Fichtenkern, 65 Stufen
+export const TURM = { x: 6, z: 0 };
+export function turm(deck = 156 + TIEF) {
+  const { x: cx, z: cz } = TURM, b = [], boden = -60;
+  // Ring 5 × 5 um den Kern 3 × 3, gegen den Uhrzeigersinn von oben gesehen; Stufe i auf Höhe boden + i, die letzte (i = deck − boden) mündet nach Norden auf den Absatz
+  const ring = [];
+  for (let z = 2; z >= -2; z--) ring.push([-2, z]);
+  for (let x = -1; x <= 2; x++) ring.push([x, -2]);
+  for (let z = -1; z <= 2; z++) ring.push([2, z]);
+  for (let x = 1; x >= -1; x--) ring.push([x, 2]);
+  const richtung = ([ax, az], [bx, bz]) => (bz < az ? 'north' : bz > az ? 'south' : bx > ax ? 'east' : 'west');
+  b.push(`fill ${cx - 3} ${boden} ${cz - 3} ${cx + 3} ${deck + 4} ${cz + 3} minecraft:air`);
+  for (const [s, z1, z2, x1, x2] of [[0, -3, -3, -3, 3], [0, 3, 3, -3, 3], [0, -3, 3, -3, -3], [0, -3, 3, 3, 3]]) b.push(`fill ${cx + x1} ${boden} ${cz + z1} ${cx + x2} ${deck + 3} ${cz + z2} minecraft:glass`);
+  b.push(`fill ${cx - 3} ${deck + 4} ${cz - 3} ${cx + 3} ${deck + 4} ${cz + 3} minecraft:spruce_slab[type=bottom]`, `fill ${cx - 3} ${deck + 5} ${cz - 3} ${cx + 3} ${deck + 5} ${cz + 3} minecraft:snow[layers=2]`);
+  b.push(`fill ${cx - 1} ${boden} ${cz - 1} ${cx + 1} ${deck + 3} ${cz + 1} minecraft:spruce_log`);
+  for (let y = boden + 3; y < deck; y += 6) b.push(`fill ${cx - 1} ${y} ${cz - 1} ${cx + 1} ${y} ${cz + 1} minecraft:ochre_froglight`, `setblock ${cx} ${y} ${cz} minecraft:spruce_log`);
+  const n = deck - boden;
+  for (let i = 0; i <= n; i++) { const p = ring[i % 16], q = ring[(i + 1) % 16]; b.push(`setblock ${cx + p[0]} ${boden + i} ${cz + p[1]} minecraft:spruce_stairs[facing=${richtung(p, q)}]`); }
+  // Eingang unten (Süden, vor der ersten Stufe), Absatz oben vor dem Kern, Steg nach Westen bis zur Brücke, Geländer der Brücke dort offen
+  b.push(`fill ${cx - 2} ${boden} ${cz + 3} ${cx - 2} ${boden + 2} ${cz + 3} minecraft:air`);
+  b.push(`fill ${cx - 4} ${deck} ${cz - 1} ${cx - 2} ${deck} ${cz + 1} minecraft:stripped_spruce_log[axis=x]`, `fill ${cx - 4} ${deck + 1} ${cz - 1} ${cx - 2} ${deck + 2} ${cz + 1} minecraft:air`);
+  b.push(`fill ${cx - 5} ${deck + 1} ${cz - 1} ${cx - 5} ${deck + 2} ${cz + 1} minecraft:air`);
+  b.push(`setblock ${cx - 2} ${deck + 3} ${cz} minecraft:lantern[hanging=true]`, `setblock ${cx - 2} ${boden + 3} ${cz + 2} minecraft:lantern[hanging=true]`);
+  return b;
+}
+
 export function archivSpawn() {
-  const d = datapack(), NS = 'archiv_spawn', out = {}, strukturen = {};
-  const NAMEN = ['Die Insel taucht auf', 'Der Baum wächst', 'Der Baum wird geschmückt', 'Heiligabend (fertig)'];
+  const d = datapack(), NS = 'archiv_spawn', out = {}, strukturen = {}, adv = {};
   const ents = (s) => d.teile.slice(0, s + 1).flatMap((st) => st.flatMap((t) => t.ents));
-  const summon = (e, dx, n) => `summon ${e.typ} ${(e.x + dx).toFixed(2)} ${e.y.toFixed(2)} ${e.z.toFixed(2)} ${d.zustandNbt(e.nbt).replace(/^\{/, `{Tags:${JSON.stringify(['wi_archiv', `wi_archiv_${n}`, ...e.tags.filter((t) => t !== 'wi_kerze')])},Rotation:[${e.yaw}f,0f],`)}`;
-  // Platz: 0 = fertige Insel an der echten Stelle; Stufen 1–4 je 70 Blöcke weiter westlich (nicht über dem Zoo x 116…244, nicht am Hub z ~150)
-  const platz = [[0, 3], [-70, 0], [-140, 1], [-210, 2], [-280, 3]];
-  const zeilen = [], laden = [], [mx, my, mz] = d.mitte;
-  platz.forEach(([dx, s], n) => {
-    const { nbt, ecke, groesse } = ausMap(d.stand[s], [dx, 0, 0]);
-    strukturen[`wi_${n}`] = nbt;
-    laden.push(`forceload add ${ecke[0]} ${ecke[2]} ${ecke[0] + groesse[0] - 1} ${ecke[2] + groesse[2] - 1}`);
-    zeilen.push(`place template ${NS}:wi_${n} ${ecke.join(' ')}`, `kill @e[tag=wi_archiv_${n}]`, ...ents(s).map((e) => summon(e, dx, n)));
-    zeilen.push(`summon text_display ${mx + dx + 0.5} ${my + 56} ${mz + 0.5} {Tags:["wi_archiv","wi_archiv_${n}"],billboard:"center",text:${JSON.stringify({ text: n ? `Weihnachtsinsel – Stufe ${s + 1}\n${NAMEN[s]}` : 'Weihnachtsinsel – fertig', color: 'gold', bold: true })},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[4f,4f,4f]}}`);
+  const TAGS = ['wi_archiv', 'wi_archiv_insel'];
+  const summon = (e) => `summon ${e.typ} ${e.x.toFixed(2)} ${(e.y + TIEF).toFixed(2)} ${e.z.toFixed(2)} ${d.zustandNbt(e.nbt).replace(/^\{/, `{Tags:${JSON.stringify([...TAGS, ...e.tags.filter((t) => t !== 'wi_kerze')])},Rotation:[${e.yaw}f,0f],`)}`;
+  const txt = (x, y, z, text, s, extra = '') => `summon text_display ${x} ${y} ${z} {Tags:${JSON.stringify(TAGS)},${extra}text:${JSON.stringify(text)},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[${s}f,${s}f,${s}f]}}`;
+  // Eine Insel an der SMP-Stelle (TIEF tiefer), Stufen 1–4 per Schalter umschaltbar (Pascal 28.10.: „warum so viele Inseln?“).
+  // Jede Stufe ist eine Struktur über den gemeinsamen Kasten aller Stufen: Blöcke, die es in dieser Stufe noch nicht gibt, als cave_air (place template
+  // setzt cave_air, überspringt aber air) – so baut jede Stufe die andere sauber zurück, ohne die angrenzende Spark-Insel anzufassen.
+  const alle = new Set(d.stand.flatMap((m) => [...m.keys()]));
+  const [mx, my, mz] = d.mitte, laden = [];
+  const ausw = [];
+  d.stand.forEach((m, s) => {
+    const voll = new Map([...alle].map((k) => [k, m.get(k) ?? 'minecraft:cave_air']));
+    const { nbt, ecke, groesse } = ausMap(voll, [0, TIEF, 0]);
+    strukturen[`wi_stufe_${s + 1}`] = nbt;
+    if (!s) laden.push(`forceload add ${ecke[0]} ${ecke[2]} ${ecke[0] + groesse[0] - 1} ${ecke[2] + groesse[2] - 1}`);
+    ausw.push(fn(NS, `stufe_${s + 1}`, `# Testwelt: Weihnachtsinsel auf Stufe ${s + 1} (${STUFEN[s]}) umschalten\n${laden[0]}\ntellraw @a[distance=..200] {"text":"Weihnachtsinsel: Stufe ${s + 1} wird gebaut …","color":"gray"}\nschedule function ${NS}:stufe_${s + 1}_setzen 20t\n`));
+    ausw.push(fn(NS, `stufe_${s + 1}_setzen`, [
+      `place template ${NS}:wi_stufe_${s + 1} ${ecke.join(' ')}`, 'kill @e[tag=wi_archiv_insel]', ...ents(s).map(summon),
+      txt(mx + 0.5, my + TIEF + 56, mz + 0.5, { text: `Weihnachtsinsel – Stufe ${s + 1} von 4`, color: 'gold', bold: true, extra: [{ text: `\n${STUFEN[s]}`, color: 'white', bold: false }] }, 5, 'billboard:"center",'),
+      `kill @e[type=item,x=${ecke[0]},y=${ecke[1]},z=${ecke[2]},dx=${groesse[0]},dy=${groesse[1]},dz=${groesse[2]}]`,
+      `execute as @e[type=text_display,tag=wi_schalter_text] run data merge entity @s {background:1073741824}`,
+      `data merge entity @e[type=text_display,tag=wi_schalter_text_${s + 1},limit=1] {background:-1064674800}`,
+      laden[0].replace('forceload add', 'forceload remove'),
+    ].join('\n') + '\n'));
   });
+  // Schalter am Absatz des Treppenturms (Blick nach Osten auf die Kernwand, 2 × 2): Klick → Fortschritt → Stufe bauen
+  const deck = 156 + TIEF, sx = TURM.x - 1.45, schalter = [];
+  [[-0.55, 2.55], [0.55, 2.55], [-0.55, 1.45], [0.55, 1.45]].forEach(([dz, dyy], s) => {
+    const z = +(TURM.z + 0.5 + dz).toFixed(2), y = +(deck + dyy).toFixed(2);
+    schalter.push(txt(sx, y - 0.3, z, { text: `Stufe ${s + 1}\n`, color: 'gold', bold: true, extra: [{ text: STUFEN[s], color: 'white', bold: false }] }, 0.45, `Tags:${JSON.stringify(['wi_archiv', 'wi_schalter', 'wi_schalter_text', `wi_schalter_text_${s + 1}`])},Rotation:[90f,0f],line_width:90,background:1073741824,`).replace(`{Tags:${JSON.stringify(TAGS)},`, '{'));
+    schalter.push(`summon interaction ${sx + 0.2} ${y - 0.4} ${z} {Tags:["wi_archiv","wi_schalter","wi_schalter_${s + 1}"],width:0.9f,height:0.8f,response:1b}`);
+    adv[`stufe_${s + 1}`] = { criteria: { klick: { trigger: 'minecraft:player_interacted_with_entity', conditions: { entity: { type: 'minecraft:entity_properties', entity: 'this', predicate: { 'minecraft:entity_type': 'minecraft:interaction', 'minecraft:nbt': `{Tags:["wi_schalter_${s + 1}"]}` } } } } }, rewards: { function: `${NS}:klick_${s + 1}` } };
+    ausw.push(fn(NS, `klick_${s + 1}`, `advancement revoke @s only ${NS}:stufe_${s + 1}\nfunction ${NS}:stufe_${s + 1}\n`));
+  });
+  schalter.push(txt(sx, deck + 3.55, TURM.z + 0.5, { text: 'Weihnachtsinsel: Stufe wählen', color: 'gold', bold: true, extra: [{ text: '\nSo wächst sie auf dem SMP mit den Spenden', color: 'gray', bold: false }] }, 0.5, `Tags:["wi_archiv","wi_schalter"],Rotation:[90f,0f],line_width:200,background:1073741824,`).replace(`{Tags:${JSON.stringify(TAGS)},`, '{'));
+  // Abkürzung Turm: unten am Eingang nach oben, oben am Absatz nach unten
+  const abk = [['hoch', TURM.x + 0.5, -60, TURM.z + 4.2, 'Abkürzung nach oben', `${TURM.x - 3.5} ${deck + 1} ${TURM.z + 0.5} 90 0`], ['runter', TURM.x - 2.5, deck + 1, TURM.z - 0.6, 'Abkürzung nach unten', `${TURM.x - 1.5} -60 ${TURM.z + 5.5} 180 0`]];
+  for (const [n, x, y, z, t, ziel] of abk) {
+    schalter.push(`summon interaction ${x} ${y} ${z} {Tags:["wi_archiv","wi_schalter","wi_abk_${n}"],width:0.8f,height:1.8f,response:1b}`, txt(x, y + 2, z, { text: t, color: 'aqua' }, 0.5, 'billboard:"center",').replace(`{Tags:${JSON.stringify(TAGS)},`, '{Tags:["wi_archiv","wi_schalter"],'));
+    adv[`abk_${n}`] = { criteria: { klick: { trigger: 'minecraft:player_interacted_with_entity', conditions: { entity: { type: 'minecraft:entity_properties', entity: 'this', predicate: { 'minecraft:entity_type': 'minecraft:interaction', 'minecraft:nbt': `{Tags:["wi_abk_${n}"]}` } } } } }, rewards: { function: `${NS}:abk_${n}` } };
+    ausw.push(fn(NS, `abk_${n}`, `advancement revoke @s only ${NS}:abk_${n}\ntp @s ${ziel}\n`));
+  }
+  // Aufräumen der alten Lage (bis 28.10.: Insel auf SMP-Höhe y 100…205, Stufen 1–4 bei x −70…−280) – idempotent, danach leer
+  const alt = [], { lo, hi } = d.bereich;
+  for (const dx of [0, -70, -140, -210, -280]) {
+    const w = hi[0] - lo[0] + 1, l = hi[2] - lo[2] + 1, proY = Math.max(1, Math.floor(32768 / (w * l)));
+    for (let y = lo[1]; y <= hi[1]; y += proY) alt.push(`fill ${lo[0] + dx} ${y} ${lo[2]} ${hi[0] + dx} ${Math.min(hi[1], y + proY - 1)} ${hi[2]} minecraft:air`);
+  }
+  const altLaden = `forceload add ${lo[0] - 280} ${lo[2]} ${hi[0]} ${hi[2]}`;
   Object.assign(out, Object.fromEntries([
-    tag('weihnachtsinsel', `${NS}:weihnachtsinsel`), tag('deko', `${NS}:deko`),
-    fn(NS, 'weihnachtsinsel', `# Testwelt: fertige Weihnachtsinsel an der SMP-Stelle (Nordweg) und Stufen 1–4 nebeneinander westlich davon; absolut, idempotent\n${laden.join('\n')}\nschedule function ${NS}:weihnachtsinsel2 40t\n`),
-    fn(NS, 'weihnachtsinsel2', `${zeilen.join('\n')}\nkill @e[type=item,x=-320,y=90,z=-70,dx=360,dy=130,dz=110]\nschedule function ${NS}:entladen 200t\n`),
-    fn(NS, 'entladen', laden.map((z) => z.replace('forceload add', 'forceload remove')).join('\n') + '\n'),
+    tag('weihnachtsinsel', `${NS}:weihnachtsinsel`), tag('deko', `${NS}:deko`), ...ausw,
+    fn(NS, 'weihnachtsinsel', `# Testwelt: Weihnachtsinsel an der SMP-Stelle (Nordweg), ${-TIEF} Blöcke tiefer als im SMP, Stufe 4; Treppenturm mit Stufen-Schaltern; absolut, idempotent\n${altLaden}\n${laden[0]}\nschedule function ${NS}:weihnachtsinsel2 40t\n`),
+    fn(NS, 'weihnachtsinsel2', [`kill @e[tag=wi_archiv]`, ...alt, `kill @e[type=item,x=${lo[0] - 280},y=${lo[1]},z=${lo[2]},dx=${hi[0] - lo[0] + 280},dy=${hi[1] - lo[1]},dz=${hi[2] - lo[2]}]`, ...turm(), ...schalter, `function ${NS}:stufe_4_setzen`, altLaden.replace('forceload add', 'forceload remove')].join('\n') + '\n'),
   ]));
+  for (const [n, a] of Object.entries(adv)) out[`data/${NS}/advancement/${n}.json`] = JSON.stringify(a, null, 2) + '\n';
   // Deko-Galerie relativ zum Ursprung (Boden): Wand mit allen Händler-Items in Leuchtrahmen, Kopfteile auf Rüstungsständern, 3D-Deko-Modelle auf Sockeln
   const w = JSON.parse(readFileSync(join(REPO, 'spawn/weihnachtsmann.json'), 'utf8'));
   const k = JSON.parse(readFileSync(join(REPO, 'spawn/standort-smp-spark.json'), 'utf8'));
@@ -101,17 +187,29 @@ export function archivFremd(ziel) {
   if (!existsSync(quelle)) throw new Error(`${quelle} fehlt (nur lokal)`);
   strukturen.spark_insel = struktur(lade(readFileSync(quelle)));
   const f = dateien(k).funktionen;
-  // aus dem SMP-Aufbau nur Bau-Befehle (kein Weltspawn, keine Weltgrenze, keine Spielregeln, keine Lichter)
+  // aus dem SMP-Aufbau nur die Insel selbst, Ender-Kiste, Lichter und Tafel (keine Lichtung, keine Rückweg-Plattform am SMP-Boden, kein Weltspawn,
+  // keine Spielregeln); alles TIEF tiefer
   const bau = f.aufbau_teil2.split('\n').flatMap((z) => {
     if (z.startsWith('place template spawn:spark_insel')) return [z.replace('spawn:spark_insel', `${NS}:spark_insel`)];
-    if (z === 'function insel:plattform') return f.plattform.split('\n').filter((y) => y && !y.startsWith('#'));
     if (z === 'function insel:tafeln') return f.tafeln.split('\n').filter((y) => y && !y.startsWith('#'));
-    return /^(fill|setblock) /.test(z) ? [z] : [];
-  });
+    return /^fill \S+ \S+ \S+ \S+ \S+ \S+ minecraft:(ender_chest|light)\b/.test(z) ? [z] : [];
+  }).map((z) => verschiebeY(z, TIEF));
+  // alte Lage bis 28.10. (SMP-Höhe y 89…183 und die mitgebaute SMP-Lichtung y 60…88) leeren; danach leer, also idempotent
+  const [ux, uy, uz] = k.struktur.ursprung, [gx, gy, gz] = k.struktur.groesse, alt = [];
+  for (const [y1, y2] of [[60, 88], [uy, uy + gy - 1]]) {
+    const proY = Math.floor(32768 / (gx * (gz + 18)));
+    for (let y = y1; y <= y2; y += proY) alt.push(`fill ${ux} ${y} ${uz} ${ux + gx - 1} ${Math.min(y2, y + proY - 1)} ${uz + gz + 17} minecraft:air`);
+  }
   Object.assign(out, Object.fromEntries([
     tag('spark', `${NS}:spark`), tag('hub', `${NS}:hub`),
-    fn(NS, 'spark', `# Testwelt: Spark-Insel an den SMP-Koordinaten mit Plattform, Deko und Kalenderwand (alle Türchen offen); idempotent\nforceload add -32 16 32 80\nschedule function ${NS}:spark2 40t\n`),
-    fn(NS, 'spark2', `${bau.join('\n')}\nkill @e[type=item,x=-32,y=-64,z=16,dx=64,dy=384,dz=64]\nfunction insel:deko_an\nfunction insel:kalender_an\nscoreboard objectives add insel_kalender dummy\nfunction insel:kalender/tag {tag:24}\nforceload remove -32 16 32 80\n`),
+    fn(NS, 'spark', `# Testwelt: Spark-Insel an den SMP-Koordinaten, ${-TIEF} Blöcke tiefer (Spitze auf dem Boden), mit Deko und Kalenderwand (alle Türchen offen); idempotent\nforceload add -32 16 32 95\nschedule function ${NS}:spark2 40t\n`),
+    fn(NS, 'spark2', `${alt.join('\n')}\n${bau.join('\n')}\nkill @e[type=item,x=-32,y=-64,z=16,dx=64,dy=384,dz=80]\nschedule function ${NS}:spark_deko 60t\n`),
+    // Deko und Kalender nacheinander, jeweils mit frisch gesetztem forceload: forceload zählt nicht mit, d. h. das Entladen eines anderen Bereichs
+    // (Weihnachtsinsel im selben Tick, Kalender am Ende seines Aufbaus) nähme sonst überlappende Chunks mit, bevor deko_an2 die Blöcke setzt
+    fn(NS, 'spark_deko', `forceload add -32 16 32 95\nfunction insel:deko_an\nschedule function ${NS}:spark_kalender 100t\n`),
+    fn(NS, 'spark_kalender', `forceload add -32 16 32 95\nscoreboard objectives add insel_kalender dummy\nfunction insel:kalender_an\nschedule function ${NS}:spark3 80t\n`),
+    fn(NS, 'spark3', `forceload add -32 16 32 95\nfunction insel:kalender/tag {tag:24}\nschedule function ${NS}:spark4 40t\n`),
+    fn(NS, 'spark4', 'forceload remove -32 16 32 95\n'),
   ]));
   // Hub-Ausschnitt um den Brunnen (Hub-Welt des Testnetzes), Unterkante auf den Boden des Bereichs
   const hubWelt = join(REPO, 'testnetz/hub/world');
@@ -136,7 +234,16 @@ export function archivFremd(ziel) {
     rmSync(dp, { recursive: true, force: true });
     schreibe(dp, { ...out, 'pack.mcmeta': mcmeta('Testwelt-Archiv: fremde Bauten (Spark-Insel, Fantasy Village) – nur lokal, nie ins Repo oder auf einen Download') });
     for (const [n, t] of Object.entries(strukturen)) { const p = join(dp, `data/${NS}/structure/${n}.nbt`); mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, t); }
-    for (const p of ['insel-deko', 'insel-kalender']) { rmSync(join(ziel, p), { recursive: true, force: true }); cpSync(join(REPO, 'spawn/datapack', p), join(ziel, p), { recursive: true }); }
+    // Deko und Kalender der Spark-Insel als Kopie mit allen Koordinaten TIEF tiefer (nur für die Testwelt)
+    for (const p of ['insel-deko', 'insel-kalender']) {
+      rmSync(join(ziel, p), { recursive: true, force: true });
+      cpSync(join(REPO, 'spawn/datapack', p), join(ziel, p), { recursive: true });
+      for (const datei of readdirSync(join(ziel, p), { recursive: true })) {
+        if (!String(datei).endsWith('.mcfunction')) continue;
+        const pf = join(ziel, p, String(datei));
+        writeFileSync(pf, readFileSync(pf, 'utf8').split('\n').map((z) => verschiebeY(z, TIEF)).join('\n'));
+      }
+    }
     return { dp, strukturen: Object.keys(strukturen).length };
   });
 }
