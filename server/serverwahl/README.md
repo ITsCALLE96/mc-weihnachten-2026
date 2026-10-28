@@ -55,9 +55,15 @@ Clan-Tag = LuckPerms-Präfix (Gruppe `clan-<name>`, `&`-Codes oder MiniMessage).
 über dem Kopf `[Tag] EchterName` per Scoreboard-Team `sw_<hash>` (fremde Teams bleiben unberührt). Plan und Test: `../namen-clans-grief.md`.
 Bauen mit LuckPerms: `LUCKPERMS_JAR=<pfad zum LuckPerms-Bukkit-Jar> CP_TRENNER=';' bash build.sh …` (ohne die Variable fehlt die API und der Bau bricht ab).
 
+## Prüfwerkzeug (28.10.)
+
+Nur mit Prism (`softdepend`). Holzspitzhacke in der Haupthand + `prism.lookup`: Linksklick = Verlauf des Blocks, Rechtsklick = Kiste bzw. Stelle davor,
+Schleichen = normal abbauen. Abfrage über `PrismPaperApi.lookup` (Services-Manager), Ausgabe auf Deutsch, der Klick wird abgebrochen. Config `pruefwerkzeug:`.
+Bauen mit `PRISM_JAR=<pfad zum prism-paper-Jar>` (nur zum Übersetzen).
+
 ## Täglich (28.10.)
 
-`taeglich:` führt einmal am Tag ab `uhrzeit` (Fenster 1 h) Konsolenbefehle aus, auf dem SMP `co purge t:90d` um 05:00. Merker `plugins/Serverwahl/taeglich.txt`.
+`taeglich:` führt einmal am Tag ab `uhrzeit` (Fenster 1 h) Konsolenbefehle aus (zurzeit keine; den Purge macht Prism selbst). Merker `plugins/Serverwahl/taeglich.txt`.
 
 ## Neujahrsfeuerwerk (28.10.)
 

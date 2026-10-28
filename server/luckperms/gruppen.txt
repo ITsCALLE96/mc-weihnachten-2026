@@ -4,13 +4,13 @@
 lp creategroup moderator
 lp creategroup admin
 lp group moderator parent add default
-lp group moderator permission set coreprotect.inspect true
-lp group moderator permission set coreprotect.lookup true
-lp group moderator permission set coreprotect.teleport true
+# Grief-Tool Prism (Pascal 28.10.): prism.lookup = Abfragen, /pr near, Teleport, Inspektor (auch unser Prüfwerkzeug Holzspitzhacke)
+lp group moderator permission set prism.lookup true
 lp group moderator permission set serverwahl.nick.andere true
 # Rollback/Restore/Purge nur admin. Bewusst kein „*“: das würde auch Ausnahmen wie grim.exempt verteilen
 lp group admin parent add moderator
-lp group admin permission set coreprotect.* true
+lp group admin permission set prism.modify true
+lp group admin permission set prism.purge true
 lp group admin permission set luckperms.* true
 lp group admin permission set serverwahl.admin true
 lp user ITsCALLE96 parent add admin

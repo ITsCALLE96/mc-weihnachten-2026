@@ -2,8 +2,8 @@ name: Serverwahl
 version: '1.0.0'
 main: de.grahl.serverwahl.Serverwahl
 api-version: '26.3'
-# LuckPerms für /nick und Clan-Tags (ohne LuckPerms bleibt der Teil aus)
-softdepend: [LuckPerms]
+# LuckPerms für /nick und Clan-Tags, prism für das Prüfwerkzeug (ohne sie bleiben die Teile aus)
+softdepend: [LuckPerms, prism]
 description: Server-Wahl über Kisten im Hub, /hub zurück (Velocity, Kanal BungeeCord)
 commands:
   hub:

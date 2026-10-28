@@ -70,11 +70,12 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private final SpawnElytra spawnElytra = new SpawnElytra(this);
     private final WetterRhythmus wetter = new WetterRhythmus(this);
     private final EisSperre eisSperre = new EisSperre();
-    private final Pruefwerkzeug pruefwerkzeug = new Pruefwerkzeug(this);
+    /** Prüfwerkzeug (Holzspitzhacke → Prism-Abfrage), nur mit Prism (sonst null) */
+    private Pruefwerkzeug pruefwerkzeug;
     private final Neujahr neujahr = new Neujahr(this);
     /** Nicknames/Clan-Tags, nur mit LuckPerms (sonst null) */
     private Namen namen;
-    /** täglich einmal ab dieser Uhrzeit (höchstens eine Stunde später) diese Konsolenbefehle, z. B. CoreProtect-Purge; null = aus */
+    /** täglich einmal ab dieser Uhrzeit (höchstens eine Stunde später) diese Konsolenbefehle; null = aus */
     private java.time.LocalTime taeglichUm;
     private java.time.ZoneId taeglichZone;
     private List<String> taeglichBefehle = List.of();
@@ -114,6 +115,12 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                 getCommand("nick").setExecutor(namen);
             }
         }
+        if (getServer().getPluginManager().getPlugin("prism") != null) {
+            pruefwerkzeug = Pruefwerkzeug.starten(this);
+            if (pruefwerkzeug != null) {
+                getServer().getPluginManager().registerEvents(pruefwerkzeug, this);
+            }
+        }
         laden();
         getServer().getMessenger().registerOutgoingPluginChannel(this, KANAL);
         XAERO_KANAELE.forEach(k -> getServer().getMessenger().registerOutgoingPluginChannel(this, k));
@@ -121,7 +128,6 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(spawnElytra, this);
         getServer().getPluginManager().registerEvents(wetter, this);
         getServer().getPluginManager().registerEvents(eisSperre, this);
-        getServer().getPluginManager().registerEvents(pruefwerkzeug, this);
         getServer().getPluginManager().registerEvents(neujahr, this);
         // Hub: einmal pro Sekunde schauen, ob das Datapack die Eröffnung ausgelöst hat. Legt die Datei nur an, löscht sie nie
         // (eine zurückgesetzte Hub-Welt soll das SMP nicht wieder schließen; schließen nur per /serverwahl schliessen)
@@ -172,7 +178,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                 getLogger().info("Winterkalender: " + kalenderEintrag + " " + kalenderObjective + " = " + tag);
             }
         }, 100L, 1200L);
-        // Täglich nachts (SMP: CoreProtect-Purge 05:00, Leitung 28.10.). Merker mit dem Datum im Plugin-Ordner, damit ein Neustart nicht doppelt auslöst.
+        // Täglich nachts (Konsolenbefehle aus taeglich:, zurzeit keine; den Purge macht Prism selbst). Merker mit dem Datum im Plugin-Ordner, damit ein Neustart nicht doppelt auslöst.
         // Lief der Server im Zeitfenster (Uhrzeit bis +1 h) nicht, fällt der Lauf an dem Tag aus
         getServer().getScheduler().runTaskTimer(this, () -> {
             if (taeglichUm == null || taeglichBefehle.isEmpty()) {
@@ -236,7 +242,9 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                 });
             }
         }
-        pruefwerkzeug.laden(getConfig().getConfigurationSection("pruefwerkzeug"));
+        if (pruefwerkzeug != null) {
+            pruefwerkzeug.laden(getConfig().getConfigurationSection("pruefwerkzeug"));
+        }
         neujahr.laden(getConfig().getConfigurationSection("neujahr"));
         xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
         if (namen != null) {

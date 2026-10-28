@@ -1,23 +1,22 @@
 #!/usr/bin/env bash
-# Nicknames, Clan-Tags und CoreProtect ins Testnetz (Plan: server/namen-clans-grief.md). Startet und stoppt nichts.
+# Nicknames, Clan-Tags und Grief-Tool Prism ins Testnetz (Plan: server/namen-clans-grief.md). Startet und stoppt nichts (Start macht die Leitung).
 #
-#   bash testnetz/namen-test.sh einrichten   – Testnetz gestoppt: LuckPerms auf Hub + SMP, CoreProtect auf dem SMP, gemeinsamer
-#                                             LuckPerms-Ordner testnetz/luckperms-daten (Verzeichnis-Verknüpfung), serverwahl + Konfigs
+#   bash testnetz/namen-test.sh einrichten   – Testnetz gestoppt: LuckPerms auf Hub + SMP, Prism 4.5 + NBT-API auf dem SMP, gemeinsamer
+#                                             LuckPerms-Ordner testnetz/luckperms-daten (Verzeichnis-Verknüpfung), serverwahl + Konfigs,
+#                                             prism.conf (Chat/Befehle, Purge 05:00/90 Tage, Deutsch), sobald Prism sie einmal angelegt hat
 #   bash testnetz/namen-test.sh gruppen      – SMP läuft: Gruppen (server/luckperms/gruppen.txt) + Test-Clan per RCON anlegen
-#   bash testnetz/namen-test.sh entfernen    – Testnetz gestoppt: LuckPerms/CoreProtect-Jars wieder heraus (Daten bleiben liegen)
+#   bash testnetz/namen-test.sh entfernen    – Testnetz gestoppt: LuckPerms/Prism/NBT-API-Jars wieder heraus (Daten bleiben liegen)
 #
-# Vorher: CoreProtect bauen (Pascal): bash server/coreprotect/bauen.sh
+# Prism legt plugins/prism/prism.conf erst beim ersten Start an: neues Testnetz → einrichten, einmal starten/stoppen, einrichten nochmal.
 # Danach Test: server/namen-clans-grief.md → Test
 set -euo pipefail
 hier="$(cd "$(dirname "$0")" && pwd)"
 repo="$(cd "$hier/.." && pwd)"
-dl="$hier/_downloads/namen"
+dl="$hier/_downloads"
 frei() { ! (echo > "/dev/tcp/127.0.0.1/$1") 2>/dev/null; }
 alle_frei() { frei 25567 && frei 25568 && frei 25577; }
-LP_SHA1=fc8bb9919fa77c670b7ed5c284bcb66770ea71fc   # LuckPerms-Bukkit-5.5.71.jar (Modrinth)
-CP_SHA256="${CP_SHA256:-488fddf4ec5ec011b5d6433d4a43d41f7bbc878263f54c4a0b1362575a5a4533}"   # CoreProtect CE aus dffa04fc, gebaut von Pascal 28.10.
 
-befehle() {  # Datei → Befehle ohne Kommentare/Leerzeilen, an rcon.py
+befehle() {  # Datei → Befehle ohne Kommentare/Leerzeilen, an rcon.py (wartet selbst, wenn LuckPerms noch beschäftigt ist)
   local zeilen=()
   while IFS= read -r z; do
     z="${z%$'\r'}"
@@ -29,12 +28,12 @@ befehle() {  # Datei → Befehle ohne Kommentare/Leerzeilen, an rcon.py
 case "${1:-}" in
   einrichten)
     alle_frei || { echo "Testnetz läuft noch (25567/25568/25577), erst stoppen" >&2; exit 1; }
-    echo "$LP_SHA1  $dl/luckperms.jar" | sha1sum -c -
-    [ -f "$dl/coreprotect.jar" ] || { echo "Fehlt: $dl/coreprotect.jar – erst bash server/coreprotect/bauen.sh" >&2; exit 1; }
-    if [ -n "$CP_SHA256" ]; then echo "$CP_SHA256  $dl/coreprotect.jar" | sha256sum -c -; fi
+    printf '%s\n' "fc8bb9919fa77c670b7ed5c284bcb66770ea71fc  $dl/namen/luckperms.jar" \
+      "133fc802d7a40f16e6a45020e1f298088d46f8b9  $dl/prism/prism.jar" \
+      "716a6bdc7d4e47d1180c0c744f0b4d175a7ad44c  $dl/prism/nbtapi.jar" | sha1sum -c -
     mkdir -p "$hier/luckperms-daten"
     for r in hub smp; do
-      cp "$dl/luckperms.jar" "$hier/$r/plugins/LuckPerms-Bukkit-5.5.71.jar"
+      cp "$dl/namen/luckperms.jar" "$hier/$r/plugins/LuckPerms-Bukkit-5.5.71.jar"
       cp "$repo/server/serverwahl/build/serverwahl-1.0.0.jar" "$hier/$r/plugins/"
       bash "$repo/server/plugin-konfig/einspielen.sh" "$hier/$r" "$r" lokal > /dev/null
       sed -i "s#/opt/mc-weihnachten/status/smp-offen#$(cygpath -m "$hier")/status/smp-offen#" "$hier/$r/plugins/Serverwahl/config.yml"
@@ -51,9 +50,15 @@ case "${1:-}" in
       fi
       echo "$r: LuckPerms, serverwahl, Konfigs, yaml-storage → luckperms-daten"
     done
-    cp "$dl/coreprotect.jar" "$hier/smp/plugins/CoreProtect-CE-26.3.jar"
-    echo "smp: CoreProtect"
-    # Testnetz-Werte, die nicht ins Repo gehören
+    cp "$dl/prism/prism.jar" "$hier/smp/plugins/prism-paper-v4.5.jar"
+    cp "$dl/prism/nbtapi.jar" "$hier/smp/plugins/item-nbt-api-plugin-2.16.1.jar"
+    if [ -f "$hier/smp/plugins/prism/prism.conf" ]; then
+      python -I "$repo/server/prism/konfig-setzen.py" "$hier/smp/plugins/prism/prism.conf"
+    else
+      echo "smp: prism.conf fehlt noch – einmal starten/stoppen, dann einrichten wiederholen"
+    fi
+    echo "smp: Prism 4.5 + NBT-API 2.16.1"
+    # Testnetz-Werte, die nicht ins Repo gehören (Kalender-Tests, Leitung 28.10.)
     sed -i 's/^  fester-tag: 0$/  fester-tag: 24/' "$hier/smp/plugins/Serverwahl/config.yml"
     echo "Fertig. Start macht die Leitung, danach: bash testnetz/namen-test.sh gruppen"
     ;;
@@ -66,8 +71,8 @@ case "${1:-}" in
   entfernen)
     alle_frei || { echo "Testnetz läuft noch, erst stoppen" >&2; exit 1; }
     for r in hub smp; do rm -f "$hier/$r/plugins/LuckPerms-Bukkit-5.5.71.jar"; done
-    rm -f "$hier/smp/plugins/CoreProtect-CE-26.3.jar"
-    echo "Jars entfernt (luckperms-daten und CoreProtect-Datenbank bleiben)"
+    rm -f "$hier/smp/plugins/prism-paper-v4.5.jar" "$hier/smp/plugins/item-nbt-api-plugin-2.16.1.jar"
+    echo "Jars entfernt (luckperms-daten und Prism-Datenbank bleiben)"
     ;;
-  *) sed -n 2,10p "$0"; exit 1 ;;
+  *) sed -n 2,11p "$0"; exit 1 ;;
 esac

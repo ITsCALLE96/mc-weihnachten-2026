@@ -94,8 +94,9 @@ Das Skript warnt, falls eins davon im Hub-Ordner liegt.
 | Plugin | Version | Quelle | Lizenz | Datei, Prüfsumme | Wo |
 |---|---|---|---|---|---|
 | LuckPerms | 5.5.71 (Bukkit/Paper, 26.3) | Modrinth | MIT | `LuckPerms-Bukkit-5.5.71.jar`, SHA1 `fc8bb9919fa77c670b7ed5c284bcb66770ea71fc` | Hub + SMP, gemeinsamer YAML-Ordner |
-| CoreProtect CE | Quellcode `master` @ `dffa04fc` (19.10., kann 26.3) | github.com/PlayPro/CoreProtect, selbst gebaut (`coreprotect/bauen.sh`) | Artistic License 2.0 | SHA-256 `488fddf4ec5ec011b5d6433d4a43d41f7bbc878263f54c4a0b1362575a5a4533` (Bau Pascal 28.10.) | nur SMP; auf v25-Release wechseln, sobald öffentlich |
-| Nick/Chat/Tab/Teams | in serverwahl | eigen | – | – | Hub + SMP |
+| Prism | 4.5 (Paper, 24.10.2026, offiziell 26.3) | Modrinth `prism` | MIT | `prism-paper-v4.5.jar`, SHA1 `133fc802d7a40f16e6a45020e1f298088d46f8b9` | nur SMP (Entscheidung Pascal 28.10., statt CoreProtect) |
+| NBT-API | 2.16.1 (26.3) | Modrinth `nbtapi` | MIT | `item-nbt-api-plugin-2.16.1.jar`, SHA1 `716a6bdc7d4e47d1180c0c744f0b4d175a7ad44c` | nur SMP, Pflicht für Prism |
+| Nick/Chat/Tab/Teams, Prüfwerkzeug | in serverwahl | eigen | – | – | Hub + SMP (Prüfwerkzeug nur mit Prism) |
 
 ## Datapacks (Task 4 Schritt 11, nach `world/datapacks/`, danach Neustart)
 

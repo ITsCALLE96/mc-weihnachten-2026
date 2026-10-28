@@ -88,18 +88,19 @@ namen:
   abklingzeit-sekunden: 10
   # Grundform (klein, 0→o, 1/l→i, 3→e, 4→a, 5→s, 7→t, ohne _/-) darf keins dieser Wörter sein (ab 5 Buchstaben auch nicht enthalten)
   sperrliste: [admin, moderator, mod, server, konsole, console, owner, staff, team, support, herobrine]
-# Täglich nachts (Leitung 28.10.): CoreProtect-Daten älter als 90 Tage löschen. 05:00, weil der Purge die Datenbank kurz sperren kann.
-# Läuft einmal pro Tag im Fenster uhrzeit … +1 h (Merker plugins/Serverwahl/taeglich.txt); ist der Server dann aus, fällt der Lauf aus
+# Täglich ab uhrzeit (Fenster 1 h) Konsolenbefehle, Merker plugins/Serverwahl/taeglich.txt. Zurzeit keine: den Purge macht Prism selbst
+# (prism.conf command-schedules, 05:00, 90 Tage)
 taeglich:
   uhrzeit: "05:00"
   zeitzone: Europe/Berlin
-  befehle:
-    - "co purge t:90d"
-# Prüfwerkzeug (Pascal 28.10.): Holzspitzhacke in der Hand = CoreProtect-Inspektor für alle mit coreprotect.inspect, ohne /co i.
+  befehle: []
+# Prüfwerkzeug (Pascal 28.10.): Holzspitzhacke in der Hand = Prism-Abfrage per Klick für alle mit prism.lookup, ohne /pr wand.
 # Links = Block, Rechts = Kiste/Platziertes; Schleichen = normal abbauen. Siehe server/namen-clans-grief.md
 pruefwerkzeug:
   aktiv: true
   werkzeug: WOODEN_PICKAXE
+  # Einträge je Klick (neueste zuerst)
+  zeilen: 8
 # Winter-Season (Pascal 28.10.): Ozeane und Fluss sind im Datapack jetzt auch kalt (Schnee statt Regen), Wasser dort friert aber nicht zu.
 # Nur natürliche Eisbildung; Frostläufer, gesetztes Eis und die von Natur aus gefrorenen Biome bleiben. Nach der Season mit dem Datapack aus
 eis-sperre:
