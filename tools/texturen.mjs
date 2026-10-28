@@ -183,6 +183,8 @@ function baueWinter(wrp, mc, modell, reif) {
   rmSync(wrp, { recursive: true, force: true });
   schreibeJson(ziel('weihnachten/winter.json'), { winter: true, reif });
   if (reif) baueReif(ziel, lies, modell);
+  // Kein Regengeräusch im Winter (Pascal 28.10.): leere Liste ersetzt Vanilla, Particle Rain nutzt dasselbe Ereignis.
+  schreibeJson(ziel('minecraft/sounds.json'), { 'weather.rain': { replace: true, sounds: [] }, 'weather.rain.above': { replace: true, sounds: [] } });
 
   for (const [quelle, regeln] of [
     ['entity/wandering_trader/wandering_trader.png', WEIHNACHTSMANN],
