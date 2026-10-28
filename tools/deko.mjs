@@ -410,6 +410,33 @@ export const DEKO = {
   schlitten_gross: nachOsten([...schlitten(), ...deichsel()], 19.75),
 };
 
-export function modell(elemente) {
-  return { textures: { p: 'weihnachten:item/deko_palette', particle: 'weihnachten:item/deko_palette' }, elements: elemente, display: display(elemente) };
+// Weihnachtsmütze als 3D-Modell (das Spieler-Item ist ein Sprite mit Rüstungs-Ebene): Fellrand, gestufter Kegel,
+// hoher Kegel, Zipfel knickt zur Seite (+x) und hängt mit dem Bommel herab. Vorne = −z wie beim geschnitzten Kürbis.
+function weihnachtsmuetze3d() {
+  const { min, max } = KOPF;
+  return [
+    quader([min - 0.6, 9.8, min - 0.6], [max + 0.6, 12.4, max + 0.6], 'weiss'), // Fellrand
+    quader([min - 0.1, 12.4, min - 0.1], [max + 0.1, 15.4, max + 0.1], 'rot'),
+    quader([3, 15.4, 3.4], [13, 17.4, 13.2], 'rot'), quader([4.4, 17.4, 5], [11.4, 19.4, 12.6], 'rot'),
+    quader([6, 19.4, 6.6], [10.6, 21, 11.6], 'rot_dunkel'),
+    quader([9, 19.8, 7.4], [14, 21.6, 11], 'rot'), // Knick zur Seite
+    quader([12.6, 16.8, 7.6], [15, 20.2, 10.6], 'rot_dunkel'), // herabhängender Zipfel
+    quader([12.4, 13.6, 7], [16.4, 17, 11], 'weiss'), // Bommel
+  ];
+}
+
+// Kopfschmuck für Dorfbewohner (Info-Stände im Hub, als item_model im Kopf-Platz). Der Client hebt Kopf-Items beim
+// Dorfbewohner schon selbst an (CustomHeadLayer yOffset −0,117 statt 0), Höhe passt also. Aber jeder Dorfbewohner trägt
+// unsere aufgemalte Mütze auf der Hut-Ebene (+0,51 px um den Kopf): head vergrößert um 15 %, damit der Kopfschmuck
+// sie umschließt statt darin zu stecken. Eigene IDs, weil Spieler die Originale 1:1 im Helm-Platz tragen.
+export const DORF_KOEPFE = {
+  dorf_weihnachtsmuetze: weihnachtsmuetze3d(), dorf_strickmuetze: strickmuetze(), dorf_ohrenschuetzer: ohrenschuetzer(),
+  dorf_lichterkrone: lichterkrone(), dorf_rentiergeweih: rentiergeweih(),
+};
+export const DORF_KOPF = { translation: [0, -0.5, 0], scale: [1.15, 1.15, 1.15] };
+
+export function modell(elemente, { kopf } = {}) {
+  const ansichten = display(elemente);
+  if (kopf) ansichten.head = kopf;
+  return { textures: { p: 'weihnachten:item/deko_palette', particle: 'weihnachten:item/deko_palette' }, elements: elemente, display: ansichten };
 }

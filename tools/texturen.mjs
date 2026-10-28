@@ -6,7 +6,7 @@ import { readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync, existsSyn
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import pngjs from 'pngjs';
-import { DEKO, KALENDER, KALENDER_TEXTE, FARBEN, palette as dekoPalette, modell as dekoModell } from './deko.mjs';
+import { DEKO, KALENDER, DORF_KOEPFE, DORF_KOPF, KALENDER_TEXTE, FARBEN, palette as dekoPalette, modell as dekoModell } from './deko.mjs';
 import { weihnachtsmannSkin } from './weihnachtsmann.mjs';
 import { BOSSE, GESCHOSSE, BOSS_EMF, gluehkugel } from './bosse.mjs';
 import { MONSTER2, MONSTER2_EMF } from './monster2.mjs';
@@ -313,6 +313,12 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   schreibePng(ziel('weihnachten/textures/item/deko_palette.png'), dekoPalette());
   for (const [name, elemente] of Object.entries({ ...DEKO, ...KALENDER })) {
     schreibeJson(ziel(`weihnachten/models/item/deko/${name}.json`), dekoModell(elemente));
+    schreibeJson(ziel(`weihnachten/items/${name}.json`), {
+      model: { type: 'minecraft:model', model: `weihnachten:item/deko/${name}` },
+    });
+  }
+  for (const [name, elemente] of Object.entries(DORF_KOEPFE)) { // Kopfschmuck der Hub-Dorfbewohner
+    schreibeJson(ziel(`weihnachten/models/item/deko/${name}.json`), dekoModell(elemente, { kopf: DORF_KOPF }));
     schreibeJson(ziel(`weihnachten/items/${name}.json`), {
       model: { type: 'minecraft:model', model: `weihnachten:item/deko/${name}` },
     });

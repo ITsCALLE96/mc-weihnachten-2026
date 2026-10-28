@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { DEKO, KALENDER, FARBEN, palette, modell } from './deko.mjs';
-const ALLE = { ...DEKO, ...KALENDER };
+import { DEKO, KALENDER, DORF_KOEPFE, DORF_KOPF, FARBEN, palette, modell } from './deko.mjs';
+const ALLE = { ...DEKO, ...KALENDER, ...DORF_KOEPFE };
 
 test('Alle Deko-Modelle bleiben im erlaubten Modellraum und nutzen gültige Drehungen', () => {
   for (const [name, elemente] of Object.entries(ALLE)) {
@@ -43,4 +43,16 @@ test('Weihnachtsplatten: eindeutige IDs, Etikettfarben aus der Palette, höchste
     assert.ok(!(p.id in ALLE), p.id);
     for (const f of p.etikett) assert.ok(f in FARBEN, `${p.id}: ${f}`);
   }
+});
+
+test('Dorf-Kopfschmuck: eigene head-Ansicht, Mützen umschließen die aufgemalte Hut-Ebene (±7,2 um die Mitte)', () => {
+  // Hut-Ebene des Dorfbewohners: Kopf 8 px breit + 0,51 px je Seite, beim Kopf-Item 0,625 px pro Modelleinheit.
+  const huelle = (8 / 2 + 0.51) / 0.625;
+  for (const [name, elemente] of Object.entries(DORF_KOEPFE)) {
+    assert.deepEqual(modell(elemente, { kopf: DORF_KOPF }).display.head, DORF_KOPF, name);
+    if (!/muetze|lichterkrone/.test(name)) continue;
+    const rand = Math.min(...elemente.map((e) => e.from[0]));
+    assert.ok((8 - rand) * DORF_KOPF.scale[0] > huelle + 0.3, `${name}: ${(8 - rand) * DORF_KOPF.scale[0]}`);
+  }
+  assert.equal(modell(KALENDER.strickmuetze).display.head, undefined); // Spieler-Fassung bleibt 1:1
 });
