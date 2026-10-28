@@ -149,7 +149,7 @@
       "symbol": "⚖",
       "name": "Ratsherrin Holla",
       "beruf": "cleric",
-      "kopf": "weihnachtsmuetze",
+      "kopf": "dorf_weihnachtsmuetze",
       "front": [
         42,
         235,
@@ -189,7 +189,7 @@
       "symbol": "⚙",
       "name": "Tüftler Tobi",
       "beruf": "toolsmith",
-      "kopf": "strickmuetze",
+      "kopf": "dorf_strickmuetze",
       "front": [
         39,
         235,
@@ -227,7 +227,7 @@
       "symbol": "♪",
       "name": "Glöckner Gustav",
       "beruf": "shepherd",
-      "kopf": "ohrenschuetzer",
+      "kopf": "dorf_ohrenschuetzer",
       "front": [
         42,
         235,
@@ -256,7 +256,7 @@
       "symbol": "✎",
       "name": "Bibliothekarin Liesel",
       "beruf": "librarian",
-      "kopf": "lichterkrone",
+      "kopf": "dorf_lichterkrone",
       "front": [
         46,
         235,
@@ -291,7 +291,7 @@
       "symbol": "⌛",
       "name": "Kartograf Kasimir",
       "beruf": "cartographer",
-      "kopf": "rentiergeweih",
+      "kopf": "dorf_rentiergeweih",
       "front": [
         46,
         235,
@@ -331,7 +331,7 @@
       "symbol": "✉",
       "name": "Postbotin Paula",
       "beruf": "fletcher",
-      "kopf": "strickmuetze",
+      "kopf": "dorf_strickmuetze",
       "front": [
         42,
         235,
@@ -365,7 +365,7 @@
       "symbol": "⚑",
       "name": "Wegweiser Willi",
       "beruf": "mason",
-      "kopf": "ohrenschuetzer",
+      "kopf": "dorf_ohrenschuetzer",
       "front": [
         39,
         235,
@@ -399,7 +399,7 @@
       "symbol": "❄",
       "name": "Plätzchenbäckerin Frieda",
       "beruf": "farmer",
-      "kopf": "weihnachtsmuetze",
+      "kopf": "dorf_weihnachtsmuetze",
       "front": [
         42,
         235,
