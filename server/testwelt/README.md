@@ -43,3 +43,9 @@ Die Funktion baut relativ (`~ ~ ~` = Saalmitte am Boden, z. B. `place template w
 
 `server/sicherung/quellen-sichern.ps1` (Vorschlag, noch nicht eingerichtet): robocopy nach `\\192.168.178.79\backup\pc-c96\mc-weihnachten-2026\spawn-quellen`,
 ohne Löschen (`/E /XO`), Anmeldung über die gespeicherte Windows-Anmeldung, nichts im Skript. Details und Zeitplan-Varianten im Skriptkopf.
+
+## Bekannte, harmlose Log-Meldungen
+
+- **„Block-attached entity at invalid position“** (28× beim Aufbau, y −57, z 145, x −26…+2): kommt von den Leuchtrahmen der Deko-Galerie. Paper 26.3
+  schreibt die Zeile bei **jedem** `summon glow_item_frame`, weil es das Entity aus dem NBT liest, bevor die Position gesetzt ist. Die Wand steht
+  (z 144), alle 28 Rahmen hängen mit Item (Spawn & Welt geprüft 28.10.). Nicht erneut untersuchen; bleibt so (Leitung 28.10.)
