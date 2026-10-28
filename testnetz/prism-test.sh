@@ -3,7 +3,8 @@
 # Eigener Testlauf, nie zusammen mit CoreProtect. Startet und stoppt nichts (Start macht die Leitung).
 #
 #   bash testnetz/prism-test.sh einrichten   – Testnetz gestoppt: CoreProtect-Jar beiseite, Prism 4.5 + NBT-API 2.16.1 auf den SMP
-#   (Leitung startet einmal und stoppt wieder → Prism legt plugins/prism/*.conf an; Server-Session setzt Chat/Befehle + Purge-Plan)
+#   (Leitung startet einmal und stoppt wieder → Prism legt plugins/prism/*.conf an)
+#   bash testnetz/prism-test.sh konfig       – Testnetz gestoppt: Chat/Befehle an, Purge 05:00/90 Tage, Deutsch (server/prism/konfig-setzen.py)
 #   bash testnetz/prism-test.sh rechte       – SMP läuft: Prism-Rechte für moderator/admin per RCON (gemeinsamer LuckPerms-Speicher)
 #   bash testnetz/prism-test.sh zurueck      – Testnetz gestoppt: Prism + NBT-API raus, CoreProtect wieder rein (Prism-Daten bleiben liegen)
 set -euo pipefail
@@ -23,6 +24,10 @@ case "${1:-}" in
     cp "$dl/prism/prism.jar" "$plugins/prism-paper-v4.5.jar"
     cp "$dl/prism/nbtapi.jar" "$plugins/item-nbt-api-plugin-2.16.1.jar"
     echo "SMP: CoreProtect beiseite, Prism 4.5 + NBT-API 2.16.1 drin. Jetzt einmal starten/stoppen (Leitung), dann Konfig (Server-Session)."
+    ;;
+  konfig)
+    alle_frei || { echo "Testnetz läuft noch, erst stoppen" >&2; exit 1; }
+    python -I "$hier/../server/prism/konfig-setzen.py" "$plugins/prism/prism.conf"
     ;;
   rechte)
     frei 25568 && { echo "SMP läuft nicht" >&2; exit 1; }

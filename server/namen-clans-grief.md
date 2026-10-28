@@ -129,7 +129,7 @@ Prism 4.5 (`prism-paper-v4.5.jar`, SHA1 `133fc802d7a40f16e6a45020e1f298088d46f8b
 (`item-nbt-api-plugin-2.16.1.jar`, SHA1 `716a6bdc7d4e47d1180c0c744f0b4d175a7ad44c`, MIT, für 26.3) – ein Plugin mehr als bei CoreProtect.
 1. Testnetz gestoppt: `bash testnetz/prism-test.sh einrichten` (CoreProtect beiseite) – **erledigt 28.10.**
 2. Leitung startet einmal und stoppt → Prism legt `plugins/prism/prism.conf` und `storage.conf` an
-3. Server-Session: `player-chat` und `player-command` einschalten, Purge-Plan `prism purge before:90d` täglich 05:00 (`command-schedules`), Speicher SQLite
+3. `bash testnetz/prism-test.sh konfig`: `player-chat` + `player-command` an, Purge `prism purge start before:90d` täglich 05:00, Deutsch; Speicher SQLite ist Standard – **erledigt 28.10.**
 4. Leitung startet, `bash testnetz/prism-test.sh rechte`
 5. Pascal: `/pr wand inspect` (Inspektor-Stab: Links = Block, Rechts = Stelle davor), Kiste leer räumen, Schild schreiben, beides finden,
    `/pr rollback a:item-remove r:10 since:10m` bzw. `/pr rb p:ITsCALLE96 r:20 since:10m`, Chat/Befehle per `/pr l a:player-chat`
