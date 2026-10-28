@@ -46,6 +46,10 @@ Laufhöhe 155, Brücke von z 29 bis zum Inselrand, drei Torbögen, an jedem Höh
   (Interaction → Fortschritt → `archiv_spawn:stufe_N`, N = 0…4). Der gewählte Zustand leuchtet, der große Titel über der Insel nennt ihn.
   Jeder Zustand ist eine Struktur über den gemeinsamen Kasten aller Stufen. Was es darin noch nicht gibt, steht als `cave_air`, so baut jeder Zustand den anderen
   sauber zurück. Der Aufbau setzt Stufe 4.
+  „Leer“ macht zusätzlich den ganzen Kasten bis vor die Spark-Insel zu Luft und setzt die Spark-Struktur am Anschluss neu (Scratch geprüft: 0 Blöcke, 0 Entities).
+- **Schrittweiser Aufbau:** Zweite Reihe „Abschnitt +1“ und „Automatik“ (alle 2 s). Sie lösen die echte Server-Mission aus: Datapack `archiv-mission`, eine Kopie
+  von `weihnachtsinsel`, TIEF tiefer. Die 44 Schritte sind je Stufe `stufe_N_teil_1…10`, dann `stufe_N`. Ein Stufen-Schalter setzt den Stand der Mission passend, damit
+  „Abschnitt +1“ dort weitermacht.
 - **Ganzer Hub** (`HUB`: Kasten in der Hub-Welt des Testnetzes, Ecke in der Testwelt) in 30 Kacheln, Unterkante auf dem Boden. Nur im git-ignorierten
   `archiv-fremd`.
 - Aufgeräumt wird beim Aufbau selbst: alte Lage (SMP-Höhe, Stufen-Inseln bei x −70…−280), Treppenturm (bis 28.10. abends) und alter Hub-Ausschnitt.
