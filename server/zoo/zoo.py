@@ -344,8 +344,7 @@ schreiben("aufbau", laden + ["tellraw @a {\"text\":\"Zoo: Chunks werden geladen,
 # Hülle von außen (Spawn & Welt): Funktions-Tag #zoo:halle läuft nach dem Aufbau; Maße stehen in README → Ausstellungshallen
 schreiben("aufbau2", ["gamerule mob_griefing false"] + [b for b in aufbau if not b.startswith("forceload")] + ["function #zoo:halle"])
 (pack / "data" / "zoo" / "tags" / "function").mkdir(parents=True, exist_ok=True)
-(pack / "data" / "zoo" / "tags" / "function" / "halle.json").write_text('{"values": []}
-', encoding="utf-8")
+(pack / "data" / "zoo" / "tags" / "function" / "halle.json").write_text('{"values": []}' + chr(10), encoding="utf-8")
 schreiben("abbau", abbau)
 schreiben("neu", ["function zoo:abbau", "function zoo:aufbau"])
 schreiben("hin", [f"execute in minecraft:overworld run tp @s {X0 - 8} {Y} {mitte(Z0 + 4)} -90 0", "gamemode creative @s"])
