@@ -1,7 +1,7 @@
 execute unless score #tag insel_kalender matches 9.. run return run tellraw @s {"text":"Türchen 9 öffnet am 9. Dezember.","color":"gray"}
 execute if entity @s[tag=insel_kal_hat_9] run return run tellraw @s {"text":"Türchen 9 hast du schon geöffnet.","color":"gray"}
 tag @s add insel_kal_hat_9
-give @s minecraft:paper[minecraft:item_model="weihnachten:ohrenschuetzer",minecraft:item_name={text:"Ohrenschützer"},minecraft:lore=[{text:"Winterkalender 2026 – Tag 9",italic:false,color:"aqua"},{translate:"item.weihnachten.kalender.hinweis.kopf",fallback:"Aufsetzen: in den Helm-Platz ziehen",color:"gray",italic:true},{translate:"item.weihnachten.kalender.hinweis.frierschutz",fallback:"Schützt vor Frost im Pulverschnee",color:"gray",italic:true}],minecraft:max_stack_size=1,minecraft:equippable={slot:"head",swappable:true}] 1
+give @s minecraft:leather_helmet[minecraft:item_model="weihnachten:ohrenschuetzer",minecraft:item_name={text:"Ohrenschützer"},minecraft:lore=[{text:"Winterkalender 2026 – Tag 9",italic:false,color:"aqua"},{translate:"item.weihnachten.kalender.hinweis.kopf",fallback:"Aufsetzen: in den Helm-Platz ziehen",color:"gray",italic:true},{translate:"item.weihnachten.kalender.hinweis.frierschutz",fallback:"Schützt vor Frost im Pulverschnee",color:"gray",italic:true}],minecraft:max_stack_size=1,minecraft:equippable={slot:"head",swappable:true},minecraft:attribute_modifiers=[],!minecraft:max_damage,!minecraft:damage] 1
 give @s minecraft:experience_bottle 8
 tellraw @s [{"text":"Türchen 9 ","color":"gold","bold":true},{"text":"ist offen – frohe Weihnachtszeit!","color":"white"}]
 playsound minecraft:entity.player.levelup master @s ~ ~ ~ 0.8 1.6

@@ -1112,7 +1112,7 @@
         "minecraft:paper[minecraft:item_model=\"weihnachten:kugel_rot\",minecraft:item_name={text:\"Christbaumkugel (rot)\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 3\",italic:false,color:\"aqua\"}]] 1"
       ],
       [
-        "minecraft:paper[minecraft:item_model=\"weihnachten:strickmuetze\",minecraft:item_name={text:\"Strickmütze\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 4\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true}] 1"
+        "minecraft:leather_helmet[minecraft:item_model=\"weihnachten:strickmuetze\",minecraft:item_name={text:\"Strickmütze\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 4\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true},minecraft:attribute_modifiers=[],!minecraft:max_damage,!minecraft:damage] 1"
       ],
       [
         "minecraft:cookie[minecraft:item_model=\"weihnachten:plaetzchen_teller\",minecraft:item_name={text:\"Plätzchen-Teller\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 5\",italic:false,color:\"aqua\"}],minecraft:food={nutrition:4,saturation:4.8}] 64"
@@ -1127,7 +1127,7 @@
         "minecraft:paper[minecraft:item_model=\"weihnachten:kugel_gold\",minecraft:item_name={text:\"Christbaumkugel (gold)\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 8\",italic:false,color:\"aqua\"}]] 1"
       ],
       [
-        "minecraft:paper[minecraft:item_model=\"weihnachten:ohrenschuetzer\",minecraft:item_name={text:\"Ohrenschützer\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 9\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true}] 1"
+        "minecraft:leather_helmet[minecraft:item_model=\"weihnachten:ohrenschuetzer\",minecraft:item_name={text:\"Ohrenschützer\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 9\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true},minecraft:attribute_modifiers=[],!minecraft:max_damage,!minecraft:damage] 1"
       ],
       [
         "minecraft:paper[minecraft:item_model=\"weihnachten:schneekugel\",minecraft:item_name={text:\"Schneekugel\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 10\",italic:false,color:\"aqua\"}]] 1"
@@ -1142,7 +1142,7 @@
         "minecraft:cookie[minecraft:item_model=\"weihnachten:bratapfel\",minecraft:item_name={text:\"Bratapfel\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 13\",italic:false,color:\"aqua\"}],minecraft:food={nutrition:6,saturation:7.2},minecraft:consumable={consume_seconds:1.6,animation:\"eat\",sound:\"minecraft:entity.generic.eat\",has_consume_particles:true,on_consume_effects:[{type:\"minecraft:apply_effects\",effects:[{id:\"minecraft:absorption\",duration:600,amplifier:0}]}]}] 64"
       ],
       [
-        "minecraft:paper[minecraft:item_model=\"weihnachten:rentiergeweih\",minecraft:item_name={text:\"Rentiergeweih\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 14\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true}] 1"
+        "minecraft:leather_helmet[minecraft:item_model=\"weihnachten:rentiergeweih\",minecraft:item_name={text:\"Rentiergeweih\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 14\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true},minecraft:attribute_modifiers=[],!minecraft:max_damage,!minecraft:damage] 1"
       ],
       [
         "minecraft:paper[minecraft:item_model=\"weihnachten:schneemann\",minecraft:item_name={text:\"Mini-Schneemann\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 15\",italic:false,color:\"aqua\"}]] 1"
@@ -1154,7 +1154,7 @@
         "minecraft:paper[minecraft:item_model=\"weihnachten:laterne_stern\",minecraft:item_name={text:\"Laterne mit Stern\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 17\",italic:false,color:\"aqua\"}]] 1"
       ],
       [
-        "minecraft:paper[minecraft:item_model=\"weihnachten:weihnachtsmuetze\",minecraft:item_name={translate:\"item.weihnachten.weihnachtsmuetze\",fallback:\"Santa Hat\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 18\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",asset_id:\"weihnachten:weihnachtsmuetze\",swappable:true}] 1"
+        "minecraft:leather_helmet[minecraft:item_model=\"weihnachten:weihnachtsmuetze\",minecraft:item_name={translate:\"item.weihnachten.weihnachtsmuetze\",fallback:\"Santa Hat\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 18\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",asset_id:\"weihnachten:weihnachtsmuetze\",swappable:true},minecraft:attribute_modifiers=[],!minecraft:max_damage,!minecraft:damage] 1"
       ],
       [
         "minecraft:paper[minecraft:item_model=\"weihnachten:geschenk_rot\",minecraft:item_name={text:\"Geschenk\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 19\",italic:false,color:\"aqua\"}],minecraft:custom_data={winterkalender:\"geschenk\"},minecraft:consumable={consume_seconds:0.8,animation:\"bundle\",sound:\"minecraft:item.bundle.drop_contents\",has_consume_particles:false}] 1"
@@ -1166,13 +1166,13 @@
         "minecraft:paper[minecraft:item_model=\"weihnachten:rentier\",minecraft:item_name={text:\"Mini-Rentier\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 21\",italic:false,color:\"aqua\"}]] 1"
       ],
       [
-        "minecraft:paper[minecraft:item_model=\"weihnachten:schal\",minecraft:item_name={text:\"Schal\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 22\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true}] 1"
+        "minecraft:leather_helmet[minecraft:item_model=\"weihnachten:schal\",minecraft:item_name={text:\"Schal\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 22\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true},minecraft:attribute_modifiers=[],!minecraft:max_damage,!minecraft:damage] 1"
       ],
       [
         "minecraft:paper[minecraft:item_model=\"weihnachten:stern\",minecraft:item_name={text:\"Weihnachtsstern\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 23\",italic:false,color:\"aqua\"}]] 1"
       ],
       [
-        "minecraft:paper[minecraft:item_model=\"weihnachten:lichterkrone\",minecraft:item_name={text:\"Krone aus Lichtern · Winter 2026\",color:\"gold\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 24\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true},minecraft:enchantment_glint_override=true,minecraft:rarity=\"epic\"] 1"
+        "minecraft:leather_helmet[minecraft:item_model=\"weihnachten:lichterkrone\",minecraft:item_name={text:\"Krone aus Lichtern · Winter 2026\",color:\"gold\"},minecraft:lore=[{text:\"Winterkalender 2026 – Tag 24\",italic:false,color:\"aqua\"}],minecraft:max_stack_size=1,minecraft:equippable={slot:\"head\",swappable:true},minecraft:enchantment_glint_override=true,minecraft:rarity=\"epic\",minecraft:attribute_modifiers=[],!minecraft:max_damage,!minecraft:damage] 1"
       ]
     ],
     "hinweisTexte": {
@@ -1483,7 +1483,7 @@
       ]
     ],
     "geschenk": {
-      "grund": "Tag 19 auspackbar (Pascal 28.10.): ein Zufallsgewinn",
+      "grund": "Tag 19 auspackbar (Pascal 28.10.): ein Zufallsgewinn; Platte = eine der 9 Weihnachtsplatten (Datapack weihnachtsplatten)",
       "gewinne": [
         [
           [
@@ -1515,8 +1515,18 @@
         ],
         [
           [
-            "#minecraft:creeper_drop_music_discs",
-            1
+            "zufall",
+            [
+              "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_jingle_bells\",minecraft:item_model=\"weihnachten:platte_jingle_bells\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 19\",italic:false,color:\"aqua\"}]] 1",
+              "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_we_wish\",minecraft:item_model=\"weihnachten:platte_we_wish\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 19\",italic:false,color:\"aqua\"}]] 1",
+              "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_deck_the_halls\",minecraft:item_model=\"weihnachten:platte_deck_the_halls\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 19\",italic:false,color:\"aqua\"}]] 1",
+              "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_stille_nacht\",minecraft:item_model=\"weihnachten:platte_stille_nacht\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 19\",italic:false,color:\"aqua\"}]] 1",
+              "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_zuckerfee\",minecraft:item_model=\"weihnachten:platte_zuckerfee\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 19\",italic:false,color:\"aqua\"}]] 1",
+              "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_midnight_clear\",minecraft:item_model=\"weihnachten:platte_midnight_clear\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 19\",italic:false,color:\"aqua\"}]] 1",
+              "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_holy_night\",minecraft:item_model=\"weihnachten:platte_holy_night\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 19\",italic:false,color:\"aqua\"}]] 1",
+              "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_adeste\",minecraft:item_model=\"weihnachten:platte_adeste\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 19\",italic:false,color:\"aqua\"}]] 1",
+              "minecraft:music_disc_13[minecraft:jukebox_playable=\"weihnachten:platte_tannenbaum\",minecraft:item_model=\"weihnachten:platte_tannenbaum\",minecraft:item_name=\"Weihnachtsplatte\",minecraft:lore=[{text:\"Winterkalender 2026 – Tag 19\",italic:false,color:\"aqua\"}]] 1"
+            ]
           ]
         ]
       ]

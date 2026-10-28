@@ -62,10 +62,15 @@ test('Steigerung 28.10.: Zugaben je Woche, Essen je 64 mit stärkerer Wirkung, F
   assert.match(gives(13)[0], /nutrition:6,saturation:7\.2.*minecraft:absorption",duration:600/);
   for (const n of [4, 9, 14, 18, 22, 24]) assert.ok(f[`kalender/tuer_${n}`].includes('hinweis.frierschutz'), `Tag ${n}`);
   const { dateien: d } = kalender(k.kalender);
-  assert.deepEqual(JSON.parse(d['data/minecraft/tags/item/freeze_immune_wearables.json']).values, ['minecraft:paper']);
+  // Frierschutz über den Lederhelm als Basis (Vanilla-Tag, auch im Client), kein eigenes Tag
+  assert.equal(d['data/minecraft/tags/item/freeze_immune_wearables.json'], undefined);
+  for (const n of [4, 9, 14, 18, 22, 24]) assert.match(gives(n)[0], /^give @s minecraft:leather_helmet\[.*minecraft:attribute_modifiers=\[\],!minecraft:max_damage,!minecraft:damage\] 1$/, `Tag ${n}`);
   assert.match(gives(19)[0], /custom_data=\{winterkalender:"geschenk"\}.*consumable=/);
   assert.equal(JSON.parse(d['data/insel/advancement/kalender/geschenk.json']).rewards.function, 'insel:kalender/geschenk');
-  assert.equal(JSON.parse(d['data/insel/loot_table/kalender/geschenk_5.json']).pools[0].entries[0].items, '#minecraft:creeper_drop_music_discs');
+  // Platte = eine der 9 Weihnachtsplatten (Datapack weihnachtsplatten)
+  assert.match(f['kalender/geschenk'], /matches 5 run function insel:kalender\/geschenk_5$/m);
+  assert.match(f['kalender/geschenk_5'], /random value 1\.\.9\n/);
+  assert.match(f['kalender/geschenk_5'], /matches 4 run give @s minecraft:music_disc_13\[minecraft:jukebox_playable="weihnachten:platte_stille_nacht"/);
   assert.match(f['kalender/geschenk'], /random value 1\.\.5\n.*matches 1 run give @s minecraft:golden_apple 2$/m);
   assert.match(f['kalender/geschenk'], /matches 3 run give @s minecraft:saddle 1$/m);
 });

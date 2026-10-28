@@ -82,8 +82,9 @@ particle minecraft:firework ${cx} ${cy + 0.45} ${wz - 0.3} 0.25 0.25 0.05 0.03 2
   }
   f['kalender/naechster_tag'] = `# Täglich 00:00 ab 01.12. (AMP-Aufgabe): nächstes Türchen freigeben\nscoreboard players add #tag insel_kalender 1\nexecute if score #tag insel_kalender matches 25.. run scoreboard players set #tag insel_kalender 24\nfunction insel:kalender/anzeigen\ntellraw @a [${txt('Winterkalender: ', { color: 'gold', bold: true })},${txt('Ein neues Türchen ist offen – am Spawn!', { color: 'white' })}]\n`;
   f['kalender/tag'] = `# Zum Testen bzw. Nachstellen: function insel:kalender/tag {tag:N}\n$scoreboard players set #tag insel_kalender $(tag)\nfunction insel:kalender/anzeigen\n`;
-  // Weitere Datapack-Dateien: Frierschutz für alle Kopfteile (Papier mit equippable, Pascal 28.10.), auspackbares Geschenk
-  const dateien = { 'data/minecraft/tags/item/freeze_immune_wearables.json': JSON.stringify({ values: ['minecraft:paper'] }, null, 2) + '\n' };
+  // Weitere Datapack-Dateien: auspackbares Geschenk. Frierschutz der Kopfteile kommt vom Lederhelm als Basis (Vanilla-Tag, wirkt auch im Client;
+  // ein eigenes Tag mit Papier kannte der Client nicht → Eisblumen ohne Schaden, Pascal 28.10.)
+  const dateien = {};
   if (kal.geschenk) {
     dateien['data/insel/advancement/kalender/geschenk.json'] = JSON.stringify({
       criteria: { auspacken: { trigger: 'minecraft:consume_item', conditions: { item: { items: 'minecraft:paper', predicates: { 'minecraft:custom_data': '{winterkalender:"geschenk"}' } } } } },
@@ -92,6 +93,11 @@ particle minecraft:firework ${cx} ${cy + 0.45} ${wz - 0.3} 0.25 0.25 0.05 0.03 2
     // Zufall per random statt Beutetabelle mit Gruppen (Format in 26.3 geändert); nur ein Item-Tag (z. B. Musikplatten) braucht eine Beutetabelle,
     // Format wie die Creeper-Tabelle aus 26.3: Tag-Eintrag mit items:"#…"
     const geben = ([id, anzahl], i) => {
+      // ['zufall', [give-Texte…]]: eins davon, z. B. eine der Weihnachtsplatten
+      if (id === 'zufall') {
+        f[`kalender/geschenk_${i}`] = `execute store result score #geschenk_${i} insel_kalender run random value 1..${anzahl.length}\n${anzahl.map((g, j) => `execute if score #geschenk_${i} insel_kalender matches ${j + 1} run give @s ${g}`).join('\n')}\n`;
+        return `function insel:kalender/geschenk_${i}`;
+      }
       if (!id.startsWith('#')) return `give @s ${id} ${anzahl}`;
       dateien[`data/insel/loot_table/kalender/geschenk_${i}.json`] = JSON.stringify({ type: 'minecraft:command', pools: [{ rolls: 1, entries: [{ type: 'minecraft:tag', expand: true, items: id }] }] }, null, 2) + '\n';
       return `loot give @s loot insel:kalender/geschenk_${i}`;

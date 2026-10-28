@@ -19,7 +19,9 @@ name=$(node -e "console.log(require('$(w "$STANDORT")').struktur.name.split(':')
 echo "1/3 Datapack insel und Struktur"
 node "$(w "$REPO/spawn/standort.mjs")" bauen "$(w "$STANDORT")"
 D="$SRV/world/datapacks"; mkdir -p "$D/spawn-bau/data/spawn/structure"
-rm -rf "$D/insel" "$D/insel-deko" "$D/insel-kalender"; cp -r "$REPO/spawn/datapack/insel" "$D/"
+rm -rf "$D/insel" "$D/insel-deko" "$D/insel-kalender" "$D/weihnachtsplatten"; cp -r "$REPO/spawn/datapack/insel" "$D/"
+# Weihnachtsplatten der Modpack-Session (dauerhaft, auch nach der Saison)
+cp -r "$REPO/spawn/datapack/weihnachtsplatten" "$D/"
 # Weihnachtsdeko (an/aus per Funktion), Positionen aus der lokalen Quelle
 node "$(w "$REPO/spawn/insel-deko.mjs")" "$(w "$STANDORT")" && cp -r "$REPO/spawn/datapack/insel-deko" "$D/"
 # Winterkalender (an/aus per Funktion)

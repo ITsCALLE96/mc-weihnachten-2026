@@ -6,7 +6,7 @@ execute if score #geschenk insel_kalender matches 2 run give @s minecraft:golden
 execute if score #geschenk insel_kalender matches 3 run give @s minecraft:name_tag 1
 execute if score #geschenk insel_kalender matches 3 run give @s minecraft:saddle 1
 execute if score #geschenk insel_kalender matches 4 run give @s minecraft:experience_bottle 16
-execute if score #geschenk insel_kalender matches 5 run loot give @s loot insel:kalender/geschenk_5
+execute if score #geschenk insel_kalender matches 5 run function insel:kalender/geschenk_5
 playsound minecraft:entity.player.levelup master @s ~ ~ ~ 0.6 1.8
 particle minecraft:happy_villager ~ ~1.2 ~ 0.4 0.4 0.4 0 15 normal @s
 tellraw @s {"text":"Frohe Weihnachten! Dein Geschenk ist ausgepackt.","color":"gold"}
