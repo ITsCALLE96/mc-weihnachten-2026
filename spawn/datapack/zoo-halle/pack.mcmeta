@@ -1,0 +1,13 @@
+{
+  "pack": {
+    "description": "Zoo-Ausstellungshalle (Spawn & Welt, spawn/zoo-halle.mjs) – nur Testwelt",
+    "min_format": [
+      121,
+      0
+    ],
+    "max_format": [
+      121,
+      0
+    ]
+  }
+}

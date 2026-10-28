@@ -48,6 +48,12 @@ Laufhöhe 155, Brücke von z 29 bis zum Inselrand, drei Torbögen. Spätere Even
   im Schalter, der große Titel über der Insel nennt sie. Jede Stufe ist eine Struktur über den gemeinsamen Kasten aller Stufen. Was es in einer Stufe noch nicht
   gibt, steht darin als `cave_air`, so baut jede Stufe die andere sauber zurück. Aufbau setzt Stufe 4.
 - Alte Lage (bis 28.10. mittags: SMP-Höhe, Stufen-Inseln bei x −70…−280) räumt der Aufbau selbst leer.
+- **Zoo-Ausstellungshalle** (`spawn/zoo-halle.mjs` → `spawn/datapack/zoo-halle`, Pascal 28.10.): weihnachtliche Hülle um die drei Zoo-Flügel der
+  Server-Session (x 116…244; Friedlich, Feindlich, Bosse). Läuft über den Funktions-Tag `#zoo:halle` nach dem Zoo-Aufbau.
+  - Wände aus Fichte mit Fensterband und Pfosten, Decke mit Froschlichtern, Schneedach mit Girlande.
+  - Kupferbirnen-Lichterkette an der Traufe, Stufengiebel mit Rosette und Stern im Westen und Osten.
+  - Eingänge mit Vordach, Kranz und zwei geschmückten Bäumchen.
+  - Innen bleibt alles frei. Gesetzt wird nur unsichtbares Licht in Luft, das prüft `zoo-halle.test.mjs`.
 - Geprüft im Scratch-Server (Flachwelt): Spark 40.234 von 40.253 Blöcken (Rest = Brückenanschluss), Stufe 1 und Stufe 3 → 4 Block für Block wie der Generator,
   der Turm vollständig, auf der alten Höhe nichts mehr. Deko (1317 Schnee, 143 Anzeigen) und Kalender laufen nacheinander mit eigenem `forceload`,
   weil das Entladen anderer Bereiche überlappende Chunks mitnimmt.
