@@ -255,12 +255,22 @@ function lichterkrone() {
   ];
 }
 
+function christstollen() {
+  return [
+    quader([2, 0, 4.5], [14, 3.5, 11.5], 'karamell'), quader([2.5, 3.5, 5.5], [13.5, 5, 10.5], 'karamell'), // Laib
+    quader([2.4, 3, 5], [13.6, 4, 7.5], 'braun_hell'), // typischer Falz an der Längsseite
+    quader([1.9, 3.4, 4.4], [14.1, 3.9, 11.6], 'weiss'), quader([2.4, 5, 5.4], [13.6, 5.6, 10.6], 'weiss'), // Puderzucker
+    quader([13.9, 0.5, 5], [14.1, 3, 11], 'creme'), quader([14, 1.2, 7.25], [14.15, 2.4, 8.75], 'gelb'), // Anschnitt mit Marzipan
+    ...[[4, 2, 4.4], [7, 1.2, 4.4], [10.5, 2.2, 4.4], [5.5, 1.5, 11.5], [9, 2, 11.5], [12, 1, 11.5]].map(([x, y, z]) => quader([x, y, z - 0.1], [x + 0.6, y + 0.6, z], 'schoko')), // Rosinen
+  ];
+}
+
 // Kalender-Items, die noch kein Modell hatten (Tag 1, 3, 8, 12, 16, 18, 19, 21, 23 nutzen vorhandene IDs).
 export const KALENDER = {
   zuckerstange: zuckerstange(), strickmuetze: strickmuetze(), plaetzchen_teller: plaetzchenTeller(),
   kerze_glas: kerzeGlas(), heisse_schokolade: heisseSchokolade(), ohrenschuetzer: ohrenschuetzer(),
   schneekugel: schneekugel(), bratapfel: bratapfel(), rentiergeweih: rentiergeweih(), laterne_stern: laterneStern(),
-  schal: schal(), lichterkrone: lichterkrone(),
+  schal: schal(), lichterkrone: lichterkrone(), christstollen: christstollen(),
 };
 // Gebrauchshinweise in der Lore (Spawn-Session setzt sie als translate). Eigener Namensraum fürs
 // Sprachfile, weil tools/questbuch.mjs weihnachten/lang komplett neu schreibt; Minecraft führt alle zusammen.
@@ -273,6 +283,11 @@ export const KALENDER_TEXTE = {
   'item.weihnachten.kalender.hinweis.werfen': ['Zum Werfen', 'Throw it'],
   'item.weihnachten.kalender.hinweis.feuerwerk': ['Abfeuern: Rechtsklick in die Luft', 'Launch it: right-click into the air'],
   'item.weihnachten.kalender.hinweis.andenken': ['Andenken an den Winter 2026', 'A keepsake of winter 2026'],
+  'item.weihnachten.kalender.hinweis.frierschutz': ['Schützt vor Frost im Pulverschnee', 'Protects from freezing in powder snow'],
+  'item.weihnachten.kalender.hinweis.stollen': ['Essbar: Absorption und kurz Regeneration', 'Edible: absorption and brief regeneration'],
+  'item.weihnachten.kalender.hinweis.auspacken': ['Auspacken: Rechtsklick gedrückt halten', 'Unwrap: hold right-click'],
+  'item.weihnachten.kalender.hinweis.zucker': ['Essbar: kurz schneller', 'Edible: brief speed boost'],
+  'item.weihnachten.kalender.hinweis.bratapfel': ['Essbar: zwei Extra-Herzen für 30 s', 'Edible: two extra hearts for 30 s'],
 };
 
 export const AUFSETZBAR =['strickmuetze', 'ohrenschuetzer', 'rentiergeweih', 'schal', 'lichterkrone'];
