@@ -15,7 +15,7 @@ dl="$hier/_downloads/namen"
 frei() { ! (echo > "/dev/tcp/127.0.0.1/$1") 2>/dev/null; }
 alle_frei() { frei 25567 && frei 25568 && frei 25577; }
 LP_SHA1=fc8bb9919fa77c670b7ed5c284bcb66770ea71fc   # LuckPerms-Bukkit-5.5.71.jar (Modrinth)
-CP_SHA256="${CP_SHA256:-}"                          # aus server/coreprotect/bauen.sh, sobald gebaut (siehe Plan)
+CP_SHA256="${CP_SHA256:-488fddf4ec5ec011b5d6433d4a43d41f7bbc878263f54c4a0b1362575a5a4533}"   # CoreProtect CE aus dffa04fc, gebaut von Pascal 28.10.
 
 befehle() {  # Datei → Befehle ohne Kommentare/Leerzeilen, an rcon.py
   local zeilen=()

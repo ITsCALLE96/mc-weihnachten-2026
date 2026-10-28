@@ -81,7 +81,7 @@ Hub nicht: dort baut niemand (WorldGuard `__global__` sperrt). Backups: DB kommt
 
 ## Test (Testnetz)
 
-1. Pascal: `bash server/coreprotect/bauen.sh` (SHA-256 an die Server-Session)
+1. Pascal: `bash server/coreprotect/bauen.sh` (SHA-256 an die Server-Session; gebaut 28.10.: `488fddf4ec5ec011b5d6433d4a43d41f7bbc878263f54c4a0b1362575a5a4533`)
 2. Testnetz gestoppt: `bash testnetz/namen-test.sh einrichten`; Leitung startet; `bash testnetz/namen-test.sh gruppen`
 3. Logs: Hub und SMP laden LuckPerms 5.5.71 (Storage YAML), SMP lädt CoreProtect ohne „not supported“, serverwahl ohne „LuckPerms nicht geladen“
 4. `/nick Weihnachtself` im Hub → Chat `[Test] Weihnachtself: …`, Tab `[Test] Weihnachtself ITsCALLE96`, über dem Kopf `[Test] ITsCALLE96` (zweiter Client/Bedrock)

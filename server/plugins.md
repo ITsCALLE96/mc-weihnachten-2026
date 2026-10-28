@@ -94,7 +94,7 @@ Das Skript warnt, falls eins davon im Hub-Ordner liegt.
 | Plugin | Version | Quelle | Lizenz | Datei, Prüfsumme | Wo |
 |---|---|---|---|---|---|
 | LuckPerms | 5.5.71 (Bukkit/Paper, 26.3) | Modrinth | MIT | `LuckPerms-Bukkit-5.5.71.jar`, SHA1 `fc8bb9919fa77c670b7ed5c284bcb66770ea71fc` | Hub + SMP, gemeinsamer YAML-Ordner |
-| CoreProtect CE | Quellcode `master` @ `dffa04fc` (19.10., kann 26.3) | github.com/PlayPro/CoreProtect, selbst gebaut (`coreprotect/bauen.sh`) | Artistic License 2.0 | SHA-256 nach dem Bau | nur SMP; auf v25-Release wechseln, sobald öffentlich |
+| CoreProtect CE | Quellcode `master` @ `dffa04fc` (19.10., kann 26.3) | github.com/PlayPro/CoreProtect, selbst gebaut (`coreprotect/bauen.sh`) | Artistic License 2.0 | SHA-256 `488fddf4ec5ec011b5d6433d4a43d41f7bbc878263f54c4a0b1362575a5a4533` (Bau Pascal 28.10.) | nur SMP; auf v25-Release wechseln, sobald öffentlich |
 | Nick/Chat/Tab/Teams | in serverwahl | eigen | – | – | Hub + SMP |
 
 ## Datapacks (Task 4 Schritt 11, nach `world/datapacks/`, danach Neustart)
