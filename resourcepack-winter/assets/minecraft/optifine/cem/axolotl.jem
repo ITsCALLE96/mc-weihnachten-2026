@@ -1,0 +1,252 @@
+{
+  "credit": "Weihnachtsprojekt 2026 – eigene Zusätze (tools/mobs.mjs)",
+  "models": [
+    {
+      "part": "head",
+      "id": "weihnachten_head",
+      "attach": true,
+      "texture": "textures/entity/weihnachten/emf_palette.png",
+      "textureSize": [
+        16,
+        16
+      ],
+      "translate": [
+        0,
+        -4.5,
+        4
+      ],
+      "boxes": [
+        {
+          "coordinates": [
+            -2.9,
+            7.3,
+            -9.4,
+            5.8,
+            1.2,
+            5.8
+          ],
+          "uvNorth": [
+            1,
+            0,
+            2,
+            1
+          ],
+          "uvEast": [
+            1,
+            0,
+            2,
+            1
+          ],
+          "uvSouth": [
+            1,
+            0,
+            2,
+            1
+          ],
+          "uvWest": [
+            1,
+            0,
+            2,
+            1
+          ],
+          "uvUp": [
+            1,
+            0,
+            2,
+            1
+          ],
+          "uvDown": [
+            1,
+            0,
+            2,
+            1
+          ]
+        },
+        {
+          "coordinates": [
+            -2.3,
+            8.5,
+            -8.6,
+            4.6,
+            1.6,
+            4.6
+          ],
+          "uvNorth": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvEast": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvSouth": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvWest": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvUp": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvDown": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "coordinates": [
+            -1.75,
+            10.1,
+            -7.25,
+            3.5,
+            1.4,
+            3.5
+          ],
+          "uvNorth": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvEast": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvSouth": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvWest": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvUp": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvDown": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "coordinates": [
+            -1,
+            11.5,
+            -6.25,
+            2,
+            1.2,
+            2
+          ],
+          "uvNorth": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvEast": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvSouth": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvWest": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvUp": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvDown": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "coordinates": [
+            -1,
+            12.3,
+            -5.75,
+            2,
+            2,
+            2
+          ],
+          "uvNorth": [
+            1,
+            0,
+            2,
+            1
+          ],
+          "uvEast": [
+            1,
+            0,
+            2,
+            1
+          ],
+          "uvSouth": [
+            1,
+            0,
+            2,
+            1
+          ],
+          "uvWest": [
+            1,
+            0,
+            2,
+            1
+          ],
+          "uvUp": [
+            1,
+            0,
+            2,
+            1
+          ],
+          "uvDown": [
+            1,
+            0,
+            2,
+            1
+          ]
+        }
+      ]
+    }
+  ]
+}

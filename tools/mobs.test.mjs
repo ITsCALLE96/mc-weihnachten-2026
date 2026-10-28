@@ -43,3 +43,9 @@ test('Paket 2: alle übrigen Monster laufen durch, EMF gültig', async () => {
   for (const [name, fn] of Object.entries(MONSTER2)) assert.doesNotThrow(() => fn(leer(128, 128)), name);
   for (const teile of Object.values(MONSTER2_EMF)) assert.ok(jem(teile).models.every((m) => m.boxes.every((b) => b.coordinates.every(Number.isFinite))));
 });
+
+test('Paket 3: Tiere und Helfer laufen durch, EMF gültig', async () => {
+  const { TIERE3, TIERE3_EMF } = await import('./tiere.mjs');
+  for (const [name, fn] of Object.entries(TIERE3)) assert.doesNotThrow(() => fn(leer(128, 128)), name);
+  for (const teile of Object.values(TIERE3_EMF)) assert.ok(jem(teile).models.every((m) => m.boxes.every((b) => b.coordinates.every(Number.isFinite))));
+});

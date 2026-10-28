@@ -1,0 +1,160 @@
+{
+  "credit": "Weihnachtsprojekt 2026 – eigene Zusätze (tools/mobs.mjs)",
+  "models": [
+    {
+      "part": "head",
+      "id": "weihnachten_head",
+      "attach": true,
+      "texture": "textures/entity/weihnachten/emf_palette.png",
+      "textureSize": [
+        16,
+        16
+      ],
+      "translate": [
+        0,
+        -20,
+        0
+      ],
+      "boxes": [
+        {
+          "coordinates": [
+            -5,
+            28,
+            -5,
+            10,
+            1,
+            10
+          ],
+          "uvNorth": [
+            6,
+            0,
+            7,
+            1
+          ],
+          "uvEast": [
+            6,
+            0,
+            7,
+            1
+          ],
+          "uvSouth": [
+            6,
+            0,
+            7,
+            1
+          ],
+          "uvWest": [
+            6,
+            0,
+            7,
+            1
+          ],
+          "uvUp": [
+            6,
+            0,
+            7,
+            1
+          ],
+          "uvDown": [
+            6,
+            0,
+            7,
+            1
+          ]
+        },
+        {
+          "coordinates": [
+            -3.5,
+            29,
+            -3.5,
+            7,
+            5,
+            7
+          ],
+          "uvNorth": [
+            6,
+            0,
+            7,
+            1
+          ],
+          "uvEast": [
+            6,
+            0,
+            7,
+            1
+          ],
+          "uvSouth": [
+            6,
+            0,
+            7,
+            1
+          ],
+          "uvWest": [
+            6,
+            0,
+            7,
+            1
+          ],
+          "uvUp": [
+            6,
+            0,
+            7,
+            1
+          ],
+          "uvDown": [
+            6,
+            0,
+            7,
+            1
+          ]
+        },
+        {
+          "coordinates": [
+            -3.6,
+            29.3,
+            -3.6,
+            7.2,
+            1.2,
+            7.2
+          ],
+          "uvNorth": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvEast": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvSouth": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvWest": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvUp": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "uvDown": [
+            0,
+            0,
+            1,
+            1
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -305,8 +305,9 @@ export const TIERE = {
 export const EMF_FARBEN = {
   rot: [196, 30, 42], weiss: [240, 242, 246], gruen: [60, 110, 50], gold: [232, 182, 46], eis: [200, 232, 248], eis_dunkel: [130, 184, 222],
   dunkel: [32, 28, 40], horn: [58, 52, 50], hornspitze: [20, 18, 18], glut: [255, 200, 60], sandrot: [156, 72, 52], sandweiss: [214, 198, 160],
+  braun: [110, 76, 44], nase: [255, 36, 36],
 };
-export const EMF_LEUCHTEND = ['glut', 'eis'];
+export const EMF_LEUCHTEND = ['glut', 'eis', 'nase'];
 const zipfel = (rot, weiss) => [[[-4.6, -9, -4.6], [9.2, 1.6, 9.2], weiss], [[-4, -11, -3.6], [8, 2, 8], rot], [[-3, -13, -2.2], [6, 2, 6], rot],
   [[-2, -15, -0.6], [4, 2, 4], rot], [[-1.2, -16.5, 1.2], [2.4, 1.5, 2.4], rot], [[-1.6, -19, 2], [3.2, 2.8, 3.2], weiss]];
 const hoerner = [-1, 1].flatMap((s) => [[[s * 4.5 - 1, -11, -1], [2, 2, 2], 'horn'], [[s * 6 - 0.75, -13, -0.6], [1.5, 2.2, 1.5], 'horn'],
