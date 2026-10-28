@@ -212,7 +212,7 @@ export function inselBloecke(lage = LAGE) {
   });
   // Weihnachtsmann im Iglu (Mannequin mit eigenem Skin aus dem Basis-Pack, Handel macht serverwahl über die Interaction) – nach Stufe 4
   const WM = [IG[0] + 2.5, T + 1, IG[1] + 0.5];
-  ent(3, 9, 'mannequin', ...WM, 90, '{CustomName:{text:"Weihnachtsmann",color:"red",bold:true},CustomNameVisible:1b,description:{text:"Händler · Rechtsklick",color:"gold"},immovable:1b,Invulnerable:1b,Silent:1b,PersistenceRequired:1b,profile:{texture:"weihnachten:entity/weihnachtsmann"}}', ['wi_weihnachtsmann']);
+  ent(3, 9, 'mannequin', ...WM, 90, '{CustomName:{text:"Weihnachtsmann",color:"red",bold:true},CustomNameVisible:1b,description:{text:"Händler · Rechtsklick",color:"gold"},immovable:1b,Invulnerable:1b,Silent:1b,PersistenceRequired:1b,profile:{texture:"weihnachten:entity/weihnachtsmann",model:"wide"}}', ['wi_weihnachtsmann']);
   ent(3, 9, 'interaction', ...WM, 0, '{width:0.9f,height:2f,response:1b}', ['wi_weihnachtsmann_klick']);
 
   // ---------- Stufe 2: großer Weihnachtsbaum (5 Wachstumsschritte) ----------
@@ -431,15 +431,15 @@ export function datapack(lage = LAGE) {
   for (const [k, v] of I.stufen[3]) if (!v.includes('copper_bulb')) teile[3][9].bloecke.set(k, v);
 
   // Licht gegen Monster nach jedem Abschnitt (Reihenfolge wie im Spiel), neue Lichtblöcke gehören zum Abschnitt
-  const kumul = new Map(), lichtZahl = [0, 0, 0, 0];
-  for (let s = 0; s < 4; s++) for (let k = 0; k < 10; k++) {
+  const kumul = new Map(), lichtZahl = [0, 0, 0, 0], stand = [];
+  for (let s = 0; s < 4; s++) { for (let k = 0; k < 10; k++) {
     const t = teile[s][k];
     t.bloecke.forEach((v, key) => { if (v === 'minecraft:cave_air') kumul.delete(key); else kumul.set(key, v); });
     if (s === 3 && k < 9) continue; // Birnen an: nur heller
     if (s === 3) I.stufen[3].forEach((v, key) => kumul.set(key, v));
     const neue = lichter(kumul); neue.forEach((p) => { kumul.set(K(...p), LICHTBLOCK); t.bloecke.set(K(...p), LICHTBLOCK); });
     lichtZahl[s] += neue.length;
-  }
+  } stand.push(new Map(kumul)); }
 
   // Funktionen je Abschnitt: Merker, Chunks laden, 2 s später setzen (Strukturen, Befehle, Entities), kleiner Effekt
   const NAMEN = ['Die Insel taucht auf', 'Der Baum wächst', 'Der Baum wird geschmückt', 'Heiligabend'];
@@ -512,7 +512,7 @@ forceload remove ${tx} ${tz}
   f.wiederaufnahme2 = [1, 2, 3, 4].map((n) => `execute if score #laeuft wi_mission matches ${n} run function ${NS}:stufe_${n}/fertig`).join('\n') + `\nexecute if score #laeuft wi_mission matches 4 run function ${NS}:feier\nscoreboard players set #laeuft wi_mission 0\nschedule function ${NS}:entladen 100t\n`;
   f.zuruecksetzen = `# NUR TESTNETZ: Insel, Brücke und Entities entfernen, Stand auf 0\nforceload add ${fl}\nschedule function ${NS}:zuruecksetzen2 40t\n`;
   f.zuruecksetzen2 = `${fillsLuft(lo, hi).join('\n')}\nkill @e[tag=wi_insel]\nkill @e[type=item,${kasten}]\n${[1, 2, 3, 4].flatMap((n) => Array.from({ length: 10 }, (_, k) => `scoreboard players reset #t${n}_${k + 1} wi_mission`)).join('\n')}\nscoreboard players set #stufe wi_mission 0\nscoreboard players set #laeuft wi_mission 0\nscoreboard players set #gefeiert wi_mission 0\nscoreboard players set #feuer wi_mission 0\nforceload remove ${fl}\nsay Weihnachtsinsel zurückgesetzt\n`;
-  return { funktionen: f, strukturen, bereich: { lo, hi }, tafel: I.tafel, mitte: I.mitte, lichter: lichtZahl, insel: I, kumul, teile, jukebox: I.jukebox, weihnachtsmann: I.weihnachtsmann };
+  return { funktionen: f, strukturen, bereich: { lo, hi }, tafel: I.tafel, mitte: I.mitte, lichter: lichtZahl, insel: I, kumul, stand, teile, summon, zustandNbt, jukebox: I.jukebox, weihnachtsmann: I.weihnachtsmann };
 }
 
 
