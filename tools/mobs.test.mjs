@@ -30,3 +30,10 @@ test('EMF-Zusätze: gültige JEM-Struktur, Farben aus der Palette, nur Anhängen
   const p = emfPalette(true, PNG);
   assert.equal(p.width, 16);
 });
+
+test('Bosse und Geschosse laufen durch, Boss-EMF gültig', async () => {
+  const { BOSSE, GESCHOSSE, BOSS_EMF, gluehkugel } = await import('./bosse.mjs');
+  for (const [name, fn] of Object.entries({ ...BOSSE, ...GESCHOSSE })) assert.doesNotThrow(() => fn(leer(256, 256)), name);
+  for (const teile of Object.values(BOSS_EMF)) assert.ok(jem(teile).models.every((m) => m.boxes.every((b) => b.coordinates.every(Number.isFinite))));
+  assert.equal(gluehkugel(PNG).width, 16);
+});
