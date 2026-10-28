@@ -184,6 +184,26 @@ function schlitten() {
   ];
 }
 
+// Für die Insel-Gespanne (Spawn & Welt, 28.10.): dieselben Modelle mit Blick nach +X. Drehung um y (vorne −z → +x):
+// x' = c − z, z' = x; Drehachse x wird z (gleicher Winkel), Achse z wird x (Winkel umgekehrt). Flächen sind einfarbig.
+function nachOsten(elemente, c) {
+  return elemente.map((e) => {
+    const p = (v) => [c - v[2], v[1], v[0]];
+    const [a, b] = [p(e.from), p(e.to)];
+    const neu = { ...e, from: [Math.min(a[0], b[0]), a[1], Math.min(a[2], b[2])], to: [Math.max(a[0], b[0]), b[1], Math.max(a[2], b[2])] };
+    if (e.rotation) {
+      const { axis, angle, origin } = e.rotation;
+      neu.rotation = { axis: axis === 'x' ? 'z' : axis === 'z' ? 'x' : 'y', angle: axis === 'z' ? -angle : angle, origin: p(origin) };
+    }
+    return neu;
+  });
+}
+// Deichsel vorne (zwei Zugstangen mit Querholz), im −z-Raum des Schlittens.
+const deichsel = () => [
+  ...[4, 11].map((x) => quader([x, 3.5, -12], [x + 1, 4.5, -1], 'holz_rot')),
+  quader([4, 3.5, -12], [12, 4.5, -11], 'gold'), quader([4, 3.4, -6.5], [12, 4.4, -5.5], 'holz_rot'),
+];
+
 // ── Winterkalender ───────────────────────────────────────────────────────────────────────────────
 // Aufsetzbares (equippable head ohne asset_id) rendert Minecraft als Item-Modell am Kopf:
 // Modellmitte = Kopfmitte, der Kopf füllt x/y/z 1,6–14,4, vorne ist −z.
@@ -386,6 +406,8 @@ export const DEKO = {
   kugel_silber: kugel('silber', 'rot'), kugel_gruen: kugel('gruen', 'gold'),
   birne_rot: birne('rot'), birne_gelb: birne('gelb'), birne_blau: birne('blau'), birne_gruen: birne('gruen'),
   stern: stern(), lichterkette_deko: lichterkette(), schneemann: schneemann(), rentier: rentier(), rentier_braun: rentier('braun'), schlitten: schlitten(),
+  rentier_gross: nachOsten(rentier('braun'), 13), rentier_gross_nase: nachOsten(rentier(), 13),
+  schlitten_gross: nachOsten([...schlitten(), ...deichsel()], 19.75),
 };
 
 export function modell(elemente) {
