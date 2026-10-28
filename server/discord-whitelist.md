@@ -39,7 +39,7 @@ Dieser Text beschreibt die Server-Seite und die Schnittstelle dazwischen.
 ## 2. Endpunkt (serverwahl, nur Hub)
 
 - Lauscht auf `192.168.178.78:8765` (VM200, nur LAN; **keine** Portfreigabe in der FritzBox), eingebauter Java-HTTP-Server, kein weiteres Plugin
-- **Zugang doppelt begrenzt:** Quell-IP muss in `whitelist-api.erlaubt` stehen (LXC 202) **und** Header `Authorization: Bearer <schluessel>`.
+- **Zugang doppelt begrenzt:** Quell-IP muss in `api.erlaubt` stehen (LXC 202 = 192.168.178.22, feste FRITZ!Box-Reservierung) **und** Header `Authorization: Bearer <schluessel>`.
   Zusätzlich Firewall auf VM200 per `nft`/`ufw`: Port 8765 nur von LXC 202 (entschieden 28.10., Proxmox-Firewall nicht anfassen)
 - **Schlüssel:** 32 zufällige Bytes (`openssl rand -hex 32`), liegt auf dem Server in `plugins/Serverwahl/whitelist-api.key` (Rechte 600, Besitzer `amp`)
   und im Bot in dessen `.env`/Secret-Speicher. **Nie im Repo, nie im Vault, nie im Chat.** Wechsel: Datei ersetzen + `/serverwahl reload`

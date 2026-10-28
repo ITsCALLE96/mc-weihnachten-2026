@@ -115,6 +115,6 @@ discord-whitelist:
     aktiv: true
     adresse: 192.168.178.78
     port: 8765
-    # IP von LXC 202 (Community-Bot) beim Einrichten eintragen; zusätzlich nft/ufw-Regel auf VM200
-    erlaubt: []
+    # LXC 202 (Community-Bot, feste FRITZ!Box-Reservierung); zusätzlich nft/ufw-Regel auf VM200
+    erlaubt: [192.168.178.22]
     schluessel-datei: whitelist-api.key
