@@ -65,7 +65,9 @@ Bauen mit LuckPerms: `LUCKPERMS_JAR=<pfad zum LuckPerms-Bukkit-Jar> CP_TRENNER='
 und `dauer-sekunden` lang Feuerwerk um alle online Spieler (nicht im Nether). `nacht-vorher-sekunden` vorher Nacht (`time 18000`) und klares Wetter,
 danach normaler Tageszyklus. Gegen Lag teilen sich Spieler innerhalb `gruppen-radius` die Raketen: je `runde-ticks` je Gruppe `raketen-je-runde`
 (Standard 2 je 1,5 s ≈ 160 Raketen je Gruppe in 2 min), Abstand `abstand-min`…`abstand-max` Blöcke, bunt und zufällig. Raketen machen keinen Schaden.
-Merker `plugins/Serverwahl/neujahr.txt`: nach einem Neustart im Fenster läuft nur der Rest. Test: `/serverwahl feuerwerk test [sekunden]`, `… stopp`, `… status`.
+Am Himmel steht „Frohes neues Jahr 2027!“ bzw. „Happy New Year 2027!“ (Client-Sprache): je Spieler ein großes, leuchtendes Text-Display
+`himmel-abstand` Blöcke vor ihm und `himmel-hoehe` über ihm, nur für ihn sichtbar, nicht gespeichert (Neustart räumt es weg). Die Nacht kommt als
+Zeitraffer über `nacht-uebergang-sekunden` (Test 28.10.: der harte Sprung brachte Dorfbewohner kurz durcheinander). Merker `plugins/Serverwahl/neujahr.txt`: nach einem Neustart im Fenster läuft nur der Rest. Test: `/serverwahl feuerwerk test [sekunden]`, `… stopp`, `… status`.
 
 ## Konfiguration
 

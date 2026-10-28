@@ -78,3 +78,11 @@ neujahr:
   abstand-max: 22
   titel: "<gold><bold>Frohes neues Jahr 2027!"
   untertitel: ""
+  # Nacht als Zeitraffer statt Sprung (Dorfbewohner durchlaufen ihren Tagesplan normal), beim Test 3 s
+  nacht-uebergang-sekunden: 40
+  # Schriftzug am Himmel je Spieler (nur für ihn sichtbar), Deutsch bei deutscher Client-Sprache, sonst Englisch; leer = aus
+  himmel-text-de: "<bold><gradient:#FFD700:#FF8C00:#FF3B3B>Frohes neues Jahr 2027!"
+  himmel-text-en: "<bold><gradient:#FFD700:#FF8C00:#FF3B3B>Happy New Year 2027!"
+  himmel-skala: 7
+  himmel-abstand: 45
+  himmel-hoehe: 22

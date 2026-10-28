@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """RCON fürs Testnetz: python -I testnetz/rcon.py hub|smp "<befehl>" ["<befehl>" …]
 Port und Passwort kommen aus testnetz/<server>/server.properties (git-ignoriert)."""
-import socket, struct, sys
+import re, socket, struct, sys, time
 from pathlib import Path
 
 def werte(server):
@@ -32,7 +32,17 @@ def main():
         if paket(s, 1, 3, passwort)[0] == -1:
             sys.exit("RCON: Passwort abgelehnt")
         for befehl in sys.argv[2:]:
-            print(f"> {befehl}\n{paket(s, 2, 2, befehl)[1]}")
+            antwort = paket(s, 2, 2, befehl)[1]
+            # LuckPerms arbeitet lp-Befehle nacheinander ab und lehnt einen zweiten ab, solange der erste läuft („Ein anderer Befehl wird
+            # ausgeführt“, Leitung 28.10.) – dann kurz warten und denselben Befehl erneut schicken
+            versuche = 0
+            while befehl.startswith("lp ") and re.search(r"anderer Befehl|another command", antwort, re.I) and versuche < 20:
+                versuche += 1
+                time.sleep(1)
+                antwort = paket(s, 2, 2, befehl)[1]
+            print(f"> {befehl}\n{antwort}")
+            if befehl.startswith("lp "):
+                time.sleep(0.5)
 
 if __name__ == "__main__":
     main()
