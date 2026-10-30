@@ -4,7 +4,7 @@
 # - kopiert stats/*.json, advancements/*.json und usercache.json der Paper-Instanz
 #   als datiertes Archiv <archiv>/<season>/schnappschuesse/<JJJJ-MM-TT>.tar.gz
 # - verschiebt abgeschlossene Logs (logs/*.log.gz) von Paper und Velocity nach <archiv>/<season>/logs/<name>/
-#   (latest.log bleibt liegen, gelöscht wird nie etwas)
+#   (latest.log bleibt liegen, gelöscht wird nie etwas); mit IP_MASKIEREN=1 vorher IPv4-Adressen → [IP] (Datenschutz, vorbereitet 30.10.)
 # - Season: eine Zeile in <archiv>/SEASON (z. B. testlauf, weihnachten-2026), wird von Hand umgestellt.
 #   Fehlt die Datei oder ist die Kennung ungültig, bricht das Skript ab (nichts landet in der falschen Season).
 # - Datum = Berliner Datum (Europe/Berlin) zum Zeitpunkt des Laufs (04:00), unabhängig von der Systemzeitzone.
@@ -16,8 +16,8 @@
 #
 # Aufruf: schnappschuss.sh <paper-instanzordner> <archivordner> [velocity-instanzordner]
 #   Instanzordner = Ordner mit server.properties (Paper) bzw. velocity.toml (Velocity)
-# Cron (root auf VM200, 04:00):
-#   0 4 * * * /opt/mc-weihnachten/schnappschuss.sh <paper> <archiv> <velocity> >> <archiv>/schnappschuss.log 2>&1
+# Cron (root auf VM200, 03:50 seit 30.10., vor dem Neustart 04:00):
+#   50 3 * * * /opt/mc-weihnachten/schnappschuss.sh <paper> <archiv> <velocity> >> <archiv>/schnappschuss.log 2>&1
 set -euo pipefail
 
 if [ $# -lt 2 ]; then
@@ -97,6 +97,14 @@ logs_sichern() {
   local quelle="$1" name="$2" n=0
   [ -d "$quelle/logs" ] || return 0
   mkdir -p "$ZIELORDNER/logs/$name"
+  # Datenschutz (vorbereitet 30.10., erst nach Pascals Freigabe in der Cron-Zeile setzen): IP_MASKIEREN=1 ersetzt IPv4-Adressen (mit Port)
+  # durch [IP], bevor die Logs dauerhaft ins Archiv gehen. Wiederholbar, ein maskiertes Log bleibt gleich.
+  if [ "${IP_MASKIEREN:-}" = 1 ]; then
+    for f in "$quelle"/logs/*.log.gz; do
+      [ -e "$f" ] || continue
+      gzip -dc "$f" | sed -E 's/[0-9]{1,3}(\.[0-9]{1,3}){3}(:[0-9]+)?/[IP]/g' | gzip -c > "$f.maskiert" && mv "$f.maskiert" "$f"
+    done
+  fi
   for f in "$quelle"/logs/*.log.gz; do
     [ -e "$f" ] || continue
     local ziel="$ZIELORDNER/logs/$name/$(basename "$f")"

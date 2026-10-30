@@ -20,7 +20,7 @@ Die Ablage der Spielerdaten hat sich in den 26er-Versionen geändert (`players/s
     logs/velocity/*.log.gz
 ```
 
-Für die Statistikseite heißt das: `--archiv <archiv>/<season>` übergeben (dort liegen `logs/paper/` wie bisher).
+Für die Statistikseite heißt das: `--archiv /home/amp/mc-archiv` übergeben, also die **Wurzel** (Statistik-Session 30.10.; die Seite wählt die Season selbst).
 
 ## Seasons (manuell)
 
@@ -34,11 +34,11 @@ falschen Season landet.
 | `weihnachten-2026` | Fr 27.11.2026 (Start, vorher Sa 05.12.) | echte Welt |
 
 **Umstellen** (Wunsch der Statistikseite, 24.10.): **immer erst ein Abschluss-Schnappschuss von Hand, dann `SEASON` ändern.** Sonst fehlt der Stand
-zwischen dem letzten 04:00-Lauf und dem Wechsel.
+zwischen dem letzten 03:50-Lauf und dem Wechsel.
 
 1. Whitelist zu oder sicherstellen, dass niemand mehr spielt
 2. In der Paper-Konsole (AMP): `save-all flush`, auf „Saved the game“ warten
-3. Auf VM200 den Schnappschuss von Hand, mit `SCHNAPPSCHUSS_ERSETZEN=1`. Hat der 04:00-Lauf heute schon einen angelegt, wird er neu erstellt, und der
+3. Auf VM200 den Schnappschuss von Hand, mit `SCHNAPPSCHUSS_ERSETZEN=1`. Hat der 03:50-Lauf heute schon einen angelegt, wird er neu erstellt, und der
    alte bleibt als `<datum>.tar.gz.vorher-<HHMMSS>` liegen. Pfade wie in der Cron-Zeile:
 
 ```bash
@@ -61,9 +61,9 @@ Der Ordner der alten Season bleibt unverändert liegen. Hinweis der Statistiksei
 
 ## Datum und Zeitzone
 
-Der Dateiname `JJJJ-MM-TT` ist das **Berliner Datum (Europe/Berlin) zum Zeitpunkt des Laufs um 04:00**. Ein Schnappschuss vom
-`2026-11-28` enthält also den Stand am 28.11. um 04:00, mit allem, was am Abend des 27.11. gespielt wurde.
-Das Skript rechnet selbst mit `TZ=Europe/Berlin` (bricht ab, wenn die Zeitzonendaten fehlen). Damit der Cron-Job auch um 04:00 Berliner Zeit
+Der Dateiname `JJJJ-MM-TT` ist das **Berliner Datum (Europe/Berlin) zum Zeitpunkt des Laufs um 03:50** (bis 30.10. 04:00). Ein Schnappschuss vom
+`2026-11-28` enthält also den Stand am 28.11. um 03:50, mit allem, was am Abend des 27.11. gespielt wurde.
+Das Skript rechnet selbst mit `TZ=Europe/Berlin` (bricht ab, wenn die Zeitzonendaten fehlen). Damit der Cron-Job auch um 03:50 Berliner Zeit
 läuft, steht VM200 auf `Europe/Berlin`. Das Format bleibt fest, die Statistikseite verlässt sich darauf.
 
 ```bash
@@ -73,8 +73,9 @@ timedatectl set-timezone Europe/Berlin
 ## Speichern vor dem Schnappschuss
 
 Minecraft schreibt die Statistik nur beim automatischen Speichern und beim Verlassen. Damit Spieler, die über Nacht online sind, nicht mit
-veraltetem Stand drin sind, sendet eine **AMP-Aufgabe um 03:58** den Konsolenbefehl an `MinecraftSMP01` (Pascal im AMP-Web-UI,
-Zeitplan → täglich 03:58 → Konsolenbefehl senden):
+veraltetem Stand drin sind, muss vor 03:50 gespeichert werden. **Seit 30.10.:** Die stündliche AMP-Sicherung des SMP um 03:40 löst selbst `save-all` aus
+(AMP meldet dabei zwar „Timed out waiting for save-all“, der Befehl läuft aber). Wunsch der Statistik-Session zusätzlich: AMP-Aufgabe `save-all flush` um 03:45
+(Pascal im AMP-Web-UI, Zeitplan → täglich → Konsolenbefehl senden; **AMP-Zeitpläne laufen in UTC**, also 02:45 eintragen):
 
 ```text
 save-all flush
@@ -98,10 +99,10 @@ mkdir -p /home/amp/mc-archiv
 echo testlauf > /home/amp/mc-archiv/SEASON
 ```
 
-Crontab von root (`crontab -e`):
+Cron auf VM200 (seit 30.10. `/etc/cron.d/mc-statistik`, Benutzer root, **03:50** wegen des Neustarts um 04:00; nach Pascals Datenschutz-Freigabe mit `IP_MASKIEREN=1` davor):
 
 ```bash
-0 4 * * * /opt/mc-weihnachten/schnappschuss.sh /home/amp/.ampdata/instances/MinecraftSMP01/Minecraft /home/amp/mc-archiv /home/amp/.ampdata/instances/MinecraftProxy01/velocity >> /home/amp/mc-archiv/schnappschuss.log 2>&1
+50 3 * * * /opt/mc-weihnachten/schnappschuss.sh /home/amp/.ampdata/instances/MinecraftSMP01/Minecraft /home/amp/mc-archiv /home/amp/.ampdata/instances/MinecraftProxy01/Minecraft >> /home/amp/mc-archiv/schnappschuss.log 2>&1
 ```
 
 AMP-eigene Log-Aufräumung prüfen: Falls AMP alte Logs löscht, die Aufbewahrung dort hochsetzen. Das Skript holt sie nur einmal täglich ab.

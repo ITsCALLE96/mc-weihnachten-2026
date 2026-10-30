@@ -85,11 +85,16 @@ CA12 und die feste Insel-Lage sind überholt. Der Seed steht nur in der Welt, in
      löscht `eroeffnet.txt`, `termine.txt` (Hub + SMP), `mission-stand.yml`, `geteilt/status/smp-offen`. Sicherung `/root/mcw-staging/vor-zurueck-*`
   3. Repo genauso zurückstellen (Configs `plugin-konfig/*/Serverwahl/config.yml`, `velocity/velocity.toml.auszug`), damit ein späteres Einspielen nichts zurückholt
   4. Hub-Termine-Stand: `spawn/hub.json` `text` ↔ `text_zum_testlauf` (Spawn & Welt), Hub-Datapack neu, `function hub:staende`
-  5. Statistik: Season `testlauf` → `weihnachten-2026` mit Abschluss-Schnappschuss (Statistik-Session)
+  5. Statistik (Statistik-Session 30.10.): Whitelist zu, `save-all flush`, SMP stoppen; `SCHNAPPSCHUSS_ERSETZEN=1 /opt/mc-weihnachten/schnappschuss.sh …` von Hand
+     (Pfade wie im Cron), N > 0 prüfen; restliche `logs/*.log.gz` und `latest.log` des SMP nach `/home/amp/mc-archiv/testlauf/logs/paper/` verschieben
+     (`latest.log` gzippen als `<JJJJ-MM-TT>-99.log.gz`); erst dann `echo weihnachten-2026 > /home/amp/mc-archiv/SEASON`, Weltwechsel,
+     Statistikdienst neu starten, Seite zeigt „Weihnachten 2026“ leer
   6. Neue SMP-Welt (Abschnitt „Welt“), Whitelist bzw. Discord-Einträge prüfen
 - [ ] **Phasen ohne AMP:** serverwahl `termine:` (SMP: Nether Fr 11.12., Phase 3 Vorschlag 15.12., End Fr 18.12., je 18:00 vorläufig; Hub: Start-Ankündigung 27.11. 18:00,
   Rückfall-Eröffnung 18:10). `/serverwahl termin liste` auf beiden zeigt alle Termine, keiner „erledigt“ (Testwelt-Merker `plugins/Serverwahl/termine.txt` vor dem Start löschen)
-- [ ] Statistik auf VM200 (Season, Schnappschuss vor dem Neustart 04:00) nach Absprache mit der Statistik-Session (`statistik/README.md`)
+- [ ] Statistik auf VM200 läuft (seit 30.10. Season `testlauf`): `/opt/mc-weihnachten/schnappschuss.sh`, Archiv `/home/amp/mc-archiv`, Cron 03:50 `/etc/cron.d/mc-statistik`
+- [ ] **Datenschutz (erst nach Pascals Freigabe des Entwurfs „Referenz - Datenschutz und Moderation“):** `IP_MASKIEREN=1` in die Statistik-Cron-Zeile,
+  Cron für `vm200/mc-logs-aufraeumen.sh --ausfuehren` (IP-haltige Logs nach 30 Tagen weg, vorbereitet 30.10., ohne Schalter nur Liste)
 - [ ] Dorf-Rabatt 24.–26.12. (`dorf-rabatt:`) und Neujahrsfeuerwerk (`neujahr:`) in der Config, `neujahr.txt`/`termine.txt` aus der Testwelt gelöscht
 - [ ] **Täglicher Neustart 04:00** (Pascal 30.10.) per Cron auf VM200 (`vm200/mc-neustart.sh`, Log `/var/log/mc-neustart.log`), nach SMP-Sicherung 03:40 und
   QNAP-Kopie 03:47; Prism-Purge 04:30. Startmodus „Anwendung starten“ in allen drei AMP-Instanzen, „Start beim Booten“ an. Ohne Chatwarnung (keine Konsole per Cron)
