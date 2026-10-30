@@ -4,7 +4,7 @@
 // Bestenlisten-Platzhalter, Info-Stände, Info-Dorfbewohner, Voice-Chat-Ecke, Adventskalender (24 Geschenke).
 // Aufruf: node spawn/hub.mjs bauen <hub.json> [ausgabeordner]   → <ausgabe>/datapack/hub/ (ohne Ausgabeordner: spawn/)
 // Die Bau-Struktur selbst (gekauft) kommt lokal dazu, siehe spawn/hub-aufsetzen.sh.
-import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ladeKasten, pilzlandBefehle, strukturBefehle } from './standort.mjs';
@@ -17,6 +17,14 @@ const txt = (text, extra = {}) => JSON.stringify({ text, ...extra });
 // aus dem Pack auf dem Kopf), Klick → Fortschritt → Info im Chat (Deutsch, eine Zeile Englisch, klickbare Links aus k.links), Zeltschilder,
 // großes Hologramm über dem Zelt; dazu Hologramme (Statistik am Brunnen, Danke am Dorfschild). Regeln zentral in k.regeln.
 // versatz/ns: dieselben Stände im Bauarchiv der Testwelt (Hub dort verschoben, eigener Namensraum)
+// nummerierte Liste unter „## Regeln“ (bis zur nächsten Überschrift), ohne Nummern und Markdown-Hervorhebung
+export function regelnAusMd(md) {
+  const teil = md.replace(/\r/g, '').split(/^## /m).find((t) => /^Regeln\s*$/.test(t.split('\n')[0]));
+  const r = (teil ?? '').split('\n').map((z) => z.match(/^\s*\d+\.\s+(.+)$/)?.[1]).filter(Boolean).map((z) => z.replace(/\*\*|__|`/g, '').trim());
+  if (!r.length) throw new Error('REGELN.md: keine nummerierte Liste unter „## Regeln“');
+  return r;
+}
+
 export function infoStaende(k, { ns = 'hub', versatz = [0, 0, 0] } = {}) {
   const [vx, vy, vz] = versatz, P = (x, y, z) => [x + vx, y + vy, z + vz].map((v) => Math.round(v * 100) / 100).join(' ');
   const befehle = ['kill @e[tag=hub_stand]'], funktionen = {}, fortschritte = {};
@@ -239,6 +247,9 @@ if (process.argv[1]?.replace(/\\/g, '/').endsWith('spawn/hub.mjs')) {
   const [befehl, konfig, aus = join(REPO, 'spawn')] = process.argv.slice(2);
   if (befehl !== 'bauen') { console.log('Aufruf: node spawn/hub.mjs bauen <hub.json> [ausgabeordner]'); process.exit(1); }
   const k = JSON.parse(readFileSync(konfig, 'utf8'));
+  // Regeln-Stand: Text aus server/REGELN.md (von Pascal abgenommen, 30.10.), hub.json nur als Ersatz
+  const md = join(REPO, 'server/REGELN.md');
+  if (existsSync(md)) k.regeln = { ...k.regeln, de: regelnAusMd(readFileSync(md, 'utf8')) };
   const dp = join(aus, 'datapack/hub');
   rmSync(dp, { recursive: true, force: true });
   const { funktionen, fortschritte } = dateien(k);

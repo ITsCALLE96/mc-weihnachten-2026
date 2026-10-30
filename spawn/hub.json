@@ -565,14 +565,14 @@
     "modrinthApp": "https://modrinth.com/app"
   },
   "regeln": {
-    "hinweis": "Vorläufige Regeln (Pascal 28.10.), hier zentral anpassen; Stand 1 zeigt sie Zeile für Zeile",
+    "hinweis": "Deutsch kommt seit 30.10. aus server/REGELN.md (von Pascal abgenommen), de hier nur Ersatz; en kurz von Hand nachziehen",
     "de": [
       "Sei fair und freundlich zu allen.",
       "Kein Griefing, kein Stehlen, keine Fallen für andere.",
       "Keine Cheats, kein X-Ray, keine Hack-Clients.",
       "Bauten anderer nur mit Erlaubnis betreten."
     ],
-    "en": "Be fair and friendly – no griefing, stealing or cheats. Full rules on Discord."
+    "en": "Be respectful – no griefing, stealing, cheats or X-ray; PvP only if both agree; no building on the spawn island. Full rules on Discord."
   },
   "hologramme": [
     {

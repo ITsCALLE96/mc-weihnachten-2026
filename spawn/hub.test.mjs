@@ -92,3 +92,9 @@ test('Sichtbare Klickpunkte: Hinweis „Titel + Rechtsklick“ an Ständen, Voic
   assert.ok(f.aufbau_ende.includes('\nsetblock -50 234 11 minecraft:air\n'));
   assert.ok(f['npc/2'].includes('{"text":"Fischer: ","color":"green"}'));
 });
+
+test('Regeln-Stand liest die nummerierte Liste aus server/REGELN.md', async () => {
+  const { regelnAusMd } = await import('./hub.mjs');
+  const r = regelnAusMd('# Regeln\n\nVorwort\n\n## Regeln\n\n1. Erste **Regel**.\r\n2. Zweite Regel.\n\n## Kurzfassung (TAB-Liste)\n\n> 3. nicht\n');
+  assert.deepEqual(r, ['Erste Regel.', 'Zweite Regel.']);
+});
