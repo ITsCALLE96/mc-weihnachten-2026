@@ -180,4 +180,5 @@ discord-whitelist:
     schluessel-datei: whitelist-api.key
     # Erlaubte Discord-Server (Guild-IDs, in Anführungszeichen); andere werden mit 403 abgelehnt. Beim Einrichten eintragen (Leitung/Bot-Session):
     # Server der Jungs, Community-Server … Leer = alle Anmeldungen abgelehnt
-    gilden: []
+    # Testserver-C96, testserver crleon (Leitung 30.10., Go von Pascal)
+    gilden: ["1555895861458767872", "1561036947541987360"]
