@@ -23,7 +23,7 @@ AIKAR = ("-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:
 GEMEINSAM_BACKEND = {
     "Minecraft.ServerType": "Paper_Spigot",          # AMP-Enum für Paper
     # Muss als Versionsnummer lesbar und ≥ 1.21.11 sein, sonst hängt AMP --log-strip-color an (Paper 26.3 bricht dann ab).
-    # AMP-Standard „26.3-rc-3“ ist nicht lesbar. Wird nur beim „Update“ zum Herunterladen genutzt – nicht klicken.
+    # AMP-Standard „26.3-rc-3“ ist nicht lesbar. Zugleich die Festlegung auf Minecraft 26.3: „Update“ holt nur neue Builds von 26.3.
     "Minecraft.SpecificPaperVersion": "26.3",
     "Minecraft.StandaloneServer": "False",           # schreibt online-mode=false (hinter Velocity)
     "Game.Whitelist": "True",
@@ -32,7 +32,8 @@ GEMEINSAM_BACKEND = {
     "Limits.MaxPlayers": "30",
     "Limits.SleepMode": "False",                     # sonst schläft ein leeres Backend hinter dem Proxy ein
     "Limits.SleepOnStart": "False",
-    "Minecraft.ServerJAR": "paper-26.3-207.jar",
+    "Minecraft.ServerJAR": "[Autoselect]",            # Jar holt AMP selbst („Update“)
+    "Minecraft.ReleaseStream": "SpecificVersion",
     "Minecraft.ServerIPBinding": "127.0.0.1",
     "Minecraft.NetworkCompressionThreshold": "-1",
     "Minecraft.EnforceSecureProfile": "False",
@@ -48,7 +49,8 @@ INSTANZEN = {
             "Minecraft.ServerType": "VelocityProxy",          # AMP-Enum (nicht „Velocity“)
             "Limits.SleepMode": "False",
             "Limits.SleepOnStart": "False",
-            "Minecraft.ServerJAR": "velocity-4.3.0-44.jar",
+            "Minecraft.ServerJAR": "[Autoselect]",
+            "Minecraft.ReleaseStream": "Stable",             # neueste stabile Velocity (ohne SNAPSHOT)
             "Minecraft.ServerIPBinding": "0.0.0.0",
             "Minecraft.PortNumber": "25577",
             "Java.MaxHeapSizeMB": "1024",
@@ -136,6 +138,8 @@ def kopieren(von, nach):
         ziel = os.path.join(nach, os.path.relpath(wurzel, von))
         os.makedirs(ziel, exist_ok=True)
         for d in dateien:
+            if wurzel == von and d.endswith(".jar"):
+                continue                                 # Server-Jar holt AMP selbst
             shutil.copy2(os.path.join(wurzel, d), os.path.join(ziel, d))
 
 
