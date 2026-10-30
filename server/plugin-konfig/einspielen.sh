@@ -50,8 +50,12 @@ if [ "$rolle" = smp ] && [ -f "$quelle/../../spawn/weihnachtsmann.json" ]; then
 fi
 # Insel am natürlichen Spawn des Seeds (Pascal 30.10.): Versatz {dx,dz} von Spawn & Welt auf die festen Koordinaten der SMP-Config rechnen
 if [ "$rolle" = smp ] && [ -f "$quelle/../../spawn/smp-versatz.json" ]; then
-  py="$(command -v python3 || command -v python)"
-  "$py" "$quelle/versatz.py" "$ziel/plugins/Serverwahl/config.yml" "$quelle/../../spawn/smp-versatz.json"
+  # python3 kann unter Windows der Store-Platzhalter sein → das erste nehmen, das wirklich läuft
+  py=""
+  for k in python3 python; do "$k" -c "" 2>/dev/null && { py="$k"; break; }; done
+  [ -n "$py" ] || { echo "FEHLER: kein Python für versatz.py gefunden" >&2; exit 1; }
+  "$py" "$quelle/versatz.py" "$ziel/plugins/Serverwahl/config.yml" "$quelle/../../spawn/smp-versatz.json" \
+    || { echo "FEHLER: Versatz nicht eingerechnet" >&2; exit 1; }
 fi
 
 for alt in "$ziel"/plugins/harvester-*.jar "$ziel"/plugins/SpawnElytra-*.jar; do
