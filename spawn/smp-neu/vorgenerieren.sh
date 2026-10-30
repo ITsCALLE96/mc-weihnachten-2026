@@ -12,7 +12,7 @@ command -v netstat >/dev/null && netstat -ano | grep -q ":$port .*LISTENING" && 
 read SX SZ <<<"$(node -e "const l=require('$(w "$REPO/spawn/smp-neu/lage.json")');console.log(l.spawn[0],l.spawn[2])")"
 NX=$(( SX / 8 )); NZ=$(( SZ / 8 ))
 cd "$SRV"; rm -f logs/latest.log
-warte() { local i=0; until [ "$(grep -cE "$1" logs/latest.log 2>/dev/null)" -ge "${3:-1}" ] || [ $i -ge "${2:-600}" ]; do sleep 5; i=$((i+5)); done; }
+warte() { local i=0; until [ "$(grep -cE "$1" logs/latest.log 2>/dev/null || true)" -ge "${3:-1}" ] || [ $i -ge "${2:-600}" ]; do sleep 5; i=$((i+5)); done; }
 (
   warte "Done \(" 900
   echo "worldborder center $SX $SZ"; echo "worldborder set 10000"
