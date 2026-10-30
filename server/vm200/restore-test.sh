@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Wiederherstellungs-Probe (Leitung 30.10.): neueste AMP-Sicherung des SMP und neuester Stand des geteilten Ordners in einen Wegwerf-Ordner entpacken,
-# prüfen und den SMP daraus einmal starten – im AMP-Container-Abbild ohne Netz (docker --network none), also ohne Port und ohne Zugriff auf
+# prüfen und den SMP daraus einmal starten – im AMP-Container-Abbild ohne veröffentlichten Port (docker bridge ohne -p; „--network none“ scheiterte am 30.10. an der Mojang-Dienstabfrage), ohne Zugriff auf
 # die echten Daten. Läuft als root auf VM200, die echten Server laufen weiter. Danach wird der Ordner gelöscht (nur er).
 # Aufruf: restore-test.sh [geteilt.tgz]  (Standard: frischer tar des Live-Ordners; die QNAP-Kopie liegt nur auf dem Proxmox-Host)
 set -euo pipefail
@@ -20,11 +20,11 @@ echo "== geteilter Ordner"
 if [ -n "${1:-}" ]; then tar -xzf "$1" -C "$W/geteilt"; else tar -C /srv/ampdata/mc-netzwerk-geteilt -cf - . | tar -xf - -C "$W/geteilt"; fi
 echo "luckperms-Gruppen: $(ls "$W/geteilt/luckperms/groups" | tr '\n' ' ')"
 python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print('discord.json:', len(d.get('eintraege', [])), 'Einträge')" "$W/geteilt/whitelist/discord.json"
-echo "== Probestart ohne Netz (Abbild cubecoders/ampbase:java, Java 25, 4 GB)"
+echo "== Probestart ohne Port nach außen (Abbild cubecoders/ampbase:java, Java 25, 4 GB)"
 chown -R amp:amp "$W"
 # LuckPerms zeigt sonst ins Leere: auf die entpackte Kopie umbiegen
 rm -rf "$W/smp/plugins/LuckPerms/yaml-storage"; ln -s "$W/geteilt/luckperms" "$W/smp/plugins/LuckPerms/yaml-storage"
-docker run -d --name mc-restore-test --network none --user "$(id -u amp):$(id -g amp)" -v "$W/smp:/srv/smp" -v "$W/geteilt:/AMP/geteilt:ro" \
+docker run -d --name mc-restore-test --network bridge --user "$(id -u amp):$(id -g amp)" -v "$W/smp:/srv/smp" -v "$W/geteilt:/AMP/geteilt:ro" \
   -v "$W/geteilt/luckperms:$W/geteilt/luckperms" -w /srv/smp --entrypoint /usr/lib/jvm/temurin-25-jdk-amd64/bin/java cubecoders/ampbase:java \
   -Xms2G -Xmx4G -jar paperclip.jar --nogui >/dev/null
 for n in $(seq 60); do docker logs mc-restore-test 2>&1 | grep -q 'Done (' && break; sleep 5; done
