@@ -28,4 +28,5 @@ lp group admin permission set serverwahl.admin true
 lp group admin permission set minecraft.command.ban-ip true
 lp group admin permission set minecraft.command.pardon-ip true
 lp group admin permission set grim.verbose true
+# Moderatoren: vorerst keine (Pascal 30.10.), Gruppe moderator existiert ohne Mitglieder. Später: lp user <Name> parent add moderator
 lp user ITsCALLE96 parent add admin

@@ -99,10 +99,10 @@ mkdir -p /home/amp/mc-archiv
 echo testlauf > /home/amp/mc-archiv/SEASON
 ```
 
-Cron auf VM200 (seit 30.10. `/etc/cron.d/mc-statistik`, Benutzer root, **03:50** wegen des Neustarts um 04:00; nach Pascals Datenschutz-Freigabe mit `IP_MASKIEREN=1` davor):
+Cron auf VM200 (seit 30.10. `/etc/cron.d/mc-statistik`, Benutzer root, **03:50** wegen des Neustarts um 04:00, mit `IP_MASKIEREN=1` (Datenschutz, Freigabe Pascal 30.10.)):
 
 ```bash
-50 3 * * * /opt/mc-weihnachten/schnappschuss.sh /home/amp/.ampdata/instances/MinecraftSMP01/Minecraft /home/amp/mc-archiv /home/amp/.ampdata/instances/MinecraftProxy01/Minecraft >> /home/amp/mc-archiv/schnappschuss.log 2>&1
+50 3 * * * IP_MASKIEREN=1 /opt/mc-weihnachten/schnappschuss.sh /home/amp/.ampdata/instances/MinecraftSMP01/Minecraft /home/amp/mc-archiv /home/amp/.ampdata/instances/MinecraftProxy01/Minecraft >> /home/amp/mc-archiv/schnappschuss.log 2>&1
 ```
 
 AMP-eigene Log-Aufräumung prüfen: Falls AMP alte Logs löscht, die Aufbewahrung dort hochsetzen. Das Skript holt sie nur einmal täglich ab.

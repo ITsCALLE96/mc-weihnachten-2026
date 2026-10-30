@@ -93,8 +93,7 @@ CA12 und die feste Insel-Lage sind überholt. Der Seed steht nur in der Welt, in
 - [ ] **Phasen ohne AMP:** serverwahl `termine:` (SMP: Nether Fr 11.12., Phase 3 Vorschlag 15.12., End Fr 18.12., je 18:00 vorläufig; Hub: Start-Ankündigung 27.11. 18:00,
   Rückfall-Eröffnung 18:10). `/serverwahl termin liste` auf beiden zeigt alle Termine, keiner „erledigt“ (Testwelt-Merker `plugins/Serverwahl/termine.txt` vor dem Start löschen)
 - [ ] Statistik auf VM200 läuft (seit 30.10. Season `testlauf`): `/opt/mc-weihnachten/schnappschuss.sh`, Archiv `/home/amp/mc-archiv`, Cron 03:50 `/etc/cron.d/mc-statistik`
-- [ ] **Datenschutz (erst nach Pascals Freigabe des Entwurfs „Referenz - Datenschutz und Moderation“):** `IP_MASKIEREN=1` in die Statistik-Cron-Zeile,
-  Cron für `vm200/mc-logs-aufraeumen.sh --ausfuehren` (IP-haltige Logs nach 30 Tagen weg, vorbereitet 30.10., ohne Schalter nur Liste)
+- [ ] **Datenschutz (Freigabe Pascal 30.10., aktiv):** Statistik-Cron mit `IP_MASKIEREN=1`, Cron 04:30 `vm200/mc-logs-aufraeumen.sh --ausfuehren` (IP-haltige Logs nach 30 Tagen weg); Log `/var/log/mc-logs-aufraeumen.log` stichprobenartig prüfen
 - [ ] Dorf-Rabatt 24.–26.12. (`dorf-rabatt:`) und Neujahrsfeuerwerk (`neujahr:`) in der Config, `neujahr.txt`/`termine.txt` aus der Testwelt gelöscht
 - [ ] **Täglicher Neustart 04:00** (Pascal 30.10.) per Cron auf VM200 (`vm200/mc-neustart.sh`, Log `/var/log/mc-neustart.log`), nach SMP-Sicherung 03:40 und
   QNAP-Kopie 03:47; Prism-Purge 04:30. Startmodus „Anwendung starten“ in allen drei AMP-Instanzen, „Start beim Booten“ an. Ohne Chatwarnung (keine Konsole per Cron)

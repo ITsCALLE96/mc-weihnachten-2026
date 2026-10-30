@@ -97,7 +97,7 @@ logs_sichern() {
   local quelle="$1" name="$2" n=0
   [ -d "$quelle/logs" ] || return 0
   mkdir -p "$ZIELORDNER/logs/$name"
-  # Datenschutz (vorbereitet 30.10., erst nach Pascals Freigabe in der Cron-Zeile setzen): IP_MASKIEREN=1 ersetzt IPv4-Adressen (mit Port)
+  # Datenschutz (Freigabe Pascal 30.10., in der Cron-Zeile auf VM200 gesetzt): IP_MASKIEREN=1 ersetzt IPv4-Adressen (mit Port)
   # durch [IP], bevor die Logs dauerhaft ins Archiv gehen. Wiederholbar, ein maskiertes Log bleibt gleich.
   if [ "${IP_MASKIEREN:-}" = 1 ]; then
     for f in "$quelle"/logs/*.log.gz; do
