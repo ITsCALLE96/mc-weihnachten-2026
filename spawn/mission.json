@@ -20,10 +20,10 @@
       "funktion": "weihnachtsinsel:stufe_1",
       "teil_funktion": "weihnachtsinsel:stufe_1_teil_{k}",
       "wuensche": {
-        "minecraft:cobblestone": 128,
-        "minecraft:dirt": 64,
-        "minecraft:spruce_log": 32,
-        "minecraft:snow_block": 32
+        "minecraft:cobblestone": 512,
+        "minecraft:dirt": 256,
+        "minecraft:spruce_log": 128,
+        "minecraft:snow_block": 128
       },
       "trank": {
         "anzahl": 3,
@@ -53,10 +53,10 @@
       "funktion": "weihnachtsinsel:stufe_2",
       "teil_funktion": "weihnachtsinsel:stufe_2_teil_{k}",
       "wuensche": {
-        "minecraft:spruce_log": 64,
-        "minecraft:spruce_leaves": 64,
-        "minecraft:spruce_sapling": 8,
-        "minecraft:bone_meal": 16
+        "minecraft:spruce_log": 256,
+        "minecraft:spruce_leaves": 256,
+        "minecraft:spruce_sapling": 32,
+        "minecraft:bone_meal": 64
       },
       "trank": {
         "anzahl": 3,
@@ -86,11 +86,11 @@
       "funktion": "weihnachtsinsel:stufe_3",
       "teil_funktion": "weihnachtsinsel:stufe_3_teil_{k}",
       "wuensche": {
-        "minecraft:copper_ingot": 16,
-        "minecraft:gold_ingot": 8,
-        "minecraft:red_wool": 16,
-        "minecraft:white_wool": 16,
-        "#minecraft:candles": 4
+        "minecraft:copper_ingot": 64,
+        "minecraft:gold_ingot": 32,
+        "minecraft:red_wool": 64,
+        "minecraft:white_wool": 64,
+        "#minecraft:candles": 16
       },
       "trank": {
         "anzahl": 3,
@@ -130,10 +130,10 @@
       "funktion": "weihnachtsinsel:stufe_4",
       "teil_funktion": "weihnachtsinsel:stufe_4_teil_{k}",
       "wuensche": {
-        "minecraft:glowstone_dust": 32,
-        "minecraft:emerald": 6,
-        "minecraft:firework_rocket": 16,
-        "minecraft:diamond": 2
+        "minecraft:glowstone_dust": 128,
+        "minecraft:emerald": 24,
+        "minecraft:firework_rocket": 64,
+        "minecraft:diamond": 8
       },
       "trank": {
         "anzahl": 3,
