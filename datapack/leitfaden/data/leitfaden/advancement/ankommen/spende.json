@@ -17,7 +17,7 @@
       "",
       {
         "translate": "questbuch.ankommen.spende.tun",
-        "fallback": "Open the Ender Chest in the middle of Spark Island, click the Christmas Island entry (“Weihnachtsinsel”) and hand in something from the wish list."
+        "fallback": "Open the Ender Chest in the middle of Spark Island, click “Spenden für die Weihnachtsinsel” (donations) and hand in something from the wish list."
       },
       "\n",
       {

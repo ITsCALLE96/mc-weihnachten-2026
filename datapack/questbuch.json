@@ -125,13 +125,13 @@
           },
           "de": {
             "titel": "Erste Spende für die Weihnachtsinsel",
-            "tun": "Öffne die Ender-Kiste in der Mitte der Spark-Insel, klick auf die Weihnachtsinsel und gib etwas von der Wunschliste ab.",
+            "tun": "Öffne die Ender-Kiste in der Mitte der Spark-Insel, klick auf „Spenden für die Weihnachtsinsel“ und gib etwas von der Wunschliste ab.",
             "brauchst": "Etwas, das gerade auf der Wunschliste steht",
             "tipp": "Jede volle Stufe lässt die Insel im Norden wachsen und bringt jedem Spieler 3 Tränke. Geben macht hier wirklich reich."
           },
           "en": {
             "titel": "First Gift for the Christmas Island",
-            "tun": "Open the Ender Chest in the middle of Spark Island, click the Christmas Island entry (“Weihnachtsinsel”) and hand in something from the wish list.",
+            "tun": "Open the Ender Chest in the middle of Spark Island, click “Spenden für die Weihnachtsinsel” (donations) and hand in something from the wish list.",
             "brauchst": "Something that is on the current wish list",
             "tipp": "Every full stage makes the island grow to the north and gives every player 3 potions. Giving really pays off here."
           }

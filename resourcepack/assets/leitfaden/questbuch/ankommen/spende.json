@@ -12,7 +12,7 @@
     {
       "text": {
         "translate": "questbuch.ankommen.spende.schritt.2",
-        "fallback": "Click the Christmas Island entry (“Weihnachtsinsel”). It shows what the island wishes for right now."
+        "fallback": "Click “Spenden für die Weihnachtsinsel” (donations). It shows what the island wishes for right now."
       },
       "items": [
         "minecraft:ender_chest"
@@ -27,7 +27,7 @@
     {
       "text": {
         "translate": "questbuch.ankommen.spende.schritt.4",
-        "fallback": "When a stage is full, everyone gets 3 potions. If your inventory was full, right-click the Christmas Island entry to collect them."
+        "fallback": "When a stage is full, everyone gets 3 potions. If your inventory was full, right-click the donations entry to collect them."
       },
       "items": [
         "minecraft:potion"
