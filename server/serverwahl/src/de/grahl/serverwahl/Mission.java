@@ -357,7 +357,7 @@ final class Mission implements Listener {
             return;
         }
         Fenster f = new Fenster();
-        f.inv = Bukkit.createInventory(f, 54, Component.text("Spenden – Stufe " + n + ": " + stufen.get(n - 1).name()));
+        f.inv = Bukkit.createInventory(f, 54, Component.text("Spenden · Stufe " + n + "/" + stufen.size()));
         p.openInventory(f.inv);
         p.sendMessage(Component.text("Lege deine Spenden hinein und schließe das Fenster. Gebraucht wird:", NamedTextColor.GRAY));
         for (String w : stufen.get(n - 1).wuensche().keySet()) {
@@ -434,10 +434,27 @@ final class Mission implements Listener {
         return null;
     }
 
+    /**
+     * Deutsche Namen der Wünsche aus mission.json (Testrunde 30.10.: die Tafel zeigte trotz übersetzbarer Komponente englische Namen).
+     * Neue Wünsche hier ergänzen, sonst bleibt der übersetzbare Name.
+     */
+    static final Map<String, String> DEUTSCH = Map.ofEntries(
+            Map.entry("minecraft:cobblestone", "Bruchstein"), Map.entry("minecraft:dirt", "Erde"),
+            Map.entry("minecraft:spruce_log", "Fichtenstamm"), Map.entry("minecraft:snow_block", "Schneeblock"),
+            Map.entry("minecraft:bone_meal", "Knochenmehl"), Map.entry("minecraft:copper_ingot", "Kupferbarren"),
+            Map.entry("minecraft:diamond", "Diamant"), Map.entry("minecraft:emerald", "Smaragd"),
+            Map.entry("minecraft:firework_rocket", "Feuerwerksrakete"), Map.entry("minecraft:glowstone_dust", "Glowstonestaub"),
+            Map.entry("minecraft:gold_ingot", "Goldbarren"), Map.entry("minecraft:red_wool", "Rote Wolle"),
+            Map.entry("minecraft:spruce_leaves", "Fichtenlaub"), Map.entry("minecraft:spruce_sapling", "Fichtensetzling"),
+            Map.entry("minecraft:white_wool", "Weiße Wolle"), Map.entry("#minecraft:candles", "Kerzen (jede Farbe)"));
+
     private static Component itemName(String w) {
+        String deutsch = DEUTSCH.get(w.contains(":") ? w : "minecraft:" + w);
+        if (deutsch != null) {
+            return Component.text(deutsch, NamedTextColor.AQUA);
+        }
         if (w.startsWith("#")) {
-            String k = w.substring(w.indexOf(':') + 1);
-            return Component.text(k.equals("candles") ? "Kerzen (jede Farbe)" : k, NamedTextColor.AQUA);
+            return Component.text(w.substring(w.indexOf(':') + 1), NamedTextColor.AQUA);
         }
         Material m = Material.matchMaterial(w);
         return m == null ? Component.text(w, NamedTextColor.AQUA) : Component.translatable(m.translationKey(), NamedTextColor.AQUA);
