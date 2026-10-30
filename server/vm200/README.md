@@ -7,8 +7,10 @@ AMP-eigene Spielregeln, Schlafmodus aus, Jars/Plugins/Configs aus dem Staging, `
 Wichtig zu AMP 2.8 (Minecraft-Modul):
 - **AMP schreibt `server.properties` beim Start** aus `MinecraftModule.kvp` (`Minecraft.*`, `Game.*`, `Limits.*`). Sollwerte deshalb dort setzen, nicht nur in der Datei.
 - Server-Typ-Werte: `Paper_Spigot` (Paper), `VelocityProxy` (Velocity), `Official`, `Fabric` … – „Paper“/„Velocity“ lehnt AMP ab (Log: „Requested value … was not found“)
-- **Hub und SMP laufen als `Spigot`, nicht `Paper_Spigot`:** AMP hängt bei `Paper_Spigot` fest `-nojline --log-strip-color` an, Paper 26.3 bricht mit
-  „log-strip-color is not a recognized option“ ab (30.10.). `Spigot` gibt nur `-nojline` mit, das Paper-Jar läuft genauso
+- **`--log-strip-color` (30.10.):** AMP (`MinecraftApp.BuildArgumentList`) hängt bei Paper nur dann bloß ` -nojline` an, wenn
+  `Minecraft.SpecificPaperVersion` als Versionsnummer lesbar und ≥ 1.21.11 ist, sonst ` -nojline --log-strip-color` – das Paper 26.3 mit
+  „log-strip-color is not a recognized option“ ablehnt. AMPs Standardwert `26.3-rc-3` ist nicht lesbar → deshalb `SpecificPaperVersion=26.3`.
+  `Spigot` hilft nicht (gleicher Zweig). Startzeile danach: `java -Xmx…M -Xms…M <Java.CustomOpts> -jar paper-26.3-207.jar -nojline nogui`
 - Proxy-Voice: `plugin-konfig/proxy/plugins/voicechat/voicechat-proxy.properties` (`port=24454`), sonst nimmt Voice Chat den Proxy-Port (Standard `-1`)
 - `Minecraft.StandaloneServer=False` schreibt `online-mode=false` (nötig hinter Velocity)
 - `Limits.SleepMode=False`: Sonst legt AMP ein leeres Backend schlafen, der Proxy fände es nicht

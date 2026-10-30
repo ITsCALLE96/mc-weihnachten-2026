@@ -21,7 +21,10 @@ AIKAR = ("-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:
          "-XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 "
          "-Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true")
 GEMEINSAM_BACKEND = {
-    "Minecraft.ServerType": "Spigot",                # nicht Paper_Spigot: AMP hängt dort --log-strip-color an, das Paper 26.3 ablehnt
+    "Minecraft.ServerType": "Paper_Spigot",          # AMP-Enum für Paper
+    # Muss als Versionsnummer lesbar und ≥ 1.21.11 sein, sonst hängt AMP --log-strip-color an (Paper 26.3 bricht dann ab).
+    # AMP-Standard „26.3-rc-3“ ist nicht lesbar. Wird nur beim „Update“ zum Herunterladen genutzt – nicht klicken.
+    "Minecraft.SpecificPaperVersion": "26.3",
     "Minecraft.StandaloneServer": "False",           # schreibt online-mode=false (hinter Velocity)
     "Game.Whitelist": "True",
     "Game.EnforceWhitelist": "True",
