@@ -25,9 +25,9 @@ enable-query=false
 spawn-protection=0
 difficulty=normal
 require-resource-pack=true
-resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v4/weihnachten-rp.zip
-resource-pack-sha1=45e2d461d097f6ece7f5dad8aa756d527984be0b
-resource-pack-id=366d33f6-84ba-41df-8376-97e055b7d368
+resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v6/weihnachten-rp.zip
+resource-pack-sha1=99ef6e55bc93a0789c08fee13a41337dd2d15ab6
+resource-pack-id=ea12c61e-6669-4c55-a40f-5ebf8dff6194
 resource-pack-prompt={"text":"Pflicht: Weihnachts-Texturen und das deutsche Questbuch. Ohne Annehmen kein Beitritt.","color":"aqua"}
 motd=§bSMP
 ```
@@ -40,7 +40,8 @@ Gehört zusammen mit `force-key-authentication = false` in Velocity, Begründung
 **`resource-pack-id`** (seit 24.10.): feste UUID, damit der Client das Pack über Updates hinweg als dasselbe erkennt (sonst meldet Paper „resource-pack-id missing,
 using default“). Bei neuen Pack-Versionen ändern sich URL und `resource-pack-sha1`; seit rp-v4 bekommt jede Version zusätzlich eine neue ID (Leitung 26.10.),
 damit Clients sicher neu laden. ID, URL und SHA1 immer auf Hub und SMP gleichzeitig ändern.
-**Seit 26.10.: `rp-v4`** (883.440 Bytes, SHA1 `45e2d461d097f6ece7f5dad8aa756d527984be0b`, von Leitung und Server-Session per Download geprüft), neue ID `366d33f6-84ba-41df-8376-97e055b7d368`.
+**Seit 30.10.: `rp-v6`** (9.623.076 Bytes, SHA1 `99ef6e55bc93a0789c08fee13a41337dd2d15ab6`, von Leitung und Server-Session per Download geprüft), ID `ea12c61e-6669-4c55-a40f-5ebf8dff6194`. Auf VM200 in den AMP-Einstellungen von Hub und SMP (`Minecraft.ResourcePack*`), sonst überschreibt AMP es.
+**Vorher (26.10.): `rp-v4`** (883.440 Bytes, SHA1 `45e2d461d097f6ece7f5dad8aa756d527984be0b`, von Leitung und Server-Session per Download geprüft), neue ID `366d33f6-84ba-41df-8376-97e055b7d368`.
 Umgestellt: diese Datei, `testnetz/einrichten.sh`, Testnetz Hub + SMP, lokaler Testserver.
 **Vorher (24.10.): `rp-v3`** (rp-v2 mit Wintergemälden ohne Musik, dazu Questbuch-Texte DE/EN und Quest-Inhalte; 878.510 Bytes, SHA1 von der Leitung nachgerechnet).
 ID unverändert, die neue SHA1 reicht, damit Clients das Pack neu laden. Lokaler Testserver auf dieselben Werte umgestellt.
@@ -87,9 +88,9 @@ spawn-monsters=false
 pvp=false
 allow-nether=false
 require-resource-pack=true
-resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v4/weihnachten-rp.zip
-resource-pack-sha1=45e2d461d097f6ece7f5dad8aa756d527984be0b
-resource-pack-id=366d33f6-84ba-41df-8376-97e055b7d368
+resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v6/weihnachten-rp.zip
+resource-pack-sha1=99ef6e55bc93a0789c08fee13a41337dd2d15ab6
+resource-pack-id=ea12c61e-6669-4c55-a40f-5ebf8dff6194
 resource-pack-prompt={"text":"Pflicht: Weihnachts-Texturen und das deutsche Questbuch. Ohne Annehmen kein Beitritt.","color":"aqua"}
 motd=§bHub
 ```

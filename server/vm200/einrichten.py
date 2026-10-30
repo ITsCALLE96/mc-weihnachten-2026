@@ -10,9 +10,9 @@ ST = "/root/mcw-staging/vm200"
 INST = "/home/amp/.ampdata/instances"
 RP = {
     "Minecraft.RequireResourcePack": "True",
-    "Minecraft.ResourcePackURL": "https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v4/weihnachten-rp.zip",
-    "Minecraft.ResourcePackSHA1": "45e2d461d097f6ece7f5dad8aa756d527984be0b",
-    "Minecraft.ResourcePackID": "366d33f6-84ba-41df-8376-97e055b7d368",
+    "Minecraft.ResourcePackURL": "https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/rp-v6/weihnachten-rp.zip",
+    "Minecraft.ResourcePackSHA1": "99ef6e55bc93a0789c08fee13a41337dd2d15ab6",
+    "Minecraft.ResourcePackID": "ea12c61e-6669-4c55-a40f-5ebf8dff6194",
     "Minecraft.ResourcePackPrompt": '{"text":"Pflicht: Weihnachts-Texturen und das deutsche Questbuch. Ohne Annehmen kein Beitritt.","color":"aqua"}',
 }
 AIKAR = ("-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC "
