@@ -6,7 +6,7 @@
 # Das Statistik-Archiv /home/amp/mc-archiv bleibt unberührt: Dort kommen die Logs nur mit IP_MASKIEREN=1 an (schnappschuss.sh), also ohne IPs.
 # Sicherungen (AMP 24 h/7 Tage, QNAP 14 Tage, Proxmox 3/7 Tage) enthalten Logs, liegen aber alle unter 30 Tagen.
 # Ohne Schalter: nur auflisten. Mit --ausfuehren: löschen.
-# Cron (seit 30.10.) /etc/cron.d/mc-logs-aufraeumen: „30 4 * * * root /usr/local/sbin/mc-logs-aufraeumen.sh --ausfuehren >> /var/log/mc-logs-aufraeumen.log 2>&1“
+# Cron (seit 30.10.) /etc/cron.d/mc-logs-aufraeumen: „40 4 * * * root /usr/local/sbin/mc-logs-aufraeumen.sh --ausfuehren >> /var/log/mc-logs-aufraeumen.log 2>&1“
 set -euo pipefail
 TAGE=30
 I=/home/amp/.ampdata/instances
