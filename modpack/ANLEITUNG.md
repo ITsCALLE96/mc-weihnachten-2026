@@ -3,12 +3,14 @@
 Du brauchst das nicht zum Mitspielen – es macht Minecraft flüssiger und schöner und bringt Karte, Shader und viele Komfort-Funktionen.
 
 1. **Modrinth App** herunterladen und installieren: https://modrinth.com/app
-2. Die Datei **`weihnachten-modpack.mrpack`** herunterladen: https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/tag/modpack-v2
+2. Die Datei **`weihnachten-modpack.mrpack`** herunterladen: https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/modpack-v4/weihnachten-modpack.mrpack
 3. In der Modrinth App oben links auf **„+“ → „Aus Datei importieren“** und die `.mrpack`-Datei auswählen. Die App lädt alles selbst herunter.
 4. **Mods einzeln sichtbar machen:** Profil öffnen → **Zahnrad (Einstellungen) → Installation → „Unlink instance“**. Danach stehen alle Mods einzeln unter **Inhalt** und lassen sich ein- und ausschalten oder aktualisieren. Ein neues Pack von uns importierst du sowieso als neue Datei, du verlierst also nichts.
    **Arbeitsspeicher:** im selben Menü unter **Java und Speicher** **8 GB** einstellen. Mehr bringt nichts, eher im Gegenteil (längere Pausen beim Aufräumen des Speichers).
 5. Mit deinem Microsoft-Konto anmelden und das Profil **„Weihnachtsprojekt 2026“** mit **Play** starten.
-6. **Mehrspieler → Server hinzufügen → Adresse `mc.grahl.cloud`**. Beim Beitreten das Weihnachts-Resourcepack annehmen.
+6. **Mehrspieler** → der Server **„Weihnachtsprojekt“** (`mc.grahl.cloud`) ist schon eingetragen → **Beitreten**. Das Weihnachts-Resourcepack wird automatisch angenommen.
+
+**Bedrock (Handy, Konsole, Windows-Edition)?** Ohne Modpack: Server hinzufügen mit Adresse **`mc.grahl.cloud`**, Port **19132**.
 
 ## Zusätzliche Mods einschalten
 

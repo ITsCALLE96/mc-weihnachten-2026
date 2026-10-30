@@ -7,15 +7,16 @@ Danke fürs Testen! Du brauchst ein gekauftes **Minecraft Java** und etwa 3 GB f
 ## Installieren (5 Schritte)
 
 1. **Modrinth App** herunterladen und installieren: https://modrinth.com/app (kostenlos). Beim ersten Start mit deinem **Microsoft-Konto** anmelden (das, mit dem du Minecraft gekauft hast).
-2. Die Datei **`weihnachten-modpack.mrpack`** herunterladen: https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/modpack-v3/weihnachten-modpack.mrpack
+2. Die Datei **`weihnachten-modpack.mrpack`** herunterladen: https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/download/modpack-v4/weihnachten-modpack.mrpack
 3. In der Modrinth App links auf **„+“** → oben **„Aus Datei importieren“** → die heruntergeladene `.mrpack`-Datei auswählen. Die App lädt jetzt alles selbst herunter (1–3 Minuten).
 4. **Arbeitsspeicher:** Profil öffnen → **Zahnrad** (Einstellungen) → **Java und Speicher** → **8 GB** einstellen. Hast du nur 8 GB im PC: 4–6 GB.
-5. **Play** drücken (der erste Start dauert etwas). Dann **Mehrspieler** → **Server hinzufügen** → Adresse **`<SERVERADRESSE>`** → **Fertig** → Server anklicken → **Beitreten**.
-   Die Frage nach dem **Server-Resourcepack** mit **Ja** beantworten – ohne geht es nicht (Texturen und deutsches Questbuch).
+5. **Play** drücken (der erste Start dauert etwas). Dann **Mehrspieler** → den Server **„Weihnachtsprojekt“** anklicken (ist schon eingetragen, Adresse **`mc.grahl.cloud`**) → **Beitreten**.
+   Das **Server-Resourcepack** (Texturen und deutsches Questbuch) lädt automatisch. Falls doch eine Frage danach kommt: **Ja** – ohne geht es nicht.
+   Fehlt der Eintrag in der Liste: **Server hinzufügen** → Adresse **`mc.grahl.cloud`**.
 
 **Prism Launcher statt Modrinth App?** Geht auch: **Instanz hinzufügen** → **Importieren** → die `.mrpack`-Datei wählen.
 
-**Bedrock (Handy, Konsole, Windows-Edition)?** Ohne Modpack: Server hinzufügen mit Adresse **`<BEDROCK-ADRESSE>`**, Port **19132**.
+**Bedrock (Handy, Konsole, Windows-Edition)?** Ohne Modpack: Server hinzufügen mit Adresse **`mc.grahl.cloud`**, Port **19132**.
 
 ## Gut zu wissen
 

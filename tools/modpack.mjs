@@ -3,6 +3,7 @@
 // löst Pflicht-Abhängigkeiten auf und schreibt build/weihnachten-modpack.mrpack.
 // Aufruf: node tools/modpack.mjs [mods.json einer Testvariante]  (Variante → build/<dateiname>.mrpack)
 //         node tools/modpack.mjs --fest <altes.mrpack>  (Versionen des alten Packs behalten, nur Overrides und Liste neu)
+// server: vorinstallierte Serverliste [{ name, ip }] → overrides/servers.dat.
 import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, copyFileSync, readdirSync } from 'node:fs';
 import { join, resolve, basename, relative, dirname } from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -48,6 +49,17 @@ export function festerIndex(alt, { name, version, shader = [], resourcepacks = [
     .map((f) => (einschalten(f) ? { ...f, path: f.path.slice(0, -'.disabled'.length) } : f)) };
 }
 
+// Vorinstallierte Serverliste (servers.dat, unkomprimiertes NBT); acceptTextures = Server-Resourcepack ohne Rückfrage annehmen.
+export function serversDat(server) {
+  const text = (t) => { const b = Buffer.from(t, 'utf8'); return Buffer.concat([Buffer.from([b.length >> 8, b.length & 255]), b]); };
+  const feld = (typ, name, wert) => Buffer.concat([Buffer.from([typ]), text(name), wert]);
+  const anzahl = Buffer.alloc(4);
+  anzahl.writeInt32BE(server.length);
+  const eintraege = server.map(({ name, ip }) => Buffer.concat([
+    feld(8, 'name', text(name)), feld(8, 'ip', text(ip)), feld(1, 'acceptTextures', Buffer.from([1])), Buffer.from([0])]));
+  return Buffer.concat([Buffer.from([10, 0, 0]), feld(9, 'servers', Buffer.concat([Buffer.from([10]), anzahl, ...eintraege])), Buffer.from([0])]);
+}
+
 // Eigene Mods, die nicht auf Modrinth liegen: Pfade relativ zum Repo, landen als overrides/mods/<datei> im Pack.
 // Die Jars werden nicht committet, sondern beim Bau aus dem Nachbar-Repo gelesen.
 export function lokaleMods(pfade, repo) {
@@ -88,7 +100,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const { minecraft } = JSON.parse(readFileSync(join(repo, 'versions.json'), 'utf8'));
   const fest = process.argv[2] === '--fest' ? resolve(process.argv[3]) : null;
   const modsDatei = process.argv[2] && !fest ? resolve(process.argv[2]) : join(repo, 'modpack/mods.json');
-  const { name, version, mods, aktivSobaldVerfuegbar = [], optional = [], shader = [], resourcepacks = [], lokal = [] } =
+  const { name, version, mods, aktivSobaldVerfuegbar = [], optional = [], shader = [], resourcepacks = [], lokal = [], server = [] } =
     JSON.parse(readFileSync(modsDatei, 'utf8'));
   const variante = process.argv[2] && !fest ? basename(modsDatei, '.json') : null; // Testvarianten überschreiben weder Pack noch STAND.md
   const eigene = lokaleMods(lokal, repo); // vor allen Downloads, damit ein fehlendes Jar sofort auffällt
@@ -167,8 +179,12 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     mkdirSync(dirname(join(tmp, z)), { recursive: true });
     copyFileSync(quelle, join(tmp, z));
   }
+  if (server.length) {
+    mkdirSync(join(tmp, 'overrides'), { recursive: true });
+    writeFileSync(join(tmp, 'overrides/servers.dat'), serversDat(server));
+  }
   execFileSync('C:/Windows/System32/tar.exe', ['--format', 'zip', '-cf', packDatei, 'modrinth.index.json',
-    ...(eigene.length || voreinstellungen.length ? ['overrides'] : [])], { cwd: tmp });
+    ...(eigene.length || voreinstellungen.length || server.length ? ['overrides'] : [])], { cwd: tmp });
   if (!variante) writeFileSync(join(repo, 'modpack/STAND.md'),
     `# Stand des Modpacks\n\nMinecraft ${minecraft}, Fabric Loader ${loader}\n\n| Datei | Download |\n|---|---|\n` +
     index.files.map((f) => `| ${f.path} | ${f.downloads[0]} |`).join('\n') + '\n' +

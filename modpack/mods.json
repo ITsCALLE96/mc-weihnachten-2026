@@ -1,6 +1,6 @@
 {
   "name": "Weihnachtsprojekt 2026 (optional)",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "mods": [
     "fabric-api",
     "sodium",
@@ -99,5 +99,11 @@
   "lokal": [
     "../block-marker/build/libs/block-marker-1.0.0.jar",
     "../quest-details/build/libs/quest-details-1.0.0.jar"
+  ],
+  "server": [
+    {
+      "name": "Weihnachtsprojekt",
+      "ip": "mc.grahl.cloud"
+    }
   ]
 }

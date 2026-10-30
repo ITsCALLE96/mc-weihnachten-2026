@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { baueIndex, festerIndex, lokaleMods, overrideDateien } from './modpack.mjs';
+import { baueIndex, festerIndex, lokaleMods, overrideDateien, serversDat } from './modpack.mjs';
 
 const version = {
   project_id: 'AANobbMI',
@@ -89,4 +89,17 @@ test('Fester Bau schaltet Mods ein, die mods.json jetzt aktiv vorsieht', () => {
   };
   assert.deepEqual(festerIndex(alt, { name: 'N', version: '3', shader: [], resourcepacks: [], aktiv: ['5IIKsxiL'] }).files.map((f) => f.path),
     ['mods/esm.jar', 'mods/coolrain.jar.disabled']);
+});
+
+test('servers.dat ist unkomprimiertes NBT mit Name, Adresse und angenommenem Server-Pack', () => {
+  const s = (t) => [0, t.length, ...Buffer.from(t)];
+  assert.deepEqual([...serversDat([{ name: 'W', ip: 'a.b' }])], [
+    10, 0, 0,
+    9, ...s('servers'), 10, 0, 0, 0, 1,
+    8, ...s('name'), ...s('W'),
+    8, ...s('ip'), ...s('a.b'),
+    1, ...s('acceptTextures'), 1,
+    0,
+    0,
+  ]);
 });
