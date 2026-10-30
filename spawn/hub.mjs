@@ -25,6 +25,8 @@ export function infoStaende(k, { ns = 'hub', versatz = [0, 0, 0] } = {}) {
   const zeilen = (t) => { const w = t.split(' '), z = ['']; for (const x of w) { if ((z.at(-1) + ' ' + x).trim().length > 15) z.push(x); else z[z.length - 1] = (z.at(-1) + ' ' + x).trim(); } return z; };
   const holo = (x, y, z, inhalt, s, tags = []) => `summon text_display ${P(x, y, z)} {Tags:${q(['hub', 'hub_stand', ...tags])},billboard:"center",alignment:"center",line_width:240,background:1073741824,text:${JSON.stringify(inhalt)},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[${s}f,${s}f,${s}f]}}`;
   k.stände.forEach((st, i) => {
+    // Altbestand vor dem Umbau 28.10. (Hinweis-Text und Klickfläche ohne Tag hub_stand) überlebt das kill oben: hier mit weg, sonst doppelte Beschriftung
+    { const [ax, ay, az] = P(st.front[0] + 0.5, st.front[1] + 1, st.front[2] + 0.5).split(' '); befehle.push(`kill @e[tag=hub,tag=!hub_stand,type=!player,x=${ax},y=${ay},z=${az},distance=..2.5]`); }
     const n = i + 1, [x, y, z] = st.front, mx = st.schilder.reduce((a, s) => a + s[0], 0) / st.schilder.length, mz = st.schilder.reduce((a, s) => a + s[2], 0) / st.schilder.length;
     // Blick vom Zelt weg zum Markt (Minecraft-Yaw: 0 = Süden, 90 = Westen)
     const yaw = Math.round((Math.atan2(-(x + 0.5 - mx), z + 0.5 - mz) * 180) / Math.PI);
