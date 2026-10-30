@@ -6,6 +6,10 @@ Grundlage für die Bewertung ist die Community-Zusammenstellung **„CastCrafter
 
 Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/modpack.mjs` geschrieben).
 
+## `modpack-v4` (30.10.2026)
+
+Wie v3 (gleiche Mods und Versionen), dazu vorinstallierter Server-Eintrag **„Weihnachtsprojekt“** (`mc.grahl.cloud`, Server-Resourcepack wird ohne Rückfrage angenommen) über `server` in `mods.json` → `overrides/servers.dat`.
+
 ## Inhalt von `modpack-v3` (30.10.2026)
 
 Gleiche Mod-Versionen wie `modpack-v2` (fest gebaut mit `node tools/modpack.mjs --fest <altes .mrpack>`), nur diese Änderungen (Entscheidung Pascal 30.10., gilt als Standard für alle):
