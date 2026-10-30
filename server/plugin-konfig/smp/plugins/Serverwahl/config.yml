@@ -251,6 +251,13 @@ mission:
   # nach dem Laden. Vor dem 27.11. Zeile entfernen und Stand zurücksetzen (vor-dem-start.md)
   start: "2026-10-30"
   # nach jeder angenommenen Spende und beim Login bisheriger Spender (wiederholbar!), {spieler} = Kontoname. Quest „Erste Spende“ (Questbuch 30.10.)
+  # Skalierung (Spawn & Welt, freigegeben Pascal 30.10.): Ziel = Grundmenge × aktive Spieler, begrenzt auf spieler-min…spieler-max (beim Stufenstart).
+  # Keine Spende seit absenken-nach-tagen → alle Ziele der Stufe × (1 − absenkung), nie unter dem Gespendeten, höchstens absenkungen-max je Stufe
+  spieler-min: 8
+  spieler-max: 30
+  absenken-nach-tagen: 7
+  absenkung: 0.20
+  absenkungen-max: 3
   befehle-bei-spende:
     - "advancement grant {spieler} only leitfaden:ankommen/spende"
 # Weihnachtsmann im Iglu der Weihnachtsinsel + Jukebox (Pascal 28.10., Ware/Orte: spawn/weihnachtsmann.json, kopiert nach plugins/Serverwahl/).

@@ -3,7 +3,7 @@
 #  1. alte Welt + SMP-Merker sichern (smp-welt-neu.sh, nur verschieben)   2. vorbereitete Welt (neuwelt-upload) → Minecraft/world
 #  3. Seed aus der Welt in die AMP-Einstellung (seed-uebernehmen.py, ohne Ausgabe)
 #  4. regions.yml, weihnachtsmann.json, mission.json aus spawn/smp-neu/ausgabe (verschoben)   5. Plugin-Konfigs (einspielen.sh smp vm200 + Versatz)
-#  6. winter-weihnachten nach world/datapacks   7. Anti-Xray (anti-xray-setzen.py)   8. Spieler-Spuren Hub + SMP (spieler-reset.py)
+#  6. winter-weihnachten nur mit MIT_WINTER=1 (sonst nach der Vorgenerierung)   7. Anti-Xray (anti-xray-setzen.py)   8. Spieler-Spuren Hub + SMP (spieler-reset.py)
 # Vorbereitet in /root/mcw-staging/smpneu (Konfig, Dateien, Datapack) und /srv/ampdata/mc-netzwerk-sicherung/neuwelt-upload (Welt).
 # Vom C96-PC (PowerShell): Get-Content -Raw <dieses Skript> | ssh root@192.168.178.200 "ssh root@192.168.178.78 'bash -s'"
 set -euo pipefail
@@ -31,7 +31,8 @@ install -o amp -g amp -m 644 "$P/ausgabe/weihnachtsmann.json" "$P/ausgabe/missio
 echo "== 5. Plugin-Konfigs (mit Versatz)"; cp -r "$P/konfig/." "$M/"
 install -o amp -g amp -m 644 "$P/ausgabe/weihnachtsmann.json" "$P/ausgabe/mission.json" "$M/plugins/Serverwahl/"   # nach 5., damit die verschobenen gelten
 grep -E "mitte:|x: " "$M/plugins/Serverwahl/config.yml" | grep -v "#" | head -4
-echo "== 6. winter-weihnachten"; cp -r "$P/winter-weihnachten" "$M/world/datapacks/"
+# Spawn & Welt 30.10.: Winter erst NACH der Vorgenerierung auf VM200 (sonst bäckt Schnee/Eis fest ein). Standard: auslassen; MIT_WINTER=1 nur bei vorgenerierter Welt
+if [ "${MIT_WINTER:-0}" = 1 ]; then echo "== 6. winter-weihnachten"; cp -r "$P/winter-weihnachten" "$M/world/datapacks/"; else echo "== 6. winter-weihnachten AUSGELASSEN (nach der Vorgenerierung nachlegen, vor-dem-start.md)"; fi
 echo "== 7. Anti-Xray"; python3 "$R/anti-xray-setzen.py" "$M" "$P/anti-xray.md"
 chown -R amp:amp "$M"
 su - amp -c "ampinstmgr -s MinecraftSMP01" | tail -1

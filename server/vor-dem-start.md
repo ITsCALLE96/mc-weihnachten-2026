@@ -142,3 +142,18 @@ Auf dem Testlauf-Server ist der Statistik-Nullpunkt egal (Season `testlauf`).
 
 - [ ] Eröffnung im Testlauf geprobt, Funde behoben
 - [ ] Hub-Termin `start-rueckfall` steht auf Startzeit + 10 min (keine AMP-Aufgabe mehr nötig)
+
+## Nach der Saison (Datum offen, Pascal entscheidet)
+
+Vorschlag Spawn & Welt (30.10.), je Punkt mit Empfehlung:
+
+| Punkt | Vorschlag | Wie |
+|---|---|---|
+| Winter-Datapack | raus | `winter-weihnachten` aus `world/datapacks`, Neustart, danach das Aufräum-Kommando aus `winter.md` (Schnee/Eis in warmen Biomen), LSS-Store invalidieren |
+| Deko an der Spawn-Insel | aus | `function insel:deko_aus` (Schnee, Lichterketten, Anzeigen weg), Datapack `insel-deko` danach entfernen |
+| Winterkalender | abbauen, Belohnungen bleiben bei den Spielern | `function insel:kalender_aus`, Datapack `insel-kalender` raus. Eingelöste Items bleiben im Inventar |
+| Weihnachtsinsel | **bleibt** als Bauwerk (Erinnerung), Mission beendet | serverwahl-Mission aus (keine Spenden mehr), Tafel auf „Danke“-Text oder entfernen; Weihnachtsmann-Händler: Rabatt endet ohnehin mit Dezember |
+| Hub-Texte | auf „Saison vorbei“ | `spawn/hub.json`: Termine und Winterkalender-Stand neu texten, Hub-Paket bauen und tauschen, `function hub:staende` |
+| Dorf-Kopfschmuck (Mützen) | darf bleiben | nur Optik, kein Aufwand |
+
+Reihenfolge: zuerst Hub-Texte (Spieler sehen es zuerst), dann Mission aus, dann Deko/Kalender, zuletzt Winter-Datapack + Aufräumen (Neustart, Ankündigung vorher).

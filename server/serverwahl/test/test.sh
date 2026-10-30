@@ -11,3 +11,4 @@ rm -rf "$hier/build/test" && mkdir -p "$hier/build/test"
 "$javac" --release 25 -encoding UTF-8 -cp "$cp" -d "$hier/build/test" "$hier"/test/*.java
 "${javac%c}" -cp "$hier/build/test$t$cp" de.grahl.serverwahl.WhitelistFreigabeTest   # javac → java
 "${javac%c}" -cp "$hier/build/test$t$cp" de.grahl.serverwahl.MissionNamenTest "$hier/../../spawn/mission.json"
+"${javac%c}" -cp "$hier/build/test$t$cp" de.grahl.serverwahl.MissionSkalierungTest

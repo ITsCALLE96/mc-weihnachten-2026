@@ -99,6 +99,12 @@ final class Mission implements Listener {
     private Location tafelOrt;
     private final List<Stufe> stufen = new ArrayList<>();
     private List<String> befehleBeiSpende = List.of();
+    /** Skalierung (Spawn & Welt, freigegeben Pascal 30.10.): Spieler fürs Ziel begrenzen, Ziele nach Tagen ohne Spende absenken */
+    private int spielerMin = 8;
+    private int spielerMax = 30;
+    private int absenkenNachTagen = 7;
+    private double absenkung = 0.20;
+    private int absenkungenMax = 3;
 
     private File standDatei;
     private YamlConfiguration stand = new YamlConfiguration();
@@ -127,6 +133,11 @@ final class Mission implements Listener {
             return;
         }
         befehleBeiSpende = c.getStringList("befehle-bei-spende");
+        spielerMin = Math.max(1, c.getInt("spieler-min", 8));
+        spielerMax = Math.max(spielerMin, c.getInt("spieler-max", 30));
+        absenkenNachTagen = Math.max(1, c.getInt("absenken-nach-tagen", 7));
+        absenkung = Math.min(0.9, Math.max(0, c.getDouble("absenkung", 0.20)));
+        absenkungenMax = Math.max(0, c.getInt("absenkungen-max", 3));
         // Generalprobe (Leitung 30.10.): start in der Config überschreibt mission.json, ohne die Datei von Spawn & Welt anzufassen
         String startOverride = c.getString("start", "").trim();
         if (!startOverride.isEmpty()) {
@@ -220,9 +231,11 @@ final class Mission implements Listener {
         stand.set("stufe", n);
         stand.set("ziele", null);
         if (n >= 1 && n <= stufen.size()) {
-            int spieler = aktiveSpieler();
-            stufen.get(n - 1).wuensche().forEach((w, grund) -> stand.set("ziele." + schluessel(w), grund * spieler));
+            int aktiv = aktiveSpieler();
+            int spieler = spielerFuerZiel(aktiv, spielerMin, spielerMax);
+            stufen.get(n - 1).wuensche().forEach((w, grund) -> stand.set("ziele." + schluessel(w), Math.max(1, grund * spieler)));
             stand.set("spieler-beim-start." + n, spieler);
+            stand.set("letzte-spende." + n, System.currentTimeMillis());
             Bukkit.broadcast(Component.text().append(Component.text("[Weihnachtsinsel] ", NamedTextColor.GOLD, TextDecoration.BOLD))
                     .append(Component.text("Stufe " + n + ": " + stufen.get(n - 1).name() + (mitKiste ? " – bringt eure Spenden zur Spendenkiste!" : " – spendet über die Ender-Kiste am Spawn („Spenden für die Weihnachtsinsel“)!"), NamedTextColor.WHITE))
                     .build());
@@ -232,9 +245,52 @@ final class Mission implements Listener {
             Bukkit.broadcast(Component.text("» Hier klicken zum Spenden «", NamedTextColor.YELLOW, TextDecoration.BOLD)
                     .clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mission spenden"))
                     .hoverEvent(net.kyori.adventure.text.event.HoverEvent.showText(Component.text("Öffnet das Spendenfenster der Weihnachtsinsel"))));
-            plugin.getLogger().info("Mission: Stufe " + n + " gestartet, " + spieler + " aktive Spieler");
+            plugin.getLogger().info("Mission: Stufe " + n + " gestartet, " + aktiv + " aktive Spieler, Ziel für " + spieler);
         }
         speichern();
+        tafel();
+    }
+
+    /** Spieler, mit denen das Ziel einer Stufe gerechnet wird: aktive Spieler, begrenzt auf min…max */
+    static int spielerFuerZiel(int aktiv, int min, int max) {
+        return Math.max(min, Math.min(max, aktiv));
+    }
+
+    /** neues Ziel nach einer Absenkung: abgerundet, nie unter dem schon Gespendeten */
+    static int abgesenkt(int ziel, int gespendet, double absenkung) {
+        return Math.max(gespendet, (int) Math.floor(ziel * (1 - absenkung) + 1e-9));
+    }
+
+    /** Absenkung fällig: so lange keine Spende (bzw. seit Stufenstart/letzter Absenkung) und noch nicht zu oft abgesenkt */
+    static boolean absenkenFaellig(long letzteSpende, long jetzt, int tage, int bisher, int max) {
+        return bisher < max && jetzt - letzteSpende >= tage * 86_400_000L;
+    }
+
+    /** Leitung/Pascal 30.10.: Stufe ohne Fortschritt → alle Ziele um absenkung kleiner (höchstens absenkungen-max), Zeitpunkt zählt neu */
+    private void absenkenWennFaellig() {
+        int n = stufe();
+        if (n < 1 || n > stufen.size()) {
+            return;
+        }
+        long jetzt = System.currentTimeMillis();
+        if (!stand.contains("letzte-spende." + n)) {
+            stand.set("letzte-spende." + n, jetzt);  // Stände von vor der Skalierung: ab jetzt zählen
+            speichern();
+            return;
+        }
+        int bisher = stand.getInt("absenkungen." + n, 0);
+        if (!absenkenFaellig(stand.getLong("letzte-spende." + n), jetzt, absenkenNachTagen, bisher, absenkungenMax)) {
+            return;
+        }
+        for (String w : stufen.get(n - 1).wuensche().keySet()) {
+            stand.set("ziele." + schluessel(w), abgesenkt(ziel(w), gesamt(n, w), absenkung));
+        }
+        stand.set("absenkungen." + n, bisher + 1);
+        stand.set("letzte-spende." + n, jetzt);
+        speichern();
+        plugin.getLogger().info("Mission: Stufe " + n + " abgesenkt (" + (bisher + 1) + "/" + absenkungenMax + ")");
+        Bukkit.broadcast(Component.text().append(Component.text("[Weihnachtsinsel] ", NamedTextColor.GOLD, TextDecoration.BOLD))
+                .append(Component.text("Die Wunschliste ist kleiner geworden", NamedTextColor.WHITE)).build());
         tafel();
     }
 
@@ -318,6 +374,7 @@ final class Mission implements Listener {
         if (stufe() == 0 && !LocalDate.now(zone).isBefore(start)) {
             stufeStarten(1);
         }
+        absenkenWennFaellig();
         pruefen();
         tafel();
     }
@@ -401,6 +458,7 @@ final class Mission implements Listener {
         p.getInventory().addItem(zurueck.toArray(new ItemStack[0])).values()
                 .forEach(x -> p.getWorld().dropItemNaturally(p.getLocation(), x));
         if (!angenommen.isEmpty()) {
+            stand.set("letzte-spende." + n, System.currentTimeMillis());
             speichern();
             Component dank = Component.text("Danke! Angenommen: ", NamedTextColor.GREEN);
             boolean erster = true;
