@@ -1,4 +1,4 @@
-execute unless score #tag insel_kalender matches 5.. run return run tellraw @s {"text":"Türchen 5 öffnet am 5. Dezember.","color":"gray"}
+execute unless score #tag insel_kalender matches 5.. run return run tellraw @s {"text":"Türchen 5 ist noch zu – es öffnet an Kalendertag 5.","color":"gray"}
 execute if entity @s[tag=insel_kal_hat_5] run return run tellraw @s {"text":"Türchen 5 hast du schon geöffnet.","color":"gray"}
 tag @s add insel_kal_hat_5
 give @s minecraft:cookie[minecraft:item_model="weihnachten:plaetzchen_teller",minecraft:item_name={text:"Plätzchen-Teller"},minecraft:lore=[{text:"Winterkalender 2026 – Tag 5",italic:false,color:"aqua"},{translate:"item.weihnachten.kalender.hinweis.essen",fallback:"Essbar",color:"gray",italic:true}],minecraft:food={nutrition:4,saturation:4.8}] 64

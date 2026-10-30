@@ -1,4 +1,4 @@
-execute unless score #tag insel_kalender matches 12.. run return run tellraw @s {"text":"Türchen 12 öffnet am 12. Dezember.","color":"gray"}
+execute unless score #tag insel_kalender matches 12.. run return run tellraw @s {"text":"Türchen 12 ist noch zu – es öffnet an Kalendertag 12.","color":"gray"}
 execute if entity @s[tag=insel_kal_hat_12] run return run tellraw @s {"text":"Türchen 12 hast du schon geöffnet.","color":"gray"}
 tag @s add insel_kal_hat_12
 give @s minecraft:paper[minecraft:item_model="weihnachten:lichterkette",minecraft:item_name={translate:"item.weihnachten.lichterkette",fallback:"Fairy Lights"},minecraft:lore=[{text:"Winterkalender 2026 – Tag 12",italic:false,color:"aqua"},{translate:"item.weihnachten.kalender.hinweis.deko",fallback:"Deko: in einen Rahmen hängen",color:"gray",italic:true},{translate:"item.weihnachten.kalender.hinweis.deko2",fallback:"oder einem Rüstungsständer aufsetzen",color:"gray",italic:true}]] 1

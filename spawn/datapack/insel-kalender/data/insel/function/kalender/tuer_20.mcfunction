@@ -1,4 +1,4 @@
-execute unless score #tag insel_kalender matches 20.. run return run tellraw @s {"text":"Türchen 20 öffnet am 20. Dezember.","color":"gray"}
+execute unless score #tag insel_kalender matches 20.. run return run tellraw @s {"text":"Türchen 20 ist noch zu – es öffnet an Kalendertag 20.","color":"gray"}
 execute if entity @s[tag=insel_kal_hat_20] run return run tellraw @s {"text":"Türchen 20 hast du schon geöffnet.","color":"gray"}
 tag @s add insel_kal_hat_20
 give @s minecraft:firework_rocket[minecraft:item_name={text:"Winterfeuerwerk"},minecraft:lore=[{text:"Winterkalender 2026 – Tag 20",italic:false,color:"aqua"},{translate:"item.weihnachten.kalender.hinweis.feuerwerk",fallback:"Abfeuern: Rechtsklick in die Luft",color:"gray",italic:true}],minecraft:fireworks={flight_duration:2,explosions:[{shape:"star",colors:[I;16777215,12245247],fade_colors:[I;8439039],has_twinkle:true},{shape:"large_ball",colors:[I;11393254,16777215],has_trail:true}]}] 32

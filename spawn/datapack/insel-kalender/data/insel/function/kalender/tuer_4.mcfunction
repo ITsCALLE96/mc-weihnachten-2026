@@ -1,4 +1,4 @@
-execute unless score #tag insel_kalender matches 4.. run return run tellraw @s {"text":"Türchen 4 öffnet am 4. Dezember.","color":"gray"}
+execute unless score #tag insel_kalender matches 4.. run return run tellraw @s {"text":"Türchen 4 ist noch zu – es öffnet an Kalendertag 4.","color":"gray"}
 execute if entity @s[tag=insel_kal_hat_4] run return run tellraw @s {"text":"Türchen 4 hast du schon geöffnet.","color":"gray"}
 tag @s add insel_kal_hat_4
 give @s minecraft:leather_helmet[minecraft:item_model="weihnachten:strickmuetze",minecraft:item_name={text:"Strickmütze"},minecraft:lore=[{text:"Winterkalender 2026 – Tag 4",italic:false,color:"aqua"},{translate:"item.weihnachten.kalender.hinweis.kopf",fallback:"Aufsetzen: in den Helm-Platz ziehen",color:"gray",italic:true},{translate:"item.weihnachten.kalender.hinweis.frierschutz",fallback:"Schützt vor Frost im Pulverschnee",color:"gray",italic:true}],minecraft:max_stack_size=1,minecraft:equippable={slot:"head",swappable:true},minecraft:attribute_modifiers=[],!minecraft:max_damage,!minecraft:damage] 1

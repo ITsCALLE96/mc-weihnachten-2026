@@ -1,4 +1,4 @@
-execute unless score #tag insel_kalender matches 1.. run return run tellraw @s {"text":"Türchen 1 öffnet am 1. Dezember.","color":"gray"}
+execute unless score #tag insel_kalender matches 1.. run return run tellraw @s {"text":"Türchen 1 ist noch zu – es öffnet an Kalendertag 1.","color":"gray"}
 execute if entity @s[tag=insel_kal_hat_1] run return run tellraw @s {"text":"Türchen 1 hast du schon geöffnet.","color":"gray"}
 tag @s add insel_kal_hat_1
 give @s minecraft:cookie[minecraft:item_model="weihnachten:lebkuchen",minecraft:item_name={translate:"item.weihnachten.lebkuchen",fallback:"Gingerbread"},minecraft:lore=[{text:"Winterkalender 2026 – Tag 1",italic:false,color:"aqua"},{translate:"item.weihnachten.kalender.hinweis.essen",fallback:"Essbar",color:"gray",italic:true}]] 64

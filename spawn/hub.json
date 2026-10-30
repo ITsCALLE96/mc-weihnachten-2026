@@ -317,8 +317,8 @@
           "south"
         ]
       ],
-      "text": "Testlauf 21.11. · Start 27.11. · Kalender ab 01.12. · Nether ab 11.12. · End und Drachenkampf 18.12. · Halber Preis bei Dorfbewohnern 24.–26.12. · Silvester Feuerwerk. Jeweils abends, genaue Zeiten im Discord.",
-      "en": "Test run 21 Nov · start 27 Nov · calendar from 1 Dec · Nether 11 Dec · End 18 Dec · New Year fireworks.",
+      "text": "Testlauf 21.11. · Start 27.11. · Winterkalender: täglich ein Türchen · Nether ab 11.12. · End und Drachenkampf 18.12. · Halber Preis bei Dorfbewohnern 24.–26.12. · Silvester Feuerwerk. Jeweils abends, genaue Zeiten im Discord.",
+      "en": "Test run 21 Nov · start 27 Nov · calendar: one door a day · Nether 11 Dec · End 18 Dec · New Year fireworks.",
       "links": [
         [
           "Discord",
@@ -425,8 +425,8 @@
           "east"
         ]
       ],
-      "text": "Ab 01.12. öffnet täglich ein Türchen am Kalender auf der Spawn-Insel. Im Norden wächst die Weihnachtsinsel mit euren Spenden: Ender-Kiste in der Mitte der Spark-Insel, Feld „Weihnachtsinsel“. Jede Stufe bringt Tränke für alle, 3 Stück je Stufe.",
-      "en": "From 1 Dec a calendar door opens daily. Donate via the ender chest (field \"Weihnachtsinsel\") – each stage gives everyone 3 potions.",
+      "text": "Jeden Tag öffnet ein neues Türchen am Kalender auf der Spawn-Insel, 24 Türchen. Im Norden wächst die Weihnachtsinsel mit euren Spenden: Ender-Kiste in der Mitte der Spark-Insel, Feld „Weihnachtsinsel“. Jede Stufe bringt Tränke für alle, 3 Stück je Stufe.",
+      "en": "Every day a new calendar door opens on the spawn island (24 doors). Donate via the ender chest (field \"Weihnachtsinsel\") – each stage gives everyone 3 potions.",
       "links": []
     }
   ],
@@ -519,7 +519,7 @@
         236,
         -41.5
       ],
-      "text": "Frohe Feiertage! Auf der Spawn-Insel des Weihnachtsservers wartet ab dem 01.12. ein Winterkalender mit 24 Türchen."
+      "text": "Frohe Feiertage! Auf der Spawn-Insel des Weihnachtsservers wartet ein Winterkalender: jeden Tag ein neues Türchen, 24 insgesamt."
     },
     {
       "titel": "Auktionator",

@@ -71,7 +71,7 @@ function insel:kalender/anzeigen
     ...(kal.zugaben?.[n - 1] ?? []).map(([name, anzahl]) => `${hinweis(kal.zugabeItems[name].item, kal.zugabeItems[name].hinweise)} ${anzahl}`),
   ];
   for (const { n, cx, cy } of tueren) {
-    f[`kalender/tuer_${n}`] = `execute unless score #tag insel_kalender matches ${n}.. run return run tellraw @s ${txt(`Türchen ${n} öffnet am ${n}. Dezember.`, { color: 'gray' })}
+    f[`kalender/tuer_${n}`] = `execute unless score #tag insel_kalender matches ${n}.. run return run tellraw @s ${txt(`Türchen ${n} ist noch zu – es öffnet an Kalendertag ${n}.`, { color: 'gray' })}
 execute if entity @s[tag=insel_kal_hat_${n}] run return run tellraw @s ${txt(`Türchen ${n} hast du schon geöffnet.`, { color: 'gray' })}
 tag @s add insel_kal_hat_${n}
 ${gaben(n).map((g) => `give @s ${g}`).join('\n')}
@@ -80,7 +80,7 @@ playsound minecraft:entity.player.levelup master @s ~ ~ ~ 0.8 1.6
 particle minecraft:firework ${cx} ${cy + 0.45} ${wz - 0.3} 0.25 0.25 0.05 0.03 25 normal @s
 `;
   }
-  f['kalender/naechster_tag'] = `# Täglich 00:00 ab 01.12. (AMP-Aufgabe): nächstes Türchen freigeben\nscoreboard players add #tag insel_kalender 1\nexecute if score #tag insel_kalender matches 25.. run scoreboard players set #tag insel_kalender 24\nfunction insel:kalender/anzeigen\ntellraw @a [${txt('Winterkalender: ', { color: 'gold', bold: true })},${txt('Ein neues Türchen ist offen – am Spawn!', { color: 'white' })}]\n`;
+  f['kalender/naechster_tag'] = `# Täglich 00:00 ab dem ersten Kalendertag (ohne serverwahl, AMP-Aufgabe): nächstes Türchen freigeben\nscoreboard players add #tag insel_kalender 1\nexecute if score #tag insel_kalender matches 25.. run scoreboard players set #tag insel_kalender 24\nfunction insel:kalender/anzeigen\ntellraw @a [${txt('Winterkalender: ', { color: 'gold', bold: true })},${txt('Ein neues Türchen ist offen – am Spawn!', { color: 'white' })}]\n`;
   f['kalender/tag'] = `# Zum Testen bzw. Nachstellen: function insel:kalender/tag {tag:N}\n$scoreboard players set #tag insel_kalender $(tag)\nfunction insel:kalender/anzeigen\n`;
   // Weitere Datapack-Dateien: auspackbares Geschenk. Frierschutz der Kopfteile kommt vom Lederhelm als Basis (Vanilla-Tag, wirkt auch im Client;
   // ein eigenes Tag mit Papier kannte der Client nicht → Eisblumen ohne Schaden, Pascal 28.10.)
