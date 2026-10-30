@@ -104,7 +104,7 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/AmbientSounds_FABRIC_v6.3.11_mc26.3.jar.disabled | https://cdn.modrinth.com/data/fM515JnW/versions/LFUkYKC1/AmbientSounds_FABRIC_v6.3.11_mc26.3.jar |
 | mods/CreativeCore_FABRIC_v2.14.24_mc26.3.jar.disabled | https://cdn.modrinth.com/data/OsZiaDHq/versions/7YUEsxpw/CreativeCore_FABRIC_v2.14.24_mc26.3.jar |
 | mods/PresenceFootsteps-1.14.0+26.3.jar.disabled | https://cdn.modrinth.com/data/rcTfTZr3/versions/UUNiN7Tm/PresenceFootsteps-1.14.0%2B26.3.jar |
-| mods/ExtremeSoundMuffler-4.05_Fabric-26.3.jar.disabled | https://cdn.modrinth.com/data/5IIKsxiL/versions/REw9JB5b/ExtremeSoundMuffler-4.05_Fabric-26.3.jar |
+| mods/ExtremeSoundMuffler-4.05_Fabric-26.3.jar | https://cdn.modrinth.com/data/5IIKsxiL/versions/REw9JB5b/ExtremeSoundMuffler-4.05_Fabric-26.3.jar |
 | shaderpacks/ComplementaryReimagined_r5.9.3.zip | https://cdn.modrinth.com/data/HVnmMxH1/versions/Bqen1mJX/ComplementaryReimagined_r5.9.3.zip |
 | shaderpacks/ComplementaryUnbound_r5.9.3.zip | https://cdn.modrinth.com/data/R6NEzAwj/versions/B1kyfoUZ/ComplementaryUnbound_r5.9.3.zip |
 | overrides/mods/block-marker-1.0.0.jar | eigene Mod, liegt im Pack |
