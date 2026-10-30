@@ -7,6 +7,9 @@ AMP-eigene Spielregeln, Schlafmodus aus, Jars/Plugins/Configs aus dem Staging, `
 Wichtig zu AMP 2.8 (Minecraft-Modul):
 - **AMP schreibt `server.properties` beim Start** aus `MinecraftModule.kvp` (`Minecraft.*`, `Game.*`, `Limits.*`). Sollwerte deshalb dort setzen, nicht nur in der Datei.
 - Server-Typ-Werte: `Paper_Spigot` (Paper), `VelocityProxy` (Velocity), `Official`, `Fabric` … – „Paper“/„Velocity“ lehnt AMP ab (Log: „Requested value … was not found“)
+- **Hub und SMP laufen als `Spigot`, nicht `Paper_Spigot`:** AMP hängt bei `Paper_Spigot` fest `-nojline --log-strip-color` an, Paper 26.3 bricht mit
+  „log-strip-color is not a recognized option“ ab (30.10.). `Spigot` gibt nur `-nojline` mit, das Paper-Jar läuft genauso
+- Proxy-Voice: `plugin-konfig/proxy/plugins/voicechat/voicechat-proxy.properties` (`port=24454`), sonst nimmt Voice Chat den Proxy-Port (Standard `-1`)
 - `Minecraft.StandaloneServer=False` schreibt `online-mode=false` (nötig hinter Velocity)
 - `Limits.SleepMode=False`: Sonst legt AMP ein leeres Backend schlafen, der Proxy fände es nicht
 - In der Weboberfläche **nicht „Update“ klicken**: AMP lädt sonst die neueste Paper/Velocity-Version statt der eingefrorenen (`VERSION.md`)
