@@ -72,11 +72,11 @@ CA12 und die feste Insel-Lage sind überholt. Der Seed steht nur in der Welt, in
 
 ## Betrieb
 
-- [ ] Backups laufen (Pascal 31.10.): AMP-Sicherung SMP **stündlich** zur Minute 40 (24 Stände, max. 80 GB), Hub 03:20, Proxy 03:25, QNAP-Kopie 03:47
+- [ ] Backups laufen (Pascal 30.10.): AMP-Sicherung SMP **stündlich** zur Minute 40 (24 Stände, max. 80 GB), Hub 03:20, Proxy 03:25, QNAP-Kopie 03:47
   (`vm200/amp-sicherung.py`, `vm200/mc-sicherung-qnap.sh`; AMP-Zeitpläne laufen in UTC), Proxmox 02:00 und 04:00. Wiederherstellung geprobt (`vm200/restore-test.sh`)
 - [ ] **Season-Wechsel nur mit Abschluss-Schnappschuss:** `save-all flush`, dann `SCHNAPPSCHUSS_ERSETZEN=1 schnappschuss.sh …` von Hand, erst danach `SEASON`
   umstellen. `testlauf` → `weihnachten-2026` direkt vor dem Weltwechsel (Task 10 Schritt 4), nicht erst am 27.11. (`statistik/README.md` → Seasons)
-- [ ] **Generalprobe November zurückstellen** (Pascal 30.10., Liste Leitung 31.10.) – Reihenfolge:
+- [ ] **Generalprobe November zurückstellen** (Pascal 30.10., Liste Leitung 30.10.) – Reihenfolge:
   1. Konsole SMP (Server läuft): `function weihnachtsinsel:zuruecksetzen`, dann `function weihnachtsinsel:vorbereiten` (Insel, Brücke, Tafel auf Stufe 0),
      `nether close`, `end close`, Leitfaden-Phase auf 0 (Questbuch-Session nennt den Befehl)
   2. Proxy, Hub, SMP in AMP stoppen, dann `python3 vm200/generalprobe-zurueck.py` (zeigt die Diffs) und mit `--ausfuehren` schreiben. Es stellt zurück:
@@ -91,7 +91,7 @@ CA12 und die feste Insel-Lage sind überholt. Der Seed steht nur in der Welt, in
   Rückfall-Eröffnung 18:10). `/serverwahl termin liste` auf beiden zeigt alle Termine, keiner „erledigt“ (Testwelt-Merker `plugins/Serverwahl/termine.txt` vor dem Start löschen)
 - [ ] Statistik auf VM200 (Season, Schnappschuss vor dem Neustart 04:00) nach Absprache mit der Statistik-Session (`statistik/README.md`)
 - [ ] Dorf-Rabatt 24.–26.12. (`dorf-rabatt:`) und Neujahrsfeuerwerk (`neujahr:`) in der Config, `neujahr.txt`/`termine.txt` aus der Testwelt gelöscht
-- [ ] **Täglicher Neustart 04:00** (Pascal 31.10.) per Cron auf VM200 (`vm200/mc-neustart.sh`, Log `/var/log/mc-neustart.log`), nach SMP-Sicherung 03:40 und
+- [ ] **Täglicher Neustart 04:00** (Pascal 30.10.) per Cron auf VM200 (`vm200/mc-neustart.sh`, Log `/var/log/mc-neustart.log`), nach SMP-Sicherung 03:40 und
   QNAP-Kopie 03:47; Prism-Purge 04:30. Startmodus „Anwendung starten“ in allen drei AMP-Instanzen, „Start beim Booten“ an. Ohne Chatwarnung (keine Konsole per Cron)
 - [ ] Ausfall-Alarm auf dem Proxmox-Host (`vm200/mc-healthcheck.py`, alle 2 min, Discord-Webhook), Testnachricht angekommen
 - [ ] **Update-Stopp 27.11.–18.12.:** keine Updates von Paper, Velocity, Plugins und AMP, nur Sicherheitsfixes; Wartung sonst im Fenster 04:00 nach Sicherung

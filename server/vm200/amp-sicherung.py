@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """AMP-eigene Sicherung (LocalFileBackupPlugin + AMP-Zeitplan) für die drei Minecraft-Instanzen einschalten (Leitung/Pascal 30.10., Standardmittel wie bei
 Minecraft101/ForeverWorld01: Interval Trigger + TakeBackup, ReplaceOldest). Nutzt den von AMP mitgelieferten Trigger „Hourly Backup“ und stellt nur
-Stunden/Minuten/Name/Aktiv um. **AMP-Zeitplan rechnet in UTC** (gemessen 31.10.: Stunde 21 lief um 22:30 MEZ), Stunden unten also UTC.
-Pascal 31.10.: SMP jede Stunde zur Minute 40 (live, ~2 min, ~3,3 GB), 24 Stände = letzte 24 h; Hub 03:20 und Proxy 03:25 MEZ (02:xx UTC) täglich.
+Stunden/Minuten/Name/Aktiv um. **AMP-Zeitplan rechnet in UTC** (gemessen 30.10.: Stunde 21 lief um 22:30 MEZ), Stunden unten also UTC.
+Pascal 30.10.: SMP jede Stunde zur Minute 40 (live, ~2 min, ~3,3 GB), 24 Stände = letzte 24 h; Hub 03:20 und Proxy 03:25 MEZ (02:xx UTC) täglich.
 Reihenfolge nachts (MEZ): SMP 03:40 → QNAP-Kopie 03:47 → Neustart 04:00 (mc-neustart.sh) → Prism-Purge 04:30. Sommerzeit: AMP-Zeiten eine Stunde früher.
-Aufbewahrung (Platz 31.10.: 127 GB frei): SMP 24 Stände, max. 80 GB (wächst die Welt, bleiben entsprechend weniger Stände), Hub 7 ≤ 8 GB, Proxy 7 ≤ 4 GB, ältester zuerst.
+Aufbewahrung (Platz 30.10.: 127 GB frei): SMP 24 Stände, max. 80 GB (wächst die Welt, bleiben entsprechend weniger Stände), Hub 7 ≤ 8 GB, Proxy 7 ≤ 4 GB, ältester zuerst.
 SMP: world/lss-lod ausgenommen (backupExclusions.conf, LOD-Daten lassen sich neu erzeugen).
 Als root auf VM200, betroffene AMP-Instanzen GESTOPPT (ampinstmgr -q), sonst überschreibt AMP die Dateien beim Beenden.
 """
@@ -43,7 +43,7 @@ for inst, p in PLAN.items():
     if len(trig) != 1:
         sys.exit(f"{inst}: {len(trig)} Sicherungs-Trigger statt 1")
     t = trig[0]
-    t.update(Name=p["name"], Description="Minecraft-Netz (31.10.): AMP-Sicherung (Zeiten UTC), Kopie 03:47 MEZ auf die QNAP", MatchHours=p["stunden"],
+    t.update(Name=p["name"], Description="Minecraft-Netz (30.10.): AMP-Sicherung (Zeiten UTC), Kopie 03:47 MEZ auf die QNAP", MatchHours=p["stunden"],
              MatchMinutes=[p["minute"]], MatchDays=list(range(7)), MatchMonths=list(range(12)), EnabledState=1)
     for a in t["Tasks"].values():
         a["EnabledState"] = 1

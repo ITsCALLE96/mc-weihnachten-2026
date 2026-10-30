@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Wiederherstellungs-Probe (Leitung 31.10.): neueste AMP-Sicherung des SMP und neuester Stand des geteilten Ordners in einen Wegwerf-Ordner entpacken,
+# Wiederherstellungs-Probe (Leitung 30.10.): neueste AMP-Sicherung des SMP und neuester Stand des geteilten Ordners in einen Wegwerf-Ordner entpacken,
 # prüfen und den SMP daraus einmal starten – im AMP-Container-Abbild ohne Netz (docker --network none), also ohne Port und ohne Zugriff auf
 # die echten Daten. Läuft als root auf VM200, die echten Server laufen weiter. Danach wird der Ordner gelöscht (nur er).
 # Aufruf: restore-test.sh [geteilt.tgz]  (Standard: frischer tar des Live-Ordners; die QNAP-Kopie liegt nur auf dem Proxmox-Host)

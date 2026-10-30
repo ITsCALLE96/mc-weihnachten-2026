@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generalprobe November zurückstellen (Leitung 31.10., Checkliste server/vor-dem-start.md → „Generalprobe zurückstellen“).
+"""Generalprobe November zurückstellen (Leitung 30.10., Checkliste server/vor-dem-start.md → „Generalprobe zurückstellen“).
 Ohne Schalter zeigt es nur die Änderungen (Diff je Datei, zu löschende Merker). Mit --ausfuehren schreibt es, sichert vorher alles nach
 /root/mcw-staging/vor-zurueck-<Zeit>/ und setzt den Besitzer amp. Läuft als root auf VM200, Hub, SMP und Proxy GESTOPPT (sonst schreiben sie Merker neu).
 Was es NICHT kann (Konsole bzw. andere Sessions, siehe vor-dem-start.md): weihnachtsinsel:zuruecksetzen/vorbereiten, nether/end close,

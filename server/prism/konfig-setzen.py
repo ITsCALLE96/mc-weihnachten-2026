@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Prism 4.5: unsere Abweichungen in die vom Plugin erzeugte prism.conf (HOCON) schreiben, Kommentare bleiben.
 Aufruf: python -I server/prism/konfig-setzen.py <plugins/prism/prism.conf>
-Chat und Befehle mitschreiben (Pascal 28.10.), Purge täglich 04:30 alles älter als 90 Tage (Leitung 28.10., Uhrzeit 31.10.: nach dem Neustart 04:00), Meldungen auf Deutsch.
+Chat und Befehle mitschreiben (Pascal 28.10.), Purge täglich 04:30 alles älter als 90 Tage (Leitung 28.10., Uhrzeit 30.10.: nach dem Neustart 04:00), Meldungen auf Deutsch.
 Speicher bleibt SQLite (Standard in storage.conf). Bricht ab, wenn ein Schlüssel fehlt (Schema geändert)."""
 import re
 import sys

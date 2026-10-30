@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Täglicher Neustart des Minecraft-Netzes (Pascal 31.10.), Cron auf VM200 04:00 MEZ (/etc/cron.d/mc-neustart), Log /var/log/mc-neustart.log.
+# Täglicher Neustart des Minecraft-Netzes (Pascal 30.10.), Cron auf VM200 04:00 MEZ (/etc/cron.d/mc-neustart), Log /var/log/mc-neustart.log.
 # Davor läuft die stündliche SMP-Sicherung um 03:40 und die QNAP-Kopie um 03:47. Stoppen SMP → Hub → Proxy (AMP beendet die Server sauber),
 # starten Proxy → Hub → SMP. Die Server selbst startet AMP nur, wenn in jeder Instanz der Startmodus „Anwendung starten“ gesetzt ist (AMP-Oberfläche).
 # Prüft danach, dass alle drei Ports antworten. Bei Fehler bleibt es beim Log; den Alarm schickt mc-healthcheck.py vom Proxmox-Host.

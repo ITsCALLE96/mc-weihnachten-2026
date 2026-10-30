@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ausfall-Alarm Minecraft-Netz (Leitung 31.10.): fragt Velocity (VM200 192.168.178.78:25577) per Minecraft-Statusabfrage ab, wie es die
+"""Ausfall-Alarm Minecraft-Netz (Leitung 30.10.): fragt Velocity (VM200 192.168.178.78:25577) per Minecraft-Statusabfrage ab, wie es die
 Serverliste im Client tut. Zweimal hintereinander keine Antwort → Discord-Webhook „ausgefallen“, wieder da → „wieder erreichbar“.
 Läuft auf dem Proxmox-Host per Cron alle 2 Minuten (/etc/cron.d/mc-healthcheck). Nur Python-Standardbibliothek.
 Webhook-URL in /root/.mc-alarm-webhook (eine Zeile, Rechte 600, legt Pascal an; nie ins Repo). Fehlt die Datei, wird nur geloggt.

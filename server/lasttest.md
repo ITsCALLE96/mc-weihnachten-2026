@@ -3,7 +3,7 @@
 Ziel: Vor dem ersten Test mit Menschen sehen, ob der Server 25–30 gleichzeitige Spieler schafft (TPS/MSPT, RAM, CPU, Temperatur). Gemessen wird auch, wie viel
 Netzverkehr er dabei erzeugt. Nur Planung, noch nicht durchgeführt.
 
-> **Stand 31.10. (Leitung, Lückenanalyse):** Das Netz läuft seit 30.10. dauerhaft mit Portfreigabe und echten Spielern. Ein Bot-Lasttest mit `online-mode = false`
+> **Stand 30.10. (Leitung, Lückenanalyse):** Das Netz läuft seit 30.10. dauerhaft mit Portfreigabe und echten Spielern. Ein Bot-Lasttest mit `online-mode = false`
 > ist damit **nur noch auf einer getrennten Kopie** erlaubt (eigene Instanz/Testnetz ohne Freigabe), **nie** auf den Live-Instanzen und nie, solange irgendeine
 > Portfreigabe auf VM200 zeigt. Ersatz und Plan:
 > - **Realer Lasttest am Testlauf 21.11.** mit den echten Testern: vorher `/spark profiler start --timeout 1800` auf dem SMP, `spark health` vorher/nachher,

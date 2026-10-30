@@ -11,7 +11,7 @@ lp group moderator parent add default
 # Grief-Tool Prism (Pascal 28.10.): prism.lookup = Abfragen, /pr near, Teleport, Inspektor (auch unser Prüfwerkzeug Holzspitzhacke)
 lp group moderator permission set prism.lookup true
 lp group moderator permission set serverwahl.nick.andere true
-# Moderation (Leitung 31.10.): kick, Bann und Entbannen (Vanilla kennt keinen Zeitbann: Moderator sperrt, hebt nach Absprache mit pardon wieder auf),
+# Moderation (Leitung 30.10.): kick, Bann und Entbannen (Vanilla kennt keinen Zeitbann: Moderator sperrt, hebt nach Absprache mit pardon wieder auf),
 # Grim-Meldungen. Kein Op, kein luckperms.*
 lp group moderator permission set minecraft.command.kick true
 lp group moderator permission set minecraft.command.ban true
