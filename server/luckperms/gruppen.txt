@@ -1,6 +1,10 @@
 # LuckPerms-Gruppen fürs Weihnachtsprojekt (Plan: server/namen-clans-grief.md). Ein Befehl je Zeile, einmal auf einem Server ausführen
 # (gemeinsamer Speicher, der andere lädt per watch-files nach). Testnetz: bash testnetz/namen-test.sh gruppen. VM200: AMP-Konsole des SMP.
 # spieler = default (alle), Rechte für alle kommen aus den Plugins selbst (serverwahl.nick, serverwahl.hub, weihnachten.spieler)
+# Simple Voice Chat 2.6.x (Testrunde 30.10.: „keine Berechtigung“): plugin.yml legt listen/speak/groups ohne default an = nur Op → für alle freigeben
+lp group default permission set voicechat.listen true
+lp group default permission set voicechat.speak true
+lp group default permission set voicechat.groups true
 lp creategroup moderator
 lp creategroup admin
 lp group moderator parent add default

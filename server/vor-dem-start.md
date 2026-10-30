@@ -72,7 +72,9 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 - [ ] **Season-Wechsel nur mit Abschluss-Schnappschuss:** `save-all flush`, dann `SCHNAPPSCHUSS_ERSETZEN=1 schnappschuss.sh …` von Hand, erst danach `SEASON`
   umstellen. `testlauf` → `weihnachten-2026` direkt vor dem Weltwechsel (Task 10 Schritt 4), nicht erst am 27.11. (`statistik/README.md` → Seasons)
 - [ ] **Generalprobe November zurückstellen (Pascal 30.10.):** SMP `kalender.erster-tag: "12-01"`, SMP und Hub `termine.aktive-liste: liste`, Sperrtexte und
-  Hub-Beschreibung wieder „27.11.“ (Kommentare in beiden Configs), dann `nether close`, `end close`, Leitfaden-Phase zurück auf 0, `termine.txt` löschen
+  Hub-Beschreibung wieder „27.11.“ (Kommentare in beiden Configs), dann `nether close`, `end close`, Leitfaden-Phase zurück auf 0, `termine.txt` löschen.
+  Außerdem (30.10.): SMP `mission.start` entfernen, `mission-stand.yml` zurücksetzen und die Insel-Bauten zurückstellen (mit Spawn & Welt klären),
+  Velocity-MOTD Zeile 2 wieder „Start am 27.11.“ (Kommentar in `velocity/velocity.toml.auszug`), `velocity reload`
 - [ ] **Phasen ohne AMP:** serverwahl `termine:` (SMP: Nether Fr 11.12., Phase 3 Vorschlag 15.12., End Fr 18.12., je 18:00 vorläufig; Hub: Start-Ankündigung 27.11. 18:00,
   Rückfall-Eröffnung 18:10). `/serverwahl termin liste` auf beiden zeigt alle Termine, keiner „erledigt“ (Testwelt-Merker `plugins/Serverwahl/termine.txt` vor dem Start löschen)
 - [ ] AMP-Aufgaben: `save-all flush` 03:58, Statistik-Cron 04:00 mit Season-Datei (`statistik/README.md`)

@@ -7,7 +7,8 @@ bind = "0.0.0.0:25577"
 # Serverliste: MOTD und Bild kommen bei Velocity vom Proxy, nicht von Paper ([ping-passthrough] alles false).
 # MiniMessage, zwei Zeilen. Neutral (Pascal 30.10.: Dauer-Server, kein reiner Weihnachtsserver); Saison-Zeile im Dezember möglich.
 # Zeile 2 ab dem Start (05.12.) z. B. auf "<gray>Frohe Weihnachten! · <white>~25 Spieler</white></gray>" ändern
-motd = "<gradient:#4cd964:#ffffff:#5ac8fa>Minecraft SMP</gradient><newline><gray>Start am <white>27.11.</white></gray>"
+motd = "<gradient:#4cd964:#ffffff:#5ac8fa>Minecraft SMP</gradient><newline><gray>Generalprobe im November</gray>"
+# GENERALPROBE (30.10.): vorher "<gradient:#4cd964:#ffffff:#5ac8fa>Minecraft SMP</gradient><newline><gray>Start am <white>27.11.</white></gray>" – zum 27.11. zurück
 show-max-players = 30
 online-mode = true
 # false: Spieler ohne Chat-Signatur (No Chat Reports im Pack) dürfen chatten. Die Anmeldung prüft weiter Mojang (online-mode). Siehe README.md → Chat

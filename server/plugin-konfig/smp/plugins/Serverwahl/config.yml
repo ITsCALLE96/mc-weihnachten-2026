@@ -87,6 +87,17 @@ kategorien:
           - "<gray>Zurück zur Lobby"
           - ""
           - "<yellow>Klicken zum Wechseln"
+# Kopf/Fuß der TAB-Liste (Leitung 30.10.), Kurzfassung aus server/REGELN.md (dort ändern, hier und im Hub nachziehen). Zeilen = MiniMessage
+tab-liste:
+  aktiv: true
+  kopf:
+    - "<gradient:#4cd964:#ffffff:#5ac8fa><bold>Minecraft SMP</bold></gradient>"
+    - ""
+  fuss:
+    - ""
+    - "<gold>Regeln: <gray>respektvoll bleiben · kein Griefing/Stehlen · keine Cheats/X-Ray · PvP nur, wenn beide wollen"
+    - "<gray>Abstand zu fremden Bauten · nicht auf der Spawn-Insel bauen · keine Lag-Maschinen"
+    - "<aqua>Probleme? Pascal oder Moderatoren im Discord"
 # Xaero: eigene Welt-ID, damit Minimap/Weltkarte Hub und SMP getrennt speichern (hinter Velocity sonst dieselbe „Welt“). Fest lassen, sonst neue leere Karte
 xaero-welt-id: 26120501
 # Nicknames und Clan-Tags (Pascal 28.10., Plan server/namen-clans-grief.md): /nick <name> | /nick reset, gespeichert in LuckPerms (gemeinsam mit dem
@@ -236,6 +247,9 @@ mission:
   zeitzone: Europe/Berlin
   aktive-tage: 7
   traenke-je-stufe: 3
+  # GENERALPROBE NOVEMBER (Leitung 30.10.): Spenden ab sofort statt erst ab "start" aus mission.json (27.11.). Stufe 1 startet in der Minute
+  # nach dem Laden. Vor dem 27.11. Zeile entfernen und Stand zurücksetzen (vor-dem-start.md)
+  start: "2026-10-30"
 # Weihnachtsmann im Iglu der Weihnachtsinsel + Jukebox (Pascal 28.10., Ware/Orte: spawn/weihnachtsmann.json, kopiert nach plugins/Serverwahl/).
 # Klick auf die Klickfläche (Interaction aus dem Datapack, ab Stufe 4) öffnet das Händlerfenster; jeden Dezember halber Preis (echte Uhr).
 # Jukebox spielt die Weihnachtsplatten im Wechsel, nur wenn jemand im jukebox-radius ist. /serverwahl jukebox weiter | neu | status

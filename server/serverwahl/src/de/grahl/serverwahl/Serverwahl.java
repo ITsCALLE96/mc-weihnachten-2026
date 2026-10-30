@@ -95,6 +95,9 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private int xaeroWeltId;
     /** „x y z yaw pitch“: jeder Beitritt landet hier statt an der letzten Position (Testwelt, Pascal 28.10.); leer = aus */
     private String beitrittOrt = "";
+    /** TAB-Liste: Kopf/Fuß (MiniMessage-Zeilen), null = aus */
+    private Component tabKopf;
+    private Component tabFuss;
     /** jede Ender-Kiste öffnet diese Kategorie (Testwelt); null = nur die Kisten aus „kisten“ */
     private String enderkistenKategorie;
     /** Winterkalender: Scoreboard-Ziel/Eintrag, das täglich auf den Dezembertag (1–24) gesetzt wird, null = aus */
@@ -300,6 +303,12 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         termine.event.laden(getConfig().getConfigurationSection("termin-event"));
         xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
         beitrittOrt = getConfig().getString("beitritt-ort", "").trim();
+        // Regeln in der TAB-Liste (Leitung 30.10., Quelle server/REGELN.md): Zeilen als Liste, beim Beitritt und bei jedem Reload gesendet
+        ConfigurationSection tab = getConfig().getConfigurationSection("tab-liste");
+        boolean tabAn = tab != null && tab.getBoolean("aktiv", false);
+        tabKopf = tabAn ? MM.deserialize(String.join("<newline>", tab.getStringList("kopf"))) : null;
+        tabFuss = tabAn ? MM.deserialize(String.join("<newline>", tab.getStringList("fuss"))) : null;
+        Bukkit.getOnlinePlayers().forEach(this::tabSetzen);
         enderkistenKategorie = getConfig().getString("alle-enderkisten", null);
         if (namen != null) {
             namen.laden(getConfig().getConfigurationSection("namen"));
@@ -564,6 +573,17 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             Bukkit.getScheduler().runTaskLater(this, () -> e.getPlayer().teleport(l), 2L);
         } catch (RuntimeException ex) {
             getLogger().warning("beitritt-ort fehlerhaft: " + beitrittOrt);
+        }
+    }
+
+    @EventHandler
+    public void beimBeitrittTab(org.bukkit.event.player.PlayerJoinEvent e) {
+        tabSetzen(e.getPlayer());
+    }
+
+    private void tabSetzen(Player p) {
+        if (tabKopf != null) {
+            p.sendPlayerListHeaderAndFooter(tabKopf, tabFuss);
         }
     }
 

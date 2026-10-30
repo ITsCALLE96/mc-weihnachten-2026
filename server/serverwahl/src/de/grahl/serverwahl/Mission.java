@@ -125,6 +125,15 @@ final class Mission implements Listener {
             aktiv = false;
             return;
         }
+        // Generalprobe (Leitung 30.10.): start in der Config überschreibt mission.json, ohne die Datei von Spawn & Welt anzufassen
+        String startOverride = c.getString("start", "").trim();
+        if (!startOverride.isEmpty()) {
+            try {
+                start = LocalDate.parse(startOverride);
+            } catch (java.time.format.DateTimeParseException e) {
+                plugin.getLogger().warning("Mission: start „" + startOverride + "“ ungültig, es gilt mission.json");
+            }
+        }
         standDatei = new File(plugin.getDataFolder(), "mission-stand.yml");
         stand = YamlConfiguration.loadConfiguration(standDatei);
         plugin.getLogger().info("Mission: " + stufen.size() + " Stufen, Stand Stufe " + stufe() + ", Start " + start);
@@ -213,7 +222,7 @@ final class Mission implements Listener {
             stufen.get(n - 1).wuensche().forEach((w, grund) -> stand.set("ziele." + schluessel(w), grund * spieler));
             stand.set("spieler-beim-start." + n, spieler);
             Bukkit.broadcast(Component.text().append(Component.text("[Weihnachtsinsel] ", NamedTextColor.GOLD, TextDecoration.BOLD))
-                    .append(Component.text("Stufe " + n + ": " + stufen.get(n - 1).name() + (mitKiste ? " – bringt eure Spenden zur Spendenkiste!" : " – spendet über die Ender-Kiste am Spawn (Slot Weihnachtsinsel)!"), NamedTextColor.WHITE))
+                    .append(Component.text("Stufe " + n + ": " + stufen.get(n - 1).name() + (mitKiste ? " – bringt eure Spenden zur Spendenkiste!" : " – spendet über die Ender-Kiste am Spawn („Spenden für die Weihnachtsinsel“)!"), NamedTextColor.WHITE))
                     .build());
             plugin.getLogger().info("Mission: Stufe " + n + " gestartet, " + spieler + " aktive Spieler");
         }
@@ -429,7 +438,7 @@ final class Mission implements Listener {
         int n = stufe();
         ItemStack it = new ItemStack(n > stufen.size() ? Material.NETHER_STAR : Material.SPRUCE_SAPLING);
         var m = it.getItemMeta();
-        m.displayName(Component.text("Weihnachtsinsel", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+        m.displayName(Component.text("Spenden für die Weihnachtsinsel", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
         List<Component> lore = new ArrayList<>();
         if (n < 1) {
             lore.add(grau("Start am " + start.getDayOfMonth() + "." + start.getMonthValue() + "."));

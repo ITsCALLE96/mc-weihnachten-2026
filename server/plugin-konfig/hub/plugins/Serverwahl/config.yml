@@ -62,6 +62,17 @@ kategorien:
   bald:
     titel: "<gray>Bald"
     server: []
+# Kopf/Fuß der TAB-Liste (Leitung 30.10.), Kurzfassung aus server/REGELN.md (dort ändern, hier und im SMP nachziehen). Zeilen = MiniMessage
+tab-liste:
+  aktiv: true
+  kopf:
+    - "<gradient:#4cd964:#ffffff:#5ac8fa><bold>Minecraft SMP</bold></gradient> <gray>· Lobby"
+    - ""
+  fuss:
+    - ""
+    - "<gold>Regeln: <gray>respektvoll bleiben · kein Griefing/Stehlen · keine Cheats/X-Ray · PvP nur, wenn beide wollen"
+    - "<gray>Abstand zu fremden Bauten · nicht auf der Spawn-Insel bauen · keine Lag-Maschinen"
+    - "<aqua>Probleme? Pascal oder Moderatoren im Discord"
 # Xaero: eigene Welt-ID, damit Minimap/Weltkarte Hub und SMP getrennt speichern (hinter Velocity sonst dieselbe „Welt“). Fest lassen, sonst neue leere Karte
 xaero-welt-id: 26120101
 # Nicknames und Clan-Tags (Pascal 28.10., Plan server/namen-clans-grief.md): /nick <name> | /nick reset, gespeichert in LuckPerms (gemeinsam mit dem
