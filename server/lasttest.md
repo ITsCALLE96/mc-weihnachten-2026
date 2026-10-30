@@ -31,7 +31,7 @@ Die Bots melden sich **offline** an (ohne Mojang-Konto). Dafür muss die Sicherh
 
 ## Ablauf (~75 Minuten)
 
-Bots starten mit `-Dbot.ip=192.168.178.78 -Dbot.port=25565 -Dbot.login.delay.ms=500` (Login über Velocity wie bei echten Spielern).
+Bots starten mit `-Dbot.ip=192.168.178.78 -Dbot.port=25577 -Dbot.login.delay.ms=500` (Login über Velocity wie bei echten Spielern).
 
 | Phase | Dauer | Einstellung | Bild |
 |---|---|---|---|

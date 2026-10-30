@@ -1,12 +1,12 @@
 # Lokales Testnetz: Velocity + Hub + SMP (seit 24.10.)
 
-Bildet den Aufbau von VM200 nach, nur mit anderen Ports. Läuft **neben** `../testserver/` (Port 25565) und fasst ihn nicht an.
+Bildet den Aufbau von VM200 nach, mit denselben Spiel-Ports (seit 30.10.), nur Voice Chat verschoben. Läuft **neben** `../testserver/` (Port 25565) und fasst ihn nicht an.
 
 | Teil | Ordner | Port | wie VM200 |
 |---|---|---|---|
-| Velocity 4.3.0-44 | `proxy/` | 25577 (Client verbindet hierhin) | `MinecraftProxy01`, 25565 |
+| Velocity 4.3.0-44 | `proxy/` | 25577 (Client verbindet hierhin) | `MinecraftProxy01`, 25577 (extern 25565) |
 | Hub (Paper 26.3-207, Leerwelt, Abenteuer) | `hub/` | 25567 | `MinecraftHub01`, 25567 |
-| SMP (Paper 26.3-207, echte Welt, normal, Plugins und Datapacks wie VM200) | `smp/` | 25568 | `MinecraftWeihnachten01`, 25566 |
+| SMP (Paper 26.3-207, echte Welt, normal, Plugins und Datapacks wie VM200) | `smp/` | 25568 | `MinecraftWeihnachten01`, 25568 |
 
 Voice Chat wie auf VM200 über den Proxy, nur auf verschobenen Ports, damit nichts mit dem Testserver (24454) streitet: Proxy UDP 24474, SMP 24475, Hub 24476
 (VM200: 24454 / 24455 / 24456). Ohne Whitelist. Das Secret wird bei jedem Einrichten neu erzeugt und liegt nur in den ignorierten Ordnern.

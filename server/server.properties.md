@@ -3,9 +3,14 @@
 Backend hinter dem Velocity-Proxy (seit 23.10.). Online-Prüfung macht der Proxy, das Backend nimmt nur Verbindungen von `127.0.0.1` an
 und prüft das gemeinsame Secret (`velocity/README.md`).
 
+Ports auf VM200 (Leitung 30.10.): Proxy 25577, Hub 25567, SMP 25568, Testwelt 25569 – 25565/25566 belegen dort andere Instanzen.
+AMP schreibt eigene Schlüssel dazu (z. B. `server-portv6` = Port + 1, `query.port`, `rcon.port`); Paper wertet `server-portv6` nicht aus. Nach dem
+ersten Start mit `ss -tlnup` prüfen, dass nur 127.0.0.1:<Port> lauscht und `enable-query=false`, `enable-rcon=false` stehen (sonst kollidieren
+`query.port`/`rcon.port` zwischen Hub, SMP und anderen Instanzen).
+
 ```properties
 server-ip=127.0.0.1
-server-port=25566
+server-port=25568
 max-players=30
 view-distance=8
 simulation-distance=6
@@ -16,6 +21,7 @@ enforce-secure-profile=false
 white-list=true
 enforce-whitelist=true
 enable-rcon=false
+enable-query=false
 spawn-protection=0
 difficulty=normal
 require-resource-pack=true
@@ -69,6 +75,7 @@ enforce-secure-profile=false
 white-list=true
 enforce-whitelist=true
 enable-rcon=false
+enable-query=false
 spawn-protection=0
 level-type=minecraft\:flat
 generator-settings={"layers":[{"block":"minecraft:air","height":1}],"biome":"minecraft:the_void"}

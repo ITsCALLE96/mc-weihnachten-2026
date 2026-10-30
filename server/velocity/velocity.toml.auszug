@@ -2,7 +2,8 @@
 # Velocity legt die vollständige Datei beim ersten Start an. Danach diese Werte dort setzen
 # und die Schlüssel mit der erzeugten Datei abgleichen (Velocity 4.3, config-version kann abweichen).
 
-bind = "0.0.0.0:25565"
+# Port 25577 (Leitung 30.10.): 25565/25566 belegen auf VM200 Minecraft101/ForeverWorld01; FritzBox leitet extern 25565 hierher
+bind = "0.0.0.0:25577"
 # Serverliste: MOTD und Bild kommen bei Velocity vom Proxy, nicht von Paper ([ping-passthrough] alles false).
 # MiniMessage, zwei Zeilen. „Weihnachtsserver“ ist Platzhalter, bis der Servername feststeht.
 # Zeile 2 ab dem Start (05.12.) z. B. auf "<gray>Frohe Weihnachten! · <white>~25 Spieler</white></gray>" ändern
@@ -29,7 +30,8 @@ modinfo = false
 [servers]
 # Backends nur lokal auf VM200 erreichbar. Namen = Ziele in Serverwahl (plugin-konfig/hub/plugins/Serverwahl/config.yml)
 hub = "127.0.0.1:25567"
-smp = "127.0.0.1:25566"
+smp = "127.0.0.1:25568"
+# Testwelt (MinecraftTestwelt01, meist gestoppt) nur bei Bedarf eintragen: testwelt = "127.0.0.1:25569"
 # Beitritt landet im Hub (seit 24.10.), Wechsel per Kiste, /server smp oder /hub
 try = ["hub"]
 
