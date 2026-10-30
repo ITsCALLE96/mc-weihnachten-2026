@@ -48,10 +48,12 @@ Ablauf seit 30.10. (Pascal): **neue SMP-Welt mit neuem Zufalls-Seed** über `spa
 CA12 und die feste Insel-Lage sind überholt. Der Seed steht nur in der Welt, in `spawn/quellen/smp-seed.txt` (git-ignoriert) und in der Vault-Administration.
 
 - [ ] Neue Welt erzeugen und aufbauen: `spawn/smp-neu/erzeugen.sh` → `bauen.sh` → Abnahme-Renders, Pascal gibt frei (Spawn & Welt, `spawn/smp-neu/README.md`)
-- [ ] **Vorgenerierung auf VM200** (Leitung 31.10.): Overworld r 5000 um den Spawn, Nether r 1250, End r 2000 (`vorgenerieren.sh`-Werte), mit Chunky auf dem SMP
-  bei geschlossenem Server; Dauer und Platz vorher abschätzen (`vorgenerierung.md`). Ablauf mit Spawn & Welt abstimmen (bisher lokal gebaut und hochgeladen)
 - [ ] Einspielen: `server/vm200/smp-neu-einspielen.sh` (alte Welt sichern, Welt, Seed in AMP, `regions.yml`/`weihnachtsmann.json`/`mission.json` aus
-  `spawn/smp-neu/ausgabe/`, Configs mit Versatz, `winter-weihnachten` erst **nach** der Vorgenerierung, Anti-Xray, Spieler-Reset Hub + SMP)
+  `spawn/smp-neu/ausgabe/`, Configs mit Versatz, `winter-weihnachten` noch **nicht**, Anti-Xray, Spieler-Reset Hub + SMP)
+- [ ] **Vorgenerierung auf VM200** (Leitung 31.10.), nach dem Einspielen, SMP gestartet, Whitelist zu, keine Spieler: Befehle aus
+  `bash spawn/smp-neu/vorgenerieren.sh --befehle` (Grenzen 10000/2500/10000, Chunky Overworld r 5000 um den Spawn, Nether r 1250 um Spawn ÷ 8, End r 2000 um 0/0)
+  nacheinander in die AMP-Konsole. Chunky arbeitet die drei Welten nebeneinander ab; fertig bei dreimal „[Chunky] Task finished“ (lokal ~35 min, ~4 GB). Dann `save-all flush`
+- [ ] **Erst danach** `winter-weihnachten` nach `world/datapacks` und Neustart (mit Temperatur 0 baut die Generierung sonst Schnee und Eis fest ein, auch auf Meer und Fluss)
 - [ ] Keine Dimensions-Ordner vor dem ersten Start anlegen (Absturz in 26.3); Anti-Xray Nether/End erst danach (`anti-xray-setzen.py` macht das)
 - [ ] Frischer Join nach `spawn/PRUEFLISTE.md` (Testspieler auf der Insel, Ender-Kiste, Elytra-Zonen, Inselschutz, Kalender Tag 0, Weihnachtsinsel Stufe 0)
 - [ ] Datapacks per `/datapack list` (`plugins.md`), Wanderhändler-Rabatt dauerhaft an

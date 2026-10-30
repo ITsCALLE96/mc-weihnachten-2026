@@ -12,8 +12,9 @@ Gebaut wird lokal auf einem Testserver (Paper 26.3, Chunky im Plugin-Ordner, kei
 | 1. Welt erzeugen | `bash spawn/smp-neu/erzeugen.sh <server>`: leerer `level-seed`, Chunky r 192 um den World-Spawn, Seed sichern, `plan` → `spawn/smp-neu/lage.json` | ~2 min |
 | 2. Aufbauen | `bash spawn/smp-neu/bauen.sh <server>`: Datapacks erzeugen und verschieben, Gelände angleichen, Insel, Lichter, Kalender (Tag 0), Deko, Weihnachtsinsel (Stufe 0) | ~10 min |
 | 3. Abnahme | Renders vorher/nachher (Schrägansichten, Blick von Norden, Längsschnitt durch die Spawnmitte), Pascal gibt frei | – |
-| 4. Vorgenerieren | `bash spawn/smp-neu/vorgenerieren.sh <server>`: Grenzen je Dimension, Chunky Overworld r 5000 um den Spawn, Nether r 1250 (÷ 8), End r 2000 | ~35 min |
-| 5. VM200 | Server-Session: alte Welt sichern (`server/vm200/smp-welt-neu.sh`), Ordner hochladen, Seed übernehmen, `spawn/smp-neu/ausgabe/regions.yml` und `weihnachtsmann.json`, Winter-Datapack, Anti-Xray, Spieler-Reset, LSS | ~45 min |
+| 4. VM200 | Server-Session: `server/vm200/smp-neu-einspielen.sh` (alte Welt sichern, Ordner hochladen, Seed übernehmen, `spawn/smp-neu/ausgabe/` regions.yml, weihnachtsmann.json, mission.json, Anti-Xray, Spieler-Reset), noch ohne Winter-Datapack | ~15 min |
+| 5. Vorgenerieren | seit 31.10. auf VM200: `bash spawn/smp-neu/vorgenerieren.sh --befehle` gibt die Konsolenbefehle (Grenzen je Dimension, Chunky Overworld r 5000 um den Spawn, Nether r 1250 (÷ 8), End r 2000) für die laufende SMP-Instanz; lokal weiter mit `<server>` | ~35 min |
+| 6. Winter | danach `winter-weihnachten` in die Welt, Neustart, LSS | ~5 min |
 
 ## Was am Seed hängt und wie es gelöst ist
 
