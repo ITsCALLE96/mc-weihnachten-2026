@@ -76,7 +76,8 @@
     "fancymenu",
     "simple-voice-chat",
     "simple-voice-animations",
-    "voicechat-names"
+    "voicechat-names",
+    "extreme_sound_muffler"
   ],
   "aktivSobaldVerfuegbar": [
     "rp-renames"
@@ -89,8 +90,7 @@
     "coolrain",
     "sound-physics-remastered",
     "ambientsounds",
-    "presence-footsteps",
-    "extreme_sound_muffler"
+    "presence-footsteps"
   ],
   "shader": [
     "complementary-reimagined",

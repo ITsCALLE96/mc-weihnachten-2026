@@ -8,9 +8,12 @@ Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/m
 
 ## Inhalt von `modpack-v3` (30.10.2026)
 
-Gleiche Mod-Versionen wie `modpack-v2` (fest gebaut mit `node tools/modpack.mjs --fest <altes .mrpack>`), nur zwei Änderungen:
+Gleiche Mod-Versionen wie `modpack-v2` (fest gebaut mit `node tools/modpack.mjs --fest <altes .mrpack>`), nur diese Änderungen (Entscheidung Pascal 30.10., gilt als Standard für alle):
 - **Continuity wirkt jetzt:** `overrides/options.txt` schaltet die eingebauten Packs „continuity:default“ und „continuity:glass_pane_culling_fix“ ein (verbundenes Glas). Vorher lagen sie bei, waren aber aus.
-- **Redstone Tweaks raus** (Leitung, 30.10.): lag bei, war aber nie eingeschaltet – keine toten Inhalte.
+- **Redstone Tweaks raus**: lag bei, war aber nie eingeschaltet – keine toten Inhalte.
+- **Extreme Sound Muffler an** (von `optional` nach `mods`): einzelne Geräusche leiser stellen, für alle standardmäßig aktiv.
+- **Bleiben aus:** AmbientSounds (+ CreativeCore), Sound Physics Remastered, Presence Footsteps, Cool Rain, uku's Armor HUD (+ ukulib), Flashback, Do a Barrel Roll (+ cicada-lib), Nvidium.
+- **Shader:** Complementary Reimagined und Unbound samt Euphoria Patches bleiben im Pack, standardmäßig aus – jeder wählt selbst.
 
 Geprüft auf weitere Inhalte, die erst ein eingebautes Pack oder eine Option brauchen: Außer Continuity bringt nur Client Sort ein eingebautes Pack mit („Dark Mode“ für seine Knöpfe) – Geschmackssache, bleibt aus. Shader sind absichtlich aus (Anleitung: Videoeinstellungen → Shader-Pakete), Gamma Utils wirkt über die Tasten H/G. Alle übrigen Mods sind ab Werk aktiv.
 
@@ -34,7 +37,7 @@ Geprüft auf weitere Inhalte, die erst ein eingebautes Pack oder eine Option bra
 
 **Aktiv, sobald es eine Version für 26.3 gibt** (`aktivSobaldVerfuegbar`): RP Renames
 
-**Deaktiviert dabei** (`optional`): Geräusch-Mods Cool Rain, Sound Physics Remastered, AmbientSounds, Presence Footsteps, Extreme Sound Muffler (Pascal, 26.10.: im Pack aus, wer will, schaltet sie ein), Nvidium (nur Nvidia), voxy (nicht zusammen mit Distant Horizons), uku's Armor HUD, Flashback, Do a Barrel Roll
+**Deaktiviert dabei** (`optional`): Geräusch-Mods Cool Rain, Sound Physics Remastered, AmbientSounds, Presence Footsteps (Pascal, 26.10.: im Pack aus, wer will, schaltet sie ein; Extreme Sound Muffler seit v3 an), Nvidium (nur Nvidia), voxy (nicht zusammen mit Distant Horizons), uku's Armor HUD, Flashback, Do a Barrel Roll
 
 **Raus (24.10., Absturz mit FancyMenu):** Remove Reloading Screen
 
@@ -138,7 +141,7 @@ Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 | [Scribble](https://modrinth.com/mod/scribble) | Bücher bequem formatieren | ⚪ | | |
 | [Big Sign Writer](https://modrinth.com/mod/bigsignwriter) | große Buchstaben über mehrere Schilder | ⚪ | | |
 | [Armor Hider](https://modrinth.com/mod/zannaghs-armor-hider) | Rüstung ausblenden, damit der Skin sichtbar ist | ⚪ | | |
-| [Extreme Sound Muffler](https://modrinth.com/mod/extreme_sound_muffler) | einzelne Geräusche leiser stellen | ⚪ | | im Pack aus (26.10.) |
+| [Extreme Sound Muffler](https://modrinth.com/mod/extreme_sound_muffler) | einzelne Geräusche leiser stellen | ⚪ | | **an seit v3 (Pascal, 30.10.)** |
 | [Do a Barrel Roll](https://modrinth.com/mod/do-a-barrel-roll) | Elytra-Flug wie im Flugsimulator | ⚪ | | kein Vorteil, eher schwieriger |
 
 ## Bauen und Aufnehmen

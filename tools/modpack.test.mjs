@@ -80,3 +80,13 @@ test('Fester Bau übernimmt Versionen des alten Packs und lässt nicht mehr gewo
   assert.deepEqual(festerIndex(alt, { name: 'N', version: '3', shader: [], resourcepacks: ['y'] }).files.map((f) => f.path),
     ['mods/sodium.jar', 'resourcepacks/tweaks.zip']);
 });
+
+test('Fester Bau schaltet Mods ein, die mods.json jetzt aktiv vorsieht', () => {
+  const alt = {
+    files: [{ path: 'mods/esm.jar.disabled', downloads: ['https://cdn.modrinth.com/data/5IIKsxiL/versions/a/esm.jar'] },
+      { path: 'mods/coolrain.jar.disabled', downloads: ['https://cdn.modrinth.com/data/OTHER/versions/b/coolrain.jar'] }],
+    dependencies: {},
+  };
+  assert.deepEqual(festerIndex(alt, { name: 'N', version: '3', shader: [], resourcepacks: [], aktiv: ['5IIKsxiL'] }).files.map((f) => f.path),
+    ['mods/esm.jar', 'mods/coolrain.jar.disabled']);
+});

@@ -12,7 +12,7 @@ Du brauchst das nicht zum Mitspielen – es macht Minecraft flüssiger und schö
 
 ## Zusätzliche Mods einschalten
 
-Diese Mods liegen **ausgeschaltet** bei: Nvidium (nur Nvidia-Grafikkarten, wirkt nur ohne Shader), uku's Armor HUD, Flashback (Aufnahmen), Do a Barrel Roll (Elytra-Flugsteuerung) und die Geräusch-Mods Cool Rain, Sound Physics Remastered, AmbientSounds, Presence Footsteps, Extreme Sound Muffler. In der Modrinth App: Profil öffnen → **Inhalt** → beim gewünschten Mod den **Schalter** umlegen, dann Minecraft neu starten. Was welche Mod macht, steht in der Mod-Liste (`MODS.md`).
+Diese Mods liegen **ausgeschaltet** bei: Nvidium (nur Nvidia-Grafikkarten, wirkt nur ohne Shader), uku's Armor HUD, Flashback (Aufnahmen), Do a Barrel Roll (Elytra-Flugsteuerung) und die Geräusch-Mods Cool Rain, Sound Physics Remastered, AmbientSounds, Presence Footsteps. Extreme Sound Muffler (einzelne Geräusche leiser stellen) ist eingeschaltet. In der Modrinth App: Profil öffnen → **Inhalt** → beim gewünschten Mod den **Schalter** umlegen, dann Minecraft neu starten. Was welche Mod macht, steht in der Mod-Liste (`MODS.md`).
 
 Nicht zusätzlich installieren: **Distant Horizons** (verträgt sich nicht mit voxy, das schon an ist).
 

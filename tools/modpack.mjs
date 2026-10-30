@@ -39,9 +39,13 @@ export function baueIndex({ name, version, minecraft, fabricLoader, versionen, s
 
 // Fester Bau: übernimmt Mod-Versionen und Loader eines alten Packs, damit sich kurz vor einem Test nichts ungeprüft ändert.
 // Shader- und Resourcepack-Ordner fallen weg, wenn mods.json keine mehr vorsieht; neue Mods brauchen einen normalen Bau.
-export function festerIndex(alt, { name, version, shader = [], resourcepacks = [] }) {
+// aktiv: Projekt-IDs aktiver Mods; deren .jar.disabled (früher optional) wird eingeschaltet.
+export function festerIndex(alt, { name, version, shader = [], resourcepacks = [], aktiv = [] }) {
   const weg = [...(shader.length ? [] : ['shaderpacks/']), ...(resourcepacks.length ? [] : ['resourcepacks/'])];
-  return { ...alt, name, versionId: version, files: alt.files.filter((f) => !weg.some((o) => f.path.startsWith(o))) };
+  const einschalten = (f) => f.path.endsWith('.disabled') && aktiv.some((id) => f.downloads?.[0]?.includes(`/data/${id}/`));
+  return { ...alt, name, versionId: version, files: alt.files
+    .filter((f) => !weg.some((o) => f.path.startsWith(o)))
+    .map((f) => (einschalten(f) ? { ...f, path: f.path.slice(0, -'.disabled'.length) } : f)) };
 }
 
 // Eigene Mods, die nicht auf Modrinth liegen: Pfade relativ zum Repo, landen als overrides/mods/<datei> im Pack.
@@ -91,7 +95,8 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
 
   const index = fest
     ? festerIndex(JSON.parse(execFileSync('C:/Windows/System32/tar.exe', ['-xOf', fest, 'modrinth.index.json'], { encoding: 'utf8' })),
-      { name, version, shader, resourcepacks })
+      { name, version, shader, resourcepacks,
+        aktiv: await Promise.all(mods.map(async (m) => (await holeJson(`https://api.modrinth.com/v2/project/${m}`)).id)) })
     : await neuerIndex();
   const loader = index.dependencies['fabric-loader'];
 
