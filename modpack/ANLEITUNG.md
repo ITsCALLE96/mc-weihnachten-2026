@@ -10,7 +10,8 @@ Du brauchst das nicht zum Mitspielen – es macht Minecraft flüssiger und schö
 5. Mit deinem Microsoft-Konto anmelden und das Profil **„Weihnachtsprojekt 2026“** mit **Play** starten.
 6. **Mehrspieler** → der Server **„Weihnachtsprojekt“** (`mc.grahl.cloud`) ist schon eingetragen → **Beitreten**. Das Weihnachts-Resourcepack wird automatisch angenommen.
 
-**Bedrock (Handy, Konsole, Windows-Edition)?** Ohne Modpack: Server hinzufügen mit Adresse **`mc.grahl.cloud`**, Port **19132**.
+**Bedrock (Handy, Tablet, Windows-Edition)?** Ohne Modpack: Server hinzufügen mit Adresse **`mc.grahl.cloud`**, Port **19132** – Details und was dabei fehlt: `BEDROCK.md`.
+**Ohne Modpack mit Java?** Geht auch: `OHNE-MODPACK.md`.
 
 ## Zusätzliche Mods einschalten
 
