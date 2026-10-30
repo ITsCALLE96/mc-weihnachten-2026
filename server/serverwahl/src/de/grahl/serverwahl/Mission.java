@@ -98,6 +98,7 @@ final class Mission implements Listener {
     private String tafelTag;
     private Location tafelOrt;
     private final List<Stufe> stufen = new ArrayList<>();
+    private List<String> befehleBeiSpende = List.of();
 
     private File standDatei;
     private YamlConfiguration stand = new YamlConfiguration();
@@ -125,6 +126,7 @@ final class Mission implements Listener {
             aktiv = false;
             return;
         }
+        befehleBeiSpende = c.getStringList("befehle-bei-spende");
         // Generalprobe (Leitung 30.10.): start in der Config überschreibt mission.json, ohne die Datei von Spawn & Welt anzufassen
         String startOverride = c.getString("start", "").trim();
         if (!startOverride.isEmpty()) {
@@ -224,6 +226,12 @@ final class Mission implements Listener {
             Bukkit.broadcast(Component.text().append(Component.text("[Weihnachtsinsel] ", NamedTextColor.GOLD, TextDecoration.BOLD))
                     .append(Component.text("Stufe " + n + ": " + stufen.get(n - 1).name() + (mitKiste ? " – bringt eure Spenden zur Spendenkiste!" : " – spendet über die Ender-Kiste am Spawn („Spenden für die Weihnachtsinsel“)!"), NamedTextColor.WHITE))
                     .build());
+            // Leitung 30.10.: Titel für alle + anklickbare Zeile, die das Spendenfenster öffnet
+            Bukkit.getOnlinePlayers().forEach(x -> x.showTitle(net.kyori.adventure.title.Title.title(
+                    Component.text("Weihnachtsinsel", NamedTextColor.GOLD), Component.text("Stufe " + n + ": " + stufen.get(n - 1).name(), NamedTextColor.WHITE))));
+            Bukkit.broadcast(Component.text("» Hier klicken zum Spenden «", NamedTextColor.YELLOW, TextDecoration.BOLD)
+                    .clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mission spenden"))
+                    .hoverEvent(net.kyori.adventure.text.event.HoverEvent.showText(Component.text("Öffnet das Spendenfenster der Weihnachtsinsel"))));
             plugin.getLogger().info("Mission: Stufe " + n + " gestartet, " + spieler + " aktive Spieler");
         }
         speichern();
@@ -288,6 +296,13 @@ final class Mission implements Listener {
                     konsole(feierFunktion);
                 }
             }, 400L);
+        }
+    }
+
+    /** Konsolenbefehle aus mission.befehle-bei-spende ({spieler} = Kontoname); müssen wiederholbar sein (Spende und jeder Login) */
+    private void spenderBefehle(Player p) {
+        if (p.isOnline()) {
+            befehleBeiSpende.forEach(b -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), b.replace("{spieler}", p.getName())));
         }
     }
 
@@ -395,6 +410,7 @@ final class Mission implements Listener {
             }
             p.sendMessage(dank);
             plugin.getLogger().info("Mission: " + p.getName() + " spendet " + angenommen);
+            spenderBefehle(p);
             pruefen();
             tafel();
         }
@@ -489,6 +505,10 @@ final class Mission implements Listener {
     public void beimBeitritt(PlayerJoinEvent e) {
         if (aktiv) {
             Bukkit.getScheduler().runTaskLater(plugin, () -> liefern(e.getPlayer()), 60L);
+            // rückwirkend für alle, die schon gespendet haben (Quest leitfaden:ankommen/spende, Questbuch 30.10.)
+            if (stand.getInt("gesamt-spender." + e.getPlayer().getUniqueId(), 0) > 0) {
+                Bukkit.getScheduler().runTaskLater(plugin, () -> spenderBefehle(e.getPlayer()), 60L);
+            }
         }
     }
 
@@ -609,6 +629,11 @@ final class Mission implements Listener {
         if (args.length >= 1 && args[0].equalsIgnoreCase("abholen")) {
             liefern(p);
             return "Offene Tränke geprüft.";
+        }
+        // Klick auf die Chatzeile beim Stufenstart (Leitung 30.10.)
+        if (args.length >= 1 && args[0].equalsIgnoreCase("spenden")) {
+            spendenOeffnen(p);
+            return null;
         }
         int n = stufe();
         return n < 1 ? "Start am " + start : n > stufen.size() ? "Fertig!"

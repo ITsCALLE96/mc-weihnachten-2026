@@ -354,7 +354,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equals("mission")) {
             if (sender instanceof Player p) {
-                p.sendMessage(Component.text(mission.spieler(p, args), NamedTextColor.GOLD));
+                String antwort = mission.spieler(p, args);
+                if (antwort != null) {
+                    p.sendMessage(Component.text(antwort, NamedTextColor.GOLD));
+                }
             }
             return true;
         }

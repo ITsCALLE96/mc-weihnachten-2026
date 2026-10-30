@@ -250,6 +250,9 @@ mission:
   # GENERALPROBE NOVEMBER (Leitung 30.10.): Spenden ab sofort statt erst ab "start" aus mission.json (27.11.). Stufe 1 startet in der Minute
   # nach dem Laden. Vor dem 27.11. Zeile entfernen und Stand zurücksetzen (vor-dem-start.md)
   start: "2026-10-30"
+  # nach jeder angenommenen Spende und beim Login bisheriger Spender (wiederholbar!), {spieler} = Kontoname. Quest „Erste Spende“ (Questbuch 30.10.)
+  befehle-bei-spende:
+    - "advancement grant {spieler} only leitfaden:ankommen/spende"
 # Weihnachtsmann im Iglu der Weihnachtsinsel + Jukebox (Pascal 28.10., Ware/Orte: spawn/weihnachtsmann.json, kopiert nach plugins/Serverwahl/).
 # Klick auf die Klickfläche (Interaction aus dem Datapack, ab Stufe 4) öffnet das Händlerfenster; jeden Dezember halber Preis (echte Uhr).
 # Jukebox spielt die Weihnachtsplatten im Wechsel, nur wenn jemand im jukebox-radius ist. /serverwahl jukebox weiter | neu | status

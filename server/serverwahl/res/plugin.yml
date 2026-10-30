@@ -20,7 +20,7 @@ commands:
     permission: serverwahl.nick
   mission:
     description: "Weihnachtsinsel: Stand anzeigen, /mission abholen holt offene Belohnungs-Tränke"
-    usage: "/mission [abholen]"
+    usage: "/mission [abholen|spenden]"
     permission: serverwahl.mission
 permissions:
   serverwahl.mission:
