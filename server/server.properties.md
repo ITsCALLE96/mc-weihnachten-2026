@@ -1,4 +1,4 @@
-# Sollwerte server.properties (Instanz MinecraftWeihnachten01)
+# Sollwerte server.properties (Instanz MinecraftSMP01)
 
 Backend hinter dem Velocity-Proxy (seit 23.10.). Online-Prüfung macht der Proxy, das Backend nimmt nur Verbindungen von `127.0.0.1` an
 und prüft das gemeinsame Secret (`velocity/README.md`).
@@ -29,7 +29,7 @@ resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/downloa
 resource-pack-sha1=45e2d461d097f6ece7f5dad8aa756d527984be0b
 resource-pack-id=366d33f6-84ba-41df-8376-97e055b7d368
 resource-pack-prompt={"text":"Pflicht: Weihnachts-Texturen und das deutsche Questbuch. Ohne Annehmen kein Beitritt.","color":"aqua"}
-motd=§b❄ Weihnachtsserver ❄
+motd=§bSMP
 ```
 
 **`difficulty=normal`** (seit 26.10., Leitung beim Testnetz-Test; war vorher nirgends festgelegt, Paper-Standard wäre `easy`). Pascal darf noch widersprechen.
@@ -91,7 +91,7 @@ resource-pack=https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/downloa
 resource-pack-sha1=45e2d461d097f6ece7f5dad8aa756d527984be0b
 resource-pack-id=366d33f6-84ba-41df-8376-97e055b7d368
 resource-pack-prompt={"text":"Pflicht: Weihnachts-Texturen und das deutsche Questbuch. Ohne Annehmen kein Beitritt.","color":"aqua"}
-motd=§b❄ Hub ❄
+motd=§bHub
 ```
 
 - **Resourcepack auf beiden mit derselben ID und SHA1:** Der Client lädt es einmal im Hub, beim Wechsel aufs SMP erkennt er es wieder und lädt nicht neu.

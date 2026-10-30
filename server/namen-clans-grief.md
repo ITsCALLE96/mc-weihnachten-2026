@@ -96,9 +96,9 @@ Gegenstand/Block (Hover = Prism-Aktion). Kein `/pr wand`, nichts umzuschalten, k
 ## VM200 (Task 2 / Task 9)
 
 - Gemeinsamer Ordner und Verknüpfung `plugins/LuckPerms/yaml-storage → ../../../geteilt/luckperms` in Hub und SMP: `server/vm200/geteilt-einrichten.sh`
-  (Container sehen nur ihren Instanzordner, der Ordner `/srv/ampdata/mc-weihnachten-geteilt` ist per Bind-Mount als `<instanz>/geteilt` eingehängt), **vor** dem ersten Start
+  (Container sehen nur ihren Instanzordner, der Ordner `/srv/ampdata/mc-netzwerk-geteilt` ist per Bind-Mount als `<instanz>/geteilt` eingehängt), **vor** dem ersten Start
 - Prism + NBT-API auf den SMP, einmal starten/stoppen, dann `python3 server/prism/konfig-setzen.py <instanz>/plugins/prism/prism.conf`
-- **Backup (Task 9):** `/srv/ampdata/mc-weihnachten-geteilt/` (LuckPerms, Whitelist-Datei, Merker) liegt außerhalb der AMP-Instanzen → eigene Sicherung nötig (Nicks, Clans, Rechte);
+- **Backup (Task 9):** `/srv/ampdata/mc-netzwerk-geteilt/` (LuckPerms, Whitelist-Datei, Merker) liegt außerhalb der AMP-Instanzen → eigene Sicherung nötig (Nicks, Clans, Rechte);
   `plugins/prism/prism.db` liegt im SMP und kommt mit der Instanz mit (Rollback nach einer Rücksicherung braucht sie)
 
 ## Test (Testnetz)

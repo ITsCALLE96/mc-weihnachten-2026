@@ -142,7 +142,7 @@ volles Inventar → Hinweis, Kiste anklicken liefert nach; zweites Konto loggt s
 
 ## Eröffnungssperre (Leitung 24.10., Weg mit Spawn & Welt abgestimmt)
 
-Die Sperre sitzt **auf dem SMP selbst**: Solange `/AMP/geteilt/status/smp-offen` fehlt, lehnt es jeden Beitritt ab („Der Weihnachtsserver öffnet am 27.11.“),
+Die Sperre sitzt **auf dem SMP selbst**: Solange `/AMP/geteilt/status/smp-offen` fehlt, lehnt es jeden Beitritt ab („Der Server öffnet am 27.11.“),
 egal ob über die Kiste oder `/server smp`. Velocity lässt den Spieler dann im Hub. Ops und `serverwahl.vorab` kommen durch (Tests, Testlauf 21.11.).
 Beide Server laufen auf VM200, deshalb reicht eine Datei als Merker. Kein Plugin-Kanal, der einen Spieler auf dem Ziel bräuchte.
 
@@ -150,7 +150,7 @@ Beide Server laufen auf VM200, deshalb reicht eine Datei als Merker. Kein Plugin
 - **Zurücknehmen** (Proben): `serverwahl schliessen`. Der Hub löscht die Datei nie selbst, eine zurückgesetzte Hub-Welt schließt das SMP also nicht wieder.
   Für eine weitere Probe deshalb Datapack zurücksetzen (`#offen` = 0) **und** `serverwahl schliessen`
 - **Stand:** `serverwahl status`
-- **VM200** (30.10.): `/AMP/geteilt` ist im Container der gemeinsame Ordner `/srv/ampdata/mc-weihnachten-geteilt` (Bind-Mount, `../vm200/geteilt-einrichten.sh`), `status/` legt das Skript an
+- **VM200** (30.10.): `/AMP/geteilt` ist im Container der gemeinsame Ordner `/srv/ampdata/mc-netzwerk-geteilt` (Bind-Mount, `../vm200/geteilt-einrichten.sh`), `status/` legt das Skript an
 - **`/server` ausblenden:** ohne Rechte-Plugin auf Velocity nicht möglich, wegen der SMP-Sperre aber auch nicht mehr nötig
 
 Neuer Server später (z. B. zweites SMP): Zeile in `velocity.toml` `[servers]`, Eintrag unter der passenden Kategorie, `/serverwahl reload`. Kein neuer Build.
@@ -159,7 +159,7 @@ Neuer Server später (z. B. zweites SMP): Zeile in `velocity.toml` `[servers]`, 
 
 | Kiste | Position | Kategorie |
 |---|---|---|
-| links (vom Platz nach Osten gesehen, bestätigt Spawn & Welt) | 25/236/−9 | `smp`: Weihnachtsserver |
+| links (vom Platz nach Osten gesehen, bestätigt Spawn & Welt) | 25/236/−9 | `smp`: SMP |
 | | 27/236/−5 | `testwelt` (bald) |
 | Mitte, Ender-Kiste | 28/236/0 | `alle`: alle Server |
 | | 27/236/5 | `minigames` (bald) |

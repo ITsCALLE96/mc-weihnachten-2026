@@ -5,9 +5,9 @@
 # Port 25577 (Leitung 30.10.): 25565/25566 belegen auf VM200 Minecraft101/ForeverWorld01; FritzBox leitet extern 25565 hierher
 bind = "0.0.0.0:25577"
 # Serverliste: MOTD und Bild kommen bei Velocity vom Proxy, nicht von Paper ([ping-passthrough] alles false).
-# MiniMessage, zwei Zeilen. „Weihnachtsserver“ ist Platzhalter, bis der Servername feststeht.
+# MiniMessage, zwei Zeilen. Neutral (Pascal 30.10.: Dauer-Server, kein reiner Weihnachtsserver); Saison-Zeile im Dezember möglich.
 # Zeile 2 ab dem Start (05.12.) z. B. auf "<gray>Frohe Weihnachten! · <white>~25 Spieler</white></gray>" ändern
-motd = "<gradient:#ff5252:#ffffff:#4cd964>❄ Weihnachtsserver ❄</gradient><newline><gray>Frohe Weihnachten! · Start am <white>05.12.</white></gray>"
+motd = "<gradient:#4cd964:#ffffff:#5ac8fa>Minecraft SMP</gradient><newline><gray>Start am <white>27.11.</white></gray>"
 show-max-players = 30
 online-mode = true
 # false: Spieler ohne Chat-Signatur (No Chat Reports im Pack) dürfen chatten. Die Anmeldung prüft weiter Mojang (online-mode). Siehe README.md → Chat

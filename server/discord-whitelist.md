@@ -24,7 +24,7 @@ fliegt erst von der Whitelist, wenn **keine** Guild ihn mehr freigibt. Erlaubte 
 
 ## 1. Server-Seite (serverwahl, Hub und SMP)
 
-- Gemeinsame Datei `/AMP/geteilt/whitelist/discord.json` (im Container; auf VM200 `/srv/ampdata/mc-weihnachten-geteilt/whitelist/`, Bind-Mount; Testnetz: `testnetz/status/whitelist-discord.json`), Besitzer `amp`, nicht im Repo:
+- Gemeinsame Datei `/AMP/geteilt/whitelist/discord.json` (im Container; auf VM200 `/srv/ampdata/mc-netzwerk-geteilt/whitelist/`, Bind-Mount; Testnetz: `testnetz/status/whitelist-discord.json`), Besitzer `amp`, nicht im Repo:
   ```json
   { "stand": "2026-11-20T18:00:00Z",
     "eintraege": [ { "discord": "123456789012345678", "name": "Steve", "uuid": "…", "edition": "java", "gilden": ["<guild-jungs>", "<guild-community>"] },
@@ -103,7 +103,7 @@ Namensformat: Java `^[A-Za-z0-9_]{3,16}$`; Bedrock 1–16 Zeichen, Buchstaben/Zi
 
 ## 5. Betrieb, Backup, Test
 
-- Backup: auf VM200 `/srv/ampdata/mc-weihnachten-geteilt/` (im Container `/AMP/geteilt/`, mit `whitelist/` und `luckperms/`) sichern (Task 9). Verlust ist harmlos: der nächste Abgleich baut ihn
+- Backup: auf VM200 `/srv/ampdata/mc-netzwerk-geteilt/` (im Container `/AMP/geteilt/`, mit `whitelist/` und `luckperms/`) sichern (Task 9). Verlust ist harmlos: der nächste Abgleich baut ihn
   nicht neu auf (nur Löschungen), deshalb Bot-Befehl „alle neu senden“ für den Notfall
 - Testnetz: Endpunkt auf `127.0.0.1:8765`, Testschlüssel in `testnetz/hub/plugins/Serverwahl/whitelist-api.key` (git-ignoriert); Proben mit `curl`:
   eintragen (Java/Bedrock), unbekannter Name, doppelter Name, entfernen (Spieler online → Kick), Abgleich, falscher Schlüssel → `401`, fremde IP → `403`,

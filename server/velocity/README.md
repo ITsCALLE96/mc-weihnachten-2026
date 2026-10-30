@@ -1,6 +1,6 @@
 # Velocity-Proxy `MinecraftProxy01` (Task 2 Schritt 6)
 
-Ein Proxy vor zwei Backends (Kurswechsel 24.10.): **`hub`** (Fantasy Village, Abenteuermodus) und **`smp`** (Weihnachtsserver).
+Ein Proxy vor zwei Backends (Kurswechsel 24.10.): **`hub`** (Fantasy Village, Abenteuermodus) und **`smp`** (Dauer-Server, Pascal 30.10.; Weihnachten ist eine Saison darauf).
 Jeder Beitritt landet im Hub (`try = ["hub"]`). Von dort geht es per Crate-Kiste (Plugin `../serverwahl/`) oder `/server smp` aufs SMP, mit `/hub` zurück.
 Später kommen weitere Server (zweites SMP, Testwelt, Minigames) einfach als neue Zeile unter `[servers]` und als Eintrag im Kisten-Menü dazu.
 
@@ -11,7 +11,7 @@ Später kommen weitere Server (zweites SMP, Testwelt, Minigames) einfach als neu
 | Velocity (Spieler) | TCP **25577** | `0.0.0.0` | **ja**, FritzBox extern **25565 → intern 25577** |
 | Simple Voice Chat über den Proxy | UDP 24454 | `0.0.0.0` | **ja** |
 | Paper-Backend `MinecraftHub01` (Hub) | TCP 25567 | `127.0.0.1` | nein |
-| Paper-Backend `MinecraftWeihnachten01` (SMP) | TCP **25568** | `127.0.0.1` | nein |
+| Paper-Backend `MinecraftSMP01` (SMP) | TCP **25568** | `127.0.0.1` | nein |
 | Paper-Backend `MinecraftTestwelt01` (optional, meist gestoppt) | TCP 25569 | `127.0.0.1` | nein |
 | Voice Chat Backend SMP | UDP 24455 | `127.0.0.1` | nein |
 | Voice Chat Backend Hub | UDP 24456 | `127.0.0.1` | nein |

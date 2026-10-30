@@ -1,4 +1,4 @@
-# Auszug config/paper-global.yml auf MinecraftWeihnachten01 – Velocity Modern Forwarding
+# Auszug config/paper-global.yml auf MinecraftSMP01 – Velocity Modern Forwarding
 proxies:
   velocity:
     enabled: true

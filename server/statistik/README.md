@@ -73,7 +73,7 @@ timedatectl set-timezone Europe/Berlin
 ## Speichern vor dem Schnappschuss
 
 Minecraft schreibt die Statistik nur beim automatischen Speichern und beim Verlassen. Damit Spieler, die über Nacht online sind, nicht mit
-veraltetem Stand drin sind, sendet eine **AMP-Aufgabe um 03:58** den Konsolenbefehl an `MinecraftWeihnachten01` (Pascal im AMP-Web-UI,
+veraltetem Stand drin sind, sendet eine **AMP-Aufgabe um 03:58** den Konsolenbefehl an `MinecraftSMP01` (Pascal im AMP-Web-UI,
 Zeitplan → täglich 03:58 → Konsolenbefehl senden):
 
 ```text
@@ -101,7 +101,7 @@ echo testlauf > /home/amp/mc-archiv/SEASON
 Crontab von root (`crontab -e`):
 
 ```bash
-0 4 * * * /opt/mc-weihnachten/schnappschuss.sh /home/amp/.ampdata/instances/MinecraftWeihnachten01/Minecraft /home/amp/mc-archiv /home/amp/.ampdata/instances/MinecraftProxy01/velocity >> /home/amp/mc-archiv/schnappschuss.log 2>&1
+0 4 * * * /opt/mc-weihnachten/schnappschuss.sh /home/amp/.ampdata/instances/MinecraftSMP01/Minecraft /home/amp/mc-archiv /home/amp/.ampdata/instances/MinecraftProxy01/velocity >> /home/amp/mc-archiv/schnappschuss.log 2>&1
 ```
 
 AMP-eigene Log-Aufräumung prüfen: Falls AMP alte Logs löscht, die Aufbewahrung dort hochsetzen. Das Skript holt sie nur einmal täglich ab.

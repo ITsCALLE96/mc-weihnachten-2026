@@ -7,7 +7,7 @@ Stand 2026-10-23, Versionen über die APIs von Modrinth, Hangar und PaperMC (fil
 Bezugsquelle immer die genannte offizielle Seite. Jede `.jar` erst in einen eigenen leeren Ordner laden und dort mit SHA1/SHA256 vergleichen,
 dann in `plugins/` kopieren.
 
-## Paper-Instanz `MinecraftWeihnachten01` (SMP, Backend)
+## Paper-Instanz `MinecraftSMP01` (SMP, Backend)
 
 | Plugin | Version | Quelle | Lizenz | Datei, Prüfsumme (SHA1) | Zweck |
 |---|---|---|---|---|---|
@@ -112,6 +112,6 @@ Reihenfolge nach dem Neustart mit `/datapack list` prüfen.
 
 1. Auf VM200 einen leeren Ordner anlegen (`/root/mc-downloads/<datum>/`), die Jars dort herunterladen
 2. `sha1sum *.jar` bzw. `sha256sum velocity-*.jar` mit den Werten oben vergleichen, bei Abweichung abbrechen
-3. Jars in `.../MinecraftWeihnachten01/Minecraft/plugins/`, `.../MinecraftHub01/Minecraft/plugins/` (nur die Hub-Liste) bzw. `.../MinecraftProxy01/velocity/plugins/` kopieren,
+3. Jars in `.../MinecraftSMP01/Minecraft/plugins/`, `.../MinecraftHub01/Minecraft/plugins/` (nur die Hub-Liste) bzw. `.../MinecraftProxy01/velocity/plugins/` kopieren,
    Besitzer `amp:amp`
 4. Instanz in AMP neu starten (Pascal), Konsole auf Fehler prüfen, `/plugins` bzw. `/velocity plugins`

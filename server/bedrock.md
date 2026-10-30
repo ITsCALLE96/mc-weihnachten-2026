@@ -27,7 +27,7 @@ Konfig-Entwurf `plugins/Geyser-Velocity/config.yml` (nur geänderte Schlüssel):
 bedrock:
   port: 19132
   # MOTD in der Bedrock-Serverliste
-  motd1: "Weihnachtsserver"
+  motd1: "Minecraft SMP"
   motd2: "Frohe Weihnachten!"
 remote:
   auth-type: floodgate

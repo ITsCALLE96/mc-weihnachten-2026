@@ -64,7 +64,7 @@ INSTANZEN = {
             "Minecraft.GenStructures": "False",
             "Minecraft.EnableNether": "False",
             "Minecraft.WorldGenSettings": '{"layers":[{"block":"minecraft:air","height":1}],"biome":"minecraft:the_void"}',
-            "Minecraft.ServerMOTD": "§b❄ Hub ❄",
+            "Minecraft.ServerMOTD": "§bHub",
             "Game.GameMode": "adventure",
             "Game.ForceGameMode": "True",
             "Game.Difficulty": "Peaceful",
@@ -75,7 +75,7 @@ INSTANZEN = {
             "Java.CustomOpts": AIKAR.format(n=30, m=40, r="8M", res=20, ihop=15),
         },
     },
-    "MinecraftWeihnachten01": {
+    "MinecraftSMP01": {
         "quelle": "smp",
         "kvp": {
             **GEMEINSAM_BACKEND,
@@ -83,7 +83,7 @@ INSTANZEN = {
             "Minecraft.ViewDistance": "8",
             "Minecraft.SimulationDistance": "6",
             "Minecraft.SyncChunkWrites": "False",
-            "Minecraft.ServerMOTD": "§b❄ Weihnachtsserver ❄",
+            "Minecraft.ServerMOTD": "§bSMP",
             "Game.GameMode": "survival",
             "Game.ForceGameMode": "False",
             "Game.Difficulty": "Normal",

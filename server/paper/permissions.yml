@@ -1,9 +1,9 @@
-# Bukkit-permissions.yml für MinecraftWeihnachten01 (liegt im Serverordner neben server.properties).
+# Bukkit-permissions.yml für MinecraftSMP01 (liegt im Serverordner neben server.properties).
 # Entschieden (Leitung 24.10.): alle Spieler dürfen /spark tps, sonst nichts von spark.
 # Eigene Sammel-Berechtigung statt spark.tps direkt: Ist spark.tps schon von spark selbst angelegt, würde Bukkit
 # einen zweiten Eintrag mit „already defined“ ablehnen. Kinder-Rechte zu vergeben klappt in jedem Fall.
 weihnachten.spieler:
-  description: Rechte für alle Spieler auf dem Weihnachtsserver
+  description: Rechte für alle Spieler auf dem SMP
   default: true
   children:
     spark.tps: true

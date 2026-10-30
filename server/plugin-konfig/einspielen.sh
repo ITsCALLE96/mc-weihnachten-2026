@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Spielt die Plugin-Konfigs und server/paper/permissions.yml in einen Paper-Server ein.
 # Aufruf (Server gestoppt): einspielen.sh <server-ordner> <smp|hub|proxy> [vm200|lokal]
-#   smp:   gemeinsam/ + smp/   (MinecraftWeihnachten01)
+#   smp:   gemeinsam/ + smp/   (MinecraftSMP01)
 #   hub:   gemeinsam/ + hub/   (MinecraftHub01)
 #   proxy: nur proxy/          (MinecraftProxy01, Velocity: bStats, Geyser-Texte), ohne permissions.yml
 #   vm200 (Standard): alles, Voice Chat hinter Velocity (nur 127.0.0.1)

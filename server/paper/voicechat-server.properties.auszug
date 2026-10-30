@@ -1,4 +1,4 @@
-# plugins/voicechat/voicechat-server.properties auf MinecraftWeihnachten01 (Backend)
+# plugins/voicechat/voicechat-server.properties auf MinecraftSMP01 (Backend)
 # Eigener Port, weil Proxy und Backend auf derselben VM laufen (Proxy belegt 24454).
 # Nur lokal binden: der Velocity-Plugin leitet den Sprachverkehr weiter, von außen geht niemand direkt hierher.
 port=24455

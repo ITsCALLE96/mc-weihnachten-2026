@@ -245,7 +245,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         String datei = er == null ? "" : er.getString("datei", "");
         offenDatei = datei.isBlank() ? null : Path.of(datei);
         beitrittSperren = er != null && er.getBoolean("beitritt-sperren", false);
-        sperrText = er == null ? "" : er.getString("text", "<red>Der Weihnachtsserver öffnet am <white>05.12.</white>");
+        sperrText = er == null ? "" : er.getString("text", "<red>Der Server öffnet am <white>27.11.</white>");
         ConfigurationSection al = er == null ? null : er.getConfigurationSection("ausloeser");
         ausloeserObjective = al == null ? null : al.getString("objective");
         ausloeserEintrag = al == null ? null : al.getString("eintrag");

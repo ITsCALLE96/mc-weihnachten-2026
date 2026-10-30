@@ -6,7 +6,7 @@ hub-server: hub
 eroeffnung:
   datei: /AMP/geteilt/status/smp-offen
   ausloeser: {objective: insel_zustand, eintrag: "#offen", ab: 1}
-  text: "<red>Der Weihnachtsserver öffnet am <white>27.11.</white>"
+  text: "<red>Der Server öffnet am <white>27.11.</white>"
 # Crate-Kisten im Fantasy Village: Rechtsklick öffnet das Menü der Kategorie.
 # Koordinaten vom Testserver (Leitung 24.10.), nach dem Hub-Aufbau der Spawn-&-Welt-Session prüfen.
 kisten:
@@ -22,7 +22,7 @@ kategorien:
     titel: "<dark_green>SMP-Server"
     server:
       - name: smp
-        anzeige: "<gradient:#ff5252:#ffffff:#4cd964>Weihnachtsserver 2026</gradient>"
+        anzeige: "<gradient:#4cd964:#ffffff:#5ac8fa>SMP</gradient>"
         material: SPRUCE_SAPLING
         sperre: eroeffnung
         beschreibung:
@@ -34,7 +34,7 @@ kategorien:
     titel: "<dark_purple>Alle Server"
     server:
       - name: smp
-        anzeige: "<gradient:#ff5252:#ffffff:#4cd964>Weihnachtsserver 2026</gradient>"
+        anzeige: "<gradient:#4cd964:#ffffff:#5ac8fa>SMP</gradient>"
         material: SPRUCE_SAPLING
         sperre: eroeffnung
         beschreibung:
@@ -105,7 +105,7 @@ termine:
       zeitpunkt: "2026-11-27T18:00"
       ankuendigen: [1440, 60, 30, 10, 5, 1]
       countdown: 0
-      text: "<gold>Der Weihnachtsserver öffnet!"
+      text: "<gold>Der Server öffnet!"
       befehle: []
     - name: start-rueckfall
       zeitpunkt: "2026-11-27T18:10"

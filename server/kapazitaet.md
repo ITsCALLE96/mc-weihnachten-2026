@@ -10,7 +10,7 @@ Grundlage: Dell Precision 7740 (Testlab-Host), i7-9850H 6 Kerne/12 Threads, 32 G
 
 | Teil | Planwert |
 |---|---|
-| Paper `MinecraftWeihnachten01`: Heap (`-Xms` = `-Xmx`) | **12 GB** (AMP-Einstellung „Memory“ 12288 MB), vorher 10 GB |
+| Paper `MinecraftSMP01`: Heap (`-Xms` = `-Xmx`) | **12 GB** (AMP-Einstellung „Memory“ 12288 MB), vorher 10 GB |
 | Paper: Java-Overhead außerhalb des Heaps (Metaspace, Netzwerk-Puffer, Threads) | ~2 GB → die Instanz belegt real **~14 GB** |
 | Paper `MinecraftHub01` (Hub, seit 24.10.): Heap 2 GB (AMP „Memory“ 2048 MB) | real **~2,7 GB** (Overhead ~0,7 GB). Kleine fertige Welt, Abenteuermodus, keine Mobs, Sichtweite 6 |
 | Velocity `MinecraftProxy01` | 1 GB (512 MB reichen meist, 1 GB lässt Luft für 25 gleichzeitige Logins) |

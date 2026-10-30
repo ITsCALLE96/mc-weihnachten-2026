@@ -6,7 +6,7 @@ Bildet den Aufbau von VM200 nach, mit denselben Spiel-Ports (seit 30.10.), nur V
 |---|---|---|---|
 | Velocity 4.3.0-44 | `proxy/` | 25577 (Client verbindet hierhin) | `MinecraftProxy01`, 25577 (extern 25565) |
 | Hub (Paper 26.3-207, Leerwelt, Abenteuer) | `hub/` | 25567 | `MinecraftHub01`, 25567 |
-| SMP (Paper 26.3-207, echte Welt, normal, Plugins und Datapacks wie VM200) | `smp/` | 25568 | `MinecraftWeihnachten01`, 25568 |
+| SMP (Paper 26.3-207, echte Welt, normal, Plugins und Datapacks wie VM200) | `smp/` | 25568 | `MinecraftSMP01`, 25568 |
 
 Voice Chat wie auf VM200 über den Proxy, nur auf verschobenen Ports, damit nichts mit dem Testserver (24454) streitet: Proxy UDP 24474, SMP 24475, Hub 24476
 (VM200: 24454 / 24455 / 24456). Ohne Whitelist. Das Secret wird bei jedem Einrichten neu erzeugt und liegt nur in den ignorierten Ordnern.
@@ -49,7 +49,7 @@ Neue Plugins vom 27.10. (LSS, GrimAC, Chunky, Geyser, Floodgate) kommen mit `bas
 ## Prüfen (Client mit Modpack, Mehrspieler → `localhost:25577`)
 
 1. Beitritt landet im Hub, Abenteuermodus, Pack wird angeboten
-2. Linke Kiste (25/236/−9) → Menü „SMP-Server“ → Weihnachtsserver anklicken → landet im SMP, Pack wird **nicht** neu geladen
+2. Linke Kiste (25/236/−9) → Menü „SMP-Server“ → SMP anklicken → landet im SMP, Pack wird **nicht** neu geladen
 3. Im SMP `/hub` → zurück im Hub
 4. `/server smp` und `/server hub` gehen ebenfalls
 5. Andere Kisten: „Bald verfügbar“, Mitte (Ender-Kiste): „Alle Server“
@@ -57,7 +57,7 @@ Neue Plugins vom 27.10. (LSS, GrimAC, Chunky, Geyser, Floodgate) kommen mit `bas
 7. SMP-Fenster mit `stop` beenden, während man drauf ist → landet im Hub (Failover)
 8. **Voice Chat beim Wechsel** (Leitung 24.10.): Symbol im Hub verbunden, nach Wechsel aufs SMP und zurück wieder verbunden, ohne Neuverbinden von Hand.
    Mit zwei Clients (zweiter Account) gegenseitig hörbar auf beiden Servern
-9. **Sperre** (ohne Op): SMP-Kiste zeigt „Der Weihnachtsserver öffnet am 05.12.“, `/server smp` wird mit derselben Meldung abgewiesen, man bleibt im Hub.
+9. **Sperre** (ohne Op): SMP-Kiste zeigt „Der Server öffnet am 27.11.“, `/server smp` wird mit derselben Meldung abgewiesen, man bleibt im Hub.
    Nach `#offen` = 1 gehen beide. Geprüft 25.10. ohne Client: Merker per Befehl und per Scoreboard angelegt/entfernt
 10. **Portale** (ohne Op, Nether/End zu): Netherportal lässt sich nicht anzünden, Enderauge geht nicht in den Rahmen, Meldung in der Aktionsleiste
 11. **Eröffnung auf dem SMP:** nach `#offen` = 1 im Hub ist auf dem SMP Tag, klares Wetter, Phase 1 (Leitfaden-Ansage), nach SMP-Neustart nicht noch einmal
