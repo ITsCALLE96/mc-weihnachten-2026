@@ -35,7 +35,7 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 - [ ] Hub-Welt (Fantasy Village) von der Spawn-&-Welt-Session eingespielt, Spawnpunkt gesetzt, Spielregeln aus `server.properties.md` → Hub
 - [ ] Kisten-Koordinaten in `plugin-konfig/hub/plugins/Serverwahl/config.yml` mit der fertigen Hub-Welt abgeglichen, Welt-Name in `WorldGuard/worlds/<welt>/` passt
 - [ ] SMP hat ebenfalls `serverwahl-1.0.0.jar` (für `/hub` und die Eröffnungssperre)
-- [ ] Merker-Ordner `/opt/mc-weihnachten/status/` (Besitzer `amp`) angelegt, `serverwahl status` auf beiden zeigt „geschlossen“. Ohne Op wird der SMP-Beitritt abgewiesen, auch per `/server smp`
+- [ ] Merker-Ordner `/AMP/geteilt/status/` (Besitzer `amp`) angelegt, `serverwahl status` auf beiden zeigt „geschlossen“. Ohne Op wird der SMP-Beitritt abgewiesen, auch per `/server smp`
 - [ ] Nach dem Testlauf 21.11.: `serverwahl schliessen`, damit das SMP bis 27.11. wieder zu ist
 - [ ] Eröffnungsbefehle in `plugin-konfig/smp/plugins/Serverwahl/config.yml` (Phase 1, `time set 0`, `weather clear`) geprüft: im Testlauf einmal ausgeführt, nach Neustart nicht wiederholt
 - [ ] Portal-Sperre ohne Op geprüft: Netherportal zündet nicht, kein Enderauge im Rahmen, solange `nether`/`end` zu sind

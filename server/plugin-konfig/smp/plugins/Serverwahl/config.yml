@@ -5,7 +5,7 @@ hub-server: hub
 # Eröffnungssperre: Solange die Datei fehlt, lehnt das SMP jeden Beitritt ab (auch über /server smp).
 # Ops und serverwahl.vorab dürfen rein (Tests, Testlauf). Angelegt vom Hub bei der Eröffnung oder per /serverwahl oeffnen.
 eroeffnung:
-  datei: /opt/mc-weihnachten/status/smp-offen
+  datei: /AMP/geteilt/status/smp-offen
   beitritt-sperren: true
   text: "<red>Der Weihnachtsserver öffnet am <white>27.11.</white>"
   # einmalig, sobald der Merker auftaucht (Konsole). Erledigt-Merker plugins/Serverwahl/eroeffnet.txt, zurückgesetzt wenn der Merker wieder fehlt
@@ -193,7 +193,7 @@ dorf-rabatt:
 # Discord-Whitelist (Pascal 28.10.): liest dieselbe Datei wie der Hub (der Hub schreibt sie), kein eigener Endpunkt
 discord-whitelist:
   aktiv: true
-  datei: /opt/mc-weihnachten/whitelist/discord.json
+  datei: /AMP/geteilt/whitelist/discord.json
   floodgate-praefix: "."
   kick-text: "Du stehst nicht mehr auf der Whitelist (Discord-Anmeldung bzw. Rolle fehlt)."
 # Weihnachtsinsel-Mission (Pascal 28.10., Bau/Wunschlisten Spawn & Welt in spawn/mission.json, kopiert nach plugins/Serverwahl/mission.json).

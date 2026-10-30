@@ -10,7 +10,7 @@ Wichtig zu AMP 2.8 (Minecraft-Modul):
 - `Minecraft.StandaloneServer=False` schreibt `online-mode=false` (nötig hinter Velocity)
 - `Limits.SleepMode=False`: Sonst legt AMP ein leeres Backend schlafen, der Proxy fände es nicht
 - In der Weboberfläche **nicht „Update“ klicken**: AMP lädt sonst die neueste Paper/Velocity-Version statt der eingefrorenen (`VERSION.md`)
-- Die Container sehen nur ihren Instanzordner (`/AMP`), nicht `/opt/...` – gemeinsame Ordner brauchen einen Bind-Mount (offen, Leitung)
+- Die Container sehen nur ihren Instanzordner (`/AMP`), nicht `/opt/...` – gemeinsamer Ordner per Bind-Mount: `geteilt-einrichten.sh` (entschieden 30.10., im Container `/AMP/geteilt`)
 
 Staging: `/root/mcw-staging/vm200/{proxy,hub,smp}` = Server-Jar + `plugins/*.jar` aus `testnetz/`, Configs mit
 `server/plugin-konfig/einspielen.sh <ordner> <rolle> vm200`; dazu `velocity.toml` (aus `testnetz/proxy`, Produktions-MOTD, ohne Testwelt) und `server-icon.png`.

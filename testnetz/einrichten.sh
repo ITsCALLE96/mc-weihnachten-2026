@@ -115,9 +115,9 @@ rcon.password=$(openssl rand -hex 16)
 $rp
 PROP
   bash "$repo/server/plugin-konfig/einspielen.sh" "$hier/hub" hub vm200
-  # Voice-Port lokal verschieben (vm200-Datei hat 24456), Merker lokal statt /opt/mc-weihnachten/status/
+  # Voice-Port lokal verschieben (vm200-Datei hat 24456), Merker lokal statt /AMP/geteilt/status/
   sed -i 's/^port=24456$/port=24476/' "$hier/hub/plugins/voicechat/voicechat-server.properties"
-  sed -i "s#/opt/mc-weihnachten/status/smp-offen#$merker#" "$hier/hub/plugins/Serverwahl/config.yml"
+  sed -i "s#/AMP/geteilt/status/smp-offen#$merker#" "$hier/hub/plugins/Serverwahl/config.yml"
 fi
 
 if dabei smp; then
@@ -153,7 +153,7 @@ $rp
 PROP
   bash "$repo/server/plugin-konfig/einspielen.sh" "$hier/smp" smp vm200
   sed -i 's/^port=24455$/port=24475/' "$hier/smp/plugins/voicechat/voicechat-server.properties"
-  sed -i "s#/opt/mc-weihnachten/status/smp-offen#$merker#" "$hier/smp/plugins/Serverwahl/config.yml"
+  sed -i "s#/AMP/geteilt/status/smp-offen#$merker#" "$hier/smp/plugins/Serverwahl/config.yml"
 fi
 
 grep -H '^port=' "$hier"/*/plugins/voicechat/*.properties 2>/dev/null || true

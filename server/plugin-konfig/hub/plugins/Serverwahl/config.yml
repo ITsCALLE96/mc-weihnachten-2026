@@ -4,7 +4,7 @@ hub-server: hub
 # Eröffnung 27.11.: Das Hub-Datapack (Spawn & Welt) setzt #offen in insel_zustand auf 1, dann legt der Hub die Datei an.
 # Dieselbe Datei prüft das SMP beim Beitritt. Liegt außerhalb beider Instanzen, Ordner gehört amp (Task 2 Schritt 6b).
 eroeffnung:
-  datei: /opt/mc-weihnachten/status/smp-offen
+  datei: /AMP/geteilt/status/smp-offen
   ausloeser: {objective: insel_zustand, eintrag: "#offen", ab: 1}
   text: "<red>Der Weihnachtsserver öffnet am <white>27.11.</white>"
 # Crate-Kisten im Fantasy Village: Rechtsklick öffnet das Menü der Kategorie.
@@ -147,7 +147,7 @@ termin-event:
 # plugins/Serverwahl/whitelist-api.key, wird beim ersten Start erzeugt, nie ins Repo). /serverwahl whitelist zeigt den Stand
 discord-whitelist:
   aktiv: true
-  datei: /opt/mc-weihnachten/whitelist/discord.json
+  datei: /AMP/geteilt/whitelist/discord.json
   floodgate-praefix: "."
   kick-text: "Du stehst nicht mehr auf der Whitelist (Discord-Anmeldung bzw. Rolle fehlt)."
   api:

@@ -2,7 +2,7 @@
 # Gleicher Name auf beiden Servern: Rechte ohne Server-Kontext gelten überall
 server: global
 # Gemeinsamer Speicher ohne Datenbank (Leitung 28.10.): je Spieler/Gruppe eine eigene Datei (nicht „combined“).
-# plugins/LuckPerms/yaml-storage ist auf beiden Servern derselbe Ordner (VM200: Symlink nach /opt/mc-weihnachten/luckperms, Testnetz: Verzeichnis-Verknüpfung)
+# plugins/LuckPerms/yaml-storage ist auf beiden Servern derselbe Ordner (VM200: Verknüpfung nach /AMP/geteilt/luckperms, Testnetz: Verzeichnis-Verknüpfung)
 storage-method: yaml
 # Änderungen des anderen Servers an den Dateien nachladen
 watch-files: true

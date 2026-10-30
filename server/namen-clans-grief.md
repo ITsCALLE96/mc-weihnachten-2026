@@ -22,8 +22,8 @@ Notiz: v25 mit 26.3 gibt es bisher nur über Patreon; käme nur in Frage, wenn P
 ## Gemeinsamer LuckPerms-Speicher
 
 **Entschieden (Leitung 28.10.): ein gemeinsamer YAML-Ordner, kein neuer Dienst.** Je Spieler/Gruppe eine eigene Datei (`storage-method: yaml`, nicht combined).
-`plugins/LuckPerms/yaml-storage` beider Server zeigt auf denselben Ordner (VM200: Symlink nach `/opt/mc-weihnachten/luckperms/`, wie schon der
-Eröffnungs-Merker; Testnetz: Verzeichnis-Verknüpfung `mklink /J`, ohne Admin-Rechte, keine Windows-Einstellung). `watch-files: true` lädt
+`plugins/LuckPerms/yaml-storage` beider Server zeigt auf denselben Ordner (VM200: relative Verknüpfung nach `../../../geteilt/luckperms`, im Container
+`/AMP/geteilt/luckperms`, wie der Eröffnungs-Merker; Testnetz: Verzeichnis-Verknüpfung `mklink /J`, ohne Admin-Rechte, keine Windows-Einstellung). `watch-files: true` lädt
 Änderungen des anderen Servers nach (Sekunden).
 
 Ehrlich: LuckPerms empfiehlt für Netzwerke eine Datenbank. Dateien vertragen keine gleichzeitigen Schreibzugriffe auf **dieselbe** Datei.
@@ -95,10 +95,10 @@ Gegenstand/Block (Hover = Prism-Aktion). Kein `/pr wand`, nichts umzuschalten, k
 
 ## VM200 (Task 2 / Task 9)
 
-- `mkdir -p /opt/mc-weihnachten/luckperms` (Besitzer wie die AMP-Instanzen), in **beiden** Instanzen
-  `ln -s /opt/mc-weihnachten/luckperms <instanz>/plugins/LuckPerms/yaml-storage` **vor** dem ersten Start mit LuckPerms
+- Gemeinsamer Ordner und Verknüpfung `plugins/LuckPerms/yaml-storage → ../../../geteilt/luckperms` in Hub und SMP: `server/vm200/geteilt-einrichten.sh`
+  (Container sehen nur ihren Instanzordner, der Ordner `/srv/ampdata/mc-weihnachten-geteilt` ist per Bind-Mount als `<instanz>/geteilt` eingehängt), **vor** dem ersten Start
 - Prism + NBT-API auf den SMP, einmal starten/stoppen, dann `python3 server/prism/konfig-setzen.py <instanz>/plugins/prism/prism.conf`
-- **Backup (Task 9):** `/opt/mc-weihnachten/luckperms/` liegt außerhalb der AMP-Instanzen → eigene Sicherung nötig (Nicks, Clans, Rechte);
+- **Backup (Task 9):** `/srv/ampdata/mc-weihnachten-geteilt/` (LuckPerms, Whitelist-Datei, Merker) liegt außerhalb der AMP-Instanzen → eigene Sicherung nötig (Nicks, Clans, Rechte);
   `plugins/prism/prism.db` liegt im SMP und kommt mit der Instanz mit (Rollback nach einer Rücksicherung braucht sie)
 
 ## Test (Testnetz)

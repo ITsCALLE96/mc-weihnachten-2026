@@ -36,9 +36,9 @@ case "${1:-}" in
       cp "$dl/namen/luckperms.jar" "$hier/$r/plugins/LuckPerms-Bukkit-5.5.71.jar"
       cp "$repo/server/serverwahl/build/serverwahl-1.0.0.jar" "$hier/$r/plugins/"
       bash "$repo/server/plugin-konfig/einspielen.sh" "$hier/$r" "$r" lokal > /dev/null
-      sed -i "s#/opt/mc-weihnachten/status/smp-offen#$(cygpath -m "$hier")/status/smp-offen#" "$hier/$r/plugins/Serverwahl/config.yml"
+      sed -i "s#/AMP/geteilt/status/smp-offen#$(cygpath -m "$hier")/status/smp-offen#" "$hier/$r/plugins/Serverwahl/config.yml"
       # Discord-Whitelist im Testnetz: Datei unter testnetz/status, Endpunkt nur 127.0.0.1
-      sed -i -e "s#/opt/mc-weihnachten/whitelist/discord.json#$(cygpath -m "$hier")/status/whitelist-discord.json#"         -e "s#adresse: 192.168.178.78#adresse: 127.0.0.1#" -e "s#erlaubt: \[192.168.178.22\]#erlaubt: [127.0.0.1]#" \
+      sed -i -e "s#/AMP/geteilt/whitelist/discord.json#$(cygpath -m "$hier")/status/whitelist-discord.json#"         -e "s#adresse: 192.168.178.78#adresse: 127.0.0.1#" -e "s#erlaubt: \[192.168.178.22\]#erlaubt: [127.0.0.1]#" \
         -e "s#gilden: \[\]#gilden: [\"111111111111111111\", \"222222222222222222\"]#" "$hier/$r/plugins/Serverwahl/config.yml"
       # gemeinsamer Speicher: yaml-storage beider Server → testnetz/luckperms-daten (Verknüpfung, keine Admin-Rechte nötig)
       ordner="$hier/$r/plugins/LuckPerms/yaml-storage"

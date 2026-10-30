@@ -126,7 +126,7 @@ final class DiscordWhitelist implements Listener {
             erlaubt = Set.of();
             return;
         }
-        datei = Path.of(c.getString("datei", "/opt/mc-weihnachten/whitelist/discord.json"));
+        datei = Path.of(c.getString("datei", "/AMP/geteilt/whitelist/discord.json"));
         kickText = c.getString("kick-text", "Du stehst nicht mehr auf der Whitelist (Discord-Anmeldung bzw. Rolle fehlt).");
         floodgatePraefix = c.getString("floodgate-praefix", ".");
         zuletztGeaendert = -1;
