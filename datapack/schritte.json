@@ -146,8 +146,8 @@
         ]
       },
       {
-        "de": "Klick auf „Spenden für die Weihnachtsinsel“. Dort steht, was die Insel sich gerade wünscht.",
-        "en": "Click “Spenden für die Weihnachtsinsel”. It shows what the island wishes for right now.",
+        "de": "Klick auf die Weihnachtsinsel. Dort steht, was die Insel sich gerade wünscht.",
+        "en": "Click the Christmas Island entry (“Weihnachtsinsel”). It shows what the island wishes for right now.",
         "items": [
           "minecraft:ender_chest"
         ]
@@ -157,8 +157,8 @@
         "en": "Put wished-for items in the window and close it. Everything else comes back to you."
       },
       {
-        "de": "Ist eine Stufe voll, bekommt jeder 3 Tränke. Die holst du dir per Rechtsklick auf den Spenden-Slot ab, wenn dein Inventar voll war.",
-        "en": "When a stage is full, everyone gets 3 potions. If your inventory was full, right-click the donation slot to collect them.",
+        "de": "Ist eine Stufe voll, bekommt jeder 3 Tränke. Die holst du dir per Rechtsklick auf den Weihnachtsinsel-Eintrag ab, wenn dein Inventar voll war.",
+        "en": "When a stage is full, everyone gets 3 potions. If your inventory was full, right-click the Christmas Island entry to collect them.",
         "items": [
           "minecraft:potion"
         ]
