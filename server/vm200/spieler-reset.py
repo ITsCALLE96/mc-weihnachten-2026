@@ -3,7 +3,8 @@
 
 Entfernt (Hub und SMP, beide GESTOPPT):
   - Spielerdaten: world/players/{data,advancements,stats}/* (Inventar, Ender-Kiste, Position, Tags, Advancements, Statistik); alt: world/playerdata …
-  - spielerbezogene Scoreboard-Einträge in world/data/minecraft/scoreboard.dat (Spielernamen; „#…“-Einträge und Entity-UUIDs = Weltzustand bleiben),
+  - spielerbezogene Scoreboard-Einträge in world/data/minecraft/scoreboard.dat (Spielernamen; „#…“-Einträge und Entity-UUIDs = Weltzustand bleiben,
+    außer den Testnetz-Resten #tag/#zuletzt insel_kalender, die kalender/load neu anlegt),
     Spielernamen in Team-Listen
   - SMP: plugins/Serverwahl/{mission-stand.yml, eroeffnet.txt, taeglich.txt, neujahr.txt} und der Eröffnungs-Merker geteilt/status/smp-offen
     (danach ist das SMP wieder „zu“; geöffnet wird wie am 27.11. über den Hub bzw. „serverwahl oeffnen“)
@@ -32,6 +33,11 @@ GETEILT = "/srv/ampdata/mc-netzwerk-geteilt"
 SMP_MERKER = ["mission-stand.yml", "eroeffnet.txt", "taeglich.txt", "neujahr.txt"]
 # Java-Namen 3–16 Zeichen, Bedrock mit Floodgate-Präfix „.“; „#…“ (Datapack-Werte) und UUIDs (Entities) passen nicht
 SPIELERNAME = re.compile(r"^\.?[A-Za-z0-9_]{1,16}$")
+# Testnetz-Reste im Weltzustand (Spawn & Welt 30.10.): Kalender-Tag und „zuletzt gemeldet“; kalender/load legt beide neu an (#tag 0, #zuletzt = #tag).
+# Bliebe #zuletzt auf 24, käme die Meldung „neues Türchen“ im Dezember erst ab Tag 25
+WELT_RESTE = {("#tag", "insel_kalender"), ("#zuletzt", "insel_kalender")}
+# Mission muss im Startzustand sein: #stufe 0, keine #t*_*, #gefeiert, #laeuft, #feuer (sonst nur Warnung, nichts ändern)
+MISSION_LAEUFT = re.compile(r"^#(t\d+_\d+|gefeiert|laeuft|feuer)$")
 
 ausfuehren = "--ausfuehren" in sys.argv
 
@@ -58,10 +64,13 @@ def scoreboard_bereinigen(pfad, schreiben):
     if "PlayerScores" in data:
         bleiben = nbt.NbtList(data["PlayerScores"].typ)
         for e in data["PlayerScores"]:
-            if SPIELERNAME.match(e["Name"]) and not e["Name"].startswith("#"):
+            if SPIELERNAME.match(e["Name"]) and not e["Name"].startswith("#") or (e["Name"], e["Objective"]) in WELT_RESTE:
                 weg.append(f"{e['Name']} {e['Objective']}")
             else:
                 bleiben.append(e)
+                wert = e.get("Score", (3, 0))[1]
+                if e["Objective"] == "wi_mission" and (e["Name"] == "#stufe" and wert != 0 or MISSION_LAEUFT.match(e["Name"])):
+                    print(f"WARNUNG: Mission nicht im Startzustand ({e['Name']} = {wert}) – Spawn & Welt fragen")
         data["PlayerScores"] = bleiben
     for t in data.get("Teams", []):
         spieler = t.get("Players")
