@@ -36,11 +36,8 @@ import com.google.gson.JsonParser;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 
-import io.papermc.paper.connection.PlayerConfigurationConnection;
-import io.papermc.paper.connection.PlayerLoginConnection;
-import io.papermc.paper.event.connection.PlayerConnectionValidateLoginEvent;
+import com.destroystokyo.paper.event.profile.ProfileWhitelistVerifyEvent;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 import org.bukkit.Bukkit;
@@ -208,21 +205,23 @@ final class DiscordWhitelist implements Listener {
         }
     }
 
-    /** Vanilla lehnt wegen Whitelist ab → wer in der Discord-Datei steht, darf trotzdem (nur genau diese Ablehnung wird aufgehoben) */
+    /**
+     * Whitelist-Prüfung beim Login → wer in der Discord-Datei steht, gilt als whitelisted (nur diese Entscheidung, Banns usw. bleiben).
+     * Paper 26.x lehnt mit dem Text aus spigot.yml (messages.whitelist) ab, nicht mit „multiplayer.disconnect.not_whitelisted“ –
+     * der frühere Abgleich der Kick-Nachricht in PlayerConnectionValidateLoginEvent griff deshalb nie (VM200, 30.10.).
+     */
     @EventHandler(priority = EventPriority.HIGH)
-    public void beimPruefen(PlayerConnectionValidateLoginEvent e) {
-        if (!aktiv || e.isAllowed() || !(e.getKickMessage() instanceof TranslatableComponent t)
-                || !t.key().equals("multiplayer.disconnect.not_whitelisted")) {
+    public void beimWhitelistPruefen(ProfileWhitelistVerifyEvent e) {
+        freigeben(e, aktiv, erlaubt);
+    }
+
+    static void freigeben(ProfileWhitelistVerifyEvent e, boolean aktiv, Set<UUID> erlaubt) {
+        if (!aktiv || !e.isWhitelistEnabled() || e.isWhitelisted()) {
             return;
         }
-        UUID id = null;
-        if (e.getConnection() instanceof PlayerLoginConnection l && l.getAuthenticatedProfile() != null) {
-            id = l.getAuthenticatedProfile().getId();
-        } else if (e.getConnection() instanceof PlayerConfigurationConnection k) {
-            id = k.getProfile().getId();
-        }
+        UUID id = e.getPlayerProfile().getId();
         if (id != null && erlaubt.contains(id)) {
-            e.allow();
+            e.setWhitelisted(true);
         }
     }
 
