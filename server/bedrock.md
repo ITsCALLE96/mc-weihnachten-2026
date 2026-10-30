@@ -28,7 +28,7 @@ bedrock:
   port: 19132
   # MOTD in der Bedrock-Serverliste
   motd1: "Minecraft SMP"
-  motd2: "Frohe Weihnachten!"
+  motd2: "Start am 27.11."
 remote:
   auth-type: floodgate
 # Geyser-Version 2.12 hat einen neuen Schlüssel transport (nethernet / both) – beim Einrichten nach den Kommentaren der erzeugten Datei setzen [?]
