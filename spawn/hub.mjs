@@ -34,7 +34,7 @@ export function infoStaende(k, { ns = 'hub', versatz = [0, 0, 0] } = {}) {
     befehle.push(`summon villager ${P(x + 0.5, y, z + 0.5)} {Tags:["hub","hub_stand","hub_stand_${n}"],NoAI:1b,Invulnerable:1b,PersistenceRequired:1b,Silent:1b,Rotation:[${yaw}f,0f],`
       + `CustomName:${JSON.stringify({ text: st.name, color: 'gold' })},CustomNameVisible:1b,VillagerData:{type:"minecraft:snow",profession:"minecraft:${st.beruf}",level:5},Offers:{Recipes:[]},`
       + `equipment:{head:{id:"minecraft:paper",count:1,components:{"minecraft:item_model":"weihnachten:${st.kopf}"}}},drop_chances:{head:0f}}`);
-    befehle.push(holo(x + 0.5, y + 2.75, z + 0.5, [{ text: `${st.titel}\n`, color: 'yellow', bold: true }, { text: 'Rechtsklick', color: 'gray' }], 0.6, ['hub_hinweis']));
+    befehle.push(holo(x + 0.5, y + 3.05, z + 0.5, [{ text: `${st.titel}\n`, color: 'yellow', bold: true }, { text: 'Rechtsklick', color: 'gray' }], 0.6, ['hub_hinweis']));
     befehle.push(holo(mx + 0.5, y + 4.6, mz + 0.5, [{ text: `${st.symbol} ${st.titel}`, color: 'gold', bold: true }], 1.6));
     // Zeltschilder ohne festen Halt fallen beim Einfügen ab: dann neu setzen, danach beschriften (lange Titel auf zwei Zeilen)
     const zl = [...zeilen(st.titel), '', '', ''].slice(0, 3);

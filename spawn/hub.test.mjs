@@ -47,7 +47,7 @@ test('Schriften über den 5 Kisten, 8 Bestenlisten, 8 Info-Stände mit Standbetr
   assert.ok(f['stand/1'].includes('Kein Griefing')); // Regeln aus k.regeln
   assert.ok(f['stand/2'].includes('"click_event":{"action":"open_url","url":"https://github.com/ITsCALLE96/mc-weihnachten-2026/releases/tag/modpack-v2"}'));
   assert.ok(f['stand/6'].includes('Discord beitreten: Link folgt')); // leerer Link → Platzhalter
-  assert.ok(f['stand/5'].includes('Start 27.11.'));
+  assert.ok(f['stand/5'].includes('Termine im Discord') && !/\d{1,2}\.\d{1,2}\.(?!\d)/.test(f['stand/5']));
   assert.ok(f.staende.includes('LavaBuilds')); // Danke als Hologramm am Dorfschild
   assert.ok(!/hub_f_stand_\d/.test(f.aufbau_ende)); // keine Klickfläche mehr, der Dorfbewohner ist der Klick
 });
@@ -86,7 +86,7 @@ test('Sichtbare Klickpunkte: Hinweis „Titel + Rechtsklick“ an Ständen, Voic
   const hinweise = f.aufbau_ende.split('\n').filter((z) => z.includes('"hub_hinweis"'));
   assert.equal(hinweise.length, 8 + 1 + 13);
   assert.ok(hinweise.every((z) => z.includes('{"text":"Rechtsklick","color":"gray"}')));
-  assert.ok(f.aufbau_ende.includes('summon text_display 42.5 237.75 -18.5 {Tags:["hub","hub_stand","hub_hinweis"],billboard:"center"')); // über dem Standbetreiber
+  assert.ok(f.aufbau_ende.includes('summon text_display 42.5 238.05 -18.5 {Tags:["hub","hub_stand","hub_hinweis"],billboard:"center"')); // über dem Standbetreiber
   assert.ok(f.aufbau_ende.includes('summon text_display -54.5 236.4 0.5 {text:[{"text":"Fischer\\n","color":"green","bold":true}'));
   assert.ok(f.sekunde.includes('execute at @e[type=text_display,tag=hub_hinweis] run particle minecraft:end_rod'));
   assert.ok(f.aufbau_ende.includes('\nsetblock -50 234 11 minecraft:air\n'));
