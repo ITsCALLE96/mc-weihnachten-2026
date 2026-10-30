@@ -62,7 +62,12 @@ final class Termine {
             return;
         }
         ZoneId zone = ZoneId.of(c.getString("zeitzone", "Europe/Berlin"));
-        for (Map<?, ?> m : c.getMapList("liste")) {
+        // Generalprobe November (Pascal 30.10.): aktive-liste wählt die Liste, Standard „liste“ (Dezember-Termine); Umschalten nur per Config
+        String liste = c.getString("aktive-liste", "liste");
+        if (!c.isList(liste)) {
+            plugin.getLogger().warning("Termine: Liste „" + liste + "“ fehlt in der Config");
+        }
+        for (Map<?, ?> m : c.getMapList(liste)) {
             try {
                 String name = String.valueOf(m.get("name"));
                 ZonedDateTime zeit = LocalDateTime.parse(String.valueOf(m.get("zeitpunkt"))).atZone(zone);
@@ -82,7 +87,7 @@ final class Termine {
                 plugin.getLogger().warning("Termin übersprungen (" + m + "): " + e.getMessage());
             }
         }
-        plugin.getLogger().info("Termine: " + termine.size() + " geladen" + (termine.isEmpty() ? "" : ", nächster " + naechster()));
+        plugin.getLogger().info("Termine (" + liste + "): " + termine.size() + " geladen" + (termine.isEmpty() ? "" : ", nächster " + naechster()));
     }
 
     private String naechster() {

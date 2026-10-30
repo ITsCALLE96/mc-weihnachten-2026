@@ -42,7 +42,8 @@ Hub 26120101, SMP 26120501. **Nie ändern:** Eine neue ID heißt für jeden Best
 
 ## Winterkalender (27.10.)
 
-`kalender:` setzt jede Minute `#tag insel_kalender` auf den Dezembertag (Zeitzone Europe/Berlin): vor dem 1.12. 0, dann 1–24, ab 24.12. bis Silvester 24, im Januar 0.
+`kalender:` setzt jede Minute `#tag insel_kalender` auf den Kalendertag (Zeitzone Europe/Berlin): vor `erster-tag` 0, dann 1–24, ab Tag 24 bis Silvester 24, im Januar 0.
+`erster-tag` (30.10.): `"MM-TT"` jedes Jahr (Standard `12-01`) oder `"JJJJ-MM-TT"` einmalig; Generalprobe November auf VM200: `"2026-11-01"`, vor dem 27.11. zurück auf `12-01`.
 Die Türchen-Logik liegt im Datapack `insel` (Spawn & Welt). Aus dem Datum statt `naechster_tag`-Zähler, deshalb kein AMP-Zeitplan und keine verpassten Tage.
 `fester-tag: <n>` zum Testen. `kalender.klick`: Rechtsklicks auf die Türchen (Interaction-Entities) fängt serverwahl vor WorldGuard ab und ruft `insel:kalender/tuer_<n>` als der Spieler auf (WorldGuard sperrte sie in der Spawn-Region mit Meldung, Pascals Test 27.10.). Ein Zielobjektiv, das (noch) nicht existiert, wird übersprungen. Das Log schreibt „Winterkalender: #tag insel_kalender = N“ nur, wenn sich der Wert ändert; das Scoreboard bleibt in der Welt gespeichert, nach einem Neustart mit gleichem Tag fehlt die Zeile also (kein Fehler).
 
@@ -82,6 +83,8 @@ Zeitraffer über `nacht-uebergang-sekunden` (Test 28.10.: der harte Sprung brach
 läuft der Termin beim nächsten Start). Jeder Termin läuft einmal, Merker `plugins/Serverwahl/termine.txt`. SMP: Nether 11.12., Phase 3 15.12.
 (Vorschlag), End 18.12.; Hub: Start-Ankündigung 27.11. und Rückfall-Eröffnung 10 min später. `/serverwahl termin liste | test <name> [sek] |
 zuruecksetzen <name>` (Test führt die Befehle wirklich aus).
+`termine.aktive-liste` (30.10.) wählt, welche Liste gilt (Standard `liste`). Generalprobe November: `liste-november` mit eigenen Namen (`nether-probe` 06.11., `phase3-probe` 10.11.,
+`end-probe` 13.11., je 18:00), damit `termine.txt` die Dezember-Termine nicht als erledigt führt. Zurückstellen = Zeile auf `liste` bzw. entfernen, kein Code.
 
 **Öffnung zur Laufzeit, ohne Neustart:** `nether open`/`end open` sind DimensionControl-Konsolenbefehle, die den Zustand sofort umstellen und in
 `plugins/DimensionControl/data.yml` schreiben. Die Portal-Sperre von serverwahl hält nichts zwischen: Sie liest `data.yml` bei jedem Anzündversuch

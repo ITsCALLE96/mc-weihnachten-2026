@@ -103,6 +103,8 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private java.time.ZoneId kalenderZone;
     /** > 0: fester Tag statt Datum (Testnetz) */
     private int kalenderFest;
+    /** erstes Türchen: fester Tag (2026-11-01) oder jährlich (12-01), Standard 12-01 */
+    private String kalenderErster;
     /** Klicks auf Interaction-Entities mit diesem Tag selbst ausführen (WorldGuard sperrt sie sonst in der Spawn-Region) */
     private String klickTag;
     private String klickPraefix;
@@ -176,7 +178,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                 getLogger().warning("Eröffnungs-Merker im Plugin-Ordner: " + ex.getMessage());
             }
         }, 60L, 20L);
-        // Winterkalender: jede Minute Dezembertag ins Scoreboard (vor Dezember 0, ab 24.12. bis Jahresende 24, danach 0).
+        // Winterkalender: jede Minute den Kalendertag ins Scoreboard (vor dem ersten Tag 0, dann 1–24, danach bis Jahresende 24, danach 0).
         // Aus dem Datum statt Zähler: übersteht Neustarts und verpasste Läufe
         getServer().getScheduler().runTaskTimer(this, () -> {
             if (kalenderObjective == null) {
@@ -187,7 +189,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                 return;
             }
             java.time.LocalDate heute = java.time.LocalDate.now(kalenderZone);
-            int tag = kalenderFest > 0 ? Math.min(kalenderFest, 24) : heute.getMonthValue() == 12 ? Math.min(heute.getDayOfMonth(), 24) : 0;
+            int tag = kalenderFest > 0 ? Math.min(kalenderFest, 24) : kalenderTag(heute);
             if (obj.getScore(kalenderEintrag).getScore() != tag) {
                 obj.getScore(kalenderEintrag).setScore(tag);
                 getLogger().info("Winterkalender: " + kalenderEintrag + " " + kalenderObjective + " = " + tag);
@@ -311,6 +313,13 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         kalenderEintrag = ka == null ? "#tag" : ka.getString("eintrag", "#tag");
         kalenderZone = java.time.ZoneId.of(ka == null ? "Europe/Berlin" : ka.getString("zeitzone", "Europe/Berlin"));
         kalenderFest = ka == null ? 0 : ka.getInt("fester-tag", 0);
+        kalenderErster = ka == null ? "12-01" : ka.getString("erster-tag", "12-01").trim();
+        try {
+            kalenderTag(java.time.LocalDate.now(kalenderZone));
+        } catch (java.time.DateTimeException e) {
+            getLogger().warning("kalender.erster-tag „" + kalenderErster + "“ ungültig (JJJJ-MM-TT oder MM-TT), nehme 12-01");
+            kalenderErster = "12-01";
+        }
         ConfigurationSection kl = ka == null ? null : ka.getConfigurationSection("klick");
         klickTag = kl == null ? null : kl.getString("tag");
         klickPraefix = kl == null ? null : kl.getString("nummer-praefix");
@@ -577,6 +586,17 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     @EventHandler
     public void beimVerlassen(org.bukkit.event.player.PlayerQuitEvent e) {
         portalZuletzt.remove(e.getPlayer().getUniqueId());
+    }
+
+    /** Kalendertag zu heute: 0 vor dem ersten Tag, dann 1–24, ab Tag 24 bis Jahresende 24, danach 0 (Generalprobe November: erster-tag 2026-11-01) */
+    private int kalenderTag(java.time.LocalDate heute) {
+        java.time.LocalDate erster = kalenderErster.length() == 5
+                ? java.time.MonthDay.parse("--" + kalenderErster).atYear(heute.getYear())
+                : java.time.LocalDate.parse(kalenderErster);
+        if (heute.isBefore(erster) || heute.getYear() != erster.getYear()) {
+            return 0;
+        }
+        return (int) Math.min(java.time.temporal.ChronoUnit.DAYS.between(erster, heute) + 1, 24);
     }
 
     /**

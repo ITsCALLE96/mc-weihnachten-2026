@@ -7,7 +7,8 @@ hub-server: hub
 eroeffnung:
   datei: /AMP/geteilt/status/smp-offen
   beitritt-sperren: true
-  text: "<red>Der Server öffnet am <white>27.11.</white>"
+  # Generalprobe: neutral; zum 27.11. wieder "<red>Der Server öffnet am <white>27.11.</white>"
+  text: "<red>Der Server ist noch nicht geöffnet"
   # einmalig, sobald der Merker auftaucht (Konsole). Erledigt-Merker plugins/Serverwahl/eroeffnet.txt, zurückgesetzt wenn der Merker wieder fehlt
   befehle:
     - "execute if score #phase lf_phase matches 0 run function leitfaden:phase/setzen_1"
@@ -47,14 +48,17 @@ wetter-rhythmus:
   pause-max: 60
   dauer-min: 5
   dauer-max: 8
-# Winterkalender der Spawn-Insel (Datapack insel, Spawn & Welt 27.10.): serverwahl setzt jede Minute #tag in insel_kalender auf den Dezembertag
-# (vor Dezember 0, 1.–24.12. = Tag, danach bis Jahresende 24). Aus dem Datum, übersteht Neustarts; kein AMP-Zeitplan nötig.
+# Winterkalender der Spawn-Insel (Datapack insel, Spawn & Welt 27.10.): serverwahl setzt jede Minute #tag in insel_kalender auf den Kalendertag
+# (vor erster-tag 0, dann 1–24, danach bis Jahresende 24). Aus dem Datum, übersteht Neustarts; kein AMP-Zeitplan nötig.
+# erster-tag: Türchen 1, „MM-TT“ jedes Jahr oder „JJJJ-MM-TT“ einmalig. Standard 12-01.
 # fester-tag > 0 überschreibt das Datum (Testnetz). Zum Testen mit function insel:kalender/tag {tag:5} vorher aktiv: false oder fester-tag setzen
 kalender:
   aktiv: true
   objective: insel_kalender
   eintrag: "#tag"
   zeitzone: Europe/Berlin
+  # GENERALPROBE NOVEMBER (Pascal 30.10.): Türchen N am N. November. Vor dem 27.11. zurück auf "12-01"
+  erster-tag: "2026-11-01"
   fester-tag: 0
   # Rechtsklick auf ein Türchen (Interaction mit Tag klick.tag) führt serverwahl selbst aus, sonst sperrt WorldGuard ihn in der Spawn-Region.
   # {n} = Zahl aus dem Tag <nummer-praefix><n>, z. B. insel_kal_7 → insel:kalender/tuer_7 (als der Spieler, wie „on target“ im Datapack)
@@ -147,6 +151,32 @@ neujahr:
 # Uhrzeiten vorläufig 18:00 (Pascal legt sie noch fest). /serverwahl termin liste | test <name> [sek] | zuruecksetzen <name>
 termine:
   zeitzone: Europe/Berlin
+  # GENERALPROBE NOVEMBER (Pascal 30.10.): liste-november gilt. Vor dem 27.11. auf "liste" (Dezember) zurückstellen.
+  # Eigene Namen (…-probe), damit der Merker termine.txt die Dezember-Termine nicht als erledigt führt.
+  # Nach der Probe Nether/End wieder schließen (nether close / end close) und die Leitfaden-Phase zurücksetzen (vor-dem-start.md)
+  aktive-liste: liste-november
+  liste-november:
+    - name: nether-probe
+      zeitpunkt: "2026-11-06T18:00"
+      ankuendigen: [1440, 60, 30, 10, 5, 1]
+      countdown: 10
+      text: "<red>Der Nether öffnet!"
+      befehle: ["nether open", "function leitfaden:phase/setzen_2"]
+      event: nether
+    - name: phase3-probe
+      zeitpunkt: "2026-11-10T18:00"
+      ankuendigen: []
+      countdown: 0
+      text: "Phase 3"
+      befehle: ["function leitfaden:phase/setzen_3"]
+    - name: end-probe
+      zeitpunkt: "2026-11-13T18:00"
+      ankuendigen: [1440, 60, 30, 10, 5, 1]
+      countdown: 10
+      text: "<light_purple>Das End öffnet – gemeinsamer Drachenkampf!"
+      befehle: ["end open", "function leitfaden:phase/setzen_4"]
+      event: end
+  # Dezember (echter Start)
   liste:
     - name: nether
       zeitpunkt: "2026-12-11T18:00"

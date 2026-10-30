@@ -6,7 +6,8 @@ hub-server: hub
 eroeffnung:
   datei: /AMP/geteilt/status/smp-offen
   ausloeser: {objective: insel_zustand, eintrag: "#offen", ab: 1}
-  text: "<red>Der Server öffnet am <white>27.11.</white>"
+  # Generalprobe: neutral; zum 27.11. wieder "<red>Der Server öffnet am <white>27.11.</white>"
+  text: "<red>Der Server ist noch nicht geöffnet"
 # Crate-Kisten im Fantasy Village: Rechtsklick öffnet das Menü der Kategorie.
 # Koordinaten vom Testserver (Leitung 24.10.), nach dem Hub-Aufbau der Spawn-&-Welt-Session prüfen.
 kisten:
@@ -27,7 +28,8 @@ kategorien:
         sperre: eroeffnung
         beschreibung:
           - "<gray>Survival mit dem Weihnachts-Modpack"
-          - "<gray>Start am <white>27.11.</white>"
+          # Generalprobe; zum 27.11. wieder "<gray>Start am <white>27.11.</white>"
+          - "<gray>Generalprobe im November"
           - ""
           - "<yellow>Klicken zum Beitreten"
   alle:
@@ -100,6 +102,25 @@ neujahr:
 # 18:10 Rückfall, falls er ausfällt (wirkt nur, solange noch zu). Uhrzeit vorläufig 18:00. /serverwahl termin liste | test <name> [sek]
 termine:
   zeitzone: Europe/Berlin
+  # GENERALPROBE NOVEMBER (Pascal 30.10.): liste-november gilt (SMP ist für Tester schon offen, daher ohne Start-Termine).
+  # Vor dem 27.11. auf "liste" (Dezember) zurückstellen. Eigene Namen, damit termine.txt die Dezember-Termine nicht als erledigt führt
+  aktive-liste: liste-november
+  liste-november:
+    - name: nether-probe
+      zeitpunkt: "2026-11-06T18:00"
+      ankuendigen: [60, 10, 1]
+      countdown: 10
+      text: "<red>Der Nether öffnet auf dem SMP!"
+      befehle: []
+      event: nether
+    - name: end-probe
+      zeitpunkt: "2026-11-13T18:00"
+      ankuendigen: [60, 10, 1]
+      countdown: 10
+      text: "<light_purple>Das End öffnet auf dem SMP – Drachenkampf!"
+      befehle: []
+      event: end
+  # Dezember (echter Start)
   liste:
     - name: start-ankuendigung
       zeitpunkt: "2026-11-27T18:00"
