@@ -1,5 +1,6 @@
 version:5023
 lang:de_de
+resourcePacks:["vanilla","continuity:default","continuity:glass_pane_culling_fix"]
 maxFps:240
 key_key.attack:key.mouse.left
 key_key.use:key.mouse.right

@@ -107,6 +107,5 @@ Minecraft 26.3, Fabric Loader 0.20.1
 | mods/ExtremeSoundMuffler-4.05_Fabric-26.3.jar.disabled | https://cdn.modrinth.com/data/5IIKsxiL/versions/REw9JB5b/ExtremeSoundMuffler-4.05_Fabric-26.3.jar |
 | shaderpacks/ComplementaryReimagined_r5.9.3.zip | https://cdn.modrinth.com/data/HVnmMxH1/versions/Bqen1mJX/ComplementaryReimagined_r5.9.3.zip |
 | shaderpacks/ComplementaryUnbound_r5.9.3.zip | https://cdn.modrinth.com/data/R6NEzAwj/versions/B1kyfoUZ/ComplementaryUnbound_r5.9.3.zip |
-| resourcepacks/Redstone Tweaks 2.5.6.zip | https://cdn.modrinth.com/data/RvfAlf4Z/versions/A19pA3wb/Redstone%20Tweaks%202.5.6.zip |
 | overrides/mods/block-marker-1.0.0.jar | eigene Mod, liegt im Pack |
 | overrides/mods/quest-details-1.0.0.jar | eigene Mod, liegt im Pack |

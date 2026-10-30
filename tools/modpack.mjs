@@ -2,6 +2,7 @@
 // Holt je Mod die neueste Fabric-Version für die Minecraft-Version aus versions.json,
 // löst Pflicht-Abhängigkeiten auf und schreibt build/weihnachten-modpack.mrpack.
 // Aufruf: node tools/modpack.mjs [mods.json einer Testvariante]  (Variante → build/<dateiname>.mrpack)
+//         node tools/modpack.mjs --fest <altes.mrpack>  (Versionen des alten Packs behalten, nur Overrides und Liste neu)
 import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, copyFileSync, readdirSync } from 'node:fs';
 import { join, resolve, basename, relative, dirname } from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -34,6 +35,13 @@ export function baueIndex({ name, version, minecraft, fabricLoader, versionen, s
     }),
     dependencies: { minecraft, 'fabric-loader': fabricLoader },
   };
+}
+
+// Fester Bau: übernimmt Mod-Versionen und Loader eines alten Packs, damit sich kurz vor einem Test nichts ungeprüft ändert.
+// Shader- und Resourcepack-Ordner fallen weg, wenn mods.json keine mehr vorsieht; neue Mods brauchen einen normalen Bau.
+export function festerIndex(alt, { name, version, shader = [], resourcepacks = [] }) {
+  const weg = [...(shader.length ? [] : ['shaderpacks/']), ...(resourcepacks.length ? [] : ['resourcepacks/'])];
+  return { ...alt, name, versionId: version, files: alt.files.filter((f) => !weg.some((o) => f.path.startsWith(o))) };
 }
 
 // Eigene Mods, die nicht auf Modrinth liegen: Pfade relativ zum Repo, landen als overrides/mods/<datei> im Pack.
@@ -74,64 +82,75 @@ async function neuesteVersion(projekt, minecraft, loader = 'fabric') {
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const repo = join(fileURLToPath(import.meta.url), '..', '..');
   const { minecraft } = JSON.parse(readFileSync(join(repo, 'versions.json'), 'utf8'));
-  const modsDatei = process.argv[2] ? resolve(process.argv[2]) : join(repo, 'modpack/mods.json');
+  const fest = process.argv[2] === '--fest' ? resolve(process.argv[3]) : null;
+  const modsDatei = process.argv[2] && !fest ? resolve(process.argv[2]) : join(repo, 'modpack/mods.json');
   const { name, version, mods, aktivSobaldVerfuegbar = [], optional = [], shader = [], resourcepacks = [], lokal = [] } =
     JSON.parse(readFileSync(modsDatei, 'utf8'));
-  const variante = process.argv[2] ? basename(modsDatei, '.json') : null; // Testvarianten überschreiben weder Pack noch STAND.md
+  const variante = process.argv[2] && !fest ? basename(modsDatei, '.json') : null; // Testvarianten überschreiben weder Pack noch STAND.md
   const eigene = lokaleMods(lokal, repo); // vor allen Downloads, damit ein fehlendes Jar sofort auffällt
 
-  const loader = (await holeJson(`https://meta.fabricmc.net/v2/versions/loader/${minecraft}`))
-    .find((l) => l.loader.stable)?.loader.version;
-  if (!loader) throw new Error(`Kein stabiler Fabric-Loader für ${minecraft}`);
+  const index = fest
+    ? festerIndex(JSON.parse(execFileSync('C:/Windows/System32/tar.exe', ['-xOf', fest, 'modrinth.index.json'], { encoding: 'utf8' })),
+      { name, version, shader, resourcepacks })
+    : await neuerIndex();
+  const loader = index.dependencies['fabric-loader'];
 
-  const gefunden = new Map(); // Projekt-ID → Version
-  const pflichtAb = (v) => (v.dependencies ?? []).filter((d) => d.dependency_type === 'required' && d.project_id).map((d) => d.project_id);
+  async function neuerIndex() {
+    const loader = (await holeJson(`https://meta.fabricmc.net/v2/versions/loader/${minecraft}`))
+      .find((l) => l.loader.stable)?.loader.version;
+    if (!loader) throw new Error(`Kein stabiler Fabric-Loader für ${minecraft}`);
 
-  // Holt ein Projekt samt Pflicht-Abhängigkeiten; liefert die Projekt-ID oder null, wenn es keine passende Version gibt.
-  const slugZuId = new Map();
-  async function hole(projekt, muss, loaderName = 'fabric') {
-    if (gefunden.has(projekt)) return projekt;
-    if (slugZuId.has(projekt)) return slugZuId.get(projekt);
-    let v;
-    try {
-      v = await neuesteVersion(projekt, minecraft, loaderName);
-    } catch (e) {
-      // Manche Mods listen Forge-Abhängigkeiten fälschlich als Pflicht; Kern-Mods müssen aber da sein.
-      if (muss) throw e;
-      console.warn(`Übersprungen: ${e.message}`);
-      return null;
+    const gefunden = new Map(); // Projekt-ID → Version
+    const pflichtAb = (v) => (v.dependencies ?? []).filter((d) => d.dependency_type === 'required' && d.project_id).map((d) => d.project_id);
+
+    // Holt ein Projekt samt Pflicht-Abhängigkeiten; liefert die Projekt-ID oder null, wenn es keine passende Version gibt.
+    const slugZuId = new Map();
+    async function hole(projekt, muss, loaderName = 'fabric') {
+      if (gefunden.has(projekt)) return projekt;
+      if (slugZuId.has(projekt)) return slugZuId.get(projekt);
+      let v;
+      try {
+        v = await neuesteVersion(projekt, minecraft, loaderName);
+      } catch (e) {
+        // Manche Mods listen Forge-Abhängigkeiten fälschlich als Pflicht; Kern-Mods müssen aber da sein.
+        if (muss) throw e;
+        console.warn(`Übersprungen: ${e.message}`);
+        return null;
+      }
+      slugZuId.set(projekt, v.project_id);
+      gefunden.set(v.project_id, v);
+      for (const d of pflichtAb(v)) await hole(d, false);
+      return v.project_id;
     }
-    slugZuId.set(projekt, v.project_id);
-    gefunden.set(v.project_id, v);
-    for (const d of pflichtAb(v)) await hole(d, false);
-    return v.project_id;
+
+    for (const projekt of mods) await hole(projekt, true);
+    // Gewünscht, aber noch ohne Version für diese Minecraft-Version: kommen beim nächsten Bau von selbst dazu.
+    for (const projekt of aktivSobaldVerfuegbar) await hole(projekt, false);
+    const aktivVorher = new Set(gefunden.keys());
+    const deaktiviert = new Set();
+    for (const projekt of optional) await hole(projekt, false);
+    // Optionale Mods und alles, was nur sie mitbringen (z. B. ukulib für uku's Armor HUD), liegen deaktiviert bei.
+    for (const id of gefunden.keys()) if (!aktivVorher.has(id)) deaktiviert.add(id);
+    // Was eine aktive Mod braucht, muss selbst aktiv bleiben.
+    for (let geaendert = true; geaendert;) {
+      geaendert = false;
+      for (const v of gefunden.values()) {
+        if (deaktiviert.has(v.project_id)) continue;
+        for (const d of pflichtAb(v)) if (deaktiviert.delete(d)) geaendert = true;
+      }
+    }
+    // Shader und Resourcepacks haben keine Abhängigkeiten und eigene Loader.
+    const shaderIds = [];
+    for (const projekt of shader) shaderIds.push(await hole(projekt, true, 'iris'));
+    const rpIds = [];
+    for (const projekt of resourcepacks) rpIds.push(await hole(projekt, true, 'minecraft'));
+    const versionen = [...gefunden.values()];
+
+    return baueIndex({ name, version, minecraft, fabricLoader: loader, versionen,
+      shader: shaderIds, resourcepacks: rpIds, deaktiviert: [...deaktiviert] });
   }
 
-  for (const projekt of mods) await hole(projekt, true);
-  // Gewünscht, aber noch ohne Version für diese Minecraft-Version: kommen beim nächsten Bau von selbst dazu.
-  for (const projekt of aktivSobaldVerfuegbar) await hole(projekt, false);
-  const aktivVorher = new Set(gefunden.keys());
-  const deaktiviert = new Set();
-  for (const projekt of optional) await hole(projekt, false);
-  // Optionale Mods und alles, was nur sie mitbringen (z. B. ukulib für uku's Armor HUD), liegen deaktiviert bei.
-  for (const id of gefunden.keys()) if (!aktivVorher.has(id)) deaktiviert.add(id);
-  // Was eine aktive Mod braucht, muss selbst aktiv bleiben.
-  for (let geaendert = true; geaendert;) {
-    geaendert = false;
-    for (const v of gefunden.values()) {
-      if (deaktiviert.has(v.project_id)) continue;
-      for (const d of pflichtAb(v)) if (deaktiviert.delete(d)) geaendert = true;
-    }
-  }
-  // Shader und Resourcepacks haben keine Abhängigkeiten und eigene Loader.
-  const shaderIds = [];
-  for (const projekt of shader) shaderIds.push(await hole(projekt, true, 'iris'));
-  const rpIds = [];
-  for (const projekt of resourcepacks) rpIds.push(await hole(projekt, true, 'minecraft'));
-  const versionen = [...gefunden.values()];
-
-  const index = baueIndex({ name, version, minecraft, fabricLoader: loader, versionen,
-    shader: shaderIds, resourcepacks: rpIds, deaktiviert: [...deaktiviert] });
+  const anzahl = (vorn, hinten = '') => index.files.filter((f) => f.path.startsWith(vorn) && f.path.endsWith(hinten)).length;
   const tmp = join(repo, 'build/mrpack');
   rmSync(tmp, { recursive: true, force: true });
   mkdirSync(tmp, { recursive: true });
@@ -149,6 +168,6 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     `# Stand des Modpacks\n\nMinecraft ${minecraft}, Fabric Loader ${loader}\n\n| Datei | Download |\n|---|---|\n` +
     index.files.map((f) => `| ${f.path} | ${f.downloads[0]} |`).join('\n') + '\n' +
     eigene.map((e) => `| ${e.ziel} | eigene Mod, liegt im Pack |`).join('\n') + (eigene.length ? '\n' : ''));
-  console.log(`${index.files.length} Dateien + ${eigene.length} eigene (${deaktiviert.size} deaktiviert, ${shaderIds.length} Shader, ` +
-    `${rpIds.length} Resourcepacks), Loader ${loader} → ${packDatei}`);
+  console.log(`${index.files.length} Dateien + ${eigene.length} eigene (${anzahl('mods/', '.disabled')} deaktiviert, ${anzahl('shaderpacks/')} Shader, ` +
+    `${anzahl('resourcepacks/')} Resourcepacks), Loader ${loader} → ${packDatei}`);
 }

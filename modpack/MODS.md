@@ -6,9 +6,17 @@ Grundlage für die Bewertung ist die Community-Zusammenstellung **„CastCrafter
 
 Aktuelle Dateien und Versionen unseres Packs: `STAND.md` (wird von `node tools/modpack.mjs` geschrieben).
 
+## Inhalt von `modpack-v3` (30.10.2026)
+
+Gleiche Mod-Versionen wie `modpack-v2` (fest gebaut mit `node tools/modpack.mjs --fest <altes .mrpack>`), nur zwei Änderungen:
+- **Continuity wirkt jetzt:** `overrides/options.txt` schaltet die eingebauten Packs „continuity:default“ und „continuity:glass_pane_culling_fix“ ein (verbundenes Glas). Vorher lagen sie bei, waren aber aus.
+- **Redstone Tweaks raus** (Leitung, 30.10.): lag bei, war aber nie eingeschaltet – keine toten Inhalte.
+
+Geprüft auf weitere Inhalte, die erst ein eingebautes Pack oder eine Option brauchen: Außer Continuity bringt nur Client Sort ein eingebautes Pack mit („Dark Mode“ für seine Knöpfe) – Geschmackssache, bleibt aus. Shader sind absichtlich aus (Anleitung: Videoeinstellungen → Shader-Pakete), Gamma Utils wirkt über die Tasten H/G. Alle übrigen Mods sind ab Werk aktiv.
+
 ## Inhalt von `modpack-v2` (23.10.2026)
 
-**Maßgeblich ist diese Liste und `mods.json`.** Die Stufen in den Tabellen weiter unten sind die ursprüngliche Bewertung. Was tatsächlich im Pack ist, hat Pascal am 23.10. Mod für Mod festgelegt. Stand des Baus (27.10.): 104 Dateien plus die eigenen Mods Block-Marker und Quest-Details – 13 Dateien deaktiviert (optionale Mods samt Bibliotheken, die nur sie brauchen) (`.jar.disabled`, im Launcher per Schalter einschaltbar), alle übrigen aktiv, dazu Shader Complementary Reimagined und Unbound und Resourcepack Redstone Tweaks.
+**Maßgeblich ist diese Liste und `mods.json`.** Die Stufen in den Tabellen weiter unten sind die ursprüngliche Bewertung. Was tatsächlich im Pack ist, hat Pascal am 23.10. Mod für Mod festgelegt. Stand des Baus (27.10.): 104 Dateien plus die eigenen Mods Block-Marker und Quest-Details – 13 Dateien deaktiviert (optionale Mods samt Bibliotheken, die nur sie brauchen) (`.jar.disabled`, im Launcher per Schalter einschaltbar), alle übrigen aktiv, dazu Shader Complementary Reimagined und Unbound und Resourcepack Redstone Tweaks (in v3 raus).
 
 **Aktiv** (`mods` in `mods.json`):
 - Leistung: Sodium, Sodium Extra, Lithium, Entity Culling, FerriteCore, ImmediatelyFast, Better Block Entities, SmoothTextureFix, More Culling, BadOptimizations, Dynamic FPS, quick pack, Language Reload, Debugify
@@ -167,7 +175,7 @@ Die Spalte „v1“ in den Tabellen zeigt den alten Stand `modpack-v1`.
 
 | Pack | Wofür | Stufe | Anmerkung |
 |---|---|---|---|
-| [Redstone Tweaks](https://modrinth.com/resourcepack/redstone-tweaks) | Redstone besser lesbar | ⚪ | |
+| [Redstone Tweaks](https://modrinth.com/resourcepack/redstone-tweaks) | Redstone besser lesbar | ⚪ | | **raus (30.10.)**: lag bei, war aber nie eingeschaltet |
 | [Resourcepack Archive](https://modrinth.com/resourcepack/vinc-resource-packs) | zwei kleine Packs des Mischen-Autors: „No Player Helmets“ (Helme anderer Spieler ausblenden) und „Minimal Armor“ (schlankere Rüstung) | ➖ | nur für 1.21.10 gebaut, und Armor Hider (⚪ im Pack) kann beides einstellbar |
 
 ## Bibliotheken (📚, kommen automatisch mit)

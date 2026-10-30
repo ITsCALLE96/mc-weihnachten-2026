@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { baueIndex, lokaleMods, overrideDateien } from './modpack.mjs';
+import { baueIndex, festerIndex, lokaleMods, overrideDateien } from './modpack.mjs';
 
 const version = {
   project_id: 'AANobbMI',
@@ -64,4 +64,19 @@ test('Voreinstellungen aus modpack/overrides landen mit Unterordnern in override
   assert.deepEqual(overrideDateien(ordner).map((d) => d.ziel).sort(),
     ['overrides/config/fancymenu/options.txt', 'overrides/options.txt']);
   assert.deepEqual(overrideDateien(join(ordner, 'gibtsnicht')), []);
+});
+
+test('Fester Bau übernimmt Versionen des alten Packs und lässt nicht mehr gewollte Resourcepacks weg', () => {
+  const alt = {
+    formatVersion: 1, game: 'minecraft', versionId: '2.0.0', name: 'Alt',
+    files: [{ path: 'mods/sodium.jar' }, { path: 'shaderpacks/c.zip' }, { path: 'resourcepacks/tweaks.zip' }],
+    dependencies: { minecraft: '26.3', 'fabric-loader': '0.20.1' },
+  };
+  const index = festerIndex(alt, { name: 'Neu', version: '3.0.0', shader: ['x'], resourcepacks: [] });
+  assert.equal(index.name, 'Neu');
+  assert.equal(index.versionId, '3.0.0');
+  assert.deepEqual(index.dependencies, alt.dependencies);
+  assert.deepEqual(index.files.map((f) => f.path), ['mods/sodium.jar', 'shaderpacks/c.zip']);
+  assert.deepEqual(festerIndex(alt, { name: 'N', version: '3', shader: [], resourcepacks: ['y'] }).files.map((f) => f.path),
+    ['mods/sodium.jar', 'resourcepacks/tweaks.zip']);
 });
