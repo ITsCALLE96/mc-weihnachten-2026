@@ -72,7 +72,7 @@ tab-liste:
     - ""
     - "<gold>Regeln: <gray>respektvoll bleiben · kein Griefing/Stehlen · keine Cheats/X-Ray · PvP nur, wenn beide wollen"
     - "<gray>Abstand zu fremden Bauten · nicht auf der Spawn-Insel bauen · keine Lag-Maschinen"
-    - "<aqua>Probleme? Pascal oder Moderatoren im Discord"
+    - "<aqua>Probleme? ITsCALLE96 oder Moderatoren im Discord"
 # Xaero: eigene Welt-ID, damit Minimap/Weltkarte Hub und SMP getrennt speichern (hinter Velocity sonst dieselbe „Welt“). Fest lassen, sonst neue leere Karte
 xaero-welt-id: 26120101
 # Nicknames und Clan-Tags (Pascal 28.10., Plan server/namen-clans-grief.md): /nick <name> | /nick reset, gespeichert in LuckPerms (gemeinsam mit dem
