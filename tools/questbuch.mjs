@@ -18,6 +18,8 @@ const vanillaListe = (q) => (q.vanilla === undefined ? [] : [q.vanilla].flat());
 // Bonus-Erkennung in Kurzform → Advancement-Kriterien
 export function baueErkennung(e) {
   if (e === 'info') return { criteria: { info: { trigger: 'minecraft:impossible' } } };
+  // extern: vergibt ein Plugin per advancement grant (z. B. serverwahl bei der ersten Spende)
+  if (e.extern) return { criteria: { [e.extern]: { trigger: 'minecraft:impossible' } } };
   const spieler = (predicate) => ({ player: { type: 'minecraft:entity_properties', entity: 'this', predicate } });
   const kriterien = {};
   if (e.gleiten) kriterien.gleiten = { trigger: 'minecraft:location', conditions: spieler({ 'minecraft:flags': { is_fall_flying: true } }) };
@@ -274,7 +276,7 @@ function texteMarkdown(daten, schritte = {}) {
   const zelle = (t) => [t.titel ? `**${t.titel}** ` : '', t.tun, t.brauchst ? `<br>_${t.brauchst}_` : '', t.tipp ? `<br>💡 ${t.tipp}` : ''].join('');
   for (const k of daten.kapitel) {
     z.push(`## ${k.de.titel} / ${k.en.titel} (${k.aktiv === false ? 'ausgeblendet' : `ab Phase ${k.phase}`})`, '', `_${k.de.beschreibung}_ / _${k.en.beschreibung}_`, '', '| Quest | Deutsch | English | Vanilla |', '|---|---|---|---|');
-    for (const q of k.quests) z.push(`| ${q.id}${q.kern && k.andenken ? ' ★' : ''} | ${zelle(q.de)} | ${zelle(q.en)} | ${vanillaListe(q).map((v) => `\`${v}\``).join(', ') || (q.erkennung === 'info' ? 'Info' : 'Bonus')} |`);
+    for (const q of k.quests) z.push(`| ${q.id}${q.kern && k.andenken ? ' ★' : ''} | ${zelle(q.de)} | ${zelle(q.en)} | ${vanillaListe(q).map((v) => `\`${v}\``).join(', ') || (q.erkennung === 'info' ? 'Info' : q.erkennung?.extern ? 'Plugin' : 'Bonus')} |`);
     if (k.andenken) z.push(`| andenken | ${zelle(k.andenken.de)} | ${zelle(k.andenken.en)} | – |`);
     z.push('');
     const mitSchritten = k.quests.filter((q) => schritte[`${k.id}/${q.id}`]);

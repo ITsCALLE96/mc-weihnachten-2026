@@ -112,6 +112,10 @@ test('zusammengelegte Quests brauchen gleiche Bedingungen', () => {
   assert.throws(() => baueQuestbuch(daten, anders), /andere Bedingungen/);
 });
 
+test('Bonus-Erkennung extern: nur per advancement grant von außen (Plugin), nie beim Freischalten', () => {
+  assert.deepEqual(baueErkennung({ extern: 'spende' }), { criteria: { spende: { trigger: 'minecraft:impossible' } } });
+});
+
 test('Bonus-Erkennung: Gleiten, Blöcke, Inventar, Tragen, Bauwerk', () => {
   assert.equal(baueErkennung('info').criteria.info.trigger, 'minecraft:impossible');
   assert.deepEqual(baueErkennung({ gleiten: true }).criteria.gleiten.conditions.player.predicate, { 'minecraft:flags': { is_fall_flying: true } });

@@ -1,0 +1,49 @@
+{
+  "parent": "leitfaden:ankommen/start",
+  "criteria": {
+    "spende": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:ender_chest"
+    },
+    "title": {
+      "translate": "questbuch.ankommen.spende.titel",
+      "fallback": "First Gift for the Christmas Island"
+    },
+    "description": [
+      "",
+      {
+        "translate": "questbuch.ankommen.spende.tun",
+        "fallback": "Open the Ender Chest in the middle of Spark Island, pick “Spenden für die Weihnachtsinsel” and hand in something from the wish list."
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.brauchst",
+        "fallback": "You need: ",
+        "color": "gray"
+      },
+      {
+        "translate": "questbuch.ankommen.spende.brauchst",
+        "fallback": "Something that is on the current wish list",
+        "color": "gray"
+      },
+      "\n",
+      {
+        "translate": "questbuch.label.tipp",
+        "fallback": "Tip: ",
+        "color": "gold"
+      },
+      {
+        "translate": "questbuch.ankommen.spende.tipp",
+        "fallback": "Every full stage makes the island grow to the north and gives everyone 3 potions. Giving really pays off here.",
+        "color": "gold"
+      }
+    ],
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}
