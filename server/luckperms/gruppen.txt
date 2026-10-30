@@ -11,10 +11,21 @@ lp group moderator parent add default
 # Grief-Tool Prism (Pascal 28.10.): prism.lookup = Abfragen, /pr near, Teleport, Inspektor (auch unser Prüfwerkzeug Holzspitzhacke)
 lp group moderator permission set prism.lookup true
 lp group moderator permission set serverwahl.nick.andere true
+# Moderation (Leitung 31.10.): kick, Bann und Entbannen (Vanilla kennt keinen Zeitbann: Moderator sperrt, hebt nach Absprache mit pardon wieder auf),
+# Grim-Meldungen. Kein Op, kein luckperms.*
+lp group moderator permission set minecraft.command.kick true
+lp group moderator permission set minecraft.command.ban true
+lp group moderator permission set minecraft.command.pardon true
+lp group moderator permission set minecraft.command.banlist true
+lp group moderator permission set grim.alerts true
+lp group moderator permission set grim.alerts.enable-on-join true
 # Rollback/Restore/Purge nur admin. Bewusst kein „*“: das würde auch Ausnahmen wie grim.exempt verteilen
 lp group admin parent add moderator
 lp group admin permission set prism.modify true
 lp group admin permission set prism.purge true
 lp group admin permission set luckperms.* true
 lp group admin permission set serverwahl.admin true
+lp group admin permission set minecraft.command.ban-ip true
+lp group admin permission set minecraft.command.pardon-ip true
+lp group admin permission set grim.verbose true
 lp user ITsCALLE96 parent add admin

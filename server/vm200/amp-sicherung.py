@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """AMP-eigene Sicherung (LocalFileBackupPlugin + AMP-Zeitplan) für die drei Minecraft-Instanzen einschalten (Leitung/Pascal 30.10., Standardmittel wie bei
 Minecraft101/ForeverWorld01: Interval Trigger + TakeBackup, ReplaceOldest). Nutzt den von AMP mitgelieferten Trigger „Hourly Backup“ und stellt nur
-Stunden/Minuten/Name/Aktiv um. SMP alle 6 h (03:30, 09:30, 15:30, 21:30), Hub 03:20 und Proxy 03:25 täglich – vor der QNAP-Kopie 03:47.
-Aufbewahrung (Platz /srv/ampdata 30.10.: 136 GB frei): SMP 16 Stände, max. 64 GB, Hub 7 ≤ 8 GB, Proxy 7 ≤ 4 GB, ältester zuerst.
+Stunden/Minuten/Name/Aktiv um. **AMP-Zeitplan rechnet in UTC** (gemessen 31.10.: Stunde 21 lief um 22:30 MEZ), Stunden unten also UTC.
+Pascal 31.10.: SMP jede Stunde zur Minute 40 (live, ~2 min, ~3,3 GB), 24 Stände = letzte 24 h; Hub 03:20 und Proxy 03:25 MEZ (02:xx UTC) täglich.
+Reihenfolge nachts (MEZ): SMP 03:40 → QNAP-Kopie 03:47 → Neustart 04:00 (mc-neustart.sh) → Prism-Purge 04:30. Sommerzeit: AMP-Zeiten eine Stunde früher.
+Aufbewahrung (Platz 31.10.: 127 GB frei): SMP 24 Stände, max. 80 GB (wächst die Welt, bleiben entsprechend weniger Stände), Hub 7 ≤ 8 GB, Proxy 7 ≤ 4 GB, ältester zuerst.
 SMP: world/lss-lod ausgenommen (backupExclusions.conf, LOD-Daten lassen sich neu erzeugen).
 Als root auf VM200, betroffene AMP-Instanzen GESTOPPT (ampinstmgr -q), sonst überschreibt AMP die Dateien beim Beenden.
 """
@@ -14,9 +16,9 @@ import sys
 
 I = "/home/amp/.ampdata/instances"
 PLAN = {
-    "MinecraftSMP01": dict(name="Sicherung alle 6 h", stunden=[3, 9, 15, 21], minute=30, anzahl=16, gesamt_mb=65536),
-    "MinecraftHub01": dict(name="Sicherung täglich", stunden=[3], minute=20, anzahl=7, gesamt_mb=8192),
-    "MinecraftProxy01": dict(name="Sicherung täglich", stunden=[3], minute=25, anzahl=7, gesamt_mb=4096),
+    "MinecraftSMP01": dict(name="Sicherung stündlich", stunden=list(range(24)), minute=40, anzahl=24, gesamt_mb=81920),
+    "MinecraftHub01": dict(name="Sicherung täglich", stunden=[2], minute=20, anzahl=7, gesamt_mb=8192),
+    "MinecraftProxy01": dict(name="Sicherung täglich", stunden=[2], minute=25, anzahl=7, gesamt_mb=4096),
 }
 AUSNAHMEN = {"MinecraftSMP01": ["world|lss-lod"]}
 
@@ -41,7 +43,7 @@ for inst, p in PLAN.items():
     if len(trig) != 1:
         sys.exit(f"{inst}: {len(trig)} Sicherungs-Trigger statt 1")
     t = trig[0]
-    t.update(Name=p["name"], Description="Minecraft-Netz (30.10.): AMP-Sicherung, Kopie 03:47 auf die QNAP", MatchHours=p["stunden"],
+    t.update(Name=p["name"], Description="Minecraft-Netz (31.10.): AMP-Sicherung (Zeiten UTC), Kopie 03:47 MEZ auf die QNAP", MatchHours=p["stunden"],
              MatchMinutes=[p["minute"]], MatchDays=list(range(7)), MatchMonths=list(range(12)), EnabledState=1)
     for a in t["Tasks"].values():
         a["EnabledState"] = 1
@@ -52,4 +54,4 @@ for inst, p in PLAN.items():
     for f in ("LocalFileBackupPlugin.kvp", "scheduleTimes.json", "scheduleTimes.json.vor-sicherung", "backupExclusions.conf"):
         if os.path.exists(f"{d}/{f}"):
             shutil.chown(f"{d}/{f}", "amp", "amp")
-    print(f"{inst}: {p['name']} {p['stunden']}:{p['minute']:02d}, {p['anzahl']} Stände, max. {p['gesamt_mb']} MB")
+    print(f"{inst}: {p['name']} UTC {p['stunden']}:{p['minute']:02d}, {p['anzahl']} Stände, max. {p['gesamt_mb']} MB")
