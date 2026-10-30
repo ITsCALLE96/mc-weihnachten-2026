@@ -44,21 +44,23 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 
 ## Welt
 
-> **Offen seit 24.10.:** Seed, Spawn und Mittelpunkt kommen neu von der Spawn-&-Welt-Session (eigener Spawn statt CA12-Insel, `vorgenerierung.md`). Die Punkte unten mit CA12-Werten bis dahin nicht abhaken.
+Ablauf seit 30.10. (Pascal): **neue SMP-Welt mit neuem Zufalls-Seed** über `spawn/smp-neu/` (Spawn & Welt), Insel am natürlichen World-Spawn per Versatz.
+CA12 und die feste Insel-Lage sind überholt. Der Seed steht nur in der Welt, in `spawn/quellen/smp-seed.txt` (git-ignoriert) und in der Vault-Administration.
 
-- [ ] Seed `1560698989` (CA12), Weltgrenze 10.000 × 10.000, Mittelpunkt x 64 / z 37 (Nether 8 / 5)
-- [ ] Spawn-Aufbau nach `spawn/AUFBAU.md` **vor** der Vorgenerierung: `function aufschuettung:start` (Pilzland-Ebene), dann `function insel:aufbau` (Insel v2, Weltspawn 64/179/29,
-  `respawn_radius 0`, Plattform, Lichter, Weltgrenze), dann `nether close` / `end close`. WorldGuard `regions.yml` aus `spawn/worldguard/` (`vorgenerierung.md` → Spawn-Aufbau)
-- [ ] Keine Dimensions-Ordner vor dem ersten Start anlegen (Absturz in 26.3). Anti-Xray für Nether/End erst danach eintragen und einmal neu starten (`paper/anti-xray.md`)
-- [ ] Frischer Join nach `spawn/PRUEFLISTE.md` geprüft (neuer Testspieler auf der Insel, Plattform mit Portal-Übergang ohne OP, Inselschutz, Bauen auf der Ebene erlaubt, keine Monster auf der Pilzland-Ebene)
-- [ ] **Vorgenerierung** Overworld 5.000 / Nether 1.250 / End 2.000 abgeschlossen (`vorgenerierung.md`), Drachenkampf startet weiterhin (in der Testwelt geprüft)
-- [ ] Datapacks geladen, Reihenfolge per `/datapack list` (`plugins.md`). Wanderhändler-Rabatt `datapacks/wanderhaendler-rabatt` in der Testwelt geprüft, **ab dem Start dauerhaft an** (Pascal 28.10., `datapacks/README.md`)
-- [ ] Server-Bild und MOTD in Velocity (`icon/README.md`), Servername statt Platzhalter „Weihnachtsserver“, sobald er feststeht
+- [ ] Neue Welt erzeugen und aufbauen: `spawn/smp-neu/erzeugen.sh` → `bauen.sh` → Abnahme-Renders, Pascal gibt frei (Spawn & Welt, `spawn/smp-neu/README.md`)
+- [ ] **Vorgenerierung auf VM200** (Leitung 31.10.): Overworld r 5000 um den Spawn, Nether r 1250, End r 2000 (`vorgenerieren.sh`-Werte), mit Chunky auf dem SMP
+  bei geschlossenem Server; Dauer und Platz vorher abschätzen (`vorgenerierung.md`). Ablauf mit Spawn & Welt abstimmen (bisher lokal gebaut und hochgeladen)
+- [ ] Einspielen: `server/vm200/smp-neu-einspielen.sh` (alte Welt sichern, Welt, Seed in AMP, `regions.yml`/`weihnachtsmann.json`/`mission.json` aus
+  `spawn/smp-neu/ausgabe/`, Configs mit Versatz, `winter-weihnachten` erst **nach** der Vorgenerierung, Anti-Xray, Spieler-Reset Hub + SMP)
+- [ ] Keine Dimensions-Ordner vor dem ersten Start anlegen (Absturz in 26.3); Anti-Xray Nether/End erst danach (`anti-xray-setzen.py` macht das)
+- [ ] Frischer Join nach `spawn/PRUEFLISTE.md` (Testspieler auf der Insel, Ender-Kiste, Elytra-Zonen, Inselschutz, Kalender Tag 0, Weihnachtsinsel Stufe 0)
+- [ ] Datapacks per `/datapack list` (`plugins.md`), Wanderhändler-Rabatt dauerhaft an
+- [ ] Velocity-MOTD und Server-Bild (`icon/README.md`, `velocity/velocity.toml.auszug`)
 
 ## Messen und Nachweisen
 
-- [ ] Lasttest mit Bots durchgeführt, Ergebnisse in `kapazitaet.md` „Gemessen“ (`lasttest.md`)
-- [ ] Upload von VM200 aus gemessen, Sichtweite nach den Grenzwerten festgelegt (`kapazitaet.md` → Upload)
+- [ ] Realer Lasttest am Testlauf 21.11. mit spark (Profiler, health) und docker stats, Ergebnisse in `kapazitaet.md` „Gemessen“ (`lasttest.md`; Bot-Test nur auf getrennter Kopie ohne Portfreigabe)
+- [ ] Upload von VM200 aus abends gemessen (3 Tage, 19–22 Uhr), Sichtweite nach den Grenzwerten festgelegt (`kapazitaet.md` → Upload)
 - [ ] **Xaero-Weltkarte zeigt nichts Unterirdisches** (Testlauf, Idee Pascal: im Einzelspieler waren 3 Trial Chambers auf der Karte). Als Spieler ohne OP mit dem Modpack:
   in der Overworld lässt sich die Höhlenansicht nicht einschalten (Minimap und Weltkarte), im Nether schon (so entschieden). Ein OP sucht vorher per
   `/locate structure minecraft:trial_chambers` eine Trial Chamber, der Spieler fliegt hin und prüft, dass sie auf keiner Karte auftaucht. Dazu stichprobenartig
@@ -68,21 +70,31 @@ Die Go-Live-Checkliste im Vault (Task 9 Schritt 5) bleibt das offizielle Abnahme
 
 ## Betrieb
 
-- [ ] Backups laufen: AMP alle 3 h mit 8 Ständen plus nächtliches Proxmox-Backup auf die QNAP (entschieden 24.10.), Wiederherstellung getestet (Task 9 Schritte 3/4)
+- [ ] Backups laufen (Pascal 31.10.): AMP-Sicherung SMP **stündlich** zur Minute 40 (24 Stände, max. 80 GB), Hub 03:20, Proxy 03:25, QNAP-Kopie 03:47
+  (`vm200/amp-sicherung.py`, `vm200/mc-sicherung-qnap.sh`; AMP-Zeitpläne laufen in UTC), Proxmox 02:00 und 04:00. Wiederherstellung geprobt (`vm200/restore-test.sh`)
 - [ ] **Season-Wechsel nur mit Abschluss-Schnappschuss:** `save-all flush`, dann `SCHNAPPSCHUSS_ERSETZEN=1 schnappschuss.sh …` von Hand, erst danach `SEASON`
   umstellen. `testlauf` → `weihnachten-2026` direkt vor dem Weltwechsel (Task 10 Schritt 4), nicht erst am 27.11. (`statistik/README.md` → Seasons)
-- [ ] **Generalprobe November zurückstellen (Pascal 30.10.):** SMP `kalender.erster-tag: "12-01"`, SMP und Hub `termine.aktive-liste: liste`, Sperrtexte und
-  Hub-Beschreibung wieder „27.11.“ (Kommentare in beiden Configs), dann `nether close`, `end close`, Leitfaden-Phase zurück auf 0, `termine.txt` löschen.
-  Außerdem (30.10.): SMP `mission.start` entfernen, `mission-stand.yml` zurücksetzen und die Insel-Bauten zurückstellen (mit Spawn & Welt klären),
-  Velocity-MOTD Zeile 2 wieder „Start am 27.11.“ (Kommentar in `velocity/velocity.toml.auszug`), `velocity reload`
+- [ ] **Generalprobe November zurückstellen** (Pascal 30.10., Liste Leitung 31.10.) – Reihenfolge:
+  1. Konsole SMP (Server läuft): `function weihnachtsinsel:zuruecksetzen`, dann `function weihnachtsinsel:vorbereiten` (Insel, Brücke, Tafel auf Stufe 0),
+     `nether close`, `end close`, Leitfaden-Phase auf 0 (Questbuch-Session nennt den Befehl)
+  2. Proxy, Hub, SMP in AMP stoppen, dann `python3 vm200/generalprobe-zurueck.py` (zeigt die Diffs) und mit `--ausfuehren` schreiben. Es stellt zurück:
+     Kalender `erster-tag "12-01"`, `termine.aktive-liste: liste` (Hub + SMP), Sperrtexte und Hub-Beschreibung „27.11.“, SMP `mission.start` raus,
+     Hub `api.gilden` nur noch Final-Server `899675876298469457`, Test-Guilds aus `discord.json`, Velocity-MOTD „Start am 27.11.“;
+     löscht `eroeffnet.txt`, `termine.txt` (Hub + SMP), `mission-stand.yml`, `geteilt/status/smp-offen`. Sicherung `/root/mcw-staging/vor-zurueck-*`
+  3. Repo genauso zurückstellen (Configs `plugin-konfig/*/Serverwahl/config.yml`, `velocity/velocity.toml.auszug`), damit ein späteres Einspielen nichts zurückholt
+  4. Hub-Termine-Stand: `spawn/hub.json` `text` ↔ `text_zum_testlauf` (Spawn & Welt), Hub-Datapack neu, `function hub:staende`
+  5. Statistik: Season `testlauf` → `weihnachten-2026` mit Abschluss-Schnappschuss (Statistik-Session)
+  6. Neue SMP-Welt (Abschnitt „Welt“), Whitelist bzw. Discord-Einträge prüfen
 - [ ] **Phasen ohne AMP:** serverwahl `termine:` (SMP: Nether Fr 11.12., Phase 3 Vorschlag 15.12., End Fr 18.12., je 18:00 vorläufig; Hub: Start-Ankündigung 27.11. 18:00,
   Rückfall-Eröffnung 18:10). `/serverwahl termin liste` auf beiden zeigt alle Termine, keiner „erledigt“ (Testwelt-Merker `plugins/Serverwahl/termine.txt` vor dem Start löschen)
-- [ ] AMP-Aufgaben: `save-all flush` 03:58, Statistik-Cron 04:00 mit Season-Datei (`statistik/README.md`)
+- [ ] Statistik auf VM200 (Season, Schnappschuss vor dem Neustart 04:00) nach Absprache mit der Statistik-Session (`statistik/README.md`)
 - [ ] Dorf-Rabatt 24.–26.12. (`dorf-rabatt:`) und Neujahrsfeuerwerk (`neujahr:`) in der Config, `neujahr.txt`/`termine.txt` aus der Testwelt gelöscht
-- [ ] **Täglicher Neustart** (bestätigt Leitung 24.10.) per AMP-Aufgabe um 05:00, nach Schnappschuss und Backup. Er räumt Speicher und Chunk-Reste auf, und um 05:00 spielt fast nie jemand.
-  Vorher eine Chatwarnung 5 Minuten früher. Die Phasenstände überleben Neustarts (Scoreboard/Plugin, im Test geprüft)
+- [ ] **Täglicher Neustart 04:00** (Pascal 31.10.) per Cron auf VM200 (`vm200/mc-neustart.sh`, Log `/var/log/mc-neustart.log`), nach SMP-Sicherung 03:40 und
+  QNAP-Kopie 03:47; Prism-Purge 04:30. Startmodus „Anwendung starten“ in allen drei AMP-Instanzen, „Start beim Booten“ an. Ohne Chatwarnung (keine Konsole per Cron)
+- [ ] Ausfall-Alarm auf dem Proxmox-Host (`vm200/mc-healthcheck.py`, alle 2 min, Discord-Webhook), Testnachricht angekommen
+- [ ] **Update-Stopp 27.11.–18.12.:** keine Updates von Paper, Velocity, Plugins und AMP, nur Sicherheitsfixes; Wartung sonst im Fenster 04:00 nach Sicherung
 - [ ] AMP-Log-Aufbewahrung so, dass das Statistik-Skript alle Logs abholt, bevor AMP sie löscht
-- [ ] Keine `getamp update`/Docker-Updates zu Spielzeiten (Globale Vorgaben)
+- [ ] Keine `getamp update`/Docker-Updates zu Spielzeiten (Globale Vorgaben), vorher Proxmox-Snapshot bzw. AMP-Sicherung
 - [ ] Rückfall Nitrado bekannt (Plan Task 9 Schritt 8)
 
 ## Eröffnung (Weltenbaum öffnet sich)

@@ -3,6 +3,15 @@
 Ziel: Vor dem ersten Test mit Menschen sehen, ob der Server 25–30 gleichzeitige Spieler schafft (TPS/MSPT, RAM, CPU, Temperatur). Gemessen wird auch, wie viel
 Netzverkehr er dabei erzeugt. Nur Planung, noch nicht durchgeführt.
 
+> **Stand 31.10. (Leitung, Lückenanalyse):** Das Netz läuft seit 30.10. dauerhaft mit Portfreigabe und echten Spielern. Ein Bot-Lasttest mit `online-mode = false`
+> ist damit **nur noch auf einer getrennten Kopie** erlaubt (eigene Instanz/Testnetz ohne Freigabe), **nie** auf den Live-Instanzen und nie, solange irgendeine
+> Portfreigabe auf VM200 zeigt. Ersatz und Plan:
+> - **Realer Lasttest am Testlauf 21.11.** mit den echten Testern: vorher `/spark profiler start --timeout 1800` auf dem SMP, `spark health` vorher/nachher,
+>   `docker stats` und Proxmox-RRD mitschreiben; Ansturm beim Beitritt, gemeinsames Spawn-Treffen (10 min), danach Verteilen und Elytra. Links und Werte in
+>   `kapazitaet.md` („Gemessen“) und die Administration
+> - **Upload-Speedtest abends** (19–22 Uhr, Spielzeit) von VM200 aus, dreimal an verschiedenen Tagen, Ergebnis in `kapazitaet.md` → Upload (Pascal startet den Test)
+> - Bot-Test nur, wenn der reale Test Zweifel lässt, dann mit Kopie der Welt auf einer getrennten Instanz ohne Portfreigabe (Abschnitte unten)
+
 ## Werkzeug
 
 | | |
@@ -18,10 +27,10 @@ für einen einmaligen Lasttest zu viel. Bleibt als Ersatz, falls stress-test mit
 
 **Wo die Bots laufen:** auf Pascals PC oder einem Rechner im LAN, **nicht auf VM200**, sonst verfälschen sie die CPU-Messung. 30 Bots brauchen wenig (~1–2 GB RAM).
 
-## Vorbereitung (Server ist dabei nur im LAN erreichbar)
+## Vorbereitung (nur getrennte Kopie, nie live)
 
-Die Bots melden sich **offline** an (ohne Mojang-Konto). Dafür muss die Sicherheit kurz herunter. Das passiert nur, solange **keine Portfreigabe aktiv ist**
-(vor Task 3 Schritt 3 oder die Freigabe in der FritzBox für die Dauer des Tests deaktivieren). Sonst könnte sich jeder von außen als beliebiger Name anmelden, auch als OP.
+Die Bots melden sich **offline** an (ohne Mojang-Konto). Dafür muss die Sicherheit herunter. Das passiert **nur auf einer getrennten Kopie ohne Portfreigabe**
+(eigene Instanz bzw. Testnetz, nicht die Live-Instanzen von VM200). Sonst könnte sich jeder von außen als beliebiger Name anmelden, auch als OP.
 
 1. Welt: die Testwelt, **vorgeneriert** mit Chunky (siehe `kapazitaet.md`), Weltgrenze gesetzt
 2. Velocity `velocity.toml`: `online-mode = false` (Modern Forwarding bleibt an)
@@ -75,5 +84,5 @@ Bots starten mit `-Dbot.ip=192.168.178.78 -Dbot.port=25577 -Dbot.login.delay.ms=
 3. **Prüfen:** fremder Account wird abgewiesen, Pascals Account kommt rein
 4. **Bot-Spielerdaten löschen** (nur Testwelt): Bot-UUIDs in `players/`-Ordnern (Daten, `stats`, `advancements`) und in `usercache.json` entfernen.
    Sonst tauchen die Bots in der Season `testlauf` der Statistikseite auf. Einfacher: Testwelt nach dem Lasttest aus dem vorher gemachten Backup zurückspielen
-5. Portfreigabe wieder aktivieren, falls sie für den Test deaktiviert war
+5. Getrennte Kopie löschen (die Live-Instanzen waren nie betroffen)
 6. Ergebnisse in `kapazitaet.md` (Abschnitt „Gemessen“) und Administration-Doku eintragen. Bei Bedarf Heap, Sichtweiten oder Weltgrenze anpassen
