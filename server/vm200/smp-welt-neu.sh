@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 # SMP-Welt für einen Neuaufbau freimachen (Pascal 30.10.: komplett neuer Zufalls-Seed, Führung Spawn & Welt). Läuft als root auf VM200, SMP GESTOPPT.
 #  1. alte Welt sichern statt löschen: Minecraft/world → /srv/ampdata/mc-netzwerk-sicherung/smp-welt-<zeit> (gleiche Platte, nur verschoben)
-#  2. Zufalls-Seed setzen: AMP schreibt level-seed aus Minecraft.WorldSeed (Standard „CubeCodersPowered“ = fester, bekannter Seed!).
-#     Der Seed wird zufällig erzeugt und NICHT ausgegeben (nicht ins Repo/Vault; steht danach nur in level.dat und der AMP-Einstellung)
+#  2. nur mit --seed: Zufalls-Seed setzen, falls Paper die neue Welt AUF VM200 erzeugen soll. AMP schreibt level-seed aus Minecraft.WorldSeed
+#     (Standard „CubeCodersPowered“ = fester, bekannter Seed!). Wird die Welt fertig geliefert, stattdessen seed-uebernehmen.py nach dem Upload.
+#     Der Seed wird nie ausgegeben (nicht ins Repo/Vault)
 #  3. Spieler-Merker des SMP wie spieler-reset.py (mission-stand.yml, eroeffnet.txt, taeglich.txt, neujahr.txt, geteilt/status/smp-offen) mit sichern
 # Beim nächsten Start erzeugt Paper die neue Welt (Spawn, Grenze, Chunky, LODs: Spawn & Welt). Datapacks danach wieder nach world/datapacks.
-# Vom C96-PC (PowerShell): Get-Content -Raw <dieses Skript> | ssh root@192.168.178.200 "ssh root@192.168.178.78 'bash -s'"
+# Vom C96-PC (PowerShell): Get-Content -Raw <dieses Skript> | ssh root@192.168.178.200 "ssh root@192.168.178.78 'bash -s'"   (ohne Seed)
 set -euo pipefail
 I=/home/amp/.ampdata/instances/MinecraftSMP01
 M=$I/Minecraft
@@ -26,6 +27,7 @@ for f in mission-stand.yml eroeffnet.txt taeglich.txt neujahr.txt; do
 done
 [ -f /srv/ampdata/mc-netzwerk-geteilt/status/smp-offen ] && mv /srv/ampdata/mc-netzwerk-geteilt/status/smp-offen "$S/smp-merker-$Z/" && echo "Eröffnungs-Merker gesichert"
 
+[ "${1:-}" = "--seed" ] || { echo "Fertig (ohne Seed) – Welt wird geliefert, Seed danach mit seed-uebernehmen.py"; exit 0; }
 # Zufalls-Seed (64 Bit, vorzeichenbehaftet wie Minecraft), nur in AMP-Einstellung und server.properties – keine Ausgabe
 seed=$(python3 -c 'import secrets; print(secrets.randbits(64) - 2**63)')
 su - amp -c "ampinstmgr -q MinecraftSMP01" | tail -1
