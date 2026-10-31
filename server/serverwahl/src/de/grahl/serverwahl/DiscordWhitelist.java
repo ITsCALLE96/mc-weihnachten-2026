@@ -433,10 +433,11 @@ final class DiscordWhitelist implements Listener {
             if (!JAVA_NAME.matcher(name).matches()) {
                 throw new ApiFehler(400, "name");
             }
-            JsonObject o = holen("https://api.mojang.com/users/profiles/minecraft/" + name);
+            JsonObject o = javaProfil(name);
             String id = o.get("id").getAsString();
             UUID uuid = UUID.fromString(id.replaceFirst("(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})", "$1-$2-$3-$4-$5"));
-            k = new Konto(o.get("name").getAsString(), uuid, "java", "https://mc-heads.net/avatar/" + uuid + "/64");
+            // minotar statt mc-heads: mc-heads lieferte am 31.10. für alle Spieler Steve
+            k = new Konto(o.get("name").getAsString(), uuid, "java", "https://minotar.net/helm/" + id + "/64.png");
         } else if ("bedrock".equals(edition)) {
             if (name.startsWith(floodgatePraefix)) {
                 name = name.substring(floodgatePraefix.length());
@@ -464,6 +465,37 @@ final class DiscordWhitelist implements Listener {
         return k;
     }
 
+    /** Java-Namen auflösen. Störung 31.10.: api.mojang.com hing zeitweise (Bot meldete „Namensprüfung nicht erreichbar“), sessionserver ebenso.
+     *  Deshalb zwei Endpunkte (minecraftservices zuerst, dann api.mojang), je 5 s; 404 = Name unbekannt (endgültig), alles andere (Timeout, 5xx,
+     *  429) → nächster Endpunkt; nach einem erfolglosen Durchgang 1 s Pause und ein zweiter. Erst dann 503 an den Bot */
+    static final String[] JAVA_QUELLEN = {
+        "https://api.minecraftservices.com/minecraft/profile/lookup/name/",
+        "https://api.mojang.com/users/profiles/minecraft/",
+    };
+
+    private JsonObject javaProfil(String name) throws ApiFehler {
+        for (int runde = 0; runde < 2; runde++) {
+            for (String quelle : JAVA_QUELLEN) {
+                try {
+                    return holen(quelle + name);
+                } catch (ApiFehler f) {
+                    if (f.status == 404) {
+                        throw f;
+                    }
+                }
+            }
+            if (runde == 0) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        }
+        throw new ApiFehler(503, "mojang");
+    }
+
     private JsonObject holen(String url) throws ApiFehler {
         try {
             HttpResponse<String> r = http.send(HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofSeconds(5))
@@ -472,6 +504,7 @@ final class DiscordWhitelist implements Listener {
                 throw new ApiFehler(404, "unbekannt");
             }
             if (r.statusCode() != 200) {
+                plugin.getLogger().info("Namensprüfung: " + URI.create(url).getHost() + " antwortet " + r.statusCode());
                 throw new ApiFehler(503, "mojang");
             }
             JsonObject o = JsonParser.parseString(r.body()).getAsJsonObject();
@@ -483,6 +516,7 @@ final class DiscordWhitelist implements Listener {
             if (e instanceof InterruptedException) {
                 Thread.currentThread().interrupt();
             }
+            plugin.getLogger().info("Namensprüfung: " + URI.create(url).getHost() + " nicht erreichbar (" + e.getClass().getSimpleName() + ")");
             throw new ApiFehler(503, "mojang");
         }
     }
