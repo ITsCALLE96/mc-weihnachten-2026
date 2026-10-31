@@ -11,6 +11,10 @@ import { hole } from '../../tools/schem.mjs';
 
 // Bau-Lage: alle Generatoren (standort-smp-spark.json, insel-*, weihnachtsinsel) rechnen mit dem Spawn bei 0/48 und dem Boden der Rückweg-Plattform auf y 66
 export const BAU = { x: 0, z: 48, boden: 66 };
+// Pascal 31.10.: Spawn-Insel und Weihnachtsinsel deutlich höher, Spieler-Standfläche (Weltspawn) mindestens auf y STAND, Plattform bleibt am Boden.
+// Bau-Lage: Weltspawn y 156. hoch = was die Inseln über den Bodenversatz dy hinaus steigen (verschieben.mjs, Höhen ab y 80)
+export const STAND = 186;
+export const hochFuer = (dy, stand = STAND) => Math.max(0, stand - (156 + dy));
 // Bereiche in Bau-Lage: Insel (Kreis um die Ovalmitte, Unterkante 89), Weihnachtsinsel (Kasten, Unterkante 100), Lichtung um die Rückweg-Plattform
 export const BEREICHE = {
   insel: { x: -1, z: 47, r: 30, unterkante: 89 },
@@ -78,17 +82,17 @@ export function plan(welt) {
   const gruende = [];
   if (nass.length > 0.6 * (kern.length + nass.length)) gruende.push(`Spawn größtenteils im Wasser (${nass.length} von ${kern.length + nass.length} Spalten um die Plattform)`);
   if (boden > 200) gruende.push(`Boden an der Plattform auf y ${boden}, zu hoch für die schwebende Insel`);
-  const dy = boden - BAU.boden;
-  return { dx, dy, dz, boden, weltSpawn: [x, boden + 1, z], spawn: [BAU.x + dx, 156 + dy, BAU.z + dz], ausschluss: gruende };
+  const dy = boden - BAU.boden, hoch = hochFuer(dy);
+  return { dx, dy, dz, hoch, boden, weltSpawn: [x, boden + 1, z], spawn: [BAU.x + dx, 156 + dy + hoch, BAU.z + dz], ausschluss: gruende };
 }
 
 const glatt = (t) => (t <= 0 ? 0 : t >= 1 ? 1 : t * t * (3 - 2 * t));
 
 // Ziel-Höhe je Spalte: Lichtung eben auf boden mit weichem Übergang, unter Insel/Weihnachtsinsel gekappt (Abstand zur Unterkante), Kappung läuft schräg aus
 export function zielHoehen(g, lage) {
-  const { dx, dy, dz, boden } = lage, B = BEREICHE, L = B.lichtung;
+  const { dx, dy, dz, boden, hoch = 0 } = lage, B = BEREICHE, L = B.lichtung;
   const px = BAU.x + dx, pz = BAU.z + dz, ix = B.insel.x + dx, iz = B.insel.z + dz, W = B.weihnachtsinsel;
-  const kappeInsel = B.insel.unterkante + dy - B.abstand, kappeWi = W.unterkante + dy - B.abstand;
+  const kappeInsel = B.insel.unterkante + dy + hoch - B.abstand, kappeWi = W.unterkante + dy + hoch - B.abstand;
   const ziel = new Int16Array(g.N * g.N), kappen = new Float32Array(g.N * g.N);
   for (let i = 0; i < g.N; i++) for (let k = 0; k < g.N; k++) {
     const x = g.x0 + i, z = g.z0 + k, j = k * g.N + i, h = g.h[j];

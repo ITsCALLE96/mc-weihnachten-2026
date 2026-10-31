@@ -7,7 +7,7 @@ import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync } fr
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dateien, lichterAus } from '../standort.mjs';
-import { verschiebeDatapack, verschiebeRegionen } from './verschieben.mjs';
+import { verschiebeDatapack, verschiebeRegionen, AB } from './verschieben.mjs';
 
 const REPO = join(dirname(fileURLToPath(import.meta.url)), '../..');
 export const STANDORT = join(REPO, 'spawn/standort-smp-spark.json');
@@ -17,7 +17,8 @@ export const STANDORT = join(REPO, 'spawn/standort-smp-spark.json');
 export const ohneLichtung = (k) => ({ ...k, lichtung: undefined, entfernen: (k.entfernen ?? []).filter((e) => Math.min(e.von[1], e.bis[1]) >= k.struktur.ursprung[1]) });
 
 export function vorbereiten(lage, aus) {
-  const d = [lage.dx, lage.dy, lage.dz];
+  // hoch: Inseln über den Bodenversatz hinaus höher (welt.mjs STAND); Weihnachtsmann, Jukebox und Tafel stehen alle auf den Inseln
+  const d = [lage.dx, lage.dy, lage.dz, lage.hoch ?? 0], hy = lage.dy + (lage.hoch ?? 0);
   const k = ohneLichtung(JSON.parse(readFileSync(STANDORT, 'utf8')));
   k.datei = 'spawn/standort-smp-spark.json';
   const dp = join(aus, 'datapacks');
@@ -36,20 +37,20 @@ export function vorbereiten(lage, aus) {
   const n = ['insel', 'insel-deko', 'insel-kalender', 'weihnachtsinsel'].map((p) => verschiebeDatapack(join(dp, p), d));
   writeFileSync(join(aus, 'regions.yml'), `# Verschoben um ${d.join('/')} (spawn/smp-neu, natürlicher World-Spawn)\n` + verschiebeRegionen(regionen, d));
   const wm = JSON.parse(readFileSync(join(REPO, 'spawn/weihnachtsmann.json'), 'utf8'));
-  for (const t of [wm.mannequin, wm.jukebox]) { t.x += lage.dx; t.y += lage.dy; t.z += lage.dz; }
+  for (const t of [wm.mannequin, wm.jukebox]) { t.x += lage.dx; t.y += hy; t.z += lage.dz; }
   writeFileSync(join(aus, 'weihnachtsmann.json'), JSON.stringify(wm, null, 2) + '\n');
   const mi = JSON.parse(readFileSync(join(REPO, 'spawn/mission.json'), 'utf8'));
-  mi.tafel.x += lage.dx; mi.tafel.y += lage.dy; mi.tafel.z += lage.dz;
+  mi.tafel.x += lage.dx; mi.tafel.y += hy; mi.tafel.z += lage.dz;
   writeFileSync(join(aus, 'mission.json'), JSON.stringify(mi, null, 2) + '\n');
-  // für die Plugin-Konfiguration der Server-Session (server/plugin-konfig/versatz.py)
-  writeFileSync(join(REPO, 'spawn/smp-versatz.json'), JSON.stringify({ dx: lage.dx, dy: lage.dy, dz: lage.dz }, null, 2) + '\n');
+  // für die Plugin-Konfiguration der Server-Session (server/plugin-konfig/versatz.py): Höhen ab y „ab“ (Bau-Lage) bekommen dy + hoch, darunter nur dy
+  writeFileSync(join(REPO, 'spawn/smp-versatz.json'), JSON.stringify({ dx: lage.dx, dy: lage.dy, dz: lage.dz, hoch: lage.hoch ?? 0, ab: AB }, null, 2) + '\n');
   writeFileSync(join(aus, 'lage.json'), JSON.stringify(lage, null, 2) + '\n');
   return { funktionen: n, versatz: d };
 }
 
 export function verschobeneKonfig(lage) {
   const k = JSON.parse(readFileSync(STANDORT, 'utf8'));
-  return { ...k, oval: { ...k.oval, x: k.oval.x + lage.dx, z: k.oval.z + lage.dz }, lichter: { ...k.lichter, unterkante: k.lichter.unterkante + lage.dy } };
+  return { ...k, oval: { ...k.oval, x: k.oval.x + lage.dx, z: k.oval.z + lage.dz }, lichter: { ...k.lichter, unterkante: k.lichter.unterkante + lage.dy + (lage.hoch ?? 0) } };
 }
 
 if (process.argv[1]?.replace(/\\/g, '/').endsWith('spawn/smp-neu/bauen.mjs')) {
