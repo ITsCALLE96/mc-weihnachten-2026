@@ -70,6 +70,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private final SpawnElytra spawnElytra = new SpawnElytra(this);
     private final WetterRhythmus wetter = new WetterRhythmus(this);
     private final EisSperre eisSperre = new EisSperre();
+    private final WinterGenerierung winterGenerierung = new WinterGenerierung();
     /** Prüfwerkzeug (Holzspitzhacke → Prism-Abfrage), nur mit Prism (sonst null) */
     private Pruefwerkzeug pruefwerkzeug;
     private final Neujahr neujahr = new Neujahr(this);
@@ -149,6 +150,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(spawnElytra, this);
         getServer().getPluginManager().registerEvents(wetter, this);
         getServer().getPluginManager().registerEvents(eisSperre, this);
+        getServer().getPluginManager().registerEvents(winterGenerierung, this);
         getServer().getPluginManager().registerEvents(neujahr, this);
         getServer().getPluginManager().registerEvents(dorfRabatt, this);
         // Hub: einmal pro Sekunde schauen, ob das Datapack die Eröffnung ausgelöst hat. Legt die Datei nur an, löscht sie nie
@@ -265,6 +267,8 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         spawnElytra.laden(getConfig().getConfigurationSection("spawn-elytra"));
         wetter.laden(getConfig().getConfigurationSection("wetter-rhythmus"));
         eisSperre.laden(getConfig().getConfigurationSection("eis-sperre"));
+        winterGenerierung.laden(getConfig().getConfigurationSection("winter-generierung"));
+        getLogger().info(winterGenerierung.status());
         // Spielregeln bei jedem Start/Reload setzen (Winter: max_snow_accumulation_height), damit sie nicht nur per Hand in einer Welt stehen
         ConfigurationSection gr = getConfig().getConfigurationSection("spielregeln");
         if (gr != null) {
@@ -426,6 +430,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                     default -> "/serverwahl feuerwerk test [sekunden] | stopp | status";
                 };
                 sender.sendMessage(Component.text(antwort, NamedTextColor.GOLD));
+                return true;
+            }
+            if (args.length == 1 && args[0].equals("winter")) {
+                sender.sendMessage(Component.text(winterGenerierung.status(), NamedTextColor.GREEN));
                 return true;
             }
             if (args.length == 1 && args[0].equals("bestenliste")) {

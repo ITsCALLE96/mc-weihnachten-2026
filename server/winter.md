@@ -36,6 +36,34 @@ Schnee und Eis entstehen nur in **Chunks, die gerade getickt werden**, also in S
 
 **Gegenmittel für Spieler:** Licht über Wasser (Fackel/Laterne in ≤ 2–3 Blöcken) oder ein Dach verhindert Eis; bei Farmen ohnehin üblich. Vor der Season ankündigen.
 
+## Neu erzeugtes Gelände: Winter nur durch Schneefall (Pascal 31.10.)
+
+Forever-World ohne Weltgrenze: Was Spieler neu erkunden, soll aussehen wie ohne Datapack. Schnee und Eis nur über das Wetter in getickten Chunks.
+
+**Ursache:** Der Generierungsschritt `minecraft:freeze_top_layer` (letzter Schritt `top_layer_modification`) legt je Spalte Schnee auf die Oberfläche und friert
+das oberste Wasser, wenn das Biom dort kalt ist. Mit Temperatur 0 trifft das jede Spalte der 45 Datapack-Biome. Alle anderen Generierungsschritte
+(Pulverschnee, Packeis, Eisberge, Schneeblöcke) hängen am Biom selbst, nicht an der Temperatur, und kommen nur in echten Kältebiomen vor.
+
+**Verworfen: Schritt im Datapack streichen.** Minecraft setzt einen Schritt nur, wenn das Biom an der Chunk-Ecke (x0, y 0, z0) ihn enthält
+(`placeWithBiomeCheck`). Dort liegt oft ein Höhlenbiom oder ein warmer Nachbar. Gemessen 31.10. (Wegwerfwelt, gleicher Seed, 48 × 48 Blöcke je Biom):
+warme Biome sauber, aber echte Kältebiome verlieren ihren Schnee (snowy_plains 1.619 → 0 Schneeschichten, grove 1.922 → 0, snowy_slopes 1.272 → 0).
+
+**Gewählt: serverwahl `winter-generierung`** (`WinterGenerierung.java`, nur SMP). Bei jedem neu erzeugten Chunk (`ChunkLoadEvent.isNewChunk`) je Spalte:
+Schneeschicht über dem obersten Block (mit und ohne Laub, dazu die Lagen dazwischen) → Luft, verschneites Gras darunter → normal, Eis an der
+Oberfläche → Wasser. Nur wo das Biom eines der 45 Datapack-Biome ist und in Vanilla an dieser Höhe nicht schneit (Vanilla-Temperatur im Plugin,
+höhenabhängig wie im Spiel, ohne das Rauschen: windswept/taiga/stony_shore behalten ihren Gipfelschnee ab y 120–200). Echte Kältebiome bleiben unberührt.
+
+| Messung 31.10. (Spalten 2.304 je Biom) | Vanilla | Datapack wie live | Datapack + Plugin |
+|---|---|---|---|
+| Ebene, Wald, Wüste, Fluss, Ozean, Sumpf, Taiga, Dschungel | 0 Schnee, 0 Eis | Ebene 1.232 Schnee + 922 Eis, Wüste 2.303 Eis, Ozean 2.304 Eis | 0 bis wenige Reste (siehe unten) |
+| windswept_hills (Gipfel) | 53 | 2.172 | 71 |
+| snowy_plains, snowy_taiga, grove, frozen_river | Vanilla | mehr Schnee | wie Vanilla (± 1 %) |
+
+Kosten: 0,5–0,6 ms je neuem Chunk auf dem Haupt-Thread (Pascals PC). Ein Elytra-Flug erzeugt grob 20–40 Chunks/s → 10–25 ms je Sekunde, also 1–2 % Tick-Zeit
+je fliegendem Spieler. Status: `/serverwahl winter`. Wetter-Schnee bleibt unberührt (das Plugin greift nur beim ersten Laden eines neuen Chunks).
+Grenzen: Chunks, die vor dem Plugin entstehen (Spawn beim allerersten Weltstart), räumt es nicht. Das betrifft uns nicht, weil die Welt ohne Datapack erzeugt
+und vorgeneriert wird. Grasfarbe bleibt winterlich (Registry, gewollt).
+
 ## Fernsicht, Karte, Bedrock
 
 - **Voxy/LSS:** Schnee und Eis sind echte Blöcke. LSS merkt Änderungen pro Chunk und schickt sie nach, ein Invalidieren ist dafür nicht nötig. Grasfarbe färbt Voxy beim Zeichnen mit den Biomdaten des Clients (Modpack-Session, ungeprüft). **Nach dem Aufräumen am Season-Ende** einmal `lsslod store invalidate all`, damit alle Clients den sauberen Stand bekommen (Store neu aufbauen ~1,6 GB, über Nacht)

@@ -51,9 +51,10 @@ CA12 und die feste Insel-Lage sind überholt. Der Seed steht nur in der Welt, in
 - [ ] Einspielen: `server/vm200/smp-neu-einspielen.sh` (alte Welt sichern, Welt, Seed in AMP, `regions.yml`/`weihnachtsmann.json`/`mission.json` aus
   `spawn/smp-neu/ausgabe/`, Configs mit Versatz, `winter-weihnachten` noch **nicht**, Anti-Xray, Spieler-Reset Hub + SMP)
 - [ ] **Vorgenerierung auf VM200** (Leitung 31.10.), nach dem Einspielen, SMP gestartet, Whitelist zu, keine Spieler: Befehle aus
-  `bash spawn/smp-neu/vorgenerieren.sh --befehle` (Grenzen 10000/2500/10000, Chunky Overworld r 5000 um den Spawn, Nether r 1250 um Spawn ÷ 8, End r 2000 um 0/0)
+  `bash spawn/smp-neu/vorgenerieren.sh --befehle` (keine Weltgrenze, Forever-World Pascal 31.10.; Chunky Overworld r 5000 um den Spawn, Nether r 1250 um Spawn ÷ 8, End r 2000 um 0/0)
   nacheinander in die AMP-Konsole. Chunky arbeitet die drei Welten nebeneinander ab; fertig bei dreimal „[Chunky] Task finished“ (lokal ~35 min, ~4 GB). Dann `save-all flush`
-- [ ] **Erst danach** `winter-weihnachten` nach `world/datapacks` und Neustart (mit Temperatur 0 baut die Generierung sonst Schnee und Eis fest ein, auch auf Meer und Fluss)
+- [ ] `winter-weihnachten` nach `world/datapacks` und Neustart, **serverwahl `winter-generierung: {aktiv: true}` muss im SMP an sein** (räumt den Schnee, den die Generierung in neue Chunks einbaut; ohne Weltgrenze entsteht laufend neues Gelände, `winter.md`). Prüfen: `/serverwahl winter` meldet „an“
+- [ ] LSS `generation.enabled: false` (liefert nur vorhandenes Gelände, erzeugt nichts per Fernsicht; Sicherungsgröße)
 - [ ] Keine Dimensions-Ordner vor dem ersten Start anlegen (Absturz in 26.3); Anti-Xray Nether/End erst danach (`anti-xray-setzen.py` macht das)
 - [ ] Frischer Join nach `spawn/PRUEFLISTE.md` (Testspieler auf der Insel, Ender-Kiste, Elytra-Zonen, Inselschutz, Kalender Tag 0, Weihnachtsinsel Stufe 0)
 - [ ] Datapacks per `/datapack list` (`plugins.md`), Wanderhändler-Rabatt dauerhaft an
@@ -116,7 +117,7 @@ Funktionen aus dem Datapack `insel` der Spawn-&-Welt-Session (abgestimmt 24.10.)
 |---|---|
 | `insel:aufbau` | einmalig alles einrichten, endet geschlossen (kleine Grenze, Merker `#offen` = 0) |
 | `insel:schliessen` | Ausgänge zu, kleine Grenze (128 breit um den Stamm-Mittelpunkt, Koordinaten nach der Seed-Wahl), `#offen` = 0 |
-| `insel:eroeffnung` | 10 s Countdown mit Bossbar/Titel, öffnet die vier Ausgänge mit Partikeln und Sound, „Willkommen!“, `worldborder set 10000`. Läuft nur bei `#offen` = 0, ein zweiter Aufruf tut nichts |
+| `insel:eroeffnung` | 10 s Countdown mit Bossbar/Titel, öffnet die vier Ausgänge mit Partikeln und Sound, „Willkommen!“ (seit 31.10. ohne `worldborder set`, Forever-World). Läuft nur bei `#offen` = 0, ein zweiter Aufruf tut nichts |
 
 Der Spawnpunkt bleibt vor und nach dem Öffnen derselbe (Spawn-Raum im Stammfuß). Die Phase setzt `insel:eroeffnung` bewusst nicht, das bleibt getrennt.
 
@@ -138,7 +139,7 @@ Der Season-Wechsel hat mit der Eröffnung nichts zu tun: Er passiert schon beim 
 (dann zählt die Wartezeit im Baum mit, das ist verschmerzbar).
 
 **Testlauf 21.11.:** dieselbe Eröffnung als Generalprobe in der Testwelt mit den 2–3 Testern (Baum in der Testwelt, Spawn-&-Welt-Session).
-Prüfen: Spieler kommt vorher nicht aus dem Baum, nach `insel:eroeffnung` Grenze 10.000, zweiter Aufruf ändert nichts, Rückfall-Befehl für die Phase wirkt nur bei Phase 0,
+Prüfen: Spieler kommt vorher nicht aus dem Baum, nach `insel:eroeffnung` keine Weltgrenze (Pascal 31.10.), zweiter Aufruf ändert nichts, Rückfall-Befehl für die Phase wirkt nur bei Phase 0,
 Ansage kommt einmal. Für weitere Proben `function insel:schliessen`, danach geht `insel:eroeffnung` wieder (kein Neustart nötig).
 Auf dem Testlauf-Server ist der Statistik-Nullpunkt egal (Season `testlauf`).
 

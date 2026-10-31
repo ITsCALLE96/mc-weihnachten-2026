@@ -135,6 +135,10 @@ eis-sperre:
   aktiv: true
   # beach/stony_shore: Wasser an der Küste gehört dort zum Strand-Biom (Stichprobe 28.10.: Eis nur in beach, plains, forest)
   biome: [ocean, deep_ocean, cold_ocean, deep_cold_ocean, lukewarm_ocean, deep_lukewarm_ocean, warm_ocean, river, beach, stony_shore]
+# Winter nur durch Schneefall (Pascal 31.10.): neu erzeugte Chunks verlieren den Schnee und das Eis, die das Winter-Datapack beim Erzeugen einbaut
+# (nur in den 45 Datapack-Biomen, wo es in Vanilla nicht schneit). Echte Kältebiome und Wetter-Schnee bleiben. server/winter.md, Status: /serverwahl winter
+winter-generierung:
+  aktiv: true
 # Spielregeln der Overworld, bei jedem Start und /serverwahl reload gesetzt (Pascal 28.10.: Schnee höchstens ein halber Block = 4 Lagen).
 # Nach der Season: max_snow_accumulation_height wieder 1 (Vanilla)
 spielregeln:
