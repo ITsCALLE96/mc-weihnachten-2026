@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { erzeugeTestwelt } from './testdaten.mjs';
-import { lauf, dauerlauf, sendeWebhook } from './bestenliste.mjs';
+import { lauf, dauerlauf, sendeWebhook, leseWebhook } from './bestenliste.mjs';
 import { ANZEIGE_LISTEN, baueBestenlisten, discordNachricht } from './lib/anzeige.mjs';
 
 const hier = dirname(fileURLToPath(import.meta.url));
@@ -144,5 +144,35 @@ test('Dauerlauf: Discord-Fehler bricht nicht ab und nennt die URL nicht', async 
   await dauerlauf({ ...opt, zustand: join(ordner, 'f-zustand.json'), alle: 1, discordAbstand: 0 },
     { holen: attrappe({ POST: 500 }).holen, log: (t) => logs.push(t), runden: 2, schlafen: async () => {} });
   assert.ok(logs.some((t) => t.includes('Discord antwortet 500')));
+  assert.ok(!logs.join().includes('geheim'));
+});
+
+test('Webhook-Datei: PTB/Canary/discordapp werden auf discord.com umgestellt, anderes abgelehnt', () => {
+  const d = join(ordner, 'wh-test');
+  const lies = (text) => { writeFileSync(d, text); return leseWebhook(d); };
+  for (const host of ['discord.com', 'ptb.discord.com', 'canary.discord.com', 'discordapp.com', 'ptb.discordapp.com']) {
+    assert.equal(lies(`https://${host}/api/webhooks/123456789/geheim-TOKEN_x\r\n`), URL_);
+  }
+  for (const falsch of ['https://evil.com/api/webhooks/1/x', 'https://ptb.discord.com.evil.com/api/webhooks/1/x', 'http://discord.com/api/webhooks/1/x', 'https://xptb.discord.com/api/webhooks/1/x']) {
+    assert.throws(() => lies(falsch), (e) => /keine Discord-Webhook-URL/.test(e.message) && !e.message.includes('webhooks'));
+  }
+});
+
+test('Dauerlauf: kaputte Webhook-Datei wird ohne URL gemeldet, Hub-Datei läuft weiter, Dienst endet nicht', async () => {
+  const webhook = join(ordner, 'kaputt-webhook');
+  writeFileSync(webhook, 'https://example.com/api/webhooks/1/geheim-x\n');
+  const ausgabe = join(ordner, 'kaputt-hub.json');
+  const logs = [];
+  const a = attrappe();
+  await dauerlauf({ ...opt, webhookDatei: webhook, ausgabe, zustand: join(ordner, 'k-zustand.json'), alle: 1, discordAbstand: 0 },
+    { holen: a.holen, log: (t) => logs.push(t), runden: 3, schlafen: async () => {} });
+  assert.equal(a.aufrufe.length, 0);
+  assert.ok(existsSync(ausgabe));
+  assert.deepEqual(logs, ['Fehler: Webhook-Datei enthält keine Discord-Webhook-URL'], 'einmal gemeldet, nicht jede Runde');
+  // PTB-Link wirkt ohne Neustart und sendet an discord.com
+  writeFileSync(webhook, 'https://ptb.discord.com/api/webhooks/123456789/geheim-TOKEN_x\n');
+  await dauerlauf({ ...opt, webhookDatei: webhook, ausgabe, zustand: join(ordner, 'k-zustand.json'), alle: 1, discordAbstand: 0 },
+    { holen: a.holen, log: (t) => logs.push(t), runden: 1, schlafen: async () => {} });
+  assert.equal(a.aufrufe[0].url, `${URL_}?wait=true`);
   assert.ok(!logs.join().includes('geheim'));
 });

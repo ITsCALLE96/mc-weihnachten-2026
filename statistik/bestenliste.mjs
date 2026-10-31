@@ -41,11 +41,12 @@ function erzeugeInstanz(opt, extra = {}) {
   return new Instanz({ instanz: opt.instanz, archiv: opt.archiv ?? null, sichtbarkeit, sprache, optionen: { name: opt.name }, ...extra });
 }
 
-const WEBHOOK = /^https:\/\/(?:discord\.com|discordapp\.com)\/api\/webhooks\/\d+\/[\w-]+$/;
-function leseWebhook(datei) {
-  const url = readFileSync(datei, 'utf8').trim();
-  if (!WEBHOOK.test(url)) throw new Error('Webhook-Datei enthält keine Discord-Webhook-URL');
-  return url;
+// Auch Links aus Discord PTB/Canary (ptb./canary.discord.com) und discordapp.com; gesendet wird immer an discord.com
+const WEBHOOK = /^https:\/\/(?:(?:ptb|canary)\.)?discord(?:app)?\.com(\/api\/webhooks\/\d+\/[\w-]+)$/;
+export function leseWebhook(datei) {
+  const m = WEBHOOK.exec(readFileSync(datei, 'utf8').trim());
+  if (!m) throw new Error('Webhook-Datei enthält keine Discord-Webhook-URL');
+  return `https://discord.com${m[1]}`;
 }
 const leseZustand = (datei) => (datei && existsSync(datei) ? JSON.parse(readFileSync(datei, 'utf8')) : {});
 
