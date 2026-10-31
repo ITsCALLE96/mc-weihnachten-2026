@@ -6,12 +6,15 @@ import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { erzeugeTestwelt } from './testdaten.mjs';
+import { steveGesicht } from './lib/kopf.mjs';
 import { lauf, dauerlauf, sendeWebhook, leseWebhook } from './bestenliste.mjs';
 import { ANZEIGE_LISTEN, baueBestenlisten, discordNachricht } from './lib/anzeige.mjs';
 
 const hier = dirname(fileURLToPath(import.meta.url));
 const URL_ = 'https://discord.com/api/webhooks/123456789/geheim-TOKEN_x';
 let ordner; let welt; let opt;
+// Köpfe ohne Netz (Mojang wird in Tests nie gefragt)
+const STEVE = { gesicht: async () => steveGesicht() };
 
 before(() => {
   ordner = mkdtempSync(join(tmpdir(), 'statistik-bestenliste-'));
@@ -28,7 +31,9 @@ after(() => rmSync(ordner, { recursive: true, force: true }));
 function attrappe(antworten = {}) {
   const aufrufe = [];
   const holen = async (url, init) => {
-    aufrufe.push({ url, methode: init.method, body: JSON.parse(init.body) });
+    const form = init.body instanceof FormData;
+    const bild = form ? init.body.get('files[0]') : null;
+    aufrufe.push({ url, methode: init.method, body: JSON.parse(form ? init.body.get('payload_json') : init.body), bild: bild && { name: bild.name, typ: bild.type, groesse: bild.size } });
     const status = antworten[init.method] ?? 200;
     return { ok: status < 300, status, json: async () => ({ id: '999' }) };
   };
@@ -54,8 +59,8 @@ test('Weltenbummler zählt alle Fortbewegungsarten außer Fallen', () => {
 
 test('erster Lauf legt die Nachricht an, zweiter bearbeitet sie; Ausgeblendete fehlen überall', async () => {
   const a = attrappe();
-  const b = await lauf(opt, { holen: a.holen, log: () => {} });
-  await lauf(opt, { holen: a.holen, log: () => {} });
+  const b = await lauf(opt, { holen: a.holen, kopfQuelle: STEVE, log: () => {} });
+  await lauf(opt, { holen: a.holen, kopfQuelle: STEVE, log: () => {} });
   assert.deepEqual(a.aufrufe.map((x) => x.methode), ['POST', 'PATCH']);
   assert.equal(a.aufrufe[0].url, 'https://discord.com/api/webhooks/123456789/geheim-TOKEN_x?wait=true');
   assert.equal(a.aufrufe[1].url, 'https://discord.com/api/webhooks/123456789/geheim-TOKEN_x/messages/999');
@@ -70,6 +75,9 @@ test('erster Lauf legt die Nachricht an, zweiter bearbeitet sie; Ausgeblendete f
   assert.ok(!hub.includes('geheim'), 'Webhook-URL nicht in der Hub-Datei');
   assert.equal(JSON.parse(hub).season, 'weihnachten-2026');
   assert.deepEqual(a.aufrufe[0].body.allowed_mentions, { parse: [] });
+  assert.deepEqual(a.aufrufe.map((x) => [x.bild.name, x.bild.typ]), [['bestenliste.png', 'image/png'], ['bestenliste.png', 'image/png']]);
+  assert.ok(a.aufrufe[0].bild.groesse > 10_000);
+  assert.ok(!hub.includes('uuid') && !hub.includes('einheit'), 'Hub-Datei ohne UUID');
 });
 
 test('gelöschte Nachricht (404) wird neu angelegt, andere Fehler brechen ab', async () => {
@@ -83,27 +91,25 @@ test('--probe sendet nichts und schreibt keinen Zustand', async () => {
   const a = attrappe();
   const z = join(ordner, 'probe-zustand.json');
   let ausgabe = '';
-  await lauf({ ...opt, zustand: z, probe: true }, { holen: a.holen, log: (t) => { ausgabe += t; } });
+  await lauf({ ...opt, zustand: z, probe: true }, { holen: a.holen, kopfQuelle: STEVE, log: (t) => { ausgabe += t; } });
   assert.equal(a.aufrufe.length, 0);
   assert.ok(!existsSync(z));
   assert.ok(ausgabe.includes('Bestenliste'));
 });
 
 test('ohne Sichtbarkeitsliste ist niemand sichtbar, falsche Webhook-Datei bricht ab', async () => {
-  const leer = await lauf({ ...opt, sichtbarkeit: join(ordner, 'fehlt.json'), webhookDatei: undefined, ausgabe: undefined }, { log: () => {} });
+  const leer = await lauf({ ...opt, sichtbarkeit: join(ordner, 'fehlt.json'), webhookDatei: undefined, ausgabe: undefined }, { kopfQuelle: STEVE, log: () => {} });
   assert.ok(leer.listen.every((l) => l.plaetze.length === 0));
   writeFileSync(join(ordner, 'falsch'), 'https://example.com/hook');
-  await assert.rejects(lauf({ ...opt, webhookDatei: join(ordner, 'falsch') }, { holen: attrappe().holen, log: () => {} }), /keine Discord-Webhook-URL/);
+  await assert.rejects(lauf({ ...opt, webhookDatei: join(ordner, 'falsch') }, { holen: attrappe().holen, kopfQuelle: STEVE, log: () => {} }), /keine Discord-Webhook-URL/);
 });
 
-test('Discord-Text: Markdown in Namen entschärft, leere Liste lesbar', () => {
-  const n = discordNachricht({ seasonName: 'Generalprobe', stand: '2026-10-31T12:00:00+01:00', listen: [
-    { titel: 'Dauerzocker', unter: 'Spielzeit', symbol: '⏱️', plaetze: [{ name: 'Rentier_Rudi', text: '3 Std. 0 Min.' }] },
-    { titel: 'Pechvogel', unter: 'Tode', symbol: '💀', plaetze: [] },
-  ] });
-  assert.match(n.embeds[0].fields[0].value, /Rentier\\_Rudi/);
-  assert.match(n.embeds[0].fields[1].value, /noch niemand/);
-  assert.equal(n.embeds[0].title, 'Bestenliste – Generalprobe');
+test('Discord-Nachricht: Text mit Season und Stand, keine Embeds, ein Bild als Anhang', () => {
+  const n = discordNachricht({ seasonName: 'Generalprobe', stand: '2026-10-31T12:00:00+01:00', listen: [] });
+  assert.match(n.content, /Bestenliste – Generalprobe\*\* · Stand 31\.10\., 12:00 Uhr/);
+  assert.deepEqual(n.embeds, []);
+  assert.deepEqual(n.attachments, [{ id: 0, filename: 'bestenliste.png' }]);
+  assert.deepEqual(n.allowed_mentions, { parse: [] });
 });
 
 test('Dauerlauf: Hub-Datei und Discord nur bei Änderung, Discord höchstens einmal je Abstand, Webhook darf erst später kommen', async () => {
@@ -116,7 +122,7 @@ test('Dauerlauf: Hub-Datei und Discord nur bei Änderung, Discord höchstens ein
   const o = { ...opt, zustand, ausgabe, webhookDatei: webhook, alle: 15, discordAbstand: 60 };
   // Runde 1: ohne Webhook-Datei nur Hub; danach Webhook da → Runde 2 sendet; Runde 3 ohne Änderung nichts
   await dauerlauf(o, {
-    holen: a.holen, log: () => {}, runden: 3, jetzt: () => uhr,
+    holen: a.holen, kopfQuelle: STEVE, log: () => {}, runden: 3, jetzt: () => uhr,
     schlafen: async (ms) => { uhr += ms; schritte.push(ms); if (schritte.length === 1) writeFileSync(webhook, `${URL_}\n`); },
   });
   assert.deepEqual(schritte, [15000, 15000]);
@@ -130,7 +136,7 @@ test('Dauerlauf: Hub-Datei und Discord nur bei Änderung, Discord höchstens ein
   const b = attrappe();
   uhr = 30_000;
   const logs = [];
-  await dauerlauf(o, { holen: b.holen, log: (t) => logs.push(t), runden: 1, jetzt: () => uhr, schlafen: async () => {} });
+  await dauerlauf(o, { holen: b.holen, kopfQuelle: STEVE, log: (t) => logs.push(t), runden: 1, jetzt: () => uhr, schlafen: async () => {} });
   assert.ok(statSync(ausgabe).mtimeMs >= vorher);
   assert.match(readFileSync(ausgabe, 'utf8'), /9\.999|9999/);
   // neuer Prozess hat noch nicht gesendet → PATCH auf die gemerkte Nachricht
@@ -142,7 +148,7 @@ test('Dauerlauf: Hub-Datei und Discord nur bei Änderung, Discord höchstens ein
 test('Dauerlauf: Discord-Fehler bricht nicht ab und nennt die URL nicht', async () => {
   const logs = [];
   await dauerlauf({ ...opt, zustand: join(ordner, 'f-zustand.json'), alle: 1, discordAbstand: 0 },
-    { holen: attrappe({ POST: 500 }).holen, log: (t) => logs.push(t), runden: 2, schlafen: async () => {} });
+    { holen: attrappe({ POST: 500 }).holen, kopfQuelle: STEVE, log: (t) => logs.push(t), runden: 2, schlafen: async () => {} });
   assert.ok(logs.some((t) => t.includes('Discord antwortet 500')));
   assert.ok(!logs.join().includes('geheim'));
 });
@@ -165,14 +171,14 @@ test('Dauerlauf: kaputte Webhook-Datei wird ohne URL gemeldet, Hub-Datei läuft 
   const logs = [];
   const a = attrappe();
   await dauerlauf({ ...opt, webhookDatei: webhook, ausgabe, zustand: join(ordner, 'k-zustand.json'), alle: 1, discordAbstand: 0 },
-    { holen: a.holen, log: (t) => logs.push(t), runden: 3, schlafen: async () => {} });
+    { holen: a.holen, kopfQuelle: STEVE, log: (t) => logs.push(t), runden: 3, schlafen: async () => {} });
   assert.equal(a.aufrufe.length, 0);
   assert.ok(existsSync(ausgabe));
   assert.deepEqual(logs, ['Fehler: Webhook-Datei enthält keine Discord-Webhook-URL'], 'einmal gemeldet, nicht jede Runde');
   // PTB-Link wirkt ohne Neustart und sendet an discord.com
   writeFileSync(webhook, 'https://ptb.discord.com/api/webhooks/123456789/geheim-TOKEN_x\n');
   await dauerlauf({ ...opt, webhookDatei: webhook, ausgabe, zustand: join(ordner, 'k-zustand.json'), alle: 1, discordAbstand: 0 },
-    { holen: a.holen, log: (t) => logs.push(t), runden: 1, schlafen: async () => {} });
+    { holen: a.holen, kopfQuelle: STEVE, log: (t) => logs.push(t), runden: 1, schlafen: async () => {} });
   assert.equal(a.aufrufe[0].url, `${URL_}?wait=true`);
   assert.ok(!logs.join().includes('geheim'));
 });

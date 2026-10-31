@@ -15,44 +15,37 @@ export const ANZEIGE_LISTEN = [
   { id: 'fortschritte', titel: 'Abenteurer', unter: 'Geschaffte Fortschritte', wert: 'fortschritte', einheit: 'anzahl', symbol: '🏆', hub: true },
   { id: 'diamanten', titel: 'Diamantenjäger', unter: 'Abgebaute Diamanterze', wert: 'diamanten', einheit: 'anzahl', symbol: '💎', hub: true },];
 
-// daten = Antwort von Instanz.daten() → { season, seasonName, stand, listen: [{ id, titel, unter, symbol, hub, plaetze: [{ name, wert, text }] }] }
+// daten = Antwort von Instanz.daten() → { season, seasonName, stand, listen: [{ id, titel, unter, symbol, einheit, hub, plaetze: [{ uuid, name, wert, text }] }] }
+// Die UUID braucht nur die Grafik (Köpfe); für die Hub-Datei entfernt sie hubDatei().
 export function baueBestenlisten(daten, { anzahl = 5 } = {}) {
   const listen = ANZEIGE_LISTEN.map((l) => {
     const plaetze = daten.spieler
-      .map((s) => ({ name: s.name, wert: WERT[l.wert](s.werte, { istBlock: () => false }) || 0 }))
+      .map((s) => ({ uuid: s.uuid, name: s.name, wert: WERT[l.wert](s.werte, { istBlock: () => false }) || 0 }))
       .filter((p) => p.wert > 0)
       .sort((a, b) => b.wert - a.wert || a.name.localeCompare(b.name))
       .slice(0, anzahl)
       .map((p) => ({ ...p, text: nachEinheit(l.einheit, p.wert) }));
-    return { id: l.id, titel: l.titel, unter: l.unter, symbol: l.symbol, hub: l.hub, plaetze };
+    return { id: l.id, titel: l.titel, unter: l.unter, symbol: l.symbol, einheit: l.einheit, hub: l.hub, plaetze };
   });
   return { season: daten.server.season, seasonName: daten.server.seasonName, stand: daten.server.stand, listen };
 }
 
-// Discord-Markdown in Namen entschärfen (Minecraft-Namen dürfen _ enthalten)
-const ohneMarkdown = (s) => s.replace(/([\\_*~`|>#[\]()-])/g, '\\$1');
+// Hub-Datei: wie bisher, ohne UUID und Einheit
+export const hubDatei = (b) => ({ ...b, listen: b.listen.map(({ einheit, ...l }) => ({ ...l, plaetze: l.plaetze.map(({ uuid, ...p }) => p) })) });
 
-const MEDAILLE = ['🥇', '🥈', '🥉'];
+// „Stand 31.10., 14:35 Uhr“ (deutsche Zeit)
+export const standText = (iso) => `Stand ${new Intl.DateTimeFormat('de-DE', { timeZone: 'Europe/Berlin', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }).format(new Date(iso))} Uhr`;
 
-// Webhook-Nutzlast (eine Nachricht mit einem Embed, Felder je Liste). Erwähnungen sind abgeschaltet.
+export const BILD_NAME = 'bestenliste.png';
+
+// Webhook-Nutzlast: kurzer Text über dem Bild (lib/grafik.mjs), keine Embeds (ein altes Embed wird beim Bearbeiten entfernt).
+// Das Bild ersetzt beim Bearbeiten das alte (attachments). Erwähnungen sind abgeschaltet.
 export function discordNachricht(b) {
-  const fields = b.listen.map((l) => ({
-    name: `${l.symbol} ${l.titel}`,
-    value: `*${l.unter}*\n${l.plaetze.length
-      ? l.plaetze.map((p, i) => `${MEDAILLE[i] ?? `${i + 1}.`} ${ohneMarkdown(p.name)} – ${p.text}`).join('\n')
-      : 'noch niemand'}`.slice(0, 1024),
-    inline: true,
-  }));
   return {
-    content: '',
+    content: `**🎄 Bestenliste – ${b.seasonName ?? b.season}** · ${standText(b.stand)}
+-# Wird laufend aktualisiert. Wer nicht in der Statistik auftauchen möchte, sagt im Discord Bescheid.`,
+    embeds: [],
     allowed_mentions: { parse: [] },
-    embeds: [{
-      title: `Bestenliste – ${b.seasonName}`,
-      description: 'Wird laufend aktualisiert. Wer nicht in der Statistik auftauchen möchte, sagt im Discord Bescheid.',
-      color: 0x2f8f5b,
-      fields,
-      footer: { text: 'Stand' },
-      timestamp: new Date(b.stand).toISOString(),
-    }],
+    attachments: [{ id: 0, filename: BILD_NAME }],
   };
 }

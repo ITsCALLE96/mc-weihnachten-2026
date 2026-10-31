@@ -3,7 +3,7 @@
 # Vom C96-PC (PowerShell):
 #   Get-Content -Raw statistik/betrieb/einrichten.sh | ssh root@192.168.178.200 "ssh root@192.168.178.78 'bash -s'"
 # Holt statistik/ aus GitHub (nur dieser Ordner), legt Sichtbarkeit (alle sichtbar) und den Anzeigenamen der Generalprobe an,
-# startet den Dienst (compose.yml, alle 15 s, Discord nur mit Webhook-Datei) und zeigt die Hub-Datei. Keine öffentliche Seite, kein offener Port.
+# installiert die Abhängigkeiten (npm ci), startet den Dienst (compose.yml, alle 15 s, Discord nur mit Webhook-Datei) und zeigt die Hub-Datei. Keine öffentliche Seite, kein offener Port.
 set -euo pipefail
 ZIEL=/opt/mc-statistik
 REPO=https://github.com/ITsCALLE96/mc-weihnachten-2026.git
@@ -29,6 +29,8 @@ if [ -d "$ARCHIV/testlauf" ] && [ ! -f "$ARCHIV/testlauf/NAME" ]; then echo Gene
 # Früherer Cron-Betrieb (bis 31.10.) entfällt: der Dienst läuft dauerhaft
 rm -f /etc/cron.d/mc-bestenliste /usr/local/sbin/mc-bestenliste.sh
 
+# Abhängigkeiten (nur @resvg/resvg-wasm für die Discord-Grafik, exakt nach package-lock.json) in den Repo-Ordner
+docker run --rm -v "$ZIEL/repo/statistik:/w" -w /w node:24-alpine npm ci --omit=dev --no-audit --no-fund --loglevel=error
 docker compose -f "$ZIEL/repo/statistik/betrieb/compose.yml" up -d --force-recreate --quiet-pull
 for i in $(seq 1 30); do [ -s "$HUB/bestenliste.json" ] && [ "$HUB/bestenliste.json" -nt "$ZIEL/repo/statistik/bestenliste.mjs" ] && break; sleep 1; done
 docker compose -f "$ZIEL/repo/statistik/betrieb/compose.yml" ps --format '{{.Name}}: {{.Status}}'

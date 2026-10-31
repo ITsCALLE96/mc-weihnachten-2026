@@ -1,0 +1,12 @@
+{
+  "name": "mc-statistik",
+  "private": true,
+  "type": "module",
+  "description": "Statistik und Bestenlisten für den Minecraft-Server (siehe README.md)",
+  "scripts": {
+    "test": "node --test \"**/*.test.mjs\""
+  },
+  "dependencies": {
+    "@resvg/resvg-wasm": "2.6.2"
+  }
+}

@@ -1,6 +1,8 @@
 // Kopfbilder: PNG lesen/schreiben (nur node:zlib), Gesicht + Hut aus einem Skin schneiden, Pixelgesicht für den Testmodus.
 import { deflateSync, inflateSync, crc32 } from 'node:zlib';
 import { createHash } from 'node:crypto';
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 const SIGNATUR = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
 
@@ -132,4 +134,60 @@ export function pixelGesicht(uuid) {
   for (const x of [3, 4]) setze(x, 5, [Math.round(haut[0] * 0.85), Math.round(haut[1] * 0.85), Math.round(haut[2] * 0.85)]);
   for (const x of [2, 3, 4, 5]) setze(x, 6, [150, 70, 60]);
   return kodierePng(hochskalieren(rgba, 8, 8, 8), 64, 64);
+}
+
+// Skin von Mojang holen → PNG-Buffer (nur im Echtbetrieb; Besucher laden nie etwas von Dritten)
+export async function holeSkinVonMojang(uuid) {
+  const kurz = uuid.replace(/-/g, '');
+  const r = await fetch(`https://sessionserver.mojang.com/session/minecraft/profile/${kurz}`, { signal: AbortSignal.timeout(8000) });
+  if (!r.ok) throw new Error(`Mojang ${r.status}`);
+  const profil = await r.json();
+  const prop = profil.properties?.find((p) => p.name === 'textures');
+  const tex = JSON.parse(Buffer.from(prop.value, 'base64').toString('utf8'));
+  const url = tex.textures?.SKIN?.url;
+  if (!url || new URL(url).hostname !== 'textures.minecraft.net') throw new Error('Skin-URL unerwartet');
+  const s = await fetch(url, { signal: AbortSignal.timeout(8000) });
+  if (!s.ok) throw new Error(`Skin ${s.status}`);
+  return Buffer.from(await s.arrayBuffer());
+}
+
+// Ersatzgesicht im Stil von Steve (Spieler ohne Java-Skin, z. B. Bedrock, oder Mojang nicht erreichbar) → RGBA 8×8
+const STEVE = ['HHHHHHHH', 'HHHHHHHH', 'HSSSSSSH', 'SSSSSSSS', 'SWBSSBWS', 'SSSNNSSS', 'SSMSSMSS', 'SSMMMMSS'];
+const STEVE_FARBEN = { H: [52, 37, 18], S: [184, 137, 108], W: [255, 255, 255], B: [82, 61, 137], N: [148, 98, 75], M: [106, 64, 48] };
+export function steveGesicht() {
+  const rgba = Buffer.alloc(8 * 8 * 4);
+  STEVE.forEach((zeile, y) => [...zeile].forEach((z, x) => rgba.set([...STEVE_FARBEN[z], 255], (y * 8 + x) * 4)));
+  return rgba;
+}
+
+// Gesichter (8×8 RGBA) je UUID: zwischengespeichert in <ordner>/<uuid>.png, einmal am Tag neu von Mojang.
+// Schlägt das Holen fehl, gilt das alte Bild bzw. Steve; neuer Versuch frühestens nach einer Stunde.
+export class KopfCache {
+  constructor(ordner, { holeSkin = holeSkinVonMojang, jetzt = Date.now, alterMs = 24 * 3600 * 1000, wartenMs = 3600 * 1000 } = {}) {
+    Object.assign(this, { ordner, holeSkin, jetzt, alterMs, wartenMs });
+    this.fehler = new Map();
+  }
+
+  async gesicht(uuid) {
+    const pfad = join(this.ordner, `${uuid}.png`);
+    let alt = null;
+    try {
+      if (existsSync(pfad)) {
+        const d = dekodierePng(readFileSync(pfad));
+        alt = d.b === 8 && d.h === 8 ? d.rgba : null;
+        if (alt && this.jetzt() - statSync(pfad).mtimeMs < this.alterMs) return alt;
+      }
+    } catch { alt = null; }
+    if (this.jetzt() - (this.fehler.get(uuid) ?? -Infinity) < this.wartenMs) return alt ?? steveGesicht();
+    try {
+      const g = gesichtAusSkin(dekodierePng(await this.holeSkin(uuid)));
+      mkdirSync(this.ordner, { recursive: true });
+      writeFileSync(pfad, kodierePng(g, 8, 8));
+      this.fehler.delete(uuid);
+      return g;
+    } catch {
+      this.fehler.set(uuid, this.jetzt());
+      return alt ?? steveGesicht();
+    }
+  }
 }

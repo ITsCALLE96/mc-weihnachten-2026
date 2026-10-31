@@ -3,26 +3,38 @@
 // Discord-Nachricht nur bei Änderung und höchstens einmal je --discord-abstand Sekunden (Standard 60).
 //
 // Aufruf: node statistik/bestenliste.mjs --instanz <smp> --archiv <archiv> --sichtbarkeit <datei> --sprache <datei>
-//          [--webhook-datei <datei mit URL>] [--zustand <datei>] [--ausgabe <hub.json>] [--probe] [--alle <sek>] [--discord-abstand <sek>]
+//          [--webhook-datei <datei mit URL>] [--zustand <datei>] [--ausgabe <hub.json>] [--probe] [--bild <png>] [--koepfe <ordner>]
+//          [--alle <sek>] [--discord-abstand <sek>]
+// Discord bekommt eine Grafik (lib/grafik.mjs) mit kurzem Text; Köpfe von Mojang, zwischengespeichert in <zustand-ordner>/koepfe.
 // Ohne --alle ein einzelner Lauf. --probe gibt die Discord-Nutzlast nur aus und sendet nichts.
 // Im Dauerlauf darf die Webhook-Datei fehlen (dann nur Hub-Datei); sie wird bei jeder Runde neu gesucht. Die Webhook-URL ist ein Geheimnis (Datei mit Rechten 600),
 // sie wird nie ausgegeben. Im Zustand steht nur die ID der Nachricht, die bearbeitet wird.
 import { readFileSync, writeFileSync, renameSync, existsSync } from 'node:fs';
 import { setTimeout as warte } from 'node:timers/promises';
-import { resolve } from 'node:path';
+import { resolve, join, dirname } from 'node:path';
+import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { Instanz } from './lib/quellen.mjs';
 import { Sichtbarkeit } from './lib/sichtbarkeit.mjs';
-import { baueBestenlisten, discordNachricht } from './lib/anzeige.mjs';
+import { baueBestenlisten, discordNachricht, hubDatei, BILD_NAME } from './lib/anzeige.mjs';
+import { bestenlistenGrafik } from './lib/grafik.mjs';
+import { KopfCache } from './lib/kopf.mjs';
 
-const schreibeAtomar = (pfad, text) => { writeFileSync(`${pfad}.tmp`, text); renameSync(`${pfad}.tmp`, pfad); };
+const schreibeAtomar = (pfad, inhalt) => { writeFileSync(`${pfad}.tmp`, inhalt); renameSync(`${pfad}.tmp`, pfad); };
+const alsJson = (wert) => `${JSON.stringify(wert, null, 2)}\n`;
 
 // Webhook-Nachricht anlegen oder bearbeiten. zustand = { nachricht: "<id>" }. Gibt den neuen Zustand zurück.
-export async function sendeWebhook(url, nutzlast, zustand = {}, holen = fetch) {
+// bild (PNG-Buffer): als Anhang mitschicken (multipart, ersetzt beim Bearbeiten den alten Anhang).
+export async function sendeWebhook(url, nutzlast, zustand = {}, holen = fetch, bild = null) {
   const basis = url.replace(/\?.*$/, '');
-  const senden = (methode, pfad) => holen(`${basis}${pfad}`, {
-    method: methode, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(nutzlast), signal: AbortSignal.timeout(15000),
-  });
+  const koerper = () => {
+    if (!bild) return { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(nutzlast) };
+    const form = new FormData();
+    form.append('payload_json', JSON.stringify(nutzlast));
+    form.append('files[0]', new Blob([bild], { type: 'image/png' }), BILD_NAME);
+    return { body: form };
+  };
+  const senden = (methode, pfad) => holen(`${basis}${pfad}`, { method: methode, ...koerper(), signal: AbortSignal.timeout(30000) });
   if (zustand.nachricht) {
     const r = await senden('PATCH', `/messages/${zustand.nachricht}`);
     if (r.ok) return zustand;
@@ -50,16 +62,27 @@ export function leseWebhook(datei) {
 }
 const leseZustand = (datei) => (datei && existsSync(datei) ? JSON.parse(readFileSync(datei, 'utf8')) : {});
 
-// Ein einzelner Lauf: Hub-Datei schreiben, Discord-Nachricht anlegen/bearbeiten
-export async function lauf(opt, { holen = fetch, log = console.log } = {}) {
+// Köpfe: Zwischenspeicher neben dem Discord-Zustand (bzw. --koepfe), sonst im Temp-Ordner
+const kopfOrdner = (opt) => opt.koepfe ?? (opt.zustand ? join(dirname(opt.zustand), 'koepfe') : join(tmpdir(), 'mc-statistik-koepfe'));
+
+// Discord-Nachricht mit Grafik senden, gibt den neuen Zustand zurück
+async function sendeDiscord(opt, b, kopfQuelle, holen) {
+  const { png } = await bestenlistenGrafik(b, kopfQuelle);
+  const alt = leseZustand(opt.zustand);
+  const neu = await sendeWebhook(leseWebhook(opt.webhookDatei), discordNachricht(b), alt, holen, png);
+  if (opt.zustand && neu.nachricht !== alt.nachricht) schreibeAtomar(opt.zustand, `${JSON.stringify(neu)}\n`);
+  return { alt, neu };
+}
+
+// Ein einzelner Lauf: Hub-Datei schreiben, Discord-Nachricht anlegen/bearbeiten.
+// --probe sendet nichts; mit --bild <datei> wird die Grafik als PNG gespeichert.
+export async function lauf(opt, { holen = fetch, log = console.log, kopfQuelle = new KopfCache(kopfOrdner(opt)) } = {}) {
   const b = baueBestenlisten(await erzeugeInstanz(opt).daten({ ansicht: 'season' }));
-  if (opt.ausgabe) schreibeAtomar(opt.ausgabe, `${JSON.stringify(b, null, 2)}\n`);
-  const nutzlast = discordNachricht(b);
-  if (opt.probe) { log(JSON.stringify(nutzlast, null, 2)); return b; }
+  if (opt.ausgabe) schreibeAtomar(opt.ausgabe, alsJson(hubDatei(b)));
+  if (opt.bild) schreibeAtomar(opt.bild, (await bestenlistenGrafik(b, kopfQuelle)).png);
+  if (opt.probe) { log(JSON.stringify(discordNachricht(b), null, 2)); return b; }
   if (opt.webhookDatei) {
-    const alt = leseZustand(opt.zustand);
-    const neu = await sendeWebhook(leseWebhook(opt.webhookDatei), nutzlast, alt, holen);
-    if (opt.zustand && neu.nachricht !== alt.nachricht) schreibeAtomar(opt.zustand, `${JSON.stringify(neu)}\n`);
+    const { alt, neu } = await sendeDiscord(opt, b, kopfQuelle, holen);
     log(`${b.stand} [${b.season}]: Discord-Nachricht ${neu.nachricht === alt.nachricht ? 'aktualisiert' : `angelegt (${neu.nachricht})`}`);
   }
   return b;
@@ -70,8 +93,8 @@ const inhalt = (b) => JSON.stringify([b.season, b.seasonName, b.listen]);
 
 // Dauerlauf: alle opt.alle Sekunden auswerten. Hub-Datei nur bei Änderung (der Hub prüft die Änderungszeit),
 // Discord nur bei Änderung und frühestens opt.discordAbstand Sekunden nach dem letzten Senden. Fehler werden
-// gemeldet und in der nächsten Runde erneut versucht. runden/jetzt/schlafen sind für Tests.
-export async function dauerlauf(opt, { holen = fetch, log = console.log, runden = Infinity, jetzt = Date.now, schlafen = warte } = {}) {
+// gemeldet und in der nächsten Runde erneut versucht. runden/jetzt/schlafen/kopfQuelle sind für Tests.
+export async function dauerlauf(opt, { holen = fetch, log = console.log, runden = Infinity, jetzt = Date.now, schlafen = warte, kopfQuelle = new KopfCache(kopfOrdner(opt)) } = {}) {
   const instanz = erzeugeInstanz(opt, { datenAlterMs: 0 });
   const abstandMs = Number(opt.discordAbstand ?? 60) * 1000;
   let hubInhalt = null;
@@ -85,16 +108,12 @@ export async function dauerlauf(opt, { holen = fetch, log = console.log, runden 
       const b = baueBestenlisten(await instanz.daten({ ansicht: 'season' }));
       const i = inhalt(b);
       if (opt.ausgabe && (i !== hubInhalt || !existsSync(opt.ausgabe))) {
-        schreibeAtomar(opt.ausgabe, `${JSON.stringify(b, null, 2)}
-`);
+        schreibeAtomar(opt.ausgabe, alsJson(hubDatei(b)));
         hubInhalt = i;
       }
       if (opt.webhookDatei && existsSync(opt.webhookDatei) && i !== discordInhalt && jetzt() - letztesSenden >= abstandMs) {
         letztesSenden = jetzt();
-        const alt = leseZustand(opt.zustand);
-        const neu = await sendeWebhook(leseWebhook(opt.webhookDatei), discordNachricht(b), alt, holen);
-        if (opt.zustand && neu.nachricht !== alt.nachricht) schreibeAtomar(opt.zustand, `${JSON.stringify(neu)}
-`);
+        const { alt, neu } = await sendeDiscord(opt, b, kopfQuelle, holen);
         discordInhalt = i;
         if (neu.nachricht !== alt.nachricht) log(`${b.stand} [${b.season}]: Discord-Nachricht angelegt (${neu.nachricht})`);
       }
@@ -116,7 +135,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     if (name === 'probe') opt.probe = true;
     else opt[name] = a[++i];
   }
-  if (!opt.instanz) { console.error('Aufruf: node statistik/bestenliste.mjs --instanz <ordner> --archiv <ordner> --sichtbarkeit <datei> --sprache <datei> [--webhook-datei <datei>] [--zustand <datei>] [--ausgabe <datei>] [--probe] [--alle <sek>] [--discord-abstand <sek>]'); process.exit(1); }
+  if (!opt.instanz) { console.error('Aufruf: node statistik/bestenliste.mjs --instanz <ordner> --archiv <ordner> --sichtbarkeit <datei> --sprache <datei> [--webhook-datei <datei>] [--zustand <datei>] [--ausgabe <datei>] [--probe] [--bild <png>] [--koepfe <ordner>] [--alle <sek>] [--discord-abstand <sek>]'); process.exit(1); }
   try {
     if (opt.alle) await dauerlauf(opt);
     else await lauf(opt);

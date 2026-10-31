@@ -10,7 +10,8 @@ import { tmpdir } from 'node:os';
 import { Instanz } from './lib/quellen.mjs';
 import { Sichtbarkeit, normUuid } from './lib/sichtbarkeit.mjs';
 import { LiveHub } from './lib/live.mjs';
-import { kopfPngAusSkin, pixelGesicht } from './lib/kopf.mjs';
+import { kopfPngAusSkin, pixelGesicht, holeSkinVonMojang } from './lib/kopf.mjs';
+export { holeSkinVonMojang };
 
 const hier = dirname(fileURLToPath(import.meta.url));
 
@@ -23,21 +24,6 @@ export const TYPEN = {
 };
 
 const TAG_MS = 24 * 3600 * 1000;
-
-// Skin von Mojang holen → PNG-Buffer (nur im Echtbetrieb; Besucher laden nie etwas von Dritten)
-export async function holeSkinVonMojang(uuid) {
-  const kurz = uuid.replace(/-/g, '');
-  const r = await fetch(`https://sessionserver.mojang.com/session/minecraft/profile/${kurz}`, { signal: AbortSignal.timeout(8000) });
-  if (!r.ok) throw new Error(`Mojang ${r.status}`);
-  const profil = await r.json();
-  const prop = profil.properties?.find((p) => p.name === 'textures');
-  const tex = JSON.parse(Buffer.from(prop.value, 'base64').toString('utf8'));
-  const url = tex.textures?.SKIN?.url;
-  if (!url || new URL(url).hostname !== 'textures.minecraft.net') throw new Error('Skin-URL unerwartet');
-  const s = await fetch(url, { signal: AbortSignal.timeout(8000) });
-  if (!s.ok) throw new Error(`Skin ${s.status}`);
-  return Buffer.from(await s.arrayBuffer());
-}
 
 export async function starteDienst(opt) {
   const sichtbarkeit = opt.sichtbarkeitObjekt ?? new Sichtbarkeit(opt.sichtbarkeit);
