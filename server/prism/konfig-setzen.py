@@ -16,11 +16,24 @@ WERTE = [
     (r'(?m)^(\s*default-locale=")en_US(")', r"\g<1>de_DE\g<2>", r'default-locale="de_DE"'),
 ]
 
+# Erz-Meldungen (Leitung/Pascal 31.10.): nur noch Antiker Schutt und Diamanterz. Kupfer/Eisen/Gold/Smaragd/Lapis fluteten den Chat,
+# und die Lichtstufe in der Meldung ist wegen Fullbright im Modpack wertlos (Lichtgrenzen bleiben 0–100, also neutral)
+ERZE_RAUS = ["copper", "emerald", "gold", "iron", "lapis", "redstone", "coal"]
+
 datei = Path(sys.argv[1])
 text = datei.read_text(encoding="utf-8")
 for muster, ersatz, fertig in WERTE:
     text, n = re.subn(muster, ersatz, text, count=1)
     if n != 1 and not re.search(fertig, text):
         sys.exit(f"nicht gefunden: {muster}")
+start = text.find("block-break-alerts {")
+ende = text.find("block-place-alerts {", start)
+if start < 0 or ende < 0:
+    sys.exit("block-break-alerts nicht gefunden")
+abschnitt = text[start:ende]
+eintrag = re.compile(r"\n[ \t]*\{\n(?:(?!\n[ \t]*\}).)*?\"minecraft:(?:" + "|".join(ERZE_RAUS) + r")_ores\"(?:(?!\n[ \t]*\}).)*?\n[ \t]*\},?", re.S)
+abschnitt, weg = eintrag.subn("", abschnitt)
+abschnitt = re.sub(r"\},(\s*\n[ \t]*\])", r"}\1", abschnitt)  # kein Komma nach dem letzten Eintrag
+text = text[:start] + abschnitt + text[ende:]
 datei.write_text(text, encoding="utf-8")
-print("prism.conf: Chat + Befehle an, Purge 04:30 / 90 Tage, de_DE")
+print(f"prism.conf: Chat + Befehle an, Purge 04:30 / 90 Tage, de_DE, Erz-Meldungen nur Schutt + Diamant ({weg} Einträge entfernt)")
