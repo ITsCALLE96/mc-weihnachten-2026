@@ -358,12 +358,12 @@ final class Mission implements Listener {
     /** Konsolenbefehle aus mission.befehle-bei-spende ({spieler} = Kontoname); müssen wiederholbar sein (Spende und jeder Login) */
     private void spenderBefehle(Player p) {
         if (p.isOnline()) {
-            befehleBeiSpende.forEach(b -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), b.replace("{spieler}", p.getName())));
+            befehleBeiSpende.forEach(b -> Bukkit.dispatchCommand(Serverwahl.still(), b.replace("{spieler}", p.getName())));
         }
     }
 
     private static void konsole(String funktion) {
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "execute in minecraft:overworld run function " + funktion);
+        Bukkit.dispatchCommand(Serverwahl.still(), "execute in minecraft:overworld run function " + funktion);
     }
 
     /** jede Minute: Start am Starttag, Tafel aktualisieren */

@@ -174,7 +174,7 @@ final class Termine {
             event.oeffnen(t.event());
         }
         for (String befehl : t.befehle()) {
-            if (!Bukkit.dispatchCommand(Bukkit.getConsoleSender(), befehl)) {
+            if (!Bukkit.dispatchCommand(Serverwahl.still(), befehl)) {
                 plugin.getLogger().warning("Termin " + t.name() + ": Befehl fehlgeschlagen: " + befehl);
             }
         }

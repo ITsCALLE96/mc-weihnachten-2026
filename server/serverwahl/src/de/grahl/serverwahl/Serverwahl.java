@@ -49,6 +49,19 @@ import org.bukkit.scoreboard.Objective;
 public final class Serverwahl extends JavaPlugin implements Listener {
 
     private static final String KANAL = "BungeeCord";
+    /**
+     * Stiller Absender für Plugin-Befehle (Türchen, Mission, Termine, Eröffnung, Spielregeln): Paper-FeedbackForwardingSender mit
+     * shouldInformAdmins = false. Über die Konsole sähen OPs sonst bei log_admin_commands grau „[Server: Running function …]“ (Spawn & Welt 31.10.).
+     * Rückmeldungen werden verworfen; fehlgeschlagene Befehle melden die Aufrufer weiter über den Rückgabewert
+     */
+    private static org.bukkit.command.CommandSender still;
+
+    static org.bukkit.command.CommandSender still() {
+        if (still == null) {
+            still = Bukkit.createCommandSender(c -> { });
+        }
+        return still;
+    }
     private static final MiniMessage MM = MiniMessage.miniMessage();
 
     /** Blockposition „welt:x:y:z“ → Kategorie-Schlüssel */
@@ -178,7 +191,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                 } else if (!Files.exists(erledigt)) {
                     for (String befehl : eroeffnungsBefehle) {
                         getLogger().info("Eröffnung: " + befehl);
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), befehl);
+                        Bukkit.dispatchCommand(Serverwahl.still(), befehl);
                     }
                     Files.writeString(erledigt, "Eröffnungsbefehle ausgeführt " + LocalDateTime.now() + System.lineSeparator());
                 }
@@ -227,7 +240,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             }
             for (String befehl : taeglichBefehle) {
                 getLogger().info("Täglich: " + befehl);
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), befehl);
+                Bukkit.dispatchCommand(Serverwahl.still(), befehl);
             }
         }, 200L, 1200L);
     }
@@ -279,7 +292,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             for (String regel : gr.getKeys(false)) {
                 String befehl = "execute in minecraft:overworld run gamerule " + regel + " " + gr.get(regel);
                 Bukkit.getScheduler().runTask(this, () -> {
-                    if (!Bukkit.dispatchCommand(Bukkit.getConsoleSender(), befehl)) {
+                    if (!Bukkit.dispatchCommand(Serverwahl.still(), befehl)) {
                         getLogger().warning("Spielregel nicht gesetzt: " + befehl);
                     }
                 });
@@ -712,7 +725,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             if (t.startsWith(klickPraefix) && t.length() > klickPraefix.length()
                     && t.substring(klickPraefix.length()).chars().allMatch(Character::isDigit)) {
                 String befehl = "execute as " + p.getUniqueId() + " at @s run function " + klickFunktion.replace("{n}", t.substring(klickPraefix.length()));
-                boolean ok = Bukkit.dispatchCommand(Bukkit.getConsoleSender(), befehl);
+                boolean ok = Bukkit.dispatchCommand(Serverwahl.still(), befehl);
                 getLogger().info("Kalender: " + p.getName() + " → " + t + (ok ? "" : " (Befehl fehlgeschlagen: " + befehl + ")"));
                 return true;
             }
