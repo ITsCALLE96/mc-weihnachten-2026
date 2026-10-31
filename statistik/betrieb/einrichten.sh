@@ -36,3 +36,5 @@ CRON
 /usr/local/sbin/mc-bestenliste.sh
 echo "Hub-Datei: $(wc -c < "$HUB/bestenliste.json") Bytes"
 [ -f "$ZIEL/discord-webhook" ] && echo "Discord-Webhook ist hinterlegt." || echo "Discord-Webhook fehlt noch ($ZIEL/discord-webhook, Rechte 600) – bis dahin nur Hub-Datei."
+# Muss die letzte Zeile bleiben: PowerShell hängt beim Pipen ein CRLF an, ohne exit liefe danach "$'\r'" als Befehl.
+exit 0
