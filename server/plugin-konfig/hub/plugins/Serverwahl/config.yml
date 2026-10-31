@@ -1,6 +1,13 @@
 # Serverwahl auf dem Hub (MinecraftHub01). Nach Änderung: /serverwahl reload
 ist-hub: true
 hub-server: hub
+# Letzten Server merken (Pascal 31.10.): wer zuletzt im SMP war, landet beim Login direkt dort, alle anderen im Hub.
+# SMP legt je Spieler einen Merker an, der Hub schickt nach ~1 s weiter. Kommt jemand innerhalb von wechsel-sekunden vom SMP herüber
+# (/hub, /server hub, Kick), löscht der Hub den Merker. Ordner im geteilten Bereich, gehört amp. Abschalten: ordner leer lassen
+letzter-server:
+  ordner: /AMP/geteilt/status/letzter-server
+  server: smp
+  wechsel-sekunden: 10
 # Eröffnung 27.11.: Das Hub-Datapack (Spawn & Welt) setzt #offen in insel_zustand auf 1, dann legt der Hub die Datei an.
 # Dieselbe Datei prüft das SMP beim Beitritt. Liegt außerhalb beider Instanzen, Ordner gehört amp (Task 2 Schritt 6b).
 eroeffnung:

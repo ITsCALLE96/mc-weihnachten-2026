@@ -77,6 +77,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private Termine termine;
     private DiscordWhitelist discordWhitelist;
     private Mission mission;
+    private LetzterServer letzterServer;
     private Inselhaendler inselhaendler;
     private ZooPosen zooPosen;
     /** Nicknames/Clan-Tags, nur mit LuckPerms (sonst null) */
@@ -291,6 +292,11 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             getServer().getPluginManager().registerEvents(mission, this);
         }
         mission.laden(getConfig().getConfigurationSection("mission"));
+        if (letzterServer == null) {
+            letzterServer = new LetzterServer(this, p -> istOffen() || p.hasPermission("serverwahl.vorab"), this::verbinden);
+            getServer().getPluginManager().registerEvents(letzterServer, this);
+        }
+        letzterServer.laden(getConfig().getConfigurationSection("letzter-server"), istHub);
         if (discordWhitelist == null) {
             discordWhitelist = new DiscordWhitelist(this);
             getServer().getPluginManager().registerEvents(discordWhitelist, this);
