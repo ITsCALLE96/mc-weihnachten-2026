@@ -21,6 +21,8 @@ CONFIG = [
     (r"^DiscordConsoleChannelId: .*$", 'DiscordConsoleChannelId: "000000000000000000"'),
     (r"^DiscordGameStatus: .*$", 'DiscordGameStatus: ["playing auf dem SMP"]'),
     (r"^Experiment_WebhookChatMessageDelivery: .*$", "Experiment_WebhookChatMessageDelivery: true"),
+    # Spielerkopf im Webhook (31.10.: mc-heads.net erreichbar, crafatar 500); Discord holt das Bild selbst
+    (r"^AvatarUrl: .*$", 'AvatarUrl: "https://mc-heads.net/avatar/{uuid-nodashes}/{size}"'),
     (r"^DiscordChatChannelTranslateMentions: .*$", "DiscordChatChannelTranslateMentions: false"),
     (r"^DiscordChatChannelAllowedMentions: .*$", "DiscordChatChannelAllowedMentions: []"),
     (r"^DiscordChatChannelRolesAllowedToUseColorCodesInChat: .*$", "DiscordChatChannelRolesAllowedToUseColorCodesInChat: []"),
