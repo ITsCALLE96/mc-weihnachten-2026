@@ -50,7 +50,8 @@ echo "ADS01: $(amp -s ADS01)"; sleep 10
 for x in MinecraftProxy01 MinecraftHub01 MinecraftSMP01; do echo "$x: $(amp -s $x)"; sleep 15; done
 for n in $(seq 36); do ss -tln | grep -q '127.0.0.1:25568 ' && break; sleep 5; done
 echo "== Belege"
-ss -tlnp | grep -E ':2556[0-9] |:25577 ' | awk '{print $4}'
-grep -E '^Minecraft\.(PortNumber|ServerIPBinding)' $I/MinecraftHub01/MinecraftModule.kvp $I/MinecraftSMP01/MinecraftModule.kvp $I/MinecraftProxy01/MinecraftModule.kvp
-su - amp -c "ampinstmgr -l" </dev/null 2>&1 | grep -A6 -E 'MinecraftProxy01|MinecraftHub01|MinecraftSMP01' | grep -i -E 'Instance Name|Boot|Running' | head -9
+{ ss -tlnp | grep -E ':2556[0-9] |:25577 ' | awk '{print $4}' || true; }
+{ grep -E '^Minecraft\.(PortNumber|ServerIPBinding)' $I/MinecraftHub01/MinecraftModule.kvp $I/MinecraftSMP01/MinecraftModule.kvp $I/MinecraftProxy01/MinecraftModule.kvp || true; }
+{ su - amp -c "ampinstmgr -l" </dev/null 2>&1 | grep -A6 -E 'MinecraftProxy01|MinecraftHub01|MinecraftSMP01' | grep -i -E 'Instance Name|Boot|Running' | head -9 || true; }
 echo "Sicherung: $B"
+exit 0

@@ -14,3 +14,4 @@ for r in 25567/tcp 25567/udp 25568/tcp 25568/udp 25569/tcp 25569/udp; do
 done
 echo "--- Minecraft-Regeln jetzt:"
 ufw status | grep -E "2556[5-9]|25577|19132|24454" || true
+exit 0

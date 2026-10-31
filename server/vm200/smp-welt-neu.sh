@@ -38,3 +38,4 @@ chown amp:amp "$I/MinecraftModule.kvp" "$M/server.properties"
 su - amp -c "ampinstmgr -s MinecraftSMP01" | tail -1
 grep -q "^Minecraft.WorldSeed=CubeCodersPowered" "$I/MinecraftModule.kvp" && { echo "FEHLER: Seed nicht gesetzt" >&2; exit 1; }
 echo "Zufalls-Seed gesetzt (nicht angezeigt). Fertig – Spawn & Welt übernimmt den Neuaufbau."
+exit 0

@@ -30,7 +30,7 @@ install -o amp -g amp -m 644 "$P/ausgabe/regions.yml" "$M/plugins/WorldGuard/wor
 install -o amp -g amp -m 644 "$P/ausgabe/weihnachtsmann.json" "$P/ausgabe/mission.json" "$M/plugins/Serverwahl/"
 echo "== 5. Plugin-Konfigs (mit Versatz)"; cp -r "$P/konfig/." "$M/"
 install -o amp -g amp -m 644 "$P/ausgabe/weihnachtsmann.json" "$P/ausgabe/mission.json" "$M/plugins/Serverwahl/"   # nach 5., damit die verschobenen gelten
-grep -E "mitte:|x: " "$M/plugins/Serverwahl/config.yml" | grep -v "#" | head -4
+{ grep -E "mitte:|x: " "$M/plugins/Serverwahl/config.yml" | grep -v "#" | head -4 || true; }
 # Spawn & Welt 30.10.: Winter erst NACH der Vorgenerierung auf VM200 (sonst bäckt Schnee/Eis fest ein). Standard: auslassen; MIT_WINTER=1 nur bei vorgenerierter Welt
 if [ "${MIT_WINTER:-0}" = 1 ]; then echo "== 6. winter-weihnachten"; cp -r "$P/winter-weihnachten" "$M/world/datapacks/"; else echo "== 6. winter-weihnachten AUSGELASSEN (nach der Vorgenerierung nachlegen, vor-dem-start.md)"; fi
 echo "== 7. Anti-Xray"; python3 "$R/anti-xray-setzen.py" "$M" "$P/anti-xray.md"
@@ -42,3 +42,4 @@ grep -q "^Minecraft.WorldSeed=CubeCodersPowered" "$I/MinecraftSMP01/MinecraftMod
 ls "$M/world/datapacks" | tr '\n' ' '; echo
 find "$M" ! -user amp | head -3
 echo "fertig – jetzt Hub und SMP starten (Pascal)"
+exit 0

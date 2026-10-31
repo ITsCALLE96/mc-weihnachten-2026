@@ -19,3 +19,4 @@ for inst in MinecraftProxy01 MinecraftHub01 MinecraftSMP01; do
            find "$I/$inst/AMP_Logs" -maxdepth 1 -name '*.log' -mtime +$TAGE -print0 2>/dev/null)
 done
 echo "$(date '+%F %T') $n Log-Dateien älter als $TAGE Tage $([ "${1:-}" = --ausfuehren ] && echo gelöscht || echo gefunden, nichts gelöscht)"
+exit 0

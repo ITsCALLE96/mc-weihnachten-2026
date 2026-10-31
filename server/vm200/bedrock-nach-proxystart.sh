@@ -25,3 +25,4 @@ done
 chmod 600 "$P/floodgate/key.pem"
 cmp -s "$P/floodgate/key.pem" "$INST/MinecraftSMP01/Minecraft/plugins/floodgate/key.pem" && echo "Probe: Schlüssel gleich"
 echo "fertig – jetzt Proxy, Hub und SMP starten"
+exit 0

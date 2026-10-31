@@ -28,8 +28,9 @@ docker run -d --name mc-restore-test --network bridge --user "$(id -u amp):$(id 
   -v "$W/geteilt/luckperms:$W/geteilt/luckperms" -w /srv/smp --entrypoint /usr/lib/jvm/temurin-25-jdk-amd64/bin/java cubecoders/ampbase:java \
   -Xms2G -Xmx4G -jar paperclip.jar --nogui >/dev/null
 for n in $(seq 60); do docker logs mc-restore-test 2>&1 | grep -q 'Done (' && break; sleep 5; done
-docker logs mc-restore-test 2>&1 | grep -E 'Done \(|Preparing level|ERROR|Exception' | head -8
+{ docker logs mc-restore-test 2>&1 | grep -E 'Done \(|Preparing level|ERROR|Exception' | head -8 || true; }
 docker logs mc-restore-test 2>&1 | grep -q 'Done (' && echo "PROBESTART OK" || echo "PROBESTART FEHLGESCHLAGEN"
 docker stop -t 90 mc-restore-test >/dev/null
-docker logs mc-restore-test 2>&1 | grep -E 'Saving worlds|All dimensions are saved|Closing Server' | head -3
+{ docker logs mc-restore-test 2>&1 | grep -E 'Saving worlds|All dimensions are saved|Closing Server' | head -3 || true; }
 echo "== Dauer gesamt $(( $(date +%s) - start )) s, Wegwerf-Ordner wird gelöscht"
+exit 0

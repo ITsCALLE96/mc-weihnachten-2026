@@ -23,7 +23,7 @@ done
 systemctl daemon-reload
 mount -a
 echo "--- eingehängt:"
-findmnt -n -o TARGET,SOURCE | grep geteilt
+{ findmnt -n -o TARGET,SOURCE | grep geteilt || true; }
 
 # LuckPerms: yaml-storage beider Backends zeigt relativ auf den gemeinsamen Ordner (gilt im Container und auf dem Host)
 for s in MinecraftHub01 MinecraftSMP01; do
@@ -35,7 +35,7 @@ done
 # Pfade in den schon eingespielten Serverwahl-Configs (Stand vor dem 30.10.: /opt/mc-weihnachten/…) auf den Container-Pfad umstellen
 for s in MinecraftHub01 MinecraftSMP01; do
   sed -i 's#/opt/mc-weihnachten/status#/AMP/geteilt/status#g; s#/opt/mc-weihnachten/whitelist#/AMP/geteilt/whitelist#g' "$INST/$s/Minecraft/plugins/Serverwahl/config.yml"
-  grep -c "/AMP/geteilt/" "$INST/$s/Minecraft/plugins/Serverwahl/config.yml" | sed "s/^/$s: Pfade umgestellt: /"
+  { grep -c "/AMP/geteilt/" "$INST/$s/Minecraft/plugins/Serverwahl/config.yml" | sed "s/^/$s: Pfade umgestellt: /" || true; }
 done
 
 for i in $L; do su - amp -c "ampinstmgr -s $i" 2>&1 | tail -1; done
@@ -47,3 +47,4 @@ docker exec AMP_MinecraftSMP01 test -e /AMP/geteilt/status/.probe && echo "Probe
 docker exec AMP_MinecraftHub01 test -d /AMP/Minecraft/plugins/LuckPerms/yaml-storage && echo "Probe: LuckPerms-Verknüpfung im Hub ok"
 rm -f "$G/status/.probe"
 echo "fertig"
+exit 0
