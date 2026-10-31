@@ -31,6 +31,7 @@ Danke fürs Testen! Du brauchst ein gekauftes **Minecraft Java** und etwa 3 GB f
 - **Sprachchat:** Windows fragt evtl. nach der Mikrofon-Freigabe für Java – erlauben.
 - **Weite Sicht:** Die ferne Landschaft lädt beim ersten Beitritt nach und nach vom Server, das kostet anfangs etwas Leistung.
 - **AMD- oder Intel-Grafik** mit Bildfehlern, schwarzen Flächen oder starkem Ruckeln: in der Modrinth App Profil öffnen → **Inhalt** → bei **voxy** den Schalter ausschalten, neu starten.
+- **Rezepte (JEI):** Nachschlagen klappt. Der **„+“-Knopf** (Rezept ins Fenster übertragen) zeigt „The server must have JEI installed“ – auf unserem Server geht das nicht. Zum Befüllen das normale **Rezeptbuch** (grünes Buch im Inventar) nehmen.
 
 ## Fehler melden
 

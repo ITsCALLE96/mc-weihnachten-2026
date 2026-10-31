@@ -39,6 +39,10 @@ Nicht zusätzlich installieren: **Distant Horizons** (verträgt sich nicht mit v
 
 Die Tasten lassen sich unter **Optionen → Steuerung** ändern (mit Suchfeld).
 
+## Bekannte Eigenheiten
+
+- **Rezepte (JEI):** Nachschlagen klappt. Der **„+“-Knopf** (Rezept ins Fenster übertragen) zeigt „The server must have JEI installed“ – auf unserem Server geht das nicht. Zum Befüllen das normale **Rezeptbuch** (grünes Buch im Inventar) nehmen.
+
 ## Neue Pack-Version von uns
 
 Eine bestehende Instanz übernimmt neue Mods und Voreinstellungen **nicht** von selbst (nach „Unlink instance“ gar nicht, sonst bleiben deine geänderten Einstellungen stehen). Am saubersten:
