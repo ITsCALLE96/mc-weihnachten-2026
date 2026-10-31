@@ -1,6 +1,6 @@
 # Statistik-Schnappschuss (Task 9 Schritt 7)
 
-`schnappschuss.sh` sichert jeden Tag die Spielerstatistiken (`stats`, `advancements`, `usercache.json`) und verschiebt
+`schnappschuss.sh` sichert jeden Tag die Spielerstatistiken (`stats`, `advancements`, `usercache.json`, dazu `plugins/Serverwahl/mission-stand.yml` mit den Spenden) und verschiebt
 abgeschlossene Logs von Paper und Velocity ins Archiv. Gelöscht wird nie etwas. Läuft das Skript am selben Tag zweimal,
 bleibt der erste Schnappschuss stehen.
 Daraus baut die Statistikseite (`statistik/` im Repo) Verläufe (Spielzeit über die Zeit) und Sitzungen (aus den Logs).
@@ -15,7 +15,7 @@ Die Ablage der Spielerdaten hat sich in den 26er-Versionen geändert (`players/s
   SEASON                              eine Zeile: aktuelle Season-Kennung, z. B. weihnachten-2026
   schnappschuss.log                   Ausgabe der Cron-Läufe
   <season>/
-    schnappschuesse/JJJJ-MM-TT.tar.gz enthält JJJJ-MM-TT/<pfad im Weltordner>/*.json und JJJJ-MM-TT/usercache.json
+    schnappschuesse/JJJJ-MM-TT.tar.gz enthält JJJJ-MM-TT/<pfad im Weltordner>/*.json, JJJJ-MM-TT/usercache.json und JJJJ-MM-TT/mission-stand.yml
     logs/paper/*.log.gz
     logs/velocity/*.log.gz
 ```

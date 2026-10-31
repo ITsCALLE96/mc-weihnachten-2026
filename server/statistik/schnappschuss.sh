@@ -3,6 +3,7 @@
 #
 # - kopiert stats/*.json, advancements/*.json und usercache.json der Paper-Instanz
 #   als datiertes Archiv <archiv>/<season>/schnappschuesse/<JJJJ-MM-TT>.tar.gz
+#   dazu plugins/Serverwahl/mission-stand.yml (Spenden der Weihnachtsinsel, für „Allzeit“ nach Season-Ende; Statistik 31.10.)
 # - verschiebt abgeschlossene Logs (logs/*.log.gz) von Paper und Velocity nach <archiv>/<season>/logs/<name>/
 #   (latest.log bleibt liegen, gelöscht wird nie etwas); mit IP_MASKIEREN=1 vorher IPv4-Adressen → [IP] (Datenschutz, vorbereitet 30.10.)
 # - Season: eine Zeile in <archiv>/SEASON (z. B. testlauf, weihnachten-2026), wird von Hand umgestellt.
@@ -82,6 +83,7 @@ else
   done < <(find "$WELT" -maxdepth 3 -type d \( -name stats -o -name advancements \) -not -path "*/datapacks/*" | sort)
 
   [ -f "$PAPER/usercache.json" ] && cp -p "$PAPER/usercache.json" "$ARBEIT/$DATUM/"
+  [ -f "$PAPER/plugins/Serverwahl/mission-stand.yml" ] && cp -p "$PAPER/plugins/Serverwahl/mission-stand.yml" "$ARBEIT/$DATUM/"
 
   if [ "$ANZAHL" -eq 0 ]; then
     echo "$DATUM: Warnung – keine stats/advancements-Dateien in $WELT gefunden" >&2
