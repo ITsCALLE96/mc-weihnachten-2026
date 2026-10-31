@@ -14,3 +14,6 @@ testnetz/status/
 testnetz/luckperms-daten/
 testnetz/*.log
 spawn/smp-neu/ausgabe/
+
+# Python-Bytecode (beim Testen lokal erzeugt)
+__pycache__/
