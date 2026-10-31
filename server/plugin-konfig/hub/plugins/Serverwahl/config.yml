@@ -8,7 +8,8 @@ hub-server: hub
 # figuren: je Listen-id Pose (STANDING, SNEAKING …) und Gegenstände „MATERIAL“ oder „MATERIAL@namespace:modell“ (Ressourcenpaket)
 bestenliste:
   datei: /AMP/geteilt/bestenliste/bestenliste.json
-  pruefen-sekunden: 60
+  # Statistik schreibt bei Änderung neu (Dauerdienst alle 15 s), die mtime-Prüfung reicht
+  pruefen-sekunden: 15
   # Unterkante Text über dem Fuß: Kopf endet bei ~1.8, Namensschild ~2.3 (Spawn & Welt)
   text-hoehe: 2.4
   # 8 türkise Felder um den Brunnen (Spawn & Welt 31.10.), Blick zum Brunnen; liste = id aus der Hub-Datei

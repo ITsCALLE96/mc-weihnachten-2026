@@ -80,6 +80,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private Mission mission;
     private LetzterServer letzterServer;
     private HubBestenliste bestenliste;
+    private LiveWerte liveWerte;
     private Inselhaendler inselhaendler;
     private ZooPosen zooPosen;
     /** Nicknames/Clan-Tags, nur mit LuckPerms (sonst null) */
@@ -236,6 +237,9 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         if (bestenliste != null) {
             bestenliste.entfernen();
         }
+        if (liveWerte != null) {
+            liveWerte.stoppen();
+        }
         if (discordWhitelist != null) {
             discordWhitelist.apiStoppen();
         }
@@ -310,6 +314,11 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             getServer().getPluginManager().registerEvents(bestenliste, this);
         }
         bestenliste.laden(getConfig().getConfigurationSection("bestenliste"), istHub);
+        if (liveWerte == null) {
+            liveWerte = new LiveWerte(this);
+            getServer().getPluginManager().registerEvents(liveWerte, this);
+        }
+        liveWerte.laden(getConfig().getConfigurationSection("live-werte"), istHub);
         if (discordWhitelist == null) {
             discordWhitelist = new DiscordWhitelist(this);
             getServer().getPluginManager().registerEvents(discordWhitelist, this);

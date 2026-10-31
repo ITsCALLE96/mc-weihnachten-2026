@@ -135,6 +135,11 @@ eis-sperre:
   aktiv: true
   # beach/stony_shore: Wasser an der Küste gehört dort zum Strand-Biom (Stichprobe 28.10.: Eis nur in beach, plains, forest)
   biome: [ocean, deep_ocean, cold_ocean, deep_cold_ocean, lukewarm_ocean, deep_lukewarm_ocean, warm_ocean, river, beach, stony_shore]
+# Live-Werte für die Bestenlisten (Statistik 31.10., statistik/DATENFORMAT.md „Live-Werte“): alle ~20 s je Online-Spieler plugins/Serverwahl/live/<uuid>.json
+# (Spielzeit, Tode, Mob-Kills, Bewegung, abgebaute Blöcke, Fortschritte; keine IP, keine Position). Beim Abmelden gelöscht
+live-werte:
+  aktiv: true
+  sekunden: 20
 # Winter nur durch Schneefall (Pascal 31.10.): neu erzeugte Chunks verlieren den Schnee und das Eis, die das Winter-Datapack beim Erzeugen einbaut
 # (nur in den 45 Datapack-Biomen, wo es in Vanilla nicht schneit). Echte Kältebiome und Wetter-Schnee bleiben. server/winter.md, Status: /serverwahl winter
 winter-generierung:
