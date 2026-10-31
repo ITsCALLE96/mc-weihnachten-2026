@@ -1,12 +1,12 @@
 // Bestenlisten für Discord und Hub: Inhalt, Datenschutz, Webhook anlegen/bearbeiten, Geheimnis bleibt geheim.
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, writeFileSync, readFileSync, rmSync, existsSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, existsSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { erzeugeTestwelt } from './testdaten.mjs';
-import { lauf, sendeWebhook } from './bestenliste.mjs';
+import { lauf, dauerlauf, sendeWebhook } from './bestenliste.mjs';
 import { ANZEIGE_LISTEN, baueBestenlisten, discordNachricht } from './lib/anzeige.mjs';
 
 const hier = dirname(fileURLToPath(import.meta.url));
@@ -104,4 +104,45 @@ test('Discord-Text: Markdown in Namen entschärft, leere Liste lesbar', () => {
   assert.match(n.embeds[0].fields[0].value, /Rentier\\_Rudi/);
   assert.match(n.embeds[0].fields[1].value, /noch niemand/);
   assert.equal(n.embeds[0].title, 'Bestenliste – Generalprobe');
+});
+
+test('Dauerlauf: Hub-Datei und Discord nur bei Änderung, Discord höchstens einmal je Abstand, Webhook darf erst später kommen', async () => {
+  const a = attrappe();
+  const zustand = join(ordner, 'dauer-zustand.json');
+  const ausgabe = join(ordner, 'dauer-hub.json');
+  const webhook = join(ordner, 'dauer-webhook');
+  let uhr = 0;
+  const schritte = [];
+  const o = { ...opt, zustand, ausgabe, webhookDatei: webhook, alle: 15, discordAbstand: 60 };
+  // Runde 1: ohne Webhook-Datei nur Hub; danach Webhook da → Runde 2 sendet; Runde 3 ohne Änderung nichts
+  await dauerlauf(o, {
+    holen: a.holen, log: () => {}, runden: 3, jetzt: () => uhr,
+    schlafen: async (ms) => { uhr += ms; schritte.push(ms); if (schritte.length === 1) writeFileSync(webhook, `${URL_}\n`); },
+  });
+  assert.deepEqual(schritte, [15000, 15000]);
+  assert.deepEqual(a.aufrufe.map((x) => x.methode), ['POST']);
+  const vorher = statSync(ausgabe).mtimeMs;
+  // Änderung: ein Spieler stirbt (Live-Datei) → neue Hub-Datei, Discord aber erst nach 60 s
+  const live = join(opt.instanz, 'plugins', 'Serverwahl', 'live');
+  mkdirSync(live, { recursive: true });
+  const p = welt.spieler.find((s) => s.name === 'Rentier_Rudi');
+  writeFileSync(join(live, `${p.uuid}.json`), JSON.stringify({ uuid: p.uuid, zeit: Date.now(), werte: { 'custom:deaths': 9999 } }));
+  const b = attrappe();
+  uhr = 30_000;
+  const logs = [];
+  await dauerlauf(o, { holen: b.holen, log: (t) => logs.push(t), runden: 1, jetzt: () => uhr, schlafen: async () => {} });
+  assert.ok(statSync(ausgabe).mtimeMs >= vorher);
+  assert.match(readFileSync(ausgabe, 'utf8'), /9\.999|9999/);
+  // neuer Prozess hat noch nicht gesendet → PATCH auf die gemerkte Nachricht
+  assert.deepEqual(b.aufrufe.map((x) => x.methode), ['PATCH']);
+  rmSync(live, { recursive: true });
+  assert.ok(!JSON.stringify(logs).includes('geheim'));
+});
+
+test('Dauerlauf: Discord-Fehler bricht nicht ab und nennt die URL nicht', async () => {
+  const logs = [];
+  await dauerlauf({ ...opt, zustand: join(ordner, 'f-zustand.json'), alle: 1, discordAbstand: 0 },
+    { holen: attrappe({ POST: 500 }).holen, log: (t) => logs.push(t), runden: 2, schlafen: async () => {} });
+  assert.ok(logs.some((t) => t.includes('Discord antwortet 500')));
+  assert.ok(!logs.join().includes('geheim'));
 });

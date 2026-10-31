@@ -81,4 +81,19 @@ Kopf 8×8 aus dem Skin, hochskaliert. Skins einmal pro Tag von Mojang holen und 
                 "plaetze": [ { "name": "ITsCALLE96", "wert": 240099, "text": "3 Std. 20 Min." } ] } ] }
 ```
 
-`listen` hat immer alle Einträge aus `lib/anzeige.mjs` in fester Reihenfolge; `hub: true` = die 8 Hub-Plätze in Platz-Reihenfolge. `plaetze` höchstens 5, leer = noch niemand. `text` ist fertig formatiert (deutsch), `wert` roh. Ausgeblendete Spieler stehen nie drin. Die Datei wird atomar ersetzt (`.tmp` + Umbenennen).
+`listen` hat immer alle Einträge aus `lib/anzeige.mjs` in fester Reihenfolge; `hub: true` = die 8 Hub-Plätze in Platz-Reihenfolge. `plaetze` höchstens 5, leer = noch niemand. `text` ist fertig formatiert (deutsch), `wert` roh. Ausgeblendete Spieler stehen nie drin. Die Datei wird atomar ersetzt (`.tmp` + Umbenennen) und nur neu geschrieben, wenn sich Listen oder Season ändern (`stand` = Zeit dieser Änderung).
+
+## Live-Werte (`plugins/Serverwahl/live/<uuid>.json`, schreibt serverwahl auf dem SMP)
+
+Je Online-Spieler eine Datei, alle ~20 s atomar ersetzt (`.tmp` + Umbenennen), beim Abmelden gelöscht:
+
+```json
+{ "uuid": "90e3cb68-f696-4418-a56f-d6482902c9e3", "name": "ITsCALLE96", "zeit": 1793440800000,
+  "werte": { "custom:play_time": 240099, "custom:deaths": 3, "custom:mob_kills": 41, "custom:walk_one_cm": 512340,
+             "mined:stone": 812, "mined:diamond_ore": 2, "server:fortschritte": 14 } }
+```
+
+- `zeit` = Millisekunden seit 1970 beim Schreiben. Älter als 90 s → ignoriert (Spieler weg, Server aus).
+- `werte` mit denselben Schlüsseln wie die flachen Statistiken (`<kategorie>:<sache>` ohne `minecraft:`), nur Zahlen ≥ 0. Nötig für die Bestenlisten: `custom:play_time`, `custom:deaths`, `custom:mob_kills`, alle `custom:*_one_cm` (Bewegung; `fall_one_cm` darf mit, zählt nicht), alle `mined:<block>` mit Wert > 0, `server:fortschritte` (abgeschlossene Advancements mit Namensraum `minecraft:`, ohne `minecraft:recipes/`). Weitere Statistiken dürfen mit, werden aber nicht gebraucht.
+- Sonst nichts: keine IP, keine Position, kein Inventar. Spenden kommen weiter aus `mission-stand.yml` (wird sofort gespeichert).
+- Die Auswertung nimmt je Wert das Maximum aus Statistikdatei und Live-Datei. Dateiname und `uuid` müssen übereinstimmen. Ausgeblendete werden wie immer erst in der Auswertung entfernt.

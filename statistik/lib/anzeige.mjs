@@ -48,7 +48,7 @@ export function discordNachricht(b) {
     allowed_mentions: { parse: [] },
     embeds: [{
       title: `Bestenliste – ${b.seasonName}`,
-      description: 'Wird stündlich aktualisiert. Wer nicht in der Statistik auftauchen möchte, sagt im Discord Bescheid.',
+      description: 'Wird laufend aktualisiert. Wer nicht in der Statistik auftauchen möchte, sagt im Discord Bescheid.',
       color: 0x2f8f5b,
       fields,
       footer: { text: 'Stand' },

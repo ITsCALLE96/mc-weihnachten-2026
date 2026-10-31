@@ -9,6 +9,7 @@ import { ereignisseAusRoh, werteAus, erzeugeHilfe } from './auswertung.mjs';
 import { berlinDatum } from './zeit.mjs';
 import { normUuid } from './sichtbarkeit.mjs';
 import { leseFortschritte, leseSpenden, ergaenzeWerte } from './zusatz.mjs';
+import { leseLive, mitLive } from './livewerte.mjs';
 import { aktuelleSeason, seasonsImArchiv, seasonName, letzterSchnappschuss, seasonSignatur, summiereStatistiken } from './seasons.mjs';
 
 const SECHS_STUNDEN = 6 * 3600 * 1000;
@@ -137,8 +138,11 @@ export class Instanz {
     await this.sichtbarkeit.lade(jetzt0);
     const { roh: rohAktuell, latestMtime } = this.leseRoh();
     let roh = rohAktuell;
-    let statistiken = ergaenzeWerte(leseStatistiken(this.welt), { fortschritte: leseFortschritte(this.welt), spenden: leseSpenden(this.instanz) });
+    // Online-Spieler: Live-Werte aus dem laufenden SMP (sonst bis zu 5 Minuten alt)
+    const live = leseLive(this.instanz, { jetzt: jetzt0 });
+    let statistiken = mitLive(ergaenzeWerte(leseStatistiken(this.welt), { fortschritte: leseFortschritte(this.welt), spenden: leseSpenden(this.instanz) }), live);
     let namen = this.namenKarte(rohAktuell);
+    for (const [u, l] of live) if (l.name && !namen.has(u)) namen.set(u, l.name);
     const seasons = this.seasonListe();
     if (ansicht === 'allzeit') {
       const alte = this.vergangeneSeasons().map((id) => this.vergangen(id));

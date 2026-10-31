@@ -25,9 +25,10 @@ Ohne `--testmodus` werden Skins einmal pro Tag von Mojang geholt und im `--cache
 
 ## Bestenliste für Discord und Hub (seit 31.10., Generalprobe)
 
-Entscheidung Pascal 31.10.: Die Statistik erscheint **im Discord** (eine Webhook-Nachricht in `#mc-bestenliste`, stündlich bearbeitet) und **im Hub** (8 Text-Displays). Die Webseite ist nur intern und ohne Eile, es gibt keine öffentliche Seite und keinen Funnel.
+Entscheidung Pascal 31.10.: Die Statistik erscheint **im Discord** (eine Webhook-Nachricht in `#mc-bestenliste`, laufend bearbeitet) und **im Hub** (8 Text-Displays). Die Webseite ist nur intern und ohne Eile, es gibt keine öffentliche Seite und keinen Funnel.
 
 - `bestenliste.mjs` baut aus derselben Auswertung (Ansicht „Diese Season“, Ausgeblendete fehlen) die Listen aus `lib/anzeige.mjs`: Hub-Plätze 1–8 Dauerzocker, Weihnachtself, Abrissbirne, Monsterjäger, Weltenbummler, Pechvogel, Abenteurer, Diamantenjäger; der Discord zeigt dieselben 8 Listen. Weltenbummler zählt alle Fortbewegungsarten außer Fallen. Je Liste Top 5.
+- **Live (Pascal 31.10.):** Eine Änderung im Spiel steht nach höchstens etwa 1 Minute im Hub: serverwahl schreibt alle ~20 s Live-Werte der Online-Spieler (`plugins/Serverwahl/live/<uuid>.json`, `lib/livewerte.mjs`, Format in `DATENFORMAT.md`), der Dienst wertet alle 15 s aus, der Hub prüft alle ~15 s. Discord bei Änderung, höchstens jede Minute.
 - `--ausgabe <datei>` schreibt die Hub-Datei (Format in `DATENFORMAT.md`), `--webhook-datei` + `--zustand` bearbeiten die Discord-Nachricht (gelöscht → neu angelegt), `--probe` zeigt die Nachricht nur an.
 - Probe lokal: `node statistik/bestenliste.mjs --instanz statistik/testwelt --sichtbarkeit statistik/testwelt/sichtbarkeit.json --sprache statistik/daten/sprache.json --probe`
 
@@ -39,9 +40,9 @@ Entscheidung Pascal 31.10.: Die Statistik erscheint **im Discord** (eine Webhook
 Get-Content -Raw statistik/betrieb/einrichten.sh | ssh root@192.168.178.200 "ssh root@192.168.178.78 'bash -s'"
 ```
 
-- Cron `/etc/cron.d/mc-bestenliste`: alle 15 Minuten die Hub-Datei `/srv/ampdata/mc-netzwerk-geteilt/bestenliste/bestenliste.json` (im Hub `/AMP/geteilt/bestenliste/bestenliste.json`), stündlich zur Minute 5 zusätzlich Discord. Läuft per `docker run node:24-alpine` (`/usr/local/sbin/mc-bestenliste.sh`), Log `/opt/mc-statistik/lauf.log`.
-- **Webhook-URL ist ein Geheimnis:** nur in `/opt/mc-statistik/discord-webhook` (root, Rechte 600), nie ins Repo, nie in Logs. Ohne die Datei läuft nur die Hub-Datei. Die ID der bearbeiteten Nachricht steht in `/opt/mc-statistik/discord-zustand.json`.
-- **Daten:** SMP-Instanz und `/home/amp/mc-archiv` werden nur gelesen. Season aus `/home/amp/mc-archiv/SEASON` (Generalprobe: `testlauf`, angezeigt als „Generalprobe“ aus `testlauf/NAME`). Werte aus den Spielerdateien (Minecraft speichert alle 5 Minuten und beim Verlassen).
-- **Ausblenden:** UUID in `/opt/mc-statistik/sichtbarkeit.json` unter `"ausgeblendet"`, wirkt beim nächsten Lauf. Standard: alle sichtbar. Fehlt die Datei, ist niemand sichtbar.
+- Dauerhafter Dienst `mc-bestenliste` (`betrieb/compose.yml`, `node:24-alpine`, `restart: unless-stopped`, kein Port, Dateisystem nur lesend außer Hub-Ordner und `/opt/mc-statistik`): alle 15 s auswerten, Hub-Datei `/srv/ampdata/mc-netzwerk-geteilt/bestenliste/bestenliste.json` (im Hub `/AMP/geteilt/bestenliste/bestenliste.json`) nur bei Änderung neu, Discord bei Änderung und höchstens jede Minute. Log: `docker compose -p mc-bestenliste logs` (meldet nur Wechsel, z. B. Fehler/wieder ok). Der frühere Cron (`/etc/cron.d/mc-bestenliste`) wird von `einrichten.sh` entfernt. Neuer Code: `einrichten.sh` erneut ausführen (git pull + Neustart).
+- **Webhook-URL ist ein Geheimnis:** nur in `/opt/mc-statistik/discord-webhook` (root, Rechte 600), nie ins Repo, nie in Logs. Ohne die Datei läuft nur die Hub-Datei; wird sie angelegt, sendet der Dienst ohne Neustart. Die ID der bearbeiteten Nachricht steht in `/opt/mc-statistik/discord-zustand.json`.
+- **Daten:** SMP-Instanz und `/home/amp/mc-archiv` werden nur gelesen. Season aus `/home/amp/mc-archiv/SEASON` (Generalprobe: `testlauf`, angezeigt als „Generalprobe“ aus `testlauf/NAME`). Werte aus den Spielerdateien (Minecraft speichert alle 5 Minuten und beim Verlassen), für Online-Spieler zusätzlich die Live-Werte (je Wert der größere; Dateien älter als 90 s zählen nicht).
+- **Ausblenden:** UUID in `/opt/mc-statistik/sichtbarkeit.json` unter `"ausgeblendet"`, wirkt nach spätestens 15 s. Standard: alle sichtbar. Fehlt die Datei, ist niemand sichtbar.
 - **Season-Wechsel zum 27.11.:** Schritte in `server/statistik/README.md` und `server/vor-dem-start.md`. Danach zeigen Discord und Hub nur „Weihnachten 2026“, die Generalprobe bleibt im Archiv.
 - **Zusatzwerte:** `server:fortschritte` (Vanilla-Fortschritte ohne Rezepte, aus `players/advancements`) und `server:spenden` (Weihnachtsinsel, `plugins/Serverwahl/mission-stand.yml` → `gesamt-spender`). Für abgeschlossene Seasons zählen Spenden nur, wenn der Schnappschuss `<datum>/mission-stand.yml` enthält.

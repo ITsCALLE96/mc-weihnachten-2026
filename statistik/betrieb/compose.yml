@@ -1,0 +1,47 @@
+# Bestenliste als dauerhafter Dienst auf VM200 (eingerichtet von einrichten.sh, Projektname mc-bestenliste).
+# Alle 15 s auswerten: Hub-Datei nur bei Änderung neu (der Hub prüft die Änderungszeit), Discord bei Änderung, höchstens jede Minute.
+# Kein offener Port. SMP und Archiv nur lesend; schreibt nur die Hub-Datei und in /opt/mc-statistik den Discord-Zustand.
+# Die Webhook-URL liegt in /opt/mc-statistik/discord-webhook (600); fehlt sie, läuft nur die Hub-Datei.
+name: mc-bestenliste
+services:
+  bestenliste:
+    image: node:24-alpine
+    init: true
+    restart: unless-stopped
+    working_dir: /app/statistik
+    command:
+      - node
+      - bestenliste.mjs
+      - --alle
+      - "15"
+      - --discord-abstand
+      - "60"
+      - --instanz
+      - /daten/smp
+      - --archiv
+      - /daten/archiv
+      - --sichtbarkeit
+      - /zustand/sichtbarkeit.json
+      - --sprache
+      - daten/sprache.json
+      - --ausgabe
+      - /hub/bestenliste.json
+      - --webhook-datei
+      - /zustand/discord-webhook
+      - --zustand
+      - /zustand/discord-zustand.json
+    volumes:
+      - /opt/mc-statistik/repo:/app:ro
+      - /home/amp/.ampdata/instances/MinecraftSMP01/Minecraft:/daten/smp:ro
+      - /home/amp/mc-archiv:/daten/archiv:ro
+      - /opt/mc-statistik:/zustand
+      - /srv/ampdata/mc-netzwerk-geteilt/bestenliste:/hub
+    read_only: true
+    cap_drop: [ALL]
+    # Dateien von amp lesen und in den Hub-Ordner schreiben
+    cap_add: [DAC_OVERRIDE]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 256m
+    logging:
+      driver: json-file
+      options: { max-size: 1m, max-file: "3" }
