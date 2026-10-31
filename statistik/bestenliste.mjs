@@ -3,35 +3,35 @@
 // Discord-Nachricht nur bei Änderung und höchstens einmal je --discord-abstand Sekunden (Standard 60).
 //
 // Aufruf: node statistik/bestenliste.mjs --instanz <smp> --archiv <archiv> --sichtbarkeit <datei> --sprache <datei>
-//          [--webhook-datei <datei mit URL>] [--zustand <datei>] [--ausgabe <hub.json>] [--probe] [--bild <png>] [--koepfe <ordner>]
+//          [--webhook-datei <datei mit URL>] [--zustand <datei>] [--ausgabe <hub.json>] [--probe] [--bilder <ordner>] [--koepfe <ordner>]
 //          [--alle <sek>] [--discord-abstand <sek>]
-// Discord bekommt eine Grafik (lib/grafik.mjs) mit kurzem Text; Köpfe von Mojang, zwischengespeichert in <zustand-ordner>/koepfe.
+// Discord bekommt kurzen Text und je Liste ein Bild als Embed (lib/grafik.mjs); Köpfe von Mojang, zwischengespeichert in <zustand-ordner>/koepfe.
 // Ohne --alle ein einzelner Lauf. --probe gibt die Discord-Nutzlast nur aus und sendet nichts.
 // Im Dauerlauf darf die Webhook-Datei fehlen (dann nur Hub-Datei); sie wird bei jeder Runde neu gesucht. Die Webhook-URL ist ein Geheimnis (Datei mit Rechten 600),
 // sie wird nie ausgegeben. Im Zustand steht nur die ID der Nachricht, die bearbeitet wird.
-import { readFileSync, writeFileSync, renameSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, renameSync, existsSync, mkdirSync } from 'node:fs';
 import { setTimeout as warte } from 'node:timers/promises';
 import { resolve, join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { Instanz } from './lib/quellen.mjs';
 import { Sichtbarkeit } from './lib/sichtbarkeit.mjs';
-import { baueBestenlisten, discordNachricht, hubDatei, BILD_NAME } from './lib/anzeige.mjs';
-import { bestenlistenGrafik } from './lib/grafik.mjs';
+import { baueBestenlisten, discordNachricht, hubDatei } from './lib/anzeige.mjs';
+import { bestenlistenBilder } from './lib/grafik.mjs';
 import { KopfCache } from './lib/kopf.mjs';
 
 const schreibeAtomar = (pfad, inhalt) => { writeFileSync(`${pfad}.tmp`, inhalt); renameSync(`${pfad}.tmp`, pfad); };
 const alsJson = (wert) => `${JSON.stringify(wert, null, 2)}\n`;
 
 // Webhook-Nachricht anlegen oder bearbeiten. zustand = { nachricht: "<id>" }. Gibt den neuen Zustand zurück.
-// bild (PNG-Buffer): als Anhang mitschicken (multipart, ersetzt beim Bearbeiten den alten Anhang).
-export async function sendeWebhook(url, nutzlast, zustand = {}, holen = fetch, bild = null) {
+// bilder ([{ datei, png }]): als Anhänge mitschicken (multipart, ersetzen beim Bearbeiten die alten Anhänge).
+export async function sendeWebhook(url, nutzlast, zustand = {}, holen = fetch, bilder = []) {
   const basis = url.replace(/\?.*$/, '');
   const koerper = () => {
-    if (!bild) return { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(nutzlast) };
+    if (!bilder.length) return { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(nutzlast) };
     const form = new FormData();
     form.append('payload_json', JSON.stringify(nutzlast));
-    form.append('files[0]', new Blob([bild], { type: 'image/png' }), BILD_NAME);
+    bilder.forEach((b, i) => form.append(`files[${i}]`, new Blob([b.png], { type: 'image/png' }), b.datei));
     return { body: form };
   };
   const senden = (methode, pfad) => holen(`${basis}${pfad}`, { method: methode, ...koerper(), signal: AbortSignal.timeout(30000) });
@@ -67,19 +67,22 @@ const kopfOrdner = (opt) => opt.koepfe ?? (opt.zustand ? join(dirname(opt.zustan
 
 // Discord-Nachricht mit Grafik senden, gibt den neuen Zustand zurück
 async function sendeDiscord(opt, b, kopfQuelle, holen) {
-  const { png } = await bestenlistenGrafik(b, kopfQuelle);
+  const bilder = await bestenlistenBilder(b, kopfQuelle);
   const alt = leseZustand(opt.zustand);
-  const neu = await sendeWebhook(leseWebhook(opt.webhookDatei), discordNachricht(b), alt, holen, png);
+  const neu = await sendeWebhook(leseWebhook(opt.webhookDatei), discordNachricht(b, bilder.map((x) => x.datei)), alt, holen, bilder);
   if (opt.zustand && neu.nachricht !== alt.nachricht) schreibeAtomar(opt.zustand, `${JSON.stringify(neu)}\n`);
   return { alt, neu };
 }
 
 // Ein einzelner Lauf: Hub-Datei schreiben, Discord-Nachricht anlegen/bearbeiten.
-// --probe sendet nichts; mit --bild <datei> wird die Grafik als PNG gespeichert.
+// --probe sendet nichts; mit --bilder <ordner> werden die Bilder als PNG gespeichert.
 export async function lauf(opt, { holen = fetch, log = console.log, kopfQuelle = new KopfCache(kopfOrdner(opt)) } = {}) {
   const b = baueBestenlisten(await erzeugeInstanz(opt).daten({ ansicht: 'season' }));
   if (opt.ausgabe) schreibeAtomar(opt.ausgabe, alsJson(hubDatei(b)));
-  if (opt.bild) schreibeAtomar(opt.bild, (await bestenlistenGrafik(b, kopfQuelle)).png);
+  if (opt.bilder) {
+    mkdirSync(opt.bilder, { recursive: true });
+    for (const x of await bestenlistenBilder(b, kopfQuelle)) schreibeAtomar(join(opt.bilder, x.datei), x.png);
+  }
   if (opt.probe) { log(JSON.stringify(discordNachricht(b), null, 2)); return b; }
   if (opt.webhookDatei) {
     const { alt, neu } = await sendeDiscord(opt, b, kopfQuelle, holen);
@@ -135,7 +138,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     if (name === 'probe') opt.probe = true;
     else opt[name] = a[++i];
   }
-  if (!opt.instanz) { console.error('Aufruf: node statistik/bestenliste.mjs --instanz <ordner> --archiv <ordner> --sichtbarkeit <datei> --sprache <datei> [--webhook-datei <datei>] [--zustand <datei>] [--ausgabe <datei>] [--probe] [--bild <png>] [--koepfe <ordner>] [--alle <sek>] [--discord-abstand <sek>]'); process.exit(1); }
+  if (!opt.instanz) { console.error('Aufruf: node statistik/bestenliste.mjs --instanz <ordner> --archiv <ordner> --sichtbarkeit <datei> --sprache <datei> [--webhook-datei <datei>] [--zustand <datei>] [--ausgabe <datei>] [--probe] [--bilder <ordner>] [--koepfe <ordner>] [--alle <sek>] [--discord-abstand <sek>]'); process.exit(1); }
   try {
     if (opt.alle) await dauerlauf(opt);
     else await lauf(opt);

@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, rmSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { kurzwert, textBreite, bestenlistenSvg, bestenlistenGrafik } from './grafik.mjs';
+import { kurzwert, textBreite, kachelSvg, bestenlistenBilder, MASSE } from './grafik.mjs';
 import { KopfCache, steveGesicht, kodierePng, dekodierePng } from './kopf.mjs';
 import { baueBestenlisten } from './anzeige.mjs';
 import { erzeugeTestwelt } from '../testdaten.mjs';
@@ -32,24 +32,28 @@ test('Schriftbreite wird aus der Schrift gemessen', () => {
   assert.ok(Math.abs(textBreite('Rentier_Rudi', 30) - 2 * textBreite('Rentier_Rudi', 15)) < 0.01);
 });
 
-test('SVG: lange Namen gekürzt, leere Liste lesbar, Ausgeblendete und UUIDs fehlen', () => {
-  const kopie = structuredClone(b);
-  kopie.listen[0].plaetze[0].name = 'Xx_SehrLangerName';
-  kopie.listen[1].plaetze = [];
-  const svg = bestenlistenSvg(kopie, { einheiten: Object.fromEntries(b.listen.map((l) => [l.id, l.einheit])) });
-  assert.match(svg, /Xx_SehrLange[^<]*…/);
-  assert.match(svg, /noch niemand/);
-  assert.ok(!svg.includes(welt.ausgeblendet.name));
-  for (const l of b.listen) for (const p of l.plaetze) assert.ok(!svg.includes(p.uuid));
-  assert.ok(!/\d+ Std\.|undefined|NaN/.test(svg));
+test('Kachel-SVG: lange Namen gekürzt, leere Liste lesbar, Ausgeblendete und UUIDs fehlen', () => {
+  const lang = structuredClone(b.listen[0]);
+  lang.plaetze[0].name = 'Xx_SehrSehrLangerNameHier';
+  assert.match(kachelSvg(lang), /Xx_SehrSehr[^<]*…/);
+  assert.match(kachelSvg({ ...b.listen[1], plaetze: [] }), /noch niemand/);
+  for (const l of b.listen) {
+    const svg = kachelSvg(l);
+    assert.ok(!svg.includes(welt.ausgeblendet.name));
+    for (const p of l.plaetze) assert.ok(!svg.includes(p.uuid));
+    assert.ok(!/\d+ Std\.|undefined|NaN/.test(svg));
+  }
 });
 
-test('PNG: 1080 px breit, hoch statt breit, verkleinerte Vorschau 400 px', async () => {
-  const { png, klein } = await bestenlistenGrafik(b, { gesicht: async () => steveGesicht() }, { vorschauBreite: 400 });
-  const d = dekodierePng(png);
-  assert.equal(d.b, 1080);
-  assert.ok(d.h > d.b);
-  assert.equal(dekodierePng(klein).b, 400);
+test('Bilder: 8 Kacheln 4:3, doppelt so groß gerendert, Köpfe je Spieler nur einmal geholt', async () => {
+  const gefragt = [];
+  const bilder = await bestenlistenBilder(b, { gesicht: async (u) => { gefragt.push(u); return steveGesicht(); } });
+  assert.deepEqual(bilder.map((x) => x.datei), [1, 2, 3, 4, 5, 6, 7, 8].map((i) => `kachel-${i}.png`));
+  for (const x of bilder) {
+    const d = dekodierePng(x.png);
+    assert.deepEqual([d.b, d.h], [MASSE.breite * 2, MASSE.hoehe * 2]);
+  }
+  assert.equal(new Set(gefragt).size, gefragt.length);
 });
 
 test('KopfCache: holt einmal, merkt im Ordner, Fehler → Steve und kein neuer Versuch innerhalb einer Stunde', async () => {

@@ -1,11 +1,11 @@
-// Bestenlisten-Grafik für Discord (Pascal 31.10.): 8 Kacheln (2 Spalten × 4 Reihen) mit Top 5 und Minecraft-Köpfen.
+// Bestenlisten-Grafik für Discord (Pascal 31.10.): je Liste ein Bild (Kachel 4:3) mit Top 5 und Minecraft-Köpfen,
+// in Discord als 8 Embeds untereinander (ein einzelnes hohes Bild wäre am PC unlesbar klein).
 // SVG bauen (Köpfe und Symbole als Pixel-Rechtecke, gestochen scharf) → PNG mit resvg (WebAssembly, keine nativen Teile).
-// Schrift: Poppins (SIL Open Font License, daten/schrift/OFL.txt). Für das Handy gebaut: Discord zeigt Bilder dort ~400 px breit.
+// Schrift: Poppins (SIL Open Font License, daten/schrift/OFL.txt).
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { Resvg, initWasm } from '@resvg/resvg-wasm';
 import { anzahl, strecke } from './format.mjs';
-import { standText } from './anzeige.mjs';
 
 const SCHRIFT = new URL('../daten/schrift/', import.meta.url);
 const SCHNITTE = { 400: 'Poppins-Regular.ttf', 600: 'Poppins-SemiBold.ttf', 700: 'Poppins-Bold.ttf' };
@@ -121,7 +121,9 @@ const F = {
 };
 const RANG_FARBE = [F.gold, F.silber, F.bronze, F.leise, F.leise];
 
-export const MASSE = { breite: 1080, rand: 28, luecke: 20, innen: 22, kopfzeile: 166, zeile: 64 };
+// Eine Kachel = ein Bild im Format 4:3 (600 × 450, gerendert doppelt so groß). Discord zeigt jedes Embed-Bild am PC
+// etwa 400 × 300 px und am Handy fast bildschirmbreit (~350 px): Namen und Werte erscheinen dann mit ~18–21 px.
+export const MASSE = { breite: 600, hoehe: 450, innen: 26, kopf: 112, zeile: 62, faktor: 2 };
 
 // Name passend kürzen: erst kleinere Schrift (bis 26 px), dann mit „…“
 function passeName(name, max, groesse, gewicht) {
@@ -133,63 +135,45 @@ function passeName(name, max, groesse, gewicht) {
   return { text: `${n}…`, groesse: g };
 }
 
-// b = baueBestenlisten(…) (nur Hub-Listen), koepfe = Map uuid → RGBA 8×8 (fehlend → kein Kopf), einheit je Liste aus ANZEIGE_LISTEN
-export function bestenlistenSvg(b, { koepfe = new Map(), einheiten = {}, standText = '' } = {}) {
-  const M = MASSE;
-  const listen = b.listen.filter((l) => l.hub);
-  const kb = (M.breite - 2 * M.rand - M.luecke) / 2;
-  const kh = M.innen + 96 + 5 * M.zeile + 12;
-  const reihen = Math.ceil(listen.length / 2);
-  const hoehe = M.kopfzeile + reihen * kh + (reihen - 1) * M.luecke + M.rand;
+// l = eine Liste aus baueBestenlisten(…), koepfe = Map uuid → RGBA 8×8 (fehlend → kein Kopf)
+export function kachelSvg(l, { koepfe = new Map() } = {}) {
+  const { breite: B, hoehe: H, innen: P, kopf: K, zeile: Z } = MASSE;
   const t = [];
-  t.push(`<svg xmlns="http://www.w3.org/2000/svg" width="${M.breite}" height="${hoehe}" viewBox="0 0 ${M.breite} ${hoehe}" font-family="Poppins">`);
+  t.push(`<svg xmlns="http://www.w3.org/2000/svg" width="${B}" height="${H}" viewBox="0 0 ${B} ${H}" font-family="Poppins">`);
   t.push(`<defs><linearGradient id="grund" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${F.grundOben}"/><stop offset="1" stop-color="${F.grundUnten}"/></linearGradient>`);
-  t.push(`<radialGradient id="schein" cx="0.5" cy="0" r="0.6"><stop offset="0" stop-color="${F.gold}" stop-opacity="0.13"/><stop offset="1" stop-color="${F.gold}" stop-opacity="0"/></radialGradient>`);
-  t.push(`<linearGradient id="linie" x1="0" x2="1"><stop offset="0" stop-color="${F.gold}" stop-opacity="0"/><stop offset="0.5" stop-color="${F.gold}" stop-opacity="0.7"/><stop offset="1" stop-color="${F.gold}" stop-opacity="0"/></linearGradient></defs>`);
-  t.push(`<rect width="100%" height="100%" fill="url(#grund)"/><rect width="100%" height="420" fill="url(#schein)"/>`);
-  // ein paar ruhige Schneeflocken-Punkte im Kopfbereich
-  for (const [x, y, r, o] of [[90, 40, 2.5, 0.35], [180, 96, 1.6, 0.25], [300, 30, 1.8, 0.3], [780, 34, 2.2, 0.3], [900, 92, 1.6, 0.25], [1000, 46, 2.6, 0.35], [640, 118, 1.4, 0.2], [430, 120, 1.4, 0.2]]) {
+  t.push(`<radialGradient id="schein" cx="0.15" cy="0" r="0.8"><stop offset="0" stop-color="${F.gold}" stop-opacity="0.14"/><stop offset="1" stop-color="${F.gold}" stop-opacity="0"/></radialGradient>`);
+  t.push(`<linearGradient id="linie" x1="0" x2="1"><stop offset="0" stop-color="${F.gold}" stop-opacity="0.6"/><stop offset="1" stop-color="${F.gold}" stop-opacity="0"/></linearGradient></defs>`);
+  t.push(`<rect width="${B}" height="${H}" fill="url(#grund)"/><rect width="${B}" height="${H}" fill="url(#schein)"/>`);
+  // ein paar ruhige Schneeflocken-Punkte oben rechts
+  for (const [x, y, r, o] of [[430, 30, 2.2, 0.3], [505, 62, 1.5, 0.22], [560, 26, 2, 0.28], [470, 92, 1.3, 0.18], [575, 88, 1.6, 0.22]]) {
     t.push(`<circle cx="${x}" cy="${y}" r="${r}" fill="#ffffff" fill-opacity="${o}"/>`);
   }
-  t.push(`<text x="${M.breite / 2}" y="58" text-anchor="middle" font-size="22" font-weight="600" letter-spacing="6" fill="${F.gold}">BESTENLISTE</text>`);
-  t.push(`<text x="${M.breite / 2}" y="106" text-anchor="middle" font-size="44" font-weight="700" fill="${F.text}">${esc(b.seasonName ?? b.season)}</text>`);
-  if (standText) t.push(`<text x="${M.breite / 2}" y="142" text-anchor="middle" font-size="24" fill="${F.leise}">${esc(standText)}</text>`);
-  t.push(`<rect x="${M.rand}" y="${M.kopfzeile - 6}" width="${M.breite - 2 * M.rand}" height="2" fill="url(#linie)"/>`);
-
-  listen.forEach((l, i) => {
-    const x = M.rand + (i % 2) * (kb + M.luecke);
-    const y = M.kopfzeile + 10 + Math.floor(i / 2) * (kh + M.luecke);
-    const P = M.innen;
-    t.push(`<rect x="${x}" y="${y}" width="${kb}" height="${kh}" rx="18" fill="${F.kachel}" stroke="${F.rahmen}" stroke-width="1.5"/>`);
-    t.push(symbolSvg(l.id, x + P, y + P + 4, 40));
-    t.push(`<text x="${x + P + 56}" y="${y + P + 30}" font-size="32" font-weight="700" fill="${F.text}">${esc(l.titel)}</text>`);
-    t.push(`<text x="${x + P + 56}" y="${y + P + 60}" font-size="23" fill="${F.leise}">${esc(l.unter)}</text>`);
-    t.push(`<rect x="${x + P}" y="${y + P + 80}" width="${kb - 2 * P}" height="1.5" fill="${F.rahmen}"/>`);
-    const z0 = y + P + 96;
-    if (!l.plaetze.length) {
-      t.push(`<text x="${x + kb / 2}" y="${z0 + 2.5 * M.zeile}" text-anchor="middle" font-size="26" fill="${F.leise}">noch niemand</text>`);
-      return;
+  t.push(symbolSvg(l.id, P, P + 4, 48));
+  t.push(`<text x="${P + 64}" y="${P + 34}" font-size="36" font-weight="700" fill="${F.text}">${esc(l.titel)}</text>`);
+  t.push(`<text x="${P + 64}" y="${P + 66}" font-size="24" fill="${F.leise}">${esc(l.unter)}</text>`);
+  t.push(`<rect x="${P}" y="${K - 8}" width="${B - 2 * P}" height="2" fill="url(#linie)"/>`);
+  if (!l.plaetze.length) {
+    t.push(`<text x="${B / 2}" y="${K + 2.5 * Z + 10}" text-anchor="middle" font-size="30" fill="${F.leise}">noch niemand</text>`);
+  }
+  l.plaetze.forEach((p, r) => {
+    const mitte = K + r * Z + Z / 2;
+    if (r === 0) {
+      t.push(`<rect x="${P - 12}" y="${mitte - 28}" width="${B - 2 * P + 24}" height="56" rx="12" fill="${F.zeile1}"/>`);
+      t.push(`<rect x="${P - 12}" y="${mitte - 19}" width="4" height="38" rx="2" fill="${F.gold}"/>`);
     }
-    l.plaetze.forEach((p, r) => {
-      const mitte = z0 + r * M.zeile + M.zeile / 2;
-      if (r === 0) {
-        t.push(`<rect x="${x + 10}" y="${mitte - 29}" width="${kb - 20}" height="58" rx="12" fill="${F.zeile1}"/>`);
-        t.push(`<rect x="${x + 10}" y="${mitte - 20}" width="4" height="40" rx="2" fill="${F.gold}"/>`);
-      }
-      t.push(`<text x="${x + P + 12}" y="${mitte + 9}" text-anchor="middle" font-size="26" font-weight="700" fill="${RANG_FARBE[r]}">${r + 1}</text>`);
-      const kopf = koepfe.get(p.uuid);
-      if (kopf) {
-        t.push(`<rect x="${x + P + 33}" y="${mitte - 23}" width="50" height="50" rx="4" fill="#000000" fill-opacity="0.35"/>`);
-        t.push(kopfSvg(x + P + 32, mitte - 24, 48, kopf));
-      }
-      const wert = kurzwert(einheiten[l.id], p.wert);
-      const gw = r === 0 ? 700 : 600;
-      const wb = textBreite(wert, 30, gw);
-      const nx = x + P + 96;
-      const name = passeName(p.name, x + kb - P - wb - 16 - nx, 30, r === 0 ? 600 : 400);
-      t.push(`<text x="${nx}" y="${mitte + 10}" font-size="${name.groesse}" font-weight="${r === 0 ? 600 : 400}" fill="${F.text}">${esc(name.text)}</text>`);
-      t.push(`<text x="${x + kb - P}" y="${mitte + 10}" text-anchor="end" font-size="30" font-weight="${gw}" fill="${r === 0 ? F.gold : F.text}">${esc(wert)}</text>`);
-    });
+    t.push(`<text x="${P + 12}" y="${mitte + 10}" text-anchor="middle" font-size="28" font-weight="700" fill="${RANG_FARBE[r]}">${r + 1}</text>`);
+    const kopf = koepfe.get(p.uuid);
+    if (kopf) {
+      t.push(`<rect x="${P + 37}" y="${mitte - 23}" width="50" height="50" rx="4" fill="#000000" fill-opacity="0.35"/>`);
+      t.push(kopfSvg(P + 36, mitte - 24, 48, kopf));
+    }
+    const wert = kurzwert(l.einheit, p.wert);
+    const gw = r === 0 ? 700 : 600;
+    const wb = textBreite(wert, 32, gw);
+    const nx = P + 102;
+    const name = passeName(p.name, B - P - wb - 18 - nx, 32, r === 0 ? 600 : 400);
+    t.push(`<text x="${nx}" y="${mitte + 11}" font-size="${name.groesse}" font-weight="${r === 0 ? 600 : 400}" fill="${F.text}">${esc(name.text)}</text>`);
+    t.push(`<text x="${B - P}" y="${mitte + 11}" text-anchor="end" font-size="32" font-weight="${gw}" fill="${r === 0 ? F.gold : F.text}">${esc(wert)}</text>`);
   });
   t.push('</svg>');
   return t.join('');
@@ -207,14 +191,17 @@ export async function svgZuPng(svg, { breite } = {}) {
   return Buffer.from(r.render().asPng());
 }
 
-// Ganze Grafik: Köpfe holen (kopfQuelle.gesicht(uuid) → RGBA 8×8), SVG bauen, PNG rendern. vorschauBreite: zusätzlich verkleinert.
-export async function bestenlistenGrafik(b, kopfQuelle, { vorschauBreite } = {}) {
+// Alle Hub-Listen als Bilder: [{ id, datei: "kachel-1.png", svg, png }]. kopfQuelle.gesicht(uuid) → RGBA 8×8.
+export async function bestenlistenBilder(b, kopfQuelle) {
   const koepfe = new Map();
-  for (const l of b.listen) {
-    if (!l.hub) continue;
+  const listen = b.listen.filter((l) => l.hub);
+  for (const l of listen) {
     for (const p of l.plaetze) if (p.uuid && !koepfe.has(p.uuid)) koepfe.set(p.uuid, await kopfQuelle.gesicht(p.uuid));
   }
-  const einheiten = Object.fromEntries(b.listen.map((l) => [l.id, l.einheit]));
-  const svg = bestenlistenSvg(b, { koepfe, einheiten, standText: standText(b.stand) });
-  return { svg, png: await svgZuPng(svg), klein: vorschauBreite ? await svgZuPng(svg, { breite: vorschauBreite }) : null };
+  const bilder = [];
+  for (const [i, l] of listen.entries()) {
+    const svg = kachelSvg(l, { koepfe });
+    bilder.push({ id: l.id, datei: `kachel-${i + 1}.png`, svg, png: await svgZuPng(svg, { breite: MASSE.breite * MASSE.faktor }) });
+  }
+  return bilder;
 }

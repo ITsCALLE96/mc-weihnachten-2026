@@ -32,8 +32,8 @@ function attrappe(antworten = {}) {
   const aufrufe = [];
   const holen = async (url, init) => {
     const form = init.body instanceof FormData;
-    const bild = form ? init.body.get('files[0]') : null;
-    aufrufe.push({ url, methode: init.method, body: JSON.parse(form ? init.body.get('payload_json') : init.body), bild: bild && { name: bild.name, typ: bild.type, groesse: bild.size } });
+    const bilder = form ? [...init.body.entries()].filter(([k]) => k.startsWith('files[')).map(([k, f]) => ({ feld: k, name: f.name, typ: f.type, groesse: f.size })) : [];
+    aufrufe.push({ url, methode: init.method, body: JSON.parse(form ? init.body.get('payload_json') : init.body), bilder });
     const status = antworten[init.method] ?? 200;
     return { ok: status < 300, status, json: async () => ({ id: '999' }) };
   };
@@ -75,8 +75,12 @@ test('erster Lauf legt die Nachricht an, zweiter bearbeitet sie; Ausgeblendete f
   assert.ok(!hub.includes('geheim'), 'Webhook-URL nicht in der Hub-Datei');
   assert.equal(JSON.parse(hub).season, 'weihnachten-2026');
   assert.deepEqual(a.aufrufe[0].body.allowed_mentions, { parse: [] });
-  assert.deepEqual(a.aufrufe.map((x) => [x.bild.name, x.bild.typ]), [['bestenliste.png', 'image/png'], ['bestenliste.png', 'image/png']]);
-  assert.ok(a.aufrufe[0].bild.groesse > 10_000);
+  // 8 Bilder je Aufruf, jedes als Embed eingebunden
+  for (const x of a.aufrufe) {
+    assert.deepEqual(x.bilder.map((f) => [f.feld, f.name, f.typ]), [1, 2, 3, 4, 5, 6, 7, 8].map((i) => [`files[${i - 1}]`, `kachel-${i}.png`, 'image/png']));
+    assert.deepEqual(x.body.embeds.map((e) => e.image.url), x.bilder.map((f) => `attachment://${f.name}`));
+    assert.ok(x.bilder.every((f) => f.groesse > 5_000));
+  }
   assert.ok(!hub.includes('uuid') && !hub.includes('einheit'), 'Hub-Datei ohne UUID');
 });
 
@@ -104,11 +108,12 @@ test('ohne Sichtbarkeitsliste ist niemand sichtbar, falsche Webhook-Datei bricht
   await assert.rejects(lauf({ ...opt, webhookDatei: join(ordner, 'falsch') }, { holen: attrappe().holen, kopfQuelle: STEVE, log: () => {} }), /keine Discord-Webhook-URL/);
 });
 
-test('Discord-Nachricht: Text mit Season und Stand, keine Embeds, ein Bild als Anhang', () => {
-  const n = discordNachricht({ seasonName: 'Generalprobe', stand: '2026-10-31T12:00:00+01:00', listen: [] });
+test('Discord-Nachricht: Text mit Season und Stand, je Liste ein Embed mit ihrem Bild', () => {
+  const n = discordNachricht({ seasonName: 'Generalprobe', stand: '2026-10-31T12:00:00+01:00', listen: [{ hub: true }, { hub: true }] });
   assert.match(n.content, /Bestenliste – Generalprobe\*\* · Stand 31\.10\., 12:00 Uhr/);
-  assert.deepEqual(n.embeds, []);
-  assert.deepEqual(n.attachments, [{ id: 0, filename: 'bestenliste.png' }]);
+  assert.deepEqual(n.embeds.map((e) => e.image.url), ['attachment://kachel-1.png', 'attachment://kachel-2.png']);
+  assert.ok(n.embeds.every((e) => !e.url && !e.fields), 'kein Embed-Link (sonst fasst Discord die Bilder zu einem Mosaik zusammen), keine Spalten');
+  assert.deepEqual(n.attachments, [{ id: 0, filename: 'kachel-1.png' }, { id: 1, filename: 'kachel-2.png' }]);
   assert.deepEqual(n.allowed_mentions, { parse: [] });
 });
 

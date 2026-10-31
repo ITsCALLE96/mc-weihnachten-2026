@@ -36,16 +36,14 @@ export const hubDatei = (b) => ({ ...b, listen: b.listen.map(({ einheit, ...l })
 // „Stand 31.10., 14:35 Uhr“ (deutsche Zeit)
 export const standText = (iso) => `Stand ${new Intl.DateTimeFormat('de-DE', { timeZone: 'Europe/Berlin', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }).format(new Date(iso))} Uhr`;
 
-export const BILD_NAME = 'bestenliste.png';
-
-// Webhook-Nutzlast: kurzer Text über dem Bild (lib/grafik.mjs), keine Embeds (ein altes Embed wird beim Bearbeiten entfernt).
-// Das Bild ersetzt beim Bearbeiten das alte (attachments). Erwähnungen sind abgeschaltet.
-export function discordNachricht(b) {
+// Webhook-Nutzlast: kurzer Text, darunter je Hub-Liste ein Embed mit ihrem Bild (lib/grafik.mjs, Dateien kachel-1.png …).
+// Embed-Bilder zeigt Discord am PC ~400 × 300 px und am Handy fast bildschirmbreit; ein einzelnes hohes Bild wäre am PC winzig.
+// Beim Bearbeiten ersetzen die neuen Anhänge die alten (attachments). Erwähnungen sind abgeschaltet.
+export function discordNachricht(b, dateien = b.listen.filter((l) => l.hub).map((_, i) => `kachel-${i + 1}.png`)) {
   return {
-    content: `**🎄 Bestenliste – ${b.seasonName ?? b.season}** · ${standText(b.stand)}
--# Wird laufend aktualisiert. Wer nicht in der Statistik auftauchen möchte, sagt im Discord Bescheid.`,
-    embeds: [],
+    content: `**🎄 Bestenliste – ${b.seasonName ?? b.season}** · ${standText(b.stand)}\n-# Wird laufend aktualisiert. Wer nicht in der Statistik auftauchen möchte, sagt im Discord Bescheid.`,
+    embeds: dateien.map((d) => ({ color: 0x1f3a44, image: { url: `attachment://${d}` } })),
     allowed_mentions: { parse: [] },
-    attachments: [{ id: 0, filename: BILD_NAME }],
+    attachments: dateien.map((d, i) => ({ id: i, filename: d })),
   };
 }
