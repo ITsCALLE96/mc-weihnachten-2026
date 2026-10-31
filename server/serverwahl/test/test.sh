@@ -13,3 +13,4 @@ rm -rf "$hier/build/test" && mkdir -p "$hier/build/test"
 "${javac%c}" -cp "$hier/build/test$t$cp" de.grahl.serverwahl.MissionNamenTest "$hier/../../spawn/mission.json"
 "${javac%c}" -cp "$hier/build/test$t$cp" de.grahl.serverwahl.MissionSkalierungTest
 "${javac%c}" -cp "$hier/build/test$t$cp" de.grahl.serverwahl.LetzterServerTest
+"${javac%c}" -cp "$hier/build/test$t$cp" de.grahl.serverwahl.BestenlisteTest ${BESTENLISTE_JSON:-}

@@ -78,6 +78,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private DiscordWhitelist discordWhitelist;
     private Mission mission;
     private LetzterServer letzterServer;
+    private HubBestenliste bestenliste;
     private Inselhaendler inselhaendler;
     private ZooPosen zooPosen;
     /** Nicknames/Clan-Tags, nur mit LuckPerms (sonst null) */
@@ -230,6 +231,9 @@ public final class Serverwahl extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
+        if (bestenliste != null) {
+            bestenliste.entfernen();
+        }
         if (discordWhitelist != null) {
             discordWhitelist.apiStoppen();
         }
@@ -297,6 +301,11 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             getServer().getPluginManager().registerEvents(letzterServer, this);
         }
         letzterServer.laden(getConfig().getConfigurationSection("letzter-server"), istHub);
+        if (bestenliste == null) {
+            bestenliste = new HubBestenliste(this);
+            getServer().getPluginManager().registerEvents(bestenliste, this);
+        }
+        bestenliste.laden(getConfig().getConfigurationSection("bestenliste"), istHub);
         if (discordWhitelist == null) {
             discordWhitelist = new DiscordWhitelist(this);
             getServer().getPluginManager().registerEvents(discordWhitelist, this);
@@ -417,6 +426,11 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                     default -> "/serverwahl feuerwerk test [sekunden] | stopp | status";
                 };
                 sender.sendMessage(Component.text(antwort, NamedTextColor.GOLD));
+                return true;
+            }
+            if (args.length == 1 && args[0].equals("bestenliste")) {
+                bestenliste.neuLesen();
+                sender.sendMessage(Component.text(bestenliste.status(), NamedTextColor.GREEN));
                 return true;
             }
             if (args.length == 1 && args[0].equals("reload")) {

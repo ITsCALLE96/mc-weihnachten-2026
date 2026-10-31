@@ -1,6 +1,35 @@
 # Serverwahl auf dem Hub (MinecraftHub01). Nach Änderung: /serverwahl reload
 ist-hub: true
 hub-server: hub
+# Hub-Bestenlisten (Pascal 31.10.): auf jedem Platz die Nummer 1 der Liste als Mannequin mit Skin, darüber Titel, Untertitel, Top 5.
+# Datei schreibt die Statistik alle 15 min (statistik/DATENFORMAT.md, „Hub-Datei“); Listen mit hub: true = Platz 1–8 in Datei-Reihenfolge.
+# plaetze: Fußpunkt der Figur und Blickrichtung (Yaw: 0 Süd, 90 West, 180 Nord, -90 Ost), Koordinaten von Spawn & Welt.
+# Ohne Plätze aus. Figuren und Texte sind nicht dauerhaft gespeichert, beim Start neu gesetzt. Sofort neu lesen: /serverwahl bestenliste
+# figuren: je Listen-id Pose (STANDING, SNEAKING …) und Gegenstände „MATERIAL“ oder „MATERIAL@namespace:modell“ (Ressourcenpaket)
+bestenliste:
+  datei: /AMP/geteilt/bestenliste/bestenliste.json
+  pruefen-sekunden: 60
+  # Unterkante Text über dem Fuß: Kopf endet bei ~1.8, Namensschild ~2.3 (Spawn & Welt)
+  text-hoehe: 2.4
+  # 8 türkise Felder um den Brunnen (Spawn & Welt 31.10.), Blick zum Brunnen; liste = id aus der Hub-Datei
+  plaetze:
+    - {liste: spielzeit, welt: world, x: 0.5, y: 236, z: -10.0, blick: 0}
+    - {liste: spenden, welt: world, x: 7.5, y: 236, z: -6.5, blick: 45}
+    - {liste: fortschritte, welt: world, x: 11.0, y: 236, z: 0.5, blick: 90}
+    - {liste: diamanten, welt: world, x: 7.5, y: 236, z: 7.5, blick: 135}
+    - {liste: strecke, welt: world, x: 0.5, y: 236, z: 11.0, blick: 180}
+    - {liste: tode, welt: world, x: -6.5, y: 236, z: 7.5, blick: -135}
+    - {liste: abgebaut, welt: world, x: -10.0, y: 236, z: 0.5, blick: -90}
+    - {liste: mobs, welt: world, x: -6.5, y: 236, z: -6.5, blick: -45}
+  figuren:
+    spielzeit: {hand: CLOCK}
+    spenden: {hand: "PAPER@weihnachten:geschenk_rot"}
+    abgebaut: {hand: NETHERITE_PICKAXE}
+    mobs: {hand: DIAMOND_SWORD, nebenhand: SHIELD}
+    strecke: {brust: ELYTRA, hand: COMPASS}
+    tode: {pose: SNEAKING, hand: SKELETON_SKULL}
+    fortschritte: {hand: FILLED_MAP}
+    diamanten: {hand: DIAMOND_PICKAXE, nebenhand: DIAMOND}
 # Letzten Server merken (Pascal 31.10.): wer zuletzt im SMP war, landet beim Login direkt dort, alle anderen im Hub.
 # SMP legt je Spieler einen Merker an, der Hub schickt nach ~1 s weiter. Kommt jemand innerhalb von wechsel-sekunden vom SMP herüber
 # (/hub, /server hub, Kick), löscht der Hub den Merker. Ordner im geteilten Bereich, gehört amp. Abschalten: ordner leer lassen
