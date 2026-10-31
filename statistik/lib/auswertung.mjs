@@ -8,7 +8,11 @@ import { baueSitzungen, tageAusSitzungen } from './sitzungen.mjs';
 export const KATEGORIEN = {
   custom: 'Allgemein', mined: 'Abgebaut', used: 'Benutzt', crafted: 'Hergestellt', broken: 'Verbraucht',
   picked_up: 'Aufgesammelt', dropped: 'Fallen gelassen', killed: 'Getötet', killed_by: 'Getötet von',
+  server: 'Server',
 };
+
+// Eigene Werte (lib/zusatz.mjs)
+const SERVER_NAMEN = { fortschritte: 'Fortschritte geschafft', spenden: 'Spenden für die Weihnachtsinsel' };
 
 const SPIELER_EREIGNISSE = new Set(['join', 'quit', 'tod', 'fortschritt']);
 const TAGE_30 = 30 * 24 * 3600 * 1000;
@@ -26,6 +30,7 @@ export function anzeigeName(schluessel, sprache) {
   const i = schluessel.indexOf(':');
   const kat = schluessel.slice(0, i);
   const sache = schluessel.slice(i + 1);
+  if (kat === 'server') return SERVER_NAMEN[sache] ?? huebsch(sache);
   const de = sprache?.de ?? {};
   const kandidaten = kat === 'custom' ? [`stat.minecraft.${sache}`]
     : kat === 'mined' ? [`block.minecraft.${sache}`, `item.minecraft.${sache}`]

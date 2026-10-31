@@ -71,3 +71,12 @@ test('WARN-Zeilen und Stacktraces werden ignoriert', () => {
   const text = '[10:00:00 WARN]: Steve joined the game\n\tat foo\n[10:00:01 INFO]: Steve left the game\n';
   assert.equal(parseLog(text, { datum: '2026-12-06' }).length, 1);
 });
+
+test('Paper 26: „System chat: “ vor Systemmeldungen', () => {
+  const roh = parseLog([
+    '[20:45:06] [Server thread/INFO]: System chat: ITsCALLE96 joined the game',
+    '[20:46:00] [Server thread/INFO]: System chat: ITsCALLE96 has made the advancement [Stone Age]',
+    '[20:59:47] [Server thread/INFO]: System chat: ITsCALLE96 left the game',
+  ].join('\n'), { datum: '2026-10-30' });
+  assert.deepEqual(roh.map((e) => e.typ), ['join', 'fortschritt', 'quit']);
+});

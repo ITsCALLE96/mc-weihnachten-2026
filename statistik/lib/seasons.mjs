@@ -6,6 +6,7 @@ import { join } from 'node:path';
 import { gunzipSync } from 'node:zlib';
 import { flacheStatistik, parseUsercache } from './spieler.mjs';
 import { normUuid } from './sichtbarkeit.mjs';
+import { zaehleFortschritte, parseSpenden } from './zusatz.mjs';
 
 export const SEASON_MUSTER = /^[a-z0-9][a-z0-9-]*$/;
 
@@ -78,7 +79,8 @@ export function schreibeTar(eintraege) {
   return Buffer.concat(bloecke);
 }
 
-// Letzter Schnappschuss einer Season → { datum, statistiken: Map uuid → werte, namen: Map uuid → name }
+// Letzter Schnappschuss einer Season → { datum, statistiken, namen, fortschritte, spenden } (Maps je uuid)
+// Spenden nur, wenn der Schnappschuss <datum>/mission-stand.yml enthält
 export function letzterSchnappschuss(seasonOrdner) {
   const ordner = join(seasonOrdner, 'schnappschuesse');
   if (!existsSync(ordner)) return null;
@@ -86,10 +88,22 @@ export function letzterSchnappschuss(seasonOrdner) {
   if (!datei) return null;
   const dateien = leseTar(gunzipSync(readFileSync(join(ordner, datei))));
   const statistiken = new Map();
+  const fortschritte = new Map();
   let namen = new Map();
+  let spenden = new Map();
   for (const [pfad, inhalt] of dateien) {
     if (pfad.endsWith('/usercache.json') && pfad.split('/').length === 2) {
       try { namen = parseUsercache(inhalt.toString('utf8')); } catch { /* ohne Namen */ }
+      continue;
+    }
+    if (pfad.endsWith('/mission-stand.yml') && pfad.split('/').length === 2) {
+      spenden = parseSpenden(inhalt.toString('utf8'));
+      continue;
+    }
+    const a = /(?:^|\/)advancements\/([0-9a-fA-F-]{32,36})\.json$/.exec(pfad);
+    if (a && !pfad.includes('/datapacks/')) {
+      const u = normUuid(a[1]);
+      try { if (u) fortschritte.set(u, zaehleFortschritte(JSON.parse(inhalt.toString('utf8')))); } catch { /* kaputte Datei */ }
       continue;
     }
     const m = /(?:^|\/)stats\/([0-9a-fA-F-]{32,36})\.json$/.exec(pfad);
@@ -98,7 +112,7 @@ export function letzterSchnappschuss(seasonOrdner) {
     if (!uuid) continue;
     try { statistiken.set(uuid, flacheStatistik(JSON.parse(inhalt.toString('utf8')))); } catch { /* kaputte Datei */ }
   }
-  return { datum: datei.slice(0, 10), statistiken, namen };
+  return { datum: datei.slice(0, 10), statistiken, namen, fortschritte, spenden };
 }
 
 // Signatur einer Season (zum Neu-Einlesen, falls doch noch etwas hinzukommt)

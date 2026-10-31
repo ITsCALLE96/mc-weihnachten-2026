@@ -16,6 +16,8 @@ Vertrag zwischen Dienst (`dienst.mjs`, `lib/`) und Seite (`web/`). Node 24, **ke
 
 Weltordner = `<instanz>/<level-name>`; Spielerdateien in `players/stats/*.json` (ab 26.x) oder `stats/*.json` (älter) – beides suchen. Format: `{ "stats": { "minecraft:custom": { "minecraft:play_time": 1854, … }, "minecraft:mined": {…} }, "DataVersion": 5023 }` → flach als `"custom:play_time"`, `"mined:stone"`.
 
+Zusätzlich zu den Vanilla-Werten: `server:fortschritte` (erledigte `minecraft:`-Fortschritte ohne `recipes/`, aus `players/advancements/*.json`) und `server:spenden` (Weihnachtsinsel, `plugins/Serverwahl/mission-stand.yml` → `gesamt-spender`). Kategorie `server` = „Server“. Paper 26.x schreibt Systemmeldungen im Log mit `System chat: ` davor, der Parser entfernt das.
+
 ## Datenschutz (harte Regel)
 
 Ausgeblendete Spieler verlassen den Dienst **nie**: nicht in `spieler`, nicht in Summen, Bestenlisten, Fakten, Tagen, Sitzungen, `online`, Ereignissen, Kopfbildern. Ereignisse, deren Text den Namen eines ausgeblendeten Spielers enthält (z. B. als Mörder), werden verworfen. `usercache.json` wird nie ausgeliefert. Test: Prüfskript sucht Name und UUID jedes ausgeblendeten Spielers in allen Antworten.
@@ -70,3 +72,13 @@ Kopf 8×8 aus dem Skin, hochskaliert. Skins einmal pro Tag von Mojang holen und 
 ## Sonstiges
 
 `GET /` und alle anderen Pfade: Dateien aus `web/` (kein Verzeichnislisting, kein `..`). `GET /api/gesund` → `ok`.
+
+## Hub-Datei (`bestenliste.mjs --ausgabe`)
+
+```json
+{ "season": "testlauf", "seasonName": "Generalprobe", "stand": "2026-10-31T13:00:00+01:00",
+  "listen": [ { "id": "spielzeit", "titel": "Dauerzocker", "unter": "Spielzeit", "symbol": "⏱️", "hub": true,
+                "plaetze": [ { "name": "ITsCALLE96", "wert": 240099, "text": "3 Std. 20 Min." } ] } ] }
+```
+
+`listen` hat immer alle Einträge aus `lib/anzeige.mjs` in fester Reihenfolge; `hub: true` = die 8 Hub-Plätze in Platz-Reihenfolge. `plaetze` höchstens 5, leer = noch niemand. `text` ist fertig formatiert (deutsch), `wert` roh. Ausgeblendete Spieler stehen nie drin. Die Datei wird atomar ersetzt (`.tmp` + Umbenennen).

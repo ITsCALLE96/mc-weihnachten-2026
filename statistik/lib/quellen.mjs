@@ -8,6 +8,7 @@ import { leseStatistiken, leseUsercache, weltOrdner, statistikSignatur } from '.
 import { ereignisseAusRoh, werteAus, erzeugeHilfe } from './auswertung.mjs';
 import { berlinDatum } from './zeit.mjs';
 import { normUuid } from './sichtbarkeit.mjs';
+import { leseFortschritte, leseSpenden, ergaenzeWerte } from './zusatz.mjs';
 import { aktuelleSeason, seasonsImArchiv, seasonName, letzterSchnappschuss, seasonSignatur, summiereStatistiken } from './seasons.mjs';
 
 const SECHS_STUNDEN = 6 * 3600 * 1000;
@@ -58,7 +59,8 @@ export class Instanz {
     if (alt && alt.sig === sig) return alt.wert;
     const schnapp = letzterSchnappschuss(ordner);
     const { roh } = this.leseRoh([join(ordner, 'logs', 'paper')], false);
-    const wert = { statistiken: schnapp?.statistiken ?? new Map(), namen: schnapp?.namen ?? new Map(), roh };
+    const statistiken = ergaenzeWerte(schnapp?.statistiken ?? new Map(), { fortschritte: schnapp?.fortschritte, spenden: schnapp?.spenden });
+    const wert = { statistiken, namen: schnapp?.namen ?? new Map(), roh };
     this.vergangenCache.set(id, { sig, wert });
     return wert;
   }
@@ -135,7 +137,7 @@ export class Instanz {
     await this.sichtbarkeit.lade(jetzt0);
     const { roh: rohAktuell, latestMtime } = this.leseRoh();
     let roh = rohAktuell;
-    let statistiken = leseStatistiken(this.welt);
+    let statistiken = ergaenzeWerte(leseStatistiken(this.welt), { fortschritte: leseFortschritte(this.welt), spenden: leseSpenden(this.instanz) });
     let namen = this.namenKarte(rohAktuell);
     const seasons = this.seasonListe();
     if (ansicht === 'allzeit') {

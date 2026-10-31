@@ -283,6 +283,19 @@ export function erzeugeTestwelt(ziel, { seed = 2026, start = '2026-12-05', tage 
     const t = new Date(ende - Math.floor(rnd() * 3 * 86400000));
     utimesSync(f, t, t);
   }
+  // Fortschritte (Vanilla + ein Rezept + ein Datapack-Fortschritt, die beide nicht zählen) und Spenden der Weihnachtsinsel
+  mkdirSync(join(welt, 'players', 'advancements'), { recursive: true });
+  for (const p of spieler) {
+    const adv = { 'minecraft:recipes/misc/stick': { done: true }, 'leitfaden:ankommen/start': { done: true }, DataVersion: 5023 };
+    for (const k of p.fortschritte) adv[`minecraft:story/test_${k}`] = { criteria: {}, done: true };
+    adv['minecraft:story/offen'] = { criteria: {}, done: false };
+    writeFileSync(join(welt, 'players', 'advancements', `${p.uuid}.json`), JSON.stringify(adv));
+  }
+  mkdirSync(join(ziel, 'plugins', 'Serverwahl'), { recursive: true });
+  const yml = ['stufe: 1', 'spender:', "  '1':", ...spieler.map((p, i) => `    ${p.uuid}: ${i * 7}`),
+    'gesamt-spender:', ...spieler.map((p, i) => `  ${p.uuid}: ${(i * 37) % 120}`),
+    'namen:', ...spieler.map((p) => `  ${p.uuid}: ${p.name}`)];
+  writeFileSync(join(ziel, 'plugins', 'Serverwahl', 'mission-stand.yml'), `${yml.join('\n')}\n`);
   writeFileSync(join(ziel, 'usercache.json'), JSON.stringify(spieler.map((p) => ({ name: p.name, uuid: p.uuid, expiresOn: '2027-01-20 12:00:00 +0100' })), null, 2));
   writeFileSync(join(ziel, 'server.properties'), '#Minecraft server properties\nlevel-name=world\nmotd=Weihnachtsserver (Testdaten)\nserver-port=25565\n');
   writeFileSync(join(ziel, 'sichtbarkeit.json'), JSON.stringify({ ausgeblendet: [wanda.uuid] }, null, 2));
@@ -308,6 +321,9 @@ export function erzeugeArchiv(ziel, { vorher = 'herbst-2026', aktuell = 'weihnac
   const datum = addiereTage(isoBerlin(alt.jetzt).slice(0, 10), 1);
   const statOrdner = join(tmp, 'world', 'players', 'stats');
   const eintraege = readdirSync(statOrdner).map((f) => ({ pfad: `${datum}/world/players/stats/${f}`, inhalt: readFileSync(join(statOrdner, f)) }));
+  const advOrdner = join(tmp, 'world', 'players', 'advancements');
+  eintraege.push(...readdirSync(advOrdner).map((f) => ({ pfad: `${datum}/world/players/advancements/${f}`, inhalt: readFileSync(join(advOrdner, f)) })));
+  eintraege.push({ pfad: `${datum}/mission-stand.yml`, inhalt: readFileSync(join(tmp, 'plugins', 'Serverwahl', 'mission-stand.yml')) });
   eintraege.push({ pfad: `${datum}/usercache.json`, inhalt: readFileSync(join(tmp, 'usercache.json')) });
   writeFileSync(join(ordner, 'schnappschuesse', `${datum}.tar.gz`), gzipSync(schreibeTar(eintraege)));
   writeFileSync(join(archiv, 'SEASON'), `${aktuell}

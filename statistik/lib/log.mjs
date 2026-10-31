@@ -22,7 +22,8 @@ export function logDatumAusDateiname(name) {
 
 export function parseZeile(zeile) {
   const m = ZEILE.exec(zeile.replace(/\r$/, ''));
-  return m ? { sek: Number(m[1]) * 3600 + Number(m[2]) * 60 + Number(m[3]), ebene: m[4], text: m[5] } : null;
+  // Paper 26.x schreibt Systemmeldungen (Beitritt, Tod, Fortschritt) mit „System chat: “ davor
+  return m ? { sek: Number(m[1]) * 3600 + Number(m[2]) * 60 + Number(m[3]), ebene: m[4], text: m[5].replace(/^System chat: /, '') } : null;
 }
 
 // Zählt Mitternachtswechsel (Uhrzeit springt deutlich zurück)

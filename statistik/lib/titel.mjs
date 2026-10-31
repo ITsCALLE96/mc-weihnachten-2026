@@ -48,6 +48,9 @@ export const WERT = {
   spruenge: (w) => w['custom:jump'] ?? 0,
   kuchen: (w) => w['custom:eat_cake_slice'] ?? 0,
   schrott: (w) => w['mined:ancient_debris'] ?? 0,
+  // aus lib/zusatz.mjs: Vanilla-Fortschritte ohne Rezepte, Spenden für die Weihnachtsinsel
+  fortschritte: (w) => w['server:fortschritte'] ?? 0,
+  spenden: (w) => w['server:spenden'] ?? 0,
   // gesetzte Blöcke: „benutzt“ zählt bei Blöcken das Platzieren; hilfe.istBlock kommt aus der Sprachdatei
   gebaut: (w, hilfe) => {
     let s = 0;
@@ -65,6 +68,8 @@ export const BESTENLISTEN = [
   { id: 'abrissbirne', titel: 'Abrissbirne', unter: 'Meiste Blöcke abgebaut', wert: 'abgebaut', einheit: 'anzahl' },
   { id: 'monsterjaeger', titel: 'Monsterjäger', unter: 'Meiste Mobs erledigt', wert: 'mobs', einheit: 'anzahl' },
   { id: 'weltenbummler', titel: 'Weltenbummler', unter: 'Weiteste Strecke', wert: 'strecke', einheit: 'strecke' },
+  { id: 'weihnachtself', titel: 'Weihnachtself', unter: 'Meiste Spenden für die Weihnachtsinsel', wert: 'spenden', einheit: 'anzahl' },
+  { id: 'abenteurer', titel: 'Abenteurer', unter: 'Meiste Fortschritte geschafft', wert: 'fortschritte', einheit: 'anzahl' },
   { id: 'unsterblich', titel: 'Unsterblich', unter: 'Meiste Totems verbraucht', wert: 'totems', einheit: 'anzahl' },
   { id: 'kampfmaschine', titel: 'Kampfmaschine', unter: 'Meister Schaden ausgeteilt', wert: 'schaden', einheit: 'schaden' },
   { id: 'vielfrass', titel: 'Vielfraß', unter: 'Meiste Mahlzeiten verdrückt', wert: 'mahlzeiten', einheit: 'anzahl' },
@@ -170,6 +175,14 @@ export const SPRUECHE = {
   schrott: [
     [16, '{n} Antiker Schrott – das Netherit-Set ist so gut wie fertig.'],
     [64, '{n} Antiker Schrott. Der Nether hat Löcher wie ein Schweizer Käse.'],
+  ],
+  spenden: [
+    [100, '{n} Sachen gespendet – der Weihnachtsmann hat schon eine Dankeskarte geschrieben.'],
+    [1000, '{n} Sachen gespendet. Die Weihnachtsinsel trägt deinen Namen, zumindest inoffiziell.'],
+  ],
+  fortschritte: [
+    [30, '{n} Fortschritte – das Questbuch kommt kaum hinterher.'],
+    [80, '{n} Fortschritte. Minecraft hat offiziell nichts mehr, was es dir beibringen kann.'],
   ],
   gebaut: [
     [5000, '{n} Blöcke gesetzt – hier entsteht was Großes.'],
