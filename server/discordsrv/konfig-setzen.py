@@ -4,7 +4,9 @@ Start anlegt. Nur SMP. Spiel → Discord ohne Pings, Discord → Spiel nur aus #
 Beitritt/Abmeldung aus, keine Konsole und keine Befehle aus Discord, keine Spielerliste, keine Start-/Stopp-Meldungen (Neustart 04:00),
 kein Kanalthema, kein Update-Check.
 Der Token steht NICHT in der Config: DiscordSRV liest plugins/DiscordSRV/.token (Datei 600, aus den AMP-Sicherungen ausgenommen).
-Aufruf: python3 konfig-setzen.py <standard-ordner> <ziel-ordner> [kanal-id]   (ohne Kanal-ID bleibt der Platzhalter 000000000000000000)
+Hub (Pascal 31.10.): derselbe Kanal und derselbe Bot (zweite Gateway-Verbindung, jede Instanz zeigt #mc-chat einmal), Spiel → Discord mit
+„[Hub]“ vor dem Namen, Tode und Fortschritte aus (Abenteuermodus). Webhook- und Bot-Nachrichten verarbeitet keine Instanz, also kein Kreislauf.
+Aufruf: python3 konfig-setzen.py <standard-ordner> <ziel-ordner> [kanal-id] [smp|hub]   (ohne Kanal-ID bleibt der Platzhalter 000000000000000000)
 """
 import os
 import re
@@ -12,8 +14,11 @@ import sys
 
 quelle, ziel = sys.argv[1], sys.argv[2]
 kanal = sys.argv[3] if len(sys.argv) > 3 else "000000000000000000"
+rolle = sys.argv[4] if len(sys.argv) > 4 else "smp"
 if not re.fullmatch(r"\d{17,20}", kanal):
     sys.exit(f"Kanal-ID ungültig: {kanal}")
+if rolle not in ("smp", "hub"):
+    sys.exit(f"Rolle muss smp oder hub sein: {rolle}")
 
 CONFIG = [
     (r"^BotToken: .*$", 'BotToken: ""'),
@@ -51,8 +56,12 @@ MESSAGES = [
     (r"^ChannelTopicUpdaterChatChannelTopicAtServerShutdownFormat: .*$", 'ChannelTopicUpdaterChatChannelTopicAtServerShutdownFormat: ""'),
     (r"^ChannelTopicUpdaterConsoleChannelTopicAtServerShutdownFormat: .*$", 'ChannelTopicUpdaterConsoleChannelTopicAtServerShutdownFormat: ""'),
 ]
-# Beitritt, erster Beitritt, Abmeldung aus (kein Protokoll, wer wann online ist); Tod und Fortschritt bleiben an
+# Beitritt, erster Beitritt, Abmeldung aus (kein Protokoll, wer wann online ist); Tod und Fortschritt bleiben an (nur SMP)
 AUS = ["MinecraftPlayerJoinMessage", "MinecraftPlayerFirstJoinMessage", "MinecraftPlayerLeaveMessage"]
+if rolle == "hub":
+    CONFIG.append((r"^Experiment_WebhookChatMessageUsernameFormat: .*$", 'Experiment_WebhookChatMessageUsernameFormat: "[Hub] %displayname%"'))
+    MESSAGES[3] = (r"^MinecraftChatToDiscordMessageFormat: .*$", 'MinecraftChatToDiscordMessageFormat: "[Hub] %displayname% » %message%"')
+    AUS += ["MinecraftPlayerDeathMessage", "MinecraftPlayerAchievementMessage"]
 
 
 def ersetzen(text, regeln, datei):
