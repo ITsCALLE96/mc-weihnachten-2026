@@ -144,10 +144,10 @@ live-werte:
 # (nur in den 45 Datapack-Biomen, wo es in Vanilla nicht schneit). Echte Kältebiome und Wetter-Schnee bleiben. server/winter.md, Status: /serverwahl winter
 winter-generierung:
   aktiv: true
-# Spielregeln der Overworld, bei jedem Start und /serverwahl reload gesetzt (Pascal 28.10.: Schnee höchstens ein halber Block = 4 Lagen).
+# Spielregeln der Overworld, bei jedem Start und /serverwahl reload gesetzt (Pascal 28.10.: 4 Lagen, 31.10.: zu hoch → 2 Lagen = ¼ Block).
 # Nach der Season: max_snow_accumulation_height wieder 1 (Vanilla)
 spielregeln:
-  max_snow_accumulation_height: 4
+  max_snow_accumulation_height: 2
   # Nacht überspringen, wenn die Hälfte der Spieler schläft (Pascal 31.10., Vanilla 100)
   players_sleeping_percentage: 50
 # Neujahrsfeuerwerk (Pascal 28.10.): echte Uhr, für alle online Spieler, wo sie gerade sind. Vorher Nacht + klares Wetter, Countdown als Titel.

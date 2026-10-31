@@ -22,7 +22,7 @@ Schnee und Eis entstehen nur in **Chunks, die gerade getickt werden**, also in S
 
 | Was | Während der Season | Nach dem Deaktivieren |
 |---|---|---|
-| Schneeschicht (bis **4 Lagen = halber Block**, Gamerule `max_snow_accumulation_height` 4, Pascal 28.10., setzt serverwahl `spielregeln:` bei jedem Start; Vanilla 1) | bei Niederschlag auf allen Oberflächen mit Himmel, nicht auf Farmland, Glas, Treppen u. ä. | **bleibt liegen.** Schnee schmilzt in Vanilla nur durch Blocklicht > 11 (Fackel daneben), nicht durch Sonne oder warmes Biom |
+| Schneeschicht (bis **2 Lagen = Viertelblock**, Gamerule `max_snow_accumulation_height` 2, Pascal 31.10. (vorher 4 seit 28.10.), setzt serverwahl `spielregeln:` bei jedem Start; Vanilla 1) | bei Niederschlag auf allen Oberflächen mit Himmel, nicht auf Farmland, Glas, Treppen u. ä. | **bleibt liegen.** Schnee schmilzt in Vanilla nur durch Blocklicht > 11 (Fackel daneben), nicht durch Sonne oder warmes Biom |
 | Eis auf Seen/Teichen (Wasserquelle an der Oberfläche, Himmel, Blocklicht < 10) | friert nach und nach zu, auch ohne Niederschlag | **bleibt.** Schmilzt ebenfalls nur durch Blocklicht |
 | Ozeane und Fluss | Schnee statt Regen, **kein Zufrieren**: serverwahl bricht dort die natürliche Eisbildung ab (`BlockFormEvent`, Wasser → Eis, nur in den 8 Biomen). Seen in anderen Biomen frieren weiter zu. Kein Schnee auf dem Wasser (Schnee braucht festen Boden) | – |
 | Felder | Farmland bekommt keinen Schnee; offene Bewässerungsrinnen ohne Licht **frieren zu → Farmland trocknet aus, Pflanzen fallen ab** | bleibt so, bis Eis weg |
