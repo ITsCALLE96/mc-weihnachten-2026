@@ -37,11 +37,6 @@
     ],
     "quelle": "spawn/quellen/nitrado/spark-insel.schem"
   },
-  "weltgrenze": {
-    "x": 0,
-    "z": 48,
-    "breite": 10000
-  },
   "lichter": {
     "raster": 8,
     "unterkante": 89

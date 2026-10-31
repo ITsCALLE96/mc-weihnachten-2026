@@ -253,7 +253,8 @@ execute unless score #geladen insel_tp matches 1 run schedule function insel:auf
     // Zusätzliche Bauteile, in Reihenfolge (z.B. Hub-Portal: erst Rahmen, dann Portalblöcke)
     k.bloecke?.length && `# Zusätzliche Bauteile\n${k.bloecke.map((b) => `fill ${b.von.join(' ')} ${b.bis.join(' ')} ${b.block}`).join('\n')}`,
     `setworldspawn ${s.x} ${s.y} ${s.z} ${s.yaw} ${s.pitch}`, 'gamerule respawn_radius 0',
-    `# Weltgrenze (Vorgenerierung mit Chunky macht die Server-Session)\nworldborder center ${g.x} ${g.z}\nworldborder set ${g.breite}`,
+    // ohne weltgrenze keine Grenze (SMP als Forever-World, Pascal 31.10.)
+    g && `# Weltgrenze (Vorgenerierung mit Chunky macht die Server-Session)\nworldborder center ${g.x} ${g.z}\nworldborder set ${g.breite}`,
     e && '# Vor dem Start geschlossen (Eröffnungs-Event)\nfunction insel:schliessen',
     '# In 5 s aufräumen und fertig melden\nschedule function insel:aufbau_ende 100t',
   ].filter(Boolean).join('\n') + '\n';

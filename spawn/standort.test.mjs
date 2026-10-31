@@ -98,6 +98,7 @@ test('Spark-Insel auf dem SMP: Struktur, Plattform, Tafel, Teleport, Lichter nac
   const { funktionen: f } = dateien(ks);
   assert.match(f.aufbau_teil2, /^place template spawn:spark_insel -26 89 22$/m);
   assert.match(f.aufbau_teil2, /^setworldspawn 0 156 48 0 0$/m);
+  assert.doesNotMatch(f.aufbau_teil2, /worldborder/); // Forever-World ohne Grenze (Pascal 31.10.)
   assert.ok(f.tafeln.includes('SparkofPhoenix'));
   assert.match(f.erstbesuch, /^tp @s 0\.5 156 48\.5 0 0$/m);
   assert.match(f.plattform, /^setblock 0 66 48 minecraft:pearlescent_froglight$/m);

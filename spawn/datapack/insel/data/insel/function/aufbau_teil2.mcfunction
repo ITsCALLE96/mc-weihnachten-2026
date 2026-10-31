@@ -410,8 +410,5 @@ fill 1 155 64 1 155 64 minecraft:light[level=15] keep
 fill 6 155 64 6 155 64 minecraft:light[level=15] keep
 setworldspawn 0 156 48 0 0
 gamerule respawn_radius 0
-# Weltgrenze (Vorgenerierung mit Chunky macht die Server-Session)
-worldborder center 0 48
-worldborder set 10000
 # In 5 s aufräumen und fertig melden
 schedule function insel:aufbau_ende 100t
