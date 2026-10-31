@@ -33,9 +33,9 @@ test('Eröffnung schaltet die SMP-Kiste frei (#offen in insel_zustand), schließ
   assert.doesNotMatch(f.oeffnen, /worldborder/);
 });
 
-test('Schriften über den 5 Kisten, 8 Bestenlisten, 8 Info-Stände mit Standbetreiber, Schildern, Hologramm und Links', () => {
+test('Schriften über den 5 Kisten, 8 Info-Stände mit Standbetreiber, Schildern, Hologramm und Links', () => {
   assert.ok(f.aufbau_ende.includes('summon text_display 25.5 237.2 -8.5 {text:[{"text":"SMP\\n","color":"gold","bold":true},{"text":"Rechtsklick"'));
-  assert.equal(f.aufbau_ende.match(/hub_bestenliste_\d/g).length, 8);
+  assert.doesNotMatch(f.aufbau_ende, /hub_bestenliste/); // Bestenlisten baut das Plugin serverwahl (31.10.)
   assert.equal((f.staende.match(/^summon villager /gm) ?? []).length, 8);
   assert.ok(f.staende.includes('summon villager 42.5 235 -18.5 {Tags:["hub","hub_stand","hub_stand_1"],NoAI:1b,Invulnerable:1b,PersistenceRequired:1b,'));
   assert.ok(f.staende.includes('VillagerData:{type:"minecraft:snow",profession:"minecraft:cleric",level:5},Offers:{Recipes:[]}'));

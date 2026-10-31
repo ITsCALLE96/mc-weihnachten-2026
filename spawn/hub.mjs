@@ -109,9 +109,8 @@ ${zumSpawn}
   // Sichtbarer Hinweis an jedem Klickpunkt (Pascal 26.10.: sonst „unsichtbare Dinger“): Titel + „Rechtsklick“ auf Augenhöhe, dazu leichte Partikel (hub:sekunde)
   const hinweis = (x, y, z, titel, farbe) => anzeige(x, y, z, `[${txt(titel + '\n', { color: farbe, bold: true })},${txt('Rechtsklick', { color: 'gray' })}]`, ['hub_hinweis']);
 
-  // Schriften über den Kisten (Serverwahl), Bestenlisten-Platzhalter, Info-Stände, Voice-Ecke
+  // Schriften über den Kisten (Serverwahl), Info-Stände, Voice-Ecke
   const kisten = k.kisten.map((c) => anzeige(c.x + 0.5, c.y + 1.2, c.z + 0.5, `[${txt(c.titel + '\n', { color: c.farbe, bold: true })},${txt('Rechtsklick', { color: 'gray' })}]`));
-  const besten = k.bestenlisten.map((b, i) => anzeige(b.x, b.y + 1.5, b.z, `[${txt(`Bestenliste ${i + 1}\n`, { color: 'gold', bold: true })},${txt('folgt', { color: 'gray', italic: true })}]`, ['hub_bestenliste', `hub_bestenliste_${i + 1}`]));
   const st8 = infoStaende(k);
   Object.assign(f, st8.funktionen); Object.assign(adv, st8.fortschritte);
   const staende = st8.befehle;
@@ -232,7 +231,7 @@ execute unless score #geladen insel_zustand matches 1 run schedule function hub:
     // Einzelne Korrekturen am gekauften Bau (Lizenz erlaubt Änderungen), z.B. ein fehl platzierter Block
     ...(k.korrekturen ?? []).map((b) => `setblock ${b.x} ${b.y} ${b.z} ${b.block}`),
     ...k.tafeln.map((t) => `setblock ${t.x} ${t.y} ${t.z} ${t.block}{is_waxed:1b,front_text:{messages:[${[...t.zeilen, '', '', '', ''].slice(0, 4).map(q).join(',')}]}}`),
-    ...kisten, ...besten, ...staende, ...voice,
+    ...kisten, ...staende, ...voice,
     ...advent,
     'function hub:schliessen',
     `forceload remove ${lx1} ${lz1} ${lx2} ${lz2}`,

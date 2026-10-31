@@ -70,7 +70,7 @@ Eigener Paper-Server hinter Velocity (Ordner und Plugins: Server-Session, lokal 
 - **Eröffnung 05.12.:** `function hub:eroeffnung` (10 s Countdown) setzt `#offen insel_zustand` auf 1 → Plugin `serverwahl` gibt die SMP-Kiste frei;
   `function hub:schliessen` sperrt wieder. Kisten (Rechtsklick → Menü, Plugin der Server-Session): SMP 25/236/−9, Testwelt 27/236/−5, Alle Server
   28/236/0, Minigames 27/236/5, Bald 25/236/9; Schriften darüber aus dem Datapack
-- Bestenlisten: 8 Text Displays auf den Cyan-Feldern (Tags `hub_bestenliste_1…8`, Inhalt später von der Statistik-Session)
+- Bestenlisten: 8 Figuren (Mannequin, Nr. 1 mit Skin) mit Top 5 auf den Cyan-Feldern um den Brunnen; baut und pflegt das Plugin `serverwahl` (Tag `hub_bestenliste`), nicht das Datapack (31.10.)
 - Info-Stände: 8 Marktzelte (Schrift, Klickfeld, beschriftete Zeltschilder; Texte in `hub.json`), Voice-Chat-Ecke beim Kirschblütenhaus,
   13 Info-Dorfbewohner (Klick → Text über Fortschritt `hub:npc/<n>`)
 - **Adventskalender:** 24 Geschenke entstehen beim Aufbau unsichtbar, `function hub:advent/naechster_tag` (täglich 00:00 ab 01.12. als AMP-Aufgabe)
