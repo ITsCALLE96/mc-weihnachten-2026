@@ -93,7 +93,7 @@ final class DiscordWhitelist implements Listener {
     }
 
     private final Plugin plugin;
-    private final HttpClient http = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(5)).build();
+    private final HttpClient http = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(3)).build();
     private boolean aktiv;
     private Path datei;
     private String kickText;
@@ -466,7 +466,7 @@ final class DiscordWhitelist implements Listener {
     }
 
     /** Java-Namen auflösen. Störung 31.10.: api.mojang.com hing zeitweise (Bot meldete „Namensprüfung nicht erreichbar“), sessionserver ebenso.
-     *  Deshalb zwei Endpunkte (minecraftservices zuerst, dann api.mojang), je 5 s; 404 = Name unbekannt (endgültig), alles andere (Timeout, 5xx,
+     *  Deshalb zwei Endpunkte (minecraftservices zuerst, dann api.mojang), je 3 s (schlimmster Fall ~13 s); 404 = Name unbekannt (endgültig), alles andere (Timeout, 5xx,
      *  429) → nächster Endpunkt; nach einem erfolglosen Durchgang 1 s Pause und ein zweiter. Erst dann 503 an den Bot */
     static final String[] JAVA_QUELLEN = {
         "https://api.minecraftservices.com/minecraft/profile/lookup/name/",
@@ -477,7 +477,7 @@ final class DiscordWhitelist implements Listener {
         for (int runde = 0; runde < 2; runde++) {
             for (String quelle : JAVA_QUELLEN) {
                 try {
-                    return holen(quelle + name);
+                    return holen(quelle + name, 3);
                 } catch (ApiFehler f) {
                     if (f.status == 404) {
                         throw f;
@@ -497,8 +497,12 @@ final class DiscordWhitelist implements Listener {
     }
 
     private JsonObject holen(String url) throws ApiFehler {
+        return holen(url, 5);
+    }
+
+    private JsonObject holen(String url, int sekunden) throws ApiFehler {
         try {
-            HttpResponse<String> r = http.send(HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofSeconds(5))
+            HttpResponse<String> r = http.send(HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofSeconds(sekunden))
                     .header("User-Agent", "serverwahl-weihnachten").GET().build(), HttpResponse.BodyHandlers.ofString());
             if (r.statusCode() == 404 || r.statusCode() == 204 || r.body().isBlank()) {
                 throw new ApiFehler(404, "unbekannt");
