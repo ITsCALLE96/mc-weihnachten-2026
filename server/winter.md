@@ -81,6 +81,8 @@ Bei 25 Spielern und 5–8 min alle ~50 min ist jeder Spielabend 2–3 Mal versch
 
 Reihenfolge: Datapack raus + Neustart (Temperaturen wieder normal), dann aufräumen, dann LSS-Store invalidieren.
 
+**Baustein für das Kommando (31.10.):** Die Spaltenlogik aus `WinterGenerierung.java` (oberster Block mit und ohne Laub, Lagen dazwischen, Biom-Prüfung je Spalte) wiederverwenden. Variante „beim ersten Laden je Chunk einmal, danach im PersistentDataContainer markieren“ statt Radius-Befehl: erfasst auch ungeladene Chunks nach und nach, ohne Lag-Spitze (~0,6 ms je Chunk gemessen). Dieselbe Logik kann Schnee mit mehr als `max_snow_accumulation_height` Lagen kürzen (für die Generalprobe am 31.10. verworfen, die Welt wird ersetzt).
+
 | Weg | Wie | Aufwand | Haken |
 |---|---|---|---|
 | **Eigenes Aufräum-Kommando (Empfehlung)** in serverwahl | geht alle vorhandenen Chunks durch (wie Chunky), schaut je Spalte nur auf die **oberste** Schicht: Schneeschicht → Luft, Eis über Wasser → Wasser, Pulverschnee im Kessel → leer, **nur wo das Biom jetzt warm ist** (`world.getTemperature` > 0,15). Kalte Biome und Höhlen bleiben unberührt | Bauen ~½ Tag + Test im Testnetz. Laufzeit geschätzt 1–2 h auf VM200 für 10k × 10k (wie die Vorgenerierung, nur lesend bis auf Treffer), ohne Spieler | von Spielern gesetzte Schneeschichten und normales Eis in warmen Biomen gehen mit (Eisbahnen meist aus Packeis/Blaueis, die bleiben). Vorher ankündigen |
