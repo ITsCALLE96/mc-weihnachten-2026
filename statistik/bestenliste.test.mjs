@@ -35,10 +35,10 @@ function attrappe(antworten = {}) {
   return { aufrufe, holen };
 }
 
-test('8 Hub-Listen in fester Reihenfolge, Händler nur im Discord', () => {
-  assert.deepEqual(ANZEIGE_LISTEN.filter((l) => l.hub).map((l) => l.id),
+test('8 Listen in fester Reihenfolge, alle im Hub und im Discord', () => {
+  assert.deepEqual(ANZEIGE_LISTEN.map((l) => l.id),
     ['spielzeit', 'spenden', 'abgebaut', 'mobs', 'strecke', 'tode', 'fortschritte', 'diamanten']);
-  assert.deepEqual(ANZEIGE_LISTEN.filter((l) => !l.hub).map((l) => l.id), ['handel']);
+  assert.ok(ANZEIGE_LISTEN.every((l) => l.hub));
 });
 
 test('Weltenbummler zählt alle Fortbewegungsarten außer Fallen', () => {

@@ -27,7 +27,7 @@ Ohne `--testmodus` werden Skins einmal pro Tag von Mojang geholt und im `--cache
 
 Entscheidung Pascal 31.10.: Die Statistik erscheint **im Discord** (eine Webhook-Nachricht in `#mc-bestenliste`, stündlich bearbeitet) und **im Hub** (8 Text-Displays). Die Webseite ist nur intern und ohne Eile, es gibt keine öffentliche Seite und keinen Funnel.
 
-- `bestenliste.mjs` baut aus derselben Auswertung (Ansicht „Diese Season“, Ausgeblendete fehlen) die Listen aus `lib/anzeige.mjs`: Hub-Plätze 1–8 Dauerzocker, Weihnachtself, Abrissbirne, Monsterjäger, Weltenbummler, Pechvogel, Abenteurer, Diamantenjäger; nur im Discord zusätzlich Händler. Weltenbummler zählt alle Fortbewegungsarten außer Fallen. Je Liste Top 5.
+- `bestenliste.mjs` baut aus derselben Auswertung (Ansicht „Diese Season“, Ausgeblendete fehlen) die Listen aus `lib/anzeige.mjs`: Hub-Plätze 1–8 Dauerzocker, Weihnachtself, Abrissbirne, Monsterjäger, Weltenbummler, Pechvogel, Abenteurer, Diamantenjäger; der Discord zeigt dieselben 8 Listen. Weltenbummler zählt alle Fortbewegungsarten außer Fallen. Je Liste Top 5.
 - `--ausgabe <datei>` schreibt die Hub-Datei (Format in `DATENFORMAT.md`), `--webhook-datei` + `--zustand` bearbeiten die Discord-Nachricht (gelöscht → neu angelegt), `--probe` zeigt die Nachricht nur an.
 - Probe lokal: `node statistik/bestenliste.mjs --instanz statistik/testwelt --sichtbarkeit statistik/testwelt/sichtbarkeit.json --sprache statistik/daten/sprache.json --probe`
 
