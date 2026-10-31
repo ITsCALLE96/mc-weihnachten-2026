@@ -5,6 +5,8 @@ Ohne Schalter zeigt es nur die Änderungen (Diff je Datei, zu löschende Merker)
 Was es NICHT kann (Konsole bzw. andere Sessions, siehe vor-dem-start.md): weihnachtsinsel:zuruecksetzen/vorbereiten, nether/end close,
 Leitfaden-Phase 0, Hub-Datapack-Text (Spawn & Welt), Statistik-Season, neue SMP-Welt.
 Aufruf: python3 generalprobe-zurueck.py [--ausfuehren]
+Reset-Probe (31.10.): Umgebung NUR_SMP=<Minecraft-Ordner> PORT=<port> → nur die SMP-Regeln und SMP-Merker in diesem Ordner,
+Hub, Proxy, discord.json und der geteilte Ordner bleiben unberührt.
 """
 import difflib
 import json
@@ -15,7 +17,8 @@ import sys
 import time
 
 I = "/home/amp/.ampdata/instances"
-SMP = f"{I}/MinecraftSMP01/Minecraft"
+NUR_SMP = os.environ.get("NUR_SMP")
+SMP = NUR_SMP or f"{I}/MinecraftSMP01/Minecraft"
 HUB = f"{I}/MinecraftHub01/Minecraft"
 PROXY = f"{I}/MinecraftProxy01/Minecraft"
 GETEILT = "/srv/ampdata/mc-netzwerk-geteilt"
@@ -41,6 +44,8 @@ ERSETZEN = [
         (r'<gray>Generalprobe im November</gray>"', '<gray>Start am <white>27.11.</white></gray>"'),
     ]),
 ]
+if NUR_SMP:
+    ERSETZEN = ERSETZEN[:1]
 LOESCHEN = [
     f"{SMP}/plugins/Serverwahl/eroeffnet.txt",
     f"{SMP}/plugins/Serverwahl/termine.txt",
@@ -48,6 +53,8 @@ LOESCHEN = [
     f"{HUB}/plugins/Serverwahl/termine.txt",
     f"{GETEILT}/status/smp-offen",
 ]
+if NUR_SMP:
+    LOESCHEN = [p for p in LOESCHEN if p.startswith(SMP)]
 
 
 def zeigen(pfad, alt, neu):
@@ -68,7 +75,7 @@ def schreiben(pfad, text):
         shutil.chown(pfad, "amp", "amp")
 
 
-for port in (25577, 25567, 25568):
+for port in ((int(os.environ.get("PORT", "25569")),) if NUR_SMP else (25577, 25567, 25568)):
     import socket
     with socket.socket() as s:
         s.settimeout(1)
@@ -94,16 +101,16 @@ if fehler:
 for pfad, neu in geplant:
     schreiben(pfad, neu)
 
-# discord.json: Test-Guilds aus den Einträgen, Einträge ohne Guild fallen weg
+# discord.json: Test-Guilds aus den Einträgen, Einträge ohne Guild fallen weg (nicht bei NUR_SMP)
 dj = f"{GETEILT}/whitelist/discord.json"
-d = json.load(open(dj, encoding="utf-8"))
+d = {"eintraege": []} if NUR_SMP else json.load(open(dj, encoding="utf-8"))
 vorher = len(d["eintraege"])
 for e in d["eintraege"]:
     e["gilden"] = [g for g in e.get("gilden", []) if g == FINAL_GILDE]
 weg = [e["name"] for e in d["eintraege"] if not e["gilden"]]
 d["eintraege"] = [e for e in d["eintraege"] if e["gilden"]]
 print(f"discord.json: {vorher} → {len(d['eintraege'])} Einträge, fallen weg: {weg or '–'}")
-if AUSFUEHREN:
+if AUSFUEHREN and not NUR_SMP:
     sichern(dj)
     open(dj, "w", encoding="utf-8").write(json.dumps(d, indent=2, ensure_ascii=False))
     shutil.chown(dj, "amp", "amp")

@@ -5,6 +5,7 @@ der Wert soll aber nicht irreführen und nicht verraten werden. Liest den Seed a
 world/dimensions/minecraft/overworld/data/minecraft/world_gen_settings.dat (Minecraft 26.x) und schreibt ihn ohne Ausgabe in
 MinecraftModule.kvp (Minecraft.WorldSeed) und Minecraft/server.properties (level-seed).
 Als root auf VM200, AMP-Hülle von MinecraftSMP01 GESTOPPT (ampinstmgr -q MinecraftSMP01), danach -s. nbt.py im selben Ordner.
+Andere Instanz (Reset-Probe): Umgebung INSTANZ=MinecraftTestwelt01.
 """
 import os
 import re
@@ -14,7 +15,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import nbt  # noqa: E402
 
-I = "/home/amp/.ampdata/instances/MinecraftSMP01"
+I = "/home/amp/.ampdata/instances/" + os.environ.get("INSTANZ", "MinecraftSMP01")
 WGS = f"{I}/Minecraft/world/dimensions/minecraft/overworld/data/minecraft/world_gen_settings.dat"
 
 

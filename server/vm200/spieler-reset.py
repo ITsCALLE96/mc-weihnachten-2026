@@ -11,6 +11,8 @@ Entfernt (Hub und SMP, beide GESTOPPT):
 Bleibt: Welt, Bauten, Datapacks samt Weltzustand, Regionen (WorldGuard), LuckPerms, Whitelist, Ops, Termine, Prism-Protokoll.
 Vorher Sicherung aller betroffenen Dateien nach /srv/ampdata/mc-netzwerk-sicherung/spieler-reset-<zeit>.tgz.
 
+Andere Instanz (Reset-Probe, 31.10.): Umgebung INSTANZ=MinecraftTestwelt01 PORT=25569 → nur diese Instanz wie das SMP, Hub und geteilter Merker
+bleiben unberührt.
 Aufruf als root auf VM200 (Skript und nbt.py im selben Ordner):
   python3 spieler-reset.py            → zeigt nur, was passieren würde
   python3 spieler-reset.py --ausfuehren
@@ -27,7 +29,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import nbt  # noqa: E402
 
 INST = "/home/amp/.ampdata/instances"
-SERVER = {"MinecraftHub01": 25567, "MinecraftSMP01": 25568}
+ZIEL = os.environ.get("INSTANZ", "MinecraftSMP01")
+SERVER = {"MinecraftHub01": 25567, "MinecraftSMP01": 25568} if ZIEL == "MinecraftSMP01" else {ZIEL: int(os.environ.get("PORT", "25569"))}
 SICHERUNG = "/srv/ampdata/mc-netzwerk-sicherung"
 GETEILT = "/srv/ampdata/mc-netzwerk-geteilt"
 SMP_MERKER = ["mission-stand.yml", "eroeffnet.txt", "taeglich.txt", "neujahr.txt"]
@@ -101,13 +104,13 @@ def main():
             if eintraege:
                 betroffen.append(sb)
                 plan.append(("scoreboard", sb, eintraege))
-        if inst == "MinecraftSMP01":
+        if inst == ZIEL:
             for m in SMP_MERKER:
                 f = f"{mc}/plugins/Serverwahl/{m}"
                 if os.path.exists(f):
                     betroffen.append(f)
                     plan.append(("loeschen", f))
-    offen = f"{GETEILT}/status/smp-offen"
+    offen = f"{GETEILT}/status/smp-offen" if ZIEL == "MinecraftSMP01" else "/nicht-vorhanden"
     if os.path.exists(offen):
         betroffen.append(offen)
         plan.append(("loeschen", offen))
