@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """DiscordSRV 1.30.5 für die Chat-Brücke #mc-chat ↔ SMP einstellen (Leitung/Pascal 31.10.), aus den Standard-Configs, die DiscordSRV beim ersten
 Start anlegt. Nur SMP. Spiel → Discord ohne Pings, Discord → Spiel nur aus #mc-chat mit Discord-Namen, Tode und Fortschritte an,
-Beitritt/Abmeldung aus, keine Konsole und keine Befehle aus Discord, keine Spielerliste, keine Start-/Stopp-Meldungen (Neustart 04:00).
+Beitritt/Abmeldung aus, keine Konsole und keine Befehle aus Discord, keine Spielerliste, keine Start-/Stopp-Meldungen (Neustart 04:00),
+kein Kanalthema, kein Update-Check.
 Der Token steht NICHT in der Config: DiscordSRV liest plugins/DiscordSRV/.token (Datei 600, aus den AMP-Sicherungen ausgenommen).
 Aufruf: python3 konfig-setzen.py <standard-ordner> <ziel-ordner> [kanal-id]   (ohne Kanal-ID bleibt der Platzhalter 000000000000000000)
 """
@@ -28,6 +29,8 @@ CONFIG = [
     (r"^DiscordChatChannelListCommandEnabled: .*$", "DiscordChatChannelListCommandEnabled: false"),
     (r"^ChannelTopicUpdaterChannelTopicsAtShutdownEnabled: .*$", "ChannelTopicUpdaterChannelTopicsAtShutdownEnabled: false"),
     (r"^ServerWatchdogEnabled: .*$", "ServerWatchdogEnabled: false"),
+    # Update-Check aus (Schlüssel fehlt in der Standard-Config, DiscordSRV kennt ihn: isUpdateCheckDisabled)
+    (r"^ForcedLanguage: (.*)$", "ForcedLanguage: none\nUpdateCheckDisabled: true"),
     (r"^MinecraftMentionSound: .*$", "MinecraftMentionSound: false"),
     # Standard-Platzhalter raus: Antworten auf !ip/!site, Kanal-Umbenennung mit Dummy-IDs
     (r"^DiscordCannedResponses: .*$", "DiscordCannedResponses: {}"),
@@ -40,6 +43,11 @@ MESSAGES = [
     (r"^MinecraftChatToDiscordMessageFormat: .*$", 'MinecraftChatToDiscordMessageFormat: "%displayname% » %message%"'),
     (r"^DiscordChatChannelServerStartupMessage: .*$", 'DiscordChatChannelServerStartupMessage: ""'),
     (r"^DiscordChatChannelServerShutdownMessage: .*$", 'DiscordChatChannelServerShutdownMessage: ""'),
+    # Kanalthema nicht setzen (würde Online-Zahl und Spieler zeigen, dem Bot fehlt dafür auch das Recht)
+    (r"^ChannelTopicUpdaterChatChannelTopicFormat: .*$", 'ChannelTopicUpdaterChatChannelTopicFormat: ""'),
+    (r"^ChannelTopicUpdaterConsoleChannelTopicFormat: .*$", 'ChannelTopicUpdaterConsoleChannelTopicFormat: ""'),
+    (r"^ChannelTopicUpdaterChatChannelTopicAtServerShutdownFormat: .*$", 'ChannelTopicUpdaterChatChannelTopicAtServerShutdownFormat: ""'),
+    (r"^ChannelTopicUpdaterConsoleChannelTopicAtServerShutdownFormat: .*$", 'ChannelTopicUpdaterConsoleChannelTopicAtServerShutdownFormat: ""'),
 ]
 # Beitritt, erster Beitritt, Abmeldung aus (kein Protokoll, wer wann online ist); Tod und Fortschritt bleiben an
 AUS = ["MinecraftPlayerJoinMessage", "MinecraftPlayerFirstJoinMessage", "MinecraftPlayerLeaveMessage"]
