@@ -3,7 +3,8 @@
 import { WERT } from './titel.mjs';
 import { nachEinheit } from './format.mjs';
 
-// hub: true = einer der 8 Hub-Plätze (Reihenfolge = Platz 1–8). Diamantenjäger gibt es nur im Discord.
+// hub: true = einer der 8 Hub-Plätze (Reihenfolge = Platz 1–8). Händler gibt es nur im Discord (Pascal 31.10.).
+// Weltenbummler = alle Fortbewegungsarten (Laufen, Sprinten, Schwimmen, Boot, Elytra, Reittiere, Klettern, Fliegen …) außer Fallen.
 export const ANZEIGE_LISTEN = [
   { id: 'spielzeit', titel: 'Dauerzocker', unter: 'Spielzeit', wert: 'spielzeit', einheit: 'zeit', symbol: '⏱️', hub: true },
   { id: 'spenden', titel: 'Weihnachtself', unter: 'Spenden für die Weihnachtsinsel', wert: 'spenden', einheit: 'anzahl', symbol: '🎁', hub: true },
@@ -12,8 +13,8 @@ export const ANZEIGE_LISTEN = [
   { id: 'strecke', titel: 'Weltenbummler', unter: 'Zurückgelegte Strecke', wert: 'strecke', einheit: 'strecke', symbol: '🥾', hub: true },
   { id: 'tode', titel: 'Pechvogel', unter: 'Tode', wert: 'tode', einheit: 'anzahl', symbol: '💀', hub: true },
   { id: 'fortschritte', titel: 'Abenteurer', unter: 'Geschaffte Fortschritte', wert: 'fortschritte', einheit: 'anzahl', symbol: '🏆', hub: true },
-  { id: 'handel', titel: 'Händler', unter: 'Handel mit Dorfbewohnern', wert: 'handel', einheit: 'anzahl', symbol: '💰', hub: true },
-  { id: 'diamanten', titel: 'Diamantenjäger', unter: 'Abgebaute Diamanterze', wert: 'diamanten', einheit: 'anzahl', symbol: '💎', hub: false },
+  { id: 'diamanten', titel: 'Diamantenjäger', unter: 'Abgebaute Diamanterze', wert: 'diamanten', einheit: 'anzahl', symbol: '💎', hub: true },
+  { id: 'handel', titel: 'Händler', unter: 'Handel mit Dorfbewohnern', wert: 'handel', einheit: 'anzahl', symbol: '💰', hub: false },
 ];
 
 // daten = Antwort von Instanz.daten() → { season, seasonName, stand, listen: [{ id, titel, unter, symbol, hub, plaetze: [{ name, wert, text }] }] }

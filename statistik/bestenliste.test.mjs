@@ -7,7 +7,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { erzeugeTestwelt } from './testdaten.mjs';
 import { lauf, sendeWebhook } from './bestenliste.mjs';
-import { ANZEIGE_LISTEN, discordNachricht } from './lib/anzeige.mjs';
+import { ANZEIGE_LISTEN, baueBestenlisten, discordNachricht } from './lib/anzeige.mjs';
 
 const hier = dirname(fileURLToPath(import.meta.url));
 const URL_ = 'https://discord.com/api/webhooks/123456789/geheim-TOKEN_x';
@@ -35,10 +35,21 @@ function attrappe(antworten = {}) {
   return { aufrufe, holen };
 }
 
-test('8 Hub-Listen in fester Reihenfolge, Diamantenjäger nur im Discord', () => {
+test('8 Hub-Listen in fester Reihenfolge, Händler nur im Discord', () => {
   assert.deepEqual(ANZEIGE_LISTEN.filter((l) => l.hub).map((l) => l.id),
-    ['spielzeit', 'spenden', 'abgebaut', 'mobs', 'strecke', 'tode', 'fortschritte', 'handel']);
-  assert.deepEqual(ANZEIGE_LISTEN.filter((l) => !l.hub).map((l) => l.id), ['diamanten']);
+    ['spielzeit', 'spenden', 'abgebaut', 'mobs', 'strecke', 'tode', 'fortschritte', 'diamanten']);
+  assert.deepEqual(ANZEIGE_LISTEN.filter((l) => !l.hub).map((l) => l.id), ['handel']);
+});
+
+test('Weltenbummler zählt alle Fortbewegungsarten außer Fallen', () => {
+  const s = { spieler: [{ name: 'Rudi', werte: {
+    'custom:walk_one_cm': 100, 'custom:sprint_one_cm': 100, 'custom:crouch_one_cm': 100, 'custom:swim_one_cm': 100,
+    'custom:walk_under_water_one_cm': 100, 'custom:walk_on_water_one_cm': 100, 'custom:boat_one_cm': 100,
+    'custom:aviate_one_cm': 100, 'custom:horse_one_cm': 100, 'custom:minecart_one_cm': 100, 'custom:pig_one_cm': 100,
+    'custom:strider_one_cm': 100, 'custom:climb_one_cm': 100, 'custom:fly_one_cm': 100, 'custom:happy_ghast_one_cm': 100,
+    'custom:fall_one_cm': 99999, 'custom:jump': 5,
+  } }], server: { season: 's', seasonName: 'S', stand: '2026-10-31T12:00:00+01:00' } };
+  assert.equal(baueBestenlisten(s).listen.find((l) => l.id === 'strecke').plaetze[0].wert, 1500);
 });
 
 test('erster Lauf legt die Nachricht an, zweiter bearbeitet sie; Ausgeblendete fehlen überall', async () => {
