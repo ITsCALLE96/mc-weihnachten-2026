@@ -26,8 +26,9 @@ CONFIG = [
     (r"^DiscordConsoleChannelId: .*$", 'DiscordConsoleChannelId: "000000000000000000"'),
     (r"^DiscordGameStatus: .*$", 'DiscordGameStatus: ["playing auf dem SMP"]'),
     (r"^Experiment_WebhookChatMessageDelivery: .*$", "Experiment_WebhookChatMessageDelivery: true"),
-    # Spielerkopf im Webhook (31.10.: mc-heads.net erreichbar, crafatar 500); Discord holt das Bild selbst
-    (r"^AvatarUrl: .*$", 'AvatarUrl: "https://mc-heads.net/avatar/{uuid-nodashes}/{size}"'),
+    # Spielerkopf im Webhook; Discord holt das Bild selbst. 31.10.: mc-heads.net lieferte für alle Steve, crafatar 500,
+    # minotar „helm“ zeigt den echten Kopf mit Hut-Schicht (gegen den Mojang-Skin verglichen)
+    (r"^AvatarUrl: .*$", 'AvatarUrl: "https://minotar.net/helm/{uuid-nodashes}/{size}.png"'),
     (r"^DiscordChatChannelTranslateMentions: .*$", "DiscordChatChannelTranslateMentions: false"),
     (r"^DiscordChatChannelAllowedMentions: .*$", "DiscordChatChannelAllowedMentions: []"),
     (r"^DiscordChatChannelRolesAllowedToUseColorCodesInChat: .*$", "DiscordChatChannelRolesAllowedToUseColorCodesInChat: []"),
@@ -50,6 +51,8 @@ MESSAGES = [
     (r"^MinecraftChatToDiscordMessageFormat: .*$", 'MinecraftChatToDiscordMessageFormat: "%displayname% » %message%"'),
     (r"^DiscordChatChannelServerStartupMessage: .*$", 'DiscordChatChannelServerStartupMessage: ""'),
     (r"^DiscordChatChannelServerShutdownMessage: .*$", 'DiscordChatChannelServerShutdownMessage: ""'),
+    # Fortschritt auf Deutsch; der Name des Fortschritts und die Todesmeldung kommen fertig vom Server (nur en_us) und bleiben englisch
+    (r'^      Name: "%username% has made the advancement %achievement%!"$', '      Name: "%username% hat den Fortschritt [%achievement%] erreicht"'),
     # Kanalthema nicht setzen (würde Online-Zahl und Spieler zeigen, dem Bot fehlt dafür auch das Recht)
     (r"^ChannelTopicUpdaterChatChannelTopicFormat: .*$", 'ChannelTopicUpdaterChatChannelTopicFormat: ""'),
     (r"^ChannelTopicUpdaterConsoleChannelTopicFormat: .*$", 'ChannelTopicUpdaterConsoleChannelTopicFormat: ""'),

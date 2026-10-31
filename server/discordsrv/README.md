@@ -17,3 +17,7 @@ interaktiv `ssh -t root@192.168.178.200 "ssh -t root@192.168.178.78 mc-discord-e
 Hub: derselbe Bot-Token und Kanal (Discord erlaubt mehrere Gateway-Verbindungen eines Bots; jede Instanz zeigt #mc-chat einmal im eigenen Spiel).
 `konfig-setzen.py … hub`: „[Hub]“ vor dem Namen, Tode/Fortschritte aus. Webhook- und Bot-Nachrichten verarbeitet keine Instanz (BlockWebhooks/BlockBots), also
 kein Kreislauf; SMP-Chat erscheint dadurch nicht im Hub und umgekehrt (nur über Discord). Einrichten: `discordsrv-hub.sh` (Token-Kopie aus dem SMP).
+
+Spielerkopf: `AvatarUrl` minotar.net/helm (31.10.: mc-heads.net lieferte für alle Spieler Steve, crafatar 500). Fortschritt-Text deutsch;
+Fortschrittsnamen und Todesmeldungen kommen fertig vom Server (Paper hat nur en_us) und bleiben englisch, deutsche Namen wären ein eigener Schritt
+(serverwahl über die DiscordSRV-API mit der de_de-Tabelle der Statistik).
