@@ -34,13 +34,14 @@ erscheint und nach dem Austritt wieder verschwindet.
 |---|---|---|
 | Kürzel | `^[A-Z0-9]{2,10}$` (der Bot darf klein schicken, der Server macht groß) | `400 kuerzel` |
 | Kürzel doppelt | gleiche Grundform wie ein bestehender Clan (siehe Grundform unten, z. B. `N0RD` = `NORD`, `L1L` = `III`) | `409 kuerzel-vergeben` |
-| Name | 3–32 Zeichen, Buchstaben (auch ÄÖÜß), Ziffern, Leerzeichen, `-`, `_`, `'` | `400 name` |
+| Name | wird vor allem anderen **normiert**: außen getrimmt, Mehrfach-Leerzeichen zu einem (gespeichert und in jeder Antwort so). Danach 3–32 Zeichen, Buchstaben (auch ÄÖÜß), Ziffern, Leerzeichen, `-`, `_`, `'` | `400 name` |
 | Farbe | genau einer dieser Werte: `dark_red`, `red`, `gold`, `yellow`, `dark_green`, `green`, `aqua`, `dark_aqua`, `dark_blue`, `blue`, `light_purple`, `dark_purple`, `white`, `gray` (schwarz und dunkelgrau sind schlecht lesbar) | `400 farbe` |
-| Sperrliste | Kürzel oder Name trifft ein gesperrtes Wort aus `clans.sperrliste` (Grundform; Wörter unter 5 Zeichen nur als ganzes Wort, längere auch als Teil, wie bei `/nick`), z. B. ADMIN, MOD, MODS, SERVER, OWNER, STAFF, TEAM, SUPPORT, HELPER, CONSOLE, OP, DEV, GM, C96, CREW, plus die Sperrliste der Nicks | `422 gesperrt` mit `"grund": "sperrliste"` |
+| Sperrliste | **nur das Kürzel** (Leitung 01.11.: „Team Nord“ als Name ist erlaubt): Kürzel trifft ein gesperrtes Wort aus `clans.sperrliste` (Grundform; Wörter unter 5 Zeichen nur als ganzes Wort, längere auch als Teil, wie bei `/nick`), z. B. ADMIN, MOD, MODS, SERVER, OWNER, STAFF, TEAM, SUPPORT, HELPER, CONSOLE, OP, DEV, GM, C96, CREW, plus die Sperrliste der Nicks | `422 gesperrt` mit `"grund": "sperrliste"` |
+| Amts-Nachahmung im Namen | ein Wort des Namens ist (Grundform) ADMIN, MOD, MODERATOR, OWNER, STAFF, SUPPORT, SERVER, KONSOLE oder CONSOLE – nur als ganzes Wort, TEAM/CREW usw. sind im Namen erlaubt | `422 gesperrt`, `"grund": "sperrliste"` |
 | Beleidigungen | Kürzel oder Name enthält einen Eintrag aus `clans.beleidigungen` (Grundform, als Teil des Textes, Datei `plugins/Serverwahl/clans-woerter.txt`, Vorlage `plugin-konfig/hub/plugins/Serverwahl/clans-woerter.txt`) | `422 gesperrt`, `"grund": "beleidigung"` |
 | Nachahmung | Kürzel hat dieselbe Grundform wie der Name oder Nick eines bekannten Spielers (wie bei `/nick`) | `422 gesperrt`, `"grund": "nachahmung"` |
 | Ein Clan je Spieler | wer gründet, darf in keinem Clan sein (erst austreten) | `409 im-clan` mit `"clan": "<KÜRZEL>"` |
-| Einladung | gilt 7 Tage, je Clan und Spieler eine; eine erneute Einladung ersetzt die alte ohne Fehler. Sich selbst einladen geht nicht | `400 selbst` |
+| Einladung | gilt 7 Tage, je Clan und Spieler eine; eine erneute Einladung ersetzt die alte ohne Fehler. Sich selbst einladen geht nicht. Höchstens 20 offene Einladungen je Clan (die ersetzte zählt nicht doppelt) | `400 selbst` · `409 einladungen-voll` |
 | Beitritt | nur mit gültiger Einladung. Ist der Spieler in einem anderen Clan, wechselt er (verlässt den alten, siehe Austritt) | `403 keine-einladung` |
 | Austritt des Leiters | Bleiben Mitglieder, übernimmt das am längsten dabei befindliche Mitglied die Leitung. Ist niemand mehr da, löst sich der Clan auf | – |
 | Leerer Clan | wird sofort aufgelöst (Gruppe gelöscht) | – |
@@ -58,20 +59,21 @@ Alle Antworten JSON. Fehler immer `{"fehler": "<code>"}`, wo nötig mit `"grund"
                   { "discord": null, "name": "Tester1", "uuid": "…", "seit": "…" } ],
   "einladungen": [ { "discord": "234567890123456789", "name": "cruiserDE", "bis": "2026-11-22T18:05:00Z" } ] }
 ```
-`discord` ist `null` bei Mitgliedern ohne Discord-Eintrag (von Hand per LuckPerms zugeordnet). Mitglieder sind nach `seit` sortiert.
+Felder mit `null` sind in den Antworten immer vorhanden (nicht weggelassen). `discord` ist `null` bei Mitgliedern ohne Discord-Eintrag (von Hand per LuckPerms zugeordnet). Mitglieder sind nach `seit` sortiert.
 
 | Methode, Pfad | Rumpf | Antwort |
 |---|---|---|
 | `GET /clans` | – | `200 {"clans": [ <Clan>, … ]}` |
 | `GET /clans/<KÜRZEL>` | – | `200 <Clan>` · `404 clan` |
 | `GET /clans/von/<discordId>` | – | `200 {"clan": <Clan> \| null, "einladungen": [ {"kuerzel","name","farbe","bis"} ]}` – eigener Clan und offene Einladungen, für das persönliche Menü im Bot · `404 konto` |
-| `GET /clans/pruefen?kuerzel=…&name=…&farbe=…` | – | `200 {"ok": true, "kuerzel": "NORD"}` oder dieselben Fehler wie `POST /clans` (ohne `im-clan`). Ändert nichts, für sofortige Rückmeldung im Formular |
+| `GET /clans/pruefen?kuerzel=…&name=…&farbe=…` | – | `200 {"ok": true, "kuerzel": "NORD", "name": "<normiert>"}` oder dieselben Fehler wie `POST /clans` (ohne `im-clan`). Ändert nichts, für sofortige Rückmeldung im Formular |
 | `POST /clans` | `{"von": "<discordId>", "kuerzel": "NORD", "name": "Die Nordmänner", "farbe": "dark_aqua"}` | `201 <Clan>` – Gründer ist Leiter und erstes Mitglied · `400 kuerzel\|name\|farbe` · `409 kuerzel-vergeben` · `409 im-clan` · `422 gesperrt` · `404 konto` |
-| `POST /clans/<KÜRZEL>/einladungen` | `{"von": "<Leiter>", "an": "<discordId>"}` | `200 {"an": {"discord","name"}, "bis": "…", "kuerzel", "name", "farbe"}` (Clan-Daten für die Einladungsnachricht) · `400 selbst` · `403 kein-leiter` · `404 clan` · `404 konto` (der Eingeladene) · `409 schon-mitglied` |
+| `POST /clans/<KÜRZEL>/einladungen` | `{"von": "<Leiter>", "an": "<discordId>"}` | `200 {"an": {"discord","name"}, "bis": "…", "kuerzel", "name", "farbe"}` (Clan-Daten für die Einladungsnachricht) · `400 selbst` · `403 kein-leiter` · `404 clan` · `404 konto` (der Eingeladene) · `409 schon-mitglied` · `409 einladungen-voll` |
 | `DELETE /clans/<KÜRZEL>/einladungen/<discordId>?von=<id>` | – | `200 {}` – Einladung zurückziehen (Leiter) oder ablehnen (der Eingeladene selbst). Idempotent · `403 kein-recht` · `404 clan` |
 | `POST /clans/<KÜRZEL>/mitglieder` | `{"von": "<discordId>"}` (der Eingeladene selbst) | `200 {"clan": <Clan>, "verlassen": "<altes KÜRZEL>" \| null, "aufgeloest": "<altes KÜRZEL>" \| null}` · `403 keine-einladung` (fehlt oder abgelaufen) · `404 clan` · `404 konto` |
 | `DELETE /clans/<KÜRZEL>/mitglieder/<discordId>?von=<id>` | – | `von` = Ziel: **Austritt**; `von` = Leiter: **Rauswurf** (sich selbst rauswerfen = Austritt). `200 {"clan": <Clan> \| null, "neuer_leiter": "<discordId>" \| null, "aufgeloest": true/false}` · `403 kein-recht` · `404 clan` · `404 kein-mitglied` |
 | `PUT /clans/<KÜRZEL>/leiter` | `{"von": "<Leiter>", "an": "<discordId eines Mitglieds>"}` | `200 <Clan>` · `403 kein-leiter` · `404 kein-mitglied` |
+| `DELETE /clans/von/<discordId>` | – | **DSGVO-Löschen** (Leitung 01.11.): nimmt die Person aus ihrem Clan (Nachfolge bzw. Auflösung wie beim Austritt) und aus allen offenen Einladungen. `200 {"clan": "<KÜRZEL>" \| null, "neuer_leiter": "<discordId>" \| null, "aufgeloest": true/false, "einladungen_entfernt": <n>}` · `404 konto`. Der Bot ruft das **vor** dem Austragen von der Whitelist auf (danach kennt der Server die Discord-ID nicht mehr). Ein reiner Whitelist-Entzug lässt die Mitgliedschaft bestehen |
 | `DELETE /clans/<KÜRZEL>?admin=1&von=<discordId>` | – | `200 {"aufgeloest": "<KÜRZEL>", "mitglieder": [Namen]}` – Pascals Lösch-Knopf (Moderation). Der Bot ruft das nur für Pascal auf und prüft das selbst; `von` steht nur im Server-Log („NORD gelöscht von …“), ohne Rechteprüfung. Löst den Clan sofort auf, alle verlieren den Tag · `404 clan` |
 
 Zugangsfehler wie bei der Whitelist: `403 ip`, `401 schluessel`, `429 zu viele`, `404 pfad`, `400 json`. Fehlt `von` oder ist es keine Discord-ID → `400 von`.

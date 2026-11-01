@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Durchlauf der Clan/Team-API (server/clans-api.md) auf VM200 in der Generalprobe, Fassung 3 (01.11.; F2: 429 behoben; F3: null-Felder müssen da sein). Als root, kein Neustart.
+# Durchlauf der Clan/Team-API (server/clans-api.md) auf VM200 in der Generalprobe, Fassung 4 (01.11.; F2: 429 behoben; F3: null-Felder; F4: Namensregeln, Trim, DSGVO-Löschen). Als root, kein Neustart.
 # Ablauf:
 #  1. Sicherung discord.json + LuckPerms-Ordner, Vorbedingungen: niemand online (tps-*.json), es gibt keinen Clan TEST1/TEST2, die drei Test-Spieler
 #     sind in keinem Clan. Test-Spieler = vorhandene Einträge der Discord-Whitelist (ITsCALLE96 + die zwei ersten weiteren nach Name); die
@@ -102,11 +102,14 @@ try:
     schritt("prüfen ok", "GET", "/clans/pruefen?kuerzel=test1&name=Test%20Eins&farbe=red", test=lambda j: j.get("kuerzel") == "TEST1")
     schritt("prüfen Sperrliste", "GET", "/clans/pruefen?kuerzel=ADMIN&name=Test%20Eins&farbe=red", status=422, fehlercode="gesperrt")
     schritt("prüfen Wortliste", "GET", "/clans/pruefen?kuerzel=NAZI1&name=Test%20Eins&farbe=red", status=422, fehlercode="gesperrt")
+    schritt("Name „Team Nord“ erlaubt", "GET", "/clans/pruefen?kuerzel=TEST1&name=Team%20Nord&farbe=red", test=lambda j: j.get("name") == "Team Nord")
+    schritt("Kürzel TEAM gesperrt", "GET", "/clans/pruefen?kuerzel=TEAM&name=Test%20Eins&farbe=red", status=422, fehlercode="gesperrt")
+    schritt("Name „Admin Gruppe“ gesperrt", "GET", "/clans/pruefen?kuerzel=TEST1&name=Admin%20Gruppe&farbe=red", status=422, fehlercode="gesperrt")
     schritt("prüfen Farbe", "GET", "/clans/pruefen?kuerzel=TEST1&name=Test%20Eins&farbe=black", status=400, fehlercode="farbe")
     schritt("prüfen Kürzel", "GET", "/clans/pruefen?kuerzel=TEST-1&name=Test%20Eins&farbe=red", status=400, fehlercode="kuerzel")
     schritt("unbekanntes Konto", "POST", "/clans", {"von": "900000000000000009", "kuerzel": "TEST9", "name": "Test Neun", "farbe": "red"}, 404, "konto")
-    schritt("gründen TEST1", "POST", "/clans", {"von": T1, "kuerzel": "TEST1", "name": "Test Eins", "farbe": "red"}, 201,
-            test=lambda j: j["leiter"]["discord"] == T1 and len(j["mitglieder"]) == 1)
+    schritt("gründen TEST1 (Name wird getrimmt)", "POST", "/clans", {"von": T1, "kuerzel": "TEST1", "name": "  Test   Eins ", "farbe": "red"}, 201,
+            test=lambda j: j["leiter"]["discord"] == T1 and len(j["mitglieder"]) == 1 and j["name"] == "Test Eins")
     schritt("doppelt (TE5T1)", "POST", "/clans", {"von": T2, "kuerzel": "TE5T1", "name": "Test Zwei", "farbe": "blue"}, 409, "kuerzel-vergeben")
     schritt("zweiter Clan des Leiters", "POST", "/clans", {"von": T1, "kuerzel": "TEST2", "name": "Test Zwei", "farbe": "blue"}, 409, "im-clan")
     schritt("einladen ohne Leitung", "POST", "/clans/TEST1/einladungen", {"von": T2, "an": T3}, 403, "kein-leiter")
@@ -124,7 +127,10 @@ try:
     schritt("Leiter T2 tritt aus → T3 leitet", "DELETE", "/clans/TEST2/mitglieder/" + T2 + "?von=" + T2, test=lambda j: j["neuer_leiter"] == T3 and j["aufgeloest"] is False)
     schritt("letzter tritt aus → TEST1 aufgelöst", "DELETE", "/clans/TEST1/mitglieder/" + T1 + "?von=" + T1, test=lambda j: j["aufgeloest"] is True)
     schritt("TEST1 weg", "GET", "/clans/TEST1", status=404, fehlercode="clan")
-    schritt("Admin löscht TEST2", "DELETE", "/clans/TEST2?admin=1&von=" + T1, test=lambda j: j.get("aufgeloest") == "TEST2")
+    schritt("DSGVO-Löschen T3 → TEST2 aufgelöst", "DELETE", "/clans/von/" + T3, test=lambda j: j["clan"] == "TEST2" and j["aufgeloest"] is True and "neuer_leiter" in j)
+    schritt("TEST2 weg", "GET", "/clans/TEST2", status=404, fehlercode="clan")
+    schritt("T1 gründet TEST1 erneut", "POST", "/clans", {"von": T1, "kuerzel": "TEST1", "name": "Test Eins", "farbe": "red"}, 201)
+    schritt("Admin löscht TEST1", "DELETE", "/clans/TEST1?admin=1&von=" + T1, test=lambda j: j.get("aufgeloest") == "TEST1")
     print("DURCHLAUF: alle Schritte OK")
 except Abbruch as e:
     ergebnis = 1

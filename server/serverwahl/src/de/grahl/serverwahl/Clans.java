@@ -75,6 +75,16 @@ final class Clans {
     private static final String M_GEGRUENDET = "clan.gegruendet";
     private static final String M_EINLADUNG = "clan.einladung.";
     private static final String M_SEIT = "clan.seit";
+    /** höchstens so viele offene Einladungen je Clan (Bot-Session 01.11.) */
+    static final int MAX_EINLADUNGEN = 20;
+
+    private static boolean istGueltig(String bis, Instant jetzt) {
+        try {
+            return Instant.parse(bis).isAfter(jetzt);
+        } catch (RuntimeException e) {
+            return false;
+        }
+    }
 
     /** Antwort an die API */
     record Antwort(int status, JsonObject json) {
@@ -152,6 +162,31 @@ final class Clans {
         }
         if (farbe == null || !FARBEN.containsKey(farbe)) {
             return "farbe";
+        }
+        return null;
+    }
+
+    /** Amts-Nachahmung im Namen (Leitung 01.11.): nur als ganzes Wort; TEAM, CREW usw. sind im Namen erlaubt */
+    static final List<String> AEMTER = List.of("admin", "mod", "moderator", "owner", "staff", "support", "server", "konsole", "console");
+
+    /** Name normieren (Bot-Session 01.11.): außen trimmen, Mehrfach-Leerzeichen zu einem */
+    static String nameNormieren(String name) {
+        return name == null ? null : name.strip().replaceAll("\\s+", " ");
+    }
+
+    /** Name gesperrt? null = nein, sonst „beleidigung“ (Wortliste, als Teil) oder „sperrliste“ (Amt als ganzes Wort) */
+    static String nameGrund(String name, List<String> beleid) {
+        String form = Namen.grundform(name);
+        for (String b : beleid) {
+            if (form.contains(b)) {
+                return "beleidigung";
+            }
+        }
+        for (String w : name.split("[\\s_'\\-]+")) {
+            String f = Namen.grundform(w);
+            if (AEMTER.stream().anyMatch(a -> Namen.grundform(a).equals(f))) {
+                return "sperrliste";
+            }
         }
         return null;
     }
@@ -387,14 +422,15 @@ final class Clans {
     /** volle Prüfung wie bei der Gründung (ohne „im-clan“); liefert das normierte Kürzel */
     private String pruefen(String kuerzelRoh, String name, String farbe) throws DiscordWhitelist.ApiFehler {
         String k = kuerzelRoh == null ? null : kuerzelRoh.strip().toUpperCase(Locale.ROOT);
-        String n = name == null ? null : name.strip();
+        String n = nameNormieren(name);
         String fehler = formatFehler(k, n, farbe);
         if (fehler != null) {
             throw new DiscordWhitelist.ApiFehler(400, fehler);
         }
+        // Sperrliste nur fürs Kürzel; für den Namen Wortliste + Amts-Nachahmung (Leitung 01.11.)
         String grund = sperrGrund(k, sperrliste, beleidigungen);
         if (grund == null) {
-            grund = sperrGrund(n, sperrliste, beleidigungen);
+            grund = nameGrund(n, beleidigungen);
         }
         if (grund != null) {
             throw gesperrt(grund);
@@ -448,6 +484,7 @@ final class Clans {
             JsonObject o = new JsonObject();
             o.addProperty("ok", true);
             o.addProperty("kuerzel", k);
+            o.addProperty("name", nameNormieren(q.get("name")));
             return new Antwort(200, o);
         }
         if (methode.equals("GET") && n == 3 && teile[1].equals("von")) {
@@ -476,6 +513,35 @@ final class Clans {
             o.add("einladungen", e);
             return new Antwort(200, o);
         }
+        if (methode.equals("DELETE") && n == 3 && teile[1].equals("von")) {
+            // DSGVO-Löschen (Leitung 01.11.): Person aus ihrem Clan (Nachfolge/Auflösung wie beim Austritt) und aus allen offenen Einladungen
+            String[] k = konto(von(teile[2]));
+            UUID u = UUID.fromString(k[0]);
+            Group g = clanVon(u);
+            JsonObject o = new JsonObject();
+            o.addProperty("clan", g == null ? null : kuerzelVon(g));
+            boolean weg = false;
+            String neuerLeiter = null;
+            if (g != null) {
+                austreten(u, g);
+                Object[] folge = nachAustritt(g, u);
+                weg = (Boolean) folge[1];
+                neuerLeiter = folge[0] == null ? null : konten.discordVon((UUID) folge[0]);
+            }
+            int einladungen = 0;
+            for (Group c : clanGruppen()) {
+                if (meta(c, M_EINLADUNG + u) != null) {
+                    metaSetzen(c, M_EINLADUNG + u, null);
+                    gruppeAendern(c);
+                    einladungen++;
+                }
+            }
+            plugin.getLogger().info("Clan/Team: " + k[1] + " gelöscht (DSGVO)" + (g == null ? "" : ", aus " + kuerzelVon(g)) + ", Einladungen " + einladungen);
+            o.addProperty("neuer_leiter", neuerLeiter);
+            o.addProperty("aufgeloest", weg);
+            o.addProperty("einladungen_entfernt", einladungen);
+            return new Antwort(200, o);
+        }
         if (methode.equals("GET") && n == 2) {
             return new Antwort(200, clanJson(gruppeHolen(teile[1])));
         }
@@ -493,7 +559,7 @@ final class Clans {
             Group g = lp.getGroupManager().createAndLoadGroup(gruppe(kuerzel)).join();
             String farbe = feld(rumpf, "farbe");
             g.data().add(PrefixNode.builder(praefix(kuerzel, farbe), 100).build());
-            metaSetzen(g, M_NAME, feld(rumpf, "name").strip());
+            metaSetzen(g, M_NAME, nameNormieren(feld(rumpf, "name")));
             metaSetzen(g, M_FARBE, farbe);
             metaSetzen(g, M_LEITER, u.toString());
             metaSetzen(g, M_GEGRUENDET, Instant.now().toString());
@@ -517,6 +583,12 @@ final class Clans {
                 Group dessen = clanVon(UUID.fromString(ziel[0]));
                 if (dessen != null && dessen.getName().equals(g.getName())) {
                     throw new DiscordWhitelist.ApiFehler(409, "schon-mitglied");
+                }
+                Instant jetztE = Instant.now();
+                long offen = g.getNodes(NodeType.META).stream().filter(x -> x.getMetaKey().startsWith(M_EINLADUNG)
+                        && !x.getMetaKey().equals(M_EINLADUNG + ziel[0]) && istGueltig(x.getMetaValue(), jetztE)).count();
+                if (offen >= MAX_EINLADUNGEN) {
+                    throw new DiscordWhitelist.ApiFehler(409, "einladungen-voll");
                 }
                 Instant bis = Instant.now().plus(Duration.ofDays(einladungTage));
                 metaSetzen(g, M_EINLADUNG + ziel[0], bis.toString());

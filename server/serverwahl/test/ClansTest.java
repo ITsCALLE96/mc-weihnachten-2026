@@ -43,6 +43,16 @@ public final class ClansTest {
         pruefe("TOPGANG erlaubt (OP nur als Wort)", Clans.sperrGrund("TOPGANG", sperr, beleid) == null);
         pruefe("Beleidigung als Teil", "beleidigung".equals(Clans.sperrGrund("D3PPEN", sperr, beleid)));
         pruefe("normal erlaubt", Clans.sperrGrund("NORD", sperr, beleid) == null);
+        // Leitung 01.11.: Sperrliste nur fürs Kürzel; Name nur Wortliste + Amt als ganzes Wort; Name normieren
+        pruefe("Name „Team Nord“ erlaubt", Clans.nameGrund("Team Nord", beleid) == null);
+        pruefe("Name „Die Crew“ erlaubt", Clans.nameGrund("Die Crew", beleid) == null);
+        pruefe("Name „Admin Gruppe“ gesperrt", "sperrliste".equals(Clans.nameGrund("Admin Gruppe", beleid)));
+        pruefe("Name „Die Console“ gesperrt (l→i)", "sperrliste".equals(Clans.nameGrund("Die Console", beleid)));
+        pruefe("Name „Moderne Bauer“ erlaubt (Amt nur ganz)", Clans.nameGrund("Moderne Bauer", beleid) == null);
+        pruefe("Name mit Beleidigung", "beleidigung".equals(Clans.nameGrund("Die Deppen", beleid)));
+        pruefe("Kürzel TEAM gesperrt", "sperrliste".equals(Clans.sperrGrund("TEAM", List.of(Namen.grundform("TEAM")), beleid)));
+        pruefe("Name normieren", "Team Nord".equals(Clans.nameNormieren("  Team   Nord  ")));
+        pruefe("normierter Name gültig", Clans.formatFehler("NORD", Clans.nameNormieren(" Team  Nord "), "red") == null);
         pruefe("Gruppe", Clans.gruppe("NORD").equals("clan-nord"));
         pruefe("Präfix", Clans.praefix("NORD", "dark_aqua").equals("&3[NORD]"));
         System.out.println(fehler == 0 ? "Clans: alles OK" : "Clans: " + fehler + " Fehler");
