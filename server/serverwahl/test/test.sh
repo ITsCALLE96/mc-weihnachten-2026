@@ -17,3 +17,4 @@ rm -rf "$hier/build/test" && mkdir -p "$hier/build/test"
 "${javac%c}" -cp "$hier/build/test$t$cp" de.grahl.serverwahl.WinterGenerierungTest
 "${javac%c}" -cp "$hier/build/test$t$cp" de.grahl.serverwahl.LiveWerteTest
 "${javac%c}" -cp "$hier/build/test$t$cp" de.grahl.serverwahl.NeustartAnsageTest
+"${javac%c}" -cp "$hier/build/test$t$cp" de.grahl.serverwahl.TpsWaechterTest

@@ -100,6 +100,10 @@ bzw. Enderauge neu (`dimensionZu`), fällt also mit dem nächsten Versuch. `func
 - Hub: dieselben Zeitpunkte ohne Befehle, `dezent: true` (weniger Partikel, seltene, weite Blitze, keine Dunkelheit, leiser)
 - `/serverwahl termin test nether|end [sek]` spielt das Event mit (bei weniger Sekunden als `vorlauf` entsprechend kürzer), `/serverwahl termin event [stopp]` zeigt bzw. bricht ab
 
+## TPS-Überwachung (01.11.)
+
+`tps`: `/tpsanzeige` schaltet für Admins (Permission `serverwahl.tps`, Standard OP) eine Bossbar mit TPS (1 min), MSPT und Spielerzahl an oder aus, jede Sekunde aktualisiert, Farbe grün ab 19,5 / gelb ab 18 / sonst rot; aus der Konsole einmal als Text. Alle 20 s schreibt das Plugin `/AMP/geteilt/status/tps-<name>.json` (liest `../vm200/mc-healthcheck.py` für den TPS-Alarm: zweimal unter 18 → Discord, ab 19 Entwarnung) und eine Zeile nach `plugins/Serverwahl/tps/JJJJ-MM-TT.csv` (`zeit;tps1m;mspt;spieler`, Berliner Zeit, 30 Tage). Test: `TpsWaechterTest`.
+
 ## Neustart bei Bedarf (01.11., Option – aus)
 
 Seit 01.11. gibt es keinen täglichen Neustart mehr (Pascal 01.11.). Live sind keine geplanten Neustarts vorgesehen, deshalb ist das Modul in beiden Configs aus (`aktiv: false`) und der Cron `mc-neustart-bedarf.sh` nicht eingerichtet; Neustarts in der Testphase kündigt die Leitung von Hand in der AMP-Konsole an. Eingeschaltet: `serverwahl neustart in <minuten>` in der Hub- oder SMP-Konsole plant einen Neustart genau dieser Instanz (auf die volle Minute aufgerundet) und schreibt ihn als Merker nach `/AMP/geteilt/neustart/<instanz>`. Das Plugin kündigt sofort und dann 60/30/10/5/1 Minuten vorher im Chat an, die letzten 10 s als Titel-Countdown, im SMP zusätzlich in #mc-chat bei 60/10/1 Minuten (`discord bcast`). Den Neustart macht der Cron `../vm200/mc-neustart-bedarf.sh` (jede Minute, Merker fällig → Instanz stoppen und starten). `serverwahl neustart abbrechen` löscht den Merker, `serverwahl neustart test 70 [discord]` spielt nur die Ansage durch. Status: `serverwahl neustart`. Test: `NeustartAnsageTest`.

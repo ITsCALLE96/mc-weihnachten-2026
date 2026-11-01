@@ -299,3 +299,11 @@ neustart-ansage:
   text: "Neustart des SMP – bitte kurz an einen sicheren Ort, in 2 Minuten seid ihr wieder drin."
   discord-minuten: [60, 10, 1]
   discord-text: "Neustart des %name% um %uhrzeit% Uhr (in %zeit%) – der Server ist ca. 2 Minuten weg."
+# TPS-Überwachung (Pascal 01.11.): /tpsanzeige (Bossbar, Permission serverwahl.tps), Status für den Healthcheck-Alarm (mc-healthcheck.py)
+# alle 20 s nach /AMP/geteilt/status/tps-smp.json, Verlauf plugins/Serverwahl/tps/JJJJ-MM-TT.csv (30 Tage)
+tps:
+  aktiv: true
+  name: smp
+  status-ordner: /AMP/geteilt/status
+  sekunden: 20
+  verlauf-tage: 30

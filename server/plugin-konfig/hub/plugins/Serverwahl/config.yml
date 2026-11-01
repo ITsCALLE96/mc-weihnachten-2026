@@ -242,3 +242,11 @@ neustart-ansage:
   countdown: 10
   text: "Neustart des Hub – in 2 Minuten seid ihr wieder drin."
   discord-minuten: []
+# TPS-Überwachung (Pascal 01.11.): /tpsanzeige (Bossbar, Permission serverwahl.tps), Status für den Healthcheck-Alarm (mc-healthcheck.py)
+# alle 20 s nach /AMP/geteilt/status/tps-hub.json, Verlauf plugins/Serverwahl/tps/JJJJ-MM-TT.csv (30 Tage)
+tps:
+  aktiv: true
+  name: hub
+  status-ordner: /AMP/geteilt/status
+  sekunden: 20
+  verlauf-tage: 30

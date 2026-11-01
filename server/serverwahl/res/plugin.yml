@@ -18,11 +18,18 @@ commands:
     description: "Eigenen Nickname setzen: /nick <name> | /nick reset (Moderation: /nick info <name>, /nick reset <spieler>)"
     usage: "/nick <name> | /nick reset"
     permission: serverwahl.nick
+  tpsanzeige:
+    description: "TPS, MSPT und Spielerzahl als Bossbar an/aus (Admins)"
+    usage: "/tpsanzeige"
+    permission: serverwahl.tps
   mission:
     description: "Weihnachtsinsel: Stand anzeigen, /mission abholen holt offene Belohnungs-Tränke"
     usage: "/mission [abholen|spenden]"
     permission: serverwahl.mission
 permissions:
+  serverwahl.tps:
+    description: TPS-Anzeige (/tpsanzeige)
+    default: op
   serverwahl.mission:
     default: true
   serverwahl.nick:

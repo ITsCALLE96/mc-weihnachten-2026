@@ -90,6 +90,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private final DorfRabatt dorfRabatt = new DorfRabatt();
     private Termine termine;
     private NeustartAnsage neustartAnsage;
+    private TpsWaechter tpsWaechter;
     private DiscordWhitelist discordWhitelist;
     private Mission mission;
     private LetzterServer letzterServer;
@@ -347,6 +348,12 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             neustartAnsage = new NeustartAnsage(this);
         }
         neustartAnsage.laden(getConfig().getConfigurationSection("neustart-ansage"));
+        if (tpsWaechter == null) {
+            tpsWaechter = new TpsWaechter(this);
+            getServer().getPluginManager().registerEvents(tpsWaechter, this);
+            getCommand("tpsanzeige").setExecutor(tpsWaechter);
+        }
+        tpsWaechter.laden(getConfig().getConfigurationSection("tps"));
         xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
         beitrittOrt = getConfig().getString("beitritt-ort", "").trim();
         // Regeln in der TAB-Liste (Leitung 30.10., Quelle server/REGELN.md): Zeilen als Liste, beim Beitritt und bei jedem Reload gesendet
