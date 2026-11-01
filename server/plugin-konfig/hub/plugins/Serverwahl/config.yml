@@ -230,11 +230,11 @@ discord-whitelist:
     # Server der Jungs, Community-Server … Leer = alle Anmeldungen abgelehnt
     # Testserver-C96, testserver crleon (fliegen später raus), leonraws - cruiserDE (Final-Server) – Leitung 30.10., Go von Pascal
     gilden: ["1555895861458767872", "1561036947541987360", "899675876298469457"]
-# Neustart bei Bedarf (Pascal 01.11., kein täglicher Neustart mehr, Hub nur wenn sich am Hub etwas ändert): /serverwahl neustart in <minuten> |
+# AUS, nur als Option (Pascal 01.11.: live keine geplanten Neustarts, Ansage von Hand in der AMP-Konsole). Neustart bei Bedarf (kein täglicher Neustart mehr, Hub nur wenn sich am Hub etwas ändert): /serverwahl neustart in <minuten> |
 # abbrechen | test <sek>. Chat 60/30/10/5/1 Minuten vorher, Countdown 10 s; nach Discord sendet nur das SMP. Neustart per Cron auf VM200
 # (server/vm200/mc-neustart-bedarf.sh) anhand des Merkers <ordner>/<instanz>.
 neustart-ansage:
-  aktiv: true
+  aktiv: false
   ordner: /AMP/geteilt/neustart
   instanz: MinecraftHub01
   name: Hub

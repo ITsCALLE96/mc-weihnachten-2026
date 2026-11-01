@@ -286,11 +286,11 @@ inselhaendler:
   datei: weihnachtsmann.json
   zeitzone: Europe/Berlin
   jukebox-radius: 48
-# Neustart bei Bedarf (Pascal 01.11., kein täglicher Neustart mehr): /serverwahl neustart in <minuten> | abbrechen | test <sek> [discord].
+# AUS, nur als Option (Pascal 01.11.: live keine geplanten Neustarts, Ansage von Hand in der AMP-Konsole). Neustart bei Bedarf (kein täglicher Neustart mehr): /serverwahl neustart in <minuten> | abbrechen | test <sek> [discord].
 # Kündigt 60/30/10/5/1 Minuten vorher im Chat an, die letzten 10 s als Titel-Countdown, #mc-chat bei 60/10/1 Minuten. Den Neustart macht der Cron
 # auf VM200 (server/vm200/mc-neustart-bedarf.sh) anhand des Merkers <ordner>/<instanz>.
 neustart-ansage:
-  aktiv: true
+  aktiv: false
   ordner: /AMP/geteilt/neustart
   instanz: MinecraftSMP01
   name: SMP
