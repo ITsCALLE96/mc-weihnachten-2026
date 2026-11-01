@@ -1,0 +1,85 @@
+# Clan/Team: gesperrte Wörter für Kürzel und Namen (Vorschlag Server-Session 01.11., Leitung sieht drüber). Eine Zeile je Wort, # = Kommentar.
+# Verglichen wird in der Grundform wie bei /nick (klein, ä→a, 0→o, 1/l→i, 3→e, 4→a, 5→s, 7→t, nur Buchstaben/Ziffern) und als Teil des Textes,
+# deshalb keine kurzen Allerweltsteile (z. B. nicht „arsch“ wegen „Marsch“, nicht „heil“ wegen „heilig“). Mindestens 3 Zeichen.
+# Datei auf dem Hub: plugins/Serverwahl/clans-woerter.txt, wirksam nach /serverwahl reload.
+
+# Deutsch
+arschloch
+arschgeige
+wichser
+wixer
+hurensohn
+hure
+nutte
+fotze
+schlampe
+missgeburt
+spast
+mongo
+vollidiot
+bastard
+penner
+pisser
+drecksau
+scheisse
+ficken
+fick
+kinderficker
+vergewaltig
+schwuchtel
+transe
+kanake
+kanacke
+neger
+zigeuner
+behindert
+
+# Englisch
+fuck
+shit
+bitch
+cunt
+dick
+cock
+pussy
+whore
+slut
+asshole
+motherfucker
+wanker
+twat
+retard
+faggot
+nigger
+nigga
+kike
+chink
+tranny
+rapist
+pedophile
+paedophile
+kys
+
+# NS, Hass, Terror
+nazi
+hitler
+siegheil
+heilhitler
+fuhrer
+fuehrer
+hakenkreuz
+swastika
+drittesreich
+holocaust
+auschwitz
+gaskammer
+judensau
+jude
+arier
+aryan
+whitepower
+whitepride
+1488
+kkk
+jihad
+taliban

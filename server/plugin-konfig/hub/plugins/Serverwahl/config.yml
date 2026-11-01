@@ -251,7 +251,7 @@ tps:
   sekunden: 20
   verlauf-tage: 30
 # Clans in Selbstverwaltung über Discord (Pascal 01.11., Vertrag server/clans-api.md): Endpunkte /clans der Whitelist-API (nur Hub).
-# Sperrwörter zusätzlich zur Nick-Sperrliste; Beleidigungen in plugins/Serverwahl/clans-woerter.txt (eine pro Zeile, nicht im Repo).
+# Sperrwörter zusätzlich zur Nick-Sperrliste; Beleidigungen in plugins/Serverwahl/clans-woerter.txt (eine pro Zeile, Vorlage daneben im Repo).
 clans:
   aktiv: true
   einladung-tage: 7

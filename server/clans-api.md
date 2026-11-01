@@ -37,7 +37,7 @@ erscheint und nach dem Austritt wieder verschwindet.
 | Name | 3–32 Zeichen, Buchstaben (auch ÄÖÜß), Ziffern, Leerzeichen, `-`, `_`, `'` | `400 name` |
 | Farbe | genau einer dieser Werte: `dark_red`, `red`, `gold`, `yellow`, `dark_green`, `green`, `aqua`, `dark_aqua`, `dark_blue`, `blue`, `light_purple`, `dark_purple`, `white`, `gray` (schwarz und dunkelgrau sind schlecht lesbar) | `400 farbe` |
 | Sperrliste | Kürzel oder Name trifft ein gesperrtes Wort aus `clans.sperrliste` (Grundform; Wörter unter 5 Zeichen nur als ganzes Wort, längere auch als Teil, wie bei `/nick`), z. B. ADMIN, MOD, MODS, SERVER, OWNER, STAFF, TEAM, SUPPORT, HELPER, CONSOLE, OP, DEV, GM, C96, CREW, plus die Sperrliste der Nicks | `422 gesperrt` mit `"grund": "sperrliste"` |
-| Beleidigungen | Kürzel oder Name enthält einen Eintrag aus `clans.beleidigungen` (Grundform, eigene Datei `plugins/Serverwahl/clans-woerter.txt`, nicht im Repo) | `422 gesperrt`, `"grund": "beleidigung"` |
+| Beleidigungen | Kürzel oder Name enthält einen Eintrag aus `clans.beleidigungen` (Grundform, als Teil des Textes, Datei `plugins/Serverwahl/clans-woerter.txt`, Vorlage `plugin-konfig/hub/plugins/Serverwahl/clans-woerter.txt`) | `422 gesperrt`, `"grund": "beleidigung"` |
 | Nachahmung | Kürzel hat dieselbe Grundform wie der Name oder Nick eines bekannten Spielers (wie bei `/nick`) | `422 gesperrt`, `"grund": "nachahmung"` |
 | Ein Clan je Spieler | wer gründet, darf in keinem Clan sein (erst austreten) | `409 im-clan` mit `"clan": "<KÜRZEL>"` |
 | Einladung | gilt 7 Tage, je Clan und Spieler eine; eine erneute Einladung ersetzt die alte ohne Fehler. Sich selbst einladen geht nicht | `400 selbst` |
