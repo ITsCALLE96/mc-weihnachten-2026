@@ -34,6 +34,8 @@ Entscheidung DH-Nightly vs. LSS/Voxy: Leitung mit Pascal und Modpack-Session.
 
 ## Bandbreite und Last (Schätzung, nicht gemessen)
 
+**Befund 01.11. (Lag-Analyse):** Auf VM200 liefen noch die Plugin-Standards 25 / 75 MiB/s und Radius 512 / 64 / 512 – die Werte unten waren dort nie gesetzt. Die Spieler kommen alle über Pascals Anschluss, der LOD-Strom teilt sich die Leitung mit dem Spiel (Items kamen Sekunden zu spät, Server-TPS 20). Setzen mit `lod/lss-drosseln.sh` (Werte oben im Skript, nach Pascals Upload), wirksam mit `lsslod reload` in der SMP-Konsole.
+
 - Upload laut Vertrag 40 Mbit/s, Messung steht aus (`kapazitaet.md` → Upload). Das normale Spiel braucht ~10–15 Mbit/s Dauerlast, Spitzen 25–30 (`kapazitaet.md`)
 - LOD-Daten kommen **zusätzlich**, vor allem beim ersten Beitritt (der Client lädt die ganze Fernsicht) und beim Reisen in neue Gegenden.
   Konkrete MB pro Spieler sind in keiner Doku angegeben [?]
