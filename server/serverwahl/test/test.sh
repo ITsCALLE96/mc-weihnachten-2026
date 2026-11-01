@@ -19,3 +19,4 @@ rm -rf "$hier/build/test" && mkdir -p "$hier/build/test"
 "${javac%c}" -cp "$hier/build/test$t$cp" de.grahl.serverwahl.NeustartAnsageTest
 "${javac%c}" -cp "$hier/build/test$t$cp" de.grahl.serverwahl.TpsWaechterTest
 "${javac%c}" -cp "$hier/build/test$t$cp" de.grahl.serverwahl.ClansTest
+"${javac%c}" -cp "$hier/build/test$t$cp" de.grahl.serverwahl.BestenlisteBefehlTest

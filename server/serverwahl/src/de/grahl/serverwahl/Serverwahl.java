@@ -92,6 +92,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private NeustartAnsage neustartAnsage;
     private TpsWaechter tpsWaechter;
     private Clans clans;
+    private BestenlisteBefehl bestenlisteBefehl;
     /** Tode in der Tab-Liste (Ziel „tode“), siehe laden() */
     private boolean todeInTab;
     private DiscordWhitelist discordWhitelist;
@@ -386,6 +387,13 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             getCommand("tpsanzeige").setExecutor(tpsWaechter);
         }
         tpsWaechter.laden(getConfig().getConfigurationSection("tps"));
+        // /bestenliste für alle (Pascal 01.11.), Hub und SMP, liest die Datei der Statistik
+        if (bestenlisteBefehl == null) {
+            bestenlisteBefehl = new BestenlisteBefehl(this);
+            getCommand("bestenliste").setExecutor(bestenlisteBefehl);
+            getCommand("bestenliste").setTabCompleter(bestenlisteBefehl);
+        }
+        bestenlisteBefehl.laden(getConfig().getConfigurationSection("bestenliste-befehl"));
         xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
         beitrittOrt = getConfig().getString("beitritt-ort", "").trim();
         // Regeln in der TAB-Liste (Leitung 30.10., Quelle server/REGELN.md): Zeilen als Liste, beim Beitritt und bei jedem Reload gesendet

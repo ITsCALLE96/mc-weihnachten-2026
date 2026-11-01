@@ -104,6 +104,10 @@ bzw. Enderauge neu (`dimensionZu`), fällt also mit dem nächsten Versuch. `func
 
 `tode-in-tab: true` (nur SMP): legt beim Start/Reload im Haupt-Scoreboard das Vanilla-Ziel `tode` (deathCount, Anzeige „Tode“) an, falls es fehlt, und setzt es in den Anzeige-Slot Liste. Vorhandene Stände bleiben; wer beim Beitritt noch keinen Stand hat, bekommt seine Tode aus der Vanilla-Statistik (Nachtrag per Konsole ging für Offline-Spieler nicht, „for 0 entities“). Nach einem Welt-Reset ist es dadurch von selbst wieder da. Die Tab-Namen aus `Namen` (Teams im Haupt-Scoreboard, `playerListName`) vertragen sich damit. `insel_tod` (deathCount, Datapack) ist ein anderes Ziel und bleibt unberührt.
 
+## /bestenliste (01.11.)
+
+`/bestenliste` (Alias `/top`, Permission `serverwahl.bestenliste`, Standard für alle) im Hub und im SMP: liest die Bestenlisten-Datei der Statistik (`/AMP/geteilt/bestenliste/bestenliste.json`, dieselbe wie die Hub-Figuren), rechnet nichts selbst. Ohne Argument je Kategorie die Top 3 in einer Zeile (Hover: Untertitel und Werte, Klick: ganze Liste), `/bestenliste <kategorie>` (id oder deutscher Titel, Tab-Vervollständigung) die Top 10 und der eigene Platz, auch außerhalb der Top 10, sofern die Datei ihn enthält. Dazu „Stand vor X Min.“. Abklingzeit 3 s je Spieler (Ops ausgenommen). Config optional `bestenliste-befehl: {aktiv, datei, abklingzeit-sekunden}`. Test: `BestenlisteBefehlTest`.
+
 ## TPS-Überwachung (01.11.)
 
 `tps`: `/tpsanzeige` schaltet für Admins (Permission `serverwahl.tps`, Standard OP) eine Bossbar mit TPS (1 min), MSPT und Spielerzahl an oder aus, jede Sekunde aktualisiert, Farbe grün ab 19,5 / gelb ab 18 / sonst rot; aus der Konsole einmal als Text. Alle 20 s schreibt das Plugin `/AMP/geteilt/status/tps-<name>.json` (liest `../vm200/mc-healthcheck.py` für den TPS-Alarm: zweimal unter 18 → Discord, ab 19 Entwarnung) und eine Zeile nach `plugins/Serverwahl/tps/JJJJ-MM-TT.csv` (`zeit;tps1m;mspt;spieler`, Berliner Zeit, 30 Tage). Test: `TpsWaechterTest`.
