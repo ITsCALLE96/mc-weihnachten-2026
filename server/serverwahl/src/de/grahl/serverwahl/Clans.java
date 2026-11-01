@@ -110,7 +110,7 @@ final class Clans {
         try {
             lp = LuckPermsProvider.get();
         } catch (IllegalStateException | NoClassDefFoundError e) {
-            plugin.getLogger().warning("Clans: LuckPerms nicht geladen, Clans aus");
+            plugin.getLogger().warning("Clan/Team: LuckPerms nicht geladen, Clans/Teams aus");
             aktiv = false;
             return;
         }
@@ -130,10 +130,10 @@ final class Clans {
                 }
             }
         } catch (IOException e) {
-            plugin.getLogger().warning("Clans: " + woerter + " nicht lesbar: " + e.getMessage());
+            plugin.getLogger().warning("Clan/Team: " + woerter + " nicht lesbar: " + e.getMessage());
         }
         beleidigungen = b;
-        plugin.getLogger().info("Clans: an, Sperrliste " + sperrliste.size() + ", Wortliste " + beleidigungen.size() + " (" + woerter.getFileName() + ")");
+        plugin.getLogger().info("Clan/Team: an, Sperrliste " + sperrliste.size() + ", Wortliste " + beleidigungen.size() + " (" + woerter.getFileName() + ")");
     }
 
     boolean aktiv() {
@@ -353,7 +353,7 @@ final class Clans {
             namen.add(m.name());
         }
         lp.getGroupManager().deleteGroup(g).join();
-        plugin.getLogger().info("Clans: " + kuerzelVon(g) + " aufgelöst" + (namen.isEmpty() ? "" : " (" + String.join(", ", namen) + ")"));
+        plugin.getLogger().info("Clan/Team: " + kuerzelVon(g) + " aufgelöst" + (namen.isEmpty() ? "" : " (" + String.join(", ", namen) + ")"));
         return namen;
     }
 
@@ -419,7 +419,7 @@ final class Clans {
                 return s;
             }).get(5, TimeUnit.SECONDS));
         } catch (Exception e) {
-            plugin.getLogger().warning("Clans: Spielernamen nicht lesbar: " + e);
+            plugin.getLogger().warning("Clan/Team: Spielernamen nicht lesbar: " + e);
         }
         lp.getUserManager().searchAll(NodeMatcher.metaKey("nick")).join().values()
                 .forEach(c -> c.forEach(m -> bekannt.add(Namen.grundform(m.getMetaValue()))));
@@ -429,7 +429,8 @@ final class Clans {
         return k;
     }
 
-    Antwort anfrage(String methode, String pfad, Map<String, String> q, JsonObject rumpf) throws DiscordWhitelist.ApiFehler {
+    /** alle Anfragen nacheinander (Bot-Session 01.11.: Beitritt/Rauswurf, Gründungen mit gleicher Grundform, Leitung/Austritt dürfen sich nicht überschneiden) */
+    synchronized Antwort anfrage(String methode, String pfad, Map<String, String> q, JsonObject rumpf) throws DiscordWhitelist.ApiFehler {
         if (!aktiv) {
             throw new DiscordWhitelist.ApiFehler(503, "clans");
         }
@@ -498,7 +499,7 @@ final class Clans {
             metaSetzen(g, M_GEGRUENDET, Instant.now().toString());
             gruppeAendern(g);
             eintreten(u, g);
-            plugin.getLogger().info("Clans: +" + kuerzel + " von " + k[1]);
+            plugin.getLogger().info("Clan/Team: +" + kuerzel + " von " + k[1]);
             return new Antwort(201, clanJson(g));
         }
         if (n >= 3 && teile[2].equals("einladungen")) {
@@ -509,6 +510,9 @@ final class Clans {
                     throw new DiscordWhitelist.ApiFehler(403, "kein-leiter");
                 }
                 String an = von(feld(rumpf, "an"));
+                if (an.equals(d)) {
+                    throw new DiscordWhitelist.ApiFehler(400, "selbst");
+                }
                 String[] ziel = konto(an);
                 Group dessen = clanVon(UUID.fromString(ziel[0]));
                 if (dessen != null && dessen.getName().equals(g.getName())) {
@@ -517,13 +521,16 @@ final class Clans {
                 Instant bis = Instant.now().plus(Duration.ofDays(einladungTage));
                 metaSetzen(g, M_EINLADUNG + ziel[0], bis.toString());
                 gruppeAendern(g);
-                plugin.getLogger().info("Clans: " + kuerzelVon(g) + " lädt " + ziel[1] + " ein");
+                plugin.getLogger().info("Clan/Team: " + kuerzelVon(g) + " lädt " + ziel[1] + " ein");
                 JsonObject o = new JsonObject();
                 JsonObject p = new JsonObject();
                 p.addProperty("discord", an);
                 p.addProperty("name", ziel[1]);
                 o.add("an", p);
                 o.addProperty("bis", bis.toString());
+                o.addProperty("kuerzel", kuerzelVon(g));
+                o.addProperty("name", meta(g, M_NAME));
+                o.addProperty("farbe", meta(g, M_FARBE));
                 return new Antwort(200, o);
             }
             if (methode.equals("DELETE") && n == 4) {
@@ -571,7 +578,7 @@ final class Clans {
                 metaSetzen(g, M_EINLADUNG + u, null);
                 gruppeAendern(g);
                 eintreten(u, g);
-                plugin.getLogger().info("Clans: " + k[1] + " → " + kuerzelVon(g) + (verlassen == null ? "" : " (vorher " + verlassen + ")"));
+                plugin.getLogger().info("Clan/Team: " + k[1] + " → " + kuerzelVon(g) + (verlassen == null ? "" : " (vorher " + verlassen + ")"));
                 JsonObject o = new JsonObject();
                 o.add("clan", clanJson(g));
                 o.addProperty("verlassen", verlassen);
@@ -594,7 +601,7 @@ final class Clans {
                 }
                 austreten(zu, g);
                 Object[] folge = nachAustritt(g, zu);
-                plugin.getLogger().info("Clans: " + z[1] + (selbst ? " verlässt " : " fliegt aus ") + kuerzelVon(g));
+                plugin.getLogger().info("Clan/Team: " + z[1] + (selbst ? " verlässt " : " fliegt aus ") + kuerzelVon(g));
                 JsonObject o = new JsonObject();
                 boolean weg = (Boolean) folge[1];
                 o.add("clan", weg ? JsonNull.INSTANCE : clanJson(g));
@@ -617,12 +624,15 @@ final class Clans {
             }
             metaSetzen(g, M_LEITER, z[0]);
             gruppeAendern(g);
-            plugin.getLogger().info("Clans: " + kuerzelVon(g) + " Leitung → " + z[1]);
+            plugin.getLogger().info("Clan/Team: " + kuerzelVon(g) + " Leitung → " + z[1]);
             return new Antwort(200, clanJson(g));
         }
         if (methode.equals("DELETE") && n == 2 && "1".equals(q.get("admin"))) {
             Group g = gruppeHolen(teile[1]);
             String k = kuerzelVon(g);
+            String wer = q.get("von");
+            String[] admin = wer == null || !wer.matches("\\d{5,25}") ? null : konten.zuDiscord(wer);
+            plugin.getLogger().info("Clan/Team: " + k + " gelöscht von " + (admin != null ? admin[1] + " (Discord " + wer + ")" : wer == null ? "?" : "Discord " + wer));
             List<String> namen = aufloesen(g);
             JsonObject o = new JsonObject();
             o.addProperty("aufgeloest", k);

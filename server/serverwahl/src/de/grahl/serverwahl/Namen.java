@@ -76,7 +76,7 @@ final class Namen implements Listener, CommandExecutor {
         try {
             lp = LuckPermsProvider.get();
         } catch (IllegalStateException | NoClassDefFoundError e) {
-            plugin.getLogger().warning("Namen: LuckPerms nicht geladen, /nick und Clan-Tags aus");
+            plugin.getLogger().warning("Namen: LuckPerms nicht geladen, /nick und Clan/Team-Tags aus");
             return false;
         }
         lp.getEventBus().subscribe(plugin, UserDataRecalculateEvent.class, e -> Bukkit.getScheduler().runTask(plugin, () -> {
@@ -265,7 +265,7 @@ final class Namen implements Listener, CommandExecutor {
             String nick = lp.getPlayerAdapter(Player.class).getMetaData(p).getMetaValue(META_NICK);
             p.sendMessage(Component.text(nick == null ? "Du hast keinen Nick. /nick <name> setzt einen." : "Dein Nick: " + nick + " (/nick reset entfernt ihn)",
                     NamedTextColor.GRAY));
-            p.sendMessage(Component.text("Das [Tag] davor ist dein Clan-Tag, den vergibt das Server-Team.", NamedTextColor.DARK_GRAY));
+            p.sendMessage(Component.text("Das [Tag] davor ist das Kürzel deines Clans/Teams, verwaltet über Discord.", NamedTextColor.DARK_GRAY));
             return true;
         }
         if (args.length != 1) {

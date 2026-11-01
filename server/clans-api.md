@@ -1,4 +1,6 @@
-# Clans in Selbstverwaltung über Discord – API-Vertrag (Server-Seite, 01.11., Entwurf zur Abstimmung mit der Bot-Session)
+# Clans in Selbstverwaltung über Discord – API-Vertrag (Server-Seite, 01.11., von der Bot-Session abgenickt mit 4 Ergänzungen)
+
+Sichtbare Texte (Meldungen im Spiel, Bot, Log) nennen es **„Clan/Team“** (Pascal 01.11.); API-Pfade (`/clans`) und LuckPerms-Gruppen (`clan-<name>`) bleiben.
 
 Pascal 01.11. (über die Leitung): Jeder gründet seinen Clan selbst über Discord und ist damit Leiter. Beitritt nur auf Einladung des Leiters, der
 Eingeladene bestätigt per Knopf. Der Leiter wirft raus und gibt die Leitung ab, jeder darf austreten, ein leerer Clan löst sich auf. Kürzel bis
@@ -22,6 +24,8 @@ erscheint und nach dem Austritt wieder verschwindet.
   Wer nicht über Discord auf der Whitelist steht, kann keinen Clan gründen, eingeladen werden oder beitreten (`404 konto`).
 - **Rechte prüft der Server:** Wer handelt, steht im Feld `von` (Discord-ID). Nur der Leiter darf einladen, rauswerfen und die Leitung abgeben.
   Austreten darf jeder für sich. Der Bot muss `von` aus dem Discord-Ereignis nehmen (wer den Knopf gedrückt hat), nie aus einer Eingabe.
+- **Eine Sperre für alles:** Alle Clan-Anfragen laufen im Plugin nacheinander (gemeinsame Sperre), damit sich Beitritt/Rauswurf, zwei Gründungen
+  mit gleicher Grundform oder Leitung abgeben/Austritt nicht überschneiden.
 - **Prüfungen liegen auf dem Server** (Format, doppelt, Sperrliste, Beleidigungen, Nachahmung) und gelten bei `POST /clans` und `GET /clans/pruefen` gleich.
 
 ## Regeln
@@ -36,7 +40,7 @@ erscheint und nach dem Austritt wieder verschwindet.
 | Beleidigungen | Kürzel oder Name enthält einen Eintrag aus `clans.beleidigungen` (Grundform, eigene Datei `plugins/Serverwahl/clans-woerter.txt`, nicht im Repo) | `422 gesperrt`, `"grund": "beleidigung"` |
 | Nachahmung | Kürzel hat dieselbe Grundform wie der Name oder Nick eines bekannten Spielers (wie bei `/nick`) | `422 gesperrt`, `"grund": "nachahmung"` |
 | Ein Clan je Spieler | wer gründet, darf in keinem Clan sein (erst austreten) | `409 im-clan` mit `"clan": "<KÜRZEL>"` |
-| Einladung | gilt 7 Tage, je Clan und Spieler eine (neue ersetzt alte) | – |
+| Einladung | gilt 7 Tage, je Clan und Spieler eine; eine erneute Einladung ersetzt die alte ohne Fehler. Sich selbst einladen geht nicht | `400 selbst` |
 | Beitritt | nur mit gültiger Einladung. Ist der Spieler in einem anderen Clan, wechselt er (verlässt den alten, siehe Austritt) | `403 keine-einladung` |
 | Austritt des Leiters | Bleiben Mitglieder, übernimmt das am längsten dabei befindliche Mitglied die Leitung. Ist niemand mehr da, löst sich der Clan auf | – |
 | Leerer Clan | wird sofort aufgelöst (Gruppe gelöscht) | – |
@@ -63,17 +67,19 @@ Alle Antworten JSON. Fehler immer `{"fehler": "<code>"}`, wo nötig mit `"grund"
 | `GET /clans/von/<discordId>` | – | `200 {"clan": <Clan> \| null, "einladungen": [ {"kuerzel","name","farbe","bis"} ]}` – eigener Clan und offene Einladungen, für das persönliche Menü im Bot · `404 konto` |
 | `GET /clans/pruefen?kuerzel=…&name=…&farbe=…` | – | `200 {"ok": true, "kuerzel": "NORD"}` oder dieselben Fehler wie `POST /clans` (ohne `im-clan`). Ändert nichts, für sofortige Rückmeldung im Formular |
 | `POST /clans` | `{"von": "<discordId>", "kuerzel": "NORD", "name": "Die Nordmänner", "farbe": "dark_aqua"}` | `201 <Clan>` – Gründer ist Leiter und erstes Mitglied · `400 kuerzel\|name\|farbe` · `409 kuerzel-vergeben` · `409 im-clan` · `422 gesperrt` · `404 konto` |
-| `POST /clans/<KÜRZEL>/einladungen` | `{"von": "<Leiter>", "an": "<discordId>"}` | `200 {"an": {"discord","name"}, "bis": "…"}` · `403 kein-leiter` · `404 clan` · `404 konto` (der Eingeladene) · `409 schon-mitglied` |
+| `POST /clans/<KÜRZEL>/einladungen` | `{"von": "<Leiter>", "an": "<discordId>"}` | `200 {"an": {"discord","name"}, "bis": "…", "kuerzel", "name", "farbe"}` (Clan-Daten für die Einladungsnachricht) · `400 selbst` · `403 kein-leiter` · `404 clan` · `404 konto` (der Eingeladene) · `409 schon-mitglied` |
 | `DELETE /clans/<KÜRZEL>/einladungen/<discordId>?von=<id>` | – | `200 {}` – Einladung zurückziehen (Leiter) oder ablehnen (der Eingeladene selbst). Idempotent · `403 kein-recht` · `404 clan` |
 | `POST /clans/<KÜRZEL>/mitglieder` | `{"von": "<discordId>"}` (der Eingeladene selbst) | `200 {"clan": <Clan>, "verlassen": "<altes KÜRZEL>" \| null, "aufgeloest": "<altes KÜRZEL>" \| null}` · `403 keine-einladung` (fehlt oder abgelaufen) · `404 clan` · `404 konto` |
 | `DELETE /clans/<KÜRZEL>/mitglieder/<discordId>?von=<id>` | – | `von` = Ziel: **Austritt**; `von` = Leiter: **Rauswurf** (sich selbst rauswerfen = Austritt). `200 {"clan": <Clan> \| null, "neuer_leiter": "<discordId>" \| null, "aufgeloest": true/false}` · `403 kein-recht` · `404 clan` · `404 kein-mitglied` |
 | `PUT /clans/<KÜRZEL>/leiter` | `{"von": "<Leiter>", "an": "<discordId eines Mitglieds>"}` | `200 <Clan>` · `403 kein-leiter` · `404 kein-mitglied` |
-| `DELETE /clans/<KÜRZEL>?admin=1` | – | `200 {"aufgeloest": "<KÜRZEL>", "mitglieder": [Namen]}` – Pascals Lösch-Knopf (Moderation). Der Bot ruft das nur für Pascal auf. Löst den Clan sofort auf, alle verlieren den Tag · `404 clan` |
+| `DELETE /clans/<KÜRZEL>?admin=1&von=<discordId>` | – | `200 {"aufgeloest": "<KÜRZEL>", "mitglieder": [Namen]}` – Pascals Lösch-Knopf (Moderation). Der Bot ruft das nur für Pascal auf und prüft das selbst; `von` steht nur im Server-Log („NORD gelöscht von …“), ohne Rechteprüfung. Löst den Clan sofort auf, alle verlieren den Tag · `404 clan` |
 
 Zugangsfehler wie bei der Whitelist: `403 ip`, `401 schluessel`, `429 zu viele`, `404 pfad`, `400 json`. Fehlt `von` oder ist es keine Discord-ID → `400 von`.
 
 ## Für die Bot-Session (Ablauf, Vorschlag)
 
+- Bedienung über Panels und Knöpfe, keine Slash-Befehle. Timeout nach `POST /clans` → `GET /clans/von/<id>` zeigt, ob die Gründung durch ist.
+  Farbe als Auswahl der 14 Werte. Name/Farbe nachträglich ändern (`PATCH`) gibt es vorerst nicht.
 - Einstieg ohne Slash-Befehle: eine feste Nachricht mit Knopf „Clan“. Der Bot fragt `GET /clans/von/<id>` und zeigt dem Spieler ephemer passend:
   „Clan gründen“ (Modal: Kürzel, Name, Farbe als Auswahl), offene Einladungen mit „Beitreten“/„Ablehnen“, im eigenen Clan „Austreten“, als Leiter
   „Einladen“ (Mitgliederauswahl in Discord), „Rauswerfen“, „Leitung abgeben“.
@@ -85,7 +91,7 @@ Zugangsfehler wie bei der Whitelist: `403 ip`, `401 schluessel`, `429 zu viele`,
 
 ## Betrieb
 
-- Jede Änderung ins Server-Log des Hubs („Clans: +NORD von ITsCALLE96“, „Clans: cruiserDE → NORD“, …).
+- Jede Änderung ins Server-Log des Hubs („Clan/Team: +NORD von ITsCALLE96“, „Clan/Team: cruiserDE → NORD“, …).
 - Backup: LuckPerms liegt in `/srv/ampdata/mc-netzwerk-geteilt/luckperms/` (Task 9, wie Nicks).
 - Bestehende Clans von Hand (`lp …`, z. B. `clan-test`) erscheinen in der Liste mit `leiter: null`; Pascal kann sie weiter von Hand pflegen.
 - Fällt jemand von der Whitelist, bleibt er Mitglied (Bauten, Tag bleiben, er kommt nur nicht mehr herein). Pascal kann ihn per `lp` entfernen.

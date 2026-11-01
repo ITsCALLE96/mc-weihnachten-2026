@@ -275,7 +275,7 @@ final class DiscordWhitelist implements Listener {
                     }
                 }
             } catch (IOException e) {
-                plugin.getLogger().warning("Clans: Whitelist-Datei nicht lesbar: " + e.getMessage());
+                plugin.getLogger().warning("Clan/Team: Whitelist-Datei nicht lesbar: " + e.getMessage());
             }
         }
         return null;
@@ -292,7 +292,7 @@ final class DiscordWhitelist implements Listener {
                     }
                 }
             } catch (IOException e) {
-                plugin.getLogger().warning("Clans: Whitelist-Datei nicht lesbar: " + e.getMessage());
+                plugin.getLogger().warning("Clan/Team: Whitelist-Datei nicht lesbar: " + e.getMessage());
             }
         }
         return null;
