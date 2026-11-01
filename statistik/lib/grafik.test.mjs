@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, rmSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { kurzwert, textBreite, kachelSvg, bestenlistenBilder, MASSE } from './grafik.mjs';
+import { kurzwert, textBreite, kachelSvg, bestenlistenBilder, svgZuPng, MASSE } from './grafik.mjs';
 import { KopfCache, steveGesicht, kodierePng, dekodierePng } from './kopf.mjs';
 import { baueBestenlisten } from './anzeige.mjs';
 import { erzeugeTestwelt } from '../testdaten.mjs';
@@ -77,4 +77,13 @@ test('KopfCache: holt einmal, merkt im Ordner, Fehler → Steve und kein neuer V
   uhr += 3600_001;
   await k3.gesicht(u);
   assert.equal(fehler, 2);
+});
+
+test('Rendern gibt den WebAssembly-Speicher frei (OOM 01.11.)', async () => {
+  const svg = kachelSvg(b.listen[0]);
+  await svgZuPng(svg, { breite: 1200 });
+  const vorher = process.memoryUsage().rss;
+  for (let i = 0; i < 40; i++) await svgZuPng(svg, { breite: 1200 });
+  // ohne free() wuchs der Speicher je Bild um ~4 MB, hier also um ~160 MB
+  assert.ok(process.memoryUsage().rss - vorher < 60 * 1048576, `Speicher gewachsen: ${Math.round((process.memoryUsage().rss - vorher) / 1048576)} MB`);
 });

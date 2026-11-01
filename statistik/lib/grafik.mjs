@@ -188,7 +188,16 @@ export async function svgZuPng(svg, { breite } = {}) {
     font: { fontBuffers: Object.values(s).map((x) => new Uint8Array(x.buf)), defaultFontFamily: 'Poppins', loadSystemFonts: false },
     ...(breite ? { fitTo: { mode: 'width', value: breite } } : {}),
   });
-  return Buffer.from(r.render().asPng());
+  // WebAssembly-Speicher selbst freigeben: ohne free() bleiben je Bild Schriften und Pixel liegen (~4 MB),
+  // der Speicher wächst bis zum OOM (01.11.: Container nach ~10 h mit 256 MB beendet)
+  let bild = null;
+  try {
+    bild = r.render();
+    return Buffer.from(bild.asPng());
+  } finally {
+    bild?.free();
+    r.free();
+  }
 }
 
 // Alle Hub-Listen als Bilder: [{ id, datei: "kachel-1.png", svg, png }]. kopfQuelle.gesicht(uuid) → RGBA 8×8.
