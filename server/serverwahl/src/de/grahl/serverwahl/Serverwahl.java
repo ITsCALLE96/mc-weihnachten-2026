@@ -360,8 +360,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             getServer().getPluginManager().registerEvents(discordWhitelist, this);
         }
         discordWhitelist.laden(getConfig().getConfigurationSection("discord-whitelist"));
-        // Clans in Selbstverwaltung (server/clans-api.md): Endpunkte der Whitelist-API, nur wo die API läuft (Hub)
-        if (clans == null) {
+        // Clans in Selbstverwaltung (server/clans-api.md): Endpunkte der Whitelist-API, nur wo die API läuft (Hub).
+        // Nur mit LuckPerms: Clans lädt LuckPerms-Klassen, ohne das Plugin bräche laden() sonst mit NoClassDefFoundError ab (01.11., Räum-Test)
+        boolean mitLuckPerms = getServer().getPluginManager().getPlugin("LuckPerms") != null;
+        if (clans == null && mitLuckPerms) {
             DiscordWhitelist dw = discordWhitelist;
             clans = new Clans(this, new Clans.Konten() {
                 @Override
@@ -376,7 +378,9 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             });
             discordWhitelist.clansSetzen(clans);
         }
-        clans.laden(getConfig().getConfigurationSection("clans"), namen == null ? List.of() : namen.sperrliste());
+        if (clans != null) {
+            clans.laden(getConfig().getConfigurationSection("clans"), namen == null ? List.of() : namen.sperrliste());
+        }
         if (termine == null) {
             termine = new Termine(this);
         }
