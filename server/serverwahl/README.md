@@ -102,7 +102,7 @@ bzw. Enderauge neu (`dimensionZu`), fällt also mit dem nächsten Versuch. `func
 
 ## Neustart bei Bedarf (01.11.)
 
-Seit 02.11. gibt es keinen täglichen Neustart mehr (Pascal 01.11.). `serverwahl neustart in <minuten>` in der Hub- oder SMP-Konsole plant einen Neustart genau dieser Instanz (auf die volle Minute aufgerundet) und schreibt ihn als Merker nach `/AMP/geteilt/neustart/<instanz>`. Das Plugin kündigt sofort und dann 60/30/10/5/1 Minuten vorher im Chat an, die letzten 10 s als Titel-Countdown, im SMP zusätzlich in #mc-chat bei 60/10/1 Minuten (`discord bcast`). Den Neustart macht der Cron `../vm200/mc-neustart-bedarf.sh` (jede Minute, Merker fällig → Instanz stoppen und starten). `serverwahl neustart abbrechen` löscht den Merker, `serverwahl neustart test 70 [discord]` spielt nur die Ansage durch. Status: `serverwahl neustart`. Test: `NeustartAnsageTest`.
+Seit 01.11. gibt es keinen täglichen Neustart mehr (Pascal 01.11.). `serverwahl neustart in <minuten>` in der Hub- oder SMP-Konsole plant einen Neustart genau dieser Instanz (auf die volle Minute aufgerundet) und schreibt ihn als Merker nach `/AMP/geteilt/neustart/<instanz>`. Das Plugin kündigt sofort und dann 60/30/10/5/1 Minuten vorher im Chat an, die letzten 10 s als Titel-Countdown, im SMP zusätzlich in #mc-chat bei 60/10/1 Minuten (`discord bcast`). Den Neustart macht der Cron `../vm200/mc-neustart-bedarf.sh` (jede Minute, Merker fällig → Instanz stoppen und starten). `serverwahl neustart abbrechen` löscht den Merker, `serverwahl neustart test 70 [discord]` spielt nur die Ansage durch. Status: `serverwahl neustart`. Test: `NeustartAnsageTest`.
 
 ## Dorf-Rabatt (28.10.)
 
