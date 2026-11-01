@@ -89,6 +89,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private final Neujahr neujahr = new Neujahr(this);
     private final DorfRabatt dorfRabatt = new DorfRabatt();
     private Termine termine;
+    private NeustartAnsage neustartAnsage;
     private DiscordWhitelist discordWhitelist;
     private Mission mission;
     private LetzterServer letzterServer;
@@ -342,6 +343,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         }
         termine.laden(getConfig().getConfigurationSection("termine"));
         termine.event.laden(getConfig().getConfigurationSection("termin-event"));
+        if (neustartAnsage == null) {
+            neustartAnsage = new NeustartAnsage(this);
+        }
+        neustartAnsage.laden(getConfig().getConfigurationSection("neustart-ansage"));
         xaeroWeltId = getConfig().getInt("xaero-welt-id", 0);
         beitrittOrt = getConfig().getString("beitritt-ort", "").trim();
         // Regeln in der TAB-Liste (Leitung 30.10., Quelle server/REGELN.md): Zeilen als Liste, beim Beitritt und bei jedem Reload gesendet
@@ -428,6 +433,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             }
             if (args.length >= 1 && args[0].equals("termin")) {
                 sender.sendMessage(Component.text(termine.befehl(args), NamedTextColor.GOLD));
+                return true;
+            }
+            if (args.length >= 1 && args[0].equals("neustart")) {
+                sender.sendMessage(Component.text(neustartAnsage.befehl(args), NamedTextColor.GOLD));
                 return true;
             }
             if (args.length >= 1 && args[0].equals("rabatt")) {

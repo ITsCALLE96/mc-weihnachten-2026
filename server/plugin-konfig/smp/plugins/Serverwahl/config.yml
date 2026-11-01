@@ -286,3 +286,14 @@ inselhaendler:
   datei: weihnachtsmann.json
   zeitzone: Europe/Berlin
   jukebox-radius: 48
+# Ansage vor dem täglichen Neustart 04:00 (Pascal 01.11.). Den Neustart macht der Cron auf VM200 (server/vm200/mc-neustart.sh), uhrzeit muss dazu passen.
+# Chat 10/5/1 Minuten vorher, Countdown-Titel 10 s, dazu einmal in #mc-chat (nur hier im SMP, der Hub sendet nicht nach Discord). Test: /serverwahl neustart test 70
+neustart-ansage:
+  aktiv: true
+  uhrzeit: "04:00"
+  zeitzone: Europe/Berlin
+  minuten: [10, 5, 1]
+  countdown: 10
+  text: "Täglicher Neustart – bitte kurz an einen sicheren Ort, in 2 Minuten seid ihr wieder drin."
+  discord-minuten: [10]
+  discord-text: "Täglicher Neustart um %uhrzeit% Uhr in %zeit% – Hub und SMP sind ca. 2 Minuten weg."
