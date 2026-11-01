@@ -1,0 +1,5 @@
+# Track „rollen“ für den Präfix-Stack (Pascal 01.11.): Rollen-Präfix zuerst, Clan/Team-Präfix dahinter (LuckPerms meta-formatting, config.yml).
+# Datei im gemeinsamen Speicher: luckperms/tracks/rollen.yml – gleichwertig per Konsole:
+lp createtrack rollen
+lp track rollen append moderator
+lp track rollen append admin

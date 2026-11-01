@@ -62,6 +62,10 @@ public final class ClansTest {
                 && net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacySection().serialize(v.children().get(0)).startsWith("§c[ADMIN]"));
         pruefe("ohne Präfix nur der Name", net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText().serialize(Namen.voll(Namen.tagAus(null), "Steve")).equals("Steve"));
         pruefe("Clan-Präfix &3[NORD]: Name trotzdem weiß", Namen.voll(Namen.tagAus(Clans.praefix("NORD", "dark_aqua")), "x").children().get(1).color() == net.kyori.adventure.text.format.NamedTextColor.WHITE);
+        net.kyori.adventure.text.Component st = Namen.voll(Namen.tagAus("&c[ADMIN]&r&r &5[TEST]"), "ITsCALLE96");
+        pruefe("gestapelter Präfix: [ADMIN] [TEST] Name", net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText().serialize(st).equals("[ADMIN] [TEST] ITsCALLE96"));
+        pruefe("gestapelter Präfix: Name weiß", st.children().get(1).color() == net.kyori.adventure.text.format.NamedTextColor.WHITE);
+        pruefe("gestapelter Präfix: TEST lila", net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacySection().serialize(st.children().get(0)).contains("§5[TEST]"));
         pruefe("Gruppe", Clans.gruppe("NORD").equals("clan-nord"));
         pruefe("Präfix", Clans.praefix("NORD", "dark_aqua").equals("&3[NORD]"));
         System.out.println(fehler == 0 ? "Clans: alles OK" : "Clans: " + fehler + " Fehler");

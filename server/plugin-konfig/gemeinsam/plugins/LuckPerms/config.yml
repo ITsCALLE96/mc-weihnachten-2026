@@ -2,9 +2,22 @@
 # Gleicher Name auf beiden Servern: Rechte ohne Server-Kontext gelten überall
 server: global
 # Gemeinsamer Speicher ohne Datenbank (Leitung 28.10.): je Spieler/Gruppe eine eigene Datei (nicht „combined“).
-# plugins/LuckPerms/yaml-storage ist auf beiden Servern derselbe Ordner (VM200: Verknüpfung nach /AMP/geteilt/luckperms, Testnetz: Verzeichnis-Verknüpfung)
+# plugins/LuckPerms/yaml-storage ist auf beiden Servern derselbe Ordner (VM200 seit 01.11.: Bind-Mount von /AMP/geteilt/luckperms – eine Verknüpfung beobachtet watch-files nicht; Testnetz: Verzeichnis-Verknüpfung)
 storage-method: yaml
 # Änderungen des anderen Servers an den Dateien nachladen
 watch-files: true
 # kein Messaging-Dienst (keine Datenbank, kein LuckPerms auf Velocity); watch-files reicht
 messaging-service: none
+# Sicherheitsnetz (01.11.): alle 5 min vollständig mit dem gemeinsamen Speicher abgleichen
+sync-minutes: 5
+# Zwei Kürzel vor dem Namen (Pascal 01.11.): zuerst die Rolle (Track „rollen“: moderator, admin), dahinter der Clan/Team-Präfix
+# (alle anderen Gruppen, Clans haben Priorität 100). Beispiel: „[ADMIN] [TEST] ITsCALLE96“. &r trennt die Farben.
+meta-formatting:
+  prefix:
+    format:
+      - "highest_on_track_rollen"
+      - "highest_not_on_track_rollen"
+    duplicates: first-only
+    start-spacer: ""
+    middle-spacer: "&r "
+    end-spacer: ""
