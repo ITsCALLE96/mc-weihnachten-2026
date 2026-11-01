@@ -91,6 +91,8 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private Termine termine;
     private NeustartAnsage neustartAnsage;
     private TpsWaechter tpsWaechter;
+    /** Tode in der Tab-Liste (Ziel „tode“), siehe laden() */
+    private boolean todeInTab;
     private DiscordWhitelist discordWhitelist;
     private Mission mission;
     private LetzterServer letzterServer;
@@ -302,7 +304,8 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         }
         // Tode in der Tab-Liste (Pascal 01.11., wie CraftAttack): Vanilla-Ziel „tode“ (deathCount) im Haupt-Scoreboard, Anzeige-Slot Liste.
         // Hier angelegt, damit es nach einem Welt-Reset (neue scoreboard.dat) von selbst wieder da ist; vorhandene Stände bleiben.
-        if (getConfig().getBoolean("tode-in-tab", false)) {
+        todeInTab = getConfig().getBoolean("tode-in-tab", false);
+        if (todeInTab) {
             org.bukkit.scoreboard.Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
             Objective tode = sb.getObjective("tode");
             if (tode == null) {
@@ -659,6 +662,14 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     @EventHandler
     public void beimBeitrittTab(org.bukkit.event.player.PlayerJoinEvent e) {
         tabSetzen(e.getPlayer());
+        // Tode: wer noch keinen Stand im Ziel hat (neu, oder vor dem Anlegen schon dabei), bekommt seine Tode aus der Vanilla-Statistik.
+        // Per Konsole ließ sich das für Offline-Spieler nicht nachtragen („for 0 entities“, 01.11.), hier passiert es beim Beitritt.
+        if (todeInTab) {
+            Objective tode = Bukkit.getScoreboardManager().getMainScoreboard().getObjective("tode");
+            if (tode != null && !tode.getScore(e.getPlayer()).isScoreSet()) {
+                tode.getScore(e.getPlayer()).setScore(e.getPlayer().getStatistic(org.bukkit.Statistic.DEATHS));
+            }
+        }
     }
 
     private void tabSetzen(Player p) {

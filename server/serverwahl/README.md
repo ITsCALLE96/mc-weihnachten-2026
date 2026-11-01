@@ -102,7 +102,7 @@ bzw. Enderauge neu (`dimensionZu`), fällt also mit dem nächsten Versuch. `func
 
 ## Tode in der Tab-Liste (01.11.)
 
-`tode-in-tab: true` (nur SMP): legt beim Start/Reload im Haupt-Scoreboard das Vanilla-Ziel `tode` (deathCount, Anzeige „Tode“) an, falls es fehlt, und setzt es in den Anzeige-Slot Liste. Vorhandene Stände bleiben; nach einem Welt-Reset ist es dadurch von selbst wieder da. Die Tab-Namen aus `Namen` (Teams im Haupt-Scoreboard, `playerListName`) vertragen sich damit. `insel_tod` (deathCount, Datapack) ist ein anderes Ziel und bleibt unberührt.
+`tode-in-tab: true` (nur SMP): legt beim Start/Reload im Haupt-Scoreboard das Vanilla-Ziel `tode` (deathCount, Anzeige „Tode“) an, falls es fehlt, und setzt es in den Anzeige-Slot Liste. Vorhandene Stände bleiben; wer beim Beitritt noch keinen Stand hat, bekommt seine Tode aus der Vanilla-Statistik (Nachtrag per Konsole ging für Offline-Spieler nicht, „for 0 entities“). Nach einem Welt-Reset ist es dadurch von selbst wieder da. Die Tab-Namen aus `Namen` (Teams im Haupt-Scoreboard, `playerListName`) vertragen sich damit. `insel_tod` (deathCount, Datapack) ist ein anderes Ziel und bleibt unberührt.
 
 ## TPS-Überwachung (01.11.)
 
