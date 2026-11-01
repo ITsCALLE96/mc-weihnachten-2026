@@ -231,12 +231,12 @@ discord-whitelist:
     # Testserver-C96, testserver crleon (fliegen später raus), leonraws - cruiserDE (Final-Server) – Leitung 30.10., Go von Pascal
     gilden: ["1555895861458767872", "1561036947541987360", "899675876298469457"]
 # Ansage vor dem täglichen Neustart 04:00 (Pascal 01.11.). Den Neustart macht der Cron auf VM200 (server/vm200/mc-neustart.sh), uhrzeit muss dazu passen.
-# Chat 10/5/1 Minuten vorher, Countdown-Titel 10 s, nach Discord sendet nur das SMP. Test: /serverwahl neustart test 70
+# Chat 60/30/10/5/1 Minuten vorher (Pascal 01.11.), Countdown-Titel 10 s, nach Discord sendet nur das SMP. Test: /serverwahl neustart test 70
 neustart-ansage:
   aktiv: true
   uhrzeit: "04:00"
   zeitzone: Europe/Berlin
-  minuten: [10, 5, 1]
+  minuten: [60, 30, 10, 5, 1]
   countdown: 10
   text: "Täglicher Neustart – bitte kurz an einen sicheren Ort, in 2 Minuten seid ihr wieder drin."
   discord-minuten: []

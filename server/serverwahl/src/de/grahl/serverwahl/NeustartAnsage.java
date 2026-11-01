@@ -21,7 +21,7 @@ import org.bukkit.plugin.Plugin;
 
 /**
  * Ansage vor dem täglichen Neustart (Pascal 01.11.): Den Neustart selbst macht der Cron auf VM200 (mc-neustart.sh, 04:00); das Plugin kündigt
- * ihn nur an, damit niemand mitten im Bauen rausfliegt. Chat „minuten“ vorher (10/5/1), Countdown als Titel in den letzten Sekunden,
+ * ihn nur an, damit niemand mitten im Bauen rausfliegt. Chat „minuten“ vorher (60/30/10/5/1), Countdown als Titel in den letzten Sekunden,
  * Meldung in #mc-chat über DiscordSRV („discord bcast“) zu „discord-minuten“, nur dort eingeschaltet, wo die Brücke die Meldung senden soll (SMP).
  * Ohne RCON und ohne AMP-Zeitplan. uhrzeit muss zum Cron passen. /serverwahl neustart [test <sekunden> [discord]]
  */

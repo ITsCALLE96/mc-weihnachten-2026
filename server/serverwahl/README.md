@@ -102,7 +102,7 @@ bzw. Enderauge neu (`dimensionZu`), fällt also mit dem nächsten Versuch. `func
 
 ## Neustart-Ansage (01.11.)
 
-`neustart-ansage`: kündigt den täglichen Neustart an, den der Cron auf VM200 macht (`../vm200/mc-neustart.sh`, 04:00). Chat 10/5/1 Minuten vorher, die letzten 10 s als Titel, im SMP zusätzlich einmal in #mc-chat (`discord bcast` über DiscordSRV, `discord-minuten`). Das Plugin startet nichts neu; `uhrzeit` muss zum Cron passen. Ohne RCON und ohne AMP-Zeitplan. Status `serverwahl neustart`, Probe `serverwahl neustart test 70 [discord]` (spielt die Ansage für einen gedachten Neustart in 70 s durch, Discord nur mit `discord`). Test: `NeustartAnsageTest`.
+`neustart-ansage`: kündigt den täglichen Neustart an, den der Cron auf VM200 macht (`../vm200/mc-neustart.sh`, 04:00). Chat 60/30/10/5/1 Minuten vorher, die letzten 10 s als Titel-Countdown, im SMP zusätzlich in #mc-chat bei 60/10/1 Minuten (`discord bcast` über DiscordSRV, `discord-minuten`). Das Plugin startet nichts neu; `uhrzeit` muss zum Cron passen. Ohne RCON und ohne AMP-Zeitplan. Status `serverwahl neustart`, Probe `serverwahl neustart test 70 [discord]` (spielt die Ansage für einen gedachten Neustart in 70 s durch, Discord nur mit `discord`). Test: `NeustartAnsageTest`.
 
 ## Dorf-Rabatt (28.10.)
 
