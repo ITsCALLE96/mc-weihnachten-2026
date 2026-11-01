@@ -9,7 +9,15 @@ public final class LetzterServerTest {
     private static int fehler;
 
     private static void pruefe(String fall, Long alter, boolean darf, boolean erwartet) {
-        boolean ist = LetzterServer.zurueckschicken(alter, 10_000L, darf);
+        pruefe(fall, "", alter, darf, erwartet);
+    }
+
+    private static void pruefe(String fall, String inhalt, Long alter, boolean darf, boolean erwartet) {
+        pruefe(fall, inhalt, alter, 10_000L, darf, erwartet);
+    }
+
+    private static void pruefe(String fall, String inhalt, Long alter, long grenze, boolean darf, boolean erwartet) {
+        boolean ist = LetzterServer.zurueckschicken(inhalt, alter, grenze, darf);
         if (ist != erwartet) {
             fehler++;
         }
@@ -22,6 +30,9 @@ public final class LetzterServerTest {
         pruefe("gerade vom SMP herüber (/hub, Kick, Fallback)", 1_500L, true, false);
         pruefe("genau an der Grenze", 10_000L, true, true);
         pruefe("SMP noch geschlossen, ohne serverwahl.vorab", 3_600_000L, false, false);
+        pruefe("per /hub gewechselt, später neu eingeloggt", "wechsel", 3_600_000L, true, false);
+        pruefe("Trennen + Neu-Verbinden nach 5 s, Grenze 3 s (live)", "", 5_000L, 3_000L, true, true);
+        pruefe("Fallback ohne Plugin nach 1 s, Grenze 3 s", "", 1_000L, 3_000L, true, false);
         if (fehler > 0) {
             System.out.println(fehler + " Fehler");
             System.exit(1);

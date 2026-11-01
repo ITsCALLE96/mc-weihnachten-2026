@@ -942,6 +942,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     }
 
     private void verbinden(Player p, String server) {
+        // SMP → Hub über das Plugin: ausdrücklich als Wechsel vormerken (LetzterServer, 01.11.)
+        if (!istHub && server.equals(hubServer) && letzterServer != null) {
+            letzterServer.wechselMerken(p);
+        }
         try (ByteArrayOutputStream bytes = new ByteArrayOutputStream(); DataOutputStream out = new DataOutputStream(bytes)) {
             out.writeUTF("Connect");
             out.writeUTF(server);

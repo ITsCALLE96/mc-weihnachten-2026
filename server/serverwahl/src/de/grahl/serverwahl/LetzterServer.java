@@ -24,6 +24,9 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Hub: Merker da und älter als „wechsel-sekunden“ → der Spieler war offline (neuer Login) → nach ~1 s ins SMP, sofern er darf.
  * Merker jünger → er kommt gerade vom SMP herüber (/hub, /server hub, Kick, Absturz-Fallback) → Merker löschen, er bleibt im Hub;
  * loggt er dort aus, landet er beim nächsten Mal wieder im Hub.
+ * 01.11.: Schnelles Trennen und Neu-Verbinden (5 s) sah aus wie ein Wechsel. Deshalb schreibt das SMP bei eigenen Wechseln in den Hub
+ * (/hub, Portale, Menü) „wechsel“ in den Merker; nur dann bleibt der Spieler sicher im Hub. Die Zeitgrenze (wechsel-sekunden, live 3)
+ * bleibt für Wechsel ohne das Plugin (/server hub, Kick, Absturz). Weiterleitung jetzt nach 5 Ticks statt 20.
  */
 final class LetzterServer implements Listener {
 
@@ -50,9 +53,24 @@ final class LetzterServer implements Listener {
         wechselMillis = (c == null ? 10 : c.getLong("wechsel-sekunden", 10)) * 1000L;
     }
 
-    /** Hub-Entscheidung, rein für den Test: null = kein Merker */
-    static boolean zurueckschicken(Long alterMillis, long wechselMillis, boolean darf) {
-        return alterMillis != null && alterMillis >= wechselMillis && darf;
+    static final String WECHSEL = "wechsel";
+
+    /** Hub-Entscheidung, rein für den Test: null = kein Merker; inhalt „wechsel“ = vom SMP per Plugin herübergewechselt */
+    static boolean zurueckschicken(String inhalt, Long alterMillis, long wechselMillis, boolean darf) {
+        return alterMillis != null && !WECHSEL.equals(inhalt) && alterMillis >= wechselMillis && darf;
+    }
+
+    /** SMP: Wechsel in den Hub über das Plugin (/hub, Portal, Menü) vormerken, damit der Hub ihn nicht zurückschickt */
+    void wechselMerken(Player p) {
+        if (ordner == null || istHub) {
+            return;
+        }
+        try {
+            Files.createDirectories(ordner);
+            Files.writeString(merker(p), WECHSEL);
+        } catch (IOException ex) {
+            plugin.getLogger().warning("Letzter Server: " + merker(p) + ": " + ex.getMessage());
+        }
     }
 
     private Path merker(Player p) {
@@ -69,9 +87,8 @@ final class LetzterServer implements Listener {
         try {
             if (!istHub) {
                 Files.createDirectories(ordner);
-                if (!Files.exists(m)) {
-                    Files.createFile(m);
-                }
+                // leer = „war zuletzt im SMP“; ein alter „wechsel“-Eintrag gilt damit nicht mehr
+                Files.writeString(m, "");
                 Files.setLastModifiedTime(m, FileTime.fromMillis(System.currentTimeMillis()));
                 return;
             }
@@ -79,11 +96,12 @@ final class LetzterServer implements Listener {
                 return;
             }
             long alter = System.currentTimeMillis() - Files.getLastModifiedTime(m).toMillis();
-            if (alter < wechselMillis) {
+            String inhalt = Files.readString(m).strip();
+            if (WECHSEL.equals(inhalt) || alter < wechselMillis) {
                 Files.deleteIfExists(m);
                 return;
             }
-            if (!zurueckschicken(alter, wechselMillis, darf.test(p))) {
+            if (!zurueckschicken(inhalt, alter, wechselMillis, darf.test(p))) {
                 return;
             }
             plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
@@ -91,7 +109,7 @@ final class LetzterServer implements Listener {
                     p.sendMessage(Component.text("Du warst zuletzt im SMP. /hub bringt dich jederzeit zurück.", NamedTextColor.GRAY));
                     verbinden.accept(p, server);
                 }
-            }, 20L);
+            }, 5L);
         } catch (IOException ex) {
             plugin.getLogger().warning("Letzter Server: " + m + ": " + ex.getMessage());
         }

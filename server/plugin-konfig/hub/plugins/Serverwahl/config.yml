@@ -37,7 +37,7 @@ bestenliste:
 letzter-server:
   ordner: /AMP/geteilt/status/letzter-server
   server: smp
-  wechsel-sekunden: 10
+  wechsel-sekunden: 3
 # Eröffnung 27.11.: Das Hub-Datapack (Spawn & Welt) setzt #offen in insel_zustand auf 1, dann legt der Hub die Datei an.
 # Dieselbe Datei prüft das SMP beim Beitritt. Liegt außerhalb beider Instanzen, Ordner gehört amp (Task 2 Schritt 6b).
 eroeffnung:
