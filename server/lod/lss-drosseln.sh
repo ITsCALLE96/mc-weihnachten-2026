@@ -6,8 +6,8 @@
 # KEIN Neustart: die Datei wird geändert, wirksam nach „lsslod reload“ in der SMP-Konsole (Bandbreite und Radius sind nicht als [restart]
 # markiert) oder spätestens mit dem nächsten Neustart. Als root auf VM200. Zweiter Lauf mit denselben Werten ändert nichts.
 set -euo pipefail
-SPIELER_MIB=1        # network.bandwidth.per_player_mib_per_second
-GESAMT_MIB=4         # network.bandwidth.global_mib_per_second
+SPIELER_MIB=0.5      # network.bandwidth.per_player_mib_per_second
+GESAMT_MIB=2         # network.bandwidth.global_mib_per_second
 RADIUS_OBERWELT=256  # lod.distance Overworld in Chunks (256 = 4.096 Blöcke)
 RADIUS_NETHER=64
 RADIUS_END=128
