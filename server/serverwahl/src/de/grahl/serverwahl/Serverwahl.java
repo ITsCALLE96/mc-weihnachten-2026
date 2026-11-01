@@ -300,6 +300,17 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                 });
             }
         }
+        // Tode in der Tab-Liste (Pascal 01.11., wie CraftAttack): Vanilla-Ziel „tode“ (deathCount) im Haupt-Scoreboard, Anzeige-Slot Liste.
+        // Hier angelegt, damit es nach einem Welt-Reset (neue scoreboard.dat) von selbst wieder da ist; vorhandene Stände bleiben.
+        if (getConfig().getBoolean("tode-in-tab", false)) {
+            org.bukkit.scoreboard.Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
+            Objective tode = sb.getObjective("tode");
+            if (tode == null) {
+                tode = sb.registerNewObjective("tode", org.bukkit.scoreboard.Criteria.DEATH_COUNT, Component.text("Tode", NamedTextColor.RED));
+                getLogger().info("Tab-Liste: Ziel „tode“ neu angelegt");
+            }
+            tode.setDisplaySlot(org.bukkit.scoreboard.DisplaySlot.PLAYER_LIST);
+        }
         if (pruefwerkzeug != null) {
             pruefwerkzeug.laden(getConfig().getConfigurationSection("pruefwerkzeug"));
         }

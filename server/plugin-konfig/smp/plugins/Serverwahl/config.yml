@@ -146,6 +146,8 @@ winter-generierung:
   aktiv: true
 # Spielregeln der Overworld, bei jedem Start und /serverwahl reload gesetzt (Pascal 28.10.: 4 Lagen, 31.10.: zu hoch → 2 Lagen = ¼ Block).
 # Nach der Season: max_snow_accumulation_height wieder 1 (Vanilla)
+# Tode hinter dem Namen in der Tab-Liste (Pascal 01.11., wie CraftAttack): Ziel „tode“ (deathCount), legt das Plugin bei Bedarf an (auch nach Welt-Reset)
+tode-in-tab: true
 spielregeln:
   max_snow_accumulation_height: 2
   # Nacht überspringen, wenn die Hälfte der Spieler schläft (Pascal 31.10., Vanilla 100)
