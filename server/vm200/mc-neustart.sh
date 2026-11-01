@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# ABGESCHALTET seit 02.11. (Pascal 01.11.: kein täglicher Neustart mehr; der Cron-Eintrag hat sich nach dem letzten Lauf 02.11. 04:00 selbst
+# auskommentiert, Neustart bei Bedarf: mc-neustart-bedarf.sh). Für einen Neustart des ganzen Netzes von Hand weiter nutzbar.
 # Täglicher Neustart des Minecraft-Netzes (Pascal 30.10.), Cron auf VM200 04:00 MEZ (/etc/cron.d/mc-neustart), Log /var/log/mc-neustart.log.
 # Davor läuft die stündliche SMP-Sicherung um 03:40 und die QNAP-Kopie um 03:47. Stoppen SMP → Hub → Proxy (AMP beendet die Server sauber),
 # starten Proxy → Hub → SMP. Die Server selbst startet AMP nur, wenn in jeder Instanz der Startmodus „Anwendung starten“ gesetzt ist (AMP-Oberfläche).

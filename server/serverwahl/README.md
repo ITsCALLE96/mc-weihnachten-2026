@@ -100,9 +100,9 @@ bzw. Enderauge neu (`dimensionZu`), fällt also mit dem nächsten Versuch. `func
 - Hub: dieselben Zeitpunkte ohne Befehle, `dezent: true` (weniger Partikel, seltene, weite Blitze, keine Dunkelheit, leiser)
 - `/serverwahl termin test nether|end [sek]` spielt das Event mit (bei weniger Sekunden als `vorlauf` entsprechend kürzer), `/serverwahl termin event [stopp]` zeigt bzw. bricht ab
 
-## Neustart-Ansage (01.11.)
+## Neustart bei Bedarf (01.11.)
 
-`neustart-ansage`: kündigt den täglichen Neustart an, den der Cron auf VM200 macht (`../vm200/mc-neustart.sh`, 04:00). Chat 60/30/10/5/1 Minuten vorher, die letzten 10 s als Titel-Countdown, im SMP zusätzlich in #mc-chat bei 60/10/1 Minuten (`discord bcast` über DiscordSRV, `discord-minuten`). Das Plugin startet nichts neu; `uhrzeit` muss zum Cron passen. Ohne RCON und ohne AMP-Zeitplan. Status `serverwahl neustart`, Probe `serverwahl neustart test 70 [discord]` (spielt die Ansage für einen gedachten Neustart in 70 s durch, Discord nur mit `discord`). Test: `NeustartAnsageTest`.
+Seit 02.11. gibt es keinen täglichen Neustart mehr (Pascal 01.11.). `serverwahl neustart in <minuten>` in der Hub- oder SMP-Konsole plant einen Neustart genau dieser Instanz (auf die volle Minute aufgerundet) und schreibt ihn als Merker nach `/AMP/geteilt/neustart/<instanz>`. Das Plugin kündigt sofort und dann 60/30/10/5/1 Minuten vorher im Chat an, die letzten 10 s als Titel-Countdown, im SMP zusätzlich in #mc-chat bei 60/10/1 Minuten (`discord bcast`). Den Neustart macht der Cron `../vm200/mc-neustart-bedarf.sh` (jede Minute, Merker fällig → Instanz stoppen und starten). `serverwahl neustart abbrechen` löscht den Merker, `serverwahl neustart test 70 [discord]` spielt nur die Ansage durch. Status: `serverwahl neustart`. Test: `NeustartAnsageTest`.
 
 ## Dorf-Rabatt (28.10.)
 

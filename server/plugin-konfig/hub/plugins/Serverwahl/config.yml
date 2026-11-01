@@ -230,13 +230,15 @@ discord-whitelist:
     # Server der Jungs, Community-Server … Leer = alle Anmeldungen abgelehnt
     # Testserver-C96, testserver crleon (fliegen später raus), leonraws - cruiserDE (Final-Server) – Leitung 30.10., Go von Pascal
     gilden: ["1555895861458767872", "1561036947541987360", "899675876298469457"]
-# Ansage vor dem täglichen Neustart 04:00 (Pascal 01.11.). Den Neustart macht der Cron auf VM200 (server/vm200/mc-neustart.sh), uhrzeit muss dazu passen.
-# Chat 60/30/10/5/1 Minuten vorher (Pascal 01.11.), Countdown-Titel 10 s, nach Discord sendet nur das SMP. Test: /serverwahl neustart test 70
+# Neustart bei Bedarf (Pascal 01.11., kein täglicher Neustart mehr, Hub nur wenn sich am Hub etwas ändert): /serverwahl neustart in <minuten> |
+# abbrechen | test <sek>. Chat 60/30/10/5/1 Minuten vorher, Countdown 10 s; nach Discord sendet nur das SMP. Neustart per Cron auf VM200
+# (server/vm200/mc-neustart-bedarf.sh) anhand des Merkers <ordner>/<instanz>.
 neustart-ansage:
   aktiv: true
-  uhrzeit: "04:00"
-  zeitzone: Europe/Berlin
+  ordner: /AMP/geteilt/neustart
+  instanz: MinecraftHub01
+  name: Hub
   minuten: [60, 30, 10, 5, 1]
   countdown: 10
-  text: "Täglicher Neustart – bitte kurz an einen sicheren Ort, in 2 Minuten seid ihr wieder drin."
+  text: "Neustart des Hub – in 2 Minuten seid ihr wieder drin."
   discord-minuten: []
