@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Durchlauf der Clan/Team-API (server/clans-api.md) auf VM200 in der Generalprobe, Fassung 2 (01.11., nach dem 429-Fehlschlag). Als root, kein Neustart.
+# Durchlauf der Clan/Team-API (server/clans-api.md) auf VM200 in der Generalprobe, Fassung 3 (01.11.; F2: 429 behoben; F3: null-Felder müssen da sein). Als root, kein Neustart.
 # Ablauf:
 #  1. Sicherung discord.json + LuckPerms-Ordner, Vorbedingungen: niemand online (tps-*.json), es gibt keinen Clan TEST1/TEST2, die drei Test-Spieler
 #     sind in keinem Clan. Test-Spieler = vorhandene Einträge der Discord-Whitelist (ITsCALLE96 + die zwei ersten weiteren nach Name); die
@@ -113,12 +113,12 @@ try:
     schritt("sich selbst einladen", "POST", "/clans/TEST1/einladungen", {"von": T1, "an": T1}, 400, "selbst")
     schritt("einladen T2", "POST", "/clans/TEST1/einladungen", {"von": T1, "an": T2}, test=lambda j: j.get("kuerzel") == "TEST1" and j.get("farbe") == "red")
     schritt("erneut einladen (ersetzt)", "POST", "/clans/TEST1/einladungen", {"von": T1, "an": T2})
-    schritt("von/T2 zeigt Einladung", "GET", "/clans/von/" + T2, test=lambda j: j["clan"] is None and j["einladungen"][0]["kuerzel"] == "TEST1")
+    schritt("von/T2 zeigt Einladung", "GET", "/clans/von/" + T2, test=lambda j: "clan" in j and j["clan"] is None and j["einladungen"][0]["kuerzel"] == "TEST1")
     schritt("beitreten ohne Einladung", "POST", "/clans/TEST1/mitglieder", {"von": T3}, 403, "keine-einladung")
     schritt("T2 tritt bei", "POST", "/clans/TEST1/mitglieder", {"von": T2}, test=lambda j: len(j["clan"]["mitglieder"]) == 2)
     schritt("T3 gründet TEST2", "POST", "/clans", {"von": T3, "kuerzel": "TEST2", "name": "Test Zwei", "farbe": "blue"}, 201)
     schritt("TEST2 lädt T2 ein", "POST", "/clans/TEST2/einladungen", {"von": T3, "an": T2})
-    schritt("T2 wechselt zu TEST2", "POST", "/clans/TEST2/mitglieder", {"von": T2}, test=lambda j: j["verlassen"] == "TEST1" and j["aufgeloest"] is None)
+    schritt("T2 wechselt zu TEST2", "POST", "/clans/TEST2/mitglieder", {"von": T2}, test=lambda j: j["verlassen"] == "TEST1" and "aufgeloest" in j and j["aufgeloest"] is None)
     schritt("Leitung TEST2 → T2", "PUT", "/clans/TEST2/leiter", {"von": T3, "an": T2}, test=lambda j: j["leiter"]["discord"] == T2)
     schritt("rauswerfen ohne Recht", "DELETE", "/clans/TEST2/mitglieder/" + T2 + "?von=" + T3, status=403, fehlercode="kein-recht")
     schritt("Leiter T2 tritt aus → T3 leitet", "DELETE", "/clans/TEST2/mitglieder/" + T2 + "?von=" + T2, test=lambda j: j["neuer_leiter"] == T3 and j["aufgeloest"] is False)

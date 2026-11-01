@@ -60,6 +60,8 @@ import org.bukkit.plugin.Plugin;
 final class DiscordWhitelist implements Listener {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+    /** Antworten mit null-Feldern (clans-api.md: "clan": null, "discord": null …); Gson ließe sie sonst weg (01.11., Clan-Test Schritt 14) */
+    private static final Gson GSON_ANTWORT = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().serializeNulls().create();
     private static final Pattern JAVA_NAME = Pattern.compile("[A-Za-z0-9_]{3,16}");
     private static final Pattern BEDROCK_NAME = Pattern.compile("[A-Za-z0-9 ]{1,16}");
     private static final Pattern DISCORD_ID = Pattern.compile("\\d{5,25}");
@@ -645,7 +647,7 @@ final class DiscordWhitelist implements Listener {
     }
 
     private static void antwort(HttpExchange x, int status, JsonObject o) throws IOException {
-        byte[] b = GSON.toJson(o).getBytes(StandardCharsets.UTF_8);
+        byte[] b = GSON_ANTWORT.toJson(o).getBytes(StandardCharsets.UTF_8);
         x.getResponseHeaders().set("Content-Type", "application/json; charset=utf-8");
         x.sendResponseHeaders(status, b.length);
         try (OutputStream out = x.getResponseBody()) {
