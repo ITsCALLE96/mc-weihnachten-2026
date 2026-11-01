@@ -79,7 +79,7 @@ CA12 und die feste Insel-Lage sind überholt. Der Seed steht nur in der Welt, in
   umstellen. `testlauf` → `weihnachten-2026` direkt vor dem Weltwechsel (Task 10 Schritt 4), nicht erst am 27.11. (`statistik/README.md` → Seasons)
 - [ ] **Generalprobe November zurückstellen** (Pascal 30.10., Liste Leitung 30.10.) – Reihenfolge:
   1. Konsole SMP (Server läuft): `function weihnachtsinsel:zuruecksetzen`, dann `function weihnachtsinsel:vorbereiten` (Insel, Brücke, Tafel auf Stufe 0),
-     `nether close`, `end close`, Leitfaden-Phase auf 0 (Questbuch-Session nennt den Befehl)
+     `nether close`, `end close` (seit 01.11. setzt `generalprobe-zurueck.py` das zusätzlich in `DimensionControl/data.yml`; die Datei übersteht den Welt-Reset, in der Generalprobe stand sie unbemerkt offen), Leitfaden-Phase auf 0 (Questbuch-Session nennt den Befehl)
   2. Proxy, Hub, SMP in AMP stoppen, dann `python3 vm200/generalprobe-zurueck.py` (zeigt die Diffs) und mit `--ausfuehren` schreiben. Es stellt zurück:
      Kalender `erster-tag "12-01"`, `termine.aktive-liste: liste` (Hub + SMP), Sperrtexte und Hub-Beschreibung „27.11.“, SMP `mission.start` raus,
      Hub `api.gilden` nur noch Final-Server `899675876298469457`, Test-Guilds aus `discord.json`, Velocity-MOTD „Start am 27.11.“;

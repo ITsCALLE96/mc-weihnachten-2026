@@ -2,7 +2,9 @@
 """Generalprobe November zurückstellen (Leitung 30.10., Checkliste server/vor-dem-start.md → „Generalprobe zurückstellen“).
 Ohne Schalter zeigt es nur die Änderungen (Diff je Datei, zu löschende Merker). Mit --ausfuehren schreibt es, sichert vorher alles nach
 /root/mcw-staging/vor-zurueck-<Zeit>/ und setzt den Besitzer amp. Läuft als root auf VM200, Hub, SMP und Proxy GESTOPPT (sonst schreiben sie Merker neu).
-Was es NICHT kann (Konsole bzw. andere Sessions, siehe vor-dem-start.md): weihnachtsinsel:zuruecksetzen/vorbereiten, nether/end close,
+Seit 01.11. schließt es auch Nether und End (DimensionControl plugins/DimensionControl/data.yml → closed-dimensions: [nether, end]; die Datei liegt
+im Plugin-Ordner, nicht in der Welt, und übersteht deshalb einen Welt-Reset – in der Generalprobe stand sie unbemerkt auf [] = offen).
+Was es NICHT kann (Konsole bzw. andere Sessions, siehe vor-dem-start.md): weihnachtsinsel:zuruecksetzen/vorbereiten,
 Leitfaden-Phase 0, Hub-Datapack-Text (Spawn & Welt), Statistik-Season, neue SMP-Welt.
 Aufruf: python3 generalprobe-zurueck.py [--ausfuehren]
 Reset-Probe (31.10.): Umgebung NUR_SMP=<Minecraft-Ordner> PORT=<port> → nur die SMP-Regeln und SMP-Merker in diesem Ordner,
@@ -114,6 +116,22 @@ if AUSFUEHREN and not NUR_SMP:
     sichern(dj)
     open(dj, "w", encoding="utf-8").write(json.dumps(d, indent=2, ensure_ascii=False))
     shutil.chown(dj, "amp", "amp")
+
+# Nether und End zu (DimensionControl; Termine öffnen sie zum Datum mit „nether open“/„end open“)
+dc = f"{SMP}/plugins/DimensionControl/data.yml"
+ZU = "closed-dimensions:\n- nether\n- end\n"
+alt = open(dc, encoding="utf-8").read() if os.path.exists(dc) else ""
+zu = re.findall(r"^- (\w+)", alt, re.M)
+if "closed-dimensions:" in alt and {"nether", "end"} <= set(zu):
+    print("DimensionControl: Nether und End schon zu")
+else:
+    zeigen(dc, alt, ZU)
+    if AUSFUEHREN:
+        if os.path.exists(dc):
+            sichern(dc)
+        os.makedirs(os.path.dirname(dc), exist_ok=True)
+        open(dc, "w", encoding="utf-8").write(ZU)
+        shutil.chown(dc, "amp", "amp")
 
 for pfad in LOESCHEN:
     if os.path.exists(pfad):
