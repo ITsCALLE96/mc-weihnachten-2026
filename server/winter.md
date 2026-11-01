@@ -77,6 +77,10 @@ Vanilla: Regen 0,5–1 Spieltag, dazwischen 0,5–7,5 Tage klar. Unser Vorschlag
 Wetterwechsel die Dauer (der Vanilla-Zyklus läuft weiter, `advance_weather` bleibt an), Gewitter bleibt Vanilla. `aktiv: false` = wieder Vanilla.
 Bei 25 Spielern und 5–8 min alle ~50 min ist jeder Spielabend 2–3 Mal verschneit. Mehr Schnee heißt auch mehr Schneedecke zum Aufräumen.
 
+## Räum-Kommando (gebaut 01.11., vorgezogen)
+
+`/serverwahl winter raeumen start schnee|saisonende [--eis]` · `status` · `stopp` · `zuruecksetzen` (serverwahl `WinterRaeumen`, nur SMP-Oberwelt). Liest die vorhandenen Chunks aus den Region-Köpfen (erzeugt nichts neu), räumt je Spalte wie `WinterGenerierung` (Oberfläche und Lagen unter Laub). `schnee`: jede Schneeschicht weg (Pascal 01.11.: liegender Schnee einmal komplett weg, danach nur Neuschnee mit höchstens 2 Lagen). `saisonende`: nur wo das Biom ohne Datapack warm ist. `--eis` (Schalter, nicht Standard): Eis an der Wasseroberfläche in solchen Spalten wieder zu Wasser. Schneeblöcke, Pulverschnee, Packeis, Höhlen bleiben. Gedrosselt (`winter-generierung.raeumen-chunks-pro-sekunde`, Standard 100), Pause unter `raeumen-tps-mindestens` (18), erledigte Regionen in `plugins/Serverwahl/winter-raeumen.txt` (neuer Start setzt fort). Kein Prism-Eintrag → vorher Sicherung. Lauf nachts ohne Spieler (~1–1,5 h für ~450.000 Chunks), danach `lsslod store invalidate all`.
+
 ## Aufräumen am Season-Ende (Leitung 27.10.: eigenes Kommando bauen, nach dem Go-Live 27.11., fertig vor Season-Ende Anfang Januar)
 
 Reihenfolge: Datapack raus + Neustart (Temperaturen wieder normal), dann aufräumen, dann LSS-Store invalidieren.

@@ -93,6 +93,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private TpsWaechter tpsWaechter;
     private Clans clans;
     private BestenlisteBefehl bestenlisteBefehl;
+    private WinterRaeumen winterRaeumen;
     /** Tode in der Tab-Liste (Ziel „tode“), siehe laden() */
     private boolean todeInTab;
     private DiscordWhitelist discordWhitelist;
@@ -291,6 +292,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
         wetter.laden(getConfig().getConfigurationSection("wetter-rhythmus"));
         eisSperre.laden(getConfig().getConfigurationSection("eis-sperre"));
         winterGenerierung.laden(getConfig().getConfigurationSection("winter-generierung"));
+        if (winterRaeumen == null) {
+            winterRaeumen = new WinterRaeumen(this);
+        }
+        winterRaeumen.laden(getConfig().getConfigurationSection("winter-generierung"));
         getLogger().info(winterGenerierung.status());
         // Spielregeln bei jedem Start/Reload setzen (Winter: max_snow_accumulation_height), damit sie nicht nur per Hand in einer Welt stehen
         ConfigurationSection gr = getConfig().getConfigurationSection("spielregeln");
@@ -508,6 +513,10 @@ public final class Serverwahl extends JavaPlugin implements Listener {
                     default -> "/serverwahl feuerwerk test [sekunden] | stopp | status";
                 };
                 sender.sendMessage(Component.text(antwort, NamedTextColor.GOLD));
+                return true;
+            }
+            if (args.length >= 2 && args[0].equals("winter") && args[1].equals("raeumen")) {
+                sender.sendMessage(Component.text(winterRaeumen.befehl(args), NamedTextColor.GOLD));
                 return true;
             }
             if (args.length == 1 && args[0].equals("winter")) {
