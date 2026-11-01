@@ -250,3 +250,10 @@ tps:
   status-ordner: /AMP/geteilt/status
   sekunden: 20
   verlauf-tage: 30
+# Clans in Selbstverwaltung über Discord (Pascal 01.11., Vertrag server/clans-api.md): Endpunkte /clans der Whitelist-API (nur Hub).
+# Sperrwörter zusätzlich zur Nick-Sperrliste; Beleidigungen in plugins/Serverwahl/clans-woerter.txt (eine pro Zeile, nicht im Repo).
+clans:
+  aktiv: true
+  einladung-tage: 7
+  woerter-datei: clans-woerter.txt
+  sperrliste: [ADMIN, ADMINS, MOD, MODS, MODERATOR, SERVER, OWNER, STAFF, TEAM, SUPPORT, HELPER, CONSOLE, KONSOLE, OP, DEV, GM, C96, CREW, SYSTEM, MOJANG, MINECRAFT]

@@ -32,7 +32,7 @@ erscheint und nach dem Austritt wieder verschwindet.
 | Kürzel doppelt | gleiche Grundform wie ein bestehender Clan (siehe Grundform unten, z. B. `N0RD` = `NORD`, `L1L` = `III`) | `409 kuerzel-vergeben` |
 | Name | 3–32 Zeichen, Buchstaben (auch ÄÖÜß), Ziffern, Leerzeichen, `-`, `_`, `'` | `400 name` |
 | Farbe | genau einer dieser Werte: `dark_red`, `red`, `gold`, `yellow`, `dark_green`, `green`, `aqua`, `dark_aqua`, `dark_blue`, `blue`, `light_purple`, `dark_purple`, `white`, `gray` (schwarz und dunkelgrau sind schlecht lesbar) | `400 farbe` |
-| Sperrliste | Kürzel oder Name enthält ein gesperrtes Wort aus `clans.sperrliste` (Grundform), z. B. ADMIN, MOD, MODS, SERVER, OWNER, STAFF, TEAM, SUPPORT, HELPER, CONSOLE, OP, DEV, GM, C96, CREW, plus die Sperrliste der Nicks | `422 gesperrt` mit `"grund": "sperrliste"` |
+| Sperrliste | Kürzel oder Name trifft ein gesperrtes Wort aus `clans.sperrliste` (Grundform; Wörter unter 5 Zeichen nur als ganzes Wort, längere auch als Teil, wie bei `/nick`), z. B. ADMIN, MOD, MODS, SERVER, OWNER, STAFF, TEAM, SUPPORT, HELPER, CONSOLE, OP, DEV, GM, C96, CREW, plus die Sperrliste der Nicks | `422 gesperrt` mit `"grund": "sperrliste"` |
 | Beleidigungen | Kürzel oder Name enthält einen Eintrag aus `clans.beleidigungen` (Grundform, eigene Datei `plugins/Serverwahl/clans-woerter.txt`, nicht im Repo) | `422 gesperrt`, `"grund": "beleidigung"` |
 | Nachahmung | Kürzel hat dieselbe Grundform wie der Name oder Nick eines bekannten Spielers (wie bei `/nick`) | `422 gesperrt`, `"grund": "nachahmung"` |
 | Ein Clan je Spieler | wer gründet, darf in keinem Clan sein (erst austreten) | `409 im-clan` mit `"clan": "<KÜRZEL>"` |

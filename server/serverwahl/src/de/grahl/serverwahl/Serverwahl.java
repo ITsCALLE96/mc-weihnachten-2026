@@ -91,6 +91,7 @@ public final class Serverwahl extends JavaPlugin implements Listener {
     private Termine termine;
     private NeustartAnsage neustartAnsage;
     private TpsWaechter tpsWaechter;
+    private Clans clans;
     /** Tode in der Tab-Liste (Ziel „tode“), siehe laden() */
     private boolean todeInTab;
     private DiscordWhitelist discordWhitelist;
@@ -353,6 +354,23 @@ public final class Serverwahl extends JavaPlugin implements Listener {
             getServer().getPluginManager().registerEvents(discordWhitelist, this);
         }
         discordWhitelist.laden(getConfig().getConfigurationSection("discord-whitelist"));
+        // Clans in Selbstverwaltung (server/clans-api.md): Endpunkte der Whitelist-API, nur wo die API läuft (Hub)
+        if (clans == null) {
+            DiscordWhitelist dw = discordWhitelist;
+            clans = new Clans(this, new Clans.Konten() {
+                @Override
+                public String[] zuDiscord(String discord) {
+                    return dw.zuDiscord(discord);
+                }
+
+                @Override
+                public String discordVon(java.util.UUID uuid) {
+                    return dw.discordVon(uuid);
+                }
+            });
+            discordWhitelist.clansSetzen(clans);
+        }
+        clans.laden(getConfig().getConfigurationSection("clans"), namen == null ? List.of() : namen.sperrliste());
         if (termine == null) {
             termine = new Termine(this);
         }

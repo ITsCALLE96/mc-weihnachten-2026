@@ -178,6 +178,11 @@ final class Namen implements Listener, CommandExecutor {
         t.addEntry(p.getName());
     }
 
+    /** Sperrliste der Nicks in Grundform (auch für Clans) */
+    List<String> sperrliste() {
+        return sperrliste;
+    }
+
     /** Nick, sonst Kontoname (für Anzeigen wie die Spender-Tafel) */
     String nickOderName(Player p) {
         if (!aktiv) {

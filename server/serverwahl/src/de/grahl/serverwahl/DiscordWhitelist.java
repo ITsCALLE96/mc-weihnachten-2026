@@ -82,9 +82,10 @@ final class DiscordWhitelist implements Listener {
     private record Konto(String name, UUID uuid, String edition, String kopf) {
     }
 
-    /** Fehler, die als HTTP-Antwort zurückgehen */
-    private static final class ApiFehler extends Exception {
+    /** Fehler, die als HTTP-Antwort zurückgehen (auch von Clans); extra = weitere Felder neben „fehler“ */
+    static final class ApiFehler extends Exception {
         final int status;
+        final JsonObject extra = new JsonObject();
 
         ApiFehler(int status, String text) {
             super(text);
@@ -110,6 +111,8 @@ final class DiscordWhitelist implements Listener {
     private final Map<String, Long> zwischenspeicherZeit = new ConcurrentHashMap<>();
     private volatile long sekunde;
     private volatile int anfragenInSekunde;
+    /** Clans (server/clans-api.md), null = aus */
+    private Clans clans;
 
     DiscordWhitelist(Plugin plugin) {
         this.plugin = plugin;
@@ -257,6 +260,44 @@ final class DiscordWhitelist implements Listener {
         }
     }
 
+    /** Clans an die API hängen (nur Hub) */
+    void clansSetzen(Clans c) {
+        clans = c;
+    }
+
+    /** Discord-ID → [uuid, name] aus der gemeinsamen Datei, null wenn nicht eingetragen (für Clans) */
+    String[] zuDiscord(String discord) {
+        synchronized (schreibSperre) {
+            try {
+                for (Eintrag e : lesen().eintraege) {
+                    if (discord.equals(e.discord)) {
+                        return new String[] {e.uuid, e.name};
+                    }
+                }
+            } catch (IOException e) {
+                plugin.getLogger().warning("Clans: Whitelist-Datei nicht lesbar: " + e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    /** UUID → Discord-ID oder null (für Clans) */
+    String discordVon(UUID uuid) {
+        String u = uuid.toString();
+        synchronized (schreibSperre) {
+            try {
+                for (Eintrag e : lesen().eintraege) {
+                    if (u.equals(e.uuid)) {
+                        return e.discord;
+                    }
+                }
+            } catch (IOException e) {
+                plugin.getLogger().warning("Clans: Whitelist-Datei nicht lesbar: " + e.getMessage());
+            }
+        }
+        return null;
+    }
+
     void apiStoppen() {
         if (server != null) {
             server.stop(0);
@@ -330,11 +371,20 @@ final class DiscordWhitelist implements Listener {
                     JsonObject o = new JsonObject();
                     o.add("entfernt", GSON.toJsonTree(austragen(gilde, e -> !behalten.contains(e.discord))));
                     antwort(x, 200, o);
+                } else if (pfad.equals("/clans") || pfad.startsWith("/clans/")) {
+                    if (clans == null || !clans.aktiv()) {
+                        throw new ApiFehler(503, "clans");
+                    }
+                    JsonObject r = methode.equals("POST") || methode.equals("PUT") ? rumpf(x) : null;
+                    Clans.Antwort a = clans.anfrage(methode, pfad, q, r);
+                    antwort(x, a.status(), a.json());
                 } else {
                     antwort(x, 404, fehler("pfad"));
                 }
             } catch (ApiFehler f) {
-                antwort(x, f.status, fehler(f.getMessage()));
+                JsonObject o = fehler(f.getMessage());
+                f.extra.entrySet().forEach(e -> o.add(e.getKey(), e.getValue()));
+                antwort(x, f.status, o);
             }
         } catch (RuntimeException e) {
             plugin.getLogger().warning("Discord-Whitelist API: " + e);
