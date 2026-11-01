@@ -128,14 +128,20 @@ final class Namen implements Listener, CommandExecutor {
         return b.toString();
     }
 
-    private static Component tagAus(String praefix) {
+    /** Präfix als Komponente samt Leerzeichen dahinter, als Geschwister (01.11.: „&c[ADMIN]“ färbte sonst den Namen mit); leer ohne Präfix */
+    static Component tagAus(String praefix) {
         if (praefix == null || praefix.isBlank()) {
             return Component.empty();
         }
         Component tag = praefix.indexOf('&') >= 0 || praefix.indexOf('§') >= 0
                 ? LegacyComponentSerializer.legacy(praefix.indexOf('§') >= 0 ? '§' : '&').deserialize(praefix)
                 : MM.deserialize(praefix);
-        return tag.append(Component.text(" "));
+        return Component.empty().append(tag).append(Component.text(" "));
+    }
+
+    /** „[Tag] Name“: Tag und Name nebeneinander, der Name immer weiß, egal welche Farbe oder Formatierung der Präfix offen lässt */
+    static Component voll(Component tag, String name) {
+        return Component.empty().append(tag).append(Component.text(name, net.kyori.adventure.text.format.Style.style(NamedTextColor.WHITE)));
     }
 
     void aktualisieren(Player p) {
@@ -146,8 +152,7 @@ final class Namen implements Listener, CommandExecutor {
         String praefix = meta.getPrefix();
         String nick = meta.getMetaValue(META_NICK);
         Component tag = tagAus(praefix);
-        Component name = Component.text(nick == null ? p.getName() : nick);
-        Component voll = tag.append(name);
+        Component voll = voll(tag, nick == null ? p.getName() : nick);
         anzeige.put(p.getUniqueId(), voll);
         p.displayName(voll);
         p.playerListName(voll);

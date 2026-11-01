@@ -53,6 +53,15 @@ public final class ClansTest {
         pruefe("Kürzel TEAM gesperrt", "sperrliste".equals(Clans.sperrGrund("TEAM", List.of(Namen.grundform("TEAM")), beleid)));
         pruefe("Name normieren", "Team Nord".equals(Clans.nameNormieren("  Team   Nord  ")));
         pruefe("normierter Name gültig", Clans.formatFehler("NORD", Clans.nameNormieren(" Team  Nord "), "red") == null);
+        // Namen 01.11.: „&c[ADMIN]“ färbte den Namen mit → Tag und Name als Geschwister, Name weiß
+        net.kyori.adventure.text.Component v = Namen.voll(Namen.tagAus("&c[ADMIN]"), "ITsCALLE96");
+        net.kyori.adventure.text.Component nameTeil = v.children().get(1);
+        pruefe("Name ist eigenes Kind und weiß", nameTeil instanceof net.kyori.adventure.text.TextComponent t && t.content().equals("ITsCALLE96")
+                && net.kyori.adventure.text.format.NamedTextColor.WHITE.equals(t.color()));
+        pruefe("Tag-Teil enthält [ADMIN] rot", net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText().serialize(v.children().get(0)).equals("[ADMIN] ")
+                && net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacySection().serialize(v.children().get(0)).startsWith("§c[ADMIN]"));
+        pruefe("ohne Präfix nur der Name", net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText().serialize(Namen.voll(Namen.tagAus(null), "Steve")).equals("Steve"));
+        pruefe("Clan-Präfix &3[NORD]: Name trotzdem weiß", Namen.voll(Namen.tagAus(Clans.praefix("NORD", "dark_aqua")), "x").children().get(1).color() == net.kyori.adventure.text.format.NamedTextColor.WHITE);
         pruefe("Gruppe", Clans.gruppe("NORD").equals("clan-nord"));
         pruefe("Präfix", Clans.praefix("NORD", "dark_aqua").equals("&3[NORD]"));
         System.out.println(fehler == 0 ? "Clans: alles OK" : "Clans: " + fehler + " Fehler");
