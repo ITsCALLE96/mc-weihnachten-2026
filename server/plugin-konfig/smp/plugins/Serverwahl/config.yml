@@ -207,6 +207,20 @@ termine:
       text: "<light_purple>Das End öffnet – gemeinsamer Drachenkampf!"
       befehle: ["end open", "function leitfaden:phase/setzen_4"]
       event: end
+    # Probe-Dimensionen nach dem Event automatisch wieder zu (Leitung 01.11.; Dezember bleibt offen). Schließen sperrt nur das Hineinkommen,
+    # wer drin ist, geht normal durchs Portal zurück. nachholen: true → war der Server zu dem Zeitpunkt aus, schließt er beim nächsten Start
+    - name: nether-probe-zu
+      zeitpunkt: "2026-11-06T20:00"
+      ankuendigen: [30, 10, 5, 1]
+      countdown: 10
+      text: "<red>Der Nether schließt wieder – rechtzeitig zurück durchs Portal!"
+      befehle: ["nether close"]
+    - name: end-probe-zu
+      zeitpunkt: "2026-11-13T20:00"
+      ankuendigen: [30, 10, 5, 1]
+      countdown: 10
+      text: "<light_purple>Das End schließt wieder – rechtzeitig zurück durchs Portal!"
+      befehle: ["end close"]
   # Dezember (echter Start)
   liste:
     - name: nether
